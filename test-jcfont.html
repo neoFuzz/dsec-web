@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="css/bootstrap.css" rel="stylesheet"/>
+</head>
+<body>
+<script src="js/bootstrap.bundle.js"></script>
+<script src="js/loader.js"></script>
+Example to show the creating an image in a ImageData buffer<br>
+<button type="button" class="btn btn-secondary" id="font-load">Load small fixed</button>
+<button type="button" class="btn btn-secondary" id="font-loads8">Load Serif 8</button>
+<button type="button" class="btn btn-secondary" id="font-loads11">Load Serif 11</button>
+<button type="button" class="btn btn-secondary" id="font-run" hidden>Display</button><br>
+<canvas id="myCanvas" width="640" height="640" style="border:1px solid #d3d3d3;">
+    Your browser does not support the HTML5 canvas tag.
+</canvas>
+<div id="font-output" class="text-monospace"></div>
+<script>
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    var imgData = ctx.createImageData(640, 480);
+    let ftest;
+    preloadImages(preImages);
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        let loadf = document.getElementById('font-loads8');
+        loadf.addEventListener("click", () => {
+            ftest = new CWSYSTEM.CWFont("assets/fonts/serif8.jcf");
+            if (ftest != null) {
+                document.getElementById("font-run").hidden = false;
+            }
+        });
+        let loadf8 = document.getElementById('font-loads11');
+        loadf8.addEventListener("click", () => {
+            ftest = new CWSYSTEM.CWFont("assets/fonts/serif11.jcf");
+            if (ftest != null) {
+                document.getElementById("font-run").hidden = false;
+            }
+        });
+        let loadf11 = document.getElementById('font-load');
+        loadf11.addEventListener("click", () => {
+            ftest = new CWSYSTEM.CWFont("assets/fonts/jcsmallfixed.jcf");
+            if (ftest != null) {
+                document.getElementById("font-run").hidden = false;
+            }
+        });
+
+
+
+        let processf = document.getElementById('font-run');
+        processf.addEventListener("click", () => {
+            ftest.fontTest("a b c 1 2 8")
+        });
+
+        ctx.putImageData(imgData, 0, 0);
+        let nImage = preImages.get("assets/images/dsectorTitle.jpg");
+        ctx.drawImage(nImage, 0, 0, 640, 480);
+    });
+</script>
+
+</body>
+</html>

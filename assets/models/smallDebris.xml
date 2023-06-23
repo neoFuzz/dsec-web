@@ -1,0 +1,13 @@
+<model3DMatrix>
+<camera x="-1.6596579551696777" y="4.051181793212891" z="16.09122657775879" m00="-0.99561673" m01="-0.007936512" m02="0.09327999" m03="0.0" m10="-0.031881265" m11="0.96560276" m12="-0.25810447" m13="0.0" m20="-0.08802365" m21="-0.25994593" m22="-0.9616185" m23="0.0" m30="0.0" m31="0.0" m32="0.0" m33="1.0"/>
+<folder name="Root" visibility="true">
+    <polygonGroup name="detail=0" visibility="true" directRepresentationVisibility="true" reflection="5" reflectedLightDirectionSensitivity="30" dispersedLightDirectionSensitivity="10">
+        <polygon red="100" green="100" blue="100" alpha="255" x1="-0.733" y1="1.2099998" z1="0.0" x2="-0.733" y2="-1.2099998" z2="0.0" x3="1.566" y3="0.0" z3="0.0"/>
+        <polygon red="100" green="100" blue="100" alpha="255" x1="1.566" y1="0.0" z1="0.0" x2="-0.733" y2="-1.2099998" z2="0.0" x3="-0.733" y3="1.2099998" z3="0.0"/>
+    </polygonGroup>
+    <polygonGroup name="ghost, detail=1" visibility="true" directRepresentationVisibility="true" reflection="5" reflectedLightDirectionSensitivity="30" dispersedLightDirectionSensitivity="10">
+        <polygon red="100" green="100" blue="100" alpha="255" x1="-0.733" y1="1.2099998" z1="0.0" x2="-0.733" y2="-1.2099998" z2="0.0" x3="1.566" y3="0.0" z3="0.0"/>
+    </polygonGroup>
+    <light name="Untitled Light" visibility="false" x="0.0" y="0.0" z="30.0" red="0.05" green="0.05" blue="0.05"/>
+</folder>
+</model3DMatrix>

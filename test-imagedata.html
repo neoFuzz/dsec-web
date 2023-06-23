@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script src="js/bootstrap.bundle.js"></script>
+<script src="js/loader.js"></script>
+Example to show the creating an image in a ImageData buffer<br>
+<canvas id="myCanvas" width="640" height="480" style="border:1px solid #d3d3d3;">
+    Your browser does not support the HTML5 canvas tag.
+</canvas>
+
+<script>
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    var imgData = ctx.createImageData(640, 480);
+    preloadImages(preImages);
+    var i;
+    for (i = 0; i < imgData.data.length; i += 4) {
+        imgData.data[i + 0] = i % 2 === 0 ? Math.random() * 200 : 255;
+        imgData.data[i + 1] = i % 2 === 0 ? 0 : 255;
+        imgData.data[i + 2] = i % 2 === 0 ? Math.random() * 100 : 255;
+        imgData.data[i + 3] = 255;
+    }
+    preloadImages(preImages);
+    ctx.putImageData(imgData, 0, 0);
+    c.addEventListener('click', function () {
+
+        let nImage = preImages.get("assets/images/dsectorTitle.jpg");
+        nImage.style.display = "none";
+        document.body.appendChild(nImage);
+        // nImage.width = 640;
+        // nImage.height = 480;
+        ctx = c.getContext("2d");
+        ctx.drawImage(nImage, 0, 0);
+    });
+</script>
+
+</body>
+</html>

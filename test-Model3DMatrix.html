@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3DMatrix Model Test</title>
+    <link href="css/bootstrap.css" rel="stylesheet"/>
+    <style>
+        html,
+        body {
+            height: 100%
+        }
+    </style>
+</head>
+<body>
+<script src="js/bootstrap.bundle.js"></script>
+<script src="js/loader.js"></script>
+
+<div id="xml-content">Contents</div>
+
+<script>
+    let xdocument = null;
+    let filePath = "assets/models/jewel.xml"
+    let xmlhttp = new XMLHttpRequest();
+    let test3DM;
+
+    document.addEventListener("DOMContentLoaded", function () {
+        xmlhttp.open("GET", filePath, false);
+        xmlhttp.send();
+        document.getElementById('xml-content').innerText = xmlhttp.responseText;
+        xdocument = xmlhttp.responseXML;
+        test3DM = new dsector.Model3DMatrix(filePath);
+    });
+
+</script>
+</body>
+</html>

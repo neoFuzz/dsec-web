@@ -1,0 +1,14 @@
+<model3DMatrix>
+<camera x="-2.306516170501709" y="38.81374740600586" z="27.704940795898438" m00="-0.99840105" m01="0.040911037" m02="0.0392197" m03="0.0" m10="-0.0044514537" m11="0.63331544" m12="-0.7738943" m13="0.0" m20="-0.056500327" m21="-0.7728279" m22="-0.6321175" m23="0.0" m30="0.0" m31="0.0" m32="0.0" m33="1.0"/>
+<folder name="Root" visibility="true">
+    <polygonGroup name="ghost, detail=0" visibility="true" directRepresentationVisibility="true" reflection="5" reflectedLightDirectionSensitivity="30" dispersedLightDirectionSensitivity="10">
+        <polygon red="197" green="207" blue="44" alpha="255" x1="-7.927397" y1="-0.2734359" z1="0.0" x2="9.102385" y2="-0.2734359" z2="0.0" x3="-7.927397" y3="0.7310412" z3="0.0"/>
+        <polygon red="197" green="207" blue="44" alpha="255" x1="9.102385" y1="-0.2734359" z1="0.0" x2="9.102385" y2="0.7310412" z2="0.0" x3="-7.927397" y3="0.7310412" z3="0.0"/>
+        <polygon red="197" green="207" blue="44" alpha="255" x1="-30.030375" y1="0.20543319" z1="0.0" x2="-7.8976116" y2="-0.2734359" z2="0.0" x3="-30.030375" y3="0.5418305" z3="0.0"/>
+        <polygon red="197" green="207" blue="44" alpha="255" x1="-7.8976116" y1="-0.2734359" z1="0.0" x2="-7.8976116" y2="0.7310412" z2="0.0" x3="-30.030375" y3="0.5418305" z3="0.0"/>
+        <polygon red="197" green="207" blue="44" alpha="255" x1="9.072601" y1="-0.2734359" z1="0.0" x2="31.20535" y2="-0.06553643" z2="0.0" x3="9.072601" y3="0.7310412" z3="0.0"/>
+        <polygon red="197" green="207" blue="44" alpha="255" x1="31.20535" y1="-0.06553643" z1="0.0" x2="31.20535" y2="0.21479467" z2="0.0" x3="9.072601" y3="0.7310412" z3="0.0"/>
+    </polygonGroup>
+    <light name="Untitled Light" visibility="true" x="0.0" y="0.0" z="45.0" red="0.9" green="0.5" blue="0.4"/>
+</folder>
+</model3DMatrix>

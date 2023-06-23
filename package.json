@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "three": "^0.153.0",
+    "uglify-js": "^3.17.4"
+  }
+}
