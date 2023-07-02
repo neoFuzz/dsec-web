@@ -1,4 +1,5 @@
 /* Re-written from Java */
+
 var CWSYSTEM;
 (function (CWSYSTEM) {
     class CWGraphics {
@@ -25,11 +26,9 @@ var CWSYSTEM;
          * @param {ScreenData} sd CWSYSTEM.ScreenData object.
          * @return {ImageData} New ImageData object. */
         static convertScreenDataToBufferedImage(sd) {
-            let canvas = document.createElement('canvas');
-            canvas.width = CWSYSTEM.Global.screenResolutionX_$LI$();
-            canvas.height = CWSYSTEM.Global.screenResolutionY_$LI$();
-            let context = canvas.getContext('2d',
-                {willReadFrequently: true, willWriteFrequently: true});
+            let canvas = new OffscreenCanvas(
+                CWSYSTEM.Global.screenResolutionX_$LI$(), CWSYSTEM.Global.screenResolutionY_$LI$());
+            let context = canvas.getContext('2d', {willReadFrequently: true, willWriteFrequently: true});
             let imgData = context.createImageData(sd.width, sd.height);
 
             // Screen data loop
@@ -73,11 +72,10 @@ var CWSYSTEM;
             })();
 
             try {
-                let canvas = document.createElement('canvas');
+                let canvas = new OffscreenCanvas(
+                    CWSYSTEM.Global.screenResolutionX_$LI$(), CWSYSTEM.Global.screenResolutionY_$LI$());
                 let context = canvas.getContext('2d',
                     {willReadFrequently: true, willWriteFrequently: true});
-                //let image = new Image();
-                //image.src = bufferedImage;
                 context.drawImage(bufferedImage, 0, 0, bufferedImage.width, bufferedImage.height);
                 bufferedImage = context.getImageData(0, 0, bufferedImage.width, bufferedImage.height);
                 checked = true;
@@ -154,7 +152,7 @@ var CWSYSTEM;
             let checkmark = false;
 
             try {
-                let canvas = document.createElement('canvas');
+                const canvas = new OffscreenCanvas(bufferedImage.width,bufferedImage.height);
                 let context = canvas.getContext('2d',
                     {willReadFrequently: true, willWriteFrequently: true});
                 context.drawImage(bufferedImage, 0, 0, bufferedImage.width, bufferedImage.height);

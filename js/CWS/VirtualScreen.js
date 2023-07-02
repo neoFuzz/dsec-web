@@ -851,7 +851,6 @@ var CWSYSTEM;
                     imageData[n++] = this.actualScreen.point[i][j];
                 }
             }
-            //dsMain.bi = new ImageData(data, width2, height2);//ctx.getImageData(0, 0, width2, height2);
             dsMain.bi = CWSYSTEM.CWGraphics.convertScreenDataToBufferedImage(this.actualScreen);
             if (this.__renderPleaseWaitMessage) {
                 this.renderPleaseWaitMessage();
@@ -882,8 +881,8 @@ var CWSYSTEM;
             return this.drawText(null, n, s, n2, n3, false, true);
         }
 
-        drawString$sd$n$s$n2$n3$b(screenData, n, s, n2, n3, b) {
-            this.drawText(screenData, n, s, n2, n3, b, false);
+        drawString$sd$n$s$n2$n3$b(screenData, x, text, padX, y, b) {
+            this.drawText(screenData, x, text, padX, y, b, false);
         }
 
         drawString(screenData, n, s, n2, n3, b) {
@@ -900,20 +899,20 @@ var CWSYSTEM;
         }
 
         /** @private */
-        drawText(screenData, n, s, n2, n3, b, b2) {
-            const n4 = 35;
+        drawText(screenData, n, text, n2, n3, mode1, mode2) {
+            const spacing = 35;
             const array = (s => {
                 let a = [];
                 while (s-- > 0) a.push(null);
                 return a;
-            })(n4);
-            const charArray = (s).split('');
-            const length = s.length;
+            })(spacing);
+            const charArray = (text).split('');
+            const length = text.length;
             let n5 = 0;
             let n6 = 0;
             let n7 = 0;
             let n8;
-            if (b) {
+            if (mode1) {
                 n8 = 2;
             } else {
                 n8 = 1;
@@ -966,9 +965,9 @@ var CWSYSTEM;
                         n9 = 2;
                         n7 = 0;
                     }
-                    if (!b2) {
+                    if (!mode2) {
                         const character = CWSYSTEM.CWFont_SmallFont.getCharacter(c);
-                        for (let j = 0; j < n4; ++j) {
+                        for (let j = 0; j < spacing; ++j) {
                             if ((c => c.charCodeAt === null ? c : c.charCodeAt(0))(character.charAt(j)) === '1'.charCodeAt(0)) {
                                 for (let k = 0; k < n8; ++k) {
                                     this.CWDrawPixelWithCropping(screenData, n2 + j % 5 + n6 + k, n3 - 7 + (j / 5 | 0) + n5 * 10 + n9);
@@ -1003,11 +1002,6 @@ var CWSYSTEM;
         drawStringDoubleSize(screenData, s, n, n2) {
             CWSYSTEM.Environment.screenHasChanged = true;
             const n3 = 35;
-            const array = (s => {
-                let a = [];
-                while (s-- > 0) a.push(null);
-                return a;
-            })(n3);
             const charArray = (s.toUpperCase()).split('');
             const length = s.length;
             const n4 = 0;
@@ -1016,7 +1010,8 @@ var CWSYSTEM;
             for (let i = 0; i < length; ++i) {
                 const character = CWSYSTEM.CWFont_SmallFont.getCharacter(charArray[i]);
                 for (let j = 0; j < n3; ++j) {
-                    if ((c => c.charCodeAt === null ? c : c.charCodeAt(0))(character.charAt(j)) === '1'.charCodeAt(0)) {
+                    if ((c => c.charCodeAt === null ? c :
+                        c.charCodeAt(0))(character.charAt(j)) === '1'.charCodeAt(0)) {
                         for (let k = 0; k < n6; ++k) {
                             this.CWDrawRectangleWithCropping(screenData, n + (j % 5 + n5 + k) * 2,
                                 n2 + (7 + (j / 5 | 0) + n4 * 10) * 2, 2, 2);
@@ -1354,37 +1349,40 @@ var CWSYSTEM;
                 try {
                     const alpha = CWSYSTEM.FastColorUtilities.alpha(this.defaultColor);
                     if (alpha === 255) {
-                        for (let n34 = n10; n34 <= n11; ++n34) {
-                            const n35 = this.leftScanLine[n34];
-                            let n37 = n35;
-                            for (const n36 = this.rightScanLine[n34]; n37 <= n36; ++n37) {
+                        for (let y34 = n10; y34 <= n11; ++y34) {
+                            let x37 = this.leftScanLine[y34];
+                            for (const n36 = this.rightScanLine[y34]; x37 <= n36; ++x37) {
                                 if (array != null) {
-                                    if (n < array[n34][n37]) {
-                                        point[n34][n37] = this.defaultColor;
-                                        array[n34][n37] = n;
+                                    if (n < array[y34][x37]) {
+                                        point[y34][x37] = this.defaultColor;
+                                        array[y34][x37] = n;
                                     }
                                 } else {
-                                    point[n34][n37] = this.defaultColor;
+                                    point[y34][x37] = this.defaultColor;
                                 }
                             }
                         }
                     } else if (array != null) {
                         for (let n38 = n10; n38 <= n11; ++n38) {
-                            const n39 = this.leftScanLine[n38];
-                            let n41 = n39;
+                            let n41 = this.leftScanLine[n38];
                             for (const n40 = this.rightScanLine[n38]; n41 <= n40; ++n41) {
                                 if (n < array[n38][n41]) {
                                     const n42 = point[n38][n41];
                                     const n43 = 255 - alpha;
-                                    point[n38][n41] = CWSYSTEM.FastColorUtilities.color$r$g$b$a(((alpha * CWSYSTEM.FastColorUtilities.red(this.defaultColor) + n43 * CWSYSTEM.FastColorUtilities.red(n42)) / 256 | 0), ((alpha * CWSYSTEM.FastColorUtilities.green(this.defaultColor) + n43 * CWSYSTEM.FastColorUtilities.green(n42)) / 256 | 0), ((alpha * CWSYSTEM.FastColorUtilities.blue(this.defaultColor) + n43 * CWSYSTEM.FastColorUtilities.blue(n42)) / 256 | 0), 255);
+                                    point[n38][n41] = CWSYSTEM.FastColorUtilities.color$r$g$b$a(
+                                        ((alpha * CWSYSTEM.FastColorUtilities.red(this.defaultColor) + n43 *
+                                            CWSYSTEM.FastColorUtilities.red(n42)) / 256 | 0),
+                                        ((alpha * CWSYSTEM.FastColorUtilities.green(this.defaultColor) + n43 *
+                                            CWSYSTEM.FastColorUtilities.green(n42)) / 256 | 0),
+                                        ((alpha * CWSYSTEM.FastColorUtilities.blue(this.defaultColor) + n43 *
+                                            CWSYSTEM.FastColorUtilities.blue(n42)) / 256 | 0), 255);
                                     array[n38][n41] = n;
                                 }
                             }
                         }
                     } else {
                         for (let n44 = n10; n44 <= n11; ++n44) {
-                            const n45 = this.leftScanLine[n44];
-                            let n47 = n45;
+                            let n47 = this.leftScanLine[n44];
                             for (const n46 = this.rightScanLine[n44]; n47 <= n46; ++n47) {
                                 const n48 = point[n44][n47];
                                 const n49 = 255 - alpha;

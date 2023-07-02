@@ -1077,28 +1077,40 @@ var CWSYSTEM;
         drawTextElement(item) {
             if (this.textElement[item].shadow) {
                 this.v.setColor$intCWColor(CWSYSTEM.CWColor.black_$LI$());
-                this.v.drawString$sd$n$s$n2$n3$b(this.window, this.w - this.borderWidth - this.textElement[item].x, this.textElement[item].text, this.borderWidth + this.textElement[item].x + 1, this.borderWidth + this.__titleHeight + this.textElement[item].y + 1, false);
+                this.v.drawString$sd$n$s$n2$n3$b(this.window, this.w - this.borderWidth - this.textElement[item].x,
+                    this.textElement[item].text, this.borderWidth + this.textElement[item].x + 1,
+                    this.borderWidth + this.__titleHeight + this.textElement[item].y + 1, false);
             }
             this.v.setColor$intCWColor(this.textElement[item].textColor);
-            this.v.drawString$sd$n$s$n2$n3$b(this.window, this.w - this.borderWidth - this.textElement[item].x, this.textElement[item].text, this.borderWidth + this.textElement[item].x, this.borderWidth + this.__titleHeight + this.textElement[item].y, false);
+            this.v.drawString$sd$n$s$n2$n3$b(this.window, this.w - this.borderWidth - this.textElement[item].x,
+                this.textElement[item].text, this.borderWidth + this.textElement[item].x,
+                this.borderWidth + this.__titleHeight + this.textElement[item].y, false);
             return true;
         }
 
         drawImageElement(iD) {
-            dsector.DSReference.graphics.renderImage(this.window, this.imageElement[iD].filename, this.imageElement[iD].x, this.imageElement[iD].y);
+            dsector.DSReference.graphics.renderImage(this.window, this.imageElement[iD].filename,
+                this.imageElement[iD].x, this.imageElement[iD].y);
         }
 
         drawInputBox(iD) {
             this.v.setColor$intCWColor(this.titleTextColor);
-            this.v.CWDrawRectangle(this.window, this.borderWidth + this.inputBox[iD].x, this.borderWidth + this.__titleHeight + this.inputBox[iD].y, this.inputBox[iD].length, this.inputBox[iD].height);
-            this.v.CWDrawFilledRectangle(this.window, this.borderWidth + this.inputBox[iD].x + 1, this.borderWidth + this.__titleHeight + this.inputBox[iD].y + 1, this.inputBox[iD].length - 2, this.inputBox[iD].height - 2, this.inputBoxColor);
+            this.v.CWDrawRectangle(this.window, this.borderWidth + this.inputBox[iD].x,
+                this.borderWidth + this.__titleHeight + this.inputBox[iD].y, this.inputBox[iD].length,
+                this.inputBox[iD].height);
+            this.v.CWDrawFilledRectangle(this.window, this.borderWidth + this.inputBox[iD].x + 1,
+                this.borderWidth + this.__titleHeight + this.inputBox[iD].y + 1, this.inputBox[iD].length - 2,
+                this.inputBox[iD].height - 2, this.inputBoxColor);
             if (this.inputBox[iD].text != null) {
                 let text = this.inputBox[iD].text;
                 if (this.inputBox[iD].blinkState) {
                     text = text.concat("|");
                 }
                 this.v.setColor$intCWColor(this.titleTextColor);
-                this.v.drawString$sd$n$s$n2$n3$b(this.window, this.inputBox[iD].length, text, this.borderWidth + this.inputBox[iD].x + 4, this.borderWidth + this.__titleHeight + this.inputBox[iD].y + this.inputBox[iD].height - 3, false);
+                this.v.drawString$sd$n$s$n2$n3$b(this.window, this.inputBox[iD].length,
+                    text, this.borderWidth + this.inputBox[iD].x + 4,
+                    this.borderWidth + this.__titleHeight + this.inputBox[iD].y + this.inputBox[iD].height - 3,
+                    false);
             }
             return true;
         }
@@ -1119,8 +1131,10 @@ var CWSYSTEM;
             if (this.dSecSpecialEffects != null) {
                 for (let i = 0; i < this.dSecSpecialEffects.length; ++i) {
                     const specialEffect = this.dSecSpecialEffects[i];
-                    if (specialEffect.type === dsector.DSecSpecialEffect.IMAGE_COMPOSIT) {
-                        CWSYSTEM.CWImage.drawUsingBrightnessOverlayWithCropping(specialEffect.image, effectArr, x + specialEffect.x, y + specialEffect.y, specialEffect.brightness, x, y, x + this.w, y + this.h);
+                    if (specialEffect.type === dsector.DSecSpecialEffect.IMAGE_COMPOSITE) {
+                        CWSYSTEM.CWImage.drawUsingBrightnessOverlayWithCropping(
+                            specialEffect.image, effectArr, x + specialEffect.x, y + specialEffect.y,
+                            specialEffect.brightness, x, y, x + this.w, y + this.h);
                     }
                 }
             }

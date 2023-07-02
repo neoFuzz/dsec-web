@@ -58,9 +58,13 @@ var CWSYSTEM;
                 return;
             }
 
-            // Assign data to character map
-            let iterator = 0
+            // Line ending processor
+            fileData = CWSYSTEM.CWStringTools.stringReplaceCaseInsensitive(fileData, "\r", "\n");
+            fileData = CWSYSTEM.CWStringTools.stringReplaceCaseInsensitive(fileData, "\n\n", "\n");
             fileData = fileData.split("\n");
+
+            // Process fileData and make the character map
+            let iterator = 0;
             while (true) {
                 let chrBuffer;
                 try {

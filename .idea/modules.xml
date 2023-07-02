@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../dsec-web.iml" filepath="$PROJECT_DIR$/../dsec-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/dsec-web.iml" filepath="$PROJECT_DIR$/.idea/dsec-web.iml" />
     </modules>
   </component>
 </project>
