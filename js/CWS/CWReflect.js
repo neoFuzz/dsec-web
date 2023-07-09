@@ -42,9 +42,11 @@ var CWSYSTEM;
          * @throws {Error} If invalid overload inputs are provided.
          */
         static getMethod(obj, name, classO) {
-            if (((obj != null) || obj === null) && ((typeof name === 'string') || name === null) && ((classO != null) || classO === null)) {
+            if (((obj != null) || obj === null) && ((typeof name === 'string') || name === null) &&
+                ((classO != null) || classO === null)) {
                 return CWSYSTEM.CWReflect.getMethod$obj$name$class(obj, name, classO);
-            } else if (((obj != null) || obj === null) && ((typeof name === 'string') || name === null) && classO === undefined) {
+            } else if (((obj != null) || obj === null) &&
+                ((typeof name === 'string') || name === null) && classO === undefined) {
                 return CWSYSTEM.CWReflect.getMethod$obj$string(obj, name);
             } else
                 throw new Error('invalid overload');

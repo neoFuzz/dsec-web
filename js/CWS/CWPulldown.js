@@ -3,72 +3,25 @@ var CWSYSTEM;
 (function (CWSYSTEM) {
     class CWPulldown {
         constructor(parent, name, options, x, y, width, height) {
-            if (this.parent === undefined) {
-                this.parent = null;
-            }
-            if (this.name === undefined) {
-                this.name = null;
-            }
-            if (this.overlay === undefined) {
-                this.overlay = null;
-            }
-            if (this.x === undefined) {
-                this.x = 0;
-            }
-            if (this.y === undefined) {
-                this.y = 0;
-            }
-            if (this.width === undefined) {
-                this.width = 0;
-            }
-            if (this.height === undefined) {
-                this.height = 0;
-            }
-            if (this.popupWindowItemHeight === undefined) {
-                this.popupWindowItemHeight = 0;
-            }
-            if (this.titleBoxFont === undefined) {
-                this.titleBoxFont = null;
-            }
-            if (this.popupWindowFont === undefined) {
-                this.popupWindowFont = null;
-            }
-            if (this.status === undefined) {
-                this.status = 0;
-            }
-            this.CLOSED = 0;
-            this.OPEN = 1;
-            if (this.selectedOption === undefined) {
-                this.selectedOption = 0;
-            }
-            if (this.options === undefined) {
-                this.options = null;
-            }
-            if (this.optionalMethodToExecuteWhenNewValueSelected === undefined) {
-                this.optionalMethodToExecuteWhenNewValueSelected = null;
-            }
-            if (this.objectHavingOptionalMethodToExecuteWhenNewValueSelected === undefined) {
-                this.objectHavingOptionalMethodToExecuteWhenNewValueSelected = null;
-            }
-            if (this.objectContainingPulldownChangedMethod === undefined) {
-                this.objectContainingPulldownChangedMethod = null;
-            }
-            if (this.generalPurposeObject === undefined) {
-                this.generalPurposeObject = null;
-            }
-            this.parent = parent;
-            this.name = name;
+            this.parent = parent || null;
+            this.name = name || null;
             this.overlay = null;
-            this.x = x;
-            this.y = y;
-            this.width = width;
-            this.height = height;
-            this.popupWindowItemHeight = height;
+            this.x = x || 0;
+            this.y = y || 0;
+            this.width = width || 0;
+            this.height = height || 0;
+            this.popupWindowItemHeight = height || 0;
             this.titleBoxFont = dsector.DSReference.virtualScreen.serif8_font;
             this.popupWindowFont = dsector.DSReference.virtualScreen.serif8_font;
-            this.options = options;
             this.status = 0;
+            this.CLOSED = 0;
+            this.OPEN = 1;
             this.selectedOption = 0;
+            this.options = options || null;
+            this.optionalMethodToExecuteWhenNewValueSelected = null;
+            this.objectHavingOptionalMethodToExecuteWhenNewValueSelected = null;
+            this.objectContainingPulldownChangedMethod = null;
+            this.generalPurposeObject = null;
         }
 
         static boxColor_$LI$() {

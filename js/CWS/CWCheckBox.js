@@ -39,8 +39,13 @@ var CWSYSTEM;
                 } else {
                     throw new Error('Invalid argument for name');
                 }
-            } else if (parent === undefined && name === undefined && x === undefined &&
-                y === undefined && selected === undefined) {
+            } else if (
+                parent === undefined &&
+                name === undefined &&
+                x === undefined &&
+                y === undefined &&
+                selected === undefined
+            ) {
                 this.style = CWCheckBox.SMALL_STYLE;
                 this.length = 7;
                 this.height = 7;
@@ -181,13 +186,10 @@ var CWSYSTEM;
         deselectRadioCheckboxesInSameFamily() {
             if (this.__selected) {
                 for (let i = 0; i < this.parentWindow.numberOfCheckBoxes; ++i) {
-                    {
-                        const checkBox = this.parentWindow.checkBox[i];
-                        if (checkBox.radioID === this.radioID) {
-                            checkBox.__selected = false;
-                        }
+                    const checkBox = this.parentWindow.checkBox[i];
+                    if (checkBox.radioID === this.radioID) {
+                        checkBox.__selected = false;
                     }
-                    ;
                 }
                 this.__selected = true;
             }

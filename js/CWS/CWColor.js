@@ -6,9 +6,9 @@ var CWSYSTEM;
          * Creates a new instance of CWColor.
          * @constructor
          * @param {CWColor|number} red - The red component of the color (0-255).
-         * @param {number|null} green - The green component of the color (0-255).
-         * @param {number|null} blue - The blue component of the color (0-255).
-         * @param {number|null} alpha - The alpha component of the color (0-255).
+         * @param {number|null} [green] - The green component of the color (0-255).
+         * @param {number|null} [blue] - The blue component of the color (0-255).
+         * @param {number|null} [alpha] - The alpha component of the color (0-255).
          * @throws {Error} Throws an error if the provided arguments are of invalid types.
          */
         constructor(red, green, blue, alpha) {
@@ -182,21 +182,22 @@ var CWSYSTEM;
 
         /** Sets the color using the specified RGBA integer values or a {@link CWColor} number.
          * @param {number|CWColor.color} red - The red component of the color (0-255). Or, a {@link CWColor} number
-         * @param {number|null} green - The green component of the color (0-255).
-         * @param {number|null} blue - The blue component of the color (0-255).
-         * @param {number|null} alpha - The alpha component of the color (0-255).
+         * @param {number|null} [green] - The green component of the color (0-255).
+         * @param {number|null} [blue] - The blue component of the color (0-255).
+         * @param {number|null} [alpha] - The alpha component of the color (0-255).
          * @returns {void} - Returns nothing.
          * @throws {Error} Throws an error if the provided arguments are of invalid types.
          */
         setColor(red, green, blue, alpha) {
-            if (((typeof red === 'number') || red === null) && ((typeof green === 'number') || green === null) &&
-                ((typeof blue === 'number') || blue === null) && ((typeof alpha === 'number') || alpha === null)) {
+            if (typeof red === 'number' && typeof green === 'number' &&
+                typeof blue === 'number' && typeof alpha === 'number') {
                 return this.setColor$rgba(red, green, blue, alpha);
-            } else if (((typeof red === 'number') || red === null) && green === undefined &&
+            } else if (typeof red === 'number' && green === undefined &&
                 blue === undefined && alpha === undefined) {
                 return this.setColor$int(red);
-            } else
+            } else {
                 throw new Error('invalid overload');
+            }
         }
 
         /** Set the color using a {@link CWColor} number

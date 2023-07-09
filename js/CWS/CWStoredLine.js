@@ -3,29 +3,11 @@ var CWSYSTEM;
 (function (CWSYSTEM) {
     class CWStoredLine {
         constructor(parent, x0, y0, x1, y1, red, green, blue, alpha) {
-            if (this.parentWindow === undefined) {
-                this.parentWindow = null;
-            }
-            if (this.x0 === undefined) {
-                this.x0 = 0;
-            }
-            if (this.y0 === undefined) {
-                this.y0 = 0;
-            }
-            if (this.x1 === undefined) {
-                this.x1 = 0;
-            }
-            if (this.y1 === undefined) {
-                this.y1 = 0;
-            }
-            if (this.color === undefined) {
-                this.color = null;
-            }
-            this.parentWindow = parent;
-            this.x0 = x0;
-            this.y0 = y0;
-            this.x1 = x1;
-            this.y1 = y1;
+            this.parentWindow = parent || null;
+            this.x0 = x0 || 0;
+            this.y0 = y0 || 0;
+            this.x1 = x1 || 0;
+            this.y1 = y1 || 0;
             this.color = new CWSYSTEM.CWColor(red, green, blue, alpha);
         }
 

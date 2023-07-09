@@ -2,120 +2,50 @@ var CWSYSTEM;
 (function (CWSYSTEM) {
     class VirtualScreen {
         constructor() {
-            if (this.background === undefined) {
-                this.background = null;
-            }
-            if (this.subFrame === undefined) {
-                this.subFrame = null;
-            }
-            if (this.actualScreen === undefined) {
-                this.actualScreen = null;
-            }
-            if (this.subFrames === undefined) {
-                this.subFrames = 0;
-            }
-            if (this.leftScanLine === undefined) {
-                this.leftScanLine = null;
-            }
-            if (this.rightScanLine === undefined) {
-                this.rightScanLine = null;
-            }
-            if (this.subFrameCount === undefined) {
-                this.subFrameCount = 0;
-            }
-            if (this.defaultColor === undefined) {
-                this.defaultColor = 0;
-            }
-            if (this.drawCompleteBackground === undefined) {
-                this.drawCompleteBackground = false;
-            }
-            if (this.subFrameRefresh === undefined) {
-                this.subFrameRefresh = false;
-            }
-            if (this.serif8_font === undefined) {
-                this.serif8_font = null;
-            }
-            if (this.serif11_font === undefined) {
-                this.serif11_font = null;
-            }
-            if (this.jcsmallfixed_font === undefined) {
-                this.jcsmallfixed_font = null;
-            }
-            if (this.physicalWidth === undefined) {
-                this.physicalWidth = 0;
-            }
-            if (this.physicalHeight === undefined) {
-                this.physicalHeight = 0;
-            }
-            if (this.topInset === undefined) {
-                this.topInset = 0;
-            }
-            if (this.backgroundImage === undefined) {
-                this.backgroundImage = "";
-            }
-            if (this.backgroundFadeInProgress === undefined) {
-                this.backgroundFadeInProgress = false;
-            }
-            if (this.fadeStartTime === undefined) {
-                this.fadeStartTime = 0;
-            }
-            if (this.fadeEndTime === undefined) {
-                this.fadeEndTime = 0;
-            }
-            if (this.virtualScreenInUse === undefined) {
-                this.virtualScreenInUse = false;
-            }
-            if (this.cancelOption === undefined) {
-                this.cancelOption = false;
-            }
-            if (this.pleaseWaitMessageFlashState === undefined) {
-                this.pleaseWaitMessageFlashState = 0;
-            }
-            if (this.__renderPleaseWaitMessage === undefined) {
-                this.__renderPleaseWaitMessage = false;
-            }
+            this.background = null;
+            this.subFrame = null;
+            this.actualScreen = null;
             this.subFrames = CWSYSTEM.Global.subFrames;
-            this.backgroundImage = "assets/images/background.jpg";
-            this.cancelOption = false;
-            this.pleaseWaitMessageFlashState = 3;
-            this.__renderPleaseWaitMessage = false;
-            this.physicalWidth = CWSYSTEM.Global.screenResolutionX_$LI$();
-            this.physicalHeight = CWSYSTEM.Global.screenResolutionY_$LI$();
-            CWSYSTEM.Debug.println("Initializing largeScreen");
-            this.subFrame = (s => {
-                let a = [];
-                while (s-- > 0) a.push(null);
-                return a;
-            })(this.subFrames);
-            for (let i = 0; i < this.subFrames; ++i) {
-                CWSYSTEM.Debug.println("Initializing actualScreenSubframe number" + i);
-                this.subFrame[i] = new CWSYSTEM.ScreenData(this.physicalWidth, this.physicalHeight, "Subframe " + i);
-            }
-            CWSYSTEM.Debug.println("Initializing actualScreen and background");
-            this.actualScreen = new CWSYSTEM.ScreenData(this.physicalWidth, this.physicalHeight, "Actual screen");
-            this.background = new CWSYSTEM.ScreenData(this.physicalWidth, this.physicalHeight, "Background buffer");
-            CWSYSTEM.Debug.println("Initializing polygon scan lines");
-            this.rightScanLine = (s => {
-                let a = [];
-                while (s-- > 0) a.push(0);
-                return a;
-            })(5000);
-            this.leftScanLine = (s => {
-                let a = [];
-                while (s-- > 0) a.push(0);
-                return a;
-            })(5000);
+            this.leftScanLine = Array(5000).fill(0);
+            this.rightScanLine = Array(5000).fill(0);
             this.subFrameCount = 0;
             this.defaultColor = 0;
-            CWSYSTEM.Debug.println("Installing fonts");
+            this.drawCompleteBackground = false;
+            this.subFrameRefresh = false;
             this.serif8_font = new CWSYSTEM.CWFont("assets/fonts/serif8.jcf");
             this.serif11_font = new CWSYSTEM.CWFont("assets/fonts/serif11.jcf");
             this.jcsmallfixed_font = new CWSYSTEM.CWFont("assets/fonts/jcsmallfixed.jcf");
+            this.physicalWidth = CWSYSTEM.Global.screenResolutionX_$LI$();
+            this.physicalHeight = CWSYSTEM.Global.screenResolutionY_$LI$();
+            this.topInset = 0;
+            this.backgroundImage = "assets/images/background.jpg";
+            this.backgroundFadeInProgress = false;
+            this.fadeStartTime = 0;
+            this.fadeEndTime = 0;
+            this.virtualScreenInUse = false;
+            this.cancelOption = false;
+            this.pleaseWaitMessageFlashState = 3;
+            this.__renderPleaseWaitMessage = false;
+
+            CWSYSTEM.Debug.println("Initializing largeScreen");
+            this.subFrame = Array(this.subFrames).fill(null).map((_, i) => {
+                CWSYSTEM.Debug.println("Initializing actualScreenSubframe number " + i);
+                return new CWSYSTEM.ScreenData(this.physicalWidth, this.physicalHeight, "Subframe " + i);
+            });
+
+            CWSYSTEM.Debug.println("Initializing actualScreen and background");
+            this.actualScreen = new CWSYSTEM.ScreenData(this.physicalWidth, this.physicalHeight, "Actual screen");
+            this.background = new CWSYSTEM.ScreenData(this.physicalWidth, this.physicalHeight, "Background buffer");
+
+            CWSYSTEM.Debug.println("Initializing polygon scan lines");
+
             CWSYSTEM.Debug.println("Utility initializing");
             CWSYSTEM.CWUtils.initialize();
             CWSYSTEM.FastColorUtilities.initializeGammaCorrectionLookupTable();
+
             this.resetVirtualScreen();
         }
+
 
         dereferenceLargeObjects() {
             this.subFrame = null;
@@ -641,13 +571,13 @@ var CWSYSTEM;
                             const window4 = currWindow.window;
                             const leftEdgeX = xPosition - borderWidth;
                             const upperEdge = yPosition - borderWidth - titleHeight;
-                            const n77 = 5;
-                            const n78 = xPosition;
+                            const five = 5;
+                            const xp = xPosition;
                             const winREdge = xPosition + currWindow.w;
-                            for (let y80 = upperEdge; y80 < upperEdge + borderWidth + titleHeight + n77; ++y80) {
+                            for (let y80 = upperEdge; y80 < upperEdge + borderWidth + titleHeight + five; ++y80) {
                                 for (let x81 = 0; x81 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[y80]; x81 += 2) {
                                     this.copyHorizontalLineToSubframeWithAlphaTransparency(window4, y80,
-                                        Math.max(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y80][x81], n78),
+                                        Math.max(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y80][x81], xp),
                                         Math.min(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y80][x81 + 1], winREdge),
                                         leftEdgeX, upperEdge);
                                 }
@@ -656,7 +586,7 @@ var CWSYSTEM;
                                 for (let y82 = yPosition + currWindow.h; y82 < yPosition + currWindow.h + borderWidth; ++y82) {
                                     for (let x83 = 0; x83 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[y82]; x83 += 2) {
                                         this.copyHorizontalLineToSubframeWithAlphaTransparency(
-                                            window4, y82, Math.max(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y82][x83], n78),
+                                            window4, y82, Math.max(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y82][x83], xp),
                                             Math.min(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y82][x83 + 1], winREdge), leftEdgeX, upperEdge);
                                     }
                                 }
@@ -664,11 +594,11 @@ var CWSYSTEM;
                             const b4 = xPosition - currWindow.borderWidth;
                             if (yPosition + currWindow.h + borderWidth < CWSYSTEM.CWUtils.scanLineLength_$LI$().length) {
                                 for (let y84 = upperEdge; y84 < yPosition + currWindow.h + borderWidth; ++y84) {
-                                    for (let n85 = 0; n85 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[y84]; n85 += 2) {
+                                    for (let x85 = 0; x85 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[y84]; x85 += 2) {
                                         this.copyHorizontalLineToSubframeWithAlphaTransparency(
                                             window4, y84, Math.max(
-                                                CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y84][n85], b4),
-                                            Math.min(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y84][n85 + 1],
+                                                CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y84][x85], b4),
+                                            Math.min(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y84][x85 + 1],
                                                 xPosition), leftEdgeX, upperEdge);
                                     }
                                 }
@@ -677,10 +607,10 @@ var CWSYSTEM;
                             const b7 = currWindow.xPosition + currWindow.w + currWindow.borderWidth;
                             if (yPosition + currWindow.h + borderWidth < CWSYSTEM.CWUtils.scanLineLength_$LI$().length) {
                                 for (let y86 = upperEdge; y86 < yPosition + currWindow.h + borderWidth; ++y86) {
-                                    for (let n87 = 0; n87 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[y86]; n87 += 2) {
+                                    for (let x87 = 0; x87 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[y86]; x87 += 2) {
                                         this.copyHorizontalLineToSubframeWithAlphaTransparency(window4, y86,
-                                            Math.max(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y86][n87], b6),
-                                            Math.min(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y86][n87 + 1],
+                                            Math.max(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y86][x87], b6),
+                                            Math.min(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y86][x87 + 1],
                                                 b7), leftEdgeX, upperEdge);
                                     }
                                 }
@@ -688,18 +618,18 @@ var CWSYSTEM;
                         }
                         if (currWindow.hasInterfaceElements) {
                             const window5 = currWindow.window;
-                            const n88 = currWindow.h + 2 * borderWidth + titleHeight;
-                            const n89 = xPosition - borderWidth;
-                            const n90 = yPosition - borderWidth - titleHeight;
+                            const maxH = currWindow.h + 2 * borderWidth + titleHeight;
+                            const leftEdge = xPosition - borderWidth;
+                            const topEdge = yPosition - borderWidth - titleHeight;
                             const b8 = xPosition - borderWidth;
                             const b9 = xPosition + currWindow.w + borderWidth;
                             try {
-                                for (let y91 = n90; y91 < n90 + n88; ++y91) {
-                                    for (let n92 = 0; n92 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[y91]; n92 += 2) {
+                                for (let y91 = topEdge; y91 < topEdge + maxH; ++y91) {
+                                    for (let x92 = 0; x92 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[y91]; x92 += 2) {
                                         this.copyHorizontalLineToSubframeWithAlphaTransparency(window5, y91,
-                                            Math.max(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y91][n92], b8),
-                                            Math.min(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y91][n92 + 1], b9),
-                                            n89, n90);
+                                            Math.max(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y91][x92], b8),
+                                            Math.min(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y91][x92 + 1], b9),
+                                            leftEdge, topEdge);
                                     }
                                 }
                             } catch (ex2) {
@@ -928,25 +858,25 @@ var CWSYSTEM;
             this.updatePhysicalScreen(dsector.DSReference.dsMain.bi);
         }
 
-        drawString$n$s$n2$n3(n, s, n2, n3) {
+        drawString$n$s$n2$n3(x, s, pad, y) {
             CWSYSTEM.Environment.screenHasChanged = true;
-            return this.drawText(null, n, s, n2, n3, false, true);
+            return this.drawText(null, x, s, pad, y, false, true);
         }
 
         drawString$sd$n$s$n2$n3$b(screenData, x, text, padX, y, b) {
             this.drawText(screenData, x, text, padX, y, b, false);
         }
 
-        drawString(screenData, n, s, n2, n3, b) {
+        drawString(screenData, x, s, padX, y, b) {
             if (((screenData != null && screenData instanceof CWSYSTEM.ScreenData) || screenData === null) &&
-                ((typeof n === 'number') || n === null) && ((typeof s === 'string') || s === null) &&
-                ((typeof n2 === 'number') || n2 === null) && ((typeof n3 === 'number') || n3 === null) &&
+                ((typeof x === 'number') || x === null) && ((typeof s === 'string') || s === null) &&
+                ((typeof padX === 'number') || padX === null) && ((typeof y === 'number') || y === null) &&
                 ((typeof b === 'boolean') || b === null)) {
-                return this.drawString$sd$n$s$n2$n3$b(screenData, n, s, n2, n3, b);
+                return this.drawString$sd$n$s$n2$n3$b(screenData, x, s, padX, y, b);
             } else if (((typeof screenData === 'number') || screenData === null) &&
-                ((typeof n === 'string') || n === null) && ((typeof s === 'number') || s === null) &&
-                ((typeof n2 === 'number') || n2 === null) && n3 === undefined && b === undefined) {
-                return this.drawString$n$s$n2$n3(screenData, n, s, n2);
+                ((typeof x === 'string') || x === null) && ((typeof s === 'number') || s === null) &&
+                ((typeof padX === 'number') || padX === null) && y === undefined && b === undefined) {
+                return this.drawString$n$s$n2$n3(screenData, x, s, padX);
             } else throw new Error('invalid overload');
         }
 
@@ -1144,16 +1074,16 @@ var CWSYSTEM;
             }
         }
 
-        verticalLine(screenData, x, j, k, n) {
+        verticalLine(screenData, x, j, length, n) {
             try {
                 CWSYSTEM.Environment.screenHasChanged = true;
                 let y = j;
-                for (const n2 = j + k; y < n2; ++y) {
+                for (const n2 = j + length; y < n2; ++y) {
                     screenData.point[y][x] = n;
                 }
             } catch (ex) {
                 CWSYSTEM.Debug.println("Rendering out of range in verticalLine(): x=" + x + ", y=" + j +
-                    ", length=" + k + ", datapoint.length=" + screenData.point.length);
+                    ", length=" + length + ", datapoint.length=" + screenData.point.length);
             }
         }
 
@@ -1245,8 +1175,8 @@ var CWSYSTEM;
 //CWSYSTEM.Environment.screenHasChanged = true;
         /**
          * Renders a polygon on the screen with the specified color.
-         * @param {object} screenData - The screen data object containing the point array.
-         * @param {Array} buffer - The buffer array to store color information.
+         * @param {ScreenData} screenData - The screen data object containing the point array.
+         * @param {Array|null} buffer - The buffer array to store color information.
          * @param {number} colorA - The color value to render the polygon with.
          * @param {number} v1x - The x-coordinate of vertex 1.
          * @param {number} v1y - The y-coordinate of vertex 1.
@@ -1257,8 +1187,8 @@ var CWSYSTEM;
          * @param {boolean} bool
          * @param {number} w0 - The width of the screen.
          * @param {number} h0 - The height of the screen.
-         * @param {number} polygon - The polygon identifier.
-         * @param {Array} array - The array to store polygon information.
+         * @param {number|Polygon|null} polygon - The polygon identifier.
+         * @param {Array|null} array - The array to store polygon information.
          * @returns {void}
          */
         renderPolygon(screenData, buffer, colorA, v1x, v1y,

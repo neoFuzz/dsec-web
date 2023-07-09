@@ -2,705 +2,77 @@ var CWSYSTEM;
 (function (CWSYSTEM) {
     class CWButton {
         constructor(window, name, x, y, length, height, inText, inType, responds) {
-            if (((window != null && window instanceof CWSYSTEM.CWWindow) || window === null) &&
-                ((typeof name === 'string') || name === null) && ((typeof x === 'number') || x === null) &&
-                ((typeof y === 'number') || y === null) && ((typeof length === 'number') || length === null) &&
-                ((typeof height === 'number') || height === null) && ((typeof inText === 'string') || inText === null) &&
-                ((typeof inType === 'number') || inType === null) && ((typeof responds === 'number') || responds === null)) {
-                let __args = arguments;
-                {
-                    let __args = arguments;
-                    if (this.mouseIsOver === undefined) {
-                        this.mouseIsOver = false;
-                    }
-                    if (this.parent === undefined) {
-                        this.parent = null;
-                    }
-                    if (this.buttonPressedMethodName === undefined) {
-                        this.buttonPressedMethodName = null;
-                    }
-                    if (this.name === undefined) {
-                        this.name = null;
-                    }
-                    if (this.text === undefined) {
-                        this.text = null;
-                    }
-                    if (this.respondsTo === undefined) {
-                        this.respondsTo = 0;
-                    }
-                    if (this.font === undefined) {
-                        this.font = null;
-                    }
-                    if (this.x === undefined) {
-                        this.x = 0;
-                    }
-                    if (this.y === undefined) {
-                        this.y = 0;
-                    }
-                    if (this.length === undefined) {
-                        this.length = 0;
-                    }
-                    if (this.height === undefined) {
-                        this.height = 0;
-                    }
-                    if (this.borderColor === undefined) {
-                        this.borderColor = null;
-                    }
-                    if (this.bgColor === undefined) {
-                        this.bgColor = null;
-                    }
-                    if (this.bgColorHighlighted === undefined) {
-                        this.bgColorHighlighted = null;
-                    }
-                    if (this.textColor === undefined) {
-                        this.textColor = null;
-                    }
-                    if (this.textColorHighlighted === undefined) {
-                        this.textColorHighlighted = null;
-                    }
-                    if (this.type === undefined) {
-                        this.type = 0;
-                    }
-                    if (this.intProperty === undefined) {
-                        this.intProperty = 0;
-                    }
-                    if (this.generalPurposeObject === undefined) {
-                        this.generalPurposeObject = null;
-                    }
-                    if (this.objectContainingButtonPressedMethod === undefined) {
-                        this.objectContainingButtonPressedMethod = null;
-                    }
-                    if (this.secondText === undefined) {
-                        this.secondText = null;
-                    }
-                    if (this.secondTextHorizontalOffset === undefined) {
-                        this.secondTextHorizontalOffset = 0;
-                    }
-                    if (this.textAlignment === undefined) {
-                        this.textAlignment = 0;
-                    }
-                    if (this.textLeftMargin === undefined) {
-                        this.textLeftMargin = 0;
-                    }
-                    if (this.shortcutText === undefined) {
-                        this.shortcutText = null;
-                    }
-                    if (this.shortcutTextRightMargin === undefined) {
-                        this.shortcutTextRightMargin = 0;
-                    }
-                    if (this.onPressedMethod === undefined) {
-                        this.onPressedMethod = null;
-                    }
-                    if (this.onPressedObject === undefined) {
-                        this.onPressedObject = null;
-                    }
-                    if (this.onPressedParameters === undefined) {
-                        this.onPressedParameters = null;
-                    }
-                    if (this.fillStyle === undefined) {
-                        this.fillStyle = 0;
-                    }
-                    if (this.secondaryBackgroundColor === undefined) {
-                        this.secondaryBackgroundColor = null;
-                    }
-                    if (this.secondaryBackgroundColorHighlighted === undefined) {
-                        this.secondaryBackgroundColorHighlighted = null;
-                    }
-                    if (this.__isPressed === undefined) {
-                        this.__isPressed = false;
-                    }
-                    this.buttonPressedMethodName = "buttonPressed";
-                    this.parent = window;
-                    this.respondsTo = CWButton.PRESSED;
-                    this.textColor = new CWSYSTEM.CWColor(0, 0, 100, 255);
-                    this.bgColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$());
-                    this.secondaryBackgroundColor = new CWSYSTEM.CWColor(175, 175, 190, 255);
-                    this.bgColorHighlighted = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.black_$LI$());
-                    this.secondaryBackgroundColorHighlighted = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.brightBlue_$LI$());
-                    this.borderColor = new CWSYSTEM.CWColor(CWButton.defaultBorderColor_$LI$());
-                    this.textColorHighlighted = this.bgColor;
-                    this.__isPressed = false;
-                    this.mouseIsOver = false;
-                    this.type = CWButton.TEXT_BUTTON;
-                    this.font = this.parent.v.serif8_font;
-                    this.textAlignment = CWButton.CENTERED;
-                    this.textLeftMargin = 5;
-                    this.fillStyle = CWButton.NORMAL;
-                    this.shortcutTextRightMargin = 15;
-                }
-                if (this.mouseIsOver === undefined) {
-                    this.mouseIsOver = false;
-                }
-                if (this.parent === undefined) {
-                    this.parent = null;
-                }
-                if (this.buttonPressedMethodName === undefined) {
-                    this.buttonPressedMethodName = null;
-                }
-                if (this.name === undefined) {
-                    this.name = null;
-                }
-                if (this.text === undefined) {
-                    this.text = null;
-                }
-                if (this.respondsTo === undefined) {
-                    this.respondsTo = 0;
-                }
-                if (this.font === undefined) {
-                    this.font = null;
-                }
-                if (this.x === undefined) {
-                    this.x = 0;
-                }
-                if (this.y === undefined) {
-                    this.y = 0;
-                }
-                if (this.length === undefined) {
-                    this.length = 0;
-                }
-                if (this.height === undefined) {
-                    this.height = 0;
-                }
-                if (this.borderColor === undefined) {
-                    this.borderColor = null;
-                }
-                if (this.bgColor === undefined) {
-                    this.bgColor = null;
-                }
-                if (this.bgColorHighlighted === undefined) {
-                    this.bgColorHighlighted = null;
-                }
-                if (this.textColor === undefined) {
-                    this.textColor = null;
-                }
-                if (this.textColorHighlighted === undefined) {
-                    this.textColorHighlighted = null;
-                }
-                if (this.type === undefined) {
-                    this.type = 0;
-                }
-                if (this.intProperty === undefined) {
-                    this.intProperty = 0;
-                }
-                if (this.generalPurposeObject === undefined) {
-                    this.generalPurposeObject = null;
-                }
-                if (this.objectContainingButtonPressedMethod === undefined) {
-                    this.objectContainingButtonPressedMethod = null;
-                }
-                if (this.secondText === undefined) {
-                    this.secondText = null;
-                }
-                if (this.secondTextHorizontalOffset === undefined) {
-                    this.secondTextHorizontalOffset = 0;
-                }
-                if (this.textAlignment === undefined) {
-                    this.textAlignment = 0;
-                }
-                if (this.textLeftMargin === undefined) {
-                    this.textLeftMargin = 0;
-                }
-                if (this.shortcutText === undefined) {
-                    this.shortcutText = null;
-                }
-                if (this.shortcutTextRightMargin === undefined) {
-                    this.shortcutTextRightMargin = 0;
-                }
-                if (this.onPressedMethod === undefined) {
-                    this.onPressedMethod = null;
-                }
-                if (this.onPressedObject === undefined) {
-                    this.onPressedObject = null;
-                }
-                if (this.onPressedParameters === undefined) {
-                    this.onPressedParameters = null;
-                }
-                if (this.fillStyle === undefined) {
-                    this.fillStyle = 0;
-                }
-                if (this.secondaryBackgroundColor === undefined) {
-                    this.secondaryBackgroundColor = null;
-                }
-                if (this.secondaryBackgroundColorHighlighted === undefined) {
-                    this.secondaryBackgroundColorHighlighted = null;
-                }
-                if (this.__isPressed === undefined) {
-                    this.__isPressed = false;
-                }
-                (() => {
-                    this.name = name;
-                    this.x = x;
-                    this.y = y;
-                    this.length = length;
-                    this.height = height;
-                    this.font = this.parent.v.serif8_font;
-                    this.fillStyle = CWButton.LINEAR_GRADIENT;
-                    this.respondsTo = responds;
-                })();
+            if (!(window instanceof CWSYSTEM.CWWindow || window === null)) {
+                throw new Error('Invalid window argument');
+            }
 
-                if (this.mouseIsOver === undefined) {
-                    this.mouseIsOver = false;
-                }
-                if (this.parent === undefined) {
-                    this.parent = null;
-                }
-                if (this.buttonPressedMethodName === undefined) {
-                    this.buttonPressedMethodName = null;
-                }
-                if (this.name === undefined) {
-                    this.name = null;
-                }
-                if (this.text === undefined) {
-                    this.text = null;
-                }
-                if (this.respondsTo === undefined) {
-                    this.respondsTo = 0;
-                }
-                if (this.font === undefined) {
-                    this.font = null;
-                }
-                if (this.x === undefined) {
-                    this.x = 0;
-                }
-                if (this.y === undefined) {
-                    this.y = 0;
-                }
-                if (this.length === undefined) {
-                    this.length = 0;
-                }
-                if (this.height === undefined) {
-                    this.height = 0;
-                }
-                if (this.borderColor === undefined) {
-                    this.borderColor = null;
-                }
-                if (this.bgColor === undefined) {
-                    this.bgColor = null;
-                }
-                if (this.bgColorHighlighted === undefined) {
-                    this.bgColorHighlighted = null;
-                }
-                if (this.textColor === undefined) {
-                    this.textColor = null;
-                }
-                if (this.textColorHighlighted === undefined) {
-                    this.textColorHighlighted = null;
-                }
-                if (this.type === undefined) {
-                    this.type = 0;
-                }
-                if (this.intProperty === undefined) {
-                    this.intProperty = 0;
-                }
-                if (this.generalPurposeObject === undefined) {
-                    this.generalPurposeObject = null;
-                }
-                if (this.objectContainingButtonPressedMethod === undefined) {
-                    this.objectContainingButtonPressedMethod = null;
-                }
-                if (this.secondText === undefined) {
-                    this.secondText = null;
-                }
-                if (this.secondTextHorizontalOffset === undefined) {
-                    this.secondTextHorizontalOffset = 0;
-                }
-                if (this.textAlignment === undefined) {
-                    this.textAlignment = 0;
-                }
-                if (this.textLeftMargin === undefined) {
-                    this.textLeftMargin = 0;
-                }
-                if (this.shortcutText === undefined) {
-                    this.shortcutText = null;
-                }
-                if (this.shortcutTextRightMargin === undefined) {
-                    this.shortcutTextRightMargin = 0;
-                }
-                if (this.onPressedMethod === undefined) {
-                    this.onPressedMethod = null;
-                }
-                if (this.onPressedObject === undefined) {
-                    this.onPressedObject = null;
-                }
-                if (this.onPressedParameters === undefined) {
-                    this.onPressedParameters = null;
-                }
-                if (this.fillStyle === undefined) {
-                    this.fillStyle = 0;
-                }
-                if (this.secondaryBackgroundColor === undefined) {
-                    this.secondaryBackgroundColor = null;
-                }
-                if (this.secondaryBackgroundColorHighlighted === undefined) {
-                    this.secondaryBackgroundColorHighlighted = null;
-                }
-                if (this.__isPressed === undefined) {
-                    this.__isPressed = false;
-                }
-                (() => {
-                    this.type = inType;
-                    this.text = inText;
-                    this.font = this.parent.v.serif8_font;
-                })();
-            } else if (((window != null && window instanceof CWSYSTEM.CWWindow) || window === null) &&
-                ((typeof name === 'string') || name === null) && ((typeof x === 'number') || x === null) &&
-                ((typeof y === 'number') || y === null) && ((typeof length === 'number') || length === null) &&
-                ((typeof height === 'number') || height === null) && ((typeof inText === 'number') || inText === null) &&
-                inType === undefined && responds === undefined) {
-                let __args = arguments;
-                let responds = __args[6];
-                {
-                    let __args = arguments;
-                    if (this.mouseIsOver === undefined) {
-                        this.mouseIsOver = false;
-                    }
-                    if (this.parent === undefined) {
-                        this.parent = null;
-                    }
-                    if (this.buttonPressedMethodName === undefined) {
-                        this.buttonPressedMethodName = null;
-                    }
-                    if (this.name === undefined) {
-                        this.name = null;
-                    }
-                    if (this.text === undefined) {
-                        this.text = null;
-                    }
-                    if (this.respondsTo === undefined) {
-                        this.respondsTo = 0;
-                    }
-                    if (this.font === undefined) {
-                        this.font = null;
-                    }
-                    if (this.x === undefined) {
-                        this.x = 0;
-                    }
-                    if (this.y === undefined) {
-                        this.y = 0;
-                    }
-                    if (this.length === undefined) {
-                        this.length = 0;
-                    }
-                    if (this.height === undefined) {
-                        this.height = 0;
-                    }
-                    if (this.borderColor === undefined) {
-                        this.borderColor = null;
-                    }
-                    if (this.bgColor === undefined) {
-                        this.bgColor = null;
-                    }
-                    if (this.bgColorHighlighted === undefined) {
-                        this.bgColorHighlighted = null;
-                    }
-                    if (this.textColor === undefined) {
-                        this.textColor = null;
-                    }
-                    if (this.textColorHighlighted === undefined) {
-                        this.textColorHighlighted = null;
-                    }
-                    if (this.type === undefined) {
-                        this.type = 0;
-                    }
-                    if (this.intProperty === undefined) {
-                        this.intProperty = 0;
-                    }
-                    if (this.generalPurposeObject === undefined) {
-                        this.generalPurposeObject = null;
-                    }
-                    if (this.objectContainingButtonPressedMethod === undefined) {
-                        this.objectContainingButtonPressedMethod = null;
-                    }
-                    if (this.secondText === undefined) {
-                        this.secondText = null;
-                    }
-                    if (this.secondTextHorizontalOffset === undefined) {
-                        this.secondTextHorizontalOffset = 0;
-                    }
-                    if (this.textAlignment === undefined) {
-                        this.textAlignment = 0;
-                    }
-                    if (this.textLeftMargin === undefined) {
-                        this.textLeftMargin = 0;
-                    }
-                    if (this.shortcutText === undefined) {
-                        this.shortcutText = null;
-                    }
-                    if (this.shortcutTextRightMargin === undefined) {
-                        this.shortcutTextRightMargin = 0;
-                    }
-                    if (this.onPressedMethod === undefined) {
-                        this.onPressedMethod = null;
-                    }
-                    if (this.onPressedObject === undefined) {
-                        this.onPressedObject = null;
-                    }
-                    if (this.onPressedParameters === undefined) {
-                        this.onPressedParameters = null;
-                    }
-                    if (this.fillStyle === undefined) {
-                        this.fillStyle = 0;
-                    }
-                    if (this.secondaryBackgroundColor === undefined) {
-                        this.secondaryBackgroundColor = null;
-                    }
-                    if (this.secondaryBackgroundColorHighlighted === undefined) {
-                        this.secondaryBackgroundColorHighlighted = null;
-                    }
-                    if (this.__isPressed === undefined) {
-                        this.__isPressed = false;
-                    }
-                    this.buttonPressedMethodName = "buttonPressed";
-                    this.parent = window;
-                    this.respondsTo = CWButton.PRESSED;
-                    this.textColor = new CWSYSTEM.CWColor(0, 0, 100, 255);
-                    this.bgColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$());
-                    this.secondaryBackgroundColor = new CWSYSTEM.CWColor(175, 175, 190, 255);
-                    this.bgColorHighlighted = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.black_$LI$());
-                    this.secondaryBackgroundColorHighlighted = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.brightBlue_$LI$());
-                    this.borderColor = new CWSYSTEM.CWColor(CWButton.defaultBorderColor_$LI$());
-                    this.textColorHighlighted = this.bgColor;
-                    this.__isPressed = false;
-                    this.mouseIsOver = false;
-                    this.type = CWButton.TEXT_BUTTON;
-                    this.font = this.parent.v.serif8_font;
-                    this.textAlignment = CWButton.CENTERED;
-                    this.textLeftMargin = 5;
-                    this.fillStyle = CWButton.NORMAL;
-                    this.shortcutTextRightMargin = 15;
-                }
-                if (this.mouseIsOver === undefined) {
-                    this.mouseIsOver = false;
-                }
-                if (this.parent === undefined) {
-                    this.parent = null;
-                }
-                if (this.buttonPressedMethodName === undefined) {
-                    this.buttonPressedMethodName = null;
-                }
-                if (this.name === undefined) {
-                    this.name = null;
-                }
-                if (this.text === undefined) {
-                    this.text = null;
-                }
-                if (this.respondsTo === undefined) {
-                    this.respondsTo = 0;
-                }
-                if (this.font === undefined) {
-                    this.font = null;
-                }
-                if (this.x === undefined) {
-                    this.x = 0;
-                }
-                if (this.y === undefined) {
-                    this.y = 0;
-                }
-                if (this.length === undefined) {
-                    this.length = 0;
-                }
-                if (this.height === undefined) {
-                    this.height = 0;
-                }
-                if (this.borderColor === undefined) {
-                    this.borderColor = null;
-                }
-                if (this.bgColor === undefined) {
-                    this.bgColor = null;
-                }
-                if (this.bgColorHighlighted === undefined) {
-                    this.bgColorHighlighted = null;
-                }
-                if (this.textColor === undefined) {
-                    this.textColor = null;
-                }
-                if (this.textColorHighlighted === undefined) {
-                    this.textColorHighlighted = null;
-                }
-                if (this.type === undefined) {
-                    this.type = 0;
-                }
-                if (this.intProperty === undefined) {
-                    this.intProperty = 0;
-                }
-                if (this.generalPurposeObject === undefined) {
-                    this.generalPurposeObject = null;
-                }
-                if (this.objectContainingButtonPressedMethod === undefined) {
-                    this.objectContainingButtonPressedMethod = null;
-                }
-                if (this.secondText === undefined) {
-                    this.secondText = null;
-                }
-                if (this.secondTextHorizontalOffset === undefined) {
-                    this.secondTextHorizontalOffset = 0;
-                }
-                if (this.textAlignment === undefined) {
-                    this.textAlignment = 0;
-                }
-                if (this.textLeftMargin === undefined) {
-                    this.textLeftMargin = 0;
-                }
-                if (this.shortcutText === undefined) {
-                    this.shortcutText = null;
-                }
-                if (this.shortcutTextRightMargin === undefined) {
-                    this.shortcutTextRightMargin = 0;
-                }
-                if (this.onPressedMethod === undefined) {
-                    this.onPressedMethod = null;
-                }
-                if (this.onPressedObject === undefined) {
-                    this.onPressedObject = null;
-                }
-                if (this.onPressedParameters === undefined) {
-                    this.onPressedParameters = null;
-                }
-                if (this.fillStyle === undefined) {
-                    this.fillStyle = 0;
-                }
-                if (this.secondaryBackgroundColor === undefined) {
-                    this.secondaryBackgroundColor = null;
-                }
-                if (this.secondaryBackgroundColorHighlighted === undefined) {
-                    this.secondaryBackgroundColorHighlighted = null;
-                }
-                if (this.__isPressed === undefined) {
-                    this.__isPressed = false;
-                }
-                (() => {
-                    this.name = name;
-                    this.x = x;
-                    this.y = y;
-                    this.length = length;
-                    this.height = height;
-                    this.font = this.parent.v.serif8_font;
-                    this.fillStyle = CWButton.LINEAR_GRADIENT;
-                    this.respondsTo = responds;
-                })();
-            } else if (((window != null && window instanceof CWSYSTEM.CWWindow) || window === null) &&
-                name === undefined && x === undefined && y === undefined && length === undefined &&
-                height === undefined && inText === undefined && inType === undefined && responds === undefined) {
-                let __args = arguments;
-                if (this.mouseIsOver === undefined) {
-                    this.mouseIsOver = false;
-                }
-                if (this.parent === undefined) {
-                    this.parent = null;
-                }
-                if (this.buttonPressedMethodName === undefined) {
-                    this.buttonPressedMethodName = null;
-                }
-                if (this.name === undefined) {
-                    this.name = null;
-                }
-                if (this.text === undefined) {
-                    this.text = null;
-                }
-                if (this.respondsTo === undefined) {
-                    this.respondsTo = 0;
-                }
-                if (this.font === undefined) {
-                    this.font = null;
-                }
-                if (this.x === undefined) {
-                    this.x = 0;
-                }
-                if (this.y === undefined) {
-                    this.y = 0;
-                }
-                if (this.length === undefined) {
-                    this.length = 0;
-                }
-                if (this.height === undefined) {
-                    this.height = 0;
-                }
-                if (this.borderColor === undefined) {
-                    this.borderColor = null;
-                }
-                if (this.bgColor === undefined) {
-                    this.bgColor = null;
-                }
-                if (this.bgColorHighlighted === undefined) {
-                    this.bgColorHighlighted = null;
-                }
-                if (this.textColor === undefined) {
-                    this.textColor = null;
-                }
-                if (this.textColorHighlighted === undefined) {
-                    this.textColorHighlighted = null;
-                }
-                if (this.type === undefined) {
-                    this.type = 0;
-                }
-                if (this.intProperty === undefined) {
-                    this.intProperty = 0;
-                }
-                if (this.generalPurposeObject === undefined) {
-                    this.generalPurposeObject = null;
-                }
-                if (this.objectContainingButtonPressedMethod === undefined) {
-                    this.objectContainingButtonPressedMethod = null;
-                }
-                if (this.secondText === undefined) {
-                    this.secondText = null;
-                }
-                if (this.secondTextHorizontalOffset === undefined) {
-                    this.secondTextHorizontalOffset = 0;
-                }
-                if (this.textAlignment === undefined) {
-                    this.textAlignment = 0;
-                }
-                if (this.textLeftMargin === undefined) {
-                    this.textLeftMargin = 0;
-                }
-                if (this.shortcutText === undefined) {
-                    this.shortcutText = null;
-                }
-                if (this.shortcutTextRightMargin === undefined) {
-                    this.shortcutTextRightMargin = 0;
-                }
-                if (this.onPressedMethod === undefined) {
-                    this.onPressedMethod = null;
-                }
-                if (this.onPressedObject === undefined) {
-                    this.onPressedObject = null;
-                }
-                if (this.onPressedParameters === undefined) {
-                    this.onPressedParameters = null;
-                }
-                if (this.fillStyle === undefined) {
-                    this.fillStyle = 0;
-                }
-                if (this.secondaryBackgroundColor === undefined) {
-                    this.secondaryBackgroundColor = null;
-                }
-                if (this.secondaryBackgroundColorHighlighted === undefined) {
-                    this.secondaryBackgroundColorHighlighted = null;
-                }
-                if (this.__isPressed === undefined) {
-                    this.__isPressed = false;
-                }
-                this.buttonPressedMethodName = "buttonPressed";
-                this.parent = window;
-                this.respondsTo = CWButton.PRESSED;
-                this.textColor = new CWSYSTEM.CWColor(0, 0, 100, 255);
-                this.bgColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$());
-                this.secondaryBackgroundColor = new CWSYSTEM.CWColor(175, 175, 190, 255);
-                this.bgColorHighlighted = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.black_$LI$());
-                this.secondaryBackgroundColorHighlighted = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.brightBlue_$LI$());
-                this.borderColor = new CWSYSTEM.CWColor(CWButton.defaultBorderColor_$LI$());
-                this.textColorHighlighted = this.bgColor;
-                this.__isPressed = false;
-                this.mouseIsOver = false;
-                this.type = CWButton.TEXT_BUTTON;
-                this.font = this.parent.v.serif8_font;
-                this.textAlignment = CWButton.CENTERED;
-                this.textLeftMargin = 5;
-                this.fillStyle = CWButton.NORMAL;
-                this.shortcutTextRightMargin = 15;
-            } else
-                throw new Error('invalid overload');
+            this.buttonPressedMethodName = 'buttonPressed';
+            this.parent = window;
+            this.textColor = new CWSYSTEM.CWColor(0, 0, 100, 255);
+            this.bgColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$());
+            this.secondaryBackgroundColor = new CWSYSTEM.CWColor(175, 175, 190, 255);
+            this.bgColorHighlighted = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.black_$LI$());
+            this.secondaryBackgroundColorHighlighted = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.brightBlue_$LI$());
+            this.borderColor = new CWSYSTEM.CWColor(CWButton.defaultBorderColor_$LI$());
+            this.textColorHighlighted = this.bgColor;
+            this.__isPressed = false;
+            this.mouseIsOver = false;
+            this.type = CWButton.TEXT_BUTTON;
+            this.font = this.parent.v.serif8_font;
+            this.textAlignment = CWButton.CENTERED;
+            this.textLeftMargin = 5;
+            this.fillStyle = CWButton.LINEAR_GRADIENT;
+            this.shortcutTextRightMargin = 15;
+
+            if (typeof name === 'string' || name === null) {
+                this.name = name;
+            } else {
+                throw new Error('Invalid name argument');
+            }
+
+            if (typeof x === 'number' || x === null) {
+                this.x = x;
+            } else {
+                throw new Error('Invalid x argument');
+            }
+
+            if (typeof y === 'number' || y === null) {
+                this.y = y;
+            } else {
+                throw new Error('Invalid y argument');
+            }
+
+            if (typeof length === 'number' || length === null) {
+                this.length = length;
+            } else {
+                throw new Error('Invalid length argument');
+            }
+
+            if (typeof height === 'number' || height === null) {
+                this.height = height;
+            } else {
+                throw new Error('Invalid height argument');
+            }
+
+            if (typeof inText === 'string' || inText === null) {
+                this.text = inText;
+            } else if (typeof inText === 'number' && inType === undefined && responds === undefined) {
+                this.intProperty = inText;
+            } else {
+                throw new Error('Invalid inText argument');
+            }
+
+            if (typeof inType === 'number' || inType === null) {
+                this.type = inType !== undefined ? inType : this.type;
+            } else if (inType !== undefined) {
+                throw new Error('Invalid inType argument');
+            }
+
+            if (typeof responds === 'number' || responds === null) {
+                this.respondsTo = responds !== undefined ? responds : CWButton.PRESSED;
+            } else if (responds !== undefined) {
+                throw new Error('Invalid responds argument');
+            }
         }
 
         static defaultBorderColor_$LI$() {
