@@ -257,7 +257,8 @@ var dsector;
                 new CWSYSTEM.CWColor(255, 20, 20, 15));
             const arrayList = ([]);
             arrayList.push(polygon);
-            const sensor = dsector.PositionedModel.createPositionedModelFromGroupOfPolygons("sensor", arrayList);
+            const sensor =
+                dsector.PositionedModel.createPositionedModelFromGroupOfPolygons("sensor", arrayList);
             if (this.sensorsVisible()) {
                 dsector.DSReference.dsecGame.addObjectForDisplayOnlyDuringTheNextFrame(sensor);
             }
@@ -336,7 +337,9 @@ var dsector;
                         intersectingObject.type = DSecBrain.WALL;
                     }
                 }
-                if (intersectingObject.type === DSecBrain.MISSILE && intersectingObject.intersectingMissile.weaponSpecification.actionWhenFiredAfterAlreadyLaunched === 14 && !this.player.shieldActive()) {
+                if (intersectingObject.type === DSecBrain.MISSILE &&
+                    intersectingObject.intersectingMissile.weaponSpecification.actionWhenFiredAfterAlreadyLaunched === 14 &&
+                    !this.player.shieldActive()) {
                     intersectingObject.type = DSecBrain.WALL;
                 }
                 return intersectingObject.type;
@@ -430,7 +433,8 @@ var dsector;
                     return this.player.brain.closestObjectStrikingSensor(Math.fround(
                             (this.player.robotSpecification.sensor13Angle * 3.1415927) / 180.0),
                         this.player.robotSpecification.sensor13Length, this.player.robotSpecification.sensor13Width,
-                        this.player.robotSpecification.sensor13ParallelOffset, this.player.robotSpecification.sensor13PerpendicularOffset);
+                        this.player.robotSpecification.sensor13ParallelOffset,
+                        this.player.robotSpecification.sensor13PerpendicularOffset);
                 case 14:
                     return this.player.brain.closestObjectStrikingSensor(Math.fround(
                             (this.player.robotSpecification.sensor14Angle * 3.1415927) / 180.0),
@@ -474,7 +478,8 @@ var dsector;
         destinationTankWithin(range) {
             if (this.targetType === DSecBrain.TANK) {
                 const player = this.target;
-                const dist = Math.sqrt(Math.pow(player.getX() - this.player.getX(), 2.0) + Math.pow(player.getY() - this.player.getY(), 2.0));
+                const dist = Math.sqrt(Math.pow(player.getX() - this.player.getX(), 2.0) +
+                    Math.pow(player.getY() - this.player.getY(), 2.0));
                 return dist < range;
             } else {
                 return false;
@@ -528,7 +533,12 @@ var dsector;
                 const factor = Math.abs(atan) % 1.5707963267948966;
                 if (Math.abs(factor - 0.7853981633974483) < 0.15707963267948966) {
                     const distToEnemyJewel = this.player.distanceToEnemyJewel();
-                    if (distToEnemyJewel > 43.2 && distToEnemyJewel < 72.0 && (this.player.allEnemyTanksDestroyed() || this.player.teamOfPlayer().totalTankStrengthOfTeam() < this.player.enemyTeamOfPlayer().totalTankStrengthOfTeam() || this.player.isWeakestInTeamAndAtLeastOneOtherPlayerOfSameTeamAlive() || this.enemyJewelCanProbablyBeDestroyedQuickly())) {
+                    if (distToEnemyJewel > 43.2 && distToEnemyJewel < 72.0 &&
+                        (this.player.allEnemyTanksDestroyed() ||
+                            this.player.teamOfPlayer().totalTankStrengthOfTeam() <
+                            this.player.enemyTeamOfPlayer().totalTankStrengthOfTeam() ||
+                            this.player.isWeakestInTeamAndAtLeastOneOtherPlayerOfSameTeamAlive() ||
+                            this.enemyJewelCanProbablyBeDestroyedQuickly())) {
                         const friendlyPlayer = this.player.getClosestFriendlyPlayer();
                         if (friendlyPlayer == null) {
                             return true;
@@ -543,12 +553,13 @@ var dsector;
 
         enemyJewelCanProbablyBeDestroyedQuickly() {
             const jewel = this.player.enemyJewel();
-            const remE = Math.sqrt(Math.pow(this.player.getX() - jewel.x, 2.0) + Math.pow(this.player.getY() - jewel.y, 2.0));
+            const remE = Math.sqrt(Math.pow(this.player.getX() - jewel.x, 2.0) +
+                Math.pow(this.player.getY() - jewel.y, 2.0));
             return (Math.fround(jewel.energy * 20.0)) + remE < (Math.fround(10.0 * this.player.weaponEnergy));
         }
 
         enemyMissileWithin(v, dmg) {
-            for (let i = 0; i < /* size */ dsector.DSReference.dsecMissileManager.missiles.length; ++i) {
+            for (let i = 0; i < dsector.DSReference.dsecMissileManager.missiles.length; ++i) {
                 const missile = dsector.DSReference.dsecMissileManager.missiles[i];
                 if (missile.owner !== this.player &&
                     (dsector.DSReference.dsecMainSetupWindow.playMode() !== dsector.DSecMainSetupWindow.TEAMS ||
@@ -869,7 +880,8 @@ var dsector;
                             const firedUnits = this.player.getFireUnitsFromPortNumber(specification.portNumber);
                             if (portNumber != null) {
                                 if (portNumber.specificationID === item) {
-                                    if (firedUnits + 100 > this.player.robotSpecification.shoppingStrategyMaximumFireUnitsThatBePurchased) {
+                                    if (firedUnits + 100 >
+                                        this.player.robotSpecification.shoppingStrategyMaximumFireUnitsThatBePurchased) {
                                         this.shoppingLog("The " + specification.fullName +
                                             " could not be purchased because " + firedUnits + " are already held");
                                         return false;
@@ -878,7 +890,8 @@ var dsector;
                                         " with 100 units for " + actualPrice + " previously having " + firedUnits + " fire units");
                                 } else {
                                     const itemPrice = Math.fround(firedUnits / 100.0) * portNumber.price;
-                                    if (itemPrice > this.player.robotSpecification.shoppingStrategyMaximumFireUnitExpenseWhenWeaponBeingReplaced) {
+                                    if (itemPrice >
+                                        this.player.robotSpecification.shoppingStrategyMaximumFireUnitExpenseWhenWeaponBeingReplaced) {
                                         this.shoppingLog("The " + specification.fullName +
                                             " could not be purchase because " + firedUnits + " of " +
                                             portNumber.fullName + " are already held in the same port");

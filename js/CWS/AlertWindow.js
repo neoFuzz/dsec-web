@@ -34,8 +34,7 @@ var CWSYSTEM;
             this.window.ignoreWhenSavingAndRestoringEnvironment = true;
             if (CWSYSTEM.AlertManager.backgroundColor != null) {
                 this.window.changeBackgroundColor$CWColor(CWSYSTEM.AlertManager.backgroundColor);
-            }
-            else {
+            } else {
                 this.window.changeBackgroundColor$CWColor(new CWSYSTEM.CWColor(255, 255, 255, 220));
             }
             this.window.titleVisible = true;
@@ -51,6 +50,7 @@ var CWSYSTEM;
                 dsector.DSReference.virtualScreen.serif8_font, color, AlertWindow.maximumTextWidth);
         }
     }
+
     AlertWindow.margin = 30;
     AlertWindow.maximumTextWidth = 300;
     AlertWindow.maximumHeight = 600;

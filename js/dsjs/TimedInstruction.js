@@ -1,4 +1,3 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var dsector;
 (function (dsector) {
     class TimedInstruction {
@@ -16,42 +15,45 @@ var dsector;
             this.objectToExecuteMethod = parent;
             this.methodName = methodName;
         }
+
         static addTimedInstruction(time, parent, methodName) {
             if (TimedInstruction.timedInstructions == null) {
                 TimedInstruction.timedInstructions = ([]);
             }
-            /* add */ (TimedInstruction.timedInstructions.push(new TimedInstruction(time, parent, methodName)) > 0);
+            TimedInstruction.timedInstructions.push(new TimedInstruction(time, parent, methodName));
         }
+
         static executeInstructionsDue() {
             if (TimedInstruction.timedInstructions != null) {
-                for (let i = 0; i < /* size */ TimedInstruction.timedInstructions.length; ++i) {
-                    {
-                        const instruction = TimedInstruction.timedInstructions[i];
-                        if (CWSYSTEM.Environment.currentTime() >= instruction.time) {
-                            try {
-                                const method = ((c, p) => { if (c.prototype.hasOwnProperty(p) && typeof c.prototype[p] == 'function')
-                                    return { owner: c, name: p, fn: c.prototype[p] };
+                for (let i = 0; i < TimedInstruction.timedInstructions.length; ++i) {
+                    const instruction = TimedInstruction.timedInstructions[i];
+                    if (CWSYSTEM.Environment.currentTime() >= instruction.time) {
+                        try {
+                            const method = ((c, p) => {
+                                if (c.prototype.hasOwnProperty(p) && typeof c.prototype[p] == 'function')
+                                    return {owner: c, name: p, fn: c.prototype[p]};
                                 else
-                                    return null; })(instruction.objectToExecuteMethod.constructor, instruction.methodName);
-                                /* invoke */ method.fn.apply(instruction.objectToExecuteMethod, [null]);
-                            }
-                            catch (e) {
-                                console.error("Problem in executeInstructionsDue(): " + e);
-                            }
-                            /* remove */ (a => { let index = a.indexOf(instruction); if (index >= 0) {
+                                    return null;
+                            })(instruction.objectToExecuteMethod.constructor, instruction.methodName);
+                            method.fn.apply(instruction.objectToExecuteMethod, [null]);
+                        } catch (e) {
+                            console.error("Problem in executeInstructionsDue(): " + e);
+                        }
+                        (a => {
+                            let index = a.indexOf(instruction);
+                            if (index >= 0) {
                                 a.splice(index, 1);
                                 return true;
-                            }
-                            else {
+                            } else {
                                 return false;
-                            } })(TimedInstruction.timedInstructions);
-                        }
+                            }
+                        })(TimedInstruction.timedInstructions);
                     }
-                    ;
                 }
             }
         }
     }
+
     TimedInstruction.timedInstructions = null;
     dsector.TimedInstruction = TimedInstruction;
     TimedInstruction["__class"] = "dsector.TimedInstruction";

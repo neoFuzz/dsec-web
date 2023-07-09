@@ -1,12 +1,9 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var dsector;
 (function (dsector) {
     class UserIOBuffer {
         constructor() {
             this.instructions = ([]);
             this.buttonActionPerformedOnButtonPressed = false;
-            /* ensureCapacity */
-            ;
         }
 
         addMouseEnteredEvent(x, y) {
@@ -103,7 +100,6 @@ var dsector;
         clear() {
             while ((!(this.instructions.length === 0))) {
                 const ioInstruction = this.instructions[0];
-                /* remove */
                 (a => {
                     let index = a.indexOf(ioInstruction);
                     if (index >= 0) {
@@ -127,7 +123,6 @@ var dsector;
             CWSYSTEM.Environment.ESCKeyPressedDuringThisCycle = false;
             while (!(this.instructions.length === 0)) {
                 const ioInstruction = this.instructions[0];
-                /* remove */
                 (a => {
                     let index = a.indexOf(ioInstruction);
                     if (index >= 0) {

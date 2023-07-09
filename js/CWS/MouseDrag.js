@@ -1,4 +1,3 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var CWSYSTEM;
 (function (CWSYSTEM) {
     class MouseDrag {
@@ -208,8 +207,8 @@ var CWSYSTEM;
                         vertex.z = Math.fround(selectedVertex.z + (yAAScale * CWSYSTEM.Environment.zAxisFlippedXZView_$LI$()));
                         break;
                     case 2:
-                        vertex.x = Math.fround(selectedVertex.x +(xAAScale * CWSYSTEM.Environment.xAxisFlippedXYView_$LI$()));
-                        vertex.y = Math.fround(selectedVertex.y +(yAAScale * CWSYSTEM.Environment.yAxisFlippedXYView_$LI$()));
+                        vertex.x = Math.fround(selectedVertex.x + (xAAScale * CWSYSTEM.Environment.xAxisFlippedXYView_$LI$()));
+                        vertex.y = Math.fround(selectedVertex.y + (yAAScale * CWSYSTEM.Environment.yAxisFlippedXYView_$LI$()));
                 }
                 const aaScale = Math.fround((4.0 / dsector.Renderer.scale[axisID]) * this.window.antiAliasedLevel);
             }
@@ -233,7 +232,7 @@ var CWSYSTEM;
                     CWSYSTEM.Environment.viewWindowsRequestedForUpdateNextCycle();
                     return;
                 }
-                for (let i = 0; i < /* size */ polygonGroup.transposedRepresentations.length; ++i) {
+                for (let i = 0; i < polygonGroup.transposedRepresentations.length; ++i) {
                     const pgr = polygonGroup.transposedRepresentations[i];
                     if (pgr.active) {
                         switch (axisID) {

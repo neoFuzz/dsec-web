@@ -107,7 +107,7 @@ var dsector;
         /** @private */
         createModelFromFile(filePath) {
             let xmldoc = null;
-            try {/* Since XML processing is built in to Web browsers, we can just retrieve the XML file using the filePath */
+            try { // Since XML processing is built in to Web browsers, we can just retrieve the XML file using the filePath
                 let xmlHttp = new XMLHttpRequest();
                 xmlHttp.open("GET", filePath, false);
                 xmlHttp.send();
@@ -177,7 +177,7 @@ var dsector;
                 //const arrayList = Model3DMatrix.getChildNodesByTagName(element, "camera");
                 //const element1 = arrayList[0];
                 const arrayList1 = Model3DMatrix.getChildNodesByTagName(element, "folder");
-                if ( /* size */arrayList1.length === 0) {
+                if (arrayList1.length === 0) {
                     this.XMLFormatError = "There were no <folder name=\"folderName\"> tags found under the model3DMatrix tag. ";
                     return false;
                 } else if (arrayList1.length > 1) {

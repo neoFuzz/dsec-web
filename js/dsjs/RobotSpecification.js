@@ -1,4 +1,3 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var dsector;
 (function (dsector) {
     class RobotSpecification {
@@ -3324,16 +3323,14 @@ var dsector;
                                 const jId = parseInt(joyNumber);
                                 this.name = "Joystick " + jId;
                                 this.type = jId + 4;
-                            }
-                            else {
+                            } else {
                                 this.type = RobotSpecification.ROBOT;
                                 this.loadFromFile();
                             }
                             break;
                     }
                 })();
-            }
-            else if (fileName === undefined) {
+            } else if (fileName === undefined) {
                 let __args = arguments;
                 if (this.type === undefined) {
                     this.type = 0;
@@ -5204,15 +5201,201 @@ var dsector;
                 this.description = "";
                 this.viewSensors = RobotSpecification.FALSE;
                 this.weaponFuelRatio = 100;
-            }
-            else
+            } else
                 throw new Error('invalid overload');
         }
+
+        static initializeVariableStringRepresentations() {
+            if (RobotSpecification.variablestringRepresentations == null) {
+                RobotSpecification.variablestringRepresentations = new Map();
+            }
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_1, "MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_1");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_2, "MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_2");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_3, "MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_3");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_4, "MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_4");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_5, "MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_5");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_6, "MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_6");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_7, "MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_7");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_8, "MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_8");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOST_EXPENSIVE_TANK_WITHOUT_DOWNGRADING, "MOST_EXPENSIVE_TANK_WITHOUT_DOWNGRADING");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.FUEL_UPGRADE, "FUEL_UPGRADE");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.METAL_UPGRADE, "METAL_UPGRADE");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_UPGRADE, "TURN_UPGRADE");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SPEED_UPGRADE, "SPEED_UPGRADE");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CARD, "SHOPPING_CARD");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.AS_MANY_SCORE_BRIBES_AS_AFFORDABLE, "AS_MANY_SCORE_BRIBES_AS_AFFORDABLE");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_ALWAYS, "SHOPPING_CONDITION_ALWAYS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_500_CREDITS, "SHOPPING_CONDITION_MORE_THAN_500_CREDITS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_1000_CREDITS, "SHOPPING_CONDITION_MORE_THAN_1000_CREDITS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_2000_CREDITS, "SHOPPING_CONDITION_MORE_THAN_2000_CREDITS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_3000_CREDITS, "SHOPPING_CONDITION_MORE_THAN_3000_CREDITS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_4000_CREDITS, "SHOPPING_CONDITION_MORE_THAN_4000_CREDITS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_6000_CREDITS, "SHOPPING_CONDITION_MORE_THAN_6000_CREDITS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_8000_CREDITS, "SHOPPING_CONDITION_MORE_THAN_8000_CREDITS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_10000_CREDITS, "SHOPPING_CONDITION_MORE_THAN_10000_CREDITS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_15000_CREDITS, "SHOPPING_CONDITION_MORE_THAN_15000_CREDITS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_20000_CREDITS, "SHOPPING_CONDITION_MORE_THAN_20000_CREDITS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_5_PERCENT, "SHOPPING_CONDITION_5_PERCENT");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_10_PERCENT, "SHOPPING_CONDITION_10_PERCENT");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_25_PERCENT, "SHOPPING_CONDITION_25_PERCENT");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_50_PERCENT, "SHOPPING_CONDITION_50_PERCENT");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_75_PERCENT, "SHOPPING_CONDITION_75_PERCENT");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_25_ROUNDS_REMAINING, "SHOPPING_CONDITION_MORE_THAN_25_ROUNDS_REMAINING");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_50_ROUNDS_REMAINING, "SHOPPING_CONDITION_MORE_THAN_50_ROUNDS_REMAINING");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_100_ROUNDS_REMAINING, "SHOPPING_CONDITION_MORE_THAN_100_ROUNDS_REMAINING");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_150_ROUNDS_REMAINING, "SHOPPING_CONDITION_MORE_THAN_150_ROUNDS_REMAINING");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_3_ROUNDS_REMAINING, "SHOPPING_CONDITION_3_ROUNDS_REMAINING");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_6_ROUNDS_REMAINING, "SHOPPING_CONDITION_6_ROUNDS_REMAINING");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_9_ROUNDS_REMAINING, "SHOPPING_CONDITION_9_ROUNDS_REMAINING");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_12_ROUNDS_REMAINING, "SHOPPING_CONDITION_12_ROUNDS_REMAINING");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_15_ROUNDS_REMAINING, "SHOPPING_CONDITION_15_ROUNDS_REMAINING");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_18_ROUNDS_REMAINING, "SHOPPING_CONDITION_18_ROUNDS_REMAINING");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_1_EMPTY, "SHOPPING_CONDITION_PORT_1_EMPTY");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_2_EMPTY, "SHOPPING_CONDITION_PORT_2_EMPTY");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_3_EMPTY, "SHOPPING_CONDITION_PORT_3_EMPTY");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_4_EMPTY, "SHOPPING_CONDITION_PORT_4_EMPTY");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_5_EMPTY, "SHOPPING_CONDITION_PORT_5_EMPTY");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_6_EMPTY, "SHOPPING_CONDITION_PORT_6_EMPTY");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_1_BELOW_100_FIRE_UNITS, "SHOPPING_CONDITION_PORT_1_BELOW_100_FIRE_UNITS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_2_BELOW_100_FIRE_UNITS, "SHOPPING_CONDITION_PORT_2_BELOW_100_FIRE_UNITS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_3_BELOW_100_FIRE_UNITS, "SHOPPING_CONDITION_PORT_3_BELOW_100_FIRE_UNITS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_4_BELOW_100_FIRE_UNITS, "SHOPPING_CONDITION_PORT_4_BELOW_100_FIRE_UNITS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_5_BELOW_100_FIRE_UNITS, "SHOPPING_CONDITION_PORT_5_BELOW_100_FIRE_UNITS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_6_BELOW_100_FIRE_UNITS, "SHOPPING_CONDITION_PORT_6_BELOW_100_FIRE_UNITS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.NO_ACTION, "NO_ACTION");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_LEFT, "TURN_LEFT");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_LEFT_10_DEGREES, "TURN_LEFT_10_DEGREES");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_LEFT_90_DEGREES, "TURN_LEFT_90_DEGREES");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_LEFT_180_DEGREES, "TURN_LEFT_180_DEGREES");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_RIGHT, "TURN_RIGHT");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_RIGHT_10_DEGREES, "TURN_RIGHT_10_DEGREES");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_RIGHT_90_DEGREES, "TURN_RIGHT_90_DEGREES");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_RIGHT_180_DEGREES, "TURN_RIGHT_180_DEGREES");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SET_TARGET_AS_TANK_LAST_DETECTED_WITH_SENSOR, "SET_TARGET_AS_TANK_LAST_DETECTED_WITH_SENSOR");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SET_TARGET_AS_NEAREST_TANK, "SET_TARGET_AS_NEAREST_TANK");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SET_TARGET_AS_NEAREST_ENEMY_TANK_OR_JEWEL, "SET_TARGET_AS_NEAREST_ENEMY_TANK_OR_JEWEL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SET_TARGET_AS_ENEMY_JEWEL, "SET_TARGET_AS_ENEMY_JEWEL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SET_TARGET_AS_ENEMY_TANK_WITH_HIGHEST_SCORE, "SET_TARGET_AS_ENEMY_TANK_WITH_HIGHEST_SCORE");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SET_TARGET_AS_ENEMY_TANK_WITH_LOWEST_SCORE, "SET_TARGET_AS_ENEMY_TANK_WITH_LOWEST_SCORE");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SET_TARGET_AS_TANK_LAST_TAKEN_HIT_FROM, "SET_TARGET_AS_TANK_LAST_TAKEN_HIT_FROM");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.ROTATE_TO_CORRECT_DIRECTION_ALONG_SHORTEST_PATH_TO_TARGET, "ROTATE_TO_CORRECT_DIRECTION_ALONG_SHORTEST_PATH_TO_TARGET");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_TOWARDS_TARGET, "TURN_TOWARDS_TARGET");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOVE_FORWARDS, "MOVE_FORWARDS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOVE_BACKWARDS, "MOVE_BACKWARDS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SUPRESS_MOVEMENT_INSTRUCTIONS_FOR_1_SECOND, "SUPRESS_MOVEMENT_INSTRUCTIONS_FOR_1_SECOND");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SUPRESS_MOVEMENT_INSTRUCTIONS_FOR_2_SECONDS, "SUPRESS_MOVEMENT_INSTRUCTIONS_FOR_2_SECONDS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SUPRESS_MOVEMENT_INSTRUCTIONS_FOR_4_SECONDS, "SUPRESS_MOVEMENT_INSTRUCTIONS_FOR_4_SECONDS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SUPRESS_ROTATION_INSTRUCTIONS_FOR_1_SECOND, "SUPRESS_ROTATION_INSTRUCTIONS_FOR_1_SECOND");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SUPRESS_ROTATION_INSTRUCTIONS_FOR_2_SECONDS, "SUPRESS_ROTATION_INSTRUCTIONS_FOR_2_SECONDS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SUPRESS_ROTATION_INSTRUCTIONS_FOR_4_SECONDS, "SUPRESS_ROTATION_INSTRUCTIONS_FOR_4_SECONDS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.STOP_MOVING, "STOP_MOVING");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.STOP_ROTATING, "STOP_ROTATING");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOVE_RANDOM_DIRECTION, "MOVE_RANDOM_DIRECTION");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_RANDOM_DIRECTION, "TURN_RANDOM_DIRECTION");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.FIRE_STRATEGY_1, "FIRE_STRATEGY_1");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.FIRE_STRATEGY_2, "FIRE_STRATEGY_2");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.FIRE_STRATEGY_3, "FIRE_STRATEGY_3");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.FIRE_STRATEGY_4, "FIRE_STRATEGY_4");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.FIRE_STRATEGY_5, "FIRE_STRATEGY_5");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.FIRE_STRATEGY_6, "FIRE_STRATEGY_6");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.FIRE_STRATEGY_7, "FIRE_STRATEGY_7");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.FIRE_STRATEGY_8, "FIRE_STRATEGY_8");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.ROTATE_TURRET_TO_TARGET, "ROTATE_TURRET_TO_TARGET");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.POINT_TURRET_DIRECTLY_AT_TARGET, "POINT_TURRET_DIRECTLY_AT_TARGET");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_ON_SHIELD, "TURN_ON_SHIELD");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.ANY_CONDITION, "ANY_CONDITION");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.DESTINATION_TANK_WITHIN_2_TANK_LENGTHS, "DESTINATION_TANK_WITHIN_2_TANK_LENGTHS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.DESTINATION_TANK_OR_JEWEL_WITHIN_2_TANK_LENGTHS, "DESTINATION_TANK_OR_JEWEL_WITHIN_2_TANK_LENGTHS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.DESTINATION_TANK_OR_JEWEL_WITHIN_5_TANK_LENGTHS, "DESTINATION_TANK_OR_JEWEL_WITHIN_5_TANK_LENGTHS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.DESTINATION_TANK_OR_JEWEL_WITHIN_10_TANK_LENGTHS, "DESTINATION_TANK_OR_JEWEL_WITHIN_10_TANK_LENGTHS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.ENEMY_MISSILE_WITHIN_1_TANK_LENGTH, "ENEMY_MISSILE_WITHIN_1_TANK_LENGTH");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.ENEMY_MISSILE_WITHIN_2_TANK_LENGTHS, "ENEMY_MISSILE_WITHIN_2_TANK_LENGTHS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.ENEMY_MISSILE_WITHIN_3_TANK_LENGTHS, "ENEMY_MISSILE_WITHIN_3_TANK_LENGTHS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.ENEMY_MISSILE_WITHIN_4_TANK_LENGTHS, "ENEMY_MISSILE_WITHIN_4_TANK_LENGTHS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.PROBABILITY_OF_1_PERCENT, "PROBABILITY_OF_1_PERCENT");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.PROBABILITY_OF_2_PERCENT, "PROBABILITY_OF_2_PERCENT");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.PROBABILITY_OF_5_PERCENT, "PROBABILITY_OF_5_PERCENT");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.PROBABILITY_OF_10_PERCENT, "PROBABILITY_OF_10_PERCENT");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.PROBABILITY_OF_25_PERCENT, "PROBABILITY_OF_25_PERCENT");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.PROBABILITY_OF_50_PERCENT, "PROBABILITY_OF_50_PERCENT");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_1_DETECTING_TANK_OR_JEWEL, "SENSOR_1_DETECTING_TANK_OR_JEWEL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_2_DETECTING_TANK_OR_JEWEL, "SENSOR_2_DETECTING_TANK_OR_JEWEL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_3_DETECTING_TANK_OR_JEWEL, "SENSOR_3_DETECTING_TANK_OR_JEWEL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_4_DETECTING_TANK_OR_JEWEL, "SENSOR_4_DETECTING_TANK_OR_JEWEL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_5_DETECTING_TANK_OR_JEWEL, "SENSOR_5_DETECTING_TANK_OR_JEWEL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_6_DETECTING_TANK_OR_JEWEL, "SENSOR_6_DETECTING_TANK_OR_JEWEL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_7_DETECTING_TANK_OR_JEWEL, "SENSOR_7_DETECTING_TANK_OR_JEWEL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_8_DETECTING_TANK_OR_JEWEL, "SENSOR_8_DETECTING_TANK_OR_JEWEL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_9_DETECTING_TANK_OR_JEWEL, "SENSOR_9_DETECTING_TANK_OR_JEWEL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_10_DETECTING_TANK_OR_JEWEL, "SENSOR_10_DETECTING_TANK_OR_JEWEL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_11_DETECTING_TANK_OR_JEWEL, "SENSOR_11_DETECTING_TANK_OR_JEWEL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_12_DETECTING_TANK_OR_JEWEL, "SENSOR_12_DETECTING_TANK_OR_JEWEL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_13_DETECTING_TANK_OR_JEWEL, "SENSOR_13_DETECTING_TANK_OR_JEWEL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_14_DETECTING_TANK_OR_JEWEL, "SENSOR_14_DETECTING_TANK_OR_JEWEL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_15_DETECTING_TANK_OR_JEWEL, "SENSOR_15_DETECTING_TANK_OR_JEWEL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_16_DETECTING_TANK_OR_JEWEL, "SENSOR_16_DETECTING_TANK_OR_JEWEL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_1_DETECTING_WALL, "SENSOR_1_DETECTING_WALL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_2_DETECTING_WALL, "SENSOR_2_DETECTING_WALL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_3_DETECTING_WALL, "SENSOR_3_DETECTING_WALL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_4_DETECTING_WALL, "SENSOR_4_DETECTING_WALL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_5_DETECTING_WALL, "SENSOR_5_DETECTING_WALL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_6_DETECTING_WALL, "SENSOR_6_DETECTING_WALL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_7_DETECTING_WALL, "SENSOR_7_DETECTING_WALL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_8_DETECTING_WALL, "SENSOR_8_DETECTING_WALL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_9_DETECTING_WALL, "SENSOR_9_DETECTING_WALL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_10_DETECTING_WALL, "SENSOR_10_DETECTING_WALL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_11_DETECTING_WALL, "SENSOR_11_DETECTING_WALL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_12_DETECTING_WALL, "SENSOR_12_DETECTING_WALL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_13_DETECTING_WALL, "SENSOR_13_DETECTING_WALL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_14_DETECTING_WALL, "SENSOR_14_DETECTING_WALL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_15_DETECTING_WALL, "SENSOR_15_DETECTING_WALL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_16_DETECTING_WALL, "SENSOR_16_DETECTING_WALL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.ENEMY_TANK_OR_JEWEL_IN_LINE_OF_SIGHT_FROM_TURRET, "ENEMY_TANK_OR_JEWEL_IN_LINE_OF_SIGHT_FROM_TURRET");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.NO_ENEMY_TANK_OR_JEWEL_NEAR, "NO_ENEMY_TANK_OR_JEWEL_NEAR");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.WITHIN_OPTIMAL_ZONE_FOR_FIRING_AT_JEWEL, "WITHIN_OPTIMAL_ZONE_FOR_FIRING_AT_JEWEL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.NOT_WITHIN_OPTIMAL_ZONE_FOR_FIRING_AT_JEWEL, "NOT_WITHIN_OPTIMAL_ZONE_FOR_FIRING_AT_JEWEL");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.NO_PLAYER_MOVED_FORWARD_FOR_2_SECONDS, "NO_PLAYER_MOVED_FORWARD_FOR_2_SECONDS");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.ALL_ENEMIES_DESTROYED, "ALL_ENEMIES_DESTROYED");
+            RobotSpecification.variablestringRepresentations.set(RobotSpecification.AT_LEAST_ONE_ENEMY_ALIVE, "AT_LEAST_ONE_ENEMY_ALIVE");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.NONE, "NONE");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.STANDARD_MISSILE, "STANDARD_MISSILE");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.DOUBLE_MISSILE, "DOUBLE_MISSILE");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.TRIPLE_MISSILE, "TRIPLE_MISSILE");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.BEAM_LASER, "BEAM_LASER");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.POWER_LASER, "POWER_LASER");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.BLASTER, "BLASTER");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.GUIDE_BLASTER, "GUIDE_BLASTER");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.BLAST_GUIDER, "BLAST_GUIDER");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.NUKE_BLASTER, "NUKE_BLASTER");
+            //RobotSpecification.variablestringRepresentations.set(307, "GUIDE_BLASTER");
+            //RobotSpecification.variablestringRepresentations.set(308, "BLAST_GUIDER");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.BLAST_SWIRLER, "BLAST_SWIRLER");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.DEATH_BOMB, "DEATH_BOMB");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.NORMAL_BOMB, "NORMAL_BOMB");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.REAR_DOUBLE, "REAR_DOUBLE");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.REAR_TRIPLE, "REAR_TRIPLE");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.REAR_GUIDERS, "REAR_GUIDERS");
+            //RobotSpecification.variablestringRepresentations.set(313, "ELECTRO_BUDS");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.TELEPORT_FOE, "TELEPORT_FOE");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.TRI_BREAKER, "TRI_BREAKER");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.TRI_STRIKER, "TRI_STRIKER");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.QUINT_BREAKER, "QUINT_BREAKER");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.OCTO_BREAKER, "OCTO_BREAKER");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.GUIDED_MISSILE, "GUIDED_MISSILE");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.SPARK_FIENDS, "SPARK_FIENDS");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.SWIRLER, "SWIRLER");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.ELECTRO_BUDS, "ELECTRO_BUDS");
+            //RobotSpecification.variablestringRepresentations.set(324, "NORMAL_BOMB");
+            //RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.DEATH_BOMB, "DEATH_BOMB");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.GLOW_SHIELD, "GLOW_SHIELD");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.ECM_HACKER, "ECM_HACKER");
+            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.ECM_WIPER, "ECM_WIPER");
+        }
+
         filenameCode() {
             if (this.type === 4) {
                 return this.filename;
-            }
-            else {
+            } else {
                 switch (this.type) {
                     case 0:
                         return "[keyboard1]";
@@ -5230,9 +5413,11 @@ var dsector;
                 }
             }
         }
+
         isHuman() {
             return this.type !== RobotSpecification.ROBOT;
         }
+
         outputAsFile() {
             let fOutput = "";
             fOutput = fOutput + "name = " + this.name + "\n";
@@ -5683,10 +5868,11 @@ var dsector;
             fOutput = fOutput + "shoppingStrategyMaximumFireUnitsThatBePurchased = " + this.shoppingStrategyMaximumFireUnitsThatBePurchased + "\n";
             CWSYSTEM.CWFileTools.outputFile("assets/robots/" + this.filename, fOutput);
         }
+
         loadFromFile() {
             let hashTable = new CWSYSTEM.CWHashtable(this.filename);
             if (hashTable.hashMap === null) {
-                hashTable = robotAIcode.get(this.filename.substring(this.filename.lastIndexOf('/')+1,this.filename.length));
+                hashTable = robotAIcode.get(this.filename.substring(this.filename.lastIndexOf('/') + 1, this.filename.length));
             }
             this.name = this.getStringParameterValueFromFile(hashTable, "name");
             this.description = this.getStringParameterValueFromFile(hashTable, "description");
@@ -6135,6 +6321,7 @@ var dsector;
             this.shoppingStrategyMaximumFireUnitExpenseWhenWeaponBeingReplaced = this.getIntegerParameterValueFromFile(hashTable, "shoppingStrategyMaximumFireUnitExpenseWhenWeaponBeingReplaced");
             this.shoppingStrategyMaximumFireUnitsThatBePurchased = this.getIntegerParameterValueFromFile(hashTable, "shoppingStrategyMaximumFireUnitsThatBePurchased");
         }
+
         /** @private */ getStringParameterValueFromFile(hashtable, parameter) {
             let param = hashtable.get(parameter);
             if (param == null) {
@@ -6142,10 +6329,12 @@ var dsector;
             }
             return param;
         }
+
         /** @private */ getCodeParameterValueFromFile(hashMap, value) {
             const param = hashMap.get(value);
             return param == null ? RobotSpecification.UNDEFINED : this.getCodeFromStringRepresentation(param);
         }
+
         /** @private */ getIntegerParameterValueFromFile(hashtable, name) {
             const name1 = hashtable.get(name);
             let io = RobotSpecification.UNDEFINED;
@@ -6153,13 +6342,13 @@ var dsector;
                 (o2 === null || o2 === undefined || o2 === "" ? o2 : o2.toUpperCase()))(name1, "UNDEFINED")) {
                 try {
                     io = parseInt(name1);
-                }
-                catch (e) {
+                } catch (e) {
                     console.error(e.message, e);
                 }
             }
             return io;
         }
+
         stringRepresentation(iDNumber) {
             RobotSpecification.initializeVariableStringRepresentations();
             let io = RobotSpecification.variablestringRepresentations.get(iDNumber);
@@ -6182,197 +6371,12 @@ var dsector;
             return i;
         }
 
-        static initializeVariableStringRepresentations() {
-            if (RobotSpecification.variablestringRepresentations == null) {
-                RobotSpecification.variablestringRepresentations = new Map();
-            }
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_1, "MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_1");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_2, "MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_2");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_3, "MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_3");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_4, "MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_4");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_5, "MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_5");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_6, "MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_6");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_7, "MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_7");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_8, "MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_8");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOST_EXPENSIVE_TANK_WITHOUT_DOWNGRADING, "MOST_EXPENSIVE_TANK_WITHOUT_DOWNGRADING");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.FUEL_UPGRADE, "FUEL_UPGRADE");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.METAL_UPGRADE, "METAL_UPGRADE");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_UPGRADE, "TURN_UPGRADE");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SPEED_UPGRADE, "SPEED_UPGRADE");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CARD, "SHOPPING_CARD");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.AS_MANY_SCORE_BRIBES_AS_AFFORDABLE, "AS_MANY_SCORE_BRIBES_AS_AFFORDABLE");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_ALWAYS, "SHOPPING_CONDITION_ALWAYS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_500_CREDITS, "SHOPPING_CONDITION_MORE_THAN_500_CREDITS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_1000_CREDITS, "SHOPPING_CONDITION_MORE_THAN_1000_CREDITS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_2000_CREDITS, "SHOPPING_CONDITION_MORE_THAN_2000_CREDITS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_3000_CREDITS, "SHOPPING_CONDITION_MORE_THAN_3000_CREDITS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_4000_CREDITS, "SHOPPING_CONDITION_MORE_THAN_4000_CREDITS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_6000_CREDITS, "SHOPPING_CONDITION_MORE_THAN_6000_CREDITS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_8000_CREDITS, "SHOPPING_CONDITION_MORE_THAN_8000_CREDITS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_10000_CREDITS, "SHOPPING_CONDITION_MORE_THAN_10000_CREDITS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_15000_CREDITS, "SHOPPING_CONDITION_MORE_THAN_15000_CREDITS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_20000_CREDITS, "SHOPPING_CONDITION_MORE_THAN_20000_CREDITS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_5_PERCENT, "SHOPPING_CONDITION_5_PERCENT");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_10_PERCENT, "SHOPPING_CONDITION_10_PERCENT");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_25_PERCENT, "SHOPPING_CONDITION_25_PERCENT");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_50_PERCENT, "SHOPPING_CONDITION_50_PERCENT");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_75_PERCENT, "SHOPPING_CONDITION_75_PERCENT");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_25_ROUNDS_REMAINING, "SHOPPING_CONDITION_MORE_THAN_25_ROUNDS_REMAINING");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_50_ROUNDS_REMAINING, "SHOPPING_CONDITION_MORE_THAN_50_ROUNDS_REMAINING");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_100_ROUNDS_REMAINING, "SHOPPING_CONDITION_MORE_THAN_100_ROUNDS_REMAINING");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_MORE_THAN_150_ROUNDS_REMAINING, "SHOPPING_CONDITION_MORE_THAN_150_ROUNDS_REMAINING");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_3_ROUNDS_REMAINING, "SHOPPING_CONDITION_3_ROUNDS_REMAINING");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_6_ROUNDS_REMAINING, "SHOPPING_CONDITION_6_ROUNDS_REMAINING");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_9_ROUNDS_REMAINING, "SHOPPING_CONDITION_9_ROUNDS_REMAINING");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_12_ROUNDS_REMAINING, "SHOPPING_CONDITION_12_ROUNDS_REMAINING");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_15_ROUNDS_REMAINING, "SHOPPING_CONDITION_15_ROUNDS_REMAINING");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_18_ROUNDS_REMAINING, "SHOPPING_CONDITION_18_ROUNDS_REMAINING");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_1_EMPTY, "SHOPPING_CONDITION_PORT_1_EMPTY");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_2_EMPTY, "SHOPPING_CONDITION_PORT_2_EMPTY");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_3_EMPTY, "SHOPPING_CONDITION_PORT_3_EMPTY");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_4_EMPTY, "SHOPPING_CONDITION_PORT_4_EMPTY");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_5_EMPTY, "SHOPPING_CONDITION_PORT_5_EMPTY");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_6_EMPTY, "SHOPPING_CONDITION_PORT_6_EMPTY");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_1_BELOW_100_FIRE_UNITS, "SHOPPING_CONDITION_PORT_1_BELOW_100_FIRE_UNITS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_2_BELOW_100_FIRE_UNITS, "SHOPPING_CONDITION_PORT_2_BELOW_100_FIRE_UNITS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_3_BELOW_100_FIRE_UNITS, "SHOPPING_CONDITION_PORT_3_BELOW_100_FIRE_UNITS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_4_BELOW_100_FIRE_UNITS, "SHOPPING_CONDITION_PORT_4_BELOW_100_FIRE_UNITS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_5_BELOW_100_FIRE_UNITS, "SHOPPING_CONDITION_PORT_5_BELOW_100_FIRE_UNITS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SHOPPING_CONDITION_PORT_6_BELOW_100_FIRE_UNITS, "SHOPPING_CONDITION_PORT_6_BELOW_100_FIRE_UNITS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.NO_ACTION, "NO_ACTION");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_LEFT, "TURN_LEFT");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_LEFT_10_DEGREES, "TURN_LEFT_10_DEGREES");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_LEFT_90_DEGREES, "TURN_LEFT_90_DEGREES");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_LEFT_180_DEGREES, "TURN_LEFT_180_DEGREES");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_RIGHT, "TURN_RIGHT");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_RIGHT_10_DEGREES, "TURN_RIGHT_10_DEGREES");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_RIGHT_90_DEGREES, "TURN_RIGHT_90_DEGREES");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_RIGHT_180_DEGREES, "TURN_RIGHT_180_DEGREES");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SET_TARGET_AS_TANK_LAST_DETECTED_WITH_SENSOR, "SET_TARGET_AS_TANK_LAST_DETECTED_WITH_SENSOR");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SET_TARGET_AS_NEAREST_TANK, "SET_TARGET_AS_NEAREST_TANK");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SET_TARGET_AS_NEAREST_ENEMY_TANK_OR_JEWEL, "SET_TARGET_AS_NEAREST_ENEMY_TANK_OR_JEWEL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SET_TARGET_AS_ENEMY_JEWEL, "SET_TARGET_AS_ENEMY_JEWEL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SET_TARGET_AS_ENEMY_TANK_WITH_HIGHEST_SCORE, "SET_TARGET_AS_ENEMY_TANK_WITH_HIGHEST_SCORE");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SET_TARGET_AS_ENEMY_TANK_WITH_LOWEST_SCORE, "SET_TARGET_AS_ENEMY_TANK_WITH_LOWEST_SCORE");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SET_TARGET_AS_TANK_LAST_TAKEN_HIT_FROM, "SET_TARGET_AS_TANK_LAST_TAKEN_HIT_FROM");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.ROTATE_TO_CORRECT_DIRECTION_ALONG_SHORTEST_PATH_TO_TARGET, "ROTATE_TO_CORRECT_DIRECTION_ALONG_SHORTEST_PATH_TO_TARGET");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_TOWARDS_TARGET, "TURN_TOWARDS_TARGET");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOVE_FORWARDS, "MOVE_FORWARDS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOVE_BACKWARDS, "MOVE_BACKWARDS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SUPRESS_MOVEMENT_INSTRUCTIONS_FOR_1_SECOND, "SUPRESS_MOVEMENT_INSTRUCTIONS_FOR_1_SECOND");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SUPRESS_MOVEMENT_INSTRUCTIONS_FOR_2_SECONDS, "SUPRESS_MOVEMENT_INSTRUCTIONS_FOR_2_SECONDS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SUPRESS_MOVEMENT_INSTRUCTIONS_FOR_4_SECONDS, "SUPRESS_MOVEMENT_INSTRUCTIONS_FOR_4_SECONDS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SUPRESS_ROTATION_INSTRUCTIONS_FOR_1_SECOND, "SUPRESS_ROTATION_INSTRUCTIONS_FOR_1_SECOND");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SUPRESS_ROTATION_INSTRUCTIONS_FOR_2_SECONDS, "SUPRESS_ROTATION_INSTRUCTIONS_FOR_2_SECONDS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SUPRESS_ROTATION_INSTRUCTIONS_FOR_4_SECONDS, "SUPRESS_ROTATION_INSTRUCTIONS_FOR_4_SECONDS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.STOP_MOVING, "STOP_MOVING");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.STOP_ROTATING, "STOP_ROTATING");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.MOVE_RANDOM_DIRECTION, "MOVE_RANDOM_DIRECTION");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_RANDOM_DIRECTION, "TURN_RANDOM_DIRECTION");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.FIRE_STRATEGY_1, "FIRE_STRATEGY_1");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.FIRE_STRATEGY_2, "FIRE_STRATEGY_2");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.FIRE_STRATEGY_3, "FIRE_STRATEGY_3");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.FIRE_STRATEGY_4, "FIRE_STRATEGY_4");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.FIRE_STRATEGY_5, "FIRE_STRATEGY_5");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.FIRE_STRATEGY_6, "FIRE_STRATEGY_6");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.FIRE_STRATEGY_7, "FIRE_STRATEGY_7");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.FIRE_STRATEGY_8, "FIRE_STRATEGY_8");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.ROTATE_TURRET_TO_TARGET, "ROTATE_TURRET_TO_TARGET");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.POINT_TURRET_DIRECTLY_AT_TARGET, "POINT_TURRET_DIRECTLY_AT_TARGET");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.TURN_ON_SHIELD, "TURN_ON_SHIELD");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.ANY_CONDITION, "ANY_CONDITION");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.DESTINATION_TANK_WITHIN_2_TANK_LENGTHS, "DESTINATION_TANK_WITHIN_2_TANK_LENGTHS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.DESTINATION_TANK_OR_JEWEL_WITHIN_2_TANK_LENGTHS, "DESTINATION_TANK_OR_JEWEL_WITHIN_2_TANK_LENGTHS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.DESTINATION_TANK_OR_JEWEL_WITHIN_5_TANK_LENGTHS, "DESTINATION_TANK_OR_JEWEL_WITHIN_5_TANK_LENGTHS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.DESTINATION_TANK_OR_JEWEL_WITHIN_10_TANK_LENGTHS, "DESTINATION_TANK_OR_JEWEL_WITHIN_10_TANK_LENGTHS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.ENEMY_MISSILE_WITHIN_1_TANK_LENGTH, "ENEMY_MISSILE_WITHIN_1_TANK_LENGTH");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.ENEMY_MISSILE_WITHIN_2_TANK_LENGTHS, "ENEMY_MISSILE_WITHIN_2_TANK_LENGTHS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.ENEMY_MISSILE_WITHIN_3_TANK_LENGTHS, "ENEMY_MISSILE_WITHIN_3_TANK_LENGTHS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.ENEMY_MISSILE_WITHIN_4_TANK_LENGTHS, "ENEMY_MISSILE_WITHIN_4_TANK_LENGTHS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.PROBABILITY_OF_1_PERCENT, "PROBABILITY_OF_1_PERCENT");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.PROBABILITY_OF_2_PERCENT, "PROBABILITY_OF_2_PERCENT");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.PROBABILITY_OF_5_PERCENT, "PROBABILITY_OF_5_PERCENT");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.PROBABILITY_OF_10_PERCENT, "PROBABILITY_OF_10_PERCENT");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.PROBABILITY_OF_25_PERCENT, "PROBABILITY_OF_25_PERCENT");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.PROBABILITY_OF_50_PERCENT, "PROBABILITY_OF_50_PERCENT");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_1_DETECTING_TANK_OR_JEWEL, "SENSOR_1_DETECTING_TANK_OR_JEWEL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_2_DETECTING_TANK_OR_JEWEL, "SENSOR_2_DETECTING_TANK_OR_JEWEL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_3_DETECTING_TANK_OR_JEWEL, "SENSOR_3_DETECTING_TANK_OR_JEWEL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_4_DETECTING_TANK_OR_JEWEL, "SENSOR_4_DETECTING_TANK_OR_JEWEL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_5_DETECTING_TANK_OR_JEWEL, "SENSOR_5_DETECTING_TANK_OR_JEWEL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_6_DETECTING_TANK_OR_JEWEL, "SENSOR_6_DETECTING_TANK_OR_JEWEL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_7_DETECTING_TANK_OR_JEWEL, "SENSOR_7_DETECTING_TANK_OR_JEWEL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_8_DETECTING_TANK_OR_JEWEL, "SENSOR_8_DETECTING_TANK_OR_JEWEL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_9_DETECTING_TANK_OR_JEWEL, "SENSOR_9_DETECTING_TANK_OR_JEWEL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_10_DETECTING_TANK_OR_JEWEL, "SENSOR_10_DETECTING_TANK_OR_JEWEL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_11_DETECTING_TANK_OR_JEWEL, "SENSOR_11_DETECTING_TANK_OR_JEWEL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_12_DETECTING_TANK_OR_JEWEL, "SENSOR_12_DETECTING_TANK_OR_JEWEL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_13_DETECTING_TANK_OR_JEWEL, "SENSOR_13_DETECTING_TANK_OR_JEWEL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_14_DETECTING_TANK_OR_JEWEL, "SENSOR_14_DETECTING_TANK_OR_JEWEL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_15_DETECTING_TANK_OR_JEWEL, "SENSOR_15_DETECTING_TANK_OR_JEWEL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_16_DETECTING_TANK_OR_JEWEL, "SENSOR_16_DETECTING_TANK_OR_JEWEL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_1_DETECTING_WALL, "SENSOR_1_DETECTING_WALL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_2_DETECTING_WALL, "SENSOR_2_DETECTING_WALL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_3_DETECTING_WALL, "SENSOR_3_DETECTING_WALL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_4_DETECTING_WALL, "SENSOR_4_DETECTING_WALL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_5_DETECTING_WALL, "SENSOR_5_DETECTING_WALL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_6_DETECTING_WALL, "SENSOR_6_DETECTING_WALL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_7_DETECTING_WALL, "SENSOR_7_DETECTING_WALL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_8_DETECTING_WALL, "SENSOR_8_DETECTING_WALL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_9_DETECTING_WALL, "SENSOR_9_DETECTING_WALL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_10_DETECTING_WALL, "SENSOR_10_DETECTING_WALL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_11_DETECTING_WALL, "SENSOR_11_DETECTING_WALL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_12_DETECTING_WALL, "SENSOR_12_DETECTING_WALL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_13_DETECTING_WALL, "SENSOR_13_DETECTING_WALL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_14_DETECTING_WALL, "SENSOR_14_DETECTING_WALL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_15_DETECTING_WALL, "SENSOR_15_DETECTING_WALL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.SENSOR_16_DETECTING_WALL, "SENSOR_16_DETECTING_WALL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.ENEMY_TANK_OR_JEWEL_IN_LINE_OF_SIGHT_FROM_TURRET, "ENEMY_TANK_OR_JEWEL_IN_LINE_OF_SIGHT_FROM_TURRET");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.NO_ENEMY_TANK_OR_JEWEL_NEAR, "NO_ENEMY_TANK_OR_JEWEL_NEAR");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.WITHIN_OPTIMAL_ZONE_FOR_FIRING_AT_JEWEL, "WITHIN_OPTIMAL_ZONE_FOR_FIRING_AT_JEWEL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.NOT_WITHIN_OPTIMAL_ZONE_FOR_FIRING_AT_JEWEL, "NOT_WITHIN_OPTIMAL_ZONE_FOR_FIRING_AT_JEWEL");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.NO_PLAYER_MOVED_FORWARD_FOR_2_SECONDS, "NO_PLAYER_MOVED_FORWARD_FOR_2_SECONDS");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.ALL_ENEMIES_DESTROYED, "ALL_ENEMIES_DESTROYED");
-            RobotSpecification.variablestringRepresentations.set(RobotSpecification.AT_LEAST_ONE_ENEMY_ALIVE, "AT_LEAST_ONE_ENEMY_ALIVE");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.NONE, "NONE");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.STANDARD_MISSILE, "STANDARD_MISSILE");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.DOUBLE_MISSILE, "DOUBLE_MISSILE");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.TRIPLE_MISSILE, "TRIPLE_MISSILE");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.BEAM_LASER, "BEAM_LASER");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.POWER_LASER, "POWER_LASER");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.BLASTER, "BLASTER");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.GUIDE_BLASTER, "GUIDE_BLASTER");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.BLAST_GUIDER, "BLAST_GUIDER");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.NUKE_BLASTER, "NUKE_BLASTER");
-            //RobotSpecification.variablestringRepresentations.set(307, "GUIDE_BLASTER");
-            //RobotSpecification.variablestringRepresentations.set(308, "BLAST_GUIDER");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.BLAST_SWIRLER, "BLAST_SWIRLER");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.DEATH_BOMB, "DEATH_BOMB");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.NORMAL_BOMB, "NORMAL_BOMB");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.REAR_DOUBLE, "REAR_DOUBLE");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.REAR_TRIPLE, "REAR_TRIPLE");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.REAR_GUIDERS, "REAR_GUIDERS");
-            //RobotSpecification.variablestringRepresentations.set(313, "ELECTRO_BUDS");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.TELEPORT_FOE, "TELEPORT_FOE");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.TRI_BREAKER, "TRI_BREAKER");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.TRI_STRIKER, "TRI_STRIKER");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.QUINT_BREAKER, "QUINT_BREAKER");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.OCTO_BREAKER, "OCTO_BREAKER");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.GUIDED_MISSILE, "GUIDED_MISSILE");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.SPARK_FIENDS, "SPARK_FIENDS");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.SWIRLER, "SWIRLER");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.ELECTRO_BUDS, "ELECTRO_BUDS");
-            //RobotSpecification.variablestringRepresentations.set(324, "NORMAL_BOMB");
-            //RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.DEATH_BOMB, "DEATH_BOMB");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.GLOW_SHIELD, "GLOW_SHIELD");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.ECM_HACKER, "ECM_HACKER");
-            RobotSpecification.variablestringRepresentations.set(dsector.PreBuiltWeaponSpecifications.ECM_WIPER, "ECM_WIPER");
-        }
         performAI(player) {
             this.respondToClocks(player);
             this.respondToSensors(player);
             player.brain.respondToGameTick();
         }
+
         /** @private */ respondToClocks(player) {
             const time = CWSYSTEM.Environment.currentTime();
             if (time - this.timeOfLastClock1Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.clock1Period)) {
@@ -6456,6 +6460,7 @@ var dsector;
                 }
             }
         }
+
         /** @private */ respondToSensors(player) {
             const time = CWSYSTEM.Environment.currentTime();
             let value;
@@ -6468,14 +6473,12 @@ var dsector;
                             this.performAction(player, this.sensor1ResponseToWall1);
                             this.performAction(player, this.sensor1ResponseToWall2);
                             this.performAction(player, this.sensor1ResponseToWall3);
-                        }
-                        else if (value === dsector.DSecBrain.MISSILE) {
+                        } else if (value === dsector.DSecBrain.MISSILE) {
                             this.performAction(player, this.sensor1ResponseToMissile1);
                             this.performAction(player, this.sensor1ResponseToMissile2);
                             this.performAction(player, this.sensor1ResponseToMissile3);
                         }
-                    }
-                    else {
+                    } else {
                         this.performAction(player, this.sensor1ResponseToTank1);
                         this.performAction(player, this.sensor1ResponseToTank2);
                         this.performAction(player, this.sensor1ResponseToTank3);
@@ -6491,14 +6494,12 @@ var dsector;
                             this.performAction(player, this.sensor2ResponseToWall1);
                             this.performAction(player, this.sensor2ResponseToWall2);
                             this.performAction(player, this.sensor2ResponseToWall3);
-                        }
-                        else if (value === dsector.DSecBrain.MISSILE) {
+                        } else if (value === dsector.DSecBrain.MISSILE) {
                             this.performAction(player, this.sensor2ResponseToMissile1);
                             this.performAction(player, this.sensor2ResponseToMissile2);
                             this.performAction(player, this.sensor2ResponseToMissile3);
                         }
-                    }
-                    else {
+                    } else {
                         this.performAction(player, this.sensor2ResponseToTank1);
                         this.performAction(player, this.sensor2ResponseToTank2);
                         this.performAction(player, this.sensor2ResponseToTank3);
@@ -6514,14 +6515,12 @@ var dsector;
                             this.performAction(player, this.sensor3ResponseToWall1);
                             this.performAction(player, this.sensor3ResponseToWall2);
                             this.performAction(player, this.sensor3ResponseToWall3);
-                        }
-                        else if (value === dsector.DSecBrain.MISSILE) {
+                        } else if (value === dsector.DSecBrain.MISSILE) {
                             this.performAction(player, this.sensor3ResponseToMissile1);
                             this.performAction(player, this.sensor3ResponseToMissile2);
                             this.performAction(player, this.sensor3ResponseToMissile3);
                         }
-                    }
-                    else {
+                    } else {
                         this.performAction(player, this.sensor3ResponseToTank1);
                         this.performAction(player, this.sensor3ResponseToTank2);
                         this.performAction(player, this.sensor3ResponseToTank3);
@@ -6537,14 +6536,12 @@ var dsector;
                             this.performAction(player, this.sensor4ResponseToWall1);
                             this.performAction(player, this.sensor4ResponseToWall2);
                             this.performAction(player, this.sensor4ResponseToWall3);
-                        }
-                        else if (value === dsector.DSecBrain.MISSILE) {
+                        } else if (value === dsector.DSecBrain.MISSILE) {
                             this.performAction(player, this.sensor4ResponseToMissile1);
                             this.performAction(player, this.sensor4ResponseToMissile2);
                             this.performAction(player, this.sensor4ResponseToMissile3);
                         }
-                    }
-                    else {
+                    } else {
                         this.performAction(player, this.sensor4ResponseToTank1);
                         this.performAction(player, this.sensor4ResponseToTank2);
                         this.performAction(player, this.sensor4ResponseToTank3);
@@ -6560,14 +6557,12 @@ var dsector;
                             this.performAction(player, this.sensor5ResponseToWall1);
                             this.performAction(player, this.sensor5ResponseToWall2);
                             this.performAction(player, this.sensor5ResponseToWall3);
-                        }
-                        else if (value === dsector.DSecBrain.MISSILE) {
+                        } else if (value === dsector.DSecBrain.MISSILE) {
                             this.performAction(player, this.sensor5ResponseToMissile1);
                             this.performAction(player, this.sensor5ResponseToMissile2);
                             this.performAction(player, this.sensor5ResponseToMissile3);
                         }
-                    }
-                    else {
+                    } else {
                         this.performAction(player, this.sensor5ResponseToTank1);
                         this.performAction(player, this.sensor5ResponseToTank2);
                         this.performAction(player, this.sensor5ResponseToTank3);
@@ -6583,14 +6578,12 @@ var dsector;
                             this.performAction(player, this.sensor6ResponseToWall1);
                             this.performAction(player, this.sensor6ResponseToWall2);
                             this.performAction(player, this.sensor6ResponseToWall3);
-                        }
-                        else if (value === dsector.DSecBrain.MISSILE) {
+                        } else if (value === dsector.DSecBrain.MISSILE) {
                             this.performAction(player, this.sensor6ResponseToMissile1);
                             this.performAction(player, this.sensor6ResponseToMissile2);
                             this.performAction(player, this.sensor6ResponseToMissile3);
                         }
-                    }
-                    else {
+                    } else {
                         this.performAction(player, this.sensor6ResponseToTank1);
                         this.performAction(player, this.sensor6ResponseToTank2);
                         this.performAction(player, this.sensor6ResponseToTank3);
@@ -6606,14 +6599,12 @@ var dsector;
                             this.performAction(player, this.sensor7ResponseToWall1);
                             this.performAction(player, this.sensor7ResponseToWall2);
                             this.performAction(player, this.sensor7ResponseToWall3);
-                        }
-                        else if (value === dsector.DSecBrain.MISSILE) {
+                        } else if (value === dsector.DSecBrain.MISSILE) {
                             this.performAction(player, this.sensor7ResponseToMissile1);
                             this.performAction(player, this.sensor7ResponseToMissile2);
                             this.performAction(player, this.sensor7ResponseToMissile3);
                         }
-                    }
-                    else {
+                    } else {
                         this.performAction(player, this.sensor7ResponseToTank1);
                         this.performAction(player, this.sensor7ResponseToTank2);
                         this.performAction(player, this.sensor7ResponseToTank3);
@@ -6629,14 +6620,12 @@ var dsector;
                             this.performAction(player, this.sensor8ResponseToWall1);
                             this.performAction(player, this.sensor8ResponseToWall2);
                             this.performAction(player, this.sensor8ResponseToWall3);
-                        }
-                        else if (value === dsector.DSecBrain.MISSILE) {
+                        } else if (value === dsector.DSecBrain.MISSILE) {
                             this.performAction(player, this.sensor8ResponseToMissile1);
                             this.performAction(player, this.sensor8ResponseToMissile2);
                             this.performAction(player, this.sensor8ResponseToMissile3);
                         }
-                    }
-                    else {
+                    } else {
                         this.performAction(player, this.sensor8ResponseToTank1);
                         this.performAction(player, this.sensor8ResponseToTank2);
                         this.performAction(player, this.sensor8ResponseToTank3);
@@ -6652,14 +6641,12 @@ var dsector;
                             this.performAction(player, this.sensor9ResponseToWall1);
                             this.performAction(player, this.sensor9ResponseToWall2);
                             this.performAction(player, this.sensor9ResponseToWall3);
-                        }
-                        else if (value === dsector.DSecBrain.MISSILE) {
+                        } else if (value === dsector.DSecBrain.MISSILE) {
                             this.performAction(player, this.sensor9ResponseToMissile1);
                             this.performAction(player, this.sensor9ResponseToMissile2);
                             this.performAction(player, this.sensor9ResponseToMissile3);
                         }
-                    }
-                    else {
+                    } else {
                         this.performAction(player, this.sensor9ResponseToTank1);
                         this.performAction(player, this.sensor9ResponseToTank2);
                         this.performAction(player, this.sensor9ResponseToTank3);
@@ -6675,14 +6662,12 @@ var dsector;
                             this.performAction(player, this.sensor10ResponseToWall1);
                             this.performAction(player, this.sensor10ResponseToWall2);
                             this.performAction(player, this.sensor10ResponseToWall3);
-                        }
-                        else if (value === dsector.DSecBrain.MISSILE) {
+                        } else if (value === dsector.DSecBrain.MISSILE) {
                             this.performAction(player, this.sensor10ResponseToMissile1);
                             this.performAction(player, this.sensor10ResponseToMissile2);
                             this.performAction(player, this.sensor10ResponseToMissile3);
                         }
-                    }
-                    else {
+                    } else {
                         this.performAction(player, this.sensor10ResponseToTank1);
                         this.performAction(player, this.sensor10ResponseToTank2);
                         this.performAction(player, this.sensor10ResponseToTank3);
@@ -6698,14 +6683,12 @@ var dsector;
                             this.performAction(player, this.sensor11ResponseToWall1);
                             this.performAction(player, this.sensor11ResponseToWall2);
                             this.performAction(player, this.sensor11ResponseToWall3);
-                        }
-                        else if (value === dsector.DSecBrain.MISSILE) {
+                        } else if (value === dsector.DSecBrain.MISSILE) {
                             this.performAction(player, this.sensor11ResponseToMissile1);
                             this.performAction(player, this.sensor11ResponseToMissile2);
                             this.performAction(player, this.sensor11ResponseToMissile3);
                         }
-                    }
-                    else {
+                    } else {
                         this.performAction(player, this.sensor11ResponseToTank1);
                         this.performAction(player, this.sensor11ResponseToTank2);
                         this.performAction(player, this.sensor11ResponseToTank3);
@@ -6721,14 +6704,12 @@ var dsector;
                             this.performAction(player, this.sensor12ResponseToWall1);
                             this.performAction(player, this.sensor12ResponseToWall2);
                             this.performAction(player, this.sensor12ResponseToWall3);
-                        }
-                        else if (value === dsector.DSecBrain.MISSILE) {
+                        } else if (value === dsector.DSecBrain.MISSILE) {
                             this.performAction(player, this.sensor12ResponseToMissile1);
                             this.performAction(player, this.sensor12ResponseToMissile2);
                             this.performAction(player, this.sensor12ResponseToMissile3);
                         }
-                    }
-                    else {
+                    } else {
                         this.performAction(player, this.sensor12ResponseToTank1);
                         this.performAction(player, this.sensor12ResponseToTank2);
                         this.performAction(player, this.sensor12ResponseToTank3);
@@ -6744,14 +6725,12 @@ var dsector;
                             this.performAction(player, this.sensor13ResponseToWall1);
                             this.performAction(player, this.sensor13ResponseToWall2);
                             this.performAction(player, this.sensor13ResponseToWall3);
-                        }
-                        else if (value === dsector.DSecBrain.MISSILE) {
+                        } else if (value === dsector.DSecBrain.MISSILE) {
                             this.performAction(player, this.sensor13ResponseToMissile1);
                             this.performAction(player, this.sensor13ResponseToMissile2);
                             this.performAction(player, this.sensor13ResponseToMissile3);
                         }
-                    }
-                    else {
+                    } else {
                         this.performAction(player, this.sensor13ResponseToTank1);
                         this.performAction(player, this.sensor13ResponseToTank2);
                         this.performAction(player, this.sensor13ResponseToTank3);
@@ -6767,14 +6746,12 @@ var dsector;
                             this.performAction(player, this.sensor14ResponseToWall1);
                             this.performAction(player, this.sensor14ResponseToWall2);
                             this.performAction(player, this.sensor14ResponseToWall3);
-                        }
-                        else if (value === dsector.DSecBrain.MISSILE) {
+                        } else if (value === dsector.DSecBrain.MISSILE) {
                             this.performAction(player, this.sensor14ResponseToMissile1);
                             this.performAction(player, this.sensor14ResponseToMissile2);
                             this.performAction(player, this.sensor14ResponseToMissile3);
                         }
-                    }
-                    else {
+                    } else {
                         this.performAction(player, this.sensor14ResponseToTank1);
                         this.performAction(player, this.sensor14ResponseToTank2);
                         this.performAction(player, this.sensor14ResponseToTank3);
@@ -6790,14 +6767,12 @@ var dsector;
                             this.performAction(player, this.sensor15ResponseToWall1);
                             this.performAction(player, this.sensor15ResponseToWall2);
                             this.performAction(player, this.sensor15ResponseToWall3);
-                        }
-                        else if (value === dsector.DSecBrain.MISSILE) {
+                        } else if (value === dsector.DSecBrain.MISSILE) {
                             this.performAction(player, this.sensor15ResponseToMissile1);
                             this.performAction(player, this.sensor15ResponseToMissile2);
                             this.performAction(player, this.sensor15ResponseToMissile3);
                         }
-                    }
-                    else {
+                    } else {
                         this.performAction(player, this.sensor15ResponseToTank1);
                         this.performAction(player, this.sensor15ResponseToTank2);
                         this.performAction(player, this.sensor15ResponseToTank3);
@@ -6813,14 +6788,12 @@ var dsector;
                             this.performAction(player, this.sensor16ResponseToWall1);
                             this.performAction(player, this.sensor16ResponseToWall2);
                             this.performAction(player, this.sensor16ResponseToWall3);
-                        }
-                        else if (value === dsector.DSecBrain.MISSILE) {
+                        } else if (value === dsector.DSecBrain.MISSILE) {
                             this.performAction(player, this.sensor16ResponseToMissile1);
                             this.performAction(player, this.sensor16ResponseToMissile2);
                             this.performAction(player, this.sensor16ResponseToMissile3);
                         }
-                    }
-                    else {
+                    } else {
                         this.performAction(player, this.sensor16ResponseToTank1);
                         this.performAction(player, this.sensor16ResponseToTank2);
                         this.performAction(player, this.sensor16ResponseToTank3);
@@ -6828,237 +6801,325 @@ var dsector;
                 }
             }
         }
+
         acceptProbability(number) {
             return ((Math.random() * 100.0) | 0) < number;
         }
+
         /** @private */ passRequirement(player, mode) {
             const brain = player.brain;
             let option;
             switch ((mode)) {
-                case 167 /* ANY_CONDITION */:
+                case 167 /* ANY_CONDITION */
+                :
                     return true;
-                case 168 /* DESTINATION_TANK_WITHIN_2_TANK_LENGTHS */:
+                case 168 /* DESTINATION_TANK_WITHIN_2_TANK_LENGTHS */
+                :
                     return brain.destinationTankWithin(Math.fround(dsector.DSecBrain.tankLength * 2.0));
-                case 169 /* DESTINATION_TANK_OR_JEWEL_WITHIN_2_TANK_LENGTHS */:
+                case 169 /* DESTINATION_TANK_OR_JEWEL_WITHIN_2_TANK_LENGTHS */
+                :
                     return brain.destinationTankOrJewelWithin(Math.fround(dsector.DSecBrain.tankLength * 2.0));
-                case 170 /* DESTINATION_TANK_OR_JEWEL_WITHIN_5_TANK_LENGTHS */:
+                case 170 /* DESTINATION_TANK_OR_JEWEL_WITHIN_5_TANK_LENGTHS */
+                :
                     return brain.destinationTankOrJewelWithin(Math.fround(dsector.DSecBrain.tankLength * 5.0));
-                case 171 /* DESTINATION_TANK_OR_JEWEL_WITHIN_10_TANK_LENGTHS */:
+                case 171 /* DESTINATION_TANK_OR_JEWEL_WITHIN_10_TANK_LENGTHS */
+                :
                     return brain.destinationTankOrJewelWithin(Math.fround(dsector.DSecBrain.tankLength * 10.0));
-                case 172 /* ENEMY_MISSILE_WITHIN_1_TANK_LENGTH */:
+                case 172 /* ENEMY_MISSILE_WITHIN_1_TANK_LENGTH */
+                :
                     return brain.enemyMissileWithin(Math.fround(dsector.DSecBrain.tankLength * 1.5), 3.0);
-                case 173 /* ENEMY_MISSILE_WITHIN_2_TANK_LENGTHS */:
+                case 173 /* ENEMY_MISSILE_WITHIN_2_TANK_LENGTHS */
+                :
                     return brain.enemyMissileWithin(Math.fround(dsector.DSecBrain.tankLength * 2.0), 5.0);
-                case 174 /* ENEMY_MISSILE_WITHIN_3_TANK_LENGTHS */:
+                case 174 /* ENEMY_MISSILE_WITHIN_3_TANK_LENGTHS */
+                :
                     return brain.enemyMissileWithin(Math.fround(dsector.DSecBrain.tankLength * 3.0), 3.0);
-                case 175 /* ENEMY_MISSILE_WITHIN_4_TANK_LENGTHS */:
+                case 175 /* ENEMY_MISSILE_WITHIN_4_TANK_LENGTHS */
+                :
                     return brain.enemyMissileWithin(Math.fround(dsector.DSecBrain.tankLength * 4.0), 3.0);
-                case 176 /* PROBABILITY_OF_1_PERCENT */:
+                case 176 /* PROBABILITY_OF_1_PERCENT */
+                :
                     return this.acceptProbability(1);
-                case 177 /* PROBABILITY_OF_2_PERCENT */:
+                case 177 /* PROBABILITY_OF_2_PERCENT */
+                :
                     return this.acceptProbability(2);
-                case 178 /* PROBABILITY_OF_5_PERCENT */:
+                case 178 /* PROBABILITY_OF_5_PERCENT */
+                :
                     return this.acceptProbability(5);
-                case 179 /* PROBABILITY_OF_10_PERCENT */:
+                case 179 /* PROBABILITY_OF_10_PERCENT */
+                :
                     return this.acceptProbability(10);
-                case 180 /* PROBABILITY_OF_25_PERCENT */:
+                case 180 /* PROBABILITY_OF_25_PERCENT */
+                :
                     return this.acceptProbability(25);
-                case 181 /* PROBABILITY_OF_50_PERCENT */:
+                case 181 /* PROBABILITY_OF_50_PERCENT */
+                :
                     return this.acceptProbability(50);
-                case 182 /* SENSOR_1_DETECTING_TANK_OR_JEWEL */:
+                case 182 /* SENSOR_1_DETECTING_TANK_OR_JEWEL */
+                :
                     option = player.brain.sensorResponse(1);
                     return option === dsector.DSecBrain.TANK || option === dsector.DSecBrain.JEWEL;
-                case 183 /* SENSOR_2_DETECTING_TANK_OR_JEWEL */:
+                case 183 /* SENSOR_2_DETECTING_TANK_OR_JEWEL */
+                :
                     option = player.brain.sensorResponse(2);
                     return option === dsector.DSecBrain.TANK || option === dsector.DSecBrain.JEWEL;
-                case 184 /* SENSOR_3_DETECTING_TANK_OR_JEWEL */:
+                case 184 /* SENSOR_3_DETECTING_TANK_OR_JEWEL */
+                :
                     option = player.brain.sensorResponse(3);
                     return option === dsector.DSecBrain.TANK || option === dsector.DSecBrain.JEWEL;
-                case 185 /* SENSOR_4_DETECTING_TANK_OR_JEWEL */:
+                case 185 /* SENSOR_4_DETECTING_TANK_OR_JEWEL */
+                :
                     option = player.brain.sensorResponse(4);
                     return option === dsector.DSecBrain.TANK || option === dsector.DSecBrain.JEWEL;
-                case 186 /* SENSOR_5_DETECTING_TANK_OR_JEWEL */:
+                case 186 /* SENSOR_5_DETECTING_TANK_OR_JEWEL */
+                :
                     option = player.brain.sensorResponse(5);
                     return option === dsector.DSecBrain.TANK || option === dsector.DSecBrain.JEWEL;
-                case 187 /* SENSOR_6_DETECTING_TANK_OR_JEWEL */:
+                case 187 /* SENSOR_6_DETECTING_TANK_OR_JEWEL */
+                :
                     option = player.brain.sensorResponse(6);
                     return option === dsector.DSecBrain.TANK || option === dsector.DSecBrain.JEWEL;
-                case 188 /* SENSOR_7_DETECTING_TANK_OR_JEWEL */:
+                case 188 /* SENSOR_7_DETECTING_TANK_OR_JEWEL */
+                :
                     option = player.brain.sensorResponse(7);
                     return option === dsector.DSecBrain.TANK || option === dsector.DSecBrain.JEWEL;
-                case 189 /* SENSOR_8_DETECTING_TANK_OR_JEWEL */:
+                case 189 /* SENSOR_8_DETECTING_TANK_OR_JEWEL */
+                :
                     option = player.brain.sensorResponse(8);
                     return option === dsector.DSecBrain.TANK || option === dsector.DSecBrain.JEWEL;
-                case 190 /* SENSOR_9_DETECTING_TANK_OR_JEWEL */:
+                case 190 /* SENSOR_9_DETECTING_TANK_OR_JEWEL */
+                :
                     option = player.brain.sensorResponse(9);
                     return option === dsector.DSecBrain.TANK || option === dsector.DSecBrain.JEWEL;
-                case 191 /* SENSOR_10_DETECTING_TANK_OR_JEWEL */:
+                case 191 /* SENSOR_10_DETECTING_TANK_OR_JEWEL */
+                :
                     option = player.brain.sensorResponse(10);
                     return option === dsector.DSecBrain.TANK || option === dsector.DSecBrain.JEWEL;
-                case 192 /* SENSOR_11_DETECTING_TANK_OR_JEWEL */:
+                case 192 /* SENSOR_11_DETECTING_TANK_OR_JEWEL */
+                :
                     option = player.brain.sensorResponse(11);
                     return option === dsector.DSecBrain.TANK || option === dsector.DSecBrain.JEWEL;
-                case 193 /* SENSOR_12_DETECTING_TANK_OR_JEWEL */:
+                case 193 /* SENSOR_12_DETECTING_TANK_OR_JEWEL */
+                :
                     option = player.brain.sensorResponse(12);
                     return option === dsector.DSecBrain.TANK || option === dsector.DSecBrain.JEWEL;
-                case 194 /* SENSOR_13_DETECTING_TANK_OR_JEWEL */:
+                case 194 /* SENSOR_13_DETECTING_TANK_OR_JEWEL */
+                :
                     option = player.brain.sensorResponse(13);
                     return option === dsector.DSecBrain.TANK || option === dsector.DSecBrain.JEWEL;
-                case 195 /* SENSOR_14_DETECTING_TANK_OR_JEWEL */:
+                case 195 /* SENSOR_14_DETECTING_TANK_OR_JEWEL */
+                :
                     option = player.brain.sensorResponse(14);
                     return option === dsector.DSecBrain.TANK || option === dsector.DSecBrain.JEWEL;
-                case 196 /* SENSOR_15_DETECTING_TANK_OR_JEWEL */:
+                case 196 /* SENSOR_15_DETECTING_TANK_OR_JEWEL */
+                :
                     option = player.brain.sensorResponse(15);
                     return option === dsector.DSecBrain.TANK || option === dsector.DSecBrain.JEWEL;
-                case 197 /* SENSOR_16_DETECTING_TANK_OR_JEWEL */:
+                case 197 /* SENSOR_16_DETECTING_TANK_OR_JEWEL */
+                :
                     option = player.brain.sensorResponse(16);
                     return option === dsector.DSecBrain.TANK || option === dsector.DSecBrain.JEWEL;
-                case 199 /* NO_ENEMY_TANK_OR_JEWEL_NEAR */:
+                case 199 /* NO_ENEMY_TANK_OR_JEWEL_NEAR */
+                :
                     return brain.noEnemyTankOrJewelWithin(Math.fround(dsector.DSecBrain.tankLength * 2.0));
-                case 200 /* WITHIN_OPTIMAL_ZONE_FOR_FIRING_AT_JEWEL */:
+                case 200 /* WITHIN_OPTIMAL_ZONE_FOR_FIRING_AT_JEWEL */
+                :
                     return player.brain.withinOptimalZoneForFiringAtJewel();
-                case 201 /* NOT_WITHIN_OPTIMAL_ZONE_FOR_FIRING_AT_JEWEL */:
+                case 201 /* NOT_WITHIN_OPTIMAL_ZONE_FOR_FIRING_AT_JEWEL */
+                :
                     return !player.brain.withinOptimalZoneForFiringAtJewel();
-                case 202 /* SENSOR_1_DETECTING_WALL */:
+                case 202 /* SENSOR_1_DETECTING_WALL */
+                :
                     return player.brain.sensorResponse(1) === dsector.DSecBrain.WALL;
-                case 203 /* SENSOR_2_DETECTING_WALL */:
+                case 203 /* SENSOR_2_DETECTING_WALL */
+                :
                     return player.brain.sensorResponse(2) === dsector.DSecBrain.WALL;
-                case 204 /* SENSOR_3_DETECTING_WALL */:
+                case 204 /* SENSOR_3_DETECTING_WALL */
+                :
                     return player.brain.sensorResponse(3) === dsector.DSecBrain.WALL;
-                case 205 /* SENSOR_4_DETECTING_WALL */:
+                case 205 /* SENSOR_4_DETECTING_WALL */
+                :
                     return player.brain.sensorResponse(4) === dsector.DSecBrain.WALL;
-                case 206 /* SENSOR_5_DETECTING_WALL */:
+                case 206 /* SENSOR_5_DETECTING_WALL */
+                :
                     return player.brain.sensorResponse(5) === dsector.DSecBrain.WALL;
-                case 207 /* SENSOR_6_DETECTING_WALL */:
+                case 207 /* SENSOR_6_DETECTING_WALL */
+                :
                     return player.brain.sensorResponse(6) === dsector.DSecBrain.WALL;
-                case 208 /* SENSOR_7_DETECTING_WALL */:
+                case 208 /* SENSOR_7_DETECTING_WALL */
+                :
                     return player.brain.sensorResponse(7) === dsector.DSecBrain.WALL;
-                case 209 /* SENSOR_8_DETECTING_WALL */:
+                case 209 /* SENSOR_8_DETECTING_WALL */
+                :
                     return player.brain.sensorResponse(8) === dsector.DSecBrain.WALL;
-                case 210 /* SENSOR_9_DETECTING_WALL */:
+                case 210 /* SENSOR_9_DETECTING_WALL */
+                :
                     return player.brain.sensorResponse(9) === dsector.DSecBrain.WALL;
-                case 211 /* SENSOR_10_DETECTING_WALL */:
+                case 211 /* SENSOR_10_DETECTING_WALL */
+                :
                     return player.brain.sensorResponse(10) === dsector.DSecBrain.WALL;
-                case 212 /* SENSOR_11_DETECTING_WALL */:
+                case 212 /* SENSOR_11_DETECTING_WALL */
+                :
                     return player.brain.sensorResponse(11) === dsector.DSecBrain.WALL;
-                case 213 /* SENSOR_12_DETECTING_WALL */:
+                case 213 /* SENSOR_12_DETECTING_WALL */
+                :
                     return player.brain.sensorResponse(12) === dsector.DSecBrain.WALL;
-                case 214 /* SENSOR_13_DETECTING_WALL */:
+                case 214 /* SENSOR_13_DETECTING_WALL */
+                :
                     return player.brain.sensorResponse(13) === dsector.DSecBrain.WALL;
-                case 215 /* SENSOR_14_DETECTING_WALL */:
+                case 215 /* SENSOR_14_DETECTING_WALL */
+                :
                     return player.brain.sensorResponse(14) === dsector.DSecBrain.WALL;
-                case 216 /* SENSOR_15_DETECTING_WALL */:
+                case 216 /* SENSOR_15_DETECTING_WALL */
+                :
                     return player.brain.sensorResponse(15) === dsector.DSecBrain.WALL;
-                case 217 /* SENSOR_16_DETECTING_WALL */:
+                case 217 /* SENSOR_16_DETECTING_WALL */
+                :
                     return player.brain.sensorResponse(16) === dsector.DSecBrain.WALL;
-                case 218 /* NO_PLAYER_MOVED_FORWARD_FOR_2_SECONDS */:
+                case 218 /* NO_PLAYER_MOVED_FORWARD_FOR_2_SECONDS */
+                :
                     return player.brain.noPlayerHasMovedSince(CWSYSTEM.Environment.currentTime() - 3000);
-                case 219 /* ALL_ENEMIES_DESTROYED */:
+                case 219 /* ALL_ENEMIES_DESTROYED */
+                :
                     return player.brain.numberOfEnemiesAlive() === RobotSpecification.FALSE;
-                case 220 /* AT_LEAST_ONE_ENEMY_ALIVE */:
+                case 220 /* AT_LEAST_ONE_ENEMY_ALIVE */
+                :
                     return player.brain.numberOfEnemiesAlive() > 0;
-                case 198 /* ENEMY_TANK_OR_JEWEL_IN_LINE_OF_SIGHT_FROM_TURRET */:
+                case 198 /* ENEMY_TANK_OR_JEWEL_IN_LINE_OF_SIGHT_FROM_TURRET */
+                :
                 default:
                     return false;
             }
         }
+
         /** @private */ performAction(player, state) {
             switch ((state)) {
-                case 100 /* NO_ACTION */:
-                case 112 /* SET_TARGET_AS_ENEMY_JEWEL */:
-                case 116 /* ROTATE_TO_CORRECT_DIRECTION_ALONG_SHORTEST_PATH_TO_TARGET */:
-                case 138 /* ROTATE_TURRET_TO_TARGET */:
-                case 139 /* POINT_TURRET_DIRECTLY_AT_TARGET */:
+                case 100 /* NO_ACTION */
+                :
+                case 112 /* SET_TARGET_AS_ENEMY_JEWEL */
+                :
+                case 116 /* ROTATE_TO_CORRECT_DIRECTION_ALONG_SHORTEST_PATH_TO_TARGET */
+                :
+                case 138 /* ROTATE_TURRET_TO_TARGET */
+                :
+                case 139 /* POINT_TURRET_DIRECTLY_AT_TARGET */
+                :
                 default:
                     break;
-                case 101 /* TURN_LEFT */:
+                case 101 /* TURN_LEFT */
+                :
                     player.acceptInstruction(dsector.DSecPlayer.TURN_CLOCKWISE);
                     break;
-                case 102 /* TURN_LEFT_10_DEGREES */:
+                case 102 /* TURN_LEFT_10_DEGREES */
+                :
                     player.brain.turnLeftForGivenRadians(0.17453294);
                     break;
-                case 103 /* TURN_LEFT_90_DEGREES */:
+                case 103 /* TURN_LEFT_90_DEGREES */
+                :
                     player.brain.turnLeftForGivenRadians(1.5707964);
                     break;
-                case 104 /* TURN_LEFT_180_DEGREES */:
+                case 104 /* TURN_LEFT_180_DEGREES */
+                :
                     player.brain.turnLeftForGivenRadians(3.1415927);
                     break;
-                case 105 /* TURN_RIGHT */:
+                case 105 /* TURN_RIGHT */
+                :
                     player.acceptInstruction(dsector.DSecPlayer.TURN_ANTICLOCKWISE);
                     break;
-                case 106 /* TURN_RIGHT_10_DEGREES */:
+                case 106 /* TURN_RIGHT_10_DEGREES */
+                :
                     player.brain.turnRightForGivenRadians(0.17453294);
                     break;
-                case 107 /* TURN_RIGHT_90_DEGREES */:
+                case 107 /* TURN_RIGHT_90_DEGREES */
+                :
                     player.brain.turnRightForGivenRadians(1.5707964);
                     break;
-                case 108 /* TURN_RIGHT_180_DEGREES */:
+                case 108 /* TURN_RIGHT_180_DEGREES */
+                :
                     player.brain.turnRightForGivenRadians(3.1415927);
                     break;
-                case 109 /* SET_TARGET_AS_TANK_LAST_DETECTED_WITH_SENSOR */:
+                case 109 /* SET_TARGET_AS_TANK_LAST_DETECTED_WITH_SENSOR */
+                :
                     player.brain.setTargetAsTankLastDetectedWithSensor();
                     break;
-                case 110 /* SET_TARGET_AS_NEAREST_TANK */:
+                case 110 /* SET_TARGET_AS_NEAREST_TANK */
+                :
                     player.brain.setTargetAsNearestEnemyTank();
                     break;
-                case 111 /* SET_TARGET_AS_NEAREST_ENEMY_TANK_OR_JEWEL */:
+                case 111 /* SET_TARGET_AS_NEAREST_ENEMY_TANK_OR_JEWEL */
+                :
                     player.brain.setTargetAsNearestEnemyTankOrJewel();
                     break;
-                case 113 /* SET_TARGET_AS_ENEMY_TANK_WITH_HIGHEST_SCORE */:
+                case 113 /* SET_TARGET_AS_ENEMY_TANK_WITH_HIGHEST_SCORE */
+                :
                     player.brain.setTargetAsTankWithHighestScore();
                     break;
-                case 114 /* SET_TARGET_AS_ENEMY_TANK_WITH_LOWEST_SCORE */:
+                case 114 /* SET_TARGET_AS_ENEMY_TANK_WITH_LOWEST_SCORE */
+                :
                     player.brain.setTargetAsTankWithLowestScore();
                     break;
-                case 115 /* SET_TARGET_AS_TANK_LAST_TAKEN_HIT_FROM */:
+                case 115 /* SET_TARGET_AS_TANK_LAST_TAKEN_HIT_FROM */
+                :
                     player.brain.setTargetAsTankLastTakenHitFrom();
                     break;
-                case 117 /* TURN_TOWARDS_TARGET */:
+                case 117 /* TURN_TOWARDS_TARGET */
+                :
                     player.brain.turnTowardsTarget();
                     break;
-                case 118 /* MOVE_FORWARDS */:
+                case 118 /* MOVE_FORWARDS */
+                :
                     player.acceptInstruction(dsector.DSecPlayer.MOVE_FORWARDS);
                     break;
-                case 119 /* MOVE_BACKWARDS */:
+                case 119 /* MOVE_BACKWARDS */
+                :
                     player.acceptInstruction(dsector.DSecPlayer.MOVE_BACKWARDS);
                     break;
-                case 120 /* SUPRESS_MOVEMENT_INSTRUCTIONS_FOR_1_SECOND */:
+                case 120 /* SUPRESS_MOVEMENT_INSTRUCTIONS_FOR_1_SECOND */
+                :
                     player.preventInstructionForMilliseconds(0, 1000);
                     player.preventInstructionForMilliseconds(1, 1000);
                     player.preventInstructionForMilliseconds(2, 1000);
                     break;
-                case 121 /* SUPRESS_MOVEMENT_INSTRUCTIONS_FOR_2_SECONDS */:
+                case 121 /* SUPRESS_MOVEMENT_INSTRUCTIONS_FOR_2_SECONDS */
+                :
                     player.preventInstructionForMilliseconds(0, 2000);
                     player.preventInstructionForMilliseconds(1, 2000);
                     player.preventInstructionForMilliseconds(2, 2000);
                     break;
-                case 122 /* SUPRESS_MOVEMENT_INSTRUCTIONS_FOR_4_SECONDS */:
+                case 122 /* SUPRESS_MOVEMENT_INSTRUCTIONS_FOR_4_SECONDS */
+                :
                     player.preventInstructionForMilliseconds(0, 4000);
                     player.preventInstructionForMilliseconds(1, 4000);
                     player.preventInstructionForMilliseconds(2, 4000);
                     break;
-                case 123 /* SUPRESS_ROTATION_INSTRUCTIONS_FOR_1_SECOND */:
+                case 123 /* SUPRESS_ROTATION_INSTRUCTIONS_FOR_1_SECOND */
+                :
                     player.preventInstructionForMilliseconds(3, 1000);
                     player.preventInstructionForMilliseconds(4, 1000);
                     player.preventInstructionForMilliseconds(5, 1000);
                     break;
-                case 124 /* SUPRESS_ROTATION_INSTRUCTIONS_FOR_2_SECONDS */:
+                case 124 /* SUPRESS_ROTATION_INSTRUCTIONS_FOR_2_SECONDS */
+                :
                     player.preventInstructionForMilliseconds(3, 2000);
                     player.preventInstructionForMilliseconds(4, 2000);
                     player.preventInstructionForMilliseconds(5, 2000);
                     break;
-                case 125 /* SUPRESS_ROTATION_INSTRUCTIONS_FOR_4_SECONDS */:
+                case 125 /* SUPRESS_ROTATION_INSTRUCTIONS_FOR_4_SECONDS */
+                :
                     player.preventInstructionForMilliseconds(3, 4000);
                     player.preventInstructionForMilliseconds(4, 4000);
                     player.preventInstructionForMilliseconds(5, 4000);
                     break;
-                case 126 /* STOP_MOVING */:
+                case 126 /* STOP_MOVING */
+                :
                     player.acceptInstruction(dsector.DSecPlayer.STOP_MOVING);
                     break;
-                case 127 /* STOP_ROTATING */:
+                case 127 /* STOP_ROTATING */
+                :
                     player.acceptInstruction(dsector.DSecPlayer.STOP_TURNING);
                     break;
-                case 128 /* MOVE_RANDOM_DIRECTION */:
+                case 128 /* MOVE_RANDOM_DIRECTION */
+                :
                     switch (((Math.random() * 3.0) | 0)) {
                         case 0:
                             player.acceptInstruction(dsector.DSecPlayer.MOVE_FORWARDS);
@@ -7072,7 +7133,8 @@ var dsector;
                         default:
                             return;
                     }
-                case 129 /* TURN_RANDOM_DIRECTION */:
+                case 129 /* TURN_RANDOM_DIRECTION */
+                :
                     switch ((((Math.random() * 3.0) | 0))) {
                         case 0:
                             player.brain.turnLeftForGivenRadians(1.2217306);
@@ -7087,275 +7149,269 @@ var dsector;
                         default:
                             return;
                     }
-                case 130 /* FIRE_STRATEGY_1 */:
+                case 130 /* FIRE_STRATEGY_1 */
+                :
                     this.fireWeaponStrategy1(player);
                     break;
-                case 131 /* FIRE_STRATEGY_2 */:
+                case 131 /* FIRE_STRATEGY_2 */
+                :
                     this.fireWeaponStrategy2(player);
                     break;
-                case 132 /* FIRE_STRATEGY_3 */:
+                case 132 /* FIRE_STRATEGY_3 */
+                :
                     this.fireWeaponStrategy3(player);
                     break;
-                case 133 /* FIRE_STRATEGY_4 */:
+                case 133 /* FIRE_STRATEGY_4 */
+                :
                     this.fireWeaponStrategy4(player);
                     break;
-                case 134 /* FIRE_STRATEGY_5 */:
+                case 134 /* FIRE_STRATEGY_5 */
+                :
                     this.fireWeaponStrategy5(player);
                     break;
-                case 135 /* FIRE_STRATEGY_6 */:
+                case 135 /* FIRE_STRATEGY_6 */
+                :
                     this.fireWeaponStrategy6(player);
                     break;
-                case 136 /* FIRE_STRATEGY_7 */:
+                case 136 /* FIRE_STRATEGY_7 */
+                :
                     this.fireWeaponStrategy7(player);
                     break;
-                case 137 /* FIRE_STRATEGY_8 */:
+                case 137 /* FIRE_STRATEGY_8 */
+                :
                     this.fireWeaponStrategy8(player);
                     break;
-                case 140 /* TURN_ON_SHIELD */:
+                case 140 /* TURN_ON_SHIELD */
+                :
                     player.brain.attemptToTurnShieldOn();
             }
         }
+
         fireWeaponStrategy1(player) {
             let strat = RobotSpecification.UNDEFINED;
             for (let i = 0; i < 5; ++i) {
-                {
-                    switch ((i)) {
-                        case 0:
-                            strat = this.weaponStrategyFavourite1;
-                            break;
-                        case 1:
-                            strat = this.weaponStrategySecondFavourite1;
-                            break;
-                        case 2:
-                            strat = this.weaponStrategyThirdFavourite1;
-                            break;
-                        case 3:
-                            strat = this.weaponStrategyFourthFavourite1;
-                            break;
-                        case 4:
-                            strat = this.weaponStrategyFifthFavourite1;
-                    }
-                    const portName = player.getPortNumberFromWeaponSpecificationID(strat);
-                    if (portName !== RobotSpecification.UNDEFINED && player.hasWeaponInPort(portName)) {
-                        player.selectPort(portName);
-                        player.acceptInstruction(dsector.DSecPlayer.FIRE_WEAPON);
-                        return;
-                    }
+                switch ((i)) {
+                    case 0:
+                        strat = this.weaponStrategyFavourite1;
+                        break;
+                    case 1:
+                        strat = this.weaponStrategySecondFavourite1;
+                        break;
+                    case 2:
+                        strat = this.weaponStrategyThirdFavourite1;
+                        break;
+                    case 3:
+                        strat = this.weaponStrategyFourthFavourite1;
+                        break;
+                    case 4:
+                        strat = this.weaponStrategyFifthFavourite1;
                 }
-                ;
+                const portName = player.getPortNumberFromWeaponSpecificationID(strat);
+                if (portName !== RobotSpecification.UNDEFINED && player.hasWeaponInPort(portName)) {
+                    player.selectPort(portName);
+                    player.acceptInstruction(dsector.DSecPlayer.FIRE_WEAPON);
+                    return;
+                }
             }
         }
+
         fireWeaponStrategy2(player) {
             let strat = RobotSpecification.UNDEFINED;
             for (let i = 0; i < 5; ++i) {
-                {
-                    switch ((i)) {
-                        case 0:
-                            strat = this.weaponStrategyFavourite2;
-                            break;
-                        case 1:
-                            strat = this.weaponStrategySecondFavourite2;
-                            break;
-                        case 2:
-                            strat = this.weaponStrategyThirdFavourite2;
-                            break;
-                        case 3:
-                            strat = this.weaponStrategyFourthFavourite2;
-                            break;
-                        case 4:
-                            strat = this.weaponStrategyFifthFavourite2;
-                    }
-                    const portNumber = player.getPortNumberFromWeaponSpecificationID(strat);
-                    if (portNumber !== RobotSpecification.UNDEFINED && player.hasWeaponInPort(portNumber)) {
-                        player.selectPort(portNumber);
-                        player.acceptInstruction(dsector.DSecPlayer.FIRE_WEAPON);
-                        return;
-                    }
+                switch (i) {
+                    case 0:
+                        strat = this.weaponStrategyFavourite2;
+                        break;
+                    case 1:
+                        strat = this.weaponStrategySecondFavourite2;
+                        break;
+                    case 2:
+                        strat = this.weaponStrategyThirdFavourite2;
+                        break;
+                    case 3:
+                        strat = this.weaponStrategyFourthFavourite2;
+                        break;
+                    case 4:
+                        strat = this.weaponStrategyFifthFavourite2;
                 }
-                ;
+                const portNumber = player.getPortNumberFromWeaponSpecificationID(strat);
+                if (portNumber !== RobotSpecification.UNDEFINED && player.hasWeaponInPort(portNumber)) {
+                    player.selectPort(portNumber);
+                    player.acceptInstruction(dsector.DSecPlayer.FIRE_WEAPON);
+                    return;
+                }
             }
         }
+
         fireWeaponStrategy3(player) {
             let strategy = RobotSpecification.UNDEFINED;
             for (let i = 0; i < 5; ++i) {
-                {
-                    switch ((i)) {
-                        case 0:
-                            strategy = this.weaponStrategyFavourite3;
-                            break;
-                        case 1:
-                            strategy = this.weaponStrategySecondFavourite3;
-                            break;
-                        case 2:
-                            strategy = this.weaponStrategyThirdFavourite3;
-                            break;
-                        case 3:
-                            strategy = this.weaponStrategyFourthFavourite3;
-                            break;
-                        case 4:
-                            strategy = this.weaponStrategyFifthFavourite3;
-                    }
-                    const portName = player.getPortNumberFromWeaponSpecificationID(strategy);
-                    if (portName !== RobotSpecification.UNDEFINED && player.hasWeaponInPort(portName)) {
-                        player.selectPort(portName);
-                        player.acceptInstruction(dsector.DSecPlayer.FIRE_WEAPON);
-                        return;
-                    }
+                switch ((i)) {
+                    case 0:
+                        strategy = this.weaponStrategyFavourite3;
+                        break;
+                    case 1:
+                        strategy = this.weaponStrategySecondFavourite3;
+                        break;
+                    case 2:
+                        strategy = this.weaponStrategyThirdFavourite3;
+                        break;
+                    case 3:
+                        strategy = this.weaponStrategyFourthFavourite3;
+                        break;
+                    case 4:
+                        strategy = this.weaponStrategyFifthFavourite3;
                 }
-                ;
+                const portName = player.getPortNumberFromWeaponSpecificationID(strategy);
+                if (portName !== RobotSpecification.UNDEFINED && player.hasWeaponInPort(portName)) {
+                    player.selectPort(portName);
+                    player.acceptInstruction(dsector.DSecPlayer.FIRE_WEAPON);
+                    return;
+                }
             }
         }
+
         fireWeaponStrategy4(player) {
             let strategy = RobotSpecification.UNDEFINED;
             for (let i = 0; i < 5; ++i) {
-                {
-                    switch ((i)) {
-                        case 0:
-                            strategy = this.weaponStrategyFavourite4;
-                            break;
-                        case 1:
-                            strategy = this.weaponStrategySecondFavourite4;
-                            break;
-                        case 2:
-                            strategy = this.weaponStrategyThirdFavourite4;
-                            break;
-                        case 3:
-                            strategy = this.weaponStrategyFourthFavourite4;
-                            break;
-                        case 4:
-                            strategy = this.weaponStrategyFifthFavourite4;
-                    }
-                    const portNum = player.getPortNumberFromWeaponSpecificationID(strategy);
-                    if (portNum !== RobotSpecification.UNDEFINED && player.hasWeaponInPort(portNum)) {
-                        player.selectPort(portNum);
-                        player.acceptInstruction(dsector.DSecPlayer.FIRE_WEAPON);
-                        return;
-                    }
+                switch ((i)) {
+                    case 0:
+                        strategy = this.weaponStrategyFavourite4;
+                        break;
+                    case 1:
+                        strategy = this.weaponStrategySecondFavourite4;
+                        break;
+                    case 2:
+                        strategy = this.weaponStrategyThirdFavourite4;
+                        break;
+                    case 3:
+                        strategy = this.weaponStrategyFourthFavourite4;
+                        break;
+                    case 4:
+                        strategy = this.weaponStrategyFifthFavourite4;
                 }
-                ;
+                const portNum = player.getPortNumberFromWeaponSpecificationID(strategy);
+                if (portNum !== RobotSpecification.UNDEFINED && player.hasWeaponInPort(portNum)) {
+                    player.selectPort(portNum);
+                    player.acceptInstruction(dsector.DSecPlayer.FIRE_WEAPON);
+                    return;
+                }
             }
         }
+
         fireWeaponStrategy5(player) {
             let strategy = RobotSpecification.UNDEFINED;
             for (let i = 0; i < 5; ++i) {
-                {
-                    switch ((i)) {
-                        case 0:
-                            strategy = this.weaponStrategyFavourite5;
-                            break;
-                        case 1:
-                            strategy = this.weaponStrategySecondFavourite5;
-                            break;
-                        case 2:
-                            strategy = this.weaponStrategyThirdFavourite5;
-                            break;
-                        case 3:
-                            strategy = this.weaponStrategyFourthFavourite5;
-                            break;
-                        case 4:
-                            strategy = this.weaponStrategyFifthFavourite5;
-                    }
-                    const port = player.getPortNumberFromWeaponSpecificationID(strategy);
-                    if (port !== RobotSpecification.UNDEFINED && player.hasWeaponInPort(port)) {
-                        player.selectPort(port);
-                        player.acceptInstruction(dsector.DSecPlayer.FIRE_WEAPON);
-                        return;
-                    }
+                switch ((i)) {
+                    case 0:
+                        strategy = this.weaponStrategyFavourite5;
+                        break;
+                    case 1:
+                        strategy = this.weaponStrategySecondFavourite5;
+                        break;
+                    case 2:
+                        strategy = this.weaponStrategyThirdFavourite5;
+                        break;
+                    case 3:
+                        strategy = this.weaponStrategyFourthFavourite5;
+                        break;
+                    case 4:
+                        strategy = this.weaponStrategyFifthFavourite5;
                 }
-                ;
+                const port = player.getPortNumberFromWeaponSpecificationID(strategy);
+                if (port !== RobotSpecification.UNDEFINED && player.hasWeaponInPort(port)) {
+                    player.selectPort(port);
+                    player.acceptInstruction(dsector.DSecPlayer.FIRE_WEAPON);
+                    return;
+                }
             }
         }
+
         fireWeaponStrategy6(player) {
             let strategy = RobotSpecification.UNDEFINED;
             for (let i = 0; i < 5; ++i) {
-                {
-                    switch ((i)) {
-                        case 0:
-                            strategy = this.weaponStrategyFavourite6;
-                            break;
-                        case 1:
-                            strategy = this.weaponStrategySecondFavourite6;
-                            break;
-                        case 2:
-                            strategy = this.weaponStrategyThirdFavourite6;
-                            break;
-                        case 3:
-                            strategy = this.weaponStrategyFourthFavourite6;
-                            break;
-                        case 4:
-                            strategy = this.weaponStrategyFifthFavourite6;
-                    }
-                    const port = player.getPortNumberFromWeaponSpecificationID(strategy);
-                    if (port !== RobotSpecification.UNDEFINED && player.hasWeaponInPort(port)) {
-                        player.selectPort(port);
-                        player.acceptInstruction(dsector.DSecPlayer.FIRE_WEAPON);
-                        return;
-                    }
+                switch ((i)) {
+                    case 0:
+                        strategy = this.weaponStrategyFavourite6;
+                        break;
+                    case 1:
+                        strategy = this.weaponStrategySecondFavourite6;
+                        break;
+                    case 2:
+                        strategy = this.weaponStrategyThirdFavourite6;
+                        break;
+                    case 3:
+                        strategy = this.weaponStrategyFourthFavourite6;
+                        break;
+                    case 4:
+                        strategy = this.weaponStrategyFifthFavourite6;
                 }
-                ;
+                const port = player.getPortNumberFromWeaponSpecificationID(strategy);
+                if (port !== RobotSpecification.UNDEFINED && player.hasWeaponInPort(port)) {
+                    player.selectPort(port);
+                    player.acceptInstruction(dsector.DSecPlayer.FIRE_WEAPON);
+                    return;
+                }
             }
         }
+
         fireWeaponStrategy7(player) {
             let strategy = RobotSpecification.UNDEFINED;
             for (let i = 0; i < 5; ++i) {
-                {
-                    switch ((i)) {
-                        case 0:
-                            strategy = this.weaponStrategyFavourite7;
-                            break;
-                        case 1:
-                            strategy = this.weaponStrategySecondFavourite7;
-                            break;
-                        case 2:
-                            strategy = this.weaponStrategyThirdFavourite7;
-                            break;
-                        case 3:
-                            strategy = this.weaponStrategyFourthFavourite7;
-                            break;
-                        case 4:
-                            strategy = this.weaponStrategyFifthFavourite7;
-                    }
-                    const port = player.getPortNumberFromWeaponSpecificationID(strategy);
-                    if (port !== RobotSpecification.UNDEFINED && player.hasWeaponInPort(port)) {
-                        player.selectPort(port);
-                        player.acceptInstruction(dsector.DSecPlayer.FIRE_WEAPON);
-                        return;
-                    }
+                switch ((i)) {
+                    case 0:
+                        strategy = this.weaponStrategyFavourite7;
+                        break;
+                    case 1:
+                        strategy = this.weaponStrategySecondFavourite7;
+                        break;
+                    case 2:
+                        strategy = this.weaponStrategyThirdFavourite7;
+                        break;
+                    case 3:
+                        strategy = this.weaponStrategyFourthFavourite7;
+                        break;
+                    case 4:
+                        strategy = this.weaponStrategyFifthFavourite7;
                 }
-                ;
+                const port = player.getPortNumberFromWeaponSpecificationID(strategy);
+                if (port !== RobotSpecification.UNDEFINED && player.hasWeaponInPort(port)) {
+                    player.selectPort(port);
+                    player.acceptInstruction(dsector.DSecPlayer.FIRE_WEAPON);
+                    return;
+                }
             }
         }
+
         fireWeaponStrategy8(player) {
             let strategy = RobotSpecification.UNDEFINED;
             for (let i = 0; i < 5; ++i) {
-                {
-                    switch ((i)) {
-                        case 0:
-                            strategy = this.weaponStrategyFavourite8;
-                            break;
-                        case 1:
-                            strategy = this.weaponStrategySecondFavourite8;
-                            break;
-                        case 2:
-                            strategy = this.weaponStrategyThirdFavourite8;
-                            break;
-                        case 3:
-                            strategy = this.weaponStrategyFourthFavourite8;
-                            break;
-                        case 4:
-                            strategy = this.weaponStrategyFifthFavourite8;
-                    }
-                    const port = player.getPortNumberFromWeaponSpecificationID(strategy);
-                    if (port !== RobotSpecification.UNDEFINED && player.hasWeaponInPort(port)) {
-                        player.selectPort(port);
-                        player.acceptInstruction(dsector.DSecPlayer.FIRE_WEAPON);
-                        return;
-                    }
+                switch ((i)) {
+                    case 0:
+                        strategy = this.weaponStrategyFavourite8;
+                        break;
+                    case 1:
+                        strategy = this.weaponStrategySecondFavourite8;
+                        break;
+                    case 2:
+                        strategy = this.weaponStrategyThirdFavourite8;
+                        break;
+                    case 3:
+                        strategy = this.weaponStrategyFourthFavourite8;
+                        break;
+                    case 4:
+                        strategy = this.weaponStrategyFifthFavourite8;
                 }
-                ;
+                const port = player.getPortNumberFromWeaponSpecificationID(strategy);
+                if (port !== RobotSpecification.UNDEFINED && player.hasWeaponInPort(port)) {
+                    player.selectPort(port);
+                    player.acceptInstruction(dsector.DSecPlayer.FIRE_WEAPON);
+                    return;
+                }
             }
         }
     }
+
     RobotSpecification.KEYBOARD1 = 0;
     RobotSpecification.KEYBOARD2 = 1;
     RobotSpecification.KEYBOARD3 = 2;

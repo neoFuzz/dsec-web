@@ -31,7 +31,7 @@ var CWSYSTEM;
             if (clip !== null) {
                 clip.loop = false;
                 clip.play();
-                this.cachedAudioClips.set(fileName,clip);// + "_" + status, clip);
+                this.cachedAudioClips.set(fileName, clip);// + "_" + status, clip);
                 this.lastSoundPlayed = fileName;
             } else {
                 clip.loop = false;

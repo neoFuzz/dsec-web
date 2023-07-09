@@ -1,4 +1,3 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var dsector;
 (function (dsector) {
     class DSecLoadGameWindow {
@@ -9,9 +8,11 @@ var dsector;
             this.selectedFilename = null;
             this.savedX = -1;
             this.savedY = -1;
+            this.savedGamesList = ([]);
         }
 
         isCreated() {
+            let i = this.getSavedGameFilenames();
             return this.window != null;
         }
 
@@ -23,8 +24,10 @@ var dsector;
             }
         }
 
-        create() {
+        async create() {
             dsector.DSReference.dsecSaveGameWindow.destroy();
+            this.savedGamesList = ([]);
+            const i = await this.getSavedGameFilenames();
             this.drawWindow();
             this.restorePosition();
         }
@@ -72,10 +75,10 @@ var dsector;
             this.window.addTextBlock("", "Load Game", 10, 30, font, colour, 999);
             const list = ([]);
             list.push(new dsector.StringPair("- Select - ", ""));
-            const savedGames = this.getSavedGameFilenames();
+            const savedGames = this.savedGamesList;
             let count = 0;
             let saveName;
-            for (let i = 0; i < /* size */ savedGames.length; ++i) {
+            for (let i = 0; i < savedGames.length; ++i) {
                 saveName = savedGames[i];
                 list.push(new dsector.StringPair(saveName, saveName));
                 if (((o1, o2) => o1.toUpperCase() === (o2 === null ? o2 :
@@ -83,7 +86,7 @@ var dsector;
                     count = i + 1;
                 }
             }
-            const pulldown = this.window.addPulldown("dzoneFilename", list, 100, 6, 295, 16);
+            const pulldown = this.window.addPulldown("dsectorFilename", list, 100, 6, 295, 16);
             pulldown.selectedOption = count;
             pulldown.objectContainingPulldownChangedMethod = this;
             saveName = null;
@@ -104,8 +107,8 @@ var dsector;
             this.selectedFilename = pulldown.selectedValue();
         }
 
-        getSavedGameFilenames() {
-            const list = ([]);
+        async getSavedGameFilenames() {
+            let list = ([]);
             let url = null;
             let urlPath = null;
             try {
@@ -121,6 +124,16 @@ var dsector;
                     "Attempting to create File directly from user.dir=\'" + userDir +
                     "\' property. Notes: url=" + urlPath + ", urlContext=" + url);
             }
+            let dbList;
+            await indexedDB.databases().then(r => {
+                dbList = r;
+            });
+            dbList.forEach(db => {
+                if (CWSYSTEM.CWStringTools.findIgnoreCase$Str$Str(db.name, ".sav") !== -1) {
+                    list.push(db.name);
+                    this.savedGamesList.push(db.name);
+                }
+            });
             return list;
         }
 
@@ -133,9 +146,11 @@ var dsector;
             this.update();
         }
 
-        loadGameFileSelected() {
+        async loadGameFileSelected() {
             if (this.selectedFilename != null) {
-                const hashMap = new CWSYSTEM.CWHashtable(this.selectedFilename);
+                const fd = new CWSYSTEM.CWHashtable(this.selectedFilename);
+                await fd.readHashtableFromFile();
+                const hashMap = fd.hashMap;
                 if (hashMap != null) {
                     let playerCount;
                     try {

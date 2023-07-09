@@ -28,6 +28,7 @@ var dsector;
             DSReference.dsecTitlePage = new dsector.DSecTitlePage();
         }
     }
+
     DSReference.dsMain = null;
     DSReference.scene = null;
     DSReference.renderer = null;

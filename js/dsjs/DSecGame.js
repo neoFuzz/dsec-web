@@ -1,4 +1,3 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var dsector;
 (function (dsector) {
     class DSecGame {
@@ -18,21 +17,21 @@ var dsector;
 
         static tankColorR_$LI$() {
             if (DSecGame.tankColorR == null) {
-                DSecGame.tankColorR = ( /* asList */[0.01, 0.08, 0.01, 0.05, 0.01, 0.05].slice(0));
+                DSecGame.tankColorR = ([0.01, 0.08, 0.01, 0.05, 0.01, 0.05].slice(0));
             }
             return DSecGame.tankColorR;
         }
 
         static tankColorG_$LI$() {
             if (DSecGame.tankColorG == null) {
-                DSecGame.tankColorG = ( /* asList */[0.01, 0.01, 0.08, 0.05, 0.05, 0.01].slice(0));
+                DSecGame.tankColorG = ([0.01, 0.01, 0.08, 0.05, 0.05, 0.01].slice(0));
             }
             return DSecGame.tankColorG;
         }
 
         static tankColorB_$LI$() {
             if (DSecGame.tankColorB == null) {
-                DSecGame.tankColorB = ( /* asList */[0.08, 0.02, 0.01, 0.01, 0.05, 0.05].slice(0));
+                DSecGame.tankColorB = ([0.08, 0.02, 0.01, 0.01, 0.05, 0.05].slice(0));
             }
             return DSecGame.tankColorB;
         }
@@ -87,10 +86,10 @@ var dsector;
 
         gameSpeed() {
             let lastFramePeriod = CWSYSTEM.Environment.lastFramePeriod_$LI$();
-            // TODO: inject frame counter
             if (lastFramePeriod > CWSYSTEM.Global.maximumDoubleClickTime) {
                 lastFramePeriod = CWSYSTEM.Global.maximumDoubleClickTime;
             }
+            // TODO: inject frame counter
             return Math.fround(0.035 * lastFramePeriod);
         }
 
@@ -115,13 +114,11 @@ var dsector;
                 this.redTeam = new dsector.DSecTeam(dsector.DSecTeam.RED);
                 this.blueTeam = new dsector.DSecTeam(dsector.DSecTeam.BLUE);
             }
-            if ( /* size */DSecGame.tankColorR_$LI$().length > 6 && /* size */ DSecGame.tankColorG_$LI$().length > 6 && /* size */ DSecGame.tankColorB_$LI$().length > 6) {
-                for (let k = DSecGame.tankColorR_$LI$().length - 1; /* size */ DSecGame.tankColorR_$LI$().length > 6; k--) {
-                    /* remove */
+            if (DSecGame.tankColorR_$LI$().length > 6 && DSecGame.tankColorG_$LI$().length > 6 &&
+                DSecGame.tankColorB_$LI$().length > 6) {
+                for (let k = DSecGame.tankColorR_$LI$().length - 1; DSecGame.tankColorR_$LI$().length > 6; k--) {
                     DSecGame.tankColorR_$LI$().splice(k, 1)[0];
-                    /* remove */
                     DSecGame.tankColorG_$LI$().splice(k, 1)[0];
-                    /* remove */
                     DSecGame.tankColorB_$LI$().splice(k, 1)[0];
                 }
             }
@@ -135,44 +132,40 @@ var dsector;
         initializeColors(player, i) {
             if (dsector.DSReference.dsecMainSetupWindow.playMode() !== dsector.DSecMainSetupWindow.TEAMS) {
                 if (i >= 6 && dsector.DSecMainSetupWindow.TEAMS !== 1) {
-                    /* add */
-                    (DSecGame.tankColorR_$LI$().push(DSecGame.randomBaseColor()) > 0);
-                    /* add */
-                    (DSecGame.tankColorB_$LI$().push(DSecGame.randomBaseColor()) > 0);
-                    /* add */
-                    (DSecGame.tankColorG_$LI$().push(DSecGame.randomBaseColor()) > 0);
+                    DSecGame.tankColorR_$LI$().push(DSecGame.randomBaseColor());
+                    DSecGame.tankColorB_$LI$().push(DSecGame.randomBaseColor());
+                    DSecGame.tankColorG_$LI$().push(DSecGame.randomBaseColor());
                 } else {
-                    /* set */
                     (DSecGame.tankColorR_$LI$()[i] = DSecGame.randomBaseColor());
-                    /* set */
                     (DSecGame.tankColorB_$LI$()[i] = DSecGame.randomBaseColor());
-                    /* set */
                     (DSecGame.tankColorG_$LI$()[i] = DSecGame.randomBaseColor());
                 }
             }
             try {
-                if ( /* get */player.tankColor[0] != null) {
+                if (player.tankColor[0] != null) {
                     player.tankColor = ([]);
                 }
             } catch (__e) {
-                if (__e != null && (__e["__classes"] && __e["__classes"].indexOf("java.lang.IndexOutOfBoundsException") >= 0)) {
+                if (__e != null && (__e["__classes"] && __e["__classes"].indexOf(
+                    "java.lang.IndexOutOfBoundsException") >= 0)) {
                     const e = __e;
                     CWSYSTEM.Debug.println(player.name + " tankColor IndexOutOfBounds exception");
                 }
-                if (__e != null && (__e["__classes"] && __e["__classes"].indexOf("java.lang.Exception") >= 0) || __e != null && __e instanceof Error) {
+                if (__e != null && (__e["__classes"] && __e["__classes"].indexOf(
+                    "java.lang.Exception") >= 0) || __e != null && __e instanceof Error) {
                     const e = __e;
                     CWSYSTEM.Debug.println(player.name + " tankColor exception: " + e);
                 }
             }
             for (let m = 0; m < 4; m++) {
-                /* add */
-                (player.tankColor.push(this.tankColor(player.playerNumber(), m)) > 0);
+                player.tankColor.push(this.tankColor(player.playerNumber(), m));
             }
         }
 
         startNextRound() {
             dsector.DSReference.dsecPlayWindow.create();
-            dsector.DSReference.dsecPlayWindow.window.useAntiAliasedContentAreaAndNoInterfaceElements(dsector.DSecSetupWindow.antialiasLevel, 1);
+            dsector.DSReference.dsecPlayWindow.window.useAntiAliasedContentAreaAndNoInterfaceElements(
+                dsector.DSecSetupWindow.antialiasLevel, 1);
             if (this.__currentRound === -1) {
                 this.__currentRound = 1;
             } else {
@@ -215,11 +208,13 @@ var dsector;
             }
             if (this.dsecRound != null) {
                 if (dsector.DSReference.dsecMainSetupWindow.playMode() === dsector.DSecMainSetupWindow.HOSTILE) {
-                    if (this.dsecRound.allPlayersAreDestroyed() && CWSYSTEM.Environment.currentTime() - this.dsecRound.timeWhenAllPlayersDestroyed() > 3000) {
+                    if (this.dsecRound.allPlayersAreDestroyed() &&
+                        CWSYSTEM.Environment.currentTime() - this.dsecRound.timeWhenAllPlayersDestroyed() > 3000) {
                         this.endRound();
                         return;
                     }
-                } else if (this.dsecRound.allJewelsAreDestroyed() && CWSYSTEM.Environment.currentTime() - this.dsecRound.timeWhenAllJewelsDestroyed() > 3000) {
+                } else if (this.dsecRound.allJewelsAreDestroyed() &&
+                    CWSYSTEM.Environment.currentTime() - this.dsecRound.timeWhenAllJewelsDestroyed() > 3000) {
                     this.endRound();
                     return;
                 }
@@ -270,7 +265,8 @@ var dsector;
                         const obj = null;
                         z1 = 600.0;
                         this.cameraPanAngle = this.smoothlyAdjustedCameraPan(this.cameraPanAngle, y1, z1);
-                        arrayList = this.getCyclicPannedCameraPositionAndOrientation(obj, this.cameraPanAngle, rotateX, matrix, rotateY, -1);
+                        arrayList = this.getCyclicPannedCameraPositionAndOrientation(obj, this.cameraPanAngle,
+                            rotateX, matrix, rotateY, -1);
                         vertex = arrayList[0];
                         dsector.DSReference.scene.cameraRotation = arrayList[1];
                         break;
@@ -286,25 +282,32 @@ var dsector;
                         const vertex2D = new dsector.Vertex2D(player.getX(), player.getY());
                         z1 = 6.0;
                         this.cameraPanAngle = this.smoothlyAdjustedCameraPan(this.cameraPanAngle, y1, z1);
-                        arrayList = this.getCyclicPannedCameraPositionAndOrientation(vertex2D, this.cameraPanAngle, rotateX, matrix, rotateY, 100);
+                        arrayList = this.getCyclicPannedCameraPositionAndOrientation(vertex2D, this.cameraPanAngle,
+                            rotateX, matrix, rotateY, 100);
                         vertex = arrayList[0];
                         dsector.DSReference.scene.cameraRotation = arrayList[1];
                 }
-                dsector.DSReference.scene.cameraX = (dsector.DSReference.scene.cameraX * DSecGame.cameraPanSlowness / this.gameSpeed() + vertex.x) / (Math.fround(1.0 + (DSecGame.cameraPanSlowness / this.gameSpeed())));
-                dsector.DSReference.scene.cameraY = (dsector.DSReference.scene.cameraY * DSecGame.cameraPanSlowness / this.gameSpeed() + vertex.y) / (Math.fround(1.0 + (DSecGame.cameraPanSlowness / this.gameSpeed())));
-                dsector.DSReference.scene.cameraZ = (dsector.DSReference.scene.cameraZ * DSecGame.cameraPanSlowness / this.gameSpeed() + vertex.z) / (Math.fround(1.0 + (DSecGame.cameraPanSlowness / this.gameSpeed())));
+                dsector.DSReference.scene.cameraX = (dsector.DSReference.scene.cameraX *
+                    DSecGame.cameraPanSlowness / this.gameSpeed() + vertex.x) / (Math.fround(1.0 +
+                    (DSecGame.cameraPanSlowness / this.gameSpeed())));
+                dsector.DSReference.scene.cameraY = (dsector.DSReference.scene.cameraY *
+                    DSecGame.cameraPanSlowness / this.gameSpeed() + vertex.y) / (Math.fround(1.0 +
+                    (DSecGame.cameraPanSlowness / this.gameSpeed())));
+                dsector.DSReference.scene.cameraZ = (dsector.DSReference.scene.cameraZ *
+                    DSecGame.cameraPanSlowness / this.gameSpeed() + vertex.z) / (Math.fround(1.0 +
+                    (DSecGame.cameraPanSlowness / this.gameSpeed())));
                 let positionedModel;
-                for (time = 0; time < /* size */ this.dsecRound.backgroundObjects.length; ++time) {
+                for (time = 0; time < this.dsecRound.backgroundObjects.length; ++time) {
                     positionedModel = this.dsecRound.backgroundObjects[time];
                     dsector.DSReference.scene.addPositionedModel(positionedModel);
                 }
                 if (dsector.DSecSetupWindow.showBackgrounds) {
-                    for (time = 0; time < /* size */ this.dsecRound.silentBackgroundObjects.length; ++time) {
+                    for (time = 0; time < this.dsecRound.silentBackgroundObjects.length; ++time) {
                         positionedModel = this.dsecRound.silentBackgroundObjects[time];
                         dsector.DSReference.scene.addPositionedModel(positionedModel);
                     }
                 }
-                for (time = 0; time < /* size */ this.dsecRound.backgroundObjectsForDisplayNextFrame.length; ++time) {
+                for (time = 0; time < this.dsecRound.backgroundObjectsForDisplayNextFrame.length; ++time) {
                     positionedModel = this.dsecRound.backgroundObjectsForDisplayNextFrame[time];
                     dsector.DSReference.scene.addPositionedModel(positionedModel);
                 }
@@ -337,7 +340,8 @@ var dsector;
                 this.setMainLight(dsector.DSReference.scene);
                 dsector.DSecFadingLight.addLightsToScene(dsector.DSReference.scene);
                 dsector.DSReference.renderer.setDetailSensitiveRendering(true);
-                dsector.DSReference.renderer.perspectiveProjection$array$sd$window(null, null, dsector.DSReference.dsecPlayWindow.window);
+                dsector.DSReference.renderer.perspectiveProjection$array$sd$window(null, null,
+                    dsector.DSReference.dsecPlayWindow.window);
                 this.addGlowShieldEffects();
                 if (CWSYSTEM.Environment.cycleID_$LI$() % 4 === 0) {
                     dsector.DSReference.playersStatusWindow.update();
@@ -352,17 +356,17 @@ var dsector;
                 if (player.shieldActive()) {
                     const width = dsector.Renderer.shieldGraphic().width;
                     const height = dsector.Renderer.shieldGraphic().height;
-                    const cosAngle = Math.fround(player.getX() + (4.0 * Math.cos(player.getAngle())));
-                    const sinAngle = Math.fround(player.getY() + (4.0 * Math.sin(player.getAngle())));
-                    const vertex2D = new dsector.Vertex2D(0, 0);
-                    dsector.DSReference.renderer.universeToScreenProjection(dsector.DSReference.dsecPlayWindow.window, cosAngle, sinAngle, 0.0);
+                    const cosAngle = Math.fround(player.getX() + 4.0 * Math.cos(player.getAngle()));
+                    const sinAngle = Math.fround(player.getY() + 4.0 * Math.sin(player.getAngle()));
+                    const vertex2D = dsector.DSReference.renderer.universeToScreenProjection(
+                        dsector.DSReference.dsecPlayWindow.window, cosAngle, sinAngle, 0.0);
                     if (vertex2D != null) {
-                        /* add */
                         dsector.DSReference.dsecPlayWindow.window.dSecSpecialEffects.push(
                             new dsector.DSecSpecialEffect(dsector.Renderer.shieldGraphic(),
                                 ((vertex2D.x | 0) / dsector.DSReference.dsecPlayWindow.window.antiAliasedLevel | 0) - (width / 2 | 0),
                                 ((vertex2D.y | 0) / dsector.DSReference.dsecPlayWindow.window.antiAliasedLevel | 0) - (height / 2 | 0),
-                                Math.fround(0.5 + (0.5 * Math.random()))));
+                                Math.fround(0.5 + (0.5 * Math.random())))
+                        );
                     }
                 }
             }
@@ -532,7 +536,7 @@ var dsector;
             matrix4f.rotateZ$float(-(Math.fround(rotateZ + 1.5707964)));
             matrix4f.postMultiply(dsector.Matrix4f.rotationXMatrix(rotationXMatrix));
             const arrayList = ([]);
-            arrayList.push(new dsector.Vertex(Math.fround(xRtd), Math.fround(axisValue), Math.fround(base))) ;
+            arrayList.push(new dsector.Vertex(Math.fround(xRtd), Math.fround(axisValue), Math.fround(base)));
             arrayList.push(matrix4f);
             return arrayList;
         }
@@ -603,27 +607,30 @@ var dsector;
         baseRed(base) {
             const playerCount = Math.min(dsector.DSReference.dsecGame.numberOfPlayers(), 100);
             if (dsector.DSReference.dsecMainSetupWindow.playMode() === dsector.DSecMainSetupWindow.TEAMS) {
-                return base <= (playerCount / 2 | 0) ? DSecGame.blueTeamR_$LI$()[base - 1] : DSecGame.redTeamR_$LI$()[base - 1 - ((playerCount / 2 | 0))];
+                return base <= (playerCount / 2 | 0) ? DSecGame.blueTeamR_$LI$()[base - 1] :
+                    DSecGame.redTeamR_$LI$()[base - 1 - ((playerCount / 2 | 0))];
             } else {
-                return /* get */ DSecGame.tankColorR_$LI$()[base - 1];
+                return DSecGame.tankColorR_$LI$()[base - 1];
             }
         }
 
         baseGreen(base) {
             const playerCount = Math.min(dsector.DSReference.dsecGame.numberOfPlayers(), 100);
             if (dsector.DSReference.dsecMainSetupWindow.playMode() === dsector.DSecMainSetupWindow.TEAMS) {
-                return base <= (playerCount / 2 | 0) ? DSecGame.blueTeamG_$LI$()[base - 1] : DSecGame.redTeamG_$LI$()[base - 1 - ((playerCount / 2 | 0))];
+                return base <= (playerCount / 2 | 0) ? DSecGame.blueTeamG_$LI$()[base - 1] :
+                    DSecGame.redTeamG_$LI$()[base - 1 - ((playerCount / 2 | 0))];
             } else {
-                return /* get */ DSecGame.tankColorG_$LI$()[base - 1];
+                return DSecGame.tankColorG_$LI$()[base - 1];
             }
         }
 
         baseBlue(base) {
             const playerCount = Math.min(dsector.DSReference.dsecGame.numberOfPlayers(), 100);
             if (dsector.DSReference.dsecMainSetupWindow.playMode() === dsector.DSecMainSetupWindow.TEAMS) {
-                return base <= (playerCount / 2 | 0) ? DSecGame.blueTeamB_$LI$()[base - 1] : DSecGame.redTeamB_$LI$()[base - 1 - ((playerCount / 2 | 0))];
+                return base <= (playerCount / 2 | 0) ? DSecGame.blueTeamB_$LI$()[base - 1] :
+                    DSecGame.redTeamB_$LI$()[base - 1 - ((playerCount / 2 | 0))];
             } else {
-                return /* get */ DSecGame.tankColorB_$LI$()[base - 1];
+                return DSecGame.tankColorB_$LI$()[base - 1];
             }
         }
 
@@ -631,17 +638,25 @@ var dsector;
             let color;
             switch ((mode)) {
                 case 0:
-                    color = new CWSYSTEM.CWColor(Math.fround(120.0 + (600.0 * this.baseRed(base))), Math.fround(120.0 + (600.0 * this.baseGreen(base))), Math.fround(120.0 + (600.0 * this.baseBlue(base))), 255);
+                    color = new CWSYSTEM.CWColor(Math.fround(120.0 + (600.0 * this.baseRed(base))),
+                        Math.fround(120.0 + (600.0 * this.baseGreen(base))), Math.fround(
+                            120.0 + (600.0 * this.baseBlue(base))), 255);
                     return color;
                 case 1:
-                    color = new CWSYSTEM.CWColor(Math.fround(100.0 + (400.0 * this.baseRed(base))), Math.fround(100.0 + (400.0 * this.baseGreen(base))), Math.fround(100.0 + (400.0 * this.baseBlue(base))), 255);
+                    color = new CWSYSTEM.CWColor(Math.fround(100.0 + (400.0 * this.baseRed(base))),
+                        Math.fround(100.0 + (400.0 * this.baseGreen(base))), Math.fround(
+                            100.0 + (400.0 * this.baseBlue(base))), 255);
                     return color;
                 case 2:
                 default:
-                    color = new CWSYSTEM.CWColor(Math.fround(50.0 + (200.0 * this.baseRed(base))), Math.fround(50.0 + (200.0 * this.baseGreen(base))), Math.fround(50.0 + (200.0 * this.baseBlue(base))), 255);
+                    color = new CWSYSTEM.CWColor(Math.fround(50.0 + (200.0 * this.baseRed(base))),
+                        Math.fround(50.0 + (200.0 * this.baseGreen(base))), Math.fround(
+                            50.0 + (200.0 * this.baseBlue(base))), 255);
                     return color;
                 case 3:
-                    color = new CWSYSTEM.CWColor(Math.fround(80.0 + (800.0 * this.baseRed(base))), Math.fround(80.0 + (800.0 * this.baseGreen(base))), Math.fround(80.0 + (800.0 * this.baseBlue(base))) , 150);
+                    color = new CWSYSTEM.CWColor(Math.fround(80.0 + (800.0 * this.baseRed(base))),
+                        Math.fround(80.0 + (800.0 * this.baseGreen(base))), Math.fround(
+                            80.0 + (800.0 * this.baseBlue(base))), 150);
                     return color;
             }
         }
@@ -803,9 +818,10 @@ var dsector;
                     for (let i = 0; i < dsector.DSReference.dsecGame.numberOfPlayers(); ++i) {
                         const player = dsector.DSReference.dsecGame.getPlayer(i + 1);
                         if (player.aliveState !== dsector.DSecPlayer.DESTROYED && !player.robotSpecification.isHuman()) {
-                            let score2 = Math.fround((rndnum * (player.shields + player.weaponEnergy)) / (stat1 + stat2));
+                            let score2 = Math.fround(
+                                (rndnum * (player.shields + player.weaponEnergy)) / (stat1 + stat2));
                             if (i % 2 === 0) {
-                                score2 += Math.fround(rndNum2 -(Math.random() * 5.0));
+                                score2 += Math.fround(rndNum2 - (Math.random() * 5.0));
                             } else {
                                 score2 -= Math.fround(rndNum2 - (Math.random() * 5.0));
                             }

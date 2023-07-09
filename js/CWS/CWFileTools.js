@@ -4,11 +4,12 @@ var CWSYSTEM;
 (function (CWSYSTEM) {
     class CWFileTools {
         static delete(fileName) {
-            let deleteRequest = indexedDB.deleteDatabase(fileName);
+            indexedDB.deleteDatabase(fileName);
         }
 
         static copy(fileName, newPath) {
-            if (((o1, o2) => o1.toUpperCase() === (o2 === null ? o2 : o2.toUpperCase()))(fileName, newPath)) { /* equalsIgnoreCase */
+            if (((o1, o2) => o1.toUpperCase() === (o2 === null ? o2 :
+                o2.toUpperCase()))(fileName, newPath)) {
                 return false;
             } else {
                 // attempt to make copy
@@ -40,38 +41,6 @@ var CWSYSTEM;
                     };
                 };
             });
-            /*
-            let openRequest = indexedDB.open(name, 1);
-
-            openRequest.onupgradeneeded = function() {
-                let db = openRequest.result;
-                if (!db.objectStoreNames.contains(name)) { // if there's no "books" store
-                    db.createObjectStore(name, {}); // create it
-                }
-            };
-            openRequest.onerror = function() {
-                console.error("Error E000:", openRequest.error);
-            };
-
-            openRequest.onsuccess = function() {
-                let db = openRequest.result;
-                db.onversionchange = function() {
-                    db.close();
-                    console.info("CWFileTools I001: Database is outdated, please reload the page.")
-                };
-
-            };
-            openRequest.onblocked = function() {
-                // this event shouldn't trigger
-            };
-            try {
-
-                console.info("CWFileTools I000: " +name + " " + data);
-                return true;
-            }
-            catch (e) {
-                return false;
-            }*/
         }
 
         /** read file from IndexedDB */
@@ -112,7 +81,9 @@ var CWSYSTEM;
             // Define the object store and its properties
             request.onupgradeneeded = function (event) {
                 const db = event.target.result;
-                const objectStore = db.createObjectStore('data', {keyPath: 'id', autoIncrement: false});
+                const objectStore = db.createObjectStore('data', {
+                    keyPath: 'id', autoIncrement: false
+                });
             };
 
             request.onsuccess = function (event) {
@@ -127,7 +98,7 @@ var CWSYSTEM;
                         const objectStore = transaction.objectStore('data');
 
                         //const fileData = {content: data, timestamp: new Date().getTime()};
-                        const request = objectStore.put({id:1, content: data});
+                        const request = objectStore.put({id: 1, content: data});
 
                         request.onsuccess = function () {
                             console.log('File saved to IndexedDB');
@@ -169,7 +140,7 @@ var CWSYSTEM;
                             a.push(0);
                         return a;
                     })(1024);
-                    return /* toString */ newName.str;
+                    return newName.str;
                 } catch (e) {
                     return null;
                 }

@@ -88,7 +88,8 @@ var CWSYSTEM;
                 try {
                     intBuffer = parseInt(hBbuffer);
                 } catch (e) {
-                    CWSYSTEM.Debug.error("Bad format in " + fileName + ", symbol \'" + chrBuffer + "\'. Line height \'" + hBbuffer + "\' is not an integer.");
+                    CWSYSTEM.Debug.error("Bad format in " + fileName + ", symbol \'" + chrBuffer +
+                        "\'. Line height \'" + hBbuffer + "\' is not an integer.");
                     this.characters = null;
                     return;
                 }
@@ -153,14 +154,16 @@ var CWSYSTEM;
 
             for (let i = 0; i < args.length; ++i) {
                 if (cwFont.notInstalled()) {
-                    CWSYSTEM.Debug.println("An error with the font installation was caught successfully using the notInstalled() method");
+                    CWSYSTEM.Debug.println("An error with the font installation was caught successfully using " +
+                        "the notInstalled() method");
                     return 1;
                 } else {
                     let character = cwFont.getCharacter(args[i]);
                     if (character == null) {
                         CWSYSTEM.Debug.println("\nCharacter '" + args[i] + "' not covered in " + args[0]);
                     } else {
-                        CWSYSTEM.Debug.println("\nBitmap for the letter '" + args[i] + "', height " + character.lineHeight + ":");
+                        CWSYSTEM.Debug.println("\nBitmap for the letter '" + args[i] +
+                            "', height " + character.lineHeight + ":");
                         let line = "";
                         for (let j = character.height - 1; j >= 0; --j) {
 

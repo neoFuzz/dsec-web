@@ -42,7 +42,8 @@ var dsector;
             const str = s + Math.random();
             const model3DMatrix1 = new dsector.Model3DMatrix();
             model3DMatrix1.name = str;
-            const polygonGroup = new dsector.PolygonGroup("ghost", model3DMatrix1.rootFolder, true, "Direct Representation", true, 5, 30, 10);
+            const polygonGroup = new dsector.PolygonGroup("ghost", model3DMatrix1.rootFolder,
+                true, "Direct Representation", true, 5, 30, 10);
             model3DMatrix1.rootFolder.polygonGroups.push(polygonGroup);
             let x = 0.0;
             let y = 0.0;
@@ -91,7 +92,9 @@ var dsector;
             if (positionedModel !== this && positionedModel.model3DMatrix != null && this.model3DMatrix != null) {
                 const modelCenter = this.model3DMatrix.maximumDistanceOfVertexToCenterWhenModelLoaded();
                 const posModelCenter = positionedModel.model3DMatrix.maximumDistanceOfVertexToCenterWhenModelLoaded();
-                const pos = Math.fround(Math.sqrt((this.x - positionedModel.x) * (this.x - positionedModel.x) + (this.y - positionedModel.y) * (this.y - positionedModel.y) + (this.z - positionedModel.z) * (this.z - positionedModel.z)));
+                const pos = Math.fround(Math.sqrt(
+                    (this.x - positionedModel.x) * (this.x - positionedModel.x) + (this.y - positionedModel.y) *
+                    (this.y - positionedModel.y) + (this.z - positionedModel.z) * (this.z - positionedModel.z)));
                 if (!(pos > Math.fround(modelCenter + posModelCenter))) {
                     this.projectPolygonsToStudioSpace(1, this);
                     const xMax1 = PositionedModel.xMax;
@@ -109,7 +112,8 @@ var dsector;
                     const zMax2 = PositionedModel.zMax;
                     const zMin2 = PositionedModel.zMin;
                     const numberOfCopiedPolygons1 = this.numberOfCopiedPolygons;
-                    if (!(xMax1 < xMin2) && !(xMin1 > xMax2) && !(yMax1 < yMin2) && !(yMin1 > yMax2) && !(zMax1 < zMin2) && !(zMin1 > zMax2)) {
+                    if (!(xMax1 < xMin2) && !(xMin1 > xMax2) && !(yMax1 < yMin2) && !(yMin1 > yMax2) &&
+                        !(zMax1 < zMin2) && !(zMin1 > zMax2)) {
                         for (let i = 0; i < polygonNumber; ++i) {
                             const clPolygon = PositionedModel.polygonCollisionDetectionBufferA[i];
                             for (let j = 0; j < numberOfCopiedPolygons1; ++j) {
@@ -138,9 +142,13 @@ var dsector;
                                 vert6[0] = colourlessPolygon.v3.x;
                                 vert6[1] = colourlessPolygon.v3.y;
                                 vert6[2] = colourlessPolygon.v3.z;
-                                if (dsector.PolygonIntersection.tri_tri_intersect(vert1, vert2, vert3, vert4, vert5, vert6) === 1) {
-                                    this.intersectedPolygon = new dsector.Polygon(clPolygon.v1, clPolygon.v2, clPolygon.v3, new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$()));
-                                    positionedModel.intersectedPolygon = new dsector.Polygon(colourlessPolygon.v1, colourlessPolygon.v2, colourlessPolygon.v3, new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$()));
+                                if (dsector.PolygonIntersection.tri_tri_intersect(
+                                    vert1, vert2, vert3, vert4, vert5, vert6) === 1) {
+                                    this.intersectedPolygon = new dsector.Polygon(clPolygon.v1, clPolygon.v2,
+                                        clPolygon.v3, new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$()));
+                                    positionedModel.intersectedPolygon = new dsector.Polygon(colourlessPolygon.v1,
+                                        colourlessPolygon.v2, colourlessPolygon.v3,
+                                        new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$()));
                                     return true;
                                 }
                             }
@@ -161,7 +169,8 @@ var dsector;
                 }
             }
             const model3DMatrix1 = positionedModel.model3DMatrix;
-            const polygonIterator = new dsector.PolygonIterator(model3DMatrix1, dsector.PolygonIterator.ALL_POLYGON_GROUPS);
+            const polygonIterator = new dsector.PolygonIterator(
+                model3DMatrix1, dsector.PolygonIterator.ALL_POLYGON_GROUPS);
             this.numberOfCopiedPolygons = 0;
             PositionedModel.xMax = -1.0E20;
             PositionedModel.xMin = 1.0E20;
@@ -177,7 +186,7 @@ var dsector;
                         return;
                     }
                 } while ((CWSYSTEM.CWStringTools.findIgnoreCase$Str$Str(polygonGroup.name, "ghost") === -1));
-                for (let j = -1; j < /* size */ polygonGroup.transposedRepresentations.length; ++j) {
+                for (let j = -1; j < polygonGroup.transposedRepresentations.length; ++j) {
                     let pgr;
                     const matrix4f = new dsector.Matrix4f();
                     if (j === -1) {
@@ -188,13 +197,15 @@ var dsector;
                         matrix4f.set(pgr.transformationMatrix);
                     }
                     matrix4f.preMultiply(positionedModel.rotation);
-                    matrix4f.preMultiply(dsector.Matrix4f.translationMatrix(Math.fround(positionedModel.x), Math.fround(positionedModel.y), Math.fround(positionedModel.z)));
-                    for (let k = 0; k < /* size */ polygonGroup.polygons.length; ++k) {
+                    matrix4f.preMultiply(dsector.Matrix4f.translationMatrix(Math.fround(positionedModel.x),
+                        Math.fround(positionedModel.y), Math.fround(positionedModel.z)));
+                    for (let k = 0; k < polygonGroup.polygons.length; ++k) {
                         const polygon = polygonGroup.polygons[k];
                         let len;
                         let len2;
                         if (i === 1) {
-                            if (PositionedModel.polygonCollisionDetectionBufferA == null || PositionedModel.polygonCollisionDetectionBufferA.length < this.numberOfCopiedPolygons) {
+                            if (PositionedModel.polygonCollisionDetectionBufferA == null ||
+                                PositionedModel.polygonCollisionDetectionBufferA.length < this.numberOfCopiedPolygons) {
                                 if (PositionedModel.polygonCollisionDetectionBufferA == null) {
                                     PositionedModel.polygonCollisionDetectionBufferA = (s => {
                                         let a = [];
@@ -203,7 +214,10 @@ var dsector;
                                         return a;
                                     })(1000);
                                     for (len = 0; len < PositionedModel.polygonCollisionDetectionBufferA.length; ++len) {
-                                        PositionedModel.polygonCollisionDetectionBufferA[len] = new dsector.ColourlessPolygon(new dsector.Vertex(0.0, 0.0, 0.0), new dsector.Vertex(0.0, 0.0, 0.0), new dsector.Vertex(0.0, 0.0, 0.0));
+                                        PositionedModel.polygonCollisionDetectionBufferA[len] =
+                                            new dsector.ColourlessPolygon(new dsector.Vertex(0.0, 0.0, 0.0),
+                                                new dsector.Vertex(0.0, 0.0, 0.0),
+                                                new dsector.Vertex(0.0, 0.0, 0.0));
                                     }
                                 } else {
                                     len = PositionedModel.polygonCollisionDetectionBufferA.length;
@@ -214,11 +228,16 @@ var dsector;
                                         return a;
                                     })((len * 11 / 10 | 0));
                                     for (len2 = len; j < PositionedModel.polygonCollisionDetectionBufferA.length; ++len2) {
-                                        PositionedModel.polygonCollisionDetectionBufferA[len2] = new dsector.ColourlessPolygon(new dsector.Vertex(0.0, 0.0, 0.0), new dsector.Vertex(0.0, 0.0, 0.0), new dsector.Vertex(0.0, 0.0, 0.0));
+                                        PositionedModel.polygonCollisionDetectionBufferA[len2] =
+                                            new dsector.ColourlessPolygon(
+                                                new dsector.Vertex(0.0, 0.0, 0.0),
+                                                new dsector.Vertex(0.0, 0.0, 0.0),
+                                                new dsector.Vertex(0.0, 0.0, 0.0));
                                     }
                                 }
                             }
-                        } else if (PositionedModel.polygonCollisionDetectionBufferB == null || PositionedModel.polygonCollisionDetectionBufferB.length < this.numberOfCopiedPolygons) {
+                        } else if (PositionedModel.polygonCollisionDetectionBufferB == null ||
+                            PositionedModel.polygonCollisionDetectionBufferB.length < this.numberOfCopiedPolygons) {
                             if (PositionedModel.polygonCollisionDetectionBufferB == null) {
                                 PositionedModel.polygonCollisionDetectionBufferB = (s => {
                                     let a = [];
@@ -227,7 +246,11 @@ var dsector;
                                     return a;
                                 })(1000);
                                 for (len = 0; len < PositionedModel.polygonCollisionDetectionBufferB.length; ++len) {
-                                    PositionedModel.polygonCollisionDetectionBufferB[len] = new dsector.ColourlessPolygon(new dsector.Vertex(0.0, 0.0, 0.0), new dsector.Vertex(0.0, 0.0, 0.0), new dsector.Vertex(0.0, 0.0, 0.0));
+                                    PositionedModel.polygonCollisionDetectionBufferB[len] =
+                                        new dsector.ColourlessPolygon(
+                                            new dsector.Vertex(0.0, 0.0, 0.0),
+                                            new dsector.Vertex(0.0, 0.0, 0.0),
+                                            new dsector.Vertex(0.0, 0.0, 0.0));
                                 }
                             } else {
                                 len = PositionedModel.polygonCollisionDetectionBufferB.length;
@@ -238,11 +261,17 @@ var dsector;
                                     return a;
                                 })((len * 11 / 10 | 0));
                                 for (len2 = len; j < PositionedModel.polygonCollisionDetectionBufferB.length; ++len2) {
-                                    PositionedModel.polygonCollisionDetectionBufferB[len2] = new dsector.ColourlessPolygon(new dsector.Vertex(0.0, 0.0, 0.0), new dsector.Vertex(0.0, 0.0, 0.0), new dsector.Vertex(0.0, 0.0, 0.0));
+                                    PositionedModel.polygonCollisionDetectionBufferB[len2] =
+                                        new dsector.ColourlessPolygon(
+                                            new dsector.Vertex(0.0, 0.0, 0.0),
+                                            new dsector.Vertex(0.0, 0.0, 0.0),
+                                            new dsector.Vertex(0.0, 0.0, 0.0));
                                 }
                             }
                         }
-                        const colourlessPolygon = i === 1 ? PositionedModel.polygonCollisionDetectionBufferA[this.numberOfCopiedPolygons++] : PositionedModel.polygonCollisionDetectionBufferB[this.numberOfCopiedPolygons++];
+                        const colourlessPolygon = i === 1 ?
+                            PositionedModel.polygonCollisionDetectionBufferA[this.numberOfCopiedPolygons++] :
+                            PositionedModel.polygonCollisionDetectionBufferB[this.numberOfCopiedPolygons++];
                         colourlessPolygon.v1.x = polygon.v1.x;
                         colourlessPolygon.v1.y = polygon.v1.y;
                         colourlessPolygon.v1.z = polygon.v1.z;

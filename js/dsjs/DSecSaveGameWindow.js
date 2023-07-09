@@ -28,30 +28,38 @@ var dsector;
                     content = content + "player" + i + "Score=" + player.score() + "\n";
                     content = content + "player" + i + "Credits=" + Math.ceil(player.credits) + "\n";
                     content = content + "player" + i + "RobotSpecification.type=" + player.robotSpecification.type + "\n";
-                    content = content + "player" + i + "RobotSpecification.filename=" + player.robotSpecification.filename + "\n";
+                    content = content + "player" + i + "RobotSpecification.filename=" +
+                        player.robotSpecification.filename + "\n";
                     content = content + "player" + i + "TankSpecification.type=" + player.tankSpecification.type() + "\n";
-                    content = content + "player" + i + "WeaponFuelUpgradeLevel=" + player.tankSpecification.weaponFuelUpgradeLevel() + "\n";
-                    content = content + "player" + i + "ArmourUpgradeLevel=" + player.tankSpecification.armourUpgradeLevel() + "\n";
-                    content = content + "player" + i + "TurnRateUpgradeLevel=" + player.tankSpecification.turnRateUpgradeLevel() + "\n";
-                    content = content + "player" + i + "VelocityUpgradeLevel=" + player.tankSpecification.velocityUpgradeLevel() + "\n";
+                    content = content + "player" + i + "WeaponFuelUpgradeLevel=" +
+                        player.tankSpecification.weaponFuelUpgradeLevel() + "\n";
+                    content = content + "player" + i + "ArmourUpgradeLevel=" +
+                        player.tankSpecification.armourUpgradeLevel() + "\n";
+                    content = content + "player" + i + "TurnRateUpgradeLevel=" +
+                        player.tankSpecification.turnRateUpgradeLevel() + "\n";
+                    content = content + "player" + i + "VelocityUpgradeLevel=" +
+                        player.tankSpecification.velocityUpgradeLevel() + "\n";
                     content = content + "player" + i + "NumberOfKills=" + player.getNumberOfKills() + "\n";
                     content = content + "player" + i + "NumberOfDeaths=" + player.getNumberOfDeaths() + "\n";
-                    content = content + "player" + i + "NumberOfTimesWeaponFired=" + player.getNumberOfTimesWeaponFired() + "\n";
+                    content = content + "player" + i + "NumberOfTimesWeaponFired=" +
+                        player.getNumberOfTimesWeaponFired() + "\n";
                     content = content + "player" + i + "TotalDamageInflicted=" + player.getTotalDamageInflicted() + "\n";
                     content = content + "player" + i + "HasShoppingCard=" + player.hasShoppingCard() + "\n";
                     content = content + "player" + i + "HasLargerDeath=" + player.hasLargerDeath() + "\n";
                     content = content + "player" + i + "HasFastRecharge=" + player.hasFastRecharge() + "\n";
                     content = content + "player" + i + "HasAutoHealer=" + player.hasAutoHealer() + "\n";
-                    content = content + "player" + i + "ShoppingCardOwnedButSuspended=" + player.shoppingCardOwnedButSuspended() + "\n";
+                    content = content + "player" + i + "ShoppingCardOwnedButSuspended=" +
+                        player.shoppingCardOwnedButSuspended() + "\n";
                     const specs = dsector.DSReference.preBuiltWeaponSpecifications.preBuiltSpecifications;
                     let j;
                     let specification;
                     let iD;
-                    for (j = 0; j < /* size */ specs.length; ++j) {
+                    for (j = 0; j < specs.length; ++j) {
                         specification = specs[j];
                         iD = specification.specificationID;
                         if (specification.defaultDamage > 0) {
-                            content = content + "player" + i + "DamageInflictedByWeapon" + iD + "=" + player.damageInflictedByWeapon(iD) + "\n";
+                            content = content + "player" + i + "DamageInflictedByWeapon" + iD + "=" +
+                                player.damageInflictedByWeapon(iD) + "\n";
                         }
                     }
                     for (j = 1; j <= 6; ++j) {
@@ -131,13 +139,17 @@ var dsector;
                 dsector.DSReference.gui.destroyWindow("DSECTORSAVEGAME");
             }
             const font = dsector.DSReference.virtualScreen.serif8_font;
-            this.window = dsector.DSReference.gui.addWindow$name$style$title$x$y$w$h$v("DSECTORSAVEGAME", 3, null, x, y, 300, 48, true);
+            this.window = dsector.DSReference.gui.addWindow$name$style$title$x$y$w$h$v(
+                "DSECTORSAVEGAME", 3, null, x, y, 300, 48, true);
             const color = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$());
             this.window.addTextBlock("", "Save Game", 10, 30, font, color, 999);
-            this.window.addTextArea("filename", 95, 5, 200, 1, dsector.DSReference.virtualScreen.serif8_font, "").endMark = "";
+            this.window.addTextArea("filename", 95, 5, 200, 1,
+                dsector.DSReference.virtualScreen.serif8_font, "").endMark = "";
             let button = null;
-            button = this.window.addButton$name$x$y$len$h$text$t$r("SAVE_GAME", 190, 27, 40, 15, "Save", 9, 0);
-            button = this.window.addButton$name$x$y$len$h$text$t$r("", 242, 27, 52, 15, "Cancel", 9, 0);
+            button = this.window.addButton$name$x$y$len$h$text$t$r("SAVE_GAME", 190, 27, 40,
+                15, "Save", 9, 0);
+            button = this.window.addButton$name$x$y$len$h$text$t$r("", 242, 27, 52, 15,
+                "Cancel", 9, 0);
             button.objectContainingButtonPressedMethod = this;
             button.buttonPressedMethodName = "cancelButtonPressed";
         }

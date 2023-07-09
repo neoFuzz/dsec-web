@@ -11,6 +11,7 @@ var CWSYSTEM;
         }
 
     }
+
     CWSReference.mouseDrag = null;
     CWSReference.virtualScreen = null;
     CWSReference.gui = null;

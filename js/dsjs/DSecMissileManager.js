@@ -1,4 +1,3 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var dsector;
 (function (dsector) {
     class DSecMissileManager {
@@ -16,7 +15,6 @@ var dsector;
                 const missile = arrayList[i];
                 if (missile.timedOut()) {
                     missile.destroy();
-                    /* remove */
                     (a => {
                         let index = a.indexOf(missile);
                         if (index >= 0) {

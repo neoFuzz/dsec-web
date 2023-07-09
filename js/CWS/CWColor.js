@@ -5,38 +5,22 @@ var CWSYSTEM;
         /**
          * Creates a new instance of CWColor.
          * @constructor
-         * @param {number|null} red - The red component of the color (0-255).
+         * @param {CWColor|number} red - The red component of the color (0-255).
          * @param {number|null} green - The green component of the color (0-255).
          * @param {number|null} blue - The blue component of the color (0-255).
          * @param {number|null} alpha - The alpha component of the color (0-255).
          * @throws {Error} Throws an error if the provided arguments are of invalid types.
          */
         constructor(red, green, blue, alpha) {
-            if (((typeof red === 'number') || red === null) && ((typeof green === 'number') || green === null) &&
-                ((typeof blue === 'number') || blue === null) && ((typeof alpha === 'number') || alpha === null)) {
-                let __args = arguments;
-                if (this.color === undefined) {
-                    this.color = 0;
-                }
-                this.color = (alpha << 24) + (red << 16) + (green << 8) + blue;
-            } else if (((red != null && red instanceof CWSYSTEM.CWColor) || red === null) && green === undefined &&
-                blue === undefined && alpha === undefined) {
-                let __args = arguments;
-                let color = __args[0];
-                if (this.color === undefined) {
-                    this.color = 0;
-                }
-                this.color = color.color;
-            } else if (((typeof red === 'number') || red === null) && green === undefined &&
-                blue === undefined && alpha === undefined) {
-                let __args = arguments;
-                let color = __args[0];
-                if (this.color === undefined) {
-                    this.color = 0;
-                }
-                this.color = color;
-            } else
-                throw new Error('invalid overload');
+            if (red instanceof CWSYSTEM.CWColor) {
+                // Constructor with a CWColor object
+                this.color = red.color;
+            } else if (typeof red === 'number') {
+                // Constructor with individual RGBA values
+                this.color = ((alpha || 0) << 24) | ((red || 0) << 16) | ((green || 0) << 8) | (blue || 0);
+            } else {
+                throw new Error('Invalid arguments for CWColor constructor');
+            }
         }
 
         /** @returns {CWColor} Returns the {@link CWColor} for white. */

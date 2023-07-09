@@ -3,7 +3,7 @@ var dsector;
     class GamePadUtils {
         constructor() {
             if (this.joysticksActive === undefined) {
-                this.joysticksActive = new Map();// null;
+                this.joysticksActive = new Map();
             }
             let joy;
             this.joysticksActive = new Map();
@@ -40,7 +40,7 @@ var dsector;
                         const gpn = dsector.DSReference.jsu.joysticksActive.get(joystick.internalID).gamePadName;
                         dsector.DSReference.alertManager.messageQueued("Joystick" + str + " removed - Please plug " + gpn + "back in");
                         dsector.DSReference.jsu.joysticksActive.delete(joystick.internalID);
-                        // TODO: Incomplete, needs recheck joys and re-map
+                        // TODO: Incomplete, needs to recheck joys and re-map
                     }
                 }
             }

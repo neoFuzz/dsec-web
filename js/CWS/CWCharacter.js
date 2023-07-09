@@ -1,4 +1,4 @@
-/* re-written from Java */
+/* Re-written from Java */
 var CWSYSTEM;
 (function (CWSYSTEM) {
     class CWCharacter {
@@ -18,18 +18,23 @@ var CWSYSTEM;
             this.width = width;
             this.height = height;
             this.lineHeight = lineHeight;
-            this.bitmap = (function (dims) { let allocate = function (dims) { if (dims.length === 0) {
-                return null;
-            }
-            else {
-                let array = [];
-                for (let i = 0; i < dims[0]; i++) {
-                    array.push(allocate(dims.slice(1)));
-                }
-                return array;
-            } }; return allocate(dims); })([height, width]);
+            this.bitmap = (function (dims) {
+                let allocate = function (dims) {
+                    if (dims.length === 0) {
+                        return null;
+                    } else {
+                        let array = [];
+                        for (let i = 0; i < dims[0]; i++) {
+                            array.push(allocate(dims.slice(1)));
+                        }
+                        return array;
+                    }
+                };
+                return allocate(dims);
+            })([height, width]);
         }
     }
+
     CWSYSTEM.CWCharacter = CWCharacter;
     CWCharacter["__class"] = "CWSYSTEM.CWCharacter";
 })(CWSYSTEM || (CWSYSTEM = {}));

@@ -1,4 +1,3 @@
-/* Re-written from Java */
 var dsector;
 (function (dsector) {
     class VectorInR3 {
@@ -25,7 +24,6 @@ var dsector;
                 this.z = z;
             } else if (((x != null && x instanceof dsector.VectorInR3) || x === null) &&
                 y === undefined && z === undefined) {
-                //let __args = arguments;
                 let inR3 = arguments[0];
                 if (this.x === undefined) {
                     this.x = 0;
@@ -56,7 +54,7 @@ var dsector;
          * @param {number} y
          * @param {number} z
          */
-        add(x,y,z) {
+        add(x, y, z) {
             this.x += x;
             this.y += y;
             this.z += z;
@@ -67,7 +65,7 @@ var dsector;
          * @param {number} y Number to subtract from the Y axis.
          * @param {number} z Number to subtract from the Z axis.
          */
-        subtract(x,y,z) {
+        subtract(x, y, z) {
             this.x -= x;
             this.y -= y;
             this.z -= z;
@@ -153,9 +151,12 @@ var dsector;
 
         transform(matrix4f) {
             const element = matrix4f.element;
-            const x = Math.fround(element[0][0] * this.x + element[1][0] * this.y + element[2][0] * this.z + element[3][0]);
-            const y = Math.fround(element[0][1] * this.x + element[1][1] * this.y + element[2][1] * this.z + element[3][1]);
-            const z = Math.fround(element[0][2] * this.x + element[1][2] * this.y + element[2][2] * this.z + element[3][2]);
+            const x = Math.fround(element[0][0] * this.x + element[1][0] * this.y +
+                element[2][0] * this.z + element[3][0]);
+            const y = Math.fround(element[0][1] * this.x + element[1][1] * this.y +
+                element[2][1] * this.z + element[3][1]);
+            const z = Math.fround(element[0][2] * this.x + element[1][2] * this.y +
+                element[2][2] * this.z + element[3][2]);
             this.x = x;
             this.y = y;
             this.z = z;

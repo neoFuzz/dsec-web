@@ -141,7 +141,6 @@ var CWSYSTEM;
                             return null;
                     })(this.objectContainingTextAreaChangedMethod.constructor, "textAreaChanged");
                     const objects = [this.name, this.text];
-                    /* invoke */
                     method.fn.apply(this.objectContainingTextAreaChangedMethod, [objects]);
                 } catch (e) {
                     console.error("A problem occurred in CWWindow.informSuppliedObjectAboutNewTextAreaValue()for input box \'" + this.name + "\': " + e);
@@ -192,7 +191,6 @@ var CWSYSTEM;
                         else
                             return null;
                     })(this.objectContainingTextAreaSubmittedMethod.constructor, "textAreaSubmitted");
-                    /* invoke */
                     method.fn.apply(this.objectContainingTextAreaSubmittedMethod, [objects]);
                 } catch (e) {
                     console.error("Failed to find supplied method in CWTextArea.submit(): " + e);

@@ -1,4 +1,4 @@
-/* re-written from java */
+/* Re-written from java */
 var dsector;
 (function (dsector) {
     class DSecMainSetupWindow {
@@ -55,7 +55,7 @@ var dsector;
         }
 
         numberOfRounds() {
-            return isNaN(this.__numberOfRounds) ? 15 : this.__numberOfRounds ;
+            return isNaN(this.__numberOfRounds) ? 15 : this.__numberOfRounds;
         }
 
         isCreated() {
@@ -88,15 +88,16 @@ var dsector;
             this.robotSpecifications.push(new dsector.RobotSpecification("[keyboard2]"));
             this.robotSpecifications.push(new dsector.RobotSpecification("[keyboard3]"));
             this.robotSpecifications.push(new dsector.RobotSpecification("[keyboard4]"));
+
             /* Joystick setup */
             let gamePadID = 1;
-            for(let g = 0; g < dsector.DSReference.jsu.joysticksActive.size; g++) {
+            for (let g = 0; g < dsector.DSReference.jsu.joysticksActive.size; g++) {
                 this.robotSpecifications.push(new dsector.RobotSpecification("[joystick" + gamePadID + "]"));
                 gamePadID++;
             }
 
             const robotFilenames = this.getRobotFilenames();
-            for (i = 0; i < /* size */ robotFilenames.length; ++i) {
+            for (i = 0; i < robotFilenames.length; ++i) {
                 const rName = robotFilenames[i];
                 this.robotSpecifications.push(new dsector.RobotSpecification(rName)); // > 0)
             }
@@ -271,9 +272,15 @@ var dsector;
                 }
                 if (selectedVal < playerCount) {
                     for (i = 0; i < playerCount - selectedVal; ++i) {
-                        (a => {let index = a.indexOf(this.dsecPlayers[this.dsecPlayers.length - 1]);
-                            if (index >= 0) {a.splice(index, 1);return true;
-                            } else {return false;}})(this.dsecPlayers);
+                        (a => {
+                            let index = a.indexOf(this.dsecPlayers[this.dsecPlayers.length - 1]);
+                            if (index >= 0) {
+                                a.splice(index, 1);
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        })(this.dsecPlayers);
                     }
                 }
                 this.update();
@@ -332,17 +339,17 @@ var dsector;
             dsector.DSReference.dsecMainSetupWindow.exitDSector();
         }
 
-        getRobotFilenames() { // TODO: fix robot loading
+        getRobotFilenames() {// TODO: change robot loading to be compatible with Electron, current setup is web only
             let arrayList = ([]);
-            let files = (["R1_Prototype.dzr", "R2_Prototype.dzr", "R3_Seeker.dzr", "R4_Hunter.dzr", "R5_Defender.dzr", "R6_Destroyer.dzr"]);
+            let files = (["R1_Prototype.dzr", "R2_Prototype.dzr", "R3_Seeker.dzr",
+                "R4_Hunter.dzr", "R5_Defender.dzr", "R6_Destroyer.dzr"]);
             for (let i = 0; i < files.length; ++i) {
                 let file1 = files[i];
                 let fileName = file1;
                 if (CWSYSTEM.CWStringTools.findIgnoreCase(fileName, ".dzr") !== -1) {
-                    arrayList.push("assets/robots/"+fileName);
+                    arrayList.push("assets/robots/" + fileName);
                 }
             }
-            //new CWSYSTEM.CWHashtable(
             return CWSYSTEM.CWStringTools.sorted(arrayList);
         }
 
@@ -401,7 +408,7 @@ var dsector;
             let hashtable = new CWSYSTEM.CWHashtable("config/players.cfg");
             //if (hashtable.hashMap.size === 0) {hashtable = null;}
             try {
-                rounds = /* parseInt */ parseInt(hashtable.get("numberOfRounds"));
+                rounds = parseInt(hashtable.get("numberOfRounds"));
             } catch (e) {
                 CWSYSTEM.Debug.println("Error GDNR: " + e.toString());
             }
@@ -422,7 +429,9 @@ var dsector;
             }
             try {
                 type = hashMap.get("player" + playerId + "Filename");
-                if (type === "undefined"){type = null;}
+                if (type === "undefined") {
+                    type = null;
+                }
             } catch (e) {
                 errorCodes += "Error GDP2: " + e.toString();
             }

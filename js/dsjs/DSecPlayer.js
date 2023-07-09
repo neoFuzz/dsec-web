@@ -1,4 +1,3 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var dsector;
 (function (dsector) {
     class DSecPlayer {
@@ -23,10 +22,10 @@ var dsector;
                 this.__shoppingCardOwnedButSuspended = false;
             }
             if (this.damageInflictedByWeaponSpecification === undefined) {
-                this.damageInflictedByWeaponSpecification = null;
+                this.damageInflictedByWeaponSpecification = new Map();
             }
             if (this.__damageInflictedTowardsPlayer === undefined) {
-                this.__damageInflictedTowardsPlayer = null;
+                this.__damageInflictedTowardsPlayer = new Map();
             }
             if (this.robotSpecification === undefined) {
                 this.robotSpecification = null;
@@ -198,7 +197,7 @@ var dsector;
         getTankColor(mode) {
             let colorTest = this.tankColor[0];
             try {
-                colorTest = /* get */ this.tankColor[mode];
+                colorTest = this.tankColor[mode];
             } catch (e) {
                 CWSYSTEM.Debug.println("tankColor exception: " + e);
             }
@@ -287,33 +286,11 @@ var dsector;
         mostDamageTo() {
             let player = null;
             let dmg = -1.0;
-            /*
-            {
-                let array =  ((m) => { let r = []; if (m.entries == null)
-                    m.entries = []; for (let i = 0; i < m.entries.length; i++)
-                    r.push(m.entries[i].key); return r; })(this.__damageInflictedTowardsPlayer);
-                for (let index = 0; index < array.length; index++) {
-                    let o = array[index];
-                    {
-                        const playerItr = o;
-                        const dmgInflicted = ((m, k) => { if (m.entries == null)
-                            m.entries = []; for (let i = 0; i < m.entries.length; i++)
-                            if (m.entries[i].key == null && k == null || m.entries[i].key.equals != null && m.entries[i].key.equals(k) || m.entries[i].key === k) {
-                                return m.entries[i].value;
-                            } return null; })(this.__damageInflictedTowardsPlayer, playerItr);
-                        if (dmgInflicted > dmg) {
-                            dmg = dmgInflicted;
-                            player = playerItr;
-                        }
-                    }
-                }
-            }
-            */
             for (let playerItr of this.__damageInflictedTowardsPlayer.entries()) {
-                let dmgInflicted = this.__damageInflictedTowardsPlayer.get(playerItr);
+                let dmgInflicted = this.__damageInflictedTowardsPlayer.get(playerItr[0]);
                 if (dmgInflicted > dmg) {
                     dmg = dmgInflicted;
-                    player = playerItr;
+                    player = playerItr[0];
                 }
             }
             return player;
@@ -322,31 +299,11 @@ var dsector;
         leastDamageTo() {
             let player = null;
             let maxValue = 3.4028235E38;
-            /*{
-                let array = ((m) => { let r = []; if (m.entries == null)
-                    m.entries = []; for (let i = 0; i < m.entries.length; i++)
-                    r.push(m.entries[i].key); return r; })(this.__damageInflictedTowardsPlayer);
-                for (let index = 0; index < array.length; index++) {
-                    let o = array[index];
-                    {
-                        const playerItr = o;
-                        const dmgInflicted = ((m, k) => { if (m.entries == null)
-                            m.entries = []; for (let i = 0; i < m.entries.length; i++)
-                            if (m.entries[i].key == null && k == null || m.entries[i].key.equals != null && m.entries[i].key.equals(k) || m.entries[i].key === k) {
-                                return m.entries[i].value;
-                            } return null; })(this.__damageInflictedTowardsPlayer, playerItr);
-                        if (dmgInflicted < maxValue) {
-                            maxValue = dmgInflicted;
-                            player = playerItr;
-                        }
-                    }
-                }
-            }*/
             for (let playerItr of this.__damageInflictedTowardsPlayer.entries()) {
-                let dmgInflicted = this.__damageInflictedTowardsPlayer.get(playerItr);
+                let dmgInflicted = this.__damageInflictedTowardsPlayer.get(playerItr[0]);
                 if (dmgInflicted < maxValue) {
                     maxValue = dmgInflicted;
-                    player = playerItr;
+                    player = playerItr[0];
                 }
             }
             return player;
@@ -358,56 +315,20 @@ var dsector;
         }
 
         specificationIDOfFavouriteWeapon() {
-            let specID = null;
-            let dmgFlt = -1.0;
-            /*{
-                let array =  ((m) => { let r = []; if (m.entries == null)
-                    m.entries = []; for (let i = 0; i < m.entries.length; i++)
-                    r.push(m.entries[i].key); return r; })(this.damageInflictedByWeaponSpecification);
-                for (let index = 0; index < array.length; index++) {
-                    let o = array[index];
-                    {
-                        const nextSpecID = o;
-                        const damage = ((m, k) => { if (m.entries == null)
-                            m.entries = []; for (let i = 0; i < m.entries.length; i++)
-                            if (m.entries[i].key == null && k == null || m.entries[i].key.equals != null && m.entries[i].key.equals(k) || m.entries[i].key === k) {
-                                return m.entries[i].value;
-                            } return null; })(this.damageInflictedByWeaponSpecification, nextSpecID);
-                        if (damage > dmgFlt) {
-                            dmgFlt = damage;
-                            specID = nextSpecID;
-                        }
-                    }
-                }
-            }*/
-            for (let o of this.damageInflictedByWeaponSpecification.entries()) {
-                let nextSpecID = o;
-                let damage = this.damageInflictedByWeaponSpecification.get(nextSpecID);
-                if (damage > dmgFlt) {
-                    dmgFlt = damage;
-                    specID = nextSpecID;
+            let maxEntry = null;
+            for (let entry of this.damageInflictedByWeaponSpecification.entries()) {
+                if (maxEntry === null || entry[1] > maxEntry[1]) {
+                    maxEntry = entry;
                 }
             }
-            return specID;
+            return maxEntry[0];
         }
 
         setDamageInflictedByWeapon(specification, damage) {
-            /* put  ((m, k, v) => { if (m.entries == null)
-                m.entries = []; for (let i = 0; i < m.entries.length; i++)
-                if (m.entries[i].key == null && k == null || m.entries[i].key.equals != null && m.entries[i].key.equals(k) || m.entries[i].key === k) {
-                    m.entries[i].value = v;
-                    return;
-                } m.entries.push({ key: k, value: v, getKey: function () { return this.key; }, getValue: function () { return this.value; } }); })(this.damageInflictedByWeaponSpecification, specification.specificationID, damage);*/
             this.damageInflictedByWeaponSpecification.set(specification.specificationID, damage);
         }
 
         setDamageInflictedTowardsPlayer(player, damage) {
-            /* put  ((m, k, v) => { if (m.entries == null)
-                m.entries = []; for (let i = 0; i < m.entries.length; i++)
-                if (m.entries[i].key == null && k == null || m.entries[i].key.equals != null && m.entries[i].key.equals(k) || m.entries[i].key === k) {
-                    m.entries[i].value = v;
-                    return;
-                } m.entries.push({ key: k, value: v, getKey: function () { return this.key; }, getValue: function () { return this.value; } }); })(this.__damageInflictedTowardsPlayer, player, damage);*/
             this.__damageInflictedTowardsPlayer.set(player, damage);
         }
 
@@ -485,67 +406,21 @@ var dsector;
             }
         }
 
-        removeWeaponFromPort(portNumber) {/*
-            const port = ((m, k) => {
-                if (m.entries == null)
-                    m.entries = [];
-                for (let i = 0; i < m.entries.length; i++)
-                    if (m.entries[i].key == null && k == null || m.entries[i].key.equals != null &&
-                        m.entries[i].key.equals(k) || m.entries[i].key === k) {
-                        return m.entries[i].value;
-                    }
-                return null;
-            })(this.weapons, portNumber);
-            if (port != null) {
-
-                ((m, k) => {
-                    if (m.entries == null)
-                        m.entries = [];
-                    for (let i = 0; i < m.entries.length; i++)
-                        if (m.entries[i].key == null && k == null || m.entries[i].key.equals != null &&
-                            m.entries[i].key.equals(k) || m.entries[i].key === k) {
-                            return m.entries.splice(i, 1)[0];
-                        }
-                })(this.weapons, portNumber);
-            }*/
+        removeWeaponFromPort(portNumber) {
             let port = this.weapons.get(portNumber);
             if (port != null) {
                 this.weapons.delete(portNumber);
             }
         }
 
-        getWeaponFromPortNumber(portNumber) {/*
-            const port = ((m, k) => {
-                if (m.entries == null)
-                    m.entries = [];
-                for (let i = 0; i < m.entries.length; i++)
-                    if (m.entries[i].key == null && k == null || m.entries[i].key.equals != null && m.entries[i].key.equals(k) || m.entries[i].key === k) {
-                        return m.entries[i].value;
-                    }
-                return null;
-            })(this.weapons, portNumber);
-            return port == null ? null : port.weaponSpecification;*/
+        getWeaponFromPortNumber(portNumber) {
             let port = this.weapons.get(portNumber);
             return port == null ? null : port.weaponSpecification;
         }
 
         /**
-         * @param {number} weaponSpecID */
-        getPortNumberFromWeaponSpecificationID(weaponSpecID) {/*
-            for (let i = 1; i <= DSecPlayer.numberOfWeaponPorts; ++i) {
-                const port = ((m, k) => {
-                    if (m.entries == null)
-                        m.entries = [];
-                    for (let i = 0; i < m.entries.length; i++)
-                        if (m.entries[i].key == null && k == null || m.entries[i].key.equals != null && m.entries[i].key.equals(k) || m.entries[i].key === k) {
-                            return m.entries[i].value;
-                        }
-                    return null;
-                })(this.weapons, i);
-                if (port != null && port.weaponSpecification.specificationID === weaponSpecID) {
-                    return i;
-                }
-            }*/
+         * @param {number} weaponSpecID WeaponSpecificationID to retrieve port number from */
+        getPortNumberFromWeaponSpecificationID(weaponSpecID) {
             for (let i = 1; i <= DSecPlayer.numberOfWeaponPorts; ++i) {
                 let port = this.weapons.get(i);
                 if (port != null && port.weaponSpecification.specificationID === weaponSpecID) {
@@ -555,17 +430,7 @@ var dsector;
             return -1;
         }
 
-        getFireUnitsFromPortNumber(portNumber) {/*
-            const port = ((m, k) => {
-                if (m.entries == null)
-                    m.entries = [];
-                for (let i = 0; i < m.entries.length; i++)
-                    if (m.entries[i].key == null && k == null || m.entries[i].key.equals != null && m.entries[i].key.equals(k) || m.entries[i].key === k) {
-                        return m.entries[i].value;
-                    }
-                return null;
-            })(this.weapons, portNumber);
-            return port == null ? -1 : port.fireUnits;*/
+        getFireUnitsFromPortNumber(portNumber) {
             let port = this.weapons.get(portNumber);
             return port == null ? -1 : port.fireUnits;
         }
@@ -581,17 +446,7 @@ var dsector;
             return this.getWeaponFromPortNumber(this.__selectedPort);
         }
 
-        hasWeaponInPort(portNumber) {/*
-            const weaponPort = ((m, k) => {
-                if (m.entries == null)
-                    m.entries = [];
-                for (let i = 0; i < m.entries.length; i++)
-                    if (m.entries[i].key == null && k == null || m.entries[i].key.equals != null && m.entries[i].key.equals(k) || m.entries[i].key === k) {
-                        return m.entries[i].value;
-                    }
-                return null;
-            })(this.weapons, portNumber);
-            return weaponPort != null && weaponPort.fireUnits !== 0;*/
+        hasWeaponInPort(portNumber) {
             let weaponPort = this.weapons.get(portNumber);
             return weaponPort != null && weaponPort.fireUnits !== 0;
         }
@@ -653,27 +508,10 @@ var dsector;
                     }
                     dsector.DSReference.dsecGame.dsecRound.setTimeWhenAnyPlayerLastFired(CWSYSTEM.Environment.currentTime());
                     selectedWeapon.fireP(this);
-                    const weaponPort = this.weapons.get(this.__selectedPort); /*((m, k) => {
-                        if (m.entries == null)
-                            m.entries = [];
-                        for (let i = 0; i < m.entries.length; i++)
-                            if (m.entries[i].key == null && k == null || m.entries[i].key.equals != null && m.entries[i].key.equals(k) || m.entries[i].key === k) {
-                                return m.entries[i].value;
-                            }
-                        return null;
-                    })(this.weapons, this.__selectedPort);*/
+                    const weaponPort = this.weapons.get(this.__selectedPort);
                     --weaponPort.fireUnits;
                     ++this.numberOfTimesWeaponFired;
                     if (weaponPort.fireUnits <= 0) {
-                        /* remove
-                        ((m, k) => {
-                            if (m.entries == null)
-                                m.entries = [];
-                            for (let i = 0; i < m.entries.length; i++)
-                                if (m.entries[i].key == null && k == null || m.entries[i].key.equals != null && m.entries[i].key.equals(k) || m.entries[i].key === k) {
-                                    return m.entries.splice(i, 1)[0];
-                                }
-                        })(this.weapons, selectedWeapon.portNumber);*/
                         this.weapons.delete(selectedWeapon.portNumber);
                         this.changeWeapon();
                     }
@@ -693,23 +531,6 @@ var dsector;
             if (this.instructionSuppression == null) {
                 this.instructionSuppression = new Map();
             }
-            /* put
-            ((m, k, v) => {
-                if (m.entries == null)
-                    m.entries = [];
-                for (let i = 0; i < m.entries.length; i++)
-                    if (m.entries[i].key == null && k == null || m.entries[i].key.equals != null && m.entries[i].key.equals(k) || m.entries[i].key === k) {
-                        m.entries[i].value = v;
-                        return;
-                    }
-                m.entries.push({
-                    key: k, value: v, getKey: function () {
-                        return this.key;
-                    }, getValue: function () {
-                        return this.value;
-                    }
-                });
-            })(this.instructionSuppression, key, CWSYSTEM.Environment.currentTime() + (n => n < 0 ? Math.ceil(n) : Math.floor(n))(length));*/
             this.instructionSuppression.set(key,
                 CWSYSTEM.Environment.currentTime() + (n => n < 0 ? Math.ceil(n) : Math.floor(n))(length));
         }
@@ -718,29 +539,6 @@ var dsector;
             if (this.aliveState !== DSecPlayer.DESTROYED) {
                 if (this.instructionSuppression != null) {
                     const changeState = state;
-                    /* const suppression = ((m, k) => {
-                         if (m.entries == null)
-                             m.entries = [];
-                         for (let i = 0; i < m.entries.length; i++)
-                             if (m.entries[i].key == null && k == null || m.entries[i].key.equals != null && m.entries[i].key.equals(k) || m.entries[i].key === k) {
-                                 return m.entries[i].value;
-                             }
-                         return null;
-                     })(this.instructionSuppression, changeState);
-                     if (suppression != null) {
-                         if (suppression >= CWSYSTEM.Environment.currentTime()) {
-                             return;
-                         }
-                         /* remove
-                         ((m, k) => {
-                             if (m.entries == null)
-                                 m.entries = [];
-                             for (let i = 0; i < m.entries.length; i++)
-                                 if (m.entries[i].key == null && k == null || m.entries[i].key.equals != null && m.entries[i].key.equals(k) || m.entries[i].key === k) {
-                                     return m.entries.splice(i, 1)[0];
-                                 }
-                         })(this.instructionSuppression, changeState);
-                     }*/
                     let suppression = this.instructionSuppression.get(changeState);
                     if (suppression != null || suppression !== undefined) {
                         if (suppression >= CWSYSTEM.Environment.currentTime()) {
@@ -869,7 +667,7 @@ var dsector;
                     if (this.robotSpecification.type >= dsector.RobotSpecification.JOYSTICK1) {
                         try {
                             accelScale = CWSYSTEM.CWUtils.roundFloat(dsector.DSReference.jsu.joysticksActive.get(
-                                this.robotSpecification.type).gpTriggersScaled.f1,4);
+                                this.robotSpecification.type).gpTriggersScaled.f1, 4);
                         } catch (e) {
                             accelScale = 0;
                         }
@@ -1113,7 +911,8 @@ var dsector;
         suspendShoppingCardIfOwned() {
             if (this.__hasShoppingCard && !this.__shoppingCardOwnedButSuspended) {
                 this.__shoppingCardOwnedButSuspended = true;
-                dsector.DSReference.alertManager.messageQueued(this.name + " should stay within the D-Sector. Shopping card suspended.");
+                dsector.DSReference.alertManager.messageQueued(this.name +
+                    " should stay within the D-Sector. Shopping card suspended.");
             }
         }
 
@@ -1147,7 +946,8 @@ var dsector;
                     dsector.DSReference.cwSound.playSound(
                         "assets/sounds/shieldSwitchOn.wav", (Math.random() * 5.0));
                 }
-                if (dsector.DSecSetupWindow.soundMode === dsector.DSecSetupWindow.NORMAL_SOUND && this.shieldSound != null) {
+                if (dsector.DSecSetupWindow.soundMode === dsector.DSecSetupWindow.NORMAL_SOUND &&
+                    this.shieldSound != null) {
                     //this.shieldSound.loop(3);
                 }
             }
@@ -1157,7 +957,9 @@ var dsector;
         }
 
         turnShieldOffIfExpired() {
-            if (this.__shieldActive && CWSYSTEM.Environment.currentTime() - this.shieldTurnedOnAt > (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.shieldSpecificationTurnedOn.lifeSpanInMilliseconds)) {
+            if (this.__shieldActive &&
+                CWSYSTEM.Environment.currentTime() - this.shieldTurnedOnAt > (n => n < 0 ? Math.ceil(n) :
+                    Math.floor(n))(this.shieldSpecificationTurnedOn.lifeSpanInMilliseconds)) {
                 if (this.shieldSound != null) {
                     this.shieldSound.pause();
                 }
@@ -1205,8 +1007,10 @@ var dsector;
             let maxValue = 3.4028235E38;
             for (let i = 0; i < dsector.DSReference.dsecGame.numberOfPlayers(); ++i) {
                 const player1 = dsector.DSReference.dsecGame.getPlayer(i + 1);
-                if (player1 !== this && player1.aliveState !== DSecPlayer.DESTROYED && !this.playerIsEnemy(player1)) {
-                    const v = Math.fround((Math.pow(this.x - player1.getX(), 2.0) + Math.pow(this.y - player1.getY(), 2.0)));
+                if (player1 !== this && player1.aliveState !== DSecPlayer.DESTROYED &&
+                    !this.playerIsEnemy(player1)) {
+                    const v = Math.fround((Math.pow(this.x - player1.getX(), 2.0) +
+                        Math.pow(this.y - player1.getY(), 2.0)));
                     if (v < maxValue) {
                         player = player1;
                         maxValue = v;
@@ -1222,7 +1026,8 @@ var dsector;
             for (let i = 0; i < dsector.DSReference.dsecGame.numberOfPlayers(); ++i) {
                 const player1 = dsector.DSReference.dsecGame.getPlayer(i + 1);
                 if (this.playerIsEnemy(player1) && player1 !== this && player1.aliveState !== DSecPlayer.DESTROYED) {
-                    const v = Math.fround((Math.pow(this.x - player1.getX(), 2.0) + Math.pow(this.y - player1.getY(), 2.0)));
+                    const v = Math.fround((Math.pow(this.x - player1.getX(), 2.0) +
+                        Math.pow(this.y - player1.getY(), 2.0)));
                     if (v < maxValue) {
                         player = player1;
                         maxValue = v;
@@ -1266,7 +1071,8 @@ var dsector;
 
         teamOfPlayer() {
             if (dsector.DSReference.dsecMainSetupWindow.playMode() === dsector.DSecMainSetupWindow.TEAMS) {
-                return this.playerNumber() <= (dsector.DSReference.dsecGame.numberOfPlayers() / 2 | 0) ? dsector.DSReference.dsecGame.blueTeam : dsector.DSReference.dsecGame.redTeam;
+                return this.playerNumber() <= (dsector.DSReference.dsecGame.numberOfPlayers() / 2 | 0) ?
+                    dsector.DSReference.dsecGame.blueTeam : dsector.DSReference.dsecGame.redTeam;
             } else {
                 return null;
             }
@@ -1276,13 +1082,15 @@ var dsector;
             if (this.teamOfPlayer() == null) {
                 return null;
             } else {
-                return this.teamOfPlayer() === dsector.DSReference.dsecGame.blueTeam ? dsector.DSReference.dsecGame.redTeam : dsector.DSReference.dsecGame.blueTeam;
+                return this.teamOfPlayer() === dsector.DSReference.dsecGame.blueTeam ?
+                    dsector.DSReference.dsecGame.redTeam : dsector.DSReference.dsecGame.blueTeam;
             }
         }
 
         enemyJewel() {
             if (dsector.DSReference.dsecMainSetupWindow.playMode() === dsector.DSecMainSetupWindow.TEAMS) {
-                return this.teamOfPlayer().__color === 1 ? dsector.DSReference.dsecGame.dsecRound.blueJewel : dsector.DSReference.dsecGame.dsecRound.redJewel;
+                return this.teamOfPlayer().__color === 1 ?
+                    dsector.DSReference.dsecGame.dsecRound.blueJewel : dsector.DSReference.dsecGame.dsecRound.redJewel;
             } else {
                 return null;
             }
@@ -1290,7 +1098,8 @@ var dsector;
 
         ownJewel() {
             if (dsector.DSReference.dsecMainSetupWindow.playMode() === dsector.DSecMainSetupWindow.TEAMS) {
-                return this.teamOfPlayer().__color === 1 ? dsector.DSReference.dsecGame.dsecRound.redJewel : dsector.DSReference.dsecGame.dsecRound.blueJewel;
+                return this.teamOfPlayer().__color === 1 ?
+                    dsector.DSReference.dsecGame.dsecRound.redJewel : dsector.DSReference.dsecGame.dsecRound.blueJewel;
             } else {
                 return null;
             }

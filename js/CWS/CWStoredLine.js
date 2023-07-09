@@ -28,6 +28,7 @@ var CWSYSTEM;
             this.y1 = y1;
             this.color = new CWSYSTEM.CWColor(red, green, blue, alpha);
         }
+
         draw() {
             const vs = this.parentWindow.v;
             vs.setColor$intCWColor(this.color);
@@ -37,6 +38,7 @@ var CWSYSTEM;
                 this.parentWindow.__titleHeight, true);
         }
     }
+
     CWSYSTEM.CWStoredLine = CWStoredLine;
     CWStoredLine["__class"] = "CWSYSTEM.CWStoredLine";
 })(CWSYSTEM || (CWSYSTEM = {}));

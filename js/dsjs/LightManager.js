@@ -39,7 +39,6 @@ var dsector;
             const vertex = new dsector.Vertex(0.0, 0.0, 0.0);
             let i;
             for(i = 0; i < this.scene.__positionedModels.size; ++i) {
-           /* for (i = 0; i < ((m) => {if (m.entries == null)m.entries = [];return m.entries.length;})(this.scene.__positionedModels); ++i) {*/
                 const positionedModel = this.scene.positionedModels()[i];
                 const polygonIterator = new dsector.PolygonIterator(positionedModel.model3DMatrix,
                     dsector.PolygonIterator.ALL_POLYGON_GROUPS);
@@ -48,7 +47,7 @@ var dsector;
                     if (modelFolder == null) {
                         break;
                     }
-                    for (let j = 0; j < /* size */ modelFolder.inbuiltLights.length; ++j) {
+                    for (let j = 0; j < modelFolder.inbuiltLights.length; ++j) {
                         const inbuiltLight = modelFolder.inbuiltLights[j];
                         if (inbuiltLight.on$()) {
                             const vertex1 = new dsector.Vertex(inbuiltLight.x$(), inbuiltLight.y$(), inbuiltLight.z$());

@@ -1,4 +1,4 @@
-/* re-written from Java */
+/* Re-written from Java */
 var dsector;
 (function (dsector) {
     class DSecBackgroundConfiguration {

@@ -1,4 +1,4 @@
-/* re-written from Java */
+/* Re-written from Java */
 var dsector;
 (function (dsector) {
     class DSecRobotChooserWindow {
@@ -86,36 +86,45 @@ var dsector;
             roboFilename = null;
             let button;
             if (!(this.selectedRobotFilename === ("-1"))) {
-                button = this.window.addButton$name$x$y$len$h$text$t$r("", 10, 30, 60, 15, "Summary", 9, 0);
+                button = this.window.addButton$name$x$y$len$h$text$t$r("", 10, 30, 60,
+                    15, "Summary", 9, 0);
                 button.objectContainingButtonPressedMethod = this;
                 button.buttonPressedMethodName = "summaryButtonPressed";
-                button = this.window.addButton$name$x$y$len$h$text$t$r("", 90, 30, 60, 15, "Sensors", 9, 0);
+                button = this.window.addButton$name$x$y$len$h$text$t$r("", 90, 30, 60,
+                    15, "Sensors", 9, 0);
                 button.objectContainingButtonPressedMethod = this;
                 button.buttonPressedMethodName = "sensorsButtonPressed";
-                button = this.window.addButton$name$x$y$len$h$text$t$r("", 170, 30, 60, 15, "Clocks", 9, 0);
+                button = this.window.addButton$name$x$y$len$h$text$t$r("", 170, 30, 60,
+                    15, "Clocks", 9, 0);
                 button.objectContainingButtonPressedMethod = this;
                 button.buttonPressedMethodName = "clocksButtonPressed";
-                button = this.window.addButton$name$x$y$len$h$text$t$r("", 250, 30, 60, 15, "Shopping", 9, 0);
+                button = this.window.addButton$name$x$y$len$h$text$t$r("", 250, 30, 60,
+                    15, "Shopping", 9, 0);
                 button.objectContainingButtonPressedMethod = this;
                 button.buttonPressedMethodName = "shoppingButtonPressed";
             }
-            button = this.window.addButton$name$x$y$len$h$text$t$r("", 10, 50, 75, 15, "New Robot", 9, 0);
+            button = this.window.addButton$name$x$y$len$h$text$t$r("", 10, 50, 75,
+                15, "New Robot", 9, 0);
             button.objectContainingButtonPressedMethod = this;
             button.buttonPressedMethodName = "newRobotButtonPressed";
             if (!(this.selectedRobotFilename === ("-1"))) {
-                button = this.window.addButton$name$x$y$len$h$text$t$r("", 90, 50, 60, 15, "Delete", 9, 0);
+                button = this.window.addButton$name$x$y$len$h$text$t$r("", 90, 50, 60,
+                    15, "Delete", 9, 0);
                 button.objectContainingButtonPressedMethod = this;
                 button.buttonPressedMethodName = "deleteButtonPressed";
             }
-            button = this.window.addButton$name$x$y$len$h$text$t$r("", 300, 50, 45, 15, "Help", 9, 0);
+            button = this.window.addButton$name$x$y$len$h$text$t$r("", 300, 50, 45,
+                15, "Help", 9, 0);
             button.objectContainingButtonPressedMethod = this;
             button.buttonPressedMethodName = "helpButtonPressed";
-            button = this.window.addButton$name$x$y$len$h$text$t$r("", 380, 50, 110, 15, "Return to D-Sector", 9, 0);
+            button = this.window.addButton$name$x$y$len$h$text$t$r("", 380, 50, 110,
+                15, "Return to D-Sector", 9, 0);
             button.objectContainingButtonPressedMethod = this;
             button.buttonPressedMethodName = "returnToDSectorButtonPressed";
         }
         continueButtonPressed(button) {
-            const remainingRounds = dsector.DSReference.dsecMainSetupWindow.numberOfRounds() - dsector.DSReference.dsecGame.currentRound();
+            const remainingRounds = dsector.DSReference.dsecMainSetupWindow.numberOfRounds() -
+                dsector.DSReference.dsecGame.currentRound();
             this.destroy();
             if (remainingRounds === 0) {
                 dsector.DSReference.dsecMainSetupWindow.create();

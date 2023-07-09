@@ -1,4 +1,4 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
+/* Re-written from Java */
 var dsector;
 (function (dsector) {
     class RobotIOWindow {
@@ -65,19 +65,16 @@ var dsector;
             const arrayList = ([]);
             let i;
             for (i = 1; i <= 10; ++i) {
-                {
-                    /* add */ (arrayList.push(new dsector.StringPair("Sensor " + i, "Sensor " + i)) > 0);
-                }
-                ;
+                    arrayList.push(new dsector.StringPair("Sensor " + i, "Sensor " + i));
+
             }
             for (i = 1; i <= RobotIOWindow.CLOCK1; ++i) {
-                {
-                    /* add */ (arrayList.push(new dsector.StringPair("Clock " + i, "Clock " + i)) > 0);
-                }
-                ;
+
+                arrayList.push(new dsector.StringPair("Clock " + i, "Clock " + i));
+
             }
-            /* add */ (arrayList.push(new dsector.StringPair("Hit by missile", "Hit by missile")) > 0);
-            /* add */ (arrayList.push(new dsector.StringPair("Turned to face target", "Turned to face target")) > 0);
+            arrayList.push(new dsector.StringPair("Hit by missile", "Hit by missile"));
+            arrayList.push(new dsector.StringPair("Turned to face target", "Turned to face target"));
             const pulldown = this.window.addPulldown("players", arrayList, 10, base, 180, 16);
             const unused = base + RobotIOWindow.CLOCK6;
             pulldown.selectedOption = this.selectedInputDevice;

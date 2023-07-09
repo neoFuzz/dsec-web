@@ -43,7 +43,7 @@ var dsector;
                     const fadingLight = DSecFadingLight.fadingLightsInScene[i];
                     const currentTime = CWSYSTEM.Environment.currentTime();
                     if (currentTime > fadingLight.endTime) {
-                        (a => {let index = a.indexOf(fadingLight);/* remove */
+                        (a => {let index = a.indexOf(fadingLight);
                             if (index >= 0) {a.splice(index, 1);return true;} else {return false;}
                         })(DSecFadingLight.fadingLightsInScene);
                         --i;

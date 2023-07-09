@@ -1,4 +1,3 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var CWSYSTEM;
 (function (CWSYSTEM) {
     class CWTextBlock {
@@ -40,14 +39,17 @@ var CWSYSTEM;
             this.width = width;
             this.bold = false;
         }
+
         draw() {
             if (this.bold) {
                 CWSYSTEM.CWFontTools.BOLD = true;
             }
-            CWSYSTEM.CWFontTools.renderText(this.parent.window, this.text, this.leftMargin, this.baseLine, this.font, this.color, this.width);
+            CWSYSTEM.CWFontTools.renderText(this.parent.window, this.text, this.leftMargin, this.baseLine,
+                this.font, this.color, this.width);
             CWSYSTEM.CWFontTools.BOLD = false;
         }
     }
+
     CWSYSTEM.CWTextBlock = CWTextBlock;
     CWTextBlock["__class"] = "CWSYSTEM.CWTextBlock";
 })(CWSYSTEM || (CWSYSTEM = {}));

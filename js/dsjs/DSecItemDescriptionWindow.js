@@ -1,4 +1,3 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var dsector;
 (function (dsector) {
     class DSecItemDescriptionWindow {
@@ -10,26 +9,28 @@ var dsector;
             this.savedX = -1;
             this.savedY = -1;
         }
+
         isCreated() {
             return this.window != null;
         }
+
         toggleCreated() {
             if (this.isCreated()) {
                 this.destroy();
-            }
-            else {
+            } else {
                 this.create();
             }
         }
+
         create() {
             if (this.isCreated()) {
                 this.drawWindow();
-            }
-            else {
+            } else {
                 this.drawWindow();
                 this.restorePosition();
             }
         }
+
         destroy() {
             if (this.window != null) {
                 this.savedX = this.window.xPosition;
@@ -38,15 +39,16 @@ var dsector;
                 this.window = null;
             }
         }
+
         update() {
             if (this.isCreated()) {
                 this.drawWindow();
-            }
-            else {
+            } else {
                 this.drawWindow();
                 this.restorePosition();
             }
         }
+
         /** @private */ restorePosition() {
             if (this.savedX !== -1) {
                 this.window.xPosition = this.savedX;
@@ -55,6 +57,7 @@ var dsector;
                 this.window.yPosition = this.savedY;
             }
         }
+
         drawWindow() {
             if (this.weaponSpecification != null) {
                 let x = 20;
@@ -157,10 +160,12 @@ var dsector;
                 this.window.yPosition = y;
             }
         }
+
         closeWindow(button) {
             this.destroy();
         }
     }
+
     dsector.DSecItemDescriptionWindow = DSecItemDescriptionWindow;
     DSecItemDescriptionWindow["__class"] = "dsector.DSecItemDescriptionWindow";
 })(dsector || (dsector = {}));

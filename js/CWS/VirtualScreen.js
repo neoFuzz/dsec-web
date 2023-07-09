@@ -165,7 +165,7 @@ var CWSYSTEM;
             image.width = canvas.width;
 
             try {
-                context.drawImage(image, 0, 0);//, canvas.width /* image.width*/, canvas.height/*image.height*/);
+                context.drawImage(image, 0, 0);//image.height*/);
                 bufferedImage = context.getImageData(0, 0, canvas.width, canvas.height);
             } catch (ex) {
                 b = true;
@@ -174,9 +174,9 @@ var CWSYSTEM;
             const height = this.background.height;
             const width = this.background.width;
             if (b) {
-                for (let i = 0; i < height; ++i) {
-                    for (let j = 0; j < width; ++j) {
-                        this.background.point[i][j] = CWSYSTEM.Global.environmentBackgroundColor_$LI$();
+                for (let y = 0; y < height; ++y) {
+                    for (let x = 0; x < width; ++x) {
+                        this.background.point[y][x] = CWSYSTEM.Global.environmentBackgroundColor_$LI$();
                     }
                 }
             } else {
@@ -188,12 +188,12 @@ var CWSYSTEM;
                     //let r = data[i + 0];let g = data[i + 1];let b = data[i + 2];let a = data[i + 3];
                     //let pointColor = new CWSYSTEM.CWColor(r,g,b,a).color;
                     imageData.push(CWSYSTEM.FastColorUtilities.color$r$g$b$a(
-                        data[i + 0], data[i + 1], data[i + 2], data[i + 3]));
+                        data[i], data[i + 1], data[i + 2], data[i + 3]));
                 }
 
-                for (let k = 0; k < height; ++k) {
-                    for (let l = 0; l < width; ++l) {
-                        this.background.point[k][l] = imageData[k % height2 * width2 + l % width2];
+                for (let v = 0; v < height; ++v) {
+                    for (let u = 0; u < width; ++u) {
+                        this.background.point[v][u] = imageData[v % height2 * width2 + u % width2];
                     }
                 }
             }
@@ -214,7 +214,8 @@ var CWSYSTEM;
             })(this.subFrames);
             for (let i = 0; i < this.subFrames; ++i) {
                 CWSYSTEM.Debug.println("Initializing actualScreenSubframe number" + i);
-                this.subFrame[i] = new CWSYSTEM.ScreenData(CWSYSTEM.Global.screenResolutionX_$LI$(), CWSYSTEM.Global.screenResolutionY_$LI$(), "Subframe " + i);
+                this.subFrame[i] = new CWSYSTEM.ScreenData(CWSYSTEM.Global.screenResolutionX_$LI$(),
+                    CWSYSTEM.Global.screenResolutionY_$LI$(), "Subframe " + i);
             }
             CWSYSTEM.Debug.println("Initializing actualScreen and background (already initialized)");
             CWSYSTEM.Debug.println("Initializing polygon scan lines (already initialized)");
@@ -224,7 +225,8 @@ var CWSYSTEM;
         }
 
         update() {
-            if (this.backgroundFadeInProgress || CWSYSTEM.Environment.screenHasChanged || CWSYSTEM.Environment.furtherRendering > 0) {
+            if (this.backgroundFadeInProgress || CWSYSTEM.Environment.screenHasChanged ||
+                CWSYSTEM.Environment.furtherRendering > 0) {
                 if (this.virtualScreenInUse) {
                     return;
                 }
@@ -247,11 +249,13 @@ var CWSYSTEM;
                 CWSYSTEM.Environment.screenHasChanged = false;
             }
         }
+
         repaint() {
             let canvas = document.getElementById("3dSpace");
             let ctx = canvas.getContext("2d");
             ctx.putImageData(dsector.DSReference.dsMain.bi, 0, 0);
         }
+
         paint(graphics) {
             let canvas = document.getElementById("3dSpace");
             let ctx = canvas.getContext("2d");
@@ -259,6 +263,7 @@ var CWSYSTEM;
                 ctx.putImageData(graphics, 0, 0);
             }
         }
+
         repeatedUpdateThroughSubframes() {
             if (this.virtualScreenInUse) {
                 return;
@@ -281,7 +286,8 @@ var CWSYSTEM;
             const screenData = this.subFrame[this.subFrameCount];
             if (this.subFrames > 0 && !this.subFrameRefresh && !this.backgroundFadeInProgress) {
                 for (let i = 0; i < height; ++i) {
-                    CWSYSTEM.CWUtils.copyArray(this.subFrame[(this.subFrameCount + this.subFrames - 1) % this.subFrames].point[i],
+                    CWSYSTEM.CWUtils.copyArray(
+                        this.subFrame[(this.subFrameCount + this.subFrames - 1) % this.subFrames].point[i],
                         0, this.subFrame[this.subFrameCount].point[i], 0, width);
                 }
             }
@@ -303,7 +309,8 @@ var CWSYSTEM;
                         for (let l = 0; l < n; ++l) {
                             CWSYSTEM.CWUtils.addSegmentToScanLine(l + n4, n2, n3);
                         }
-                        if (window.oldH !== window.h || window.oldW !== window.w || window.oldX !== window.xPosition || window.oldY !== window.yPosition || window.toBeDestroyed) {
+                        if (window.oldH !== window.h || window.oldW !== window.w || window.oldX !== window.xPosition ||
+                            window.oldY !== window.yPosition || window.toBeDestroyed) {
                             const n5 = window.oldH + 2 * window.borderWidth + window.__titleHeight;
                             const n6 = window.oldX - window.borderWidth;
                             const n7 = window.oldX + window.oldW + window.borderWidth;
@@ -324,33 +331,34 @@ var CWSYSTEM;
                 CWSYSTEM.Environment.currentTime() < this.fadeEndTime) {
                 this.backgroundFadeInProgress = true;
                 this.subFrameRefresh = true;
-                const n10 = Math.fround(Math.pow(
-                    (CWSYSTEM.Environment.currentTime() - this.fadeStartTime) / (this.fadeEndTime - this.fadeStartTime), 1.5));
-                for (let n11 = 0; n11 < height; ++n11) {
-                    for (let n12 = 0; n12 < width; ++n12) {
-                        const n13 = this.background.point[n11][n12];
-                        screenData.point[n11][n12] = CWSYSTEM.FastColorUtilities.color$r$g$b$a(((
-                                Math.fround(CWSYSTEM.FastColorUtilities.red(n13) * n10)) | 0),
-                            ((Math.fround(CWSYSTEM.FastColorUtilities.green(n13) * n10)) | 0),
-                            ((Math.fround(CWSYSTEM.FastColorUtilities.blue(n13) * n10)) | 0), 255);
+                const fadeTime = Math.fround(Math.pow(
+                    (CWSYSTEM.Environment.currentTime() - this.fadeStartTime) /
+                    (this.fadeEndTime - this.fadeStartTime), 1.5));
+                for (let i = 0; i < height; ++i) {
+                    for (let x12 = 0; x12 < width; ++x12) {
+                        const eColor = this.background.point[i][x12];
+                        screenData.point[i][x12] = CWSYSTEM.FastColorUtilities.color$r$g$b$a((
+                                Math.fround(CWSYSTEM.FastColorUtilities.red(eColor) * fadeTime) | 0),
+                            (Math.fround(CWSYSTEM.FastColorUtilities.green(eColor) * fadeTime) | 0),
+                            (Math.fround(CWSYSTEM.FastColorUtilities.blue(eColor) * fadeTime) | 0), 255);
                     }
                 }
             } else if (this.drawCompleteBackground) {
                 this.drawCompleteBackground = false;
-                for (let n14 = 0; n14 < height; ++n14) {
-                    CWSYSTEM.CWUtils.copyArray(this.background.point[n14], 0, screenData.point[n14], 0, width);
+                for (let y14 = 0; y14 < height; ++y14) {
+                    CWSYSTEM.CWUtils.copyArray(this.background.point[y14], 0, screenData.point[y14], 0, width);
                 }
             } else {
-                for (let n15 = 0; n15 < height; ++n15) {
-                    for (let n16 = 0; n16 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[n15]; n16 += 2) {
-                        const n17 = CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[n15][n16];
-                        CWSYSTEM.CWUtils.copyArray(this.background.point[n15], n17, screenData.point[n15], n17,
-                            CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[n15][n16 + 1] - n17);
+                for (let y15 = 0; y15 < height; ++y15) {
+                    for (let x16 = 0; x16 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[y15]; x16 += 2) {
+                        const offset1 = CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y15][x16];
+                        CWSYSTEM.CWUtils.copyArray(this.background.point[y15], offset1, screenData.point[y15], offset1,
+                            CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y15][x16 + 1] - offset1);
                     }
                 }
             }
-            for (let n18 = 0; n18 < collection.depthSortedSequence.size(); ++n18) {
-                const currWindow = collection.getWindow$int(collection.depthSortedSequence.get(n18));
+            for (let j = 0; j < collection.depthSortedSequence.size(); ++j) {
+                const currWindow = collection.getWindow$int(collection.depthSortedSequence.get(j));
                 if (currWindow.windowVisible) {
                     if (!currWindow.toBeDestroyed) {
                         const borderWidth = currWindow.borderWidth;
@@ -363,60 +371,64 @@ var CWSYSTEM;
                             let xPosition2 = currWindow.xPosition;
                             let yPosition2 = currWindow.yPosition;
                             const xPosition3 = currWindow.xPosition;
-                            const n19 = currWindow.xPosition + currWindow.w;
+                            const windowXEnd = currWindow.xPosition + currWindow.w;
                             const antiAliasedLevel = currWindow.antiAliasedLevel;
                             const preAntiAliasedContent = currWindow.preAntiAliasedContent;
                             if (subframes >= 2) {
                                 const screenData2 = currWindow.temporalSupersample[currWindow.subFrame];
                                 const screenData3 =
                                     currWindow.temporalSupersample[(currWindow.subFrame - 1 + subframes) % subframes];
-                                for (let n20 = 0; n20 < currWindow.h; ++n20) {
-                                    CWSYSTEM.CWUtils.copyArray(screenData3.point[n20], 0,
-                                        screenData2.point[n20], 0, currWindow.w);
+                                for (let k = 0; k < currWindow.h; ++k) {
+                                    CWSYSTEM.CWUtils.copyArray(screenData3.point[k], 0,
+                                        screenData2.point[k], 0, currWindow.w);
                                 }
-                                for (let n21 = yPosition2; n21 < yPosition2 + h; ++n21) {
-                                    for (let n22 = 0; n22 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[n21]; n22 += 2) {
-                                        const max = Math.max(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[n21][n22], xPosition3);
-                                        const min = Math.min(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[n21][n22 + 1], n19);
+                                for (let y21 = yPosition2; y21 < yPosition2 + h; ++y21) {
+                                    for (let x22 = 0; x22 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[y21]; x22 += 2) {
+                                        const max = Math.max(
+                                            CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y21][x22], xPosition3);
+                                        const min = Math.min(
+                                            CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y21][x22 + 1], windowXEnd);
                                         switch (antiAliasedLevel) {
                                             case 1: {
-                                                const n23 = n21 - yPosition2;
-                                                for (let n24 = max; n24 < min; ++n24) {
-                                                    const n25 = n24 - xPosition2;
-                                                    const n26 = preAntiAliasedContent.point[n23][n25];
-                                                    screenData2.point[n23][n25] = CWSYSTEM.FastColorUtilities.color$r$g$b$a(
-                                                        CWSYSTEM.FastColorUtilities.red(n26),
-                                                        CWSYSTEM.FastColorUtilities.green(n26),
-                                                        CWSYSTEM.FastColorUtilities.blue(n26),
-                                                        CWSYSTEM.FastColorUtilities.alpha(n26));
+                                                const yPos02 = y21 - yPosition2;
+                                                for (let x24 = max; x24 < min; ++x24) {
+                                                    const x25 = x24 - xPosition2;
+                                                    const pointColor = preAntiAliasedContent.point[yPos02][x25];
+                                                    screenData2.point[yPos02][x25] =
+                                                        CWSYSTEM.FastColorUtilities.color$r$g$b$a(
+                                                            CWSYSTEM.FastColorUtilities.red(pointColor),
+                                                            CWSYSTEM.FastColorUtilities.green(pointColor),
+                                                            CWSYSTEM.FastColorUtilities.blue(pointColor),
+                                                            CWSYSTEM.FastColorUtilities.alpha(pointColor));
                                                 }
                                                 break;
                                             }
                                             case 2: {
-                                                const n27 = n21 - yPosition2;
-                                                for (let n28 = max; n28 < min; ++n28) {
-                                                    const n29 = n28 - xPosition2;
-                                                    const n30 = preAntiAliasedContent.point[n27 * 2][n29 * 2];
-                                                    const n31 = preAntiAliasedContent.point[n27 * 2][n29 * 2 + 1];
-                                                    const n32 = preAntiAliasedContent.point[n27 * 2 + 1][n29 * 2];
-                                                    const n33 = preAntiAliasedContent.point[n27 * 2 + 1][n29 * 2 + 1];
-                                                    screenData2.point[n27][n29] = CWSYSTEM.FastColorUtilities.color$r$g$b$a(
-                                                        ((CWSYSTEM.FastColorUtilities.red(n30) +
-                                                            CWSYSTEM.FastColorUtilities.red(n31) +
-                                                            CWSYSTEM.FastColorUtilities.red(n32) +
-                                                            CWSYSTEM.FastColorUtilities.red(n33)) / 4 | 0),
-                                                        ((CWSYSTEM.FastColorUtilities.green(n30) +
-                                                            CWSYSTEM.FastColorUtilities.green(n31) +
-                                                            CWSYSTEM.FastColorUtilities.green(n32) +
-                                                            CWSYSTEM.FastColorUtilities.green(n33)) / 4 | 0),
-                                                        ((CWSYSTEM.FastColorUtilities.blue(n30) +
-                                                            CWSYSTEM.FastColorUtilities.blue(n31) +
-                                                            CWSYSTEM.FastColorUtilities.blue(n32) +
-                                                            CWSYSTEM.FastColorUtilities.blue(n33)) / 4 | 0),
-                                                        ((CWSYSTEM.FastColorUtilities.alpha(n30) +
-                                                            CWSYSTEM.FastColorUtilities.alpha(n31) +
-                                                            CWSYSTEM.FastColorUtilities.alpha(n32) +
-                                                            CWSYSTEM.FastColorUtilities.alpha(n33)) / 4 | 0));
+                                                const y27 = y21 - yPosition2;
+                                                for (let i = max; i < min; ++i) {
+                                                    const xPos02 = i - xPosition2;
+                                                    const pc1 = preAntiAliasedContent.point[y27 * 2][xPos02 * 2];
+                                                    const pc2 = preAntiAliasedContent.point[y27 * 2][xPos02 * 2 + 1];
+                                                    const pc3 = preAntiAliasedContent.point[y27 * 2 + 1][xPos02 * 2];
+                                                    const pc4 = preAntiAliasedContent.point[y27 * 2 + 1][xPos02 * 2 + 1];
+                                                    screenData2.point[y27][xPos02] =
+                                                        CWSYSTEM.FastColorUtilities.color$r$g$b$a(
+                                                            ((CWSYSTEM.FastColorUtilities.red(pc1) +
+                                                                CWSYSTEM.FastColorUtilities.red(pc2) +
+                                                                CWSYSTEM.FastColorUtilities.red(pc3) +
+                                                                CWSYSTEM.FastColorUtilities.red(pc4)) / 4 | 0),
+                                                            ((CWSYSTEM.FastColorUtilities.green(pc1) +
+                                                                CWSYSTEM.FastColorUtilities.green(pc2) +
+                                                                CWSYSTEM.FastColorUtilities.green(pc3) +
+                                                                CWSYSTEM.FastColorUtilities.green(pc4)) / 4 | 0),
+                                                            ((CWSYSTEM.FastColorUtilities.blue(pc1) +
+                                                                CWSYSTEM.FastColorUtilities.blue(pc2) +
+                                                                CWSYSTEM.FastColorUtilities.blue(pc3) +
+                                                                CWSYSTEM.FastColorUtilities.blue(pc4)) / 4 | 0),
+                                                            ((CWSYSTEM.FastColorUtilities.alpha(pc1) +
+                                                                CWSYSTEM.FastColorUtilities.alpha(pc2) +
+                                                                CWSYSTEM.FastColorUtilities.alpha(pc3) +
+                                                                CWSYSTEM.FastColorUtilities.alpha(pc4)) / 4 | 0));
                                                 }
                                                 break;
                                             }
@@ -430,28 +442,37 @@ var CWSYSTEM;
                                     const yPosition3 = currWindow.yPosition;
                                     const xPosition5 = currWindow.xPosition;
                                     const b = currWindow.xPosition + currWindow.w;
-                                    const rememberedPostTimeSupersampledScreenData = currWindow.rememberedPostTimeSupersampledScreenData;
-                                    for (let n34 = yPosition3; n34 < yPosition3 + h2; ++n34) {
-                                        for (let n35 = 0; n35 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[n34]; n35 += 2) {
-                                            const max2 = Math.max(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[n34][n35], xPosition5);
-                                            const min2 = Math.min(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[n34][n35 + 1], b);
-                                            const n36 = n34 - yPosition3;
-                                            for (let n37 = max2; n37 < min2; ++n37) {
-                                                const n38 = n37 - xPosition4;
-                                                let n39 = 0;
-                                                let n40 = 0;
-                                                let n41 = 0;
-                                                let n42 = 0;
-                                                for (let n43 = 0; n43 < subframes; ++n43) {
-                                                    n39 += CWSYSTEM.FastColorUtilities.red(temporalSupersample[n43].point[n36][n38]);
-                                                    n41 += CWSYSTEM.FastColorUtilities.green(temporalSupersample[n43].point[n36][n38]);
-                                                    n40 += CWSYSTEM.FastColorUtilities.blue(temporalSupersample[n43].point[n36][n38]);
-                                                    n42 += CWSYSTEM.FastColorUtilities.alpha(temporalSupersample[n43].point[n36][n38]);
+                                    const rememberedPostTimeSupersampledScreenData =
+                                        currWindow.rememberedPostTimeSupersampledScreenData;
+                                    for (let yPos3 = yPosition3; yPos3 < yPosition3 + h2; ++yPos3) {
+                                        for (let xPos3 = 0; xPos3 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[yPos3]; xPos3 += 2) {
+                                            const max2 = Math.max(
+                                                CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[yPos3][xPos3], xPosition5);
+                                            const min2 = Math.min(
+                                                CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[yPos3][xPos3 + 1], b);
+                                            const y36 = yPos3 - yPosition3;
+                                            for (let xa = max2; xa < min2; ++xa) {
+                                                const x38 = xa - xPosition4;
+                                                let red1 = 0;
+                                                let blue1 = 0;
+                                                let green1 = 0;
+                                                let alpha1 = 0;
+                                                for (let i = 0; i < subframes; ++i) {
+                                                    red1 += CWSYSTEM.FastColorUtilities.red(
+                                                        temporalSupersample[i].point[y36][x38]);
+                                                    green1 += CWSYSTEM.FastColorUtilities.green(
+                                                        temporalSupersample[i].point[y36][x38]);
+                                                    blue1 += CWSYSTEM.FastColorUtilities.blue(
+                                                        temporalSupersample[i].point[y36][x38]);
+                                                    alpha1 += CWSYSTEM.FastColorUtilities.alpha(
+                                                        temporalSupersample[i].point[y36][x38]);
                                                 }
-                                                rememberedPostTimeSupersampledScreenData.point[n36][n38] =
-                                                    CWSYSTEM.FastColorUtilities.color$r$g$b$a((n39 / subframes | 0),
-                                                        (n41 / subframes | 0), (n40 / subframes | 0),
-                                                        (n42 / subframes | 0));
+                                                rememberedPostTimeSupersampledScreenData.point[y36][x38] =
+                                                    CWSYSTEM.FastColorUtilities.color$r$g$b$a(
+                                                        (red1 / subframes | 0),
+                                                        (green1 / subframes | 0),
+                                                        (blue1 / subframes | 0),
+                                                        (alpha1 / subframes | 0));
                                             }
                                         }
                                     }
@@ -459,135 +480,155 @@ var CWSYSTEM;
                                     CWSYSTEM.Environment.screenHasChanged = true;
                                 }
                                 currWindow.subFrame = (currWindow.subFrame + 1) % currWindow.temporalSupersample.length;
-                                const rememberedPostTimeSupersampledScreenData2 = currWindow.rememberedPostTimeSupersampledScreenData;
+                                const rememberedPostTimeSupersampledScreenData2 =
+                                    currWindow.rememberedPostTimeSupersampledScreenData;
                                 const h3 = currWindow.h;
                                 xPosition2 = xPosition;
                                 yPosition2 = yPosition;
                                 const b2 = xPosition;
                                 const b3 = xPosition + currWindow.w;
-                                for (let n44 = yPosition2; n44 < yPosition2 + h3; ++n44) {
-                                    for (let n45 = 0; n45 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[n44]; n45 += 2) {
-                                        this.copyHorizontalLineToSubframeWithAlphaTransparancy(
-                                            rememberedPostTimeSupersampledScreenData2, n44,
-                                            Math.max(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[n44][n45], b2),
-                                            Math.min(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[n44][n45 + 1], b3),
+                                for (let y44 = yPosition2; y44 < yPosition2 + h3; ++y44) {
+                                    for (let n45 = 0; n45 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[y44]; n45 += 2) {
+                                        this.copyHorizontalLineToSubframeWithAlphaTransparency(
+                                            rememberedPostTimeSupersampledScreenData2, y44,
+                                            Math.max(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y44][n45], b2),
+                                            Math.min(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y44][n45 + 1], b3),
                                             xPosition2, yPosition2);
                                     }
                                 }
                             } else {
                                 const preAntiAliasedContent2 = currWindow.preAntiAliasedContent;
-                                for (let n46 = yPosition2; n46 < yPosition2 + h; ++n46) {
+                                for (let y46 = yPosition2; y46 < yPosition2 + h; ++y46) {
                                     if (yPosition2 + h <= screenData.point.length) {
-                                        for (let n47 = 0; n47 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[n46]; n47 += 2) {
-                                            const max3 = Math.max(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[n46][n47], xPosition3);
-                                            const min3 = Math.min(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[n46][n47 + 1], n19);
+                                        for (let n47 = 0; n47 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[y46]; n47 += 2) {
+                                            const max3 = Math.max(
+                                                CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y46][n47], xPosition3);
+                                            const min3 = Math.min(
+                                                CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y46][n47 + 1], windowXEnd);
                                             switch ((antiAliasedLevel)) {
                                                 case 1: {
-                                                    const n48 = n46 - yPosition2;
-                                                    for (let n49 = max3; n49 < min3; ++n49) {
-                                                        const n50 = n49 - xPosition2;
-                                                        const alpha = CWSYSTEM.FastColorUtilities.alpha(preAntiAliasedContent2.point[n48][n50]);
-                                                        const n51 = 255 - alpha;
-                                                        screenData.point[n46][n49] = CWSYSTEM.FastColorUtilities.color$r$g$b(
-                                                            ((alpha * CWSYSTEM.FastColorUtilities.red(
-                                                                    preAntiAliasedContent2.point[n48][n50]) + n51 *
-                                                                CWSYSTEM.FastColorUtilities.red(screenData.point[n46][n49])) / 256 | 0),
-                                                            ((alpha * CWSYSTEM.FastColorUtilities.green(
-                                                                    preAntiAliasedContent2.point[n48][n50]) + n51 *
-                                                                CWSYSTEM.FastColorUtilities.green(screenData.point[n46][n49])) / 256 | 0),
-                                                            ((alpha * CWSYSTEM.FastColorUtilities.blue(
-                                                                    preAntiAliasedContent2.point[n48][n50]) + n51 *
-                                                                CWSYSTEM.FastColorUtilities.blue(screenData.point[n46][n49])) / 256 | 0));
+                                                    const y48 = y46 - yPosition2;
+                                                    for (let x49 = max3; x49 < min3; ++x49) {
+                                                        const x50 = x49 - xPosition2;
+                                                        const alpha = CWSYSTEM.FastColorUtilities.alpha(preAntiAliasedContent2.point[y48][x50]);
+                                                        const minAlpha = 255 - alpha;
+                                                        screenData.point[y46][x49] =
+                                                            CWSYSTEM.FastColorUtilities.color$r$g$b(
+                                                                ((alpha * CWSYSTEM.FastColorUtilities.red(
+                                                                        preAntiAliasedContent2.point[y48][x50]) + minAlpha *
+                                                                    CWSYSTEM.FastColorUtilities.red(
+                                                                        screenData.point[y46][x49])) / 256 | 0),
+                                                                ((alpha * CWSYSTEM.FastColorUtilities.green(
+                                                                        preAntiAliasedContent2.point[y48][x50]) + minAlpha *
+                                                                    CWSYSTEM.FastColorUtilities.green(
+                                                                        screenData.point[y46][x49])) / 256 | 0),
+                                                                ((alpha * CWSYSTEM.FastColorUtilities.blue(
+                                                                        preAntiAliasedContent2.point[y48][x50]) + minAlpha *
+                                                                    CWSYSTEM.FastColorUtilities.blue(
+                                                                        screenData.point[y46][x49])) / 256 | 0));
                                                     }
                                                     break;
                                                 }
                                                 case 2: {
-                                                    const n52 = (n46 - yPosition2) * 2;
+                                                    const y52 = (y46 - yPosition2) * 2;
                                                     try {
-                                                        for (let n53 = max3; n53 < min3; ++n53) {
-                                                            const n54 = (n53 - xPosition2) * 2;
-                                                            const n55 = preAntiAliasedContent2.point[n52][n54];
-                                                            const n56 = preAntiAliasedContent2.point[n52][n54 + 1];
-                                                            const n57 = preAntiAliasedContent2.point[n52 + 1][n54];
-                                                            const n58 = preAntiAliasedContent2.point[n52 + 1][n54 + 1];
-                                                            const n59 = ((CWSYSTEM.FastColorUtilities.alpha(n55) +
-                                                                CWSYSTEM.FastColorUtilities.alpha(n56) +
-                                                                CWSYSTEM.FastColorUtilities.alpha(n57) +
-                                                                CWSYSTEM.FastColorUtilities.alpha(n58)) / 4 | 0);
-                                                            const n60 = 255 - n59;
-                                                            screenData.point[n46][n53] = CWSYSTEM.FastColorUtilities.colorWithGammaAdjustment(
-                                                                (((n59 * (CWSYSTEM.FastColorUtilities.red(n55) + CWSYSTEM.FastColorUtilities.red(n56) +
-                                                                        CWSYSTEM.FastColorUtilities.red(n57) + CWSYSTEM.FastColorUtilities.red(n58)) / 4 +
-                                                                    n60 * CWSYSTEM.FastColorUtilities.red(screenData.point[n46][n53])) / 256) | 0),
-                                                                (((n59 * (CWSYSTEM.FastColorUtilities.green(n55) + CWSYSTEM.FastColorUtilities.green(n56) +
-                                                                        CWSYSTEM.FastColorUtilities.green(n57) + CWSYSTEM.FastColorUtilities.green(n58)) / 4 +
-                                                                    n60 * CWSYSTEM.FastColorUtilities.green(screenData.point[n46][n53])) / 256) | 0),
-                                                                (((n59 * (CWSYSTEM.FastColorUtilities.blue(n55) + CWSYSTEM.FastColorUtilities.blue(n56) +
-                                                                        CWSYSTEM.FastColorUtilities.blue(n57) + CWSYSTEM.FastColorUtilities.blue(n58)) / 4 +
-                                                                    n60 * CWSYSTEM.FastColorUtilities.blue(screenData.point[n46][n53])) / 256) | 0));
+                                                        for (let x53 = max3; x53 < min3; ++x53) {
+                                                            const x54 = (x53 - xPosition2) * 2;
+                                                            const color1 = preAntiAliasedContent2.point[y52][x54];
+                                                            const color2 = preAntiAliasedContent2.point[y52][x54 + 1];
+                                                            const color3 = preAntiAliasedContent2.point[y52 + 1][x54];
+                                                            const color4 = preAntiAliasedContent2.point[y52 + 1][x54 + 1];
+                                                            const rColor = ((CWSYSTEM.FastColorUtilities.alpha(color1) +
+                                                                CWSYSTEM.FastColorUtilities.alpha(color2) +
+                                                                CWSYSTEM.FastColorUtilities.alpha(color3) +
+                                                                CWSYSTEM.FastColorUtilities.alpha(color4)) / 4 | 0);
+                                                            const n60 = 255 - rColor;
+                                                            screenData.point[y46][x53] =
+                                                                CWSYSTEM.FastColorUtilities.colorWithGammaAdjustment(
+                                                                    (((rColor * (CWSYSTEM.FastColorUtilities.red(color1) +
+                                                                            CWSYSTEM.FastColorUtilities.red(color2) +
+                                                                            CWSYSTEM.FastColorUtilities.red(color3) +
+                                                                            CWSYSTEM.FastColorUtilities.red(color4)) / 4 +
+                                                                        n60 * CWSYSTEM.FastColorUtilities.red(
+                                                                            screenData.point[y46][x53])) / 256) | 0),
+                                                                    (((rColor * (CWSYSTEM.FastColorUtilities.green(color1) +
+                                                                            CWSYSTEM.FastColorUtilities.green(color2) +
+                                                                            CWSYSTEM.FastColorUtilities.green(color3) +
+                                                                            CWSYSTEM.FastColorUtilities.green(color4)) / 4 +
+                                                                        n60 * CWSYSTEM.FastColorUtilities.green(
+                                                                            screenData.point[y46][x53])) / 256) | 0),
+                                                                    (((rColor * (CWSYSTEM.FastColorUtilities.blue(color1) +
+                                                                            CWSYSTEM.FastColorUtilities.blue(color2) +
+                                                                            CWSYSTEM.FastColorUtilities.blue(color3) +
+                                                                            CWSYSTEM.FastColorUtilities.blue(color4)) / 4 +
+                                                                        n60 * CWSYSTEM.FastColorUtilities.blue(
+                                                                            screenData.point[y46][x53])) / 256) | 0));
                                                         }
                                                     } catch (ex) {
-                                                        console.error("Window " + currWindow.nameID + " raised out of bounds error AT34E");
+                                                        console.error("Window " + currWindow.nameID +
+                                                            " raised out of bounds error AT34E");
                                                     }
                                                     break;
                                                 }
                                                 case 3: {
-                                                    const n61 = (n46 - yPosition2) * 3;
-                                                    for (let n62 = max3; n62 < min3; ++n62) {
-                                                        const n63 = (n62 - xPosition2) * 3;
-                                                        const n64 = preAntiAliasedContent2.point[n61][n63];
-                                                        const n65 = preAntiAliasedContent2.point[n61][n63 + 1];
-                                                        const n66 = preAntiAliasedContent2.point[n61][n63 + 2];
-                                                        const n67 = preAntiAliasedContent2.point[n61 + 1][n63];
-                                                        const n68 = preAntiAliasedContent2.point[n61 + 1][n63 + 1];
-                                                        const n69 = preAntiAliasedContent2.point[n61 + 1][n63 + 2];
-                                                        const n70 = preAntiAliasedContent2.point[n61 + 2][n63];
-                                                        const n71 = preAntiAliasedContent2.point[n61 + 2][n63 + 1];
-                                                        const n72 = preAntiAliasedContent2.point[n61 + 2][n63 + 2];
-                                                        const n73 = ((CWSYSTEM.FastColorUtilities.alpha(n64) +
-                                                            CWSYSTEM.FastColorUtilities.alpha(n65) +
-                                                            CWSYSTEM.FastColorUtilities.alpha(n66) +
-                                                            CWSYSTEM.FastColorUtilities.alpha(n67) +
-                                                            CWSYSTEM.FastColorUtilities.alpha(n68) +
-                                                            CWSYSTEM.FastColorUtilities.alpha(n69) +
-                                                            CWSYSTEM.FastColorUtilities.alpha(n70) +
-                                                            CWSYSTEM.FastColorUtilities.alpha(n71) +
-                                                            CWSYSTEM.FastColorUtilities.alpha(n72)) / 9 | 0);
-                                                        const n74 = 255 - n73;
-                                                        screenData.point[n46][n62] = CWSYSTEM.FastColorUtilities.color$r$g$b(
-                                                            (((n73 * (CWSYSTEM.FastColorUtilities.red(n64) +
-                                                                    CWSYSTEM.FastColorUtilities.red(n65) +
-                                                                    CWSYSTEM.FastColorUtilities.red(n66) +
-                                                                    CWSYSTEM.FastColorUtilities.red(n67) +
-                                                                    CWSYSTEM.FastColorUtilities.red(n68) +
-                                                                    CWSYSTEM.FastColorUtilities.red(n69) +
-                                                                    CWSYSTEM.FastColorUtilities.red(n70) +
-                                                                    CWSYSTEM.FastColorUtilities.red(n71) +
-                                                                    CWSYSTEM.FastColorUtilities.red(n72)) / 9 | 0) +
-                                                                n74 * CWSYSTEM.FastColorUtilities.red(
-                                                                    screenData.point[n46][n62])) / 256 | 0),
-                                                            (((n73 * (CWSYSTEM.FastColorUtilities.green(n64) +
-                                                                    CWSYSTEM.FastColorUtilities.green(n65) +
-                                                                    CWSYSTEM.FastColorUtilities.green(n66) +
-                                                                    CWSYSTEM.FastColorUtilities.green(n67) +
-                                                                    CWSYSTEM.FastColorUtilities.green(n68) +
-                                                                    CWSYSTEM.FastColorUtilities.green(n69) +
-                                                                    CWSYSTEM.FastColorUtilities.green(n70) +
-                                                                    CWSYSTEM.FastColorUtilities.green(n71) +
-                                                                    CWSYSTEM.FastColorUtilities.green(n72)) / 9 | 0) +
-                                                                n74 * CWSYSTEM.FastColorUtilities.green(
-                                                                    screenData.point[n46][n62])) / 256 | 0),
-                                                            (((n73 * (CWSYSTEM.FastColorUtilities.blue(n64) +
-                                                                    CWSYSTEM.FastColorUtilities.blue(n65) +
-                                                                    CWSYSTEM.FastColorUtilities.blue(n66) +
-                                                                    CWSYSTEM.FastColorUtilities.blue(n67) +
-                                                                    CWSYSTEM.FastColorUtilities.blue(n68) +
-                                                                    CWSYSTEM.FastColorUtilities.blue(n69) +
-                                                                    CWSYSTEM.FastColorUtilities.blue(n70) +
-                                                                    CWSYSTEM.FastColorUtilities.blue(n71) +
-                                                                    CWSYSTEM.FastColorUtilities.blue(n72)) / 9 | 0) +
-                                                                n74 * CWSYSTEM.FastColorUtilities.blue(
-                                                                    screenData.point[n46][n62])) / 256 | 0));
+                                                    const y61 = (y46 - yPosition2) * 3;
+                                                    for (let x62 = max3; x62 < min3; ++x62) {
+                                                        const x63 = (x62 - xPosition2) * 3;
+                                                        const color1 = preAntiAliasedContent2.point[y61][x63];
+                                                        const color2 = preAntiAliasedContent2.point[y61][x63 + 1];
+                                                        const color3 = preAntiAliasedContent2.point[y61][x63 + 2];
+                                                        const color4 = preAntiAliasedContent2.point[y61 + 1][x63];
+                                                        const color5 = preAntiAliasedContent2.point[y61 + 1][x63 + 1];
+                                                        const color6 = preAntiAliasedContent2.point[y61 + 1][x63 + 2];
+                                                        const color7 = preAntiAliasedContent2.point[y61 + 2][x63];
+                                                        const color8 = preAntiAliasedContent2.point[y61 + 2][x63 + 1];
+                                                        const color9 = preAntiAliasedContent2.point[y61 + 2][x63 + 2];
+                                                        const cColor =
+                                                            ((CWSYSTEM.FastColorUtilities.alpha(color1) +
+                                                                CWSYSTEM.FastColorUtilities.alpha(color2) +
+                                                                CWSYSTEM.FastColorUtilities.alpha(color3) +
+                                                                CWSYSTEM.FastColorUtilities.alpha(color4) +
+                                                                CWSYSTEM.FastColorUtilities.alpha(color5) +
+                                                                CWSYSTEM.FastColorUtilities.alpha(color6) +
+                                                                CWSYSTEM.FastColorUtilities.alpha(color7) +
+                                                                CWSYSTEM.FastColorUtilities.alpha(color8) +
+                                                                CWSYSTEM.FastColorUtilities.alpha(color9)) / 9 | 0);
+                                                        const n74 = 255 - cColor;
+                                                        screenData.point[y46][x62] =
+                                                            CWSYSTEM.FastColorUtilities.color$r$g$b(
+                                                                (((cColor * (CWSYSTEM.FastColorUtilities.red(color1) +
+                                                                        CWSYSTEM.FastColorUtilities.red(color2) +
+                                                                        CWSYSTEM.FastColorUtilities.red(color3) +
+                                                                        CWSYSTEM.FastColorUtilities.red(color4) +
+                                                                        CWSYSTEM.FastColorUtilities.red(color5) +
+                                                                        CWSYSTEM.FastColorUtilities.red(color6) +
+                                                                        CWSYSTEM.FastColorUtilities.red(color7) +
+                                                                        CWSYSTEM.FastColorUtilities.red(color8) +
+                                                                        CWSYSTEM.FastColorUtilities.red(color9)) / 9 | 0) +
+                                                                    n74 * CWSYSTEM.FastColorUtilities.red(
+                                                                        screenData.point[y46][x62])) / 256 | 0),
+                                                                (((cColor * (CWSYSTEM.FastColorUtilities.green(color1) +
+                                                                        CWSYSTEM.FastColorUtilities.green(color2) +
+                                                                        CWSYSTEM.FastColorUtilities.green(color3) +
+                                                                        CWSYSTEM.FastColorUtilities.green(color4) +
+                                                                        CWSYSTEM.FastColorUtilities.green(color5) +
+                                                                        CWSYSTEM.FastColorUtilities.green(color6) +
+                                                                        CWSYSTEM.FastColorUtilities.green(color7) +
+                                                                        CWSYSTEM.FastColorUtilities.green(color8) +
+                                                                        CWSYSTEM.FastColorUtilities.green(color9)) / 9 | 0) +
+                                                                    n74 * CWSYSTEM.FastColorUtilities.green(
+                                                                        screenData.point[y46][x62])) / 256 | 0),
+                                                                (((cColor * (CWSYSTEM.FastColorUtilities.blue(color1) +
+                                                                        CWSYSTEM.FastColorUtilities.blue(color2) +
+                                                                        CWSYSTEM.FastColorUtilities.blue(color3) +
+                                                                        CWSYSTEM.FastColorUtilities.blue(color4) +
+                                                                        CWSYSTEM.FastColorUtilities.blue(color5) +
+                                                                        CWSYSTEM.FastColorUtilities.blue(color6) +
+                                                                        CWSYSTEM.FastColorUtilities.blue(color7) +
+                                                                        CWSYSTEM.FastColorUtilities.blue(color8) +
+                                                                        CWSYSTEM.FastColorUtilities.blue(color9)) / 9 | 0) +
+                                                                    n74 * CWSYSTEM.FastColorUtilities.blue(
+                                                                        screenData.point[y46][x62])) / 256 | 0));
                                                     }
                                                     break;
                                                 }
@@ -598,46 +639,49 @@ var CWSYSTEM;
                             }
                             currWindow.applySpecialEffects(screenData.point, xPosition2, yPosition2);
                             const window4 = currWindow.window;
-                            const n75 = xPosition - borderWidth;
-                            const n76 = yPosition - borderWidth - titleHeight;
+                            const leftEdgeX = xPosition - borderWidth;
+                            const upperEdge = yPosition - borderWidth - titleHeight;
                             const n77 = 5;
                             const n78 = xPosition;
-                            const n79 = xPosition + currWindow.w;
-                            for (let n80 = n76; n80 < n76 + borderWidth + titleHeight + n77; ++n80) {
-                                for (let n81 = 0; n81 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[n80]; n81 += 2) {
-                                    this.copyHorizontalLineToSubframeWithAlphaTransparancy(window4, n80,
-                                        Math.max(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[n80][n81], n78),
-                                        Math.min(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[n80][n81 + 1], n79), n75, n76);
+                            const winREdge = xPosition + currWindow.w;
+                            for (let y80 = upperEdge; y80 < upperEdge + borderWidth + titleHeight + n77; ++y80) {
+                                for (let x81 = 0; x81 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[y80]; x81 += 2) {
+                                    this.copyHorizontalLineToSubframeWithAlphaTransparency(window4, y80,
+                                        Math.max(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y80][x81], n78),
+                                        Math.min(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y80][x81 + 1], winREdge),
+                                        leftEdgeX, upperEdge);
                                 }
                             }
                             if (yPosition + currWindow.h + borderWidth < CWSYSTEM.CWUtils.scanLineLength_$LI$().length) {
-                                for (let n82 = yPosition + currWindow.h; n82 < yPosition + currWindow.h + borderWidth; ++n82) {
-                                    for (let n83 = 0; n83 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[n82]; n83 += 2) {
-                                        this.copyHorizontalLineToSubframeWithAlphaTransparancy(
-                                            window4, n82, Math.max(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[n82][n83], n78),
-                                            Math.min(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[n82][n83 + 1], n79), n75, n76);
+                                for (let y82 = yPosition + currWindow.h; y82 < yPosition + currWindow.h + borderWidth; ++y82) {
+                                    for (let x83 = 0; x83 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[y82]; x83 += 2) {
+                                        this.copyHorizontalLineToSubframeWithAlphaTransparency(
+                                            window4, y82, Math.max(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y82][x83], n78),
+                                            Math.min(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y82][x83 + 1], winREdge), leftEdgeX, upperEdge);
                                     }
                                 }
                             }
                             const b4 = xPosition - currWindow.borderWidth;
-                            const b5 = xPosition;
                             if (yPosition + currWindow.h + borderWidth < CWSYSTEM.CWUtils.scanLineLength_$LI$().length) {
-                                for (let n84 = n76; n84 < yPosition + currWindow.h + borderWidth; ++n84) {
-                                    for (let n85 = 0; n85 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[n84]; n85 += 2) {
-                                        this.copyHorizontalLineToSubframeWithAlphaTransparancy(
-                                            window4, n84, Math.max(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[n84][n85], b4),
-                                            Math.min(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[n84][n85 + 1], b5), n75, n76);
+                                for (let y84 = upperEdge; y84 < yPosition + currWindow.h + borderWidth; ++y84) {
+                                    for (let n85 = 0; n85 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[y84]; n85 += 2) {
+                                        this.copyHorizontalLineToSubframeWithAlphaTransparency(
+                                            window4, y84, Math.max(
+                                                CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y84][n85], b4),
+                                            Math.min(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y84][n85 + 1],
+                                                xPosition), leftEdgeX, upperEdge);
                                     }
                                 }
                             }
                             const b6 = currWindow.xPosition + currWindow.w;
                             const b7 = currWindow.xPosition + currWindow.w + currWindow.borderWidth;
                             if (yPosition + currWindow.h + borderWidth < CWSYSTEM.CWUtils.scanLineLength_$LI$().length) {
-                                for (let n86 = n76; n86 < yPosition + currWindow.h + borderWidth; ++n86) {
-                                    for (let n87 = 0; n87 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[n86]; n87 += 2) {
-                                        this.copyHorizontalLineToSubframeWithAlphaTransparancy(window4, n86,
-                                            Math.max(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[n86][n87], b6),
-                                            Math.min(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[n86][n87 + 1], b7), n75, n76);
+                                for (let y86 = upperEdge; y86 < yPosition + currWindow.h + borderWidth; ++y86) {
+                                    for (let n87 = 0; n87 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[y86]; n87 += 2) {
+                                        this.copyHorizontalLineToSubframeWithAlphaTransparency(window4, y86,
+                                            Math.max(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y86][n87], b6),
+                                            Math.min(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y86][n87 + 1],
+                                                b7), leftEdgeX, upperEdge);
                                     }
                                 }
                             }
@@ -650,11 +694,11 @@ var CWSYSTEM;
                             const b8 = xPosition - borderWidth;
                             const b9 = xPosition + currWindow.w + borderWidth;
                             try {
-                                for (let n91 = n90; n91 < n90 + n88; ++n91) {
-                                    for (let n92 = 0; n92 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[n91]; n92 += 2) {
-                                        this.copyHorizontalLineToSubframeWithAlphaTransparancy(window5, n91,
-                                            Math.max(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[n91][n92], b8),
-                                            Math.min(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[n91][n92 + 1], b9),
+                                for (let y91 = n90; y91 < n90 + n88; ++y91) {
+                                    for (let n92 = 0; n92 < CWSYSTEM.CWUtils.scanLineLength_$LI$()[y91]; n92 += 2) {
+                                        this.copyHorizontalLineToSubframeWithAlphaTransparency(window5, y91,
+                                            Math.max(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y91][n92], b8),
+                                            Math.min(CWSYSTEM.CWUtils.multiSegmentScanLine_$LI$()[y91][n92 + 1], b9),
                                             n89, n90);
                                     }
                                 }
@@ -668,22 +712,31 @@ var CWSYSTEM;
             dsector.DSReference.gui.destroyTerminallyIllWindows();
         }
 
-        /** @private */
-        copyHorizontalLineToSubframeWithAlphaTransparancy(screenData, n, n2, n3, n4, n5) {
+        /** Copies a horizontal line from `screenData` to a subframe with alpha transparency.
+         * @private
+         * @param {ScreenData} screenData - The screen data object containing the source line.
+         * @param {number} startY - The Y-coordinate of the target line in the subframe.
+         * @param {number} x - The starting X-coordinate of the source line in `screenData`.
+         * @param {number} right - The ending X-coordinate (exclusive) of the source line in `screenData`.
+         * @param {number} left - The starting X-coordinate of the subframe in which the line will be copied.
+         * @param {number} top - The starting Y-coordinate of the subframe in which the line will be copied.
+         */
+        copyHorizontalLineToSubframeWithAlphaTransparency(screenData, startY, x,
+                                                          right, left, top) {
             const screenData2 = this.subFrame[this.subFrameCount];
             try {
-                for (let i = n2; i < n3; ++i) {
-                    const n6 = i - n4;
-                    const n7 = n - n5;
-                    const alpha = CWSYSTEM.FastColorUtilities.alpha(screenData.point[n7][n6]);
+                for (let i = x; i < right; ++i) {
+                    const x6 = i - left;
+                    const y7 = startY - top;
+                    const alpha = CWSYSTEM.FastColorUtilities.alpha(screenData.point[y7][x6]);
                     const alphaCalc = 255 - alpha;
-                    screenData2.point[n][i] = CWSYSTEM.FastColorUtilities.color$r$g$b(
-                        ((alpha * CWSYSTEM.FastColorUtilities.red(screenData.point[n7][n6]) + alphaCalc *
-                            CWSYSTEM.FastColorUtilities.red(screenData2.point[n][i])) / 256 | 0),
-                        ((alpha * CWSYSTEM.FastColorUtilities.green(screenData.point[n7][n6]) + alphaCalc *
-                            CWSYSTEM.FastColorUtilities.green(screenData2.point[n][i])) / 256 | 0),
-                        ((alpha * CWSYSTEM.FastColorUtilities.blue(screenData.point[n7][n6]) + alphaCalc *
-                            CWSYSTEM.FastColorUtilities.blue(screenData2.point[n][i])) / 256 | 0));
+                    screenData2.point[startY][i] = CWSYSTEM.FastColorUtilities.color$r$g$b(
+                        ((alpha * CWSYSTEM.FastColorUtilities.red(screenData.point[y7][x6]) + alphaCalc *
+                            CWSYSTEM.FastColorUtilities.red(screenData2.point[startY][i])) / 256 | 0),
+                        ((alpha * CWSYSTEM.FastColorUtilities.green(screenData.point[y7][x6]) + alphaCalc *
+                            CWSYSTEM.FastColorUtilities.green(screenData2.point[startY][i])) / 256 | 0),
+                        ((alpha * CWSYSTEM.FastColorUtilities.blue(screenData.point[y7][x6]) + alphaCalc *
+                            CWSYSTEM.FastColorUtilities.blue(screenData2.point[startY][i])) / 256 | 0));
                 }
             } catch (ex) {
                 console.error(ex.message, ex);
@@ -702,7 +755,8 @@ var CWSYSTEM;
             switch ((this.subFrames)) {
                 case 1: {
                     for (let i = 0; i < height; ++i) {
-                        CWSYSTEM.CWUtils.copyArray(this.subFrame[0].point[i], 0, this.actualScreen.point[i], 0, width);
+                        CWSYSTEM.CWUtils.copyArray(this.subFrame[0].point[i],
+                            0, this.actualScreen.point[i], 0, width);
                     }
                     break;
                 }
@@ -739,87 +793,87 @@ var CWSYSTEM;
                     break;
                 }
                 case 4: {
-                    for (let n2 = 0; n2 < height; ++n2) {
-                        for (let n3 = 0; n3 < width; ++n3) {
-                            this.actualScreen.point[n2][n3] = CWSYSTEM.FastColorUtilities.color$r$g$b(
-                                ((CWSYSTEM.FastColorUtilities.red(this.subFrame[0].point[n2][n3]) +
-                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[1].point[n2][n3]) +
-                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[2].point[n2][n3]) +
-                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[3].point[n2][n3])) / 4 | 0),
-                                ((CWSYSTEM.FastColorUtilities.green(this.subFrame[0].point[n2][n3]) +
-                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[1].point[n2][n3]) +
-                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[2].point[n2][n3]) +
-                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[3].point[n2][n3])) / 4 | 0),
-                                ((CWSYSTEM.FastColorUtilities.blue(this.subFrame[0].point[n2][n3]) +
-                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[1].point[n2][n3]) +
-                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[2].point[n2][n3]) +
-                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[3].point[n2][n3])) / 4 | 0));
+                    for (let y2 = 0; y2 < height; ++y2) {
+                        for (let x3 = 0; x3 < width; ++x3) {
+                            this.actualScreen.point[y2][x3] = CWSYSTEM.FastColorUtilities.color$r$g$b(
+                                ((CWSYSTEM.FastColorUtilities.red(this.subFrame[0].point[y2][x3]) +
+                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[1].point[y2][x3]) +
+                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[2].point[y2][x3]) +
+                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[3].point[y2][x3])) / 4 | 0),
+                                ((CWSYSTEM.FastColorUtilities.green(this.subFrame[0].point[y2][x3]) +
+                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[1].point[y2][x3]) +
+                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[2].point[y2][x3]) +
+                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[3].point[y2][x3])) / 4 | 0),
+                                ((CWSYSTEM.FastColorUtilities.blue(this.subFrame[0].point[y2][x3]) +
+                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[1].point[y2][x3]) +
+                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[2].point[y2][x3]) +
+                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[3].point[y2][x3])) / 4 | 0));
                         }
                     }
                     break;
                 }
                 case 5: {
-                    for (let n4 = 0; n4 < height; ++n4) {
-                        for (let n5 = 0; n5 < width; ++n5) {
-                            this.actualScreen.point[n4][n5] = CWSYSTEM.FastColorUtilities.color$r$g$b(
-                                ((CWSYSTEM.FastColorUtilities.red(this.subFrame[0].point[n4][n5]) +
-                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[1].point[n4][n5]) +
-                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[2].point[n4][n5]) +
-                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[3].point[n4][n5]) +
-                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[4].point[n4][n5])) / 5 | 0),
-                                ((CWSYSTEM.FastColorUtilities.green(this.subFrame[0].point[n4][n5]) +
-                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[1].point[n4][n5]) +
-                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[2].point[n4][n5]) +
-                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[3].point[n4][n5]) +
-                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[4].point[n4][n5])) / 5 | 0),
-                                ((CWSYSTEM.FastColorUtilities.blue(this.subFrame[0].point[n4][n5]) +
-                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[1].point[n4][n5]) +
-                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[2].point[n4][n5]) +
-                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[3].point[n4][n5]) +
-                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[4].point[n4][n5])) / 5 | 0));
+                    for (let y4 = 0; y4 < height; ++y4) {
+                        for (let x5 = 0; x5 < width; ++x5) {
+                            this.actualScreen.point[y4][x5] = CWSYSTEM.FastColorUtilities.color$r$g$b(
+                                ((CWSYSTEM.FastColorUtilities.red(this.subFrame[0].point[y4][x5]) +
+                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[1].point[y4][x5]) +
+                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[2].point[y4][x5]) +
+                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[3].point[y4][x5]) +
+                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[4].point[y4][x5])) / 5 | 0),
+                                ((CWSYSTEM.FastColorUtilities.green(this.subFrame[0].point[y4][x5]) +
+                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[1].point[y4][x5]) +
+                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[2].point[y4][x5]) +
+                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[3].point[y4][x5]) +
+                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[4].point[y4][x5])) / 5 | 0),
+                                ((CWSYSTEM.FastColorUtilities.blue(this.subFrame[0].point[y4][x5]) +
+                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[1].point[y4][x5]) +
+                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[2].point[y4][x5]) +
+                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[3].point[y4][x5]) +
+                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[4].point[y4][x5])) / 5 | 0));
                         }
                     }
                     break;
                 }
                 case 6: {
-                    for (let n6 = 0; n6 < height; ++n6) {
-                        for (let n7 = 0; n7 < width; ++n7) {
-                            this.actualScreen.point[n6][n7] = CWSYSTEM.FastColorUtilities.color$r$g$b(
-                                ((CWSYSTEM.FastColorUtilities.red(this.subFrame[0].point[n6][n7]) +
-                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[1].point[n6][n7]) +
-                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[2].point[n6][n7]) +
-                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[3].point[n6][n7]) +
-                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[4].point[n6][n7]) +
-                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[5].point[n6][n7])) / 6 | 0),
-                                ((CWSYSTEM.FastColorUtilities.green(this.subFrame[0].point[n6][n7]) +
-                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[1].point[n6][n7]) +
-                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[2].point[n6][n7]) +
-                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[3].point[n6][n7]) +
-                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[4].point[n6][n7]) +
-                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[5].point[n6][n7])) / 6 | 0),
-                                ((CWSYSTEM.FastColorUtilities.blue(this.subFrame[0].point[n6][n7]) +
-                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[1].point[n6][n7]) +
-                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[2].point[n6][n7]) +
-                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[3].point[n6][n7]) +
-                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[4].point[n6][n7]) +
-                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[5].point[n6][n7])) / 6 | 0));
+                    for (let y6 = 0; y6 < height; ++y6) {
+                        for (let x7 = 0; x7 < width; ++x7) {
+                            this.actualScreen.point[y6][x7] = CWSYSTEM.FastColorUtilities.color$r$g$b(
+                                ((CWSYSTEM.FastColorUtilities.red(this.subFrame[0].point[y6][x7]) +
+                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[1].point[y6][x7]) +
+                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[2].point[y6][x7]) +
+                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[3].point[y6][x7]) +
+                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[4].point[y6][x7]) +
+                                    CWSYSTEM.FastColorUtilities.red(this.subFrame[5].point[y6][x7])) / 6 | 0),
+                                ((CWSYSTEM.FastColorUtilities.green(this.subFrame[0].point[y6][x7]) +
+                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[1].point[y6][x7]) +
+                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[2].point[y6][x7]) +
+                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[3].point[y6][x7]) +
+                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[4].point[y6][x7]) +
+                                    CWSYSTEM.FastColorUtilities.green(this.subFrame[5].point[y6][x7])) / 6 | 0),
+                                ((CWSYSTEM.FastColorUtilities.blue(this.subFrame[0].point[y6][x7]) +
+                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[1].point[y6][x7]) +
+                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[2].point[y6][x7]) +
+                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[3].point[y6][x7]) +
+                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[4].point[y6][x7]) +
+                                    CWSYSTEM.FastColorUtilities.blue(this.subFrame[5].point[y6][x7])) / 6 | 0));
                         }
                     }
                     break;
                 }
                 default: {
-                    for (let n8 = 0; n8 < height; ++n8) {
-                        for (let n9 = 0; n9 < width; ++n9) {
-                            let n10 = 0;
-                            let n11 = 0;
-                            let n12 = 0;
-                            for (let n13 = 0; n13 < this.subFrames; ++n13) {
-                                n10 += CWSYSTEM.FastColorUtilities.red(this.subFrame[n13].point[n8][n9]);
-                                n11 += CWSYSTEM.FastColorUtilities.green(this.subFrame[n13].point[n8][n9]);
-                                n12 += CWSYSTEM.FastColorUtilities.blue(this.subFrame[n13].point[n8][n9]);
+                    for (let y8 = 0; y8 < height; ++y8) {
+                        for (let x9 = 0; x9 < width; ++x9) {
+                            let red = 0;
+                            let green = 0;
+                            let blue = 0;
+                            for (let i = 0; i < this.subFrames; ++i) {
+                                red += CWSYSTEM.FastColorUtilities.red(this.subFrame[i].point[y8][x9]);
+                                green += CWSYSTEM.FastColorUtilities.green(this.subFrame[i].point[y8][x9]);
+                                blue += CWSYSTEM.FastColorUtilities.blue(this.subFrame[i].point[y8][x9]);
                             }
-                            this.actualScreen.point[n8][n9] = CWSYSTEM.FastColorUtilities.color$r$g$b(
-                                (n10 / this.subFrames | 0), (n11 / this.subFrames | 0), (n12 / this.subFrames | 0));
+                            this.actualScreen.point[y8][x9] = CWSYSTEM.FastColorUtilities.color$r$g$b(
+                                (red / this.subFrames | 0), (green / this.subFrames | 0), (blue / this.subFrames | 0));
                         }
                     }
                     break;
@@ -830,8 +884,6 @@ var CWSYSTEM;
 
         /** @private */
         updatePhysicalScreen(bufferedImage) {
-            const width = this.actualScreen.width;
-            const height = this.actualScreen.height;
             if (CWSYSTEM.Environment.screenHasChanged) {
                 CWSYSTEM.Environment.furtherRendering = this.subFrames;
             }
@@ -842,7 +894,7 @@ var CWSYSTEM;
             let imageData = ([]);
             for (let i = 0; i < data.length; i += 4) {
                 imageData.push(CWSYSTEM.FastColorUtilities.color$r$g$b$a(
-                    data[i + 0], data[i + 1], data[i + 2], data[i + 3]));
+                    data[i], data[i + 1], data[i + 2], data[i + 3]));
             }
 
             let n = 0;
@@ -899,83 +951,86 @@ var CWSYSTEM;
         }
 
         /** @private */
-        drawText(screenData, n, text, n2, n3, mode1, mode2) {
+        drawText(screenData, len, text, x, y, mode1, mode2) {
             const spacing = 35;
-            const array = (s => {
+            /*const array = (s => {
                 let a = [];
                 while (s-- > 0) a.push(null);
                 return a;
-            })(spacing);
+            })(spacing);*/
             const charArray = (text).split('');
             const length = text.length;
-            let n5 = 0;
-            let n6 = 0;
-            let n7 = 0;
-            let n8;
+            let yy5 = 0;
+            let xx6 = 0;
+            let z7 = 0;
+            let selector;
             if (mode1) {
-                n8 = 2;
+                selector = 2;
             } else {
-                n8 = 1;
+                selector = 1;
             }
-            const s2 = "";
+            //const s2 = "";
             for (let i = 0; i < length; ++i) {
                 let c = charArray[i];
                 if ((c => c.charCodeAt === null ? c : c.charCodeAt(0))(c) === '^'.charCodeAt(0)) {
-                    n6 = 0;
-                    ++n5;
+                    xx6 = 0;
+                    ++yy5;
                 } else {
-                    if ((c => c.charCodeAt === null ? c : c.charCodeAt(0))(c) === '\\'.charCodeAt(0) && i + 1 < length) {
+                    if ((c => c.charCodeAt === null ? c : c.charCodeAt(0))(c) === '\\'.charCodeAt(0) &&
+                        i + 1 < length) {
                         switch ((charArray[i + 1]).charCodeAt(0)) {
-                            case 117 /* 'u' */
-                            : {
+                            case 117: /* 'u' */
+                            {
                                 c = '\u0001';
                                 ++i;
                                 break;
                             }
-                            case 100 /* 'd' */
-                            : {
+                            case 100: /* 'd' */
+                            {
                                 c = '\u0002';
                                 ++i;
                                 break;
                             }
-                            case 108 /* 'l' */
-                            : {
+                            case 108: /* 'l' */
+                            {
                                 c = '\u0003';
                                 ++i;
                                 break;
                             }
-                            case 114 /* 'r' */
-                            : {
+                            case 114: /* 'r' */
+                            {
                                 c = '\u0004';
                                 ++i;
                                 break;
                             }
-                            case 95 /* '_' */
-                            : {
+                            case 95: /* '_' */
+                            {
                                 c = '_';
-                                n6 -= 6 + n8 - 1;
-                                n7 = 1;
+                                xx6 -= 6 + selector - 1;
+                                z7 = 1;
                                 ++i;
                                 break;
                             }
                         }
                     }
-                    let n9 = 0;
-                    if (n7 !== 0) {
-                        n9 = 2;
-                        n7 = 0;
+                    let yyy9 = 0;
+                    if (z7 !== 0) {
+                        yyy9 = 2;
+                        z7 = 0;
                     }
                     if (!mode2) {
                         const character = CWSYSTEM.CWFont_SmallFont.getCharacter(c);
                         for (let j = 0; j < spacing; ++j) {
-                            if ((c => c.charCodeAt === null ? c : c.charCodeAt(0))(character.charAt(j)) === '1'.charCodeAt(0)) {
-                                for (let k = 0; k < n8; ++k) {
-                                    this.CWDrawPixelWithCropping(screenData, n2 + j % 5 + n6 + k, n3 - 7 + (j / 5 | 0) + n5 * 10 + n9);
+                            if ((c => c.charCodeAt === null ? c :
+                                c.charCodeAt(0))(character.charAt(j)) === '1'.charCodeAt(0)) {
+                                for (let k = 0; k < selector; ++k) {
+                                    this.CWDrawPixelWithCropping(screenData, x + j % 5 + xx6 + k,
+                                        y - 7 + (j / 5) + yy5 * 10 + yyy9);
                                 }
                             }
                         }
                     }
-                    n6 += 6 + n8 - 1;
+                    xx6 += 6 + selector - 1;
                     if ((c => c.charCodeAt === null ? c : c.charCodeAt(0))(c) === ' '.charCodeAt(0)) {
                         let l;
                         for (l = i + 1; l < length; ++l) {
@@ -984,19 +1039,19 @@ var CWSYSTEM;
                                 break;
                             }
                         }
-                        if (n6 + 6 * (l - (i + 2)) > n) {
-                            n6 = 0;
-                            ++n5;
+                        if (xx6 + 6 * (l - (i + 2)) > len) {
+                            xx6 = 0;
+                            ++yy5;
                         }
                     }
                     if (((c => c.charCodeAt === null ? c : c.charCodeAt(0))(c) === '.'.charCodeAt(0) ||
-                        (c => c.charCodeAt === null ? c : c.charCodeAt(0))(c) === '-'.charCodeAt(0)) && n6 > n) {
-                        n6 = 0;
-                        ++n5;
+                        (c => c.charCodeAt === null ? c : c.charCodeAt(0))(c) === '-'.charCodeAt(0)) && xx6 > len) {
+                        xx6 = 0;
+                        ++yy5;
                     }
                 }
             }
-            return n5;
+            return yy5;
         }
 
         drawStringDoubleSize(screenData, s, n, n2) {
@@ -1026,25 +1081,27 @@ var CWSYSTEM;
             this.defaultColor = CWSYSTEM.FastColorUtilities.color$r$g$b$a(red, green, blue, alpha);
         }
 
-        /** Sets the color using the specified RGBA integer values or a {@link CWColor} number.
-         * @param {number|CWColor.color} red - The red component of the color (0-255). Or, a {@link CWColor} number
-         * @param {number|null} green - The green component of the color (0-255).
-         * @param {number|null} blue - The blue component of the color (0-255).
-         * @param {number|null} alpha - The alpha component of the color (0-255).
+        /** Sets the color using the specified RGBA integer values or using either a {@link CWColor} number or {@link CWColor} object.
+         * @param {number|CWColor.color|CWColor} red - The red component of the color (0-255). Either a {@link CWColor} number or {@link CWColor} Object.
+         * @param {number|null} [green] - The green component of the color (0-255).
+         * @param {number|null} [blue] - The blue component of the color (0-255).
+         * @param {number|null} [alpha] - The alpha component of the color (0-255).
          * @returns {void} - Returns nothing.
          * @throws {Error} Throws an error if the provided arguments are of invalid types.
          */
         setColor(red, green, blue, alpha) {
-            if (((typeof red === 'number') || red === null) && ((typeof green === 'number') || green === null) &&
-                ((typeof blue === 'number') || blue === null) && ((typeof alpha === 'number') || alpha === null)) {
+            if (typeof red === 'number' && typeof green === 'number' &&
+                typeof blue === 'number' && typeof alpha === 'number') {
                 return this.setColorVS$r$g$b$a(red, green, blue, alpha);
-            } else if (((red != null && red instanceof CWSYSTEM.CWColor) || red === null) &&
-                green === undefined && blue === undefined && alpha === undefined) {
+            } else if (red instanceof CWSYSTEM.CWColor && green === undefined &&
+                blue === undefined && alpha === undefined) {
                 return this.setColor$intCWColor(red);
-            } else if (((typeof red === 'number') || red === null) &&
-                green === undefined && blue === undefined && alpha === undefined) {
+            } else if (typeof red === 'number' && green === undefined &&
+                blue === undefined && alpha === undefined) {
                 return this.setColor$int(red);
-            } else throw new Error('invalid overload');
+            } else {
+                throw new Error('invalid overload');
+            }
         }
 
         /** Sets the color using the provided {@link CWColor} object.
@@ -1059,34 +1116,43 @@ var CWSYSTEM;
             this.defaultColor = defaultColor;
         }
 
-        CWDrawPixel(screenData, n, n2) {
-            screenData.point[n2][n] = this.defaultColor;
+        CWDrawPixel(screenData, x, y) {
+            screenData.point[y][x] = this.defaultColor;
         }
 
-        CWDrawPixelWithCropping(screenData, n, n2) {
-            if (n >= 0 && n2 >= 0 && n < screenData.width && n2 < screenData.height) {
-                screenData.point[n2][n] = this.defaultColor;
+        CWDrawPixelWithCropping(screenData, x, y) {
+            if (x >= 0 && y >= 0 && x < screenData.width && y < screenData.height) {
+                screenData.point[y][x] = this.defaultColor;
             }
         }
 
-        fastHorizontalLine(screenData, index, i, j, val) {
+        /**
+         * Draws a horizontal line of a specified length and color on the screen.
+         * @param {object} screenData - The screen data object containing the point array.
+         * @param {number} x - The starting x-coordinate of the line.
+         * @param {number} y - The y-coordinate of the line.
+         * @param {number} length - The length of the line.
+         * @param {string} color - The color of the line.
+         * @returns {void}
+         */
+        fastHorizontalLine(screenData, x, y, length, color) {
             try {
-                CWSYSTEM.CWUtils.fillArray(screenData.point[i], index, index + j, val)
+                CWSYSTEM.CWUtils.fillArray(screenData.point[y], x, x + length, color)
             } catch (ex) {
-                CWSYSTEM.Debug.println("Rendering out of range in fastHorizontalLine(): x=" + index + ", y=" + i +
-                    ", length=" + j + ", data.point.length=" + screenData.point.length);
+                CWSYSTEM.Debug.println("Rendering out of range in fastHorizontalLine(): x=" + x + ", y=" + y +
+                    ", length=" + length + ", data.point.length=" + screenData.point.length);
             }
         }
 
-        verticalLine(screenData, i, j, k, n) {
+        verticalLine(screenData, x, j, k, n) {
             try {
                 CWSYSTEM.Environment.screenHasChanged = true;
-                let l = j;
-                for (const n2 = j + k; l < n2; ++l) {
-                    screenData.point[l][i] = n;
+                let y = j;
+                for (const n2 = j + k; y < n2; ++y) {
+                    screenData.point[y][x] = n;
                 }
             } catch (ex) {
-                CWSYSTEM.Debug.println("Rendering out of range in verticalLine(): x=" + i + ", y=" + j +
+                CWSYSTEM.Debug.println("Rendering out of range in verticalLine(): x=" + x + ", y=" + j +
                     ", length=" + k + ", datapoint.length=" + screenData.point.length);
             }
         }
@@ -1107,24 +1173,24 @@ var CWSYSTEM;
         /** Draws a filled rectangle on the screen with a gradient effect.
          *
          * @param {ScreenData} screenData - The screen data object.
-         * @param {number} n - The x-coordinate of the top-left corner of the rectangle.
-         * @param {number} n2 - The y-coordinate of the top-left corner of the rectangle.
-         * @param {number} n3 - The width of the rectangle.
-         * @param {number} n4 - The height of the rectangle.
+         * @param {number} x - The x-coordinate of the top-left corner of the rectangle.
+         * @param {number} y - The y-coordinate of the top-left corner of the rectangle.
+         * @param {number} width - The width of the rectangle.
+         * @param {number} height - The height of the rectangle.
          * @param {CWSYSTEM.CWColor} cwColor - The starting color of the gradient.
          * @param {CWSYSTEM.CWColor} cwColor2 - The ending color of the gradient.
          * @param {string} [gradientType='sine'] - The type of gradient. Valid values are 'sine' and 'linear'.
          *                                          Defaults to 'sine'.
          * @throws {Error} If an invalid gradient type is provided.
          */
-        CWDrawFilledRectangleWithGradient(screenData, n, n2, n3, n4,
+        CWDrawFilledRectangleWithGradient(screenData, x, y, width, height,
                                           cwColor, cwColor2, gradientType = 'sine') {
             CWSYSTEM.Environment.screenHasChanged = true;
-            if (n > screenData.width - 1) {
-                n = screenData.width - 1;
+            if (x > screenData.width - 1) {
+                x = screenData.width - 1;
             }
-            if (n2 > screenData.height - 1) {
-                n2 = screenData.height - 1;
+            if (y > screenData.height - 1) {
+                y = screenData.height - 1;
             }
             const red = cwColor.red();
             const green = cwColor.green();
@@ -1135,209 +1201,218 @@ var CWSYSTEM;
             const blue2 = cwColor2.blue();
             const alpha2 = cwColor2.alpha();
             if (gradientType === 'sine') {
-                for (let i = n2; i < n2 + n4; ++i) {
-                    const sin = Math.sin(3.141592653589793 * ((i - n2) / n4));
-                    this.fastHorizontalLine(screenData, n, i, n3, CWSYSTEM.FastColorUtilities.color$r$g$b$a(
+                for (let i = y; i < y + height; ++i) {
+                    const sin = Math.sin(3.141592653589793 * ((i - y) / height));
+                    this.fastHorizontalLine(screenData, x, i, width, CWSYSTEM.FastColorUtilities.color$r$g$b$a(
                         ((red + (red2 - red) * sin) | 0), ((green + (green2 - green) * sin) | 0),
                         ((blue + (blue2 - blue) * sin) | 0), ((alpha + (alpha2 - alpha) * sin) | 0)));
                 }
             } else if (gradientType === 'linear') {
-                for (let i = n2; i < n2 + n4; ++i) {
-                    this.fastHorizontalLine(screenData, n, i, n3, CWSYSTEM.FastColorUtilities.color$r$g$b$a(
-                        red2 + ((red - red2) * (i - n2) / n4 | 0),
-                        green2 + ((green - green2) * (i - n2) / n4 | 0),
-                        blue2 + ((blue - blue2) * (i - n2) / n4 | 0),
-                        alpha2 + ((alpha - alpha2) * (i - n2) / n4 | 0)));
+                for (let i = y; i < y + height; ++i) {
+                    this.fastHorizontalLine(screenData, x, i, width, CWSYSTEM.FastColorUtilities.color$r$g$b$a(
+                        red2 + ((red - red2) * (i - y) / height | 0),
+                        green2 + ((green - green2) * (i - y) / height | 0),
+                        blue2 + ((blue - blue2) * (i - y) / height | 0),
+                        alpha2 + ((alpha - alpha2) * (i - y) / height | 0)));
                 }
             } else {
                 throw new Error('Invalid gradient type');
             }
         }
 
-        CWDrawRectangleWithCropping(screenData, n, n2, n3, n4) {
-            if (n >= 0 && n2 >= 0 && n + n3 < screenData.width && n2 + n4 < screenData.height) {
-                this.CWDrawRectangle(screenData, n, n2, n3, n4);
+        CWDrawRectangleWithCropping(screenData, x, y, width, length) {
+            if (x >= 0 && y >= 0 && x + width < screenData.width && y + length < screenData.height) {
+                this.CWDrawRectangle(screenData, x, y, width, length);
                 return;
             }
-            for (let i = 0; i < n3; ++i) {
-                this.CWDrawPixelWithCropping(screenData, n + i, n2);
-                this.CWDrawPixelWithCropping(screenData, n + i, n2 + n4 - 1);
+            for (let i = 0; i < width; ++i) {
+                this.CWDrawPixelWithCropping(screenData, x + i, y);
+                this.CWDrawPixelWithCropping(screenData, x + i, y + length - 1);
             }
-            for (let j = 1; j < n4 - 1; ++j) {
-                this.CWDrawPixelWithCropping(screenData, n, n2 + j);
-                this.CWDrawPixelWithCropping(screenData, n + n3 - 1, n2 + j);
+            for (let j = 1; j < length - 1; ++j) {
+                this.CWDrawPixelWithCropping(screenData, x, y + j);
+                this.CWDrawPixelWithCropping(screenData, x + width - 1, y + j);
             }
         }
 
-        CWDrawRectangle(screenData, n, n2, n3, n4) {
-            this.verticalLine(screenData, n, n2, n4, this.defaultColor);
-            this.verticalLine(screenData, n + n3 - 1, n2, n4, this.defaultColor);
-            this.fastHorizontalLine(screenData, n + 1, n2, n3 - 2, this.defaultColor);
-            this.fastHorizontalLine(screenData, n + 1, n2 + n4 - 1, n3 - 2, this.defaultColor);
+        CWDrawRectangle(screenData, x, y, width, length) {
+            this.verticalLine(screenData, x, y, length, this.defaultColor);
+            this.verticalLine(screenData, x + width - 1, y, length, this.defaultColor);
+            this.fastHorizontalLine(screenData, x + 1, y, width - 2, this.defaultColor);
+            this.fastHorizontalLine(screenData, x + 1, y + length - 1, width - 2, this.defaultColor);
         }
 
-        renderPolygon(screenData, array, n, n2, n3, n4, n5, n6, n7, b, n8, n9, polygon, array2) {
-            let n10 = screenData.height - 1;
+//CWSYSTEM.Environment.screenHasChanged = true;
+        /**
+         * Renders a polygon on the screen with the specified color.
+         * @param {object} screenData - The screen data object containing the point array.
+         * @param {Array} buffer - The buffer array to store color information.
+         * @param {number} colorA - The color value to render the polygon with.
+         * @param {number} v1x - The x-coordinate of vertex 1.
+         * @param {number} v1y - The y-coordinate of vertex 1.
+         * @param {number} v2x - The x-coordinate of vertex 2.
+         * @param {number} v2y - The y-coordinate of vertex 2.
+         * @param {number} v3x - The x-coordinate of vertex 3.
+         * @param {number} v3y - The y-coordinate of vertex 3.
+         * @param {boolean} bool
+         * @param {number} w0 - The width of the screen.
+         * @param {number} h0 - The height of the screen.
+         * @param {number} polygon - The polygon identifier.
+         * @param {Array} array - The array to store polygon information.
+         * @returns {void}
+         */
+        renderPolygon(screenData, buffer, colorA, v1x, v1y,
+                      v2x, v2y, v3x, v3y, bool, w0, h0,
+                      polygon, array) {
+            let lH = screenData.height - 1;
             let n11 = 0;
-            const n12 = n8 - 1;
-            if ((n2 < 0.0 && n4 < 0.0 && n6 < 0.0) || (n3 < 0.0 && n5 < 0.0 && n7 < 0.0) ||
-                (n2 > n8 && n4 > n8 && n6 > n8) || (n3 > n9 && n5 > n9 && n7 > n9)) {
+            const lW = w0 - 1;
+            if ((v1x < 0.0 && v2x < 0.0 && v3x < 0.0) || (v1y < 0.0 && v2y < 0.0 && v3y < 0.0) ||
+                (v1x > w0 && v2x > w0 && v3x > w0) || (v1y > h0 && v2y > h0 && v3y > h0)) {
                 return;
             }
             CWSYSTEM.Environment.screenHasChanged = true;
             for (let i = 0; i < 3; ++i) {
                 let b2 = false;
-                let n13 = 0.0;
-                let n14 = 0.0;
-                let n15 = 0.0;
-                let n16 = 0.0;
-                let n17 = 0.0;
-                let n18 = 0.0;
-                switch ((i)) {
+                let v5 = 0.0, v6 = 0.0, v1 = 0.0, v2 = 0.0, v3 = 0.0, v4 = 0.0;
+                switch (i) {
                     case 0: {
-                        n13 = n6;
-                        n14 = n7;
-                        if (n3 === n5) {
+                        v5 = v3x;
+                        v6 = v3y;
+                        if (v1y === v2y) {
                             continue;
                         }
-                        if (n3 < n5) {
-                            n15 = n2;
-                            n16 = n3;
-                            n17 = n4;
-                            n18 = n5;
-                            break;
+                        if (v1y < v2y) {
+                            v1 = v1x;
+                            v2 = v1y;
+                            v3 = v2x;
+                            v4 = v2y;
+                        } else {
+                            v1 = v2x;
+                            v2 = v2y;
+                            v3 = v1x;
+                            v4 = v1y;
                         }
-                        n15 = n4;
-                        n16 = n5;
-                        n17 = n2;
-                        n18 = n3;
                         break;
                     }
                     case 1: {
-                        n13 = n2;
-                        n14 = n3;
-                        if (n5 === n7) {
+                        v5 = v1x;
+                        v6 = v1y;
+                        if (v2y === v3y) {
                             continue;
                         }
-                        if (n5 < n7) {
-                            n15 = n4;
-                            n16 = n5;
-                            n17 = n6;
-                            n18 = n7;
-                            break;
+                        if (v2y < v3y) {
+                            v1 = v2x;
+                            v2 = v2y;
+                            v3 = v3x;
+                            v4 = v3y;
+                        } else {
+                            v1 = v3x;
+                            v2 = v3y;
+                            v3 = v2x;
+                            v4 = v2y;
                         }
-                        n15 = n6;
-                        n16 = n7;
-                        n17 = n4;
-                        n18 = n5;
                         break;
                     }
                     default: {
-                        n13 = n4;
-                        n14 = n5;
-                        if (n3 === n7) {
+                        v5 = v2x;
+                        v6 = v2y;
+                        if (v1y === v3y) {
                             continue;
                         }
-                        if (n3 < n7) {
-                            n15 = n2;
-                            n16 = n3;
-                            n17 = n6;
-                            n18 = n7;
-                            break;
+                        if (v1y < v3y) {
+                            v1 = v1x;
+                            v2 = v1y;
+                            v3 = v3x;
+                            v4 = v3y;
+                        } else {
+                            v1 = v3x;
+                            v2 = v3y;
+                            v3 = v1x;
+                            v4 = v1y;
                         }
-                        n15 = n6;
-                        n16 = n7;
-                        n17 = n2;
-                        n18 = n3;
                         break;
                     }
                 }
-                const n19 = Math.fround((Math.fround(n17 - n15)) / (Math.fround(n18 - n16)));
-                let n20 = ((Math.fround(n16 + 1.0)) | 0);
+                const n19 = Math.fround((v3 - v1) / (v4 - v2));
+                let y20 = ((Math.fround(v2 + 1.0)) | 0);
                 let n21;
-                if (n20 < 0) {
-                    n20 = 0;
-                    n21 = Math.fround(n15 + Math.fround((Math.fround(0.0 - n16)) * n19));
+                if (y20 < 0) {
+                    y20 = 0;
+                    n21 = Math.fround(v1 + ((0.0 - v2) * n19));
                 } else {
-                    n21 = Math.fround(n15 + Math.fround((Math.fround(n20 - n16)) * n19));
+                    n21 = Math.fround(v1 + ((y20 - v2) * n19));
                 }
-                let n22;
-                if (n18 > n9 - 1) {
-                    n22 = n9 - 1;
-                } else {
-                    n22 = (n18 | 0);
-                }
-                if (n22 > 0 || n20 > 0) {
-                    if (n22 < n9 - 1 || n20 < n9 - 1) {
-                        if (n20 < n10) {
-                            n10 = n20;
+                let y22 = v4 > h0 - 1 ? h0 - 1 : v4;
+
+                if (y22 > 0 || y20 > 0) {
+                    if (y22 < h0 - 1 || y20 < h0 - 1) {
+                        if (y20 < lH) {
+                            lH = y20;
                         }
-                        if (n22 > n11) {
-                            n11 = n22;
+                        if (y22 > n11) {
+                            n11 = y22;
                         }
-                        const n23 = Math.fround(n21 - Math.fround(n19 * (Math.fround(n20 - n14))));
-                        if (Math.abs(Math.fround(n23 - n13)) < 1.0E-4) {
+                        const n23 = Math.fround(n21 - n19 * (y20 - v6));
+                        if (Math.abs((n23 - v5)) < 1.0E-4) {
                             return;
                         }
-                        if (n23 < n13) {
-                            b2 = true;
-                        } else if (n23 > n13) {
-                            b2 = false;
-                        }
+                        b2 = n23 < v5;
+
                         let n24 = n21;
                         if (b2) {
-                            for (let j = n20; j <= n22; ++j) {
-                                this.leftScanLine[j] = ((Math.fround(n24 + 1.0)) | 0);
+                            for (let j = y20; j <= y22; ++j) {
+                                this.leftScanLine[j] = ((n24 + 1.0) | 0);
                                 n24 += n19;
                             }
                         } else {
-                            for (let k = n20; k <= n22; ++k) {
+                            for (let k = y20; k <= y22; ++k) {
                                 this.rightScanLine[k] = (n24 | 0);
                                 n24 += n19;
                             }
                         }
                         if (b2) {
-                            const n25 = this.leftScanLine[n20];
-                            const n26 = this.leftScanLine[n22];
-                            if (n26 >= 0.0 && n25 < 0.0) {
-                                for (let l = n20; l <= n22; ++l) {
+                            const lsl1 = this.leftScanLine[y20];
+                            const lsl2 = this.leftScanLine[y22];
+                            if (lsl2 >= 0.0 && lsl1 < 0.0) {
+                                for (let l = y20; l <= y22; ++l) {
                                     if (this.leftScanLine[l] >= 0) {
                                         break;
                                     }
                                     this.leftScanLine[l] = 0;
                                 }
-                            } else if (n26 < 0.0 && n25 >= 0.0) {
-                                for (let n27 = n22; n27 >= n20; --n27) {
-                                    if (this.leftScanLine[n27] >= 0) {
+                            } else if (lsl2 < 0.0 && lsl1 >= 0.0) {
+                                for (let y27 = y22; y27 >= y20; --y27) {
+                                    if (this.leftScanLine[y27] >= 0) {
                                         break;
                                     }
-                                    this.leftScanLine[n27] = 0;
+                                    this.leftScanLine[y27] = 0;
                                 }
-                            } else if (n25 < 0.0 && n26 < 0.0) {
-                                for (let n28 = n20; n28 <= n22; ++n28) {
-                                    this.leftScanLine[n28] = 0;
+                            } else if (lsl1 < 0.0 && lsl2 < 0.0) {
+                                for (let y28 = y20; y28 <= y22; ++y28) {
+                                    this.leftScanLine[y28] = 0;
                                 }
                             }
                         } else {
-                            const n29 = this.rightScanLine[n20];
-                            const n30 = this.rightScanLine[n22];
-                            if (n30 <= n12 && n29 > n12) {
-                                for (let n31 = n20; n31 <= n22; ++n31) {
-                                    if (this.rightScanLine[n31] <= n12) {
+                            const rSL1 = this.rightScanLine[y20];
+                            const rSL2 = this.rightScanLine[y22];
+                            if (rSL2 <= lW && rSL1 > lW) {
+                                for (let y31 = y20; y31 <= y22; ++y31) {
+                                    if (this.rightScanLine[y31] <= lW) {
                                         break;
                                     }
-                                    this.rightScanLine[n31] = n12;
+                                    this.rightScanLine[y31] = lW;
                                 }
-                            } else if (n30 > n12 && n29 <= n12) {
-                                for (let n32 = n22; n32 >= n20; --n32) {
-                                    if (this.rightScanLine[n32] <= n12) {
+                            } else if (rSL2 > lW && rSL1 <= lW) {
+                                for (let y32 = y22; y32 >= y20; --y32) {
+                                    if (this.rightScanLine[y32] <= lW) {
                                         break;
                                     }
-                                    this.rightScanLine[n32] = n12;
+                                    this.rightScanLine[y32] = lW;
                                 }
-                            } else if (n29 > n12 && n30 > n12) {
-                                for (let n33 = n20; n33 <= n22; ++n33) {
-                                    this.rightScanLine[n33] = n12;
+                            } else if (rSL1 > lW && rSL2 > lW) {
+                                for (let y33 = y20; y33 <= y22; ++y33) {
+                                    this.rightScanLine[y33] = lW;
                                 }
                             }
                         }
@@ -1349,44 +1424,50 @@ var CWSYSTEM;
                 try {
                     const alpha = CWSYSTEM.FastColorUtilities.alpha(this.defaultColor);
                     if (alpha === 255) {
-                        for (let y34 = n10; y34 <= n11; ++y34) {
+                        for (let y34 = lH; y34 <= n11; ++y34) {
                             let x37 = this.leftScanLine[y34];
                             for (const n36 = this.rightScanLine[y34]; x37 <= n36; ++x37) {
-                                if (array != null) {
-                                    if (n < array[y34][x37]) {
+                                if (buffer != null) {
+                                    if (colorA < buffer[y34][x37]) {
                                         point[y34][x37] = this.defaultColor;
-                                        array[y34][x37] = n;
+                                        buffer[y34][x37] = colorA;
                                     }
                                 } else {
                                     point[y34][x37] = this.defaultColor;
                                 }
                             }
                         }
-                    } else if (array != null) {
-                        for (let n38 = n10; n38 <= n11; ++n38) {
-                            let n41 = this.leftScanLine[n38];
-                            for (const n40 = this.rightScanLine[n38]; n41 <= n40; ++n41) {
-                                if (n < array[n38][n41]) {
-                                    const n42 = point[n38][n41];
-                                    const n43 = 255 - alpha;
-                                    point[n38][n41] = CWSYSTEM.FastColorUtilities.color$r$g$b$a(
-                                        ((alpha * CWSYSTEM.FastColorUtilities.red(this.defaultColor) + n43 *
-                                            CWSYSTEM.FastColorUtilities.red(n42)) / 256 | 0),
-                                        ((alpha * CWSYSTEM.FastColorUtilities.green(this.defaultColor) + n43 *
-                                            CWSYSTEM.FastColorUtilities.green(n42)) / 256 | 0),
-                                        ((alpha * CWSYSTEM.FastColorUtilities.blue(this.defaultColor) + n43 *
-                                            CWSYSTEM.FastColorUtilities.blue(n42)) / 256 | 0), 255);
-                                    array[n38][n41] = n;
+                    } else if (buffer != null) {
+                        for (let y38 = lH; y38 <= n11; ++y38) {
+                            let x41 = this.leftScanLine[y38];
+                            for (const n40 = this.rightScanLine[y38]; x41 <= n40; ++x41) {
+                                if (colorA < buffer[y38][x41]) {
+                                    const color = point[y38][x41];
+                                    const alphaValue = 255 - alpha;
+                                    point[y38][x41] = CWSYSTEM.FastColorUtilities.color$r$g$b$a(
+                                        ((alpha * CWSYSTEM.FastColorUtilities.red(this.defaultColor) + alphaValue *
+                                            CWSYSTEM.FastColorUtilities.red(color)) / 256 | 0),
+                                        ((alpha * CWSYSTEM.FastColorUtilities.green(this.defaultColor) + alphaValue *
+                                            CWSYSTEM.FastColorUtilities.green(color)) / 256 | 0),
+                                        ((alpha * CWSYSTEM.FastColorUtilities.blue(this.defaultColor) + alphaValue *
+                                            CWSYSTEM.FastColorUtilities.blue(color)) / 256 | 0), 255);
+                                    buffer[y38][x41] = colorA;
                                 }
                             }
                         }
                     } else {
-                        for (let n44 = n10; n44 <= n11; ++n44) {
-                            let n47 = this.leftScanLine[n44];
-                            for (const n46 = this.rightScanLine[n44]; n47 <= n46; ++n47) {
-                                const n48 = point[n44][n47];
-                                const n49 = 255 - alpha;
-                                point[n44][n47] = CWSYSTEM.FastColorUtilities.color$r$g$b$a(((alpha * CWSYSTEM.FastColorUtilities.red(this.defaultColor) + n49 * CWSYSTEM.FastColorUtilities.red(n48)) / 256 | 0), ((alpha * CWSYSTEM.FastColorUtilities.green(this.defaultColor) + n49 * CWSYSTEM.FastColorUtilities.green(n48)) / 256 | 0), ((alpha * CWSYSTEM.FastColorUtilities.blue(this.defaultColor) + n49 * CWSYSTEM.FastColorUtilities.blue(n48)) / 256 | 0), 255);
+                        for (let y44 = lH; y44 <= n11; ++y44) {
+                            let x47 = this.leftScanLine[y44];
+                            for (const n46 = this.rightScanLine[y44]; x47 <= n46; ++x47) {
+                                const pColor = point[y44][x47];
+                                const pAlpha = 255 - alpha;
+                                point[y44][x47] = CWSYSTEM.FastColorUtilities.color$r$g$b$a(
+                                    ((alpha * CWSYSTEM.FastColorUtilities.red(this.defaultColor) + pAlpha *
+                                        CWSYSTEM.FastColorUtilities.red(pColor)) / 256 | 0),
+                                    ((alpha * CWSYSTEM.FastColorUtilities.green(this.defaultColor) + pAlpha *
+                                        CWSYSTEM.FastColorUtilities.green(pColor)) / 256 | 0),
+                                    ((alpha * CWSYSTEM.FastColorUtilities.blue(this.defaultColor) + pAlpha *
+                                        CWSYSTEM.FastColorUtilities.blue(pColor)) / 256 | 0), 255);
                             }
                         }
                     }
@@ -1394,14 +1475,14 @@ var CWSYSTEM;
                     console.error(ex.message, ex);
                 }
             } else {
-                for (let n50 = n10; n50 <= n11; ++n50) {
-                    const n51 = this.leftScanLine[n50];
-                    const n52 = this.rightScanLine[n50];
-                    if (n51 <= n52) {
-                        for (let n53 = n51; n53 <= n52; ++n53) {
-                            if (n < array[n50][n53]) {
-                                array2[n50][n53] = polygon;
-                                array[n50][n53] = n;
+                for (let y50 = lH; y50 <= n11; ++y50) {
+                    const rsl1 = this.leftScanLine[y50];
+                    const rsl2 = this.rightScanLine[y50];
+                    if (rsl1 <= rsl2) {
+                        for (let x53 = rsl1; x53 <= rsl2; ++x53) {
+                            if (colorA < buffer[y50][x53]) {
+                                array[y50][x53] = polygon;
+                                buffer[y50][x53] = colorA;
                             }
                         }
                     }
@@ -1411,51 +1492,23 @@ var CWSYSTEM;
 
         CWLine(screenData, x1, y1, x2, y2, b) {
             CWSYSTEM.Environment.screenHasChanged = true;
-            if (x1 < 0 && x2 < 0) {
+            const width = screenData.width;
+            const height = screenData.height;
+
+            if (x1 < 0 && x2 < 0 || y1 < 0 && y2 < 0 || x1 >= width && x2 >= width || y1 >= height && y2 >= height) {
                 return;
             }
-            if (y1 < 0 && y2 < 0) {
-                return;
-            }
-            if (x1 >= screenData.width && x2 >= screenData.width) {
-                return;
-            }
-            if (y1 >= screenData.height && y2 >= screenData.height) {
-                return;
-            }
-            const n5 = x2 - x1;
-            const n6 = y2 - y1;
-            if (n6 >= 0) {
-                if (n5 > 0) {
-                    if (n5 > n6) {
-                        this.octant0(screenData, x1, y1, n5, n6, 1, 1);
-                    } else {
-                        this.octant1(screenData, x1, y1, n5, n6, 1, 1);
-                    }
-                } else {
-                    const n7 = -n5;
-                    if (n7 > n6) {
-                        this.octant0(screenData, x1, y1, n7, n6, -1, 1);
-                    } else {
-                        this.octant1(screenData, x1, y1, n7, n6, -1, 1);
-                    }
-                }
+            const subX = x2 - x1;
+            const subY = y2 - y1;
+            const absX = Math.abs(subX);
+            const absY = Math.abs(subY);
+            const xIncrement = subX > 0 ? 1 : -1;
+            const yIncrement = subY > 0 ? 1 : -1;
+
+            if (absY >= absX) {
+                this.octant1(screenData, x1, y1, absY, absX, xIncrement, yIncrement);
             } else {
-                const n8 = -n6;
-                if (n5 > 0) {
-                    if (n5 > n8) {
-                        this.octant0(screenData, x1, y1, n5, n8, 1, -1);
-                    } else {
-                        this.octant1(screenData, x1, y1, n5, n8, 1, -1);
-                    }
-                } else {
-                    const n9 = -n5;
-                    if (n9 > n8) {
-                        this.octant0(screenData, x1, y1, n9, n8, -1, -1);
-                    } else {
-                        this.octant1(screenData, x1, y1, n9, n8, -1, -1);
-                    }
-                }
+                this.octant0(screenData, x1, y1, absX, absY, xIncrement, yIncrement);
             }
             if (b) {
                 //CWSYSTEM.Debug.println("line true");
@@ -1463,114 +1516,124 @@ var CWSYSTEM;
         }
 
         /** @private */
-        octant0(screenData, n, n2, n3, n4, n5, n6) {
-            const n7 = n4 * 2;
-            const n8 = n7 - n3 * 2;
-            let n9 = n7 - n3;
-            this.CWDrawPixelWithCropping(screenData, n, n2);
-            while ((n3-- > 0)) {
-                if (n9 >= 0) {
-                    n2 += n6;
-                    n9 += n8;
+        octant0(screenData, x, y, remainingPoints, radius, xIncrement, yIncrement) {
+            const diameter = radius * 2;
+            const points = diameter - remainingPoints * 2;
+            let decisionVariable = diameter - remainingPoints;
+            this.CWDrawPixelWithCropping(screenData, x, y);
+            while (remainingPoints-- > 0) {
+                if (decisionVariable >= 0) {
+                    y += yIncrement;
+                    decisionVariable += points;
                 } else {
-                    n9 += n7;
+                    decisionVariable += diameter;
                 }
-                n += n5;
-                this.CWDrawPixelWithCropping(screenData, n, n2);
+                x += xIncrement;
+                this.CWDrawPixelWithCropping(screenData, x, y);
             }
         }
 
         /** @private */
-        octant1(screenData, n, n2, n3, n4, n5, n6) {
+        octant1(screenData, x, y, n3, n4, n5, n6) {
             const n7 = n3 * 2;
             const n8 = n7 - n4 * 2;
             let n9 = n7 - n4;
-            this.CWDrawPixelWithCropping(screenData, n, n2);
+            this.CWDrawPixelWithCropping(screenData, x, y);
             while ((n4-- > 0)) {
                 if (n9 >= 0) {
-                    n += n5;
+                    x += n5;
                     n9 += n8;
                 } else {
                     n9 += n7;
                 }
-                n2 += n6;
-                this.CWDrawPixelWithCropping(screenData, n, n2);
+                y += n6;
+                this.CWDrawPixelWithCropping(screenData, x, y);
             }
         }
 
-        JCCircle(screenData, n, n2, n3, color, b) {
+        /**
+         * Draws a circle on the screen using the midpoint circle algorithm.
+         *
+         * @param {ScreenData} screenData - The screen data object.
+         * @param {number} x - The x-coordinate of the circle's center.
+         * @param {number} y - The y-coordinate of the circle's center.
+         * @param {number} radius - The radius of the circle.
+         * @param {CWColor} color - The color of the circle.
+         * @param {boolean} cropFlag - Flag indicating whether to apply cropping or not.
+         */
+        JCCircle(screenData, x, y, radius, color, cropFlag) {
             CWSYSTEM.Environment.screenHasChanged = true;
-            let i = 0;
-            let n4 = n3;
-            let n5 = ((5 - n3 * 4) / 4 | 0);
             this.setColor$intCWColor(color);
-            if (b) {
-                this.circlePointsWithCropping(screenData, n, n2, i, n4);
-            } else {
-                this.circlePoints(screenData, n, n2, i, n4);
-            }
-            while ((i < n4)) {
 
-                ++i;
+            let i = 0;
+            let rad = radius;
+            let n5 = (5 - radius * 4) / 4 | 0;
+
+            const drawCirclePoints = cropFlag ? this.circlePointsWithCropping : this.circlePoints;
+            drawCirclePoints(screenData, x, y, i, rad);
+
+            while (i < rad) {
+                i++;
                 if (n5 < 0) {
                     n5 += 2 * i + 1;
                 } else {
-                    --n4;
-                    n5 += 2 * (i - n4) + 1;
+                    rad--;
+                    n5 += 2 * (i - rad) + 1;
                 }
-                if (b) {
-                    this.circlePointsWithCropping(screenData, n, n2, i, n4);
-                } else {
-                    this.circlePoints(screenData, n, n2, i, n4);
-                }
+                drawCirclePoints(screenData, x, y, i, rad);
+            }
+        }
+
+        /**
+         * Draws the specific points on a circle.
+         *
+         * @param {ScreenData} screenData - The screen data object.
+         * @param {number} x - The x-coordinate of the circle's center.
+         * @param {number} y - The y-coordinate of the circle's center.
+         * @param {number} point - The current point on the circle.
+         * @param {number} radius - The radius of the circle.
+         * @private */
+        circlePoints(screenData, x, y, point, radius) {
+            const drawPixel = this.CWDrawPixel.bind(this, screenData);
+
+            if (point === 0 || point === radius) {
+                drawPixel(x, y + radius);
+                drawPixel(x, y - radius);
+                drawPixel(x + radius, y);
+                drawPixel(x - radius, y);
+            } else if (point < radius) {
+                drawPixel(x + point, y + radius);
+                drawPixel(x - point, y + radius);
+                drawPixel(x + point, y - radius);
+                drawPixel(x - point, y - radius);
+                drawPixel(x + radius, y + point);
+                drawPixel(x - radius, y + point);
+                drawPixel(x + radius, y - point);
+                drawPixel(x - radius, y - point);
             }
         }
 
         /** @private */
-        circlePoints(screenData, n, n2, n3, n4) {
+        circlePointsWithCropping(screenData, x, y, n3, n4) {
             if (n3 === 0) {
-                this.CWDrawPixel(screenData, n, n2 + n4);
-                this.CWDrawPixel(screenData, n, n2 - n4);
-                this.CWDrawPixel(screenData, n + n4, n2);
-                this.CWDrawPixel(screenData, n - n4, n2);
+                this.CWDrawPixelWithCropping(screenData, x, y + n4);
+                this.CWDrawPixelWithCropping(screenData, x, y - n4);
+                this.CWDrawPixelWithCropping(screenData, x + n4, y);
+                this.CWDrawPixelWithCropping(screenData, x - n4, y);
             } else if (n3 === n4) {
-                this.CWDrawPixel(screenData, n + n3, n2 + n4);
-                this.CWDrawPixel(screenData, n - n3, n2 + n4);
-                this.CWDrawPixel(screenData, n + n3, n2 - n4);
-                this.CWDrawPixel(screenData, n - n3, n2 - n4);
+                this.CWDrawPixelWithCropping(screenData, x + n3, y + n4);
+                this.CWDrawPixelWithCropping(screenData, x - n3, y + n4);
+                this.CWDrawPixelWithCropping(screenData, x + n3, y - n4);
+                this.CWDrawPixelWithCropping(screenData, x - n3, y - n4);
             } else if (n3 < n4) {
-                this.CWDrawPixel(screenData, n + n3, n2 + n4);
-                this.CWDrawPixel(screenData, n - n3, n2 + n4);
-                this.CWDrawPixel(screenData, n + n3, n2 - n4);
-                this.CWDrawPixel(screenData, n - n3, n2 - n4);
-                this.CWDrawPixel(screenData, n + n4, n2 + n3);
-                this.CWDrawPixel(screenData, n - n4, n2 + n3);
-                this.CWDrawPixel(screenData, n + n4, n2 - n3);
-                this.CWDrawPixel(screenData, n - n4, n2 - n3);
-            }
-        }
-
-        /** @private */
-        circlePointsWithCropping(screenData, n, n2, n3, n4) {
-            if (n3 === 0) {
-                this.CWDrawPixelWithCropping(screenData, n, n2 + n4);
-                this.CWDrawPixelWithCropping(screenData, n, n2 - n4);
-                this.CWDrawPixelWithCropping(screenData, n + n4, n2);
-                this.CWDrawPixelWithCropping(screenData, n - n4, n2);
-            } else if (n3 === n4) {
-                this.CWDrawPixelWithCropping(screenData, n + n3, n2 + n4);
-                this.CWDrawPixelWithCropping(screenData, n - n3, n2 + n4);
-                this.CWDrawPixelWithCropping(screenData, n + n3, n2 - n4);
-                this.CWDrawPixelWithCropping(screenData, n - n3, n2 - n4);
-            } else if (n3 < n4) {
-                this.CWDrawPixelWithCropping(screenData, n + n3, n2 + n4);
-                this.CWDrawPixelWithCropping(screenData, n - n3, n2 + n4);
-                this.CWDrawPixelWithCropping(screenData, n + n3, n2 - n4);
-                this.CWDrawPixelWithCropping(screenData, n - n3, n2 - n4);
-                this.CWDrawPixelWithCropping(screenData, n + n4, n2 + n3);
-                this.CWDrawPixelWithCropping(screenData, n - n4, n2 + n3);
-                this.CWDrawPixelWithCropping(screenData, n + n4, n2 - n3);
-                this.CWDrawPixelWithCropping(screenData, n - n4, n2 - n3);
+                this.CWDrawPixelWithCropping(screenData, x + n3, y + n4);
+                this.CWDrawPixelWithCropping(screenData, x - n3, y + n4);
+                this.CWDrawPixelWithCropping(screenData, x + n3, y - n4);
+                this.CWDrawPixelWithCropping(screenData, x - n3, y - n4);
+                this.CWDrawPixelWithCropping(screenData, x + n4, y + n3);
+                this.CWDrawPixelWithCropping(screenData, x - n4, y + n3);
+                this.CWDrawPixelWithCropping(screenData, x + n4, y - n3);
+                this.CWDrawPixelWithCropping(screenData, x - n4, y - n3);
             }
         }
     }

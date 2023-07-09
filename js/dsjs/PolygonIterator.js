@@ -1,4 +1,4 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
+
 var dsector;
 (function (dsector) {
     class PolygonIterator {
@@ -46,6 +46,7 @@ var dsector;
             this.selectionCriteria = var2;
             this.prepareLinearList();
         }
+
         /** @private */ prepareLinearList() {
             this.modelFolders = ([]);
             this.addModelFoldersFromParentFolder(this.model3DMatrix.rootFolder);
@@ -54,57 +55,49 @@ var dsector;
             this.polygonIterator = 0;
             this.vertexIterator = 0;
             this.__numberOfPolygons = 0;
-            this.finished = /* size */ this.modelFolders.length === 0;
+            this.finished = this.modelFolders.length === 0;
         }
-        /** @private */ polygonGroupMatchesCriteria(var1) {
-            if (this.selectionCriteria === PolygonIterator.ACTIVE_POLYGON_GROUPS && !var1.directRepresentation.active) {
+
+        /** @private */ polygonGroupMatchesCriteria(pg) {
+            if (this.selectionCriteria === PolygonIterator.ACTIVE_POLYGON_GROUPS && !pg.directRepresentation.active) {
                 return false;
-            }
-            else {
-                return this.selectionCriteria !== PolygonIterator.VISIBLE_POLYGON_GROUPS || var1.visible();
-            }
-        }
-        /** @private */ addModelFoldersFromParentFolder(var1) {
-            let var2;
-            for (var2 = 0; var2 < /* size */ var1.polygonGroups.length; ++var2) {
-                {
-                    const var3 = var1.polygonGroups[var2];
-                    if (this.polygonGroupMatchesCriteria(var3)) {
-                        this.__numberOfPolygons += /* size */ var3.polygons.length;
-                    }
-                }
-                ;
-            }
-            /* add */ (this.modelFolders.push(var1) > 0);
-            for (var2 = 0; var2 < /* size */ var1.modelFolders.length; ++var2) {
-                {
-                    const var4 = var1.modelFolders[var2];
-                    this.addModelFoldersFromParentFolder(var4);
-                }
-                ;
+            } else {
+                return this.selectionCriteria !== PolygonIterator.VISIBLE_POLYGON_GROUPS || pg.visible();
             }
         }
+
+        /** @private */ addModelFoldersFromParentFolder(folder) {
+            let i;
+            for (i = 0; i < folder.polygonGroups.length; ++i) {
+                const var3 = folder.polygonGroups[i];
+                if (this.polygonGroupMatchesCriteria(var3)) {
+                    this.__numberOfPolygons += var3.polygons.length;
+                }
+            }
+            this.modelFolders.push(folder);
+            for (i = 0; i < folder.modelFolders.length; ++i) {
+                const var4 = folder.modelFolders[i];
+                this.addModelFoldersFromParentFolder(var4);
+            }
+        }
+
         nextVertex() {
             if (this.finished) {
                 return null;
-            }
-            else {
+            } else {
                 this.__lastFetchedModelFolder = this.modelFolders[this.modelFolderIterator];
-                if ( /* size */this.__lastFetchedModelFolder.polygonGroups.length === 0) {
+                if (this.__lastFetchedModelFolder.polygonGroups.length === 0) {
                     this.nextModelFolder();
                     return this.nextVertex();
-                }
-                else {
+                } else {
                     this.__lastFetchedPolygonGroup = this.__lastFetchedModelFolder.polygonGroups[this.polygonGroupIterator];
                     if (!this.polygonGroupMatchesCriteria(this.__lastFetchedPolygonGroup)) {
                         this.nextPolygonGroup();
                         return this.nextVertex();
-                    }
-                    else if ( /* size */this.__lastFetchedPolygonGroup.polygons.length === 0) {
+                    } else if (this.__lastFetchedPolygonGroup.polygons.length === 0) {
                         this.nextPolygonGroup();
                         return this.nextVertex();
-                    }
-                    else {
+                    } else {
                         this.__lastFetchedPolygon = this.__lastFetchedPolygonGroup.polygons[this.polygonIterator];
                         switch ((this.vertexIterator)) {
                             case 0:
@@ -124,13 +117,13 @@ var dsector;
                         if (this.vertexIterator > 2) {
                             this.vertexIterator = 0;
                             ++this.polygonIterator;
-                            if (this.polygonIterator > /* size */ this.__lastFetchedPolygonGroup.polygons.length - 1) {
+                            if (this.polygonIterator > this.__lastFetchedPolygonGroup.polygons.length - 1) {
                                 this.polygonIterator = 0;
                                 ++this.polygonGroupIterator;
-                                if (this.polygonGroupIterator > /* size */ this.__lastFetchedModelFolder.polygonGroups.length - 1) {
+                                if (this.polygonGroupIterator > this.__lastFetchedModelFolder.polygonGroups.length - 1) {
                                     this.polygonGroupIterator = 0;
                                     ++this.modelFolderIterator;
-                                    if (this.modelFolderIterator > /* size */ this.modelFolders.length - 1) {
+                                    if (this.modelFolderIterator > this.modelFolders.length - 1) {
                                         this.finished = true;
                                     }
                                 }
@@ -141,37 +134,34 @@ var dsector;
                 }
             }
         }
+
         nextPolygon() {
             if (this.finished) {
                 return null;
-            }
-            else {
+            } else {
                 this.__lastFetchedModelFolder = this.modelFolders[this.modelFolderIterator];
-                if ( /* size */this.__lastFetchedModelFolder.polygonGroups.length === 0) {
+                if (this.__lastFetchedModelFolder.polygonGroups.length === 0) {
                     this.nextModelFolder();
                     return this.nextPolygon();
-                }
-                else {
+                } else {
                     this.__lastFetchedPolygonGroup = this.__lastFetchedModelFolder.polygonGroups[this.polygonGroupIterator];
                     if (!this.polygonGroupMatchesCriteria(this.__lastFetchedPolygonGroup)) {
                         this.nextPolygonGroup();
                         return this.nextPolygon();
-                    }
-                    else if ( /* size */this.__lastFetchedPolygonGroup.polygons.length === 0) {
+                    } else if (this.__lastFetchedPolygonGroup.polygons.length === 0) {
                         this.nextPolygonGroup();
                         return this.nextPolygon();
-                    }
-                    else {
+                    } else {
                         this.__lastFetchedPolygon = this.__lastFetchedPolygonGroup.polygons[this.polygonIterator];
                         this.vertexIterator = 0;
                         ++this.polygonIterator;
-                        if (this.polygonIterator > /* size */ this.__lastFetchedPolygonGroup.polygons.length - 1) {
+                        if (this.polygonIterator > this.__lastFetchedPolygonGroup.polygons.length - 1) {
                             this.polygonIterator = 0;
                             ++this.polygonGroupIterator;
-                            if (this.polygonGroupIterator > /* size */ this.__lastFetchedModelFolder.polygonGroups.length - 1) {
+                            if (this.polygonGroupIterator > this.__lastFetchedModelFolder.polygonGroups.length - 1) {
                                 this.polygonGroupIterator = 0;
                                 ++this.modelFolderIterator;
-                                if (this.modelFolderIterator > /* size */ this.modelFolders.length - 1) {
+                                if (this.modelFolderIterator > this.modelFolders.length - 1) {
                                     this.finished = true;
                                 }
                             }
@@ -181,65 +171,70 @@ var dsector;
                 }
             }
         }
+
         nextPolygonGroup() {
             if (this.finished) {
                 return null;
-            }
-            else {
+            } else {
                 this.__lastFetchedModelFolder = this.modelFolders[this.modelFolderIterator];
-                if ( /* size */this.__lastFetchedModelFolder.polygonGroups.length === 0) {
+                if (this.__lastFetchedModelFolder.polygonGroups.length === 0) {
                     this.nextModelFolder();
                     return this.nextPolygonGroup();
-                }
-                else {
+                } else {
                     this.__lastFetchedPolygonGroup = this.__lastFetchedModelFolder.polygonGroups[this.polygonGroupIterator];
-                    const var1 = !this.polygonGroupMatchesCriteria(this.__lastFetchedPolygonGroup);
+                    const pgb = !this.polygonGroupMatchesCriteria(this.__lastFetchedPolygonGroup);
                     this.polygonIterator = 0;
                     this.vertexIterator = 0;
                     ++this.polygonGroupIterator;
-                    if (this.polygonGroupIterator > /* size */ this.__lastFetchedModelFolder.polygonGroups.length - 1) {
+                    if (this.polygonGroupIterator > this.__lastFetchedModelFolder.polygonGroups.length - 1) {
                         this.polygonGroupIterator = 0;
                         ++this.modelFolderIterator;
-                        if (this.modelFolderIterator > /* size */ this.modelFolders.length - 1) {
+                        if (this.modelFolderIterator > this.modelFolders.length - 1) {
                             this.finished = true;
                         }
                     }
-                    return var1 ? this.nextPolygonGroup() : this.__lastFetchedPolygonGroup;
+                    return pgb ? this.nextPolygonGroup() : this.__lastFetchedPolygonGroup;
                 }
             }
         }
+
         nextModelFolder() {
             if (this.finished) {
                 return null;
-            }
-            else {
+            } else {
                 this.__lastFetchedModelFolder = this.modelFolders[this.modelFolderIterator];
                 this.polygonGroupIterator = 0;
                 this.polygonIterator = 0;
                 this.vertexIterator = 0;
                 ++this.modelFolderIterator;
-                if (this.modelFolderIterator > /* size */ this.modelFolders.length - 1) {
+                if (this.modelFolderIterator > this.modelFolders.length - 1) {
                     this.finished = true;
                 }
                 return this.__lastFetchedModelFolder;
             }
         }
+
         lastFetchedModelFolder() {
             return this.__lastFetchedModelFolder;
         }
+
         lastFetchedPolygonGroup() {
             return this.__lastFetchedPolygonGroup;
         }
+
         lastFetchedPolygon() {
             return this.__lastFetchedPolygon;
         }
+
         lastFetchedVertex() {
             return this.__lastFetchedVertex;
         }
+
         numberOfPolygons() {
             return this.__numberOfPolygons;
         }
     }
+
     PolygonIterator.ALL_POLYGON_GROUPS = 0;
     PolygonIterator.ACTIVE_POLYGON_GROUPS = 1;
     PolygonIterator.VISIBLE_POLYGON_GROUPS = 2;

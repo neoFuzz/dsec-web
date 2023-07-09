@@ -1,4 +1,3 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var dsector;
 (function (dsector) {
     class DSecRound {
@@ -60,7 +59,8 @@ var dsector;
             this.endOfRoundWarningIssued = false;
             this.silentBackgroundObjects = this.createBackdrop();
             if (dsector.DSReference.dsecMainSetupWindow.playMode() === dsector.DSecMainSetupWindow.TEAMS) {
-                this.backgroundObjects = this.placeJewelAndSurroundingBlocksInRandomLocationOverGrid(this.silentBackgroundObjects);
+                this.backgroundObjects =
+                    this.placeJewelAndSurroundingBlocksInRandomLocationOverGrid(this.silentBackgroundObjects);
             } else {
                 this.backgroundObjects = ([]);
             }
@@ -80,27 +80,33 @@ var dsector;
                         let v = 0.0;
                         let model;
                         let count;
-                        switch (dsector.DSReference.dsecGame.numberOfPlayers()) {  // TODO: investigate what cases are meant to do here
+                        switch (dsector.DSReference.dsecGame.numberOfPlayers()) {
+                            // TODO: investigate what cases are meant to do here
                             case 2:
                                 v = 0.0;
+                                break;
                             case 4:
                                 v = Math.fround(-calcFlt / 2.0);
+                                break;
                             case 6:
                                 v = -calcFlt;
+                                break;
                             case 3:
                             case 5:
                             default:
-                                const angle = Math.fround(jAngle + v + j * calcFlt);
-                                player.setAngle(Math.fround(angle + 3.1415927));
-                                const playerX = Math.fround(Math.cos(angle) * 305.0);
-                                const playerY = Math.fround(Math.sin(angle) * 305.0);
-                                player.setX(playerX);
-                                player.setY(playerY);
-                                player.setAngle(Math.fround(angle + 3.1415927));
-                                model = player.constructPositionedModel();
-                                count = 0;
+
                         }
-                        while ((count < /* size */ this.backgroundObjects.length)) {
+                        const angle = Math.fround(jAngle + v + j * calcFlt);
+                        player.setAngle(Math.fround(angle + 3.1415927));
+                        const playerX = Math.fround(Math.cos(angle) * 305.0);
+                        const playerY = Math.fround(Math.sin(angle) * 305.0);
+                        player.setX(playerX);
+                        player.setY(playerY);
+                        player.setAngle(Math.fround(angle + 3.1415927));
+                        model = player.constructPositionedModel();
+                        count = 0;
+
+                        while ((count < this.backgroundObjects.length)) {
                             const model1 = this.backgroundObjects[count];
                             if (model.intersectsWith(model1)) {
                                 this.initializeRound();
@@ -143,16 +149,22 @@ var dsector;
                 dsector.DSReference.dsecGame.blueTeam.prepareForStartOfRound();
             }
             i = dsector.DSReference.dsecGame.numberOfPlayers();
-            if (dsector.DSecSetupWindow.cameraMode_$LI$() === 4 && i < 3 || dsector.DSecSetupWindow.cameraMode_$LI$() === 5 && i < 4 || dsector.DSecSetupWindow.cameraMode_$LI$() === 6 && i < 5 || dsector.DSecSetupWindow.cameraMode_$LI$() === 7 && i < 6) {
+            if (dsector.DSecSetupWindow.cameraMode_$LI$() === 4 && i < 3 ||
+                dsector.DSecSetupWindow.cameraMode_$LI$() === 5 && i < 4 ||
+                dsector.DSecSetupWindow.cameraMode_$LI$() === 6 && i < 5 ||
+                dsector.DSecSetupWindow.cameraMode_$LI$() === 7 && i < 6) {
                 dsector.DSecSetupWindow.cameraMode = 0;
             }
-            const playerCountMode = dsector.DSReference.dsecMainSetupWindow.playMode() === dsector.DSecMainSetupWindow.TEAMS ? (dsector.DSReference.dsecGame.numberOfPlayers() / 2 | 0) : dsector.DSReference.dsecGame.numberOfPlayers();
+            const playerCountMode = dsector.DSReference.dsecMainSetupWindow.playMode() ===
+            dsector.DSecMainSetupWindow.TEAMS ? (dsector.DSReference.dsecGame.numberOfPlayers() / 2 | 0) :
+                dsector.DSReference.dsecGame.numberOfPlayers();
         }
 
         /** @private */
         createRandomBackgroundScene(scene, config) {
             const configuration = new dsector.DSecBackgroundConfiguration(config);
-            configuration.usePresetConfiguration(((Math.random() * dsector.DSecBackgroundConfiguration.numberOfPresetConfigurations) | 0));
+            configuration.usePresetConfiguration(((Math.random() *
+                dsector.DSecBackgroundConfiguration.numberOfPresetConfigurations) | 0));
             configuration.setEdgeStyle(((Math.random() * 2.0) | 0) + 1);
             configuration.generateRandomScene(scene);
         }
@@ -165,15 +177,18 @@ var dsector;
             let model = null;
             switch (rndNum) {
                 case 1:
-                    model = new dsector.PositionedModel(null, dsector.DSReference.modelLoader.getModel("assets/models/background1"), dsector.Matrix4f.rotationZMatrix(angle), 0.0, 0.0, -8.0);
+                    model = new dsector.PositionedModel(null, dsector.DSReference.modelLoader.getModel(
+                        "assets/models/background1"), dsector.Matrix4f.rotationZMatrix(angle), 0.0, 0.0, -8.0);
                     arrayList.push(model);
                     break;
                 case 2:
-                    model = new dsector.PositionedModel(null, dsector.DSReference.modelLoader.getModel("assets/models/background2"), dsector.Matrix4f.rotationZMatrix(angle), 0.0, 0.0, -8.0);
+                    model = new dsector.PositionedModel(null, dsector.DSReference.modelLoader.getModel(
+                        "assets/models/background2"), dsector.Matrix4f.rotationZMatrix(angle), 0.0, 0.0, -8.0);
                     arrayList.push(model);
                     break;
                 case 3:
-                    model = new dsector.PositionedModel(null, dsector.DSReference.modelLoader.getModel("assets/models/background3"), dsector.Matrix4f.rotationZMatrix(angle), 0.0, 0.0, -8.0);
+                    model = new dsector.PositionedModel(null, dsector.DSReference.modelLoader.getModel(
+                        "assets/models/background3"), dsector.Matrix4f.rotationZMatrix(angle), 0.0, 0.0, -8.0);
                     arrayList.push(model);
                     break;
                 case 4:
@@ -188,12 +203,16 @@ var dsector;
                                 case 2:
                                 case 3:
                                 case 4:
-                                    model = new dsector.PositionedModel(null, dsector.DSReference.modelLoader.getModel("assets/models/background4_1"), dsector.Matrix4f.rotationZMatrix(0.0), x1, y1, -8.0);
+                                    model = new dsector.PositionedModel(null,
+                                        dsector.DSReference.modelLoader.getModel("assets/models/background4_1"),
+                                        dsector.Matrix4f.rotationZMatrix(0.0), x1, y1, -8.0);
                                     arrayList.push(model);
                                     break;
                                 case 5:
                                 case 6:
-                                    model = new dsector.PositionedModel(null, dsector.DSReference.modelLoader.getModel("assets/models/background4_2"), dsector.Matrix4f.rotationZMatrix(0.0), x1, y1, -8.0);
+                                    model = new dsector.PositionedModel(null,
+                                        dsector.DSReference.modelLoader.getModel("assets/models/background4_2"),
+                                        dsector.Matrix4f.rotationZMatrix(0.0), x1, y1, -8.0);
                                     arrayList.push(model);
                             }
                         }
@@ -231,11 +250,20 @@ var dsector;
 
         addBlocksSurroundingJewel(jewel, list1, list2) {
             const stand = 20.0;
-            const model1 = new dsector.PositionedModel(null, dsector.DSReference.modelLoader.getModel("assets/models/smallBlock"), new dsector.Matrix4f(), Math.fround(jewel.x + stand), jewel.y, 0.0);
-            const model2 = new dsector.PositionedModel(null, dsector.DSReference.modelLoader.getModel("assets/models/smallBlock"), new dsector.Matrix4f(), Math.fround(jewel.x - stand), jewel.y, 0.0);
-            const model3 = new dsector.PositionedModel(null, dsector.DSReference.modelLoader.getModel("assets/models/smallBlock"), new dsector.Matrix4f(), jewel.x, Math.fround(jewel.y + stand), 0.0);
-            const model4 = new dsector.PositionedModel(null, dsector.DSReference.modelLoader.getModel("assets/models/smallBlock"), new dsector.Matrix4f(), jewel.x, Math.fround(jewel.y - stand), 0.0);
-            if (this.jewelBlockIsOverGrid(model1, list2) && this.jewelBlockIsOverGrid(model2, list2) && this.jewelBlockIsOverGrid(model3, list2) && this.jewelBlockIsOverGrid(model4, list2)) {
+            const model1 = new dsector.PositionedModel(null,
+                dsector.DSReference.modelLoader.getModel("assets/models/smallBlock"), new dsector.Matrix4f(),
+                Math.fround(jewel.x + stand), jewel.y, 0.0);
+            const model2 = new dsector.PositionedModel(null,
+                dsector.DSReference.modelLoader.getModel("assets/models/smallBlock"), new dsector.Matrix4f(),
+                Math.fround(jewel.x - stand), jewel.y, 0.0);
+            const model3 = new dsector.PositionedModel(null,
+                dsector.DSReference.modelLoader.getModel("assets/models/smallBlock"), new dsector.Matrix4f(),
+                jewel.x, Math.fround(jewel.y + stand), 0.0);
+            const model4 = new dsector.PositionedModel(null,
+                dsector.DSReference.modelLoader.getModel("assets/models/smallBlock"), new dsector.Matrix4f(),
+                jewel.x, Math.fround(jewel.y - stand), 0.0);
+            if (this.jewelBlockIsOverGrid(model1, list2) && this.jewelBlockIsOverGrid(model2, list2) &&
+                this.jewelBlockIsOverGrid(model3, list2) && this.jewelBlockIsOverGrid(model4, list2)) {
                 list1.push(model1);
                 list1.push(model2);
                 list1.push(model3);
@@ -249,7 +277,7 @@ var dsector;
         /** @private */
         jewelBlockIsOverGrid(model, arrayList) {
             model.z = -10.0;
-            for (let i = 0; i < /* size */ arrayList.length; ++i) {
+            for (let i = 0; i < arrayList.length; ++i) {
                 const positionedModel = this.silentBackgroundObjects[i];
                 if (model.intersectsWith(positionedModel)) {
                     model.z = 0.0;

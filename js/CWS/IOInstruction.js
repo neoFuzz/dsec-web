@@ -22,8 +22,7 @@ var CWSYSTEM;
                 this.type = type;
                 this.x = x;
                 this.y = y;
-            }
-            else if (((typeof type === 'number') || type === null) && ((typeof x === 'string') || x === null) && y === undefined) {
+            } else if (((typeof type === 'number') || type === null) && ((typeof x === 'string') || x === null) && y === undefined) {
                 let __args = arguments;
                 let key = __args[1];
                 if (this.type === undefined) {
@@ -43,8 +42,7 @@ var CWSYSTEM;
                 }
                 this.type = type;
                 this.key = key;
-            }
-            else if (((typeof type === 'number') || type === null) && ((typeof x === 'number') || x === null) && y === undefined) {
+            } else if (((typeof type === 'number') || type === null) && ((typeof x === 'number') || x === null) && y === undefined) {
                 let __args = arguments;
                 let keycode = __args[1];
                 if (this.type === undefined) {
@@ -64,11 +62,11 @@ var CWSYSTEM;
                 }
                 this.type = type;
                 this.keyCode = keycode;
-            }
-            else
+            } else
                 throw new Error('invalid overload');
         }
     }
+
     IOInstruction.mouseEntered = 1;
     IOInstruction.mouseExited = 2;
     IOInstruction.mouseLeftPressed = 3;

@@ -111,28 +111,55 @@ var dsector;
                 this.window.changeBackgroundColor$CWColor(new CWSYSTEM.CWColor(CWSYSTEM.CWColor.black_$LI$()));
                 const popupMenu = new CWSYSTEM.CWPopupMenu(this.window, "dsecPlayWindowPopup");
                 if (dsector.DSReference.dsecGame != null) {
-                    popupMenu.addMenuItem$Detailed(CWSYSTEM.CWPopupMenuItem.NORMAL, "", "D-Sector standard display", null, null, null, this, CWSYSTEM.CWReflect.getMethod$obj$string(this, "standardOverheadDisplay"), null);
-                    popupMenu.addMenuItem$Detailed(CWSYSTEM.CWPopupMenuItem.NORMAL, "", "Cyclic panning", null, null, null, this, CWSYSTEM.CWReflect.getMethod$obj$string(this, "cyclicPanning"), null);
-                    popupMenu.addMenuItem$Detailed(CWSYSTEM.CWPopupMenuItem.NORMAL, "", "Player 1 perspective", null, null, null, this, CWSYSTEM.CWReflect.getMethod$obj$string(this, "player1Perspective"), null);
-                    popupMenu.addMenuItem$Detailed(CWSYSTEM.CWPopupMenuItem.NORMAL, "", "Player 2 perspective", null, null, null, this, CWSYSTEM.CWReflect.getMethod$obj$string(this, "player2Perspective"), null);
-                    for (let i = 2, playerCount = dsector.DSReference.dsecGame.numberOfPlayers(); i < playerCount; i++) {
+                    popupMenu.addMenuItem$Detailed(CWSYSTEM.CWPopupMenuItem.NORMAL, "",
+                        "D-Sector standard display", null, null,
+                        null, this, CWSYSTEM.CWReflect.getMethod$obj$string(
+                            this, "standardOverheadDisplay"), null);
+                    popupMenu.addMenuItem$Detailed(CWSYSTEM.CWPopupMenuItem.NORMAL, "",
+                        "Cyclic panning", null, null, null, this,
+                        CWSYSTEM.CWReflect.getMethod$obj$string(this, "cyclicPanning"), null);
+                    popupMenu.addMenuItem$Detailed(CWSYSTEM.CWPopupMenuItem.NORMAL, "",
+                        "Player 1 perspective", null, null, null,
+                        this, CWSYSTEM.CWReflect.getMethod$obj$string(this, "player1Perspective"),
+                        null);
+                    popupMenu.addMenuItem$Detailed(CWSYSTEM.CWPopupMenuItem.NORMAL, "",
+                        "Player 2 perspective", null, null, null,
+                        this, CWSYSTEM.CWReflect.getMethod$obj$string(this, "player2Perspective"),
+                        null);
+                    for (let i = 2, playerCount = dsector.DSReference.dsecGame.numberOfPlayers();
+                         i < playerCount; i++) {
                         const pId = i + 1;
-                        popupMenu.addMenuItem$Detailed(CWSYSTEM.CWPopupMenuItem.NORMAL, "", "Player " + pId + " perspective", null, null, null, this, CWSYSTEM.CWReflect.getMethod$obj$name$class(this, "playerXPerspective", pId), [pId]);
+                        popupMenu.addMenuItem$Detailed(CWSYSTEM.CWPopupMenuItem.NORMAL, "",
+                            "Player " + pId + " perspective", null, null,
+                            null, this, CWSYSTEM.CWReflect.getMethod$obj$name$class(
+                                this, "playerXPerspective", pId), [pId]);
                         if (i === 7) {
                             break;
                         }
                     }
                 }
                 popupMenu.addMenuItem$();
-                popupMenu.addMenuItem$Detailed(CWSYSTEM.CWPopupMenuItem.NORMAL, "", "No sound effects", null, null, null, this, CWSYSTEM.CWReflect.getMethod$obj$string(this, "noSound"), null);
-                popupMenu.addMenuItem$Detailed(CWSYSTEM.CWPopupMenuItem.NORMAL, "", "Simplified sound", null, null, null, this, CWSYSTEM.CWReflect.getMethod$obj$string(this, "simplifiedSound"), null);
-                popupMenu.addMenuItem$Detailed(CWSYSTEM.CWPopupMenuItem.NORMAL, "", "Extended sound", null, null, null, this, CWSYSTEM.CWReflect.getMethod$obj$string(this, "normalSound"), null);
+                popupMenu.addMenuItem$Detailed(CWSYSTEM.CWPopupMenuItem.NORMAL, "",
+                    "No sound effects", null, null, null, this,
+                    CWSYSTEM.CWReflect.getMethod$obj$string(this, "noSound"), null);
+                popupMenu.addMenuItem$Detailed(CWSYSTEM.CWPopupMenuItem.NORMAL, "",
+                    "Simplified sound", null, null, null, this,
+                    CWSYSTEM.CWReflect.getMethod$obj$string(this, "simplifiedSound"), null);
+                popupMenu.addMenuItem$Detailed(CWSYSTEM.CWPopupMenuItem.NORMAL, "",
+                    "Extended sound", null, null, null, this,
+                    CWSYSTEM.CWReflect.getMethod$obj$string(this, "normalSound"), null);
                 popupMenu.addMenuItem$();
-                popupMenu.addMenuItem$Detailed(CWSYSTEM.CWPopupMenuItem.NORMAL, "", "Toggle music", null, null, null, this, CWSYSTEM.CWReflect.getMethod$obj$string(this, "toggleMusic"), null);
+                popupMenu.addMenuItem$Detailed(CWSYSTEM.CWPopupMenuItem.NORMAL, "",
+                    "Toggle music", null, null, null, this,
+                    CWSYSTEM.CWReflect.getMethod$obj$string(this, "toggleMusic"), null);
                 popupMenu.addMenuItem$();
-                popupMenu.addMenuItem$Detailed(CWSYSTEM.CWPopupMenuItem.NORMAL, "", "Toggle magnetic grid", null, null, null, this, CWSYSTEM.CWReflect.getMethod$obj$string(this, "toggleBackgrounds"), null);
+                popupMenu.addMenuItem$Detailed(CWSYSTEM.CWPopupMenuItem.NORMAL, "",
+                    "Toggle magnetic grid", null, null, null, this,
+                    CWSYSTEM.CWReflect.getMethod$obj$string(this, "toggleBackgrounds"), null);
                 popupMenu.addMenuItem$();
-                popupMenu.addMenuItem$Detailed(CWSYSTEM.CWPopupMenuItem.NORMAL, "", "Fast forward round", "ESC", null, null, this, CWSYSTEM.CWReflect.getMethod$obj$string(this, "endRound"), null);
+                popupMenu.addMenuItem$Detailed(CWSYSTEM.CWPopupMenuItem.NORMAL, "",
+                    "Fast forward round", "ESC", null, null, this,
+                    CWSYSTEM.CWReflect.getMethod$obj$string(this, "endRound"), null);
                 this.update();
             }
         }

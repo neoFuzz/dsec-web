@@ -1,4 +1,3 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var CWSYSTEM;
 (function (CWSYSTEM) {
     class CWMenu {
@@ -42,8 +41,10 @@ var CWSYSTEM;
 
         static menuTitlePressed(pressed) {
             if (CWSYSTEM.Environment.cycleID_$LI$() !== CWSYSTEM.CWPopupMenu.cycleInWhichPopupOpened) {
-                const whatPressed = CWSYSTEM.CWStringTools.messagesBetweenCharacters(pressed, '(', ')')[0];
-                const anInt = parseInt(CWSYSTEM.CWStringTools.messagesBetweenCharacters(pressed, '[', ']')[0]);
+                const whatPressed = CWSYSTEM.CWStringTools.messagesBetweenCharacters(
+                    pressed, '(', ')')[0];
+                const anInt = parseInt(CWSYSTEM.CWStringTools.messagesBetweenCharacters(
+                    pressed, '[', ']')[0]);
                 let cwWindow = null;
                 for (let i = 0; i < dsector.DSReference.gui.numberOfWindows(); ++i) {
                     const guiWindow = dsector.DSReference.gui.getWindow$int(i);
@@ -72,7 +73,8 @@ var CWSYSTEM;
 
         static mouseMovedOverButton(cwButton) {
             const btnName = cwButton.name;
-            if (btnName.length > 11 && /* startsWith */ ((str, searchString, position = 0) => str.substr(position, searchString.length) === searchString)(btnName, "MENU_BUTTON")) {
+            if (btnName.length > 11 && ((str, searchString, position = 0) => str.substring(
+                position, searchString.length) === searchString)(btnName, "MENU_BUTTON")) {
                 const msgBetweenChar = CWSYSTEM.CWStringTools.messagesBetweenCharacters(btnName, '(', ')')[0];
                 const gap = parseInt(CWSYSTEM.CWStringTools.messagesBetweenCharacters(btnName, '[', ']')[0]);
                 let window0 = null;
@@ -96,8 +98,7 @@ var CWSYSTEM;
         }
 
         addMenu(popupMenu) {
-            /* add */
-            (this.popupMenus.push(popupMenu) > 0);
+            this.popupMenus.push(popupMenu);
         }
 
         setBuildPosition(buildX, buildY) {
@@ -106,34 +107,39 @@ var CWSYSTEM;
         }
 
         build$() {
-            this.build$int$int$int$dsector_JCFont$int$int$int$int(this.buildX, this.buildY, 15, dsector.DSReference.virtualScreen.serif8_font, 7, 1, 0, 0);
+            this.build$int$int$int$Font$int$int$int$int(
+                this.buildX, this.buildY, 15, dsector.DSReference.virtualScreen.serif8_font,
+                7, 1, 0, 0);
         }
 
-        build$int$int$int$dsector_JCFont$int$int$int$int(buildX, buildY, height, font, inWidth, maxWidth, width, y1) {
+        build$int$int$int$Font$int$int$int$int(buildX, buildY, height, font, inWidth, maxWidth, width, y1) {
             const baseW = 0;
             let width1 = baseW + width;
             let height1;
-            for (height1 = 0; height1 < /* size */ this.popupMenus.length; ++height1) {
+            for (height1 = 0; height1 < this.popupMenus.length; ++height1) {
                 const popupMenu = this.popupMenus[height1];
                 width1 += inWidth;
                 width1 += CWSYSTEM.CWFontTools.textLengthInPixels(popupMenu.menuTitle, font);
                 width1 += inWidth;
-                if (height1 < /* size */ this.popupMenus.length - 1) {
+                if (height1 < this.popupMenus.length - 1) {
                     width1 += maxWidth;
                 }
             }
             width1 += width;
             height1 = y1 * 2 + height;
-            this.window = dsector.DSReference.gui.addWindow$name$style$title$x$y$w$h$v(this.name, 3, "", buildX, buildY, width1 + 1, height1 + 1, true);
+            this.window = dsector.DSReference.gui.addWindow$name$style$title$x$y$w$h$v(
+                this.name, 3, "", buildX, buildY, width1 + 1, height1 + 1, true);
             this.window.titleVisible = false;
             this.window.menuManager = this;
             this.window.changeBackgroundColor$CWColor(new CWSYSTEM.CWColor(200, 200, 255, 150));
             const bWidth = 0;
             let x1 = bWidth + width;
-            for (let k = 0; k < /* size */ this.popupMenus.length; ++k) {
+            for (let k = 0; k < this.popupMenus.length; ++k) {
                 const popupMenu = this.popupMenus[k];
                 const length2 = inWidth * 2 + CWSYSTEM.CWFontTools.textLengthInPixels(popupMenu.menuTitle, font);
-                const button = this.window.addButton$name$x$y$len$h$text$t$r("MENU_BUTTON(" + this.name + ")[" + k + "]", x1, y1, length2, height, popupMenu.menuTitle, 9, 1);
+                const button = this.window.addButton$name$x$y$len$h$text$t$r(
+                    "MENU_BUTTON(" + this.name + ")[" + k + "]", x1, y1, length2, height,
+                    popupMenu.menuTitle, 9, 1);
                 button.textColor = new CWSYSTEM.CWColor(0, 0, 100, 255);
                 button.bgColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$());
                 button.secondaryBackgroundColor = new CWSYSTEM.CWColor(180, 180, 180, 255);
@@ -145,21 +151,23 @@ var CWSYSTEM;
         }
 
         build(buildX, buildY, height, font, inWidth, maxWidth, width, y1) {
-            if (((typeof buildX === 'number') || buildX === null) &&
-                ((typeof buildY === 'number') || buildY === null) &&
-                ((typeof height === 'number') || height === null) &&
-                ((font != null && font instanceof CWSYSTEM.CWFont) || font === null) &&
-                ((typeof inWidth === 'number') || inWidth === null) &&
-                ((typeof maxWidth === 'number') || maxWidth === null) &&
-                ((typeof width === 'number') || width === null) && ((typeof y1 === 'number') || y1 === null)) {
-                return this.build$int$int$int$dsector_JCFont$int$int$int$int(buildX, buildY, height, font, inWidth, maxWidth, width, y1);
-            } else if (buildX === undefined && buildY === undefined && height === undefined && font === undefined && inWidth === undefined && maxWidth === undefined && width === undefined && y1 === undefined) {
+            if (typeof buildX === 'number' && typeof buildY === 'number' &&
+                typeof height === 'number' && font instanceof CWSYSTEM.CWFont &&
+                typeof inWidth === 'number' && typeof maxWidth === 'number' &&
+                typeof width === 'number' && typeof y1 === 'number') {
+                return this.build$int$int$int$Font$int$int$int$int(buildX, buildY, height, font,
+                    inWidth, maxWidth, width, y1);
+            } else if (buildX === undefined && buildY === undefined && height === undefined &&
+                font === undefined && inWidth === undefined && maxWidth === undefined &&
+                width === undefined && y1 === undefined) {
                 return this.build$();
-            } else throw new Error('invalid overload');
+            } else {
+                throw new Error('Invalid overload');
+            }
         }
 
         destroyAllOpenPopupMenus() {
-            for (let i = 0; i < /* size */ this.popupMenus.length; ++i) {
+            for (let i = 0; i < this.popupMenus.length; ++i) {
                 const popupMenu = this.popupMenus[i];
                 if (popupMenu.isPoppedUp()) {
                     popupMenu.destroy();
@@ -177,8 +185,8 @@ var CWSYSTEM;
 
         getMenuButtonFromPopupMenu(popupMenu) {
             if (this.window != null) {
-                for (let i = 0; i < /* size */ this.popupMenus.length; ++i) {
-                    if (popupMenu === /* get */ this.popupMenus[i]) {
+                for (let i = 0; i < this.popupMenus.length; ++i) {
+                    if (popupMenu === this.popupMenus[i]) {
                         return this.window.getButton("MENU_BUTTON(" + this.name + ")[" + i + "]");
                     }
                 }

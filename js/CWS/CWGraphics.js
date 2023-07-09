@@ -37,7 +37,9 @@ var CWSYSTEM;
                 for (let l = 0; l < sd.width; ++l) {
                     // using getColorRGB produces a useful result, RGBA is just all white
                     let pixel = CWSYSTEM.FastColorUtilities.getColorRGB(sd.point[k][l]);
-                    imgData.data[n++] = pixel.red; imgData.data[n++] = pixel.green; imgData.data[n++] = pixel.blue;
+                    imgData.data[n++] = pixel.red;
+                    imgData.data[n++] = pixel.green;
+                    imgData.data[n++] = pixel.blue;
                     imgData.data[n++] = pixel.alpha;
                 }
             }
@@ -152,7 +154,7 @@ var CWSYSTEM;
             let checkmark = false;
 
             try {
-                const canvas = new OffscreenCanvas(bufferedImage.width,bufferedImage.height);
+                const canvas = new OffscreenCanvas(bufferedImage.width, bufferedImage.height);
                 let context = canvas.getContext('2d',
                     {willReadFrequently: true, willWriteFrequently: true});
                 context.drawImage(bufferedImage, 0, 0, bufferedImage.width, bufferedImage.height);
@@ -204,7 +206,8 @@ var CWSYSTEM;
         }
 
         createAntialiasedScreenData(screenData) {
-            const sdBuffer = new CWSYSTEM.ScreenData((screenData.width / 2 | 0), (screenData.height / 2 | 0), screenData.description + " (anti-aliased)");
+            const sdBuffer = new CWSYSTEM.ScreenData((screenData.width / 2 | 0), (screenData.height / 2 | 0),
+                screenData.description + " (anti-aliased)");
             for (let i = 0; i < sdBuffer.height; ++i) {
                 for (let j = 0; j < sdBuffer.width; ++j) {
                     const value1 = j * 2;

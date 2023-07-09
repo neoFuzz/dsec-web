@@ -1,4 +1,3 @@
-/* re-written from Java. Working in-game */
 var dsector;
 (function (dsector) {
     class Scene {
@@ -41,9 +40,6 @@ var dsector;
             return this.__positionedModels.get(model);
         }
         positionedModels() {
-            /*return ( /* values /((m) => { let r = []; if (m.entries == null)
-                m.entries = []; for (let i = 0; i < m.entries.length; i++)
-                r.push(m.entries[i].value); return r; })(this.__positionedModels).slice(0));*/
             return Array.from(this.__positionedModels.values());
         }
     }

@@ -1,4 +1,3 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var dsector;
 (function (dsector) {
     class WeaponSpecification {
@@ -118,12 +117,8 @@ var dsector;
 
         /** @private */
         static soundPlay(missile) {
-            // let clip;
-            try { // TODO: fix laser files
-                //clip = new Audio("assets/sounds/laserMovement.wav");
+            try {
                 dsector.DSReference.cwSound.playSound("assets/sounds/laserMovement.wav", 1);
-                // missile.missileSound = clip;
-                // missile.missileSound.play();
             } catch (e) {
                 CWSYSTEM.Debug.println("Error loading movement sounds from DSecPlayer.fireWeapon(..):" + e);
                 CWSYSTEM.Debug.println("Unsupported Audio format: " + e);
@@ -183,7 +178,7 @@ var dsector;
 
         alreadyFired(player) {
             if (this.actionWhenFiredAfterAlreadyLaunched !== WeaponSpecification.ACTION_NONE) {
-                for (let i = 0; i < /* size */ dsector.DSReference.dsecMissileManager.missiles.length; ++i) {
+                for (let i = 0; i < dsector.DSReference.dsecMissileManager.missiles.length; ++i) {
                     const missile = dsector.DSReference.dsecMissileManager.missiles[i];
                     if (missile.weaponSpecification === this && player === missile.owner) {
                         return true;
@@ -206,7 +201,7 @@ var dsector;
                 this.teleportSelf(owner);
                 return null;
             } else if (this.type === WeaponSpecification.TELEPORT_FOE) {
-                this.teleportFoe(owner); // TODO: Test, may not be working when fired.
+                this.teleportFoe(owner);
                 return null;
             } else if (this.type === WeaponSpecification.SHIELD) {
                 owner.turnShieldOn(this);
@@ -241,7 +236,7 @@ var dsector;
                 }
                 if (this.actionWhenFiredAfterAlreadyLaunched !== WeaponSpecification.ACTION_NONE &&
                     this.alreadyFired(owner)) {
-                    for (let i = 0; i < /* size */ dsector.DSReference.dsecMissileManager.missiles.length; ++i) {
+                    for (let i = 0; i < dsector.DSReference.dsecMissileManager.missiles.length; ++i) {
                         const missile = dsector.DSReference.dsecMissileManager.missiles[i];
                         if (missile.weaponSpecification === this && owner === missile.owner) {
                             missile.destroyWithoutExplosion();
@@ -388,17 +383,17 @@ var dsector;
                             weaponSpec.guideSpecification = WeaponSpecification.GUIDE_SPECIFICATION_SEEK_NEAREST;
                             weaponSpec.guidedTurnRate = 8.0;
                             weaponSpec.modelName = "assets/models/deathSpike";
-                            let sVector = new dsector.VectorInR3(0,-3,0); // offset location
+                            let sVector = new dsector.VectorInR3(0, -3, 0); // offset location
                             let angle = Math.fround(mAngle - 0.6283185307179586); // launch angle bottom
-                            for(let nx = 0; nx < 8; ++nx) {
-                                sVector.subtract(6,1,0);
+                            for (let nx = 0; nx < 8; ++nx) {
+                                sVector.subtract(6, 1, 0);
                                 weaponSpec.fire(owner, x, y, angle, sVector, 5.0);
                             }
                             angle = Math.fround(mAngle + 0.6283185307179586); // launch angle top
-                            sVector = new dsector.VectorInR3(0,-3,0);
-                            for(let nx = 0; nx < 8; ++nx) {
-                                sVector.subtract(6,0,0);
-                                sVector.add(0,1,0);
+                            sVector = new dsector.VectorInR3(0, -3, 0);
+                            for (let nx = 0; nx < 8; ++nx) {
+                                sVector.subtract(6, 0, 0);
+                                sVector.add(0, 1, 0);
                                 weaponSpec.fire(owner, x, y, angle, sVector, 5.0);
                             }
                             return null;

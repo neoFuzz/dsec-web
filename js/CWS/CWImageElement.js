@@ -21,6 +21,7 @@ var CWSYSTEM;
             this.y = y;
         }
     }
+
     CWSYSTEM.CWImageElement = CWImageElement;
     CWImageElement["__class"] = "CWSYSTEM.CWImageElement";
 })(CWSYSTEM || (CWSYSTEM = {}));

@@ -5,6 +5,7 @@ var CWSYSTEM;
             this.windowColor = new Map();
             new CWSYSTEM.CWColor(60, 60, 60, 180);
         }
+
         setWindowColor(name, color) {
             this.windowColor.remove(name);
             this.windowColor.put(name, color);
@@ -13,6 +14,7 @@ var CWSYSTEM;
                 window.changeBackgroundColor(color);
             }
         }
+
         restoreWindowColor(name) {
             const color = this.windowColor.get(name);
             if (color != null) {
@@ -25,6 +27,7 @@ var CWSYSTEM;
             }
         }
     }
+
     CWSYSTEM.WindowColors = WindowColors;
     WindowColors["__class"] = "CWSYSTEM.WindowColors";
 })(CWSYSTEM || (CWSYSTEM = {}));

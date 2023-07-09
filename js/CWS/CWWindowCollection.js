@@ -90,6 +90,7 @@ var CWSYSTEM;
             } else
                 throw new Error('invalid overload');
         }
+
         /** Adds a window with the specified properties to the CWWindowCollection.
          * @param {string} name - The name of the window.
          * @param {number} style - The numerical style of the window.

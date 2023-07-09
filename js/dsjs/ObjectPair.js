@@ -8,7 +8,7 @@ var dsector;
      */
     class ObjectPair {
         /**
-         * Creates a new instance of ObjectPair.
+         * Creates a new instance of {@link ObjectPair}.
          * @param {any} object1 - The first object of the pair.
          * @param {any} object2 - The second object of the pair.
          */

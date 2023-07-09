@@ -17,6 +17,7 @@ var dsector;
             this.v3 = v3;
         }
     }
+
     ColourlessPolygon.byteSize = 12;
     dsector.ColourlessPolygon = ColourlessPolygon;
     ColourlessPolygon["__class"] = "dsector.ColourlessPolygon";

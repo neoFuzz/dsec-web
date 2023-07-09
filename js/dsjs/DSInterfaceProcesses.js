@@ -96,7 +96,8 @@ var dsector;
             if (CWSYSTEM.Environment.inputBoxSelected_$LI$() != null) {
                 if (keyCode !== 46 && keyCode !== 8) {
                     if (keyCode === 13) { // 13 is Enter
-                        dsector.DSReference.interfaceProcesses.processInputBox(CWSYSTEM.Environment.inputBoxSelected_$LI$());
+                        dsector.DSReference.interfaceProcesses.processInputBox(
+                            CWSYSTEM.Environment.inputBoxSelected_$LI$());
                     } else if (keyCode === 27) {
                         CWSYSTEM.Environment.inputBoxSelected = null;
                     }

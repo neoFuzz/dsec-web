@@ -121,8 +121,7 @@ Example to show the creating an image in a ImageData buffer<br>
         }
 
         addMenu(popupMenu) {
-            /* add */
-            (this.popupMenus.push(popupMenu) > 0);
+            this.popupMenus.push(popupMenu);
         }
 
         setBuildPosition(buildX, buildY) {
@@ -134,16 +133,16 @@ Example to show the creating an image in a ImageData buffer<br>
             this.build$int$int$int$dsector_JCFont$int$int$int$int(this.buildX, this.buildY, 15, tjmain.ref.virtualScreen.serif8_font, 7, 1, 0, 0);
         }
 
-        build$int$int$int$dsector_JCFont$int$int$int$int(buildX, buildY, height, font, inWidth, maxWidth, width, y1) {
+        build$int$int$int$Font$int$int$int$int(buildX, buildY, height, font, inWidth, maxWidth, width, y1) {
             const baseW = 0;
             let width1 = baseW + width;
             let height1;
-            for (height1 = 0; height1 < /* size */ this.popupMenus.length; ++height1) {
+            for (height1 = 0; height1 < this.popupMenus.length; ++height1) {
                 const popupMenu = this.popupMenus[height1];
                 width1 += inWidth;
                 width1 += CWSYSTEM.CWFontTools.textLengthInPixels(popupMenu.menuTitle, font);
                 width1 += inWidth;
-                if (height1 < /* size */ this.popupMenus.length - 1) {
+                if (height1 < this.popupMenus.length - 1) {
                     width1 += maxWidth;
                 }
             }
@@ -155,7 +154,7 @@ Example to show the creating an image in a ImageData buffer<br>
             this.window.changeBackgroundColor$CWColor(new CWSYSTEM.CWColor(200, 200, 255, 150));
             const bWidth = 0;
             let x1 = bWidth + width;
-            for (let k = 0; k < /* size */ this.popupMenus.length; ++k) {
+            for (let k = 0; k < this.popupMenus.length; ++k) {
                 const popupMenu = this.popupMenus[k];
                 const length2 = inWidth * 2 + CWSYSTEM.CWFontTools.textLengthInPixels(popupMenu.menuTitle, font);
                 const button = this.window.addButton$name$x$y$len$h$text$t$r("MENU_BUTTON(" + this.name + ")[" + k + "]", x1, y1, length2, height, popupMenu.menuTitle, 9, 1);
@@ -184,7 +183,7 @@ Example to show the creating an image in a ImageData buffer<br>
         }
 
         destroyAllOpenPopupMenus() {
-            for (let i = 0; i < /* size */ this.popupMenus.length; ++i) {
+            for (let i = 0; i < this.popupMenus.length; ++i) {
                 const popupMenu = this.popupMenus[i];
                 if (popupMenu.isPoppedUp()) {
                     popupMenu.destroy();
@@ -202,8 +201,8 @@ Example to show the creating an image in a ImageData buffer<br>
 
         getMenuButtonFromPopupMenu(popupMenu) {
             if (this.window != null) {
-                for (let i = 0; i < /* size */ this.popupMenus.length; ++i) {
-                    if (popupMenu === /* get */ this.popupMenus[i]) {
+                for (let i = 0; i < this.popupMenus.length; ++i) {
+                    if (popupMenu === this.popupMenus[i]) {
                         return this.window.getButton("MENU_BUTTON(" + this.name + ")[" + i + "]");
                     }
                 }
@@ -378,7 +377,6 @@ Example to show the creating an image in a ImageData buffer<br>
         clear() {
             while ((!(this.instructions.length === 0))) {
                 const ioInstruction = this.instructions[0];
-                /* remove */
                 (a => {
                     let index = a.indexOf(ioInstruction);
                     if (index >= 0) {
@@ -402,7 +400,6 @@ Example to show the creating an image in a ImageData buffer<br>
             CWSYSTEM.Environment.ESCKeyPressedDuringThisCycle = false;
             while (!(this.instructions.length === 0)) {
                 const ioInstruction = this.instructions[0];
-                /* remove */
                 (a => {
                     let index = a.indexOf(ioInstruction);
                     if (index >= 0) {

@@ -1,4 +1,3 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var dsector;
 (function (dsector) {
     class SpecialPoint {
@@ -44,55 +43,56 @@ var dsector;
             this.green = green;
             this.blue = blue;
         }
+
         static getAllSpecialPoints(model3DMatrix) {
             const arrayList = ([]);
             const polygonIterator = new dsector.PolygonIterator(model3DMatrix, dsector.PolygonIterator.ALL_POLYGON_GROUPS);
-            while ((true)) {
-                {
-                    const modelFolder = polygonIterator.nextModelFolder();
-                    if (modelFolder == null) {
-                        return arrayList;
-                    }
-                    for (let i = 0; i < /* size */ modelFolder.specialPoints.length; ++i) {
-                        {
-                            const specialPoint = modelFolder.specialPoints[i];
-                            /* add */ (arrayList.push(specialPoint) > 0);
-                        }
-                        ;
-                    }
+            while (true) {
+                const modelFolder = polygonIterator.nextModelFolder();
+                if (modelFolder == null) {
+                    return arrayList;
+                }
+                for (let i = 0; i < modelFolder.specialPoints.length; ++i) {
+                    const specialPoint = modelFolder.specialPoints[i];
+                    arrayList.push(specialPoint);
                 }
             }
-            ;
         }
+
         visibility$() {
             return this.__visibility;
         }
+
         isVisible() {
             return this.__visibility;
         }
+
         isHidden() {
             return !this.__visibility;
         }
+
         visibility$boolean(visible) {
             this.__visibility = visible;
             CWSYSTEM.Environment.projectiveViewWindowsRequestedForUpdateNextCycle();
         }
+
         visibility(visible) {
             if (((typeof visible === 'boolean') || visible === null)) {
                 return this.visibility$boolean(visible);
-            }
-            else if (visible === undefined) {
+            } else if (visible === undefined) {
                 return this.visibility$();
-            }
-            else
+            } else
                 throw new Error('invalid overload');
         }
+
         toggleVisibility() {
             this.visibility$boolean(!this.visibility$());
         }
+
         setPositionToLocatorPosition() {
             CWSYSTEM.Environment.projectiveViewWindowsRequestedForUpdateNextCycle();
         }
+
         setColor(color) {
             this.red = color.red();
             this.green = color.green();
@@ -100,6 +100,7 @@ var dsector;
             CWSYSTEM.Environment.projectiveViewWindowsRequestedForUpdateNextCycle();
         }
     }
+
     dsector.SpecialPoint = SpecialPoint;
     SpecialPoint["__class"] = "dsector.SpecialPoint";
 })(dsector || (dsector = {}));

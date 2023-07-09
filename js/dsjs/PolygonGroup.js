@@ -1,8 +1,23 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var dsector;
 (function (dsector) {
+    /**
+     * Represents a polygon group.
+     *
+     * @class
+     * @classdesc A polygon group is a collection of polygons that belong to a parent folder and have various properties.
+     *
+     * @param {string} name - The name of the polygon group.
+     * @param {string} parentFolder - The name of the parent folder.
+     * @param {boolean} visible - Indicates whether the polygon group is visible.
+     * @param {string} pgrName - The name of the polygon group representation.
+     * @param {boolean} pgrVisible - Indicates whether the polygon group representation is visible.
+     * @param {string} reflection - The type of reflection for the polygon group.
+     * @param {number} reflectedLightDirectionSensitivity - The sensitivity of the reflected light direction.
+     * @param {number} dispersedLightDirectionSensitivity - The sensitivity of the dispersed light direction.
+     */
     class PolygonGroup {
-        constructor(name, parentFolder, visible, pgrName, pgrVisible, reflection, reflectedLightDirectionSensitivity, dispersedLightDirectionSensitivity) {
+        constructor(name, parentFolder, visible, pgrName, pgrVisible, reflection,
+                    reflectedLightDirectionSensitivity, dispersedLightDirectionSensitivity) {
             if (this.name === undefined) {
                 this.name = null;
             }
@@ -43,7 +58,9 @@ var dsector;
             this.expanded = true;
             this.polygons = ([]);
             this.transposedRepresentations = ([]);
-            this.directRepresentation = new dsector.PolygonGroupRepresentation(this, pgrName, pgrVisible, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0);
+            this.directRepresentation = new dsector.PolygonGroupRepresentation(
+                this, pgrName, pgrVisible, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0,
+                0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0);
             this.reflection = reflection;
             this.dispersedLightDirectionSensitivity = dispersedLightDirectionSensitivity;
             this.reflectedLightDirectionSensitivity = reflectedLightDirectionSensitivity;
@@ -71,21 +88,19 @@ var dsector;
             return this.__parentFolder;
         }
         addPolygon(polygon) {
-            /* add */ (this.polygons.push(polygon) > 0);
+            this.polygons.push(polygon);
         }
         static getActivePolygonGroups() {
-            const polygonIterator = new dsector.PolygonIterator(dsector.DSReference.model3DMatrix, dsector.PolygonIterator.ACTIVE_POLYGON_GROUPS);
+            const polygonIterator = new dsector.PolygonIterator(dsector.DSReference.model3DMatrix,
+                dsector.PolygonIterator.ACTIVE_POLYGON_GROUPS);
             const arrayList = ([]);
-            while ((true)) {
-                {
+            while (true) {
                     const polygonGroup = polygonIterator.nextPolygonGroup();
                     if (polygonGroup == null) {
                         return arrayList;
                     }
-                    /* add */ (arrayList.push(polygonGroup) > 0);
-                }
+                    arrayList.push(polygonGroup);
             }
-            ;
         }
     }
     PolygonGroup.defaultReflection = 5;

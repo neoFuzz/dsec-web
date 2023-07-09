@@ -1,4 +1,3 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var CWSYSTEM;
 (function (CWSYSTEM) {
     class CWFontTools {
@@ -67,7 +66,7 @@ var CWSYSTEM;
                     let charHeight = character.height;
                     let charWidth = character.width;
                     let j;
-                     if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(charArray[i]) === ' '.charCodeAt(0)) {
+                    if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(charArray[i]) === ' '.charCodeAt(0)) {
                         let kerning = 0;
                         for (j = i + 1; j < charArray.length; ++j) {
                             if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(charArray[j]) === '\\'.charCodeAt(0)) {

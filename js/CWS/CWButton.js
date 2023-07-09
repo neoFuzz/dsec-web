@@ -1,4 +1,3 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var CWSYSTEM;
 (function (CWSYSTEM) {
     class CWButton {
@@ -722,7 +721,6 @@ var CWSYSTEM;
                             return null;
                     })(this.objectContainingButtonPressedMethod.constructor, this.buttonPressedMethodName);
                     const objects = [this];
-                    /* invoke */
                     declaredMethod.fn.apply(this.objectContainingButtonPressedMethod, [objects]);
                 } catch (e) {
                     console.error("A problem occurred in CWButton.buttonPressed() for button \'" + this.name + "\': " + e);
@@ -730,7 +728,6 @@ var CWSYSTEM;
             }
             if (this.onPressedMethod != null) {
                 try {
-                    /* invoke */
                     this.onPressedMethod.fn.apply(this.onPressedObject, [this.onPressedParameters]);
                 } catch (e) {
                     console.error("Error in CWButton.buttonPressed(..) with button \'" + this.name + "\': " + e);

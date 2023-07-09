@@ -1,4 +1,3 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var CWSYSTEM;
 (function (CWSYSTEM) {
     class CWImage {
@@ -63,7 +62,8 @@ var CWSYSTEM;
                                 const calcGreen = ((calcBlend * green2 + blended * green1) / 256 | 0);
                                 const calcBlue = ((calcBlend * blue2 + blended * blue1) / 256 | 0);
                                 const alphaBlend = ((calcBlend * alpha2 + blended * alpha1) / 256 | 0);
-                                arrPoints[chosenB + i][chosenA + j] = CWSYSTEM.FastColorUtilities.color$r$g$b$a(calcRed, calcGreen, calcBlue, alphaBlend);
+                                arrPoints[chosenB + i][chosenA + j] = CWSYSTEM.FastColorUtilities.color$r$g$b$a(
+                                    calcRed, calcGreen, calcBlue, alphaBlend);
                             }
                         }
                     } catch (e) {
@@ -211,7 +211,8 @@ var CWSYSTEM;
         }
 
         draw() {
-            CWImage.drawUsingColorDerivedTransparency(this.filepath, this.parent.window.point, this.x, this.y, this.transparentColor, 3.0);
+            CWImage.drawUsingColorDerivedTransparency(this.filepath, this.parent.window.point,
+                this.x, this.y, this.transparentColor, 3.0);
         }
     }
 

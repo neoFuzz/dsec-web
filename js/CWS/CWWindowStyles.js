@@ -28,7 +28,7 @@ var CWSYSTEM;
             if (CWWindowStyles.borderBitmapStyle1 == null) {
                 CWWindowStyles.borderBitmapStyle1 = [
                     [[0, 0, 0, 0], [0, 0, 0, 0], [255, 255, 255, 45],
-                    [0, 0, 0, 45], [170, 170, 170, 255], [0, 0, 0, 45]]];
+                        [0, 0, 0, 45], [170, 170, 170, 255], [0, 0, 0, 45]]];
             }
             return CWWindowStyles.borderBitmapStyle1;
         }
@@ -189,6 +189,7 @@ var CWSYSTEM;
             }
         }
     }
+
     CWWindowStyles.SQUARE_RESIZE = 1;
     CWWindowStyles.SQUARE = 2;
     CWWindowStyles.ROUNDED = 3;

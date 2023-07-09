@@ -1,4 +1,3 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var dsector;
 (function (dsector) {
     class DSecJewel {
@@ -38,17 +37,20 @@ var dsector;
             this.model3DMatrix = dsector.DSReference.modelLoader.getModel("assets/models/jewel");
         }
         teamOfJewel() {
-            return this.color === dsector.DSecTeam.BLUE ? dsector.DSReference.dsecGame.blueTeam : dsector.DSReference.dsecGame.redTeam;
+            return this.color === dsector.DSecTeam.BLUE ? dsector.DSReference.dsecGame.blueTeam :
+                dsector.DSReference.dsecGame.redTeam;
         }
         rotateOverOneFrame() {
-            this.angle = Math.fround((this.angle + ((this.energy * dsector.DSReference.dsecGame.gameSpeed()) / 500.0)) % 6.2831855);
+            this.angle = Math.fround((this.angle + ((
+                this.energy * dsector.DSReference.dsecGame.gameSpeed()) / 500.0)) % 6.2831855);
             if (this.teamOfJewel().allPlayersInTeamDestroyed()) {
                 const damage = Math.fround(0.25 * dsector.DSReference.dsecGame.gameSpeed());
                 this.takeDamage(damage, null);
             }
         }
         constructPositionedModel() {
-            return new dsector.PositionedModel(null, this.model3DMatrix, this.orientationAsMatrix(), this.x, this.y, 0.0);
+            return new dsector.PositionedModel(null, this.model3DMatrix,
+                this.orientationAsMatrix(), this.x, this.y, 0.0);
         }
         orientationAsMatrix() {
             const matrix4f = new dsector.Matrix4f();
@@ -88,7 +90,8 @@ var dsector;
                 this.energy = 0.0;
                 if (this.state === DSecJewel.ALIVE) {
                     if (dsector.DSecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
-                        dsector.DSReference.cwSound.playSound("assets/sounds/jewelDestroyed.wav", this.teamOfJewel().color);
+                        dsector.DSReference.cwSound.playSound("assets/sounds/jewelDestroyed.wav",
+                            this.teamOfJewel().color);
                     }
                     this.state = DSecJewel.DESTROYED;
                 }

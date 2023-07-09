@@ -1,180 +1,102 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var CWSYSTEM;
 (function (CWSYSTEM) {
     class CWCheckBox {
         constructor(parent, name, x, y, selected) {
-            if (((parent != null && parent instanceof CWSYSTEM.CWWindow) || parent === null) &&
-                ((typeof name === 'string') || name === null) && ((typeof x === 'number') || x === null) &&
-                ((typeof y === 'number') || y === null) && ((typeof selected === 'boolean') || selected === null)) {
-                let __args = arguments;
-                {
-                    let __args = arguments;
-                    if (this.parentWindow === undefined) {
-                        this.parentWindow = null;
+            this.parentWindow = null;
+            this.name = null;
+            this.style = CWCheckBox.SMALL_STYLE;
+            this.x = 0;
+            this.y = 0;
+            this.length = 7;
+            this.height = 7;
+            this.__selected = false;
+            this.radioID = 0;
+            this.intValue = 0;
+            this.clickableBorderWidth = 0;
+            this.generalPurposeObject = null;
+            this.objectContainingCheckBoxChangedMethod = null;
+
+            if (parent instanceof CWSYSTEM.CWWindow || parent === null) {
+                if (typeof name === 'string' || name === null) {
+                    if (typeof x === 'number' || x === null) {
+                        if (typeof y === 'number' || y === null) {
+                            if (typeof selected === 'boolean' || selected === null) {
+                                this.parentWindow = parent;
+                                this.name = name;
+                                this.x = x;
+                                this.y = y;
+                                this.__selected = selected;
+                                this.radioID = -1;
+                            } else {
+                                throw new Error('Invalid argument for selected');
+                            }
+                        } else {
+                            throw new Error('Invalid argument for y');
+                        }
+                    } else {
+                        throw new Error('Invalid argument for x');
                     }
-                    if (this.name === undefined) {
-                        this.name = null;
-                    }
-                    if (this.style === undefined) {
-                        this.style = 0;
-                    }
-                    if (this.x === undefined) {
-                        this.x = 0;
-                    }
-                    if (this.y === undefined) {
-                        this.y = 0;
-                    }
-                    if (this.length === undefined) {
-                        this.length = 0;
-                    }
-                    if (this.height === undefined) {
-                        this.height = 0;
-                    }
-                    if (this.__selected === undefined) {
-                        this.__selected = false;
-                    }
-                    if (this.radioID === undefined) {
-                        this.radioID = 0;
-                    }
-                    if (this.intValue === undefined) {
-                        this.intValue = 0;
-                    }
-                    if (this.clickableBorderWidth === undefined) {
-                        this.clickableBorderWidth = 0;
-                    }
-                    if (this.generalPurposeObject === undefined) {
-                        this.generalPurposeObject = null;
-                    }
-                    if (this.objectContainingCheckBoxChangedMethod === undefined) {
-                        this.objectContainingCheckBoxChangedMethod = null;
-                    }
-                    this.style = CWCheckBox.SMALL_STYLE;
-                    this.length = 7;
-                    this.height = 7;
-                    this.clickableBorderWidth = 4;
-                    this.__selected = false;
+                } else {
+                    throw new Error('Invalid argument for name');
                 }
-                if (this.parentWindow === undefined) {
-                    this.parentWindow = null;
-                }
-                if (this.name === undefined) {
-                    this.name = null;
-                }
-                if (this.style === undefined) {
-                    this.style = 0;
-                }
-                if (this.x === undefined) {
-                    this.x = 0;
-                }
-                if (this.y === undefined) {
-                    this.y = 0;
-                }
-                if (this.length === undefined) {
-                    this.length = 0;
-                }
-                if (this.height === undefined) {
-                    this.height = 0;
-                }
-                if (this.__selected === undefined) {
-                    this.__selected = false;
-                }
-                if (this.radioID === undefined) {
-                    this.radioID = 0;
-                }
-                if (this.intValue === undefined) {
-                    this.intValue = 0;
-                }
-                if (this.clickableBorderWidth === undefined) {
-                    this.clickableBorderWidth = 0;
-                }
-                if (this.generalPurposeObject === undefined) {
-                    this.generalPurposeObject = null;
-                }
-                if (this.objectContainingCheckBoxChangedMethod === undefined) {
-                    this.objectContainingCheckBoxChangedMethod = null;
-                }
-                (() => {
-                    this.parentWindow = parent;
-                    this.name = name;
-                    this.x = x;
-                    this.y = y;
-                    this.__selected = selected;
-                    this.radioID = -1;
-                })();
-            } else if (parent === undefined && name === undefined && x === undefined && y === undefined && selected === undefined) {
-                let __args = arguments;
-                if (this.parentWindow === undefined) {
-                    this.parentWindow = null;
-                }
-                if (this.name === undefined) {
-                    this.name = null;
-                }
-                if (this.style === undefined) {
-                    this.style = 0;
-                }
-                if (this.x === undefined) {
-                    this.x = 0;
-                }
-                if (this.y === undefined) {
-                    this.y = 0;
-                }
-                if (this.length === undefined) {
-                    this.length = 0;
-                }
-                if (this.height === undefined) {
-                    this.height = 0;
-                }
-                if (this.__selected === undefined) {
-                    this.__selected = false;
-                }
-                if (this.radioID === undefined) {
-                    this.radioID = 0;
-                }
-                if (this.intValue === undefined) {
-                    this.intValue = 0;
-                }
-                if (this.clickableBorderWidth === undefined) {
-                    this.clickableBorderWidth = 0;
-                }
-                if (this.generalPurposeObject === undefined) {
-                    this.generalPurposeObject = null;
-                }
-                if (this.objectContainingCheckBoxChangedMethod === undefined) {
-                    this.objectContainingCheckBoxChangedMethod = null;
-                }
+            } else if (parent === undefined && name === undefined && x === undefined &&
+                y === undefined && selected === undefined) {
                 this.style = CWCheckBox.SMALL_STYLE;
                 this.length = 7;
                 this.height = 7;
                 this.clickableBorderWidth = 4;
                 this.__selected = false;
-            } else
-                throw new Error('invalid overload');
+            } else {
+                throw new Error('Invalid overload');
+            }
         }
 
         static bitmapUnselected_$LI$() {
             if (CWCheckBox.bitmapUnselected == null) {
-                CWCheckBox.bitmapUnselected = [[0, 0, 4, 2, 1, 1, 1, 2, 0, 0, 0], [0, 3, 1, 1, 2, 2, 3, 3, 3, 4, 0], [4, 1, 1, 2, 0, 0, 0, 0, 0, 4, 0], [1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 4], [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 4], [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 4], [1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0], [2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 4], [0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 4, 4, 0, 0, 0, 0, 0, 0, 4, 0], [0, 0, 0, 4, 4, 4, 0, 4, 0, 0, 0]];
+                CWCheckBox.bitmapUnselected = [[0, 0, 4, 2, 1, 1, 1, 2, 0, 0, 0], [0, 3, 1, 1, 2, 2, 3, 3, 3, 4, 0],
+                    [4, 1, 1, 2, 0, 0, 0, 0, 0, 4, 0], [1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 4],
+                    [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 4], [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 4],
+                    [1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0], [2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 4],
+                    [0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 4, 4, 0, 0, 0, 0, 0, 0, 4, 0],
+                    [0, 0, 0, 4, 4, 4, 0, 4, 0, 0, 0]];
             }
             return CWCheckBox.bitmapUnselected;
         }
 
         static bitmapSelected_$LI$() {
             if (CWCheckBox.bitmapSelected == null) {
-                CWCheckBox.bitmapSelected = [[0, 0, 4, 2, 1, 1, 1, 2, 0, 0, 0], [0, 3, 1, 1, 2, 2, 3, 3, 3, 4, 0], [4, 1, 1, 2, 0, 0, 0, 0, 0, 4, 0], [1, 1, 2, 0, 3, 1, 3, 0, 0, 0, 4], [1, 2, 0, 3, 1, 1, 1, 3, 0, 0, 4], [1, 2, 0, 1, 1, 1, 1, 1, 0, 0, 4], [1, 3, 0, 3, 1, 1, 1, 3, 0, 0, 4], [2, 3, 0, 0, 3, 1, 3, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0, 0, 0, 4, 0], [0, 4, 4, 0, 0, 0, 0, 0, 0, 4, 0], [0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0]];
+                CWCheckBox.bitmapSelected = [[0, 0, 4, 2, 1, 1, 1, 2, 0, 0, 0], [0, 3, 1, 1, 2, 2, 3, 3, 3, 4, 0],
+                    [4, 1, 1, 2, 0, 0, 0, 0, 0, 4, 0], [1, 1, 2, 0, 3, 1, 3, 0, 0, 0, 4],
+                    [1, 2, 0, 3, 1, 1, 1, 3, 0, 0, 4], [1, 2, 0, 1, 1, 1, 1, 1, 0, 0, 4],
+                    [1, 3, 0, 3, 1, 1, 1, 3, 0, 0, 4], [2, 3, 0, 0, 3, 1, 3, 0, 0, 0, 0],
+                    [0, 3, 0, 0, 0, 0, 0, 0, 0, 4, 0], [0, 4, 4, 0, 0, 0, 0, 0, 0, 4, 0],
+                    [0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0]];
             }
             return CWCheckBox.bitmapSelected;
         }
 
         static largerBitmapUnselected_$LI$() {
             if (CWCheckBox.largerBitmapUnselected == null) {
-                CWCheckBox.largerBitmapUnselected = [[0, 0, 4, 2, 1, 1, 1, 1, 1, 2, 0, 0, 0], [0, 3, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 0], [4, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 4, 0], [1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4], [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4], [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4], [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4], [1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4], [0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0], [0, 0, 0, 4, 4, 4, 0, 4, 0, 4, 0, 0, 0]];
+                CWCheckBox.largerBitmapUnselected = [[0, 0, 4, 2, 1, 1, 1, 1, 1, 2, 0, 0, 0],
+                    [0, 3, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 0], [4, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 4, 0],
+                    [1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4], [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
+                    [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4], [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4], [1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4], [0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0], [0, 0, 0, 4, 4, 4, 0, 4, 0, 4, 0, 0, 0]];
             }
             return CWCheckBox.largerBitmapUnselected;
         }
 
         static largerBitmapSelected_$LI$() {
             if (CWCheckBox.largerBitmapSelected == null) {
-                CWCheckBox.largerBitmapSelected = [[0, 0, 4, 2, 1, 1, 1, 1, 1, 2, 0, 0, 0], [0, 3, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 0], [4, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 4, 0], [1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4], [1, 2, 0, 0, 0, 3, 1, 3, 0, 0, 0, 0, 4], [1, 2, 0, 0, 3, 1, 1, 1, 3, 0, 0, 0, 4], [1, 2, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0], [1, 2, 0, 0, 3, 1, 1, 1, 3, 0, 0, 0, 4], [1, 3, 0, 0, 0, 3, 1, 3, 0, 0, 0, 0, 0], [2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4], [0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0], [0, 0, 0, 4, 4, 4, 0, 4, 0, 4, 0, 0, 0]];
+                CWCheckBox.largerBitmapSelected = [[0, 0, 4, 2, 1, 1, 1, 1, 1, 2, 0, 0, 0],
+                    [0, 3, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 0], [4, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 4, 0],
+                    [1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4], [1, 2, 0, 0, 0, 3, 1, 3, 0, 0, 0, 0, 4],
+                    [1, 2, 0, 0, 3, 1, 1, 1, 3, 0, 0, 0, 4], [1, 2, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0],
+                    [1, 2, 0, 0, 3, 1, 1, 1, 3, 0, 0, 0, 4], [1, 3, 0, 0, 0, 3, 1, 3, 0, 0, 0, 0, 0],
+                    [2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4], [0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0], [0, 0, 0, 4, 4, 4, 0, 4, 0, 4, 0, 0, 0]];
             }
             return CWCheckBox.largerBitmapSelected;
         }
@@ -216,10 +138,10 @@ var CWSYSTEM;
                             return null;
                     })(this.objectContainingCheckBoxChangedMethod.constructor, "checkBoxChanged");
                     const objects = [this];
-                    /* invoke */
                     changed.fn.apply(this.objectContainingCheckBoxChangedMethod, [objects]);
                 } catch (e) {
-                    console.error("A problem occured in CWWindow.informSuppliedObjectAboutNewCheckBoxValue()for check box \'" + this.name + "\': " + e);
+                    console.error("A problem occured in CWWindow.informSuppliedObjectAboutNewCheckBoxValue() " +
+                        "for check box \'" + this.name + "\': " + e);
                 }
             }
         }
@@ -275,12 +197,21 @@ var CWSYSTEM;
             const vs = this.parentWindow.v;
             if (this.style === CWCheckBox.SMALL_STYLE) {
                 vs.setColor$intCWColor(this.parentWindow.titleTextColor);
-                vs.CWDrawRectangle(this.parentWindow.window, this.parentWindow.borderWidth + this.x, this.parentWindow.borderWidth + this.parentWindow.__titleHeight + this.y, this.length, this.height);
-                vs.CWDrawFilledRectangle(this.parentWindow.window, this.parentWindow.borderWidth + this.x + 1, this.parentWindow.borderWidth + this.parentWindow.__titleHeight + this.y + 1, this.length - 2, this.height - 2, this.parentWindow.checkBoxColor);
+                vs.CWDrawRectangle(this.parentWindow.window, this.parentWindow.borderWidth + this.x,
+                    this.parentWindow.borderWidth + this.parentWindow.__titleHeight + this.y, this.length, this.height);
+                vs.CWDrawFilledRectangle(this.parentWindow.window, this.parentWindow.borderWidth + this.x + 1,
+                    this.parentWindow.borderWidth + this.parentWindow.__titleHeight + this.y + 1,
+                    this.length - 2, this.height - 2, this.parentWindow.checkBoxColor);
                 if (this.__selected) {
                     vs.setColor$intCWColor(this.parentWindow.titleTextColor);
-                    vs.CWLine(this.parentWindow.window, this.parentWindow.borderWidth + this.x + 1, this.parentWindow.borderWidth + this.parentWindow.__titleHeight + this.y + 1, this.parentWindow.borderWidth + this.x + this.length - 2, this.parentWindow.borderWidth + this.parentWindow.__titleHeight + this.y + this.height - 2, true);
-                    vs.CWLine(this.parentWindow.window, this.parentWindow.borderWidth + this.x + this.length - 2, this.parentWindow.borderWidth + this.parentWindow.__titleHeight + this.y + 1, this.parentWindow.borderWidth + this.x + 1, this.parentWindow.borderWidth + this.parentWindow.__titleHeight + this.y + this.height - 2, true);
+                    vs.CWLine(this.parentWindow.window, this.parentWindow.borderWidth + this.x + 1,
+                        this.parentWindow.borderWidth + this.parentWindow.__titleHeight + this.y + 1,
+                        this.parentWindow.borderWidth + this.x + this.length - 2,
+                        this.parentWindow.borderWidth + this.parentWindow.__titleHeight + this.y + this.height - 2, true);
+                    vs.CWLine(this.parentWindow.window, this.parentWindow.borderWidth + this.x + this.length - 2,
+                        this.parentWindow.borderWidth + this.parentWindow.__titleHeight + this.y + 1,
+                        this.parentWindow.borderWidth + this.x + 1, this.parentWindow.borderWidth +
+                        this.parentWindow.__titleHeight + this.y + this.height - 2, true);
                 }
             } else if (this.style === CWCheckBox.ROUND_STYLE || this.style === CWCheckBox.LARGER_ROUND_STYLE) {
                 let intArr;
@@ -312,7 +243,8 @@ var CWSYSTEM;
                             color = CWSYSTEM.CWColor.lightGrey_$LI$();
                         }
                         vs.setColor$intCWColor(color);
-                        vs.CWDrawPixel(this.parentWindow.window, this.parentWindow.borderWidth + this.x + j - 1, this.parentWindow.borderWidth + this.parentWindow.__titleHeight + this.y + i - 1);
+                        vs.CWDrawPixel(this.parentWindow.window, this.parentWindow.borderWidth + this.x + j - 1,
+                            this.parentWindow.borderWidth + this.parentWindow.__titleHeight + this.y + i - 1);
                     }
                 }
             }

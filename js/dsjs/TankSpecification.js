@@ -1,4 +1,3 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var dsector;
 (function (dsector) {
     class TankSpecification {
@@ -75,7 +74,7 @@ var dsector;
                     this.model3DMatrix = dsector.DSReference.modelLoader.getModel("assets/models/opec");
                     this.__name = "Opec II";
                     break;
-                case 5: // TODO: New tank type
+                case 5: // ew tank type
                     this.baseVelocity = 1.3;
                     this.baseTurnRate = 0.05;
                     this.baseArmour = 4.2;
@@ -85,110 +84,125 @@ var dsector;
                     break;
             }
         }
+
         name() {
             return this.__name;
         }
+
         type() {
             return this.__type;
         }
+
         armourUpgradeLevel() {
             return this.__armourUpgradeLevel;
         }
+
         turnRateUpgradeLevel() {
             return this.__turnRateUpgradeLevel;
         }
+
         velocityUpgradeLevel() {
             return this.__velocityUpgradeLevel;
         }
+
         weaponFuelUpgradeLevel() {
             return this.__weaponFuelUpgradeLevel;
         }
+
         weaponFuelQuality() {
-            return Math.fround(this.baseWeaponFuelQuality * Math.fround(Math.pow(1.25, this.__weaponFuelUpgradeLevel)));
+            return Math.fround(this.baseWeaponFuelQuality * Math.pow(1.25, this.__weaponFuelUpgradeLevel));
         }
+
         maximumVelocity() {
-            return Math.fround(this.baseVelocity * Math.fround(Math.pow(1.25, this.__velocityUpgradeLevel)));
+            return Math.fround(this.baseVelocity * Math.pow(1.25, this.__velocityUpgradeLevel));
         }
+
         maximumTurnRate() {
-            return Math.fround(this.baseTurnRate * Math.fround(Math.pow(1.25, this.__turnRateUpgradeLevel)));
+            return Math.fround(this.baseTurnRate * Math.pow(1.25, this.__turnRateUpgradeLevel));
         }
+
         armour() {
-            return Math.fround(this.baseArmour * Math.fround(Math.pow(1.25, this.__armourUpgradeLevel)));
+            return Math.fround(this.baseArmour * Math.pow(1.25, this.__armourUpgradeLevel));
         }
+
         upgradeWeaponFuelQuality() {
             if (this.__weaponFuelUpgradeLevel === 0) {
                 if (dsector.DSecSetupWindow.soundMode !== 0) {
                     dsector.DSReference.cwSound.playSound("assets/sounds/upgradeSound.wav", (Math.random() * 5.0));
                 }
                 this.__weaponFuelUpgradeLevel = 1;
-            }
-            else if (this.__weaponFuelUpgradeLevel === 1) {
+            } else if (this.__weaponFuelUpgradeLevel === 1) {
                 if (dsector.DSecSetupWindow.soundMode !== 0) {
                     dsector.DSReference.cwSound.playSound("assets/sounds/upgradeSound.wav", (Math.random() * 5.0));
                 }
                 this.__weaponFuelUpgradeLevel = 2;
             }
         }
+
         upgradeArmour() {
             if (this.__armourUpgradeLevel === 0) {
                 if (dsector.DSecSetupWindow.soundMode !== 0) {
                     dsector.DSReference.cwSound.playSound("assets/sounds/upgradeSound.wav", (Math.random() * 5.0));
                 }
                 this.__armourUpgradeLevel = 1;
-            }
-            else if (this.__armourUpgradeLevel === 1) {
+            } else if (this.__armourUpgradeLevel === 1) {
                 if (dsector.DSecSetupWindow.soundMode !== 0) {
                     dsector.DSReference.cwSound.playSound("assets/sounds/upgradeSound.wav", (Math.random() * 5.0));
                 }
                 this.__armourUpgradeLevel = 2;
             }
         }
+
         upgradeTurnRate() {
             if (this.__turnRateUpgradeLevel === 0) {
                 if (dsector.DSecSetupWindow.soundMode !== 0) {
                     dsector.DSReference.cwSound.playSound("assets/sounds/upgradeSound.wav", (Math.random() * 5.0));
                 }
                 this.__turnRateUpgradeLevel = 1;
-            }
-            else if (this.__turnRateUpgradeLevel === 1) {
+            } else if (this.__turnRateUpgradeLevel === 1) {
                 if (dsector.DSecSetupWindow.soundMode !== 0) {
                     dsector.DSReference.cwSound.playSound("assets/sounds/upgradeSound.wav", (Math.random() * 5.0));
                 }
                 this.__turnRateUpgradeLevel = 2;
             }
         }
+
         upgradeVelocity() {
             if (this.__velocityUpgradeLevel === 0) {
                 if (dsector.DSecSetupWindow.soundMode !== 0) {
                     dsector.DSReference.cwSound.playSound("assets/sounds/upgradeSound.wav", (Math.random() * 5.0));
                 }
                 this.__velocityUpgradeLevel = 1;
-            }
-            else if (this.__velocityUpgradeLevel === 1) {
+            } else if (this.__velocityUpgradeLevel === 1) {
                 if (dsector.DSecSetupWindow.soundMode !== 0) {
                     dsector.DSReference.cwSound.playSound("assets/sounds/upgradeSound.wav", (Math.random() * 5.0));
                 }
                 this.__velocityUpgradeLevel = 2;
             }
         }
+
         weaponFuelAsPresented() {
-            return "" + ((Math.fround(this.weaponFuelQuality() * 10.0)) | 0);
+            return "" + ((Math.fround(this.weaponFuelQuality() * 10.0)) | 0).toFixed(0);
         }
+
         turnRateAsPresented() {
             const maxTurnRate = Math.fround(this.maximumTurnRate() * 1000.0);
             const roundedMax = Math.round(maxTurnRate);
             const turnRatePresented = Math.fround(roundedMax / 10.0);
-            return "" + turnRatePresented;
+            return "" + turnRatePresented.toFixed(0);
         }
+
         speedAsPresented() {
-            return "" + ((Math.fround(this.maximumVelocity() * 10.0)) | 0);
+            return "" + ((Math.fround(this.maximumVelocity() * 10.0).toFixed(2)) | 0);
         }
+
         armourAsPresented() {
             const armour = Math.fround(this.armour() * 10.0);
             const rounded = Math.round(armour);
             const presented = Math.fround(rounded / 10.0);
-            return "" + presented;
+            return "" + presented.toFixed(2);
         }
+
         matchesShoppingItem(specification) {
             switch ((this.__type)) {
                 case TankSpecification.STANDARD_TANK:
@@ -205,6 +219,7 @@ var dsector;
                     return false;
             }
         }
+
         priceBeforeAllDiscounts() {
             switch ((this.__type)) {
                 case TankSpecification.STANDARD_TANK:
@@ -225,6 +240,7 @@ var dsector;
             }
         }
     }
+
     TankSpecification.STANDARD_TANK = 0;
     TankSpecification.ROTRA1 = 1;
     TankSpecification.ROTRA2 = 2;

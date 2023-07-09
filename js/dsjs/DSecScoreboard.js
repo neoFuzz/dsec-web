@@ -34,7 +34,8 @@ var dsector;
             this.timeWhenScoreBoardProduced = CWSYSTEM.Environment.currentTime();
             dsMain.userIOBuffer.clear();
             dsector.DSMain.setActivity("Scoreboard", "Viewing Scoreboard", "planet",
-                1, dsector.DSReference.dsecGame.numberOfPlayers(), dsector.DSReference.dsecMainSetupWindow.playMode());
+                1, dsector.DSReference.dsecGame.numberOfPlayers(),
+                dsector.DSReference.dsecMainSetupWindow.playMode());
         }
 
         destroy() {
@@ -73,23 +74,27 @@ var dsector;
             const font = dsector.DSReference.virtualScreen.serif8_font;
             const playerCount = dsector.DSReference.dsecGame.numberOfPlayers();
             const refScore = Math.ceil(160 + 75 * playerCount);
-            const roundsRemain = dsector.DSReference.dsecMainSetupWindow.numberOfRounds() - dsector.DSReference.dsecGame.currentRound();
+            const roundsRemain = dsector.DSReference.dsecMainSetupWindow.numberOfRounds() -
+                dsector.DSReference.dsecGame.currentRound();
             if (roundsRemain === 0) {
                 dsector.DSReference.virtualScreen.setBackgroundImage("assets/images/gameEnd.jpg");
             } else {
                 dsector.DSReference.virtualScreen.setBackgroundImage("assets/images/statistics.jpg");
             }
-            this.window = dsector.DSReference.gui.addWindow$name$style$title$x$y$w$h$v("SCOREBOARD", 3, null, baseX, baseY, refScore, 470, true);
+            this.window = dsector.DSReference.gui.addWindow$name$style$title$x$y$w$h$v("SCOREBOARD", 3,
+                null, baseX, baseY, refScore, 470, true);
             let color1 = new CWSYSTEM.CWColor(0, 0, 0, 100);
             if (roundsRemain === 0) {
                 color1 = this.winningPlayer().getTankColor(3);
             }
             this.window.changeBackgroundColor$CWColor(color1);
-            const roundsColor = roundsRemain === 0 ? new CWSYSTEM.CWColor(CWSYSTEM.CWColor.lightGrey_$LI$()) : new CWSYSTEM.CWColor(CWSYSTEM.CWColor.silver_$LI$());
+            const roundsColor = roundsRemain === 0 ? new CWSYSTEM.CWColor(CWSYSTEM.CWColor.lightGrey_$LI$()) :
+                new CWSYSTEM.CWColor(CWSYSTEM.CWColor.silver_$LI$());
             const color3 = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$());
             let blNum = 30;
             if (roundsRemain === 0) {
-                this.addTextBlock("", "-- FINAL STATISTICS --", Math.round((refScore - 120) / 2), blNum, font, color3, 999);
+                this.addTextBlock("", "-- FINAL STATISTICS --", Math.round((refScore - 120) / 2),
+                    blNum, font, color3, 999);
                 blNum = blNum + 30.0;
             }
             if (dsector.DSReference.dsecMainSetupWindow.playMode() === dsector.DSecMainSetupWindow.TEAMS) {
@@ -117,7 +122,8 @@ var dsector;
                 blNum += 20;
                 this.addTextBlock("", "Favourite weapon", 10, blNum, font, roundsColor, 999);
                 blNum += 20;
-                if (roundsRemain === 0 && dsector.DSReference.dsecMainSetupWindow.playMode() !== dsector.DSecMainSetupWindow.TEAMS) {
+                if (roundsRemain === 0 && dsector.DSReference.dsecMainSetupWindow.playMode() !==
+                    dsector.DSecMainSetupWindow.TEAMS) {
                     this.addTextBlock("", "Damage/fire ratio", 10, blNum, font, roundsColor, 999);
                     blNum += 20;
                 }
@@ -169,7 +175,8 @@ var dsector;
                     const teamCount = 150 + (i * 75 * dsector.DSReference.dsecGame.numberOfPlayers() / 2 | 0);
                     this.addTextBlock("", team.name, teamCount, blNum, font, color, 999);
                     blNum += 20;
-                    this.addTextBlock("", "" + Math.round(team.scoreOverLastRound()), teamCount, blNum, font, color, 999);
+                    this.addTextBlock("", "" + Math.round(team.scoreOverLastRound()),
+                        teamCount, blNum, font, color, 999);
                     blNum += 20;
                     this.addTextBlock("", "" + Math.round(team.score), teamCount, blNum, font, color, 999);
                     blNum += 40;
@@ -192,40 +199,51 @@ var dsector;
                 }
                 this.addTextBlock("", playerName, leftMargin, blNum, font, color2, 999);
                 blNum += 20;
-                this.addTextBlock("", "" + Math.round(player.scoreOverLastRound()), leftMargin, blNum, font, color2, 999);
+                this.addTextBlock("", "" + Math.round(player.scoreOverLastRound()), leftMargin,
+                    blNum, font, color2, 999);
                 blNum += 20;
                 if (this.statisticsBoardMode()) {
-                    this.addTextBlock("", "" + player.tankSpecification.name(), leftMargin, blNum, font, color2, 999);
+                    this.addTextBlock("", "" + player.tankSpecification.name(), leftMargin,
+                        blNum, font, color2, 999);
                     blNum += 20;
-                    this.addTextBlock("", "" + player.tankSpecification.weaponFuelAsPresented(), leftMargin, blNum, font, color2, 999);
+                    this.addTextBlock("", "" + player.tankSpecification.weaponFuelAsPresented(),
+                        leftMargin, blNum, font, color2, 999);
                     blNum += 20;
-                    this.addTextBlock("", "" + player.tankSpecification.armourAsPresented(), leftMargin, blNum, font, color2, 999);
+                    this.addTextBlock("", "" + player.tankSpecification.armourAsPresented(), leftMargin,
+                        blNum, font, color2, 999);
                     blNum += 20;
-                    this.addTextBlock("", "" + player.tankSpecification.speedAsPresented(), leftMargin, blNum, font, color2, 999);
+                    this.addTextBlock("", "" + player.tankSpecification.speedAsPresented(), leftMargin,
+                        blNum, font, color2, 999);
                     blNum += 20;
-                    this.addTextBlock("", "" + player.tankSpecification.turnRateAsPresented(), leftMargin, blNum, font, color2, 999);
+                    this.addTextBlock("", "" + player.tankSpecification.turnRateAsPresented(), leftMargin,
+                        blNum, font, color2, 999);
                     blNum += 20;
                     if (player.specificationIDOfFavouriteWeapon() != null) {
-                        const specification = dsector.DSReference.preBuiltWeaponSpecifications.getPreBuiltSpecification(player.specificationIDOfFavouriteWeapon());
+                        const specification = dsector.DSReference.preBuiltWeaponSpecifications.getPreBuiltSpecification(
+                            player.specificationIDOfFavouriteWeapon());
                         this.addTextBlock("", specification.fullName, leftMargin, blNum, font, color2, 999);
                         blNum += 20;
                     } else {
                         this.addTextBlock("", "None", leftMargin, blNum, font, color2, 999);
                         blNum += 20;
                     }
-                    if (roundsRemain === 0 && dsector.DSReference.dsecMainSetupWindow.playMode() !== dsector.DSecMainSetupWindow.TEAMS) {
-                        this.addTextBlock("", "" + player.damageFireRatio(), leftMargin, blNum, font, color2, 999);
+                    if (roundsRemain === 0 &&
+                        dsector.DSReference.dsecMainSetupWindow.playMode() !== dsector.DSecMainSetupWindow.TEAMS) {
+                        this.addTextBlock("", "" + player.damageFireRatio().toFixed(2),
+                            leftMargin, blNum, font, color2, 999);
                         blNum += 20;
                     }
                     if (player.mostDamageTo() != null) {
-                        this.addTextBlock("", player.mostDamageTo().name, leftMargin, blNum, font, player.mostDamageTo().getTankColor(0), 999);
+                        this.addTextBlock("", player.mostDamageTo().name, leftMargin, blNum, font,
+                            player.mostDamageTo().getTankColor(0), 999);
                         blNum += 20;
                     } else {
                         this.addTextBlock("", "None", leftMargin, blNum, font, color2, 999);
                         blNum += 20;
                     }
                     if (player.leastDamageTo() != null) {
-                        this.addTextBlock("", player.leastDamageTo().name, leftMargin, blNum, font, player.leastDamageTo().getTankColor(0), 999);
+                        this.addTextBlock("", player.leastDamageTo().name, leftMargin, blNum, font,
+                            player.leastDamageTo().getTankColor(0), 999);
                         blNum += 20;
                     } else {
                         this.addTextBlock("", "None", leftMargin, blNum, font, color2, 999);
@@ -243,14 +261,20 @@ var dsector;
                 blNum += 20;
             }
             blNum += 20;
-            if (roundsRemain === 0) {
-                this.addTextBlock("", "End of game, Space continues", 10, blNum, font, color3, 999);
-            } else if (roundsRemain === 1) {
-                this.addTextBlock("", "1 round remains, Ctrl-Q aborts, Space continues", 10, blNum, font, color3, 999);
-            } else {
-                this.addTextBlock("", roundsRemain + " rounds left, Space continues, Ctrl-Q aborts", 10, blNum, font, roundsColor, 999);
+            switch (roundsRemain) {
+                case 0:
+                    this.addTextBlock("", "End of game, Space continues", 10, blNum, font, color3, 999);
+                    break;
+                case 1:
+                    this.addTextBlock("", "1 round remains, Ctrl-Q aborts, Space continues", 10,
+                        blNum, font, color3, 999);
+                    break;
+                default:
+                    this.addTextBlock("", roundsRemain + " rounds left, Space continues, Ctrl-Q aborts",
+                        10, blNum, font, roundsColor, 999);
             }
-            const aContinue = this.window.addButton$name$x$y$len$h$text$t$r("", refScore - 72, blNum - 23, 65, 15, "Continue", 9, 0);
+            const aContinue = this.window.addButton$name$x$y$len$h$text$t$r("", refScore - 72, blNum - 23,
+                65, 15, "Continue", 9, 0);
             aContinue.objectContainingButtonPressedMethod = this;
             aContinue.buttonPressedMethodName = "continueButtonPressed";
             this.window.h = Math.ceil(blNum);
@@ -262,7 +286,8 @@ var dsector;
 
         /** @private */
         closeScoreboard() {
-            const rounds = dsector.DSReference.dsecMainSetupWindow.numberOfRounds() - dsector.DSReference.dsecGame.currentRound();
+            const rounds = dsector.DSReference.dsecMainSetupWindow.numberOfRounds() -
+                dsector.DSReference.dsecGame.currentRound();
             this.destroy();
             if (rounds === 0) {
                 dsector.DSReference.dsecMainSetupWindow.create();
@@ -277,7 +302,9 @@ var dsector;
 
         winningPlayer() {
             if (dsector.DSReference.dsecMainSetupWindow.playMode() === dsector.DSecMainSetupWindow.TEAMS) {
-                return dsector.DSReference.dsecGame.redTeam.score > dsector.DSReference.dsecGame.blueTeam.score ? dsector.DSReference.dsecGame.redTeam.firstPlayerInTeam() : dsector.DSReference.dsecGame.blueTeam.firstPlayerInTeam();
+                return dsector.DSReference.dsecGame.redTeam.score > dsector.DSReference.dsecGame.blueTeam.score ?
+                    dsector.DSReference.dsecGame.redTeam.firstPlayerInTeam() :
+                    dsector.DSReference.dsecGame.blueTeam.firstPlayerInTeam();
             } else {
                 const playersInOrder = this.getPlayersInOrderOfScore(true);
                 return playersInOrder[0];
@@ -294,7 +321,7 @@ var dsector;
             while (arrayList.length > 0) {
                 let score1 = 0.0;
                 let player = null;
-                for (let j = 0; j < /* size */ arrayList.length; ++j) {
+                for (let j = 0; j < arrayList.length; ++j) {
                     const player1 = arrayList[j];
                     const score = mode ? player1.score() : player1.scoreOverLastRound();
                     if (score >= score1) {
@@ -302,7 +329,6 @@ var dsector;
                         player = player1;
                     }
                 }
-                /* remove */
                 (a => {
                     let index = a.indexOf(player);
                     if (index >= 0) {
@@ -318,12 +344,14 @@ var dsector;
         }
 
         statisticsBoardMode() {
-            const rounds = dsector.DSReference.dsecMainSetupWindow.numberOfRounds() - dsector.DSReference.dsecGame.currentRound();
+            const rounds = dsector.DSReference.dsecMainSetupWindow.numberOfRounds() -
+                dsector.DSReference.dsecGame.currentRound();
             return rounds === 0 || dsector.DSReference.dsecGame.currentRound() % 15 === 0;
         }
 
         respondToGameTick() {
-            const rounds = dsector.DSReference.dsecMainSetupWindow.numberOfRounds() - dsector.DSReference.dsecGame.currentRound();
+            const rounds = dsector.DSReference.dsecMainSetupWindow.numberOfRounds() -
+                dsector.DSReference.dsecGame.currentRound();
             if (CWSYSTEM.Environment.spacebarPressed) {
                 this.closeScoreboard();
             }
@@ -336,7 +364,8 @@ var dsector;
                     if (this.statisticsBoardMode()) {
                         tValue = 30000;
                     }
-                    if (CWSYSTEM.Environment.currentTime() - this.timeWhenScoreBoardProduced > (n => n < 0 ? Math.ceil(n) : Math.floor(n))(tValue)) {
+                    if (CWSYSTEM.Environment.currentTime() - this.timeWhenScoreBoardProduced >
+                        (n => n < 0 ? Math.ceil(n) : Math.floor(n))(tValue)) {
                         this.closeScoreboard();
                     }
                 }
@@ -345,7 +374,8 @@ var dsector;
 
         /** @private */
         addTextBlock(nameId, text, leftMargin, baseLine, font, color, width) {
-            this.window.addTextBlock(nameId, text, leftMargin + 1, baseLine + 1, font, new CWSYSTEM.CWColor(CWSYSTEM.CWColor.black_$LI$()), width);
+            this.window.addTextBlock(nameId, text, leftMargin + 1, baseLine + 1, font,
+                new CWSYSTEM.CWColor(CWSYSTEM.CWColor.black_$LI$()), width);
             this.window.addTextBlock(nameId, text, leftMargin, baseLine, font, color, width);
         }
     }

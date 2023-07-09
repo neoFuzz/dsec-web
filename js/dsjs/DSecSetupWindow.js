@@ -35,7 +35,7 @@ var dsector;
             // Set up joystick button mappings
             if (dkblCount > 4) {
                 let joyID = 5;
-                for (let i = 0; i < dsector.DSReference.jsu.joysticksActive.size ; i++) {
+                for (let i = 0; i < dsector.DSReference.jsu.joysticksActive.size; i++) {
                     const joySelector = joyID * 1000;
                     DSecSetupWindow.dsecKeyboardLayout[(joyID - 1)] = new dsector.DSecKeyboardLayout(
                         (joySelector + dsector.GamePadUtils.JOY_UP), (joySelector + dsector.GamePadUtils.JOY_DOWN),
@@ -247,7 +247,7 @@ var dsector;
                 let objectPair;
                 let keyDigit;
                 let keyGlyph;
-                for (j = 0; j < /* size */ this.keyLabels.length; ++j) {
+                for (j = 0; j < this.keyLabels.length; ++j) {
                     objectPair = this.keyLabels[j];
                     keyDigit = objectPair.object1;
                     if (keyDigit === DSecSetupWindow.dsecKeyboardLayout[i].forwards) {
@@ -270,7 +270,7 @@ var dsector;
                 arrayList = ([]);
                 countD = 0;
                 counter1 = 0;
-                for (j = 0; j < /* size */ this.keyLabels.length; ++j) {
+                for (j = 0; j < this.keyLabels.length; ++j) {
                     objectPair = this.keyLabels[j];
                     keyDigit = objectPair.object1;
                     if (keyDigit === DSecSetupWindow.dsecKeyboardLayout[i].backwards) {
@@ -293,7 +293,7 @@ var dsector;
                 arrayList = ([]);
                 countD = 0;
                 counter1 = 0;
-                for (j = 0; j < /* size */ this.keyLabels.length; ++j) {
+                for (j = 0; j < this.keyLabels.length; ++j) {
                     objectPair = this.keyLabels[j];
                     keyDigit = objectPair.object1;
                     if (keyDigit === DSecSetupWindow.dsecKeyboardLayout[i].turnLeft) {
@@ -315,7 +315,7 @@ var dsector;
                 arrayList = ([]);
                 countD = 0;
                 counter1 = 0;
-                for (j = 0; j < /* size */ this.keyLabels.length; ++j) {
+                for (j = 0; j < this.keyLabels.length; ++j) {
                     objectPair = this.keyLabels[j];
                     keyDigit = objectPair.object1;
                     if (keyDigit === DSecSetupWindow.dsecKeyboardLayout[i].turnRight) {
@@ -337,7 +337,7 @@ var dsector;
                 arrayList = ([]);
                 countD = 0;
                 counter1 = 0;
-                for (j = 0; j < /* size */ this.keyLabels.length; ++j) {
+                for (j = 0; j < this.keyLabels.length; ++j) {
                     objectPair = this.keyLabels[j];
                     keyDigit = objectPair.object1;
                     if (keyDigit === DSecSetupWindow.dsecKeyboardLayout[i].fireWeapon) {
@@ -359,7 +359,7 @@ var dsector;
                 arrayList = ([]);
                 countD = 0;
                 counter1 = 0;
-                for (j = 0; j < /* size */ this.keyLabels.length; ++j) {
+                for (j = 0; j < this.keyLabels.length; ++j) {
                     objectPair = this.keyLabels[j];
                     keyDigit = objectPair.object1;
                     if (keyDigit === DSecSetupWindow.dsecKeyboardLayout[i].changeWeapon) {
@@ -392,41 +392,41 @@ var dsector;
             if (pulldown.generalPurposeObject != null) {
                 const gpObj = pulldown.generalPurposeObject;
                 if (CWSYSTEM.CWStringTools.find$Str$Str(pulldown.name, "Forwards") !== -1) {
-                    DSecSetupWindow.dsecKeyboardLayout[gpObj - 1].forwards = /* parseInt */ parseInt(pulldown.selectedValue());
+                    DSecSetupWindow.dsecKeyboardLayout[gpObj - 1].forwards = parseInt(pulldown.selectedValue());
                 }
                 if (CWSYSTEM.CWStringTools.find$Str$Str(pulldown.name, "Backwards") !== -1) {
-                    DSecSetupWindow.dsecKeyboardLayout[gpObj - 1].backwards = /* parseInt */ parseInt(pulldown.selectedValue());
+                    DSecSetupWindow.dsecKeyboardLayout[gpObj - 1].backwards = parseInt(pulldown.selectedValue());
                 }
                 if (CWSYSTEM.CWStringTools.find$Str$Str(pulldown.name, "TurnLeft") !== -1) {
-                    DSecSetupWindow.dsecKeyboardLayout[gpObj - 1].turnLeft = /* parseInt */ parseInt(pulldown.selectedValue());
+                    DSecSetupWindow.dsecKeyboardLayout[gpObj - 1].turnLeft = parseInt(pulldown.selectedValue());
                 }
                 if (CWSYSTEM.CWStringTools.find$Str$Str(pulldown.name, "TurnRight") !== -1) {
-                    DSecSetupWindow.dsecKeyboardLayout[gpObj - 1].turnRight = /* parseInt */ parseInt(pulldown.selectedValue());
+                    DSecSetupWindow.dsecKeyboardLayout[gpObj - 1].turnRight = parseInt(pulldown.selectedValue());
                 }
                 if (CWSYSTEM.CWStringTools.find$Str$Str(pulldown.name, "FireWeapon") !== -1) {
-                    DSecSetupWindow.dsecKeyboardLayout[gpObj - 1].fireWeapon = /* parseInt */ parseInt(pulldown.selectedValue());
+                    DSecSetupWindow.dsecKeyboardLayout[gpObj - 1].fireWeapon = parseInt(pulldown.selectedValue());
                 }
                 if (CWSYSTEM.CWStringTools.find$Str$Str(pulldown.name, "ChangeWeapon") !== -1) {
-                    DSecSetupWindow.dsecKeyboardLayout[gpObj - 1].changeWeapon = /* parseInt */ parseInt(pulldown.selectedValue());
+                    DSecSetupWindow.dsecKeyboardLayout[gpObj - 1].changeWeapon = parseInt(pulldown.selectedValue());
                 }
             }
             if (pulldown.name === ("cameraMode")) {
-                DSecSetupWindow.cameraMode = /* parseInt */ parseInt(pulldown.selectedValue());
+                DSecSetupWindow.cameraMode = parseInt(pulldown.selectedValue());
             }
             if (pulldown.name === ("showBackgrounds")) {
                 DSecSetupWindow.showBackgrounds = CWSYSTEM.CWStringTools.stringToBoolean(pulldown.selectedValue());
             }
             if (pulldown.name === ("antialiasLevel")) {
-                DSecSetupWindow.antialiasLevel = /* parseInt */ parseInt(pulldown.selectedValue());
+                DSecSetupWindow.antialiasLevel = parseInt(pulldown.selectedValue());
             }
             if (pulldown.name === ("soundMode")) {
-                DSecSetupWindow.soundMode = /* parseInt */ parseInt(pulldown.selectedValue());
+                DSecSetupWindow.soundMode = parseInt(pulldown.selectedValue());
             }
             if (pulldown.name === ("musicMode")) {
-                DSecSetupWindow.musicMode = /* parseInt */ parseInt(pulldown.selectedValue());
+                DSecSetupWindow.musicMode = parseInt(pulldown.selectedValue());
             }
             if (pulldown.name === ("startingCredits")) {
-                DSecSetupWindow.startingCredits = /* parseInt */ parseInt(pulldown.selectedValue());
+                DSecSetupWindow.startingCredits = parseInt(pulldown.selectedValue());
             }
             this.saveOptions();
             this.update();
@@ -443,172 +443,172 @@ var dsector;
                     return this.str;
                 }
             };
-            /* append */
+
             (sb => {
                 sb.str += "\n";
                 return sb;
-            })(/* append */ (sb => {
+            })((sb => {
                 sb.str += DSecSetupWindow.cameraMode_$LI$();
                 return sb;
-            })(/* append */ (sb => {
+            })((sb => {
                 sb.str += "cameraMode=";
                 return sb;
             })(strBuilder)));
-            /* append */
+
             (sb => {
                 sb.str += "\n";
                 return sb;
-            })(/* append */ (sb => {
+            })((sb => {
                 sb.str += DSecSetupWindow.showBackgrounds;
                 return sb;
-            })(/* append */ (sb => {
+            })((sb => {
                 sb.str += "showBackgrounds=";
                 return sb;
             })(strBuilder)));
-            /* append */
+
             (sb => {
                 sb.str += "\n";
                 return sb;
-            })(/* append */ (sb => {
+            })((sb => {
                 sb.str += DSecSetupWindow.antialiasLevel;
                 return sb;
-            })(/* append */ (sb => {
+            })((sb => {
                 sb.str += "antialiasLevel=";
                 return sb;
             })(strBuilder)));
-            /* append */
+
             (sb => {
                 sb.str += "\n";
                 return sb;
-            })(/* append */ (sb => {
+            })((sb => {
                 sb.str += DSecSetupWindow.soundMode;
                 return sb;
-            })(/* append */ (sb => {
+            })((sb => {
                 sb.str += "soundMode=";
                 return sb;
             })(strBuilder)));
-            /* append */
+
             (sb => {
                 sb.str += "\n";
                 return sb;
-            })(/* append */ (sb => {
+            })((sb => {
                 sb.str += DSecSetupWindow.musicMode;
                 return sb;
-            })(/* append */ (sb => {
+            })((sb => {
                 sb.str += "musicMode=";
                 return sb;
             })(strBuilder)));
-            /* append */
+
             (sb => {
                 sb.str += "\n";
                 return sb;
-            })(/* append */ (sb => {
+            })((sb => {
                 sb.str += DSecSetupWindow.startingCredits;
                 return sb;
-            })(/* append */ (sb => {
+            })((sb => {
                 sb.str += "startingCredits=";
                 return sb;
             })(strBuilder)));
             for (let i = 0; i < 4; ++i) {
-                /* append */
+
                 (sb => {
                     sb.str += "\n";
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += DSecSetupWindow.dsecKeyboardLayout[i].forwards;
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += "Forwards=";
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += i + 1;
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += "keyboard";
                     return sb;
                 })(strBuilder)))));
-                /* append */
+
                 (sb => {
                     sb.str += "\n";
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += DSecSetupWindow.dsecKeyboardLayout[i].backwards;
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += "Backwards=";
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += i + 1;
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += "keyboard";
                     return sb;
                 })(strBuilder)))));
-                /* append */
+
                 (sb => {
                     sb.str += "\n";
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += DSecSetupWindow.dsecKeyboardLayout[i].turnLeft;
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += "TurnLeft=";
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += i + 1;
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += "keyboard";
                     return sb;
                 })(strBuilder)))));
-                /* append */
+
                 (sb => {
                     sb.str += "\n";
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += DSecSetupWindow.dsecKeyboardLayout[i].turnRight;
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += "TurnRight=";
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += i + 1;
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += "keyboard";
                     return sb;
                 })(strBuilder)))));
-                /* append */
+
                 (sb => {
                     sb.str += "\n";
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += DSecSetupWindow.dsecKeyboardLayout[i].fireWeapon;
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += "FireWeapon=";
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += i + 1;
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += "keyboard";
                     return sb;
                 })(strBuilder)))));
-                /* append */
+
                 (sb => {
                     sb.str += "\n";
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += DSecSetupWindow.dsecKeyboardLayout[i].changeWeapon;
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += "ChangeWeapon=";
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += i + 1;
                     return sb;
-                })(/* append */ (sb => {
+                })((sb => {
                     sb.str += "keyboard";
                     return sb;
                 })(strBuilder)))));
@@ -634,22 +634,22 @@ var dsector;
                 exceptionList += e + " : " + x;
             }
             try {
-                DSecSetupWindow.antialiasLevel = /* parseInt */ parseInt(hashtable.get("antialiasLevel"));
+                DSecSetupWindow.antialiasLevel = parseInt(hashtable.get("antialiasLevel"));
             } catch (e) {
                 exceptionList += e + " : " + x;
             }
             try {
-                DSecSetupWindow.soundMode = /* parseInt */ parseInt(hashtable.get("soundMode"));
+                DSecSetupWindow.soundMode = parseInt(hashtable.get("soundMode"));
             } catch (e) {
                 exceptionList += e + " : " + x;
             }
             try {
-                DSecSetupWindow.musicMode = /* parseInt */ parseInt(hashtable.get("musicMode"));
+                DSecSetupWindow.musicMode = parseInt(hashtable.get("musicMode"));
             } catch (e) {
                 exceptionList += e + " : " + x;
             }
             try {
-                DSecSetupWindow.startingCredits = /* parseInt */ parseInt(hashtable.get("startingCredits"));
+                DSecSetupWindow.startingCredits = parseInt(hashtable.get("startingCredits"));
             } catch (e) {
                 exceptionList += e + " : " + x;
                 DSecSetupWindow.startingCredits = 0;
@@ -660,33 +660,33 @@ var dsector;
             exceptionList = "";
             for (let i = 0; i < 4; ++i) {
                 try {
-                    DSecSetupWindow.dsecKeyboardLayout[i].forwards = /* parseInt */ parseInt(hashtable.get("keyboard" + (i + 1) + "Forwards"));
+                    DSecSetupWindow.dsecKeyboardLayout[i].forwards = parseInt(hashtable.get("keyboard" + (i + 1) + "Forwards"));
                 } catch (e) {
                     exceptionList += e + " : \n";
                     //console.error(e.message, e);
                 }
                 try {
-                    DSecSetupWindow.dsecKeyboardLayout[i].backwards = /* parseInt */ parseInt(hashtable.get("keyboard" + (i + 1) + "Backwards"));
+                    DSecSetupWindow.dsecKeyboardLayout[i].backwards = parseInt(hashtable.get("keyboard" + (i + 1) + "Backwards"));
                 } catch (e) {
                     exceptionList += e + " : \n";
                 }
                 try {
-                    DSecSetupWindow.dsecKeyboardLayout[i].turnLeft = /* parseInt */ parseInt(hashtable.get("keyboard" + (i + 1) + "TurnLeft"));
+                    DSecSetupWindow.dsecKeyboardLayout[i].turnLeft = parseInt(hashtable.get("keyboard" + (i + 1) + "TurnLeft"));
                 } catch (e) {
                     exceptionList += e + " : \n";
                 }
                 try {
-                    DSecSetupWindow.dsecKeyboardLayout[i].turnRight = /* parseInt */ parseInt(hashtable.get("keyboard" + (i + 1) + "TurnRight"));
+                    DSecSetupWindow.dsecKeyboardLayout[i].turnRight = parseInt(hashtable.get("keyboard" + (i + 1) + "TurnRight"));
                 } catch (e) {
                     exceptionList += e + " : \n";
                 }
                 try {
-                    DSecSetupWindow.dsecKeyboardLayout[i].fireWeapon = /* parseInt */ parseInt(hashtable.get("keyboard" + (i + 1) + "FireWeapon"));
+                    DSecSetupWindow.dsecKeyboardLayout[i].fireWeapon = parseInt(hashtable.get("keyboard" + (i + 1) + "FireWeapon"));
                 } catch (e) {
                     exceptionList += e + " : \n";
                 }
                 try {
-                    DSecSetupWindow.dsecKeyboardLayout[i].changeWeapon = /* parseInt */ parseInt(hashtable.get("keyboard" + (i + 1) + "ChangeWeapon"));
+                    DSecSetupWindow.dsecKeyboardLayout[i].changeWeapon = parseInt(hashtable.get("keyboard" + (i + 1) + "ChangeWeapon"));
                 } catch (e) {
                     exceptionList += e + " : \n";
                 }

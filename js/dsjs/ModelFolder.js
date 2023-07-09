@@ -1,8 +1,7 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var dsector;
 (function (dsector) {
     class ModelFolder {
-        constructor(var1, var2) {
+        constructor(name, parent) {
             if (this.name === undefined) {
                 this.name = null;
             }
@@ -30,8 +29,8 @@ var dsector;
             if (this.specialPoints === undefined) {
                 this.specialPoints = null;
             }
-            this.name = var1;
-            this.__parentFolder = var2;
+            this.name = name;
+            this.__parentFolder = parent;
             this.id = dsector.NumberTools.randomLong();
             this.__visible = true;
             this.expanded = true;
@@ -57,11 +56,11 @@ var dsector;
         setVisible$boolean(var1) {
             this.__visible = var1;
         }
-        setVisible(var1) {
-            if (((typeof var1 === 'boolean') || var1 === null)) {
-                return this.setVisible$boolean(var1);
+        setVisible(mode) {
+            if (((typeof mode === 'boolean') || mode === null)) {
+                return this.setVisible$boolean(mode);
             }
-            else if (var1 === undefined) {
+            else if (mode === undefined) {
                 return this.setVisible$();
             }
             else

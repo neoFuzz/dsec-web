@@ -1,4 +1,3 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var CWSYSTEM;
 (function (CWSYSTEM) {
     class CWUtils {
@@ -83,7 +82,8 @@ var CWSYSTEM;
                         if (start > CWUtils.multiSegmentScanLine_$LI$()[index][i]) {
                             y = i + 2;
                         }
-                        if (CWUtils.multiSegmentScanLine_$LI$()[index][i + 1] + 1 >= start && CWUtils.multiSegmentScanLine_$LI$()[index][i] - 1 <= end) {
+                        if (CWUtils.multiSegmentScanLine_$LI$()[index][i + 1] + 1 >= start &&
+                            CWUtils.multiSegmentScanLine_$LI$()[index][i] - 1 <= end) {
                             CWUtils.overlappingSegment_$LI$()[x++] = i;
                         }
                     }
@@ -92,10 +92,12 @@ var CWSYSTEM;
                     if (x > 0) {
                         const segment = CWUtils.overlappingSegment_$LI$()[0];
                         start = Math.min(start, CWUtils.multiSegmentScanLine_$LI$()[index][segment]);
-                        end = Math.max(end, CWUtils.multiSegmentScanLine_$LI$()[index][CWUtils.overlappingSegment_$LI$()[x - 1] + 1]);
+                        end = Math.max(end,
+                            CWUtils.multiSegmentScanLine_$LI$()[index][CWUtils.overlappingSegment_$LI$()[x - 1] + 1]);
                         const xm = x * 2 - 2;
                         for (incSeg = segment + 2; incSeg < CWUtils.scanLineLength_$LI$()[index] - xm; ++incSeg) {
-                            CWUtils.multiSegmentScanLine_$LI$()[index][incSeg] = CWUtils.multiSegmentScanLine_$LI$()[index][incSeg + xm];
+                            CWUtils.multiSegmentScanLine_$LI$()[index][incSeg] =
+                                CWUtils.multiSegmentScanLine_$LI$()[index][incSeg + xm];
                         }
                         CWUtils.multiSegmentScanLine_$LI$()[index][segment] = start;
                         CWUtils.multiSegmentScanLine_$LI$()[index][segment + 1] = end;
@@ -103,7 +105,8 @@ var CWSYSTEM;
                         slLength[index] -= xm;
                     } else {
                         for (incSeg = CWUtils.scanLineLength_$LI$()[index] - 1; incSeg >= y; --incSeg) {
-                            CWUtils.multiSegmentScanLine_$LI$()[index][incSeg + 2] = CWUtils.multiSegmentScanLine_$LI$()[index][incSeg];
+                            CWUtils.multiSegmentScanLine_$LI$()[index][incSeg + 2] =
+                                CWUtils.multiSegmentScanLine_$LI$()[index][incSeg];
                         }
                         CWUtils.multiSegmentScanLine_$LI$()[index][y] = start;
                         CWUtils.multiSegmentScanLine_$LI$()[index][y + 1] = end;
@@ -117,7 +120,8 @@ var CWSYSTEM;
         static displayScanLine(line) {
             CWSYSTEM.Debug.println("Line " + line + " : ");
             for (let i = 0; i < CWUtils.scanLineLength_$LI$()[line]; i += 2) {
-                CWSYSTEM.Debug.println("(" + CWUtils.multiSegmentScanLine_$LI$()[line][i] + ", " + CWUtils.multiSegmentScanLine_$LI$()[line][i + 1] + ") ");
+                CWSYSTEM.Debug.println("(" + CWUtils.multiSegmentScanLine_$LI$()[line][i] + ", " +
+                    CWUtils.multiSegmentScanLine_$LI$()[line][i + 1] + ") ");
             }
             CWSYSTEM.Debug.println("");
         }
@@ -131,9 +135,17 @@ var CWSYSTEM;
             return Math.round((value + Number.EPSILON) * pow) / pow;
         }
 
-        static fillArray(a, fromIndex, toIndex, val) {
+        /**
+         * Fills a portion of an array with a specified value.
+         * @param {Array} array - The target array to be filled.
+         * @param {number} fromIndex - The index to start filling from (inclusive).
+         * @param {number} toIndex - The index to stop filling at (exclusive).
+         * @param {*} value - The value to fill the array with.
+         * @returns {void}
+         */
+        static fillArray(array, fromIndex, toIndex, value) {
             for (let i = fromIndex; i < toIndex; i++) {
-                a[i] = val;
+                array[i] = value;
             }
         }
 
@@ -146,10 +158,14 @@ var CWSYSTEM;
          */
         static copyArray(srcPts, srcOff, dstPts, dstOff, size) {
             if (srcPts !== dstPts || dstOff >= srcOff + size) {
-                while (--size >= 0) {dstPts[dstOff++] = srcPts[srcOff++];}
+                while (--size >= 0) {
+                    dstPts[dstOff++] = srcPts[srcOff++];
+                }
             } else {
                 let tmp = srcPts.slice(srcOff, srcOff + size);
-                for (let i = 0; i < size; i++){dstPts[dstOff++] = tmp[i];}
+                for (let i = 0; i < size; i++) {
+                    dstPts[dstOff++] = tmp[i];
+                }
             }
         }
 

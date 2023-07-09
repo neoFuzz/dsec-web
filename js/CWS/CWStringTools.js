@@ -1,4 +1,3 @@
-/* Generated from Java with JSweet 3.1.0 - http://www.jsweet.org */
 var CWSYSTEM;
 (function (CWSYSTEM) {
     class CWStringTools {
@@ -53,7 +52,7 @@ var CWSYSTEM;
             const arrList = CWSYSTEM.CWStringTools.breakStringIntoWordsSeparatedByStringCaseInsensitive(text, word);
             text = "";
             for (let i = 0; i < arrList.length; ++i) {
-                text = text +  arrList[i];
+                text = text + arrList[i];
                 if (i < arrList.length - 1) {
                     text = text + replacementChar;
                 }
@@ -68,6 +67,7 @@ var CWSYSTEM;
             }
             return builder;
         }
+
         static convertRegularExpressionSimple(word) {
             return word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
         }
@@ -107,7 +107,7 @@ var CWSYSTEM;
         }
 
         static characterReplace(text, oldChar, newChar) {
-            return /* replace */ text.split(oldChar).join(newChar);
+            return text.split(oldChar).join(newChar);
         }
 
         static characterRemove(text, target) {
@@ -203,7 +203,7 @@ var CWSYSTEM;
                         const substring1 = text.substring(i, i + targetLen);
                         if (caseBool) {
                             if (((o1, o2) => o1.toUpperCase() === (o2 === null ? o2 : o2.toUpperCase())
-                                )(substring1, target)) {
+                            )(substring1, target)) {
                                 return i;
                             }
                         } else if (substring1 === target) {
@@ -280,18 +280,10 @@ var CWSYSTEM;
         }
 
         static getValueFromNameValuePair(text, target) {
-            const fromLine = CWSYSTEM.CWStringTools.getNameAndValueParametersFromLine(text, '=', ' ');
-            return ((m, k) => {
-                if (m.entries == null)
-                    m.entries = [];
-                for (let i = 0; i < m.entries.length; i++)
-                    if (m.entries[i].key == null && k == null ||
-                        m.entries[i].key.equals != null && m.entries[i].key.equals(k) || m.entries[i].key === k) {
-                        return m.entries[i].value;
-                    }
-                return null;
-            })(fromLine, target);
+            const fromLine = CWStringTools.getNameAndValueParametersFromLine(text, '=', ' ');
+            return fromLine.get(target);
         }
+
         /**
          * Get name and value parameters from line.
          * @param {string} text
@@ -306,9 +298,9 @@ var CWSYSTEM;
             for (let i = 0; i < arrayList.length; ++i) {
                 const stringFromList = arrayList[i];
                 const breakString = CWSYSTEM.CWStringTools.breakStringIntoWordsSeparatedByStringCaseInsensitive(stringFromList,
-                        "" + value);
-                if ( breakString.length === 1) {
-                    hashMap.set(breakString[0].toLowerCase(),"");
+                    "" + value);
+                if (breakString.length === 1) {
+                    hashMap.set(breakString[0].toLowerCase(), "");
                 } else {
                     hashMap.set(breakString[0].toLowerCase(), breakString[1]);
                 }
@@ -341,8 +333,7 @@ var CWSYSTEM;
             let str = "";
             for (let i = 0; i < word.length; ++i) {
                 if ((c => c.charCodeAt === null ? c : c.charCodeAt(0))(word[i]) === '\n'.charCodeAt(0)) {
-                    /* add */
-                    (arrayList.push(str) > 0);
+                    arrayList.push(str);
                     str = "";
                 } else {
                     if ((c => c.charCodeAt === null ? c : c.charCodeAt(0))(word[i]) === ' '.charCodeAt(0)) {
@@ -352,8 +343,7 @@ var CWSYSTEM;
                             ++count;
                         }
                         if (str.length + count > mode - 1) {
-                            /* add */
-                            (arrayList.push(str) > 0);
+                            arrayList.push(str);
                             str = "";
                             continue;
                         }
@@ -375,8 +365,8 @@ var CWSYSTEM;
                 while (s-- > 0)
                     a.push(null);
                 return a;
-            })(/* size */ arrayList.length);
-            for (let i = 0; i < /* size */ arrayList.length; ++i) {
+            })(arrayList.length);
+            for (let i = 0; i < arrayList.length; ++i) {
                 string[i] = arrayList[i];
             }
             return string;
@@ -388,8 +378,8 @@ var CWSYSTEM;
                 while (s-- > 0)
                     a.push(0);
                 return a;
-            })(/* size */ arrayList.length);
-            for (let i = 0; i < /* size */ arrayList.length; ++i) {
+            })(arrayList.length);
+            for (let i = 0; i < arrayList.length; ++i) {
                 const processed = arrayList[i];
                 ints[i] = processed;
             }
@@ -397,11 +387,11 @@ var CWSYSTEM;
         }
 
         static replaceNonAlphaNumericalCharacters(text, replacement) {
-            return /* replaceAll */ text.replace(new RegExp("[^a-zA-Z0-9]", 'g'), replacement);
+            return text.replace(new RegExp("[^a-zA-Z0-9]", 'g'), replacement);
         }
 
         static replaceNonAlphaCharacters(text, replacement) {
-            return /* replaceAll */ text.replace(new RegExp("[^a-zA-Z]", 'g'), replacement);
+            return text.replace(new RegExp("[^a-zA-Z]", 'g'), replacement);
         }
 
         static stringToBoolean(text) {
@@ -419,7 +409,7 @@ var CWSYSTEM;
                 if (startingText.length > text.length) {
                     return false;
                 } else {
-                    return /* startsWith */ ((str, searchString, position = 0) => str.substring(position,
+                    return ((str, searchString, position = 0) => str.substring(position,
                         searchString.length) === searchString)(text, startingText);
                 }
             } else {

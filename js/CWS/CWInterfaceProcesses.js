@@ -76,7 +76,8 @@ var CWSYSTEM;
             if (CWSYSTEM.Environment.inputBoxSelected_$LI$() != null) {
                 if (keyCode !== 46 && keyCode !== 8) {
                     if (keyCode === 13) { // 13 is Enter
-                        CWSYSTEM.CWSReference.interfaceProcesses.processInputBox(CWSYSTEM.Environment.inputBoxSelected_$LI$());
+                        CWSYSTEM.CWSReference.interfaceProcesses.processInputBox(
+                            CWSYSTEM.Environment.inputBoxSelected_$LI$());
                     } else if (keyCode === 27) {
                         CWSYSTEM.Environment.inputBoxSelected = null;
                     }
@@ -156,7 +157,7 @@ var CWSYSTEM;
                             return;
                     }
                 case CWSYSTEM.Keyboard.DSECTOR:
-                    //dsector.DSReference.dsecGame.keyReleased(keyCode);
+                //dsector.DSReference.dsecGame.keyReleased(keyCode);
             }
         }
 
