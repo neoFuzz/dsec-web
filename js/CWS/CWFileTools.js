@@ -134,26 +134,12 @@ var CWSYSTEM;
                     }
                 };
                 try {
-                    const byte1 = (s => {
-                        let a = [];
-                        while (s-- > 0)
-                            a.push(0);
-                        return a;
-                    })(1024);
+                    const byte1 = Array(1024).fill(0);
                     return newName.str;
                 } catch (e) {
                     return null;
                 }
             }
-        }
-
-        static readFile(filePath, b) {
-            if (((typeof filePath === 'string') || filePath === null) && ((typeof b === 'boolean') || b === null)) {
-                return CWSYSTEM.CWFileTools.readFile$str$b(filePath, b);
-            } else if (((typeof filePath === 'string') || filePath === null) && b === undefined) {
-                return CWSYSTEM.CWFileTools.readFile$str(filePath);
-            } else
-                throw new Error('invalid overload');
         }
     }
 

@@ -18,12 +18,7 @@ var CWSYSTEM;
                 this.__numberOfWindows = 0;
             }
             this.virtualScreen = vs;
-            this.cwWindow = (s => {
-                let a = [];
-                while (s-- > 0)
-                    a.push(null);
-                return a;
-            })(CWWindowCollection.maxNumberOfWindows);
+            this.cwWindow = Array(CWWindowCollection.maxNumberOfWindows).fill(null);
             this.__numberOfWindows = 0;
         }
 

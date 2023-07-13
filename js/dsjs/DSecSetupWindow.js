@@ -21,11 +21,7 @@ var dsector;
             }
 
             // Create array for keyboard layout
-            DSecSetupWindow.dsecKeyboardLayout = (s => {
-                let a = [];
-                while (s-- > 0) a.push(null);
-                return a;
-            })(dkblCount);
+            DSecSetupWindow.dsecKeyboardLayout = Array(dkblCount).fill(null);
 
             // Sets up default key mappings for keyboard players
             for (let i = 0; i < 4; ++i) {

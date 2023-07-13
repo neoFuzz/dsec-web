@@ -4,12 +4,7 @@ var CWSYSTEM;
         static breakSentenceIntoWords(text, word) {
             let index = 0;
             const length = text.length + 1;
-            const subWord = (s => {
-                let a = [];
-                while (s-- > 0)
-                    a.push(null);
-                return a;
-            })(length);
+            const subWord = Array(length).fill(null);
             let i;
             for (i = 0; i < length; ++i) {
                 subWord[i] = "";
@@ -22,12 +17,7 @@ var CWSYSTEM;
                     subWord[index] = subWord[index] + subString;
                 }
             }
-            const separated = (s => {
-                let a = [];
-                while (s-- > 0)
-                    a.push(null);
-                return a;
-            })(index + 1);
+            const separated = Array(index + 1).fill(null);
             CWSYSTEM.CWUtils.copyArray(subWord, 0, separated, 0, index + 1);
             return separated;
         }
@@ -131,12 +121,7 @@ var CWSYSTEM;
             } else {
                 const checked = false;
                 const textBytes = (text).split('').map(s => s.charCodeAt(0));
-                const bytes = (s => {
-                    let a = [];
-                    while (s-- > 0)
-                        a.push(0);
-                    return a;
-                })(textBytes.length);
+                const bytes = Array(textBytes.length).fill(0);
                 bytes[0] = textBytes[0];
                 let endIndex = 1;
                 for (let i = 1; i < textBytes.length; ++i) {
@@ -360,12 +345,7 @@ var CWSYSTEM;
         }
 
         static vectorOfStringToArrayOfString(arrayList) {
-            const string = (s => {
-                let a = [];
-                while (s-- > 0)
-                    a.push(null);
-                return a;
-            })(arrayList.length);
+            const string = Array(arrayList.length).fill(null);
             for (let i = 0; i < arrayList.length; ++i) {
                 string[i] = arrayList[i];
             }
@@ -373,12 +353,7 @@ var CWSYSTEM;
         }
 
         static vectorOfIntegerToArrayOfInt(arrayList) {
-            const ints = (s => {
-                let a = [];
-                while (s-- > 0)
-                    a.push(0);
-                return a;
-            })(arrayList.length);
+            const ints = Array(arrayList.length).fill(0);
             for (let i = 0; i < arrayList.length; ++i) {
                 const processed = arrayList[i];
                 ints[i] = processed;

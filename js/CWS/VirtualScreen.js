@@ -53,15 +53,9 @@ var CWSYSTEM;
             this.background = null;
         }
 
-        initalizeLargeObjects() {
-            this.subFrame = (s => {
-                let a = [];
-                while (s-- > 0) a.push(null);
-                return a;
-            })(this.subFrames); // this.subFrame = new ScreenData[this.subFrames];
-            for (let i = 0; i < this.subFrames; ++i) {
-                this.subFrame[i] = new CWSYSTEM.ScreenData(this.physicalWidth, this.physicalHeight, "Subframe " + i);
-            }
+        initializeLargeObjects() {
+            this.subFrame = Array(this.subFrames).fill(null).map((_, i) =>
+                new CWSYSTEM.ScreenData(this.physicalWidth, this.physicalHeight, "Subframe " + i));
             this.actualScreen = new CWSYSTEM.ScreenData(this.physicalWidth, this.physicalHeight, "Actual screen");
             this.background = new CWSYSTEM.ScreenData(this.physicalWidth, this.physicalHeight, "Background buffer");
             this.resetVirtualScreen();
@@ -137,11 +131,7 @@ var CWSYSTEM;
 
         changeSubframes() {
             this.subFrames = CWSYSTEM.Global.subFrames;
-            this.subFrame = (s => {
-                let a = [];
-                while (s-- > 0) a.push(null);
-                return a;
-            })(this.subFrames);
+            this.subFrame = Array.from({ length: this.subFrames }, () => null);
             for (let i = 0; i < this.subFrames; ++i) {
                 CWSYSTEM.Debug.println("Initializing actualScreenSubframe number" + i);
                 this.subFrame[i] = new CWSYSTEM.ScreenData(CWSYSTEM.Global.screenResolutionX_$LI$(),
@@ -232,21 +222,21 @@ var CWSYSTEM;
                     const window = collection.getWindow$int(k);
                     if (window.renderingRequired || this.backgroundFadeInProgress) {
                         window.renderingRequired = false;
-                        const n = window.h + 2 * window.borderWidth + window.__titleHeight;
-                        const n2 = window.xPosition - window.borderWidth;
-                        const n3 = window.xPosition + window.w + window.borderWidth;
-                        const n4 = window.yPosition - window.borderWidth - window.__titleHeight;
-                        for (let l = 0; l < n; ++l) {
-                            CWSYSTEM.CWUtils.addSegmentToScanLine(l + n4, n2, n3);
+                        const bottomEdge = window.h + 2 * window.borderWidth + window.__titleHeight;
+                        const leftEdge = window.xPosition - window.borderWidth;
+                        const rightEdge = window.xPosition + window.w + window.borderWidth;
+                        const topEdge = window.yPosition - window.borderWidth - window.__titleHeight;
+                        for (let l = 0; l < bottomEdge; ++l) {
+                            CWSYSTEM.CWUtils.addSegmentToScanLine(l + topEdge, leftEdge, rightEdge);
                         }
                         if (window.oldH !== window.h || window.oldW !== window.w || window.oldX !== window.xPosition ||
                             window.oldY !== window.yPosition || window.toBeDestroyed) {
-                            const n5 = window.oldH + 2 * window.borderWidth + window.__titleHeight;
-                            const n6 = window.oldX - window.borderWidth;
-                            const n7 = window.oldX + window.oldW + window.borderWidth;
-                            const n8 = window.oldY - window.borderWidth - window.__titleHeight;
-                            for (let n9 = 0; n9 < n5; ++n9) {
-                                CWSYSTEM.CWUtils.addSegmentToScanLine(n9 + n8, n6, n7);
+                            const oldBottomEdge = window.oldH + 2 * window.borderWidth + window.__titleHeight;
+                            const oldLeftEdge = window.oldX - window.borderWidth;
+                            const oldRightEdge = window.oldX + window.oldW + window.borderWidth;
+                            const oldTopEdge = window.oldY - window.borderWidth - window.__titleHeight;
+                            for (let i = 0; i < oldBottomEdge; ++i) {
+                                CWSYSTEM.CWUtils.addSegmentToScanLine(i + oldTopEdge, oldLeftEdge, oldRightEdge);
                             }
                             window.oldH = window.h;
                             window.oldW = window.w;
@@ -523,7 +513,7 @@ var CWSYSTEM;
                                                                 CWSYSTEM.FastColorUtilities.alpha(color7) +
                                                                 CWSYSTEM.FastColorUtilities.alpha(color8) +
                                                                 CWSYSTEM.FastColorUtilities.alpha(color9)) / 9 | 0);
-                                                        const n74 = 255 - cColor;
+                                                        const newColor = 255 - cColor;
                                                         screenData.point[y46][x62] =
                                                             CWSYSTEM.FastColorUtilities.color$r$g$b(
                                                                 (((cColor * (CWSYSTEM.FastColorUtilities.red(color1) +
@@ -535,7 +525,7 @@ var CWSYSTEM;
                                                                         CWSYSTEM.FastColorUtilities.red(color7) +
                                                                         CWSYSTEM.FastColorUtilities.red(color8) +
                                                                         CWSYSTEM.FastColorUtilities.red(color9)) / 9 | 0) +
-                                                                    n74 * CWSYSTEM.FastColorUtilities.red(
+                                                                    newColor * CWSYSTEM.FastColorUtilities.red(
                                                                         screenData.point[y46][x62])) / 256 | 0),
                                                                 (((cColor * (CWSYSTEM.FastColorUtilities.green(color1) +
                                                                         CWSYSTEM.FastColorUtilities.green(color2) +
@@ -546,7 +536,7 @@ var CWSYSTEM;
                                                                         CWSYSTEM.FastColorUtilities.green(color7) +
                                                                         CWSYSTEM.FastColorUtilities.green(color8) +
                                                                         CWSYSTEM.FastColorUtilities.green(color9)) / 9 | 0) +
-                                                                    n74 * CWSYSTEM.FastColorUtilities.green(
+                                                                    newColor * CWSYSTEM.FastColorUtilities.green(
                                                                         screenData.point[y46][x62])) / 256 | 0),
                                                                 (((cColor * (CWSYSTEM.FastColorUtilities.blue(color1) +
                                                                         CWSYSTEM.FastColorUtilities.blue(color2) +
@@ -557,7 +547,7 @@ var CWSYSTEM;
                                                                         CWSYSTEM.FastColorUtilities.blue(color7) +
                                                                         CWSYSTEM.FastColorUtilities.blue(color8) +
                                                                         CWSYSTEM.FastColorUtilities.blue(color9)) / 9 | 0) +
-                                                                    n74 * CWSYSTEM.FastColorUtilities.blue(
+                                                                    newColor * CWSYSTEM.FastColorUtilities.blue(
                                                                         screenData.point[y46][x62])) / 256 | 0));
                                                     }
                                                     break;
@@ -868,7 +858,7 @@ var CWSYSTEM;
         }
 
         drawString(screenData, x, s, padX, y, b) {
-            if (((screenData != null && screenData instanceof CWSYSTEM.ScreenData) || screenData === null) &&
+            if ((screenData instanceof CWSYSTEM.ScreenData || screenData === null) &&
                 ((typeof x === 'number') || x === null) && ((typeof s === 'string') || s === null) &&
                 ((typeof padX === 'number') || padX === null) && ((typeof y === 'number') || y === null) &&
                 ((typeof b === 'boolean') || b === null)) {
@@ -883,11 +873,7 @@ var CWSYSTEM;
         /** @private */
         drawText(screenData, len, text, x, y, mode1, mode2) {
             const spacing = 35;
-            /*const array = (s => {
-                let a = [];
-                while (s-- > 0) a.push(null);
-                return a;
-            })(spacing);*/
+            //const array = Array(spacing).fill(null);
             const charArray = (text).split('');
             const length = text.length;
             let yy5 = 0;
@@ -1010,30 +996,7 @@ var CWSYSTEM;
         setColorVS$r$g$b$a(red, green, blue, alpha) {
             this.defaultColor = CWSYSTEM.FastColorUtilities.color$r$g$b$a(red, green, blue, alpha);
         }
-
-        /** Sets the color using the specified RGBA integer values or using either a {@link CWColor} number or {@link CWColor} object.
-         * @param {number|CWColor.color|CWColor} red - The red component of the color (0-255). Either a {@link CWColor} number or {@link CWColor} Object.
-         * @param {number|null} [green] - The green component of the color (0-255).
-         * @param {number|null} [blue] - The blue component of the color (0-255).
-         * @param {number|null} [alpha] - The alpha component of the color (0-255).
-         * @returns {void} - Returns nothing.
-         * @throws {Error} Throws an error if the provided arguments are of invalid types.
-         */
-        setColor(red, green, blue, alpha) {
-            if (typeof red === 'number' && typeof green === 'number' &&
-                typeof blue === 'number' && typeof alpha === 'number') {
-                return this.setColorVS$r$g$b$a(red, green, blue, alpha);
-            } else if (red instanceof CWSYSTEM.CWColor && green === undefined &&
-                blue === undefined && alpha === undefined) {
-                return this.setColor$intCWColor(red);
-            } else if (typeof red === 'number' && green === undefined &&
-                blue === undefined && alpha === undefined) {
-                return this.setColor$int(red);
-            } else {
-                throw new Error('invalid overload');
-            }
-        }
-
+        
         /** Sets the color using the provided {@link CWColor} object.
          * @param {CWColor} cwColor - The {@link CWColor} object containing the color to set.
          * @returns {void} - Returns nothing.
@@ -1194,9 +1157,9 @@ var CWSYSTEM;
         renderPolygon(screenData, buffer, colorA, v1x, v1y,
                       v2x, v2y, v3x, v3y, bool, w0, h0,
                       polygon, array) {
-            let lH = screenData.height - 1;
-            let n11 = 0;
-            const lW = w0 - 1;
+            let lastRow = screenData.height - 1;
+            let decision = 0;
+            const lastCol = w0 - 1;
             if ((v1x < 0.0 && v2x < 0.0 && v3x < 0.0) || (v1y < 0.0 && v2y < 0.0 && v3y < 0.0) ||
                 (v1x > w0 && v2x > w0 && v3x > w0) || (v1y > h0 && v2y > h0 && v3y > h0)) {
                 return;
@@ -1264,26 +1227,26 @@ var CWSYSTEM;
                         break;
                     }
                 }
-                const n19 = Math.fround((v3 - v1) / (v4 - v2));
+                const diff1 = Math.fround((v3 - v1) / (v4 - v2));
                 let y20 = ((Math.fround(v2 + 1.0)) | 0);
                 let n21;
                 if (y20 < 0) {
                     y20 = 0;
-                    n21 = Math.fround(v1 + ((0.0 - v2) * n19));
+                    n21 = Math.fround(v1 + ((0.0 - v2) * diff1));
                 } else {
-                    n21 = Math.fround(v1 + ((y20 - v2) * n19));
+                    n21 = Math.fround(v1 + ((y20 - v2) * diff1));
                 }
                 let y22 = v4 > h0 - 1 ? h0 - 1 : v4;
 
                 if (y22 > 0 || y20 > 0) {
                     if (y22 < h0 - 1 || y20 < h0 - 1) {
-                        if (y20 < lH) {
-                            lH = y20;
+                        if (y20 < lastRow) {
+                            lastRow = y20;
                         }
-                        if (y22 > n11) {
-                            n11 = y22;
+                        if (y22 > decision) {
+                            decision = y22;
                         }
-                        const n23 = Math.fround(n21 - n19 * (y20 - v6));
+                        const n23 = Math.fround(n21 - diff1 * (y20 - v6));
                         if (Math.abs((n23 - v5)) < 1.0E-4) {
                             return;
                         }
@@ -1293,12 +1256,12 @@ var CWSYSTEM;
                         if (b2) {
                             for (let j = y20; j <= y22; ++j) {
                                 this.leftScanLine[j] = ((n24 + 1.0) | 0);
-                                n24 += n19;
+                                n24 += diff1;
                             }
                         } else {
                             for (let k = y20; k <= y22; ++k) {
                                 this.rightScanLine[k] = (n24 | 0);
-                                n24 += n19;
+                                n24 += diff1;
                             }
                         }
                         if (b2) {
@@ -1326,23 +1289,23 @@ var CWSYSTEM;
                         } else {
                             const rSL1 = this.rightScanLine[y20];
                             const rSL2 = this.rightScanLine[y22];
-                            if (rSL2 <= lW && rSL1 > lW) {
+                            if (rSL2 <= lastCol && rSL1 > lastCol) {
                                 for (let y31 = y20; y31 <= y22; ++y31) {
-                                    if (this.rightScanLine[y31] <= lW) {
+                                    if (this.rightScanLine[y31] <= lastCol) {
                                         break;
                                     }
-                                    this.rightScanLine[y31] = lW;
+                                    this.rightScanLine[y31] = lastCol;
                                 }
-                            } else if (rSL2 > lW && rSL1 <= lW) {
+                            } else if (rSL2 > lastCol && rSL1 <= lastCol) {
                                 for (let y32 = y22; y32 >= y20; --y32) {
-                                    if (this.rightScanLine[y32] <= lW) {
+                                    if (this.rightScanLine[y32] <= lastCol) {
                                         break;
                                     }
-                                    this.rightScanLine[y32] = lW;
+                                    this.rightScanLine[y32] = lastCol;
                                 }
-                            } else if (rSL1 > lW && rSL2 > lW) {
+                            } else if (rSL1 > lastCol && rSL2 > lastCol) {
                                 for (let y33 = y20; y33 <= y22; ++y33) {
-                                    this.rightScanLine[y33] = lW;
+                                    this.rightScanLine[y33] = lastCol;
                                 }
                             }
                         }
@@ -1354,7 +1317,7 @@ var CWSYSTEM;
                 try {
                     const alpha = CWSYSTEM.FastColorUtilities.alpha(this.defaultColor);
                     if (alpha === 255) {
-                        for (let y34 = lH; y34 <= n11; ++y34) {
+                        for (let y34 = lastRow; y34 <= decision; ++y34) {
                             let x37 = this.leftScanLine[y34];
                             for (const n36 = this.rightScanLine[y34]; x37 <= n36; ++x37) {
                                 if (buffer != null) {
@@ -1368,7 +1331,7 @@ var CWSYSTEM;
                             }
                         }
                     } else if (buffer != null) {
-                        for (let y38 = lH; y38 <= n11; ++y38) {
+                        for (let y38 = lastRow; y38 <= decision; ++y38) {
                             let x41 = this.leftScanLine[y38];
                             for (const n40 = this.rightScanLine[y38]; x41 <= n40; ++x41) {
                                 if (colorA < buffer[y38][x41]) {
@@ -1386,7 +1349,7 @@ var CWSYSTEM;
                             }
                         }
                     } else {
-                        for (let y44 = lH; y44 <= n11; ++y44) {
+                        for (let y44 = lastRow; y44 <= decision; ++y44) {
                             let x47 = this.leftScanLine[y44];
                             for (const n46 = this.rightScanLine[y44]; x47 <= n46; ++x47) {
                                 const pColor = point[y44][x47];
@@ -1405,7 +1368,7 @@ var CWSYSTEM;
                     console.error(ex.message, ex);
                 }
             } else {
-                for (let y50 = lH; y50 <= n11; ++y50) {
+                for (let y50 = lastRow; y50 <= decision; ++y50) {
                     const rsl1 = this.leftScanLine[y50];
                     const rsl2 = this.rightScanLine[y50];
                     if (rsl1 <= rsl2) {
@@ -1464,19 +1427,19 @@ var CWSYSTEM;
         }
 
         /** @private */
-        octant1(screenData, x, y, n3, n4, n5, n6) {
-            const n7 = n3 * 2;
-            const n8 = n7 - n4 * 2;
-            let n9 = n7 - n4;
+        octant1(screenData, x, y, radius, abs, xIncrement, yIncrement) {
+            const diameter = radius * 2;
+            const points = diameter - abs * 2;
+            let last = diameter - abs;
             this.CWDrawPixelWithCropping(screenData, x, y);
-            while ((n4-- > 0)) {
-                if (n9 >= 0) {
-                    x += n5;
-                    n9 += n8;
+            while ((abs-- > 0)) {
+                if (last >= 0) {
+                    x += xIncrement;
+                    last += points;
                 } else {
-                    n9 += n7;
+                    last += diameter;
                 }
-                y += n6;
+                y += yIncrement;
                 this.CWDrawPixelWithCropping(screenData, x, y);
             }
         }
@@ -1497,18 +1460,18 @@ var CWSYSTEM;
 
             let i = 0;
             let rad = radius;
-            let n5 = (5 - radius * 4) / 4 | 0;
+            let quad = (5 - radius * 4) / 4 | 0;
 
             const drawCirclePoints = cropFlag ? this.circlePointsWithCropping : this.circlePoints;
             drawCirclePoints(screenData, x, y, i, rad);
 
             while (i < rad) {
                 i++;
-                if (n5 < 0) {
-                    n5 += 2 * i + 1;
+                if (quad < 0) {
+                    quad += 2 * i + 1;
                 } else {
                     rad--;
-                    n5 += 2 * (i - rad) + 1;
+                    quad += 2 * (i - rad) + 1;
                 }
                 drawCirclePoints(screenData, x, y, i, rad);
             }
@@ -1550,16 +1513,13 @@ var CWSYSTEM;
                 this.CWDrawPixelWithCropping(screenData, x, y - n4);
                 this.CWDrawPixelWithCropping(screenData, x + n4, y);
                 this.CWDrawPixelWithCropping(screenData, x - n4, y);
-            } else if (n3 === n4) {
+            } else { //else if (n3 === n4) 
                 this.CWDrawPixelWithCropping(screenData, x + n3, y + n4);
                 this.CWDrawPixelWithCropping(screenData, x - n3, y + n4);
                 this.CWDrawPixelWithCropping(screenData, x + n3, y - n4);
                 this.CWDrawPixelWithCropping(screenData, x - n3, y - n4);
-            } else if (n3 < n4) {
-                this.CWDrawPixelWithCropping(screenData, x + n3, y + n4);
-                this.CWDrawPixelWithCropping(screenData, x - n3, y + n4);
-                this.CWDrawPixelWithCropping(screenData, x + n3, y - n4);
-                this.CWDrawPixelWithCropping(screenData, x - n3, y - n4);
+            }
+            if (n3 < n4) {
                 this.CWDrawPixelWithCropping(screenData, x + n4, y + n3);
                 this.CWDrawPixelWithCropping(screenData, x - n4, y + n3);
                 this.CWDrawPixelWithCropping(screenData, x + n4, y - n3);

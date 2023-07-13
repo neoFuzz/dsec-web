@@ -34,32 +34,12 @@ var CWSYSTEM;
 
         static initialize() {
             CWUtils.maxY = CWSYSTEM.Global.screenResolutionY_$LI$() + 5;
-            CWUtils.multiSegmentScanLine = (function (dims) {
-                let allocate = function (dims) {
-                    if (dims.length === 0) {
-                        return 0;
-                    } else {
-                        let array = [];
-                        for (let i = 0; i < dims[0]; i++) {
-                            array.push(allocate(dims.slice(1)));
-                        }
-                        return array;
-                    }
-                };
-                return allocate(dims);
-            })([CWUtils.maxY, 80]);
-            CWUtils.scanLineLength = (s => {
-                let a = [];
-                while (s-- > 0)
-                    a.push(0);
-                return a;
-            })(CWUtils.maxY);
-            CWUtils.overlappingSegment = (s => {
-                let a = [];
-                while (s-- > 0)
-                    a.push(0);
-                return a;
-            })(40);
+            CWUtils.multiSegmentScanLine = new Array(CWUtils.maxY);
+            for (let i = 0; i < CWUtils.maxY; i++) {
+                CWUtils.multiSegmentScanLine[i] = new Array(80).fill(0);
+            }
+            CWUtils.scanLineLength = Array(CWUtils.maxY).fill(0);
+            CWUtils.overlappingSegment =  Array(40).fill(0);
             CWUtils.resetMultiSegmentScanLine();
         }
 

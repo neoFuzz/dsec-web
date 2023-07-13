@@ -948,7 +948,7 @@ var dsector;
 
         changeCameraHueDirectly(n) {
             const matrix4f = new dsector.Matrix4f();
-            matrix4f.rotateZ$float(n);
+            matrix4f.rotateZ(n);
             dsector.DSReference.scene.cameraRotation.postMultiply(matrix4f);
             CWSYSTEM.Environment.perspectiveViewWindowsRequestedForUpdateNextCycle();
         }
@@ -959,7 +959,7 @@ var dsector;
 
         changeCameraVertDirectly(n) {
             const matrix4f = new dsector.Matrix4f();
-            matrix4f.rotateX$float(n);
+            matrix4f.rotateX(n);
             dsector.DSReference.scene.cameraRotation.postMultiply(matrix4f);
             CWSYSTEM.Environment.perspectiveViewWindowsRequestedForUpdateNextCycle();
         }
@@ -970,7 +970,7 @@ var dsector;
 
         moveCameraPivotDirectly(n) {
             const matrix4f = new dsector.Matrix4f();
-            matrix4f.rotateY$float(n);
+            matrix4f.rotateY(n);
             dsector.DSReference.scene.cameraRotation.postMultiply(matrix4f);
             CWSYSTEM.Environment.perspectiveViewWindowsRequestedForUpdateNextCycle();
         }
@@ -981,7 +981,7 @@ var dsector;
 
         flipCamera() {
             const matrix4f = new dsector.Matrix4f();
-            matrix4f.rotateY$float(3.1415927);
+            matrix4f.rotateY(3.1415927);
             dsector.DSReference.scene.cameraRotation.preMultiply(matrix4f);
             CWSYSTEM.Environment.perspectiveViewWindowsRequestedForUpdateNextCycle();
         }

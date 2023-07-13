@@ -9,19 +9,18 @@ var CWSYSTEM;
             this.bitmap = this.allocateBitmap(height, width);
         }
 
-        allocateBitmap(height, width) {
-            if (height === 0 || width === 0) {
+        allocateBitmap(h, w) {
+            if (h === 0 || w === 0) {
                 return null;
             } else {
                 let bitmap = [];
-                for (let i = 0; i < height; i++) {
-                    bitmap.push(this.allocateBitmap(width));
+                for (let i = 0; i < h; i++) {
+                    bitmap.push(this.allocateBitmap(w));
                 }
                 return bitmap;
             }
         }
     }
-
 
     CWSYSTEM.CWCharacter = CWCharacter;
     CWCharacter["__class"] = "CWSYSTEM.CWCharacter";

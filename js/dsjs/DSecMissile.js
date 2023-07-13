@@ -182,7 +182,7 @@ var dsector;
 
         orientationAsMatrix() {
             const matrix4f = new dsector.Matrix4f();
-            matrix4f.rotateZ$float(-this.angle);
+            matrix4f.rotateZ(-this.angle);
             return matrix4f;
         }
 

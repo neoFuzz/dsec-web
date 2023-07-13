@@ -17,18 +17,8 @@ var dsector;
                 var3 = 0.3 + Math.random() * 0.6;
             }
             this.numberOfStars = starCount;
-            this.star = (s => {
-                let a = [];
-                while (s-- > 0)
-                    a.push(null);
-                return a;
-            })(starCount);
-            this.twinkle = (s => {
-                let a = [];
-                while (s-- > 0)
-                    a.push(false);
-                return a;
-            })(starCount);
+            this.star = Array(starCount).fill(null);
+            this.twinkle = Array(starCount).fill(false);
             for (let var5 = 0; var5 < (starCount / 50 | 0); ++var5) {
                 for (let var9 = 0; var9 < 50; ++var9) {
                     const var10 = var5 * 50 + var9;

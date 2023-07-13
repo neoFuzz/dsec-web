@@ -270,66 +270,16 @@ var CWSYSTEM;
             this.titleBGColorSecondary = new CWSYSTEM.CWColor(CWWindow.defaultTitleBGColorSecondary_$LI$());
             this.inputBoxColor = new CWSYSTEM.CWColor(CWWindow.defaultInputBoxColor_$LI$());
             this.checkBoxColor = new CWSYSTEM.CWColor(CWWindow.defaultCheckBoxColor_$LI$());
-            this.button = (s => {
-                let a = [];
-                while (s-- > 0)
-                    a.push(null);
-                return a;
-            })(CWWindow.maximumNumberOfButtons);
-            this.image = (s => {
-                let a = [];
-                while (s-- > 0)
-                    a.push(null);
-                return a;
-            })(CWWindow.maximumNumberOfImages);
-            this.inputBox = (s => {
-                let a = [];
-                while (s-- > 0)
-                    a.push(null);
-                return a;
-            })(CWWindow.maximumNumberOfInputBoxes);
-            this.textArea = (s => {
-                let a = [];
-                while (s-- > 0)
-                    a.push(null);
-                return a;
-            })(CWWindow.maximumNumberOfTextAreas);
-            this.checkBox = (s => {
-                let a = [];
-                while (s-- > 0)
-                    a.push(null);
-                return a;
-            })(CWWindow.maximumNumberOfCheckBoxes);
-            this.textElement = (s => {
-                let a = [];
-                while (s-- > 0)
-                    a.push(null);
-                return a;
-            })(CWWindow.maximumNumberOfTextElements);
-            this.textBlock = (s => {
-                let a = [];
-                while (s-- > 0)
-                    a.push(null);
-                return a;
-            })(CWWindow.maximumNumberOfTextBlocks);
-            this.imageElement = (s => {
-                let a = [];
-                while (s-- > 0)
-                    a.push(null);
-                return a;
-            })(CWWindow.maximumNumberOfImageElements);
-            this.pulldown = (s => {
-                let a = [];
-                while (s-- > 0)
-                    a.push(null);
-                return a;
-            })(CWWindow.maximumNumberOfPullDowns);
-            this.storedLine = (s => {
-                let a = [];
-                while (s-- > 0)
-                    a.push(null);
-                return a;
-            })(CWWindow.maximumNumberOfStoredLines);
+            this.button = Array(CWWindow.maximumNumberOfButtons).fill(null);
+            this.image = Array(CWWindow.maximumNumberOfImages).fill(null);
+            this.inputBox = Array(CWWindow.maximumNumberOfInputBoxes).fill(null);
+            this.textArea = Array(CWWindow.maximumNumberOfTextAreas).fill(null);
+            this.checkBox = Array(CWWindow.maximumNumberOfCheckBoxes).fill(null);
+            this.textElement = Array(CWWindow.maximumNumberOfTextElements).fill(null);
+            this.textBlock = Array(CWWindow.maximumNumberOfTextBlocks).fill(null);
+            this.imageElement = Array(CWWindow.maximumNumberOfImageElements).fill(null);
+            this.pulldown = Array(CWWindow.maximumNumberOfPullDowns).fill(null);
+            this.storedLine = Array(CWWindow.maximumNumberOfStoredLines).fill(null);
             this.numberOfButtons = 0;
             this.numberOfImages = 0;
             this.numberOfInputBoxes = 0;
@@ -432,12 +382,7 @@ var CWSYSTEM;
             this.antiAliasedLevel = aaLevel;
             this.useAntiAliasedContent = true;
             this.subframes = subFrames;
-            this.temporalSupersample = (s => {
-                let a = [];
-                while (s-- > 0)
-                    a.push(null);
-                return a;
-            })(subFrames);
+            this.temporalSupersample = Array(subFrames).fill(null);
             if (this.subframes >= 2) {
                 for (let i = 0; i < this.subframes; ++i) {
                     this.temporalSupersample[i] = new CWSYSTEM.ScreenData(this.maxWidth, this.maxHeight,

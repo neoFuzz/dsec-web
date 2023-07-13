@@ -289,12 +289,7 @@ var dsector;
 
         /** @private */
         listPlayersInRandomOrder() {
-            const players = (s => {
-                let a = [];
-                while (s-- > 0)
-                    a.push(null);
-                return a;
-            })(dsector.DSReference.dsecGame.numberOfPlayers());
+            const players = Array(dsector.DSReference.dsecGame.numberOfPlayers()).fill(null);
             for (let i = 0; i < this.dsGame.numberOfPlayers(); ++i) {
                 const player = this.dsGame.getPlayer(i + 1);
                 let rndPlayer;
