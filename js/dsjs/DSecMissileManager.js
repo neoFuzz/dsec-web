@@ -51,7 +51,7 @@ var dsector;
                             }
                             const turnRate = missile.weaponSpecification.guidedTurnRate;
                             if (velocity > 25.0) {
-                                velocity = Math.fround(velocity * 3.2358403 - abs / 3.1415927);
+                                velocity = Math.fround(velocity * 3.2358403 - abs / Math.PI);
                             }
                             angle = Math.fround(missile.getAngle() - turnRate / 50.0 * dist *
                                 DSecMissileManager.missileRelativeSpeedup * dsector.DSReference.dsecGame.gameSpeed());

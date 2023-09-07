@@ -7020,7 +7020,7 @@ var dsector;
                     break;
                 case 104 /* TURN_LEFT_180_DEGREES */
                 :
-                    player.brain.turnLeftForGivenRadians(3.1415927);
+                    player.brain.turnLeftForGivenRadians(Math.PI);
                     break;
                 case 105 /* TURN_RIGHT */
                 :
@@ -7036,7 +7036,7 @@ var dsector;
                     break;
                 case 108 /* TURN_RIGHT_180_DEGREES */
                 :
-                    player.brain.turnRightForGivenRadians(3.1415927);
+                    player.brain.turnRightForGivenRadians(Math.PI);
                     break;
                 case 109 /* SET_TARGET_AS_TANK_LAST_DETECTED_WITH_SENSOR */
                 :

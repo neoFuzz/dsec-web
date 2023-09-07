@@ -268,19 +268,19 @@ var dsector;
                     } else if (this.launchSpecification === WeaponSpecification.LAUNCH_REAR_DOUBLE) {
                         weaponSpec = this.returnSelf();
                         weaponSpec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
-                        weaponSpec.fire(owner, x, y, Math.fround((mAngle + 3.141592653589793) % 360.0),
+                        weaponSpec.fire(owner, x, y, Math.fround((mAngle + Math.PI ) % 360.0), /*3.141592653589793*/
                             new dsector.VectorInR3(0.0, 3.5, 0.0), (damage / 2.0));
-                        weaponSpec.fire(owner, x, y, Math.fround((mAngle + 3.141592653589793) % 360.0),
+                        weaponSpec.fire(owner, x, y, Math.fround((mAngle + Math.PI) % 360.0),
                             new dsector.VectorInR3(0.0, -3.5, 0.0), (damage / 2.0));
                         return null;
                     } else if (this.launchSpecification === WeaponSpecification.LAUNCH_REAR_TRIPLE) {
                         weaponSpec = this.returnSelf();
                         weaponSpec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
-                        weaponSpec.fire(owner, x, y, Math.fround((mAngle + 3.141592653589793) % 360.0),
+                        weaponSpec.fire(owner, x, y, Math.fround((mAngle + Math.PI) % 360.0),
                             new dsector.VectorInR3(0.0, 4.5, 0.0), (damage / 3.0));
-                        weaponSpec.fire(owner, x, y, Math.fround((mAngle + 3.141592653589793) % 360.0),
+                        weaponSpec.fire(owner, x, y, Math.fround((mAngle + Math.PI) % 360.0),
                             wVector000, (damage / 3.0));
-                        weaponSpec.fire(owner, x, y, Math.fround((mAngle + 3.141592653589793) % 360.0),
+                        weaponSpec.fire(owner, x, y, Math.fround((mAngle + Math.PI) % 360.0),
                             new dsector.VectorInR3(0.0, -4.5, 0.0), (damage / 3.0));
                         return null;
                     } else {
@@ -288,7 +288,7 @@ var dsector;
                         if (this.launchSpecification === WeaponSpecification.LAUNCH_ELECTRO_BUDS) {
                             weaponSpec = this.returnSelf();
                             weaponSpec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
-                            fVal = (Math.random() * 3.141592653589793 * 2.0);
+                            fVal = (Math.random() * Math.PI * 2.0);
                             for (let turn = 0.0; turn < 6.283185307179586; turn = (turn + 0.8975979010256552)) {
                                 weaponSpec.fire(owner, x, y, (turn + fVal), wVector000, (damage / 7.0));
                             }

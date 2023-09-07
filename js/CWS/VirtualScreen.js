@@ -1095,7 +1095,7 @@ var CWSYSTEM;
             const alpha2 = cwColor2.alpha();
             if (gradientType === 'sine') {
                 for (let i = y; i < y + height; ++i) {
-                    const sin = Math.sin(3.141592653589793 * ((i - y) / height));
+                    const sin = Math.sin(Math.PI * ((i - y) / height));
                     this.fastHorizontalLine(screenData, x, i, width, CWSYSTEM.FastColorUtilities.color$r$g$b$a(
                         ((red + (red2 - red) * sin) | 0), ((green + (green2 - green) * sin) | 0),
                         ((blue + (blue2 - blue) * sin) | 0), ((alpha + (alpha2 - alpha) * sin) | 0)));
@@ -1135,7 +1135,60 @@ var CWSYSTEM;
             this.fastHorizontalLine(screenData, x + 1, y + length - 1, width - 2, this.defaultColor);
         }
 
-//CWSYSTEM.Environment.screenHasChanged = true;
+        /**
+         * Prepares vertex data based on the input parameters and the current iteration.
+         *
+         * @param {number} v1x - The x-coordinate of the first vertex.
+         * @param {number} v1y - The y-coordinate of the first vertex.
+         * @param {number} v2x - The x-coordinate of the second vertex.
+         * @param {number} v2y - The y-coordinate of the second vertex.
+         * @param {number} v3x - The x-coordinate of the third vertex.
+         * @param {number} v3y - The y-coordinate of the third vertex.
+         * @param {number} i - The current iteration number.
+         *
+         * @returns {Object|null} An object containing the prepared vertex data, or null if the y-coordinates of the vertices are equal.
+         * The returned object contains the following properties:
+         * - v5: The x-coordinate of the vertex for the current iteration.
+         * - v6: The y-coordinate of the vertex for the current iteration.
+         * - v1: The x-coordinate of the lower vertex based on the y-coordinate.
+         * - v2: The lower y-coordinate of the vertices.
+         * - v3: The x-coordinate of the higher vertex based on the y-coordinate.
+         * - v4: The higher y-coordinate of the vertices.
+         * - diff1: The difference in x-coordinates divided by the difference in y-coordinates.
+         */
+        prepareVertex(v1x, v1y, v2x, v2y, v3x, v3y, i) {
+            let v5 = 0.0, v6 = 0.0, v1 = 0.0, v2 = 0.0, v3 = 0.0, v4 = 0.0;
+            switch (i) {
+                case 0:
+                    v5 = v3x;
+                    v6 = v3y;
+                    if (v1y === v2y) return null;
+                    v1 = v1y < v2y ? v1x : v2x;
+                    v2 = v1y < v2y ? v1y : v2y;
+                    v3 = v1y < v2y ? v2x : v1x;
+                    v4 = v1y < v2y ? v2y : v1y;
+                    break;
+                case 1:
+                    v5 = v1x;
+                    v6 = v1y;
+                    if (v2y === v3y) return null;
+                    v1 = v2y < v3y ? v2x : v3x;
+                    v2 = v2y < v3y ? v2y : v3y;
+                    v3 = v2y < v3y ? v3x : v2x;
+                    v4 = v2y < v3y ? v3y : v2y;
+                    break;
+                default:
+                    v5 = v2x;
+                    v6 = v2y;
+                    if (v1y === v3y) return null;
+                    v1 = v1y < v3y ? v1x : v3x;
+                    v2 = v1y < v3y ? v1y : v3y;
+                    v3 = v1y < v3y ? v3x : v1x;
+                    v4 = v1y < v3y ? v3y : v1y;
+            }
+            return {v5, v6, v1, v2, v3, v4, diff1: Math.fround((v3 - v1) / (v4 - v2))};
+        }
+
         /**
          * Renders a polygon on the screen with the specified color.
          * @param {ScreenData} screenData - The screen data object containing the point array.
@@ -1154,9 +1207,7 @@ var CWSYSTEM;
          * @param {Array|null} array - The array to store polygon information.
          * @returns {void}
          */
-        renderPolygon(screenData, buffer, colorA, v1x, v1y,
-                      v2x, v2y, v3x, v3y, bool, w0, h0,
-                      polygon, array) {
+        renderPolygon(screenData, buffer, colorA, v1x, v1y, v2x, v2y, v3x, v3y, bool, w0, h0, polygon, array) {
             let lastRow = screenData.height - 1;
             let decision = 0;
             const lastCol = w0 - 1;
@@ -1165,148 +1216,63 @@ var CWSYSTEM;
                 return;
             }
             CWSYSTEM.Environment.screenHasChanged = true;
+
             for (let i = 0; i < 3; ++i) {
                 let b2 = false;
-                let v5 = 0.0, v6 = 0.0, v1 = 0.0, v2 = 0.0, v3 = 0.0, v4 = 0.0;
-                switch (i) {
-                    case 0: {
-                        v5 = v3x;
-                        v6 = v3y;
-                        if (v1y === v2y) {
-                            continue;
-                        }
-                        if (v1y < v2y) {
-                            v1 = v1x;
-                            v2 = v1y;
-                            v3 = v2x;
-                            v4 = v2y;
-                        } else {
-                            v1 = v2x;
-                            v2 = v2y;
-                            v3 = v1x;
-                            v4 = v1y;
-                        }
-                        break;
-                    }
-                    case 1: {
-                        v5 = v1x;
-                        v6 = v1y;
-                        if (v2y === v3y) {
-                            continue;
-                        }
-                        if (v2y < v3y) {
-                            v1 = v2x;
-                            v2 = v2y;
-                            v3 = v3x;
-                            v4 = v3y;
-                        } else {
-                            v1 = v3x;
-                            v2 = v3y;
-                            v3 = v2x;
-                            v4 = v2y;
-                        }
-                        break;
-                    }
-                    default: {
-                        v5 = v2x;
-                        v6 = v2y;
-                        if (v1y === v3y) {
-                            continue;
-                        }
-                        if (v1y < v3y) {
-                            v1 = v1x;
-                            v2 = v1y;
-                            v3 = v3x;
-                            v4 = v3y;
-                        } else {
-                            v1 = v3x;
-                            v2 = v3y;
-                            v3 = v1x;
-                            v4 = v1y;
-                        }
-                        break;
-                    }
-                }
-                const diff1 = Math.fround((v3 - v1) / (v4 - v2));
-                let y20 = ((Math.fround(v2 + 1.0)) | 0);
+                const vertex = this.prepareVertex(v1x, v1y, v2x, v2y, v3x, v3y, i);
+                if (!vertex) continue;
+
+                let y20 = ((Math.fround(vertex.v2 + 1.0)) | 0);
                 let n21;
                 if (y20 < 0) {
                     y20 = 0;
-                    n21 = Math.fround(v1 + ((0.0 - v2) * diff1));
+                    n21 = Math.fround(vertex.v1 + ((0.0 - vertex.v2) * vertex.diff1));
                 } else {
-                    n21 = Math.fround(v1 + ((y20 - v2) * diff1));
+                    n21 = Math.fround(vertex.v1 + ((y20 - vertex.v2) * vertex.diff1));
                 }
-                let y22 = v4 > h0 - 1 ? h0 - 1 : v4;
+                let y22 = vertex.v4 > h0 - 1 ? h0 - 1 : vertex.v4;
 
-                if (y22 > 0 || y20 > 0) {
-                    if (y22 < h0 - 1 || y20 < h0 - 1) {
-                        if (y20 < lastRow) {
-                            lastRow = y20;
+                const updateScanLine = (start, end, scanLine, value, condition) => {
+                    for (let i = start; i !== end; i += Math.sign(end - start)) {
+                        if (condition(scanLine[i])) {
+                            break;
                         }
-                        if (y22 > decision) {
-                            decision = y22;
-                        }
-                        const n23 = Math.fround(n21 - diff1 * (y20 - v6));
-                        if (Math.abs((n23 - v5)) < 1.0E-4) {
-                            return;
-                        }
-                        b2 = n23 < v5;
+                        scanLine[i] = value;
+                    }
+                };
+
+                if ((y22 > 0 || y20 > 0) && (y22 < h0 - 1 || y20 < h0 - 1)) {
+                    lastRow = Math.min(y20, lastRow);
+                    decision = Math.max(y22, decision);
+                    const n23 = Math.fround(n21 - vertex.diff1 * (y20 - vertex.v6));
+
+                    if (Math.abs((n23 - vertex.v5)) >= 1.0E-4) {
+                        b2 = n23 < vertex.v5;
 
                         let n24 = n21;
-                        if (b2) {
-                            for (let j = y20; j <= y22; ++j) {
-                                this.leftScanLine[j] = ((n24 + 1.0) | 0);
-                                n24 += diff1;
-                            }
-                        } else {
-                            for (let k = y20; k <= y22; ++k) {
-                                this.rightScanLine[k] = (n24 | 0);
-                                n24 += diff1;
-                            }
+                        const scanLine = b2 ? this.leftScanLine : this.rightScanLine;
+                        for (let j = y20; j <= y22; ++j) {
+                            scanLine[j] = ((n24 + (b2 ? 1.0 : 0)) | 0);
+                            n24 += vertex.diff1;
                         }
+
                         if (b2) {
                             const lsl1 = this.leftScanLine[y20];
                             const lsl2 = this.leftScanLine[y22];
+
                             if (lsl2 >= 0.0 && lsl1 < 0.0) {
-                                for (let l = y20; l <= y22; ++l) {
-                                    if (this.leftScanLine[l] >= 0) {
-                                        break;
-                                    }
-                                    this.leftScanLine[l] = 0;
-                                }
-                            } else if (lsl2 < 0.0 && lsl1 >= 0.0) {
-                                for (let y27 = y22; y27 >= y20; --y27) {
-                                    if (this.leftScanLine[y27] >= 0) {
-                                        break;
-                                    }
-                                    this.leftScanLine[y27] = 0;
-                                }
-                            } else if (lsl1 < 0.0 && lsl2 < 0.0) {
-                                for (let y28 = y20; y28 <= y22; ++y28) {
-                                    this.leftScanLine[y28] = 0;
-                                }
+                                updateScanLine(y20, y22, this.leftScanLine, 0, value => value >= 0);
+                            } else if ((lsl2 < 0.0 && lsl1 >= 0.0) || (lsl1 < 0.0 && lsl2 < 0.0)) {
+                                updateScanLine(y22, y20, this.leftScanLine, 0, value => value >= 0);
                             }
                         } else {
                             const rSL1 = this.rightScanLine[y20];
                             const rSL2 = this.rightScanLine[y22];
-                            if (rSL2 <= lastCol && rSL1 > lastCol) {
-                                for (let y31 = y20; y31 <= y22; ++y31) {
-                                    if (this.rightScanLine[y31] <= lastCol) {
-                                        break;
-                                    }
-                                    this.rightScanLine[y31] = lastCol;
-                                }
+
+                            if ((rSL2 <= lastCol && rSL1 > lastCol) || (rSL1 > lastCol && rSL2 > lastCol)) {
+                                updateScanLine(y20, y22, this.rightScanLine, lastCol, value => value <= lastCol);
                             } else if (rSL2 > lastCol && rSL1 <= lastCol) {
-                                for (let y32 = y22; y32 >= y20; --y32) {
-                                    if (this.rightScanLine[y32] <= lastCol) {
-                                        break;
-                                    }
-                                    this.rightScanLine[y32] = lastCol;
-                                }
-                            } else if (rSL1 > lastCol && rSL2 > lastCol) {
-                                for (let y33 = y20; y33 <= y22; ++y33) {
-                                    this.rightScanLine[y33] = lastCol;
-                                }
+                                updateScanLine(y22, y20, this.rightScanLine, lastCol, value => value <= lastCol);
                             }
                         }
                     }
@@ -1314,6 +1280,9 @@ var CWSYSTEM;
             }
             const point = screenData.point;
             if (polygon == null) {
+                let defRed = CWSYSTEM.FastColorUtilities.red(this.defaultColor);
+                let defGreen = CWSYSTEM.FastColorUtilities.green(this.defaultColor);
+                let defBlue = CWSYSTEM.FastColorUtilities.blue(this.defaultColor);
                 try {
                     const alpha = CWSYSTEM.FastColorUtilities.alpha(this.defaultColor);
                     if (alpha === 255) {
@@ -1338,11 +1307,11 @@ var CWSYSTEM;
                                     const color = point[y38][x41];
                                     const alphaValue = 255 - alpha;
                                     point[y38][x41] = CWSYSTEM.FastColorUtilities.color$r$g$b$a(
-                                        ((alpha * CWSYSTEM.FastColorUtilities.red(this.defaultColor) + alphaValue *
+                                        ((alpha * defRed + alphaValue *
                                             CWSYSTEM.FastColorUtilities.red(color)) / 256 | 0),
-                                        ((alpha * CWSYSTEM.FastColorUtilities.green(this.defaultColor) + alphaValue *
+                                        ((alpha * defGreen + alphaValue *
                                             CWSYSTEM.FastColorUtilities.green(color)) / 256 | 0),
-                                        ((alpha * CWSYSTEM.FastColorUtilities.blue(this.defaultColor) + alphaValue *
+                                        ((alpha * defBlue + alphaValue *
                                             CWSYSTEM.FastColorUtilities.blue(color)) / 256 | 0), 255);
                                     buffer[y38][x41] = colorA;
                                 }
@@ -1355,11 +1324,11 @@ var CWSYSTEM;
                                 const pColor = point[y44][x47];
                                 const pAlpha = 255 - alpha;
                                 point[y44][x47] = CWSYSTEM.FastColorUtilities.color$r$g$b$a(
-                                    ((alpha * CWSYSTEM.FastColorUtilities.red(this.defaultColor) + pAlpha *
+                                    ((alpha * defRed + pAlpha *
                                         CWSYSTEM.FastColorUtilities.red(pColor)) / 256 | 0),
-                                    ((alpha * CWSYSTEM.FastColorUtilities.green(this.defaultColor) + pAlpha *
+                                    ((alpha * defGreen + pAlpha *
                                         CWSYSTEM.FastColorUtilities.green(pColor)) / 256 | 0),
-                                    ((alpha * CWSYSTEM.FastColorUtilities.blue(this.defaultColor) + pAlpha *
+                                    ((alpha * defBlue + pAlpha *
                                         CWSYSTEM.FastColorUtilities.blue(pColor)) / 256 | 0), 255);
                             }
                         }

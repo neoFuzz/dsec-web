@@ -97,12 +97,12 @@ var dsector;
 
                         }
                         const angle = Math.fround(jAngle + v + j * calcFlt);
-                        player.setAngle(Math.fround(angle + 3.1415927));
+                        player.setAngle(Math.fround(angle + Math.PI));
                         const playerX = Math.fround(Math.cos(angle) * 305.0);
                         const playerY = Math.fround(Math.sin(angle) * 305.0);
                         player.setX(playerX);
                         player.setY(playerY);
-                        player.setAngle(Math.fround(angle + 3.1415927));
+                        player.setAngle(Math.fround(angle + Math.PI));
                         model = player.constructPositionedModel();
                         count = 0;
 
@@ -119,14 +119,14 @@ var dsector;
             } else {
                 const x = 600.0;
                 const y = 600.0;
-                const piAngle2 = Math.fround(Math.random() * 2.0 * 3.1415927);
+                const piAngle2 = Math.fround(Math.random() * 2.0 * Math.PI);
                 const players = this.listPlayersInRandomOrder();
                 for (let k = 0; k < players.length; ++k) {
                     const zPlayer = players[k];
-                    calcFlt = Math.fround(piAngle2 + (k * 2) * 3.1415927 / this.dsGame.numberOfPlayers() % 6.2831855);
+                    calcFlt = Math.fround(piAngle2 + (k * 2) * Math.PI / this.dsGame.numberOfPlayers() % 6.2831855);
                     zPlayer.setX(Math.fround(Math.cos(calcFlt) * x / 2.0));
                     zPlayer.setY(Math.fround(Math.sin(calcFlt) * y / 2.0));
-                    zPlayer.setAngle(Math.fround(calcFlt + 3.1415927));
+                    zPlayer.setAngle(Math.fround(calcFlt + Math.PI));
                     const model = zPlayer.constructPositionedModel();
                     for (let index = 0; index < this.backgroundObjects.length; index++) {
                         let backgroundObject = this.backgroundObjects[index];
@@ -230,8 +230,8 @@ var dsector;
             let y1 = 0.0;
             let arrayList1 = null;
             for (let i = 0; i < 50; ++i) {
-                const redJAngle = Math.fround((Math.random() * 2.0 * 3.141592653589793));
-                const blueJAngle = Math.fround(redJAngle + 3.1415927);
+                const redJAngle = Math.fround((Math.random() * 2.0 * Math.PI));
+                const blueJAngle = Math.fround(redJAngle + Math.PI);
                 x2 = Math.fround(Math.cos(redJAngle) * stand);
                 y2 = Math.fround(Math.sin(redJAngle) * stand);
                 x1 = Math.fround(Math.cos(blueJAngle) * stand);

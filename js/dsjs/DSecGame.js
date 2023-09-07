@@ -247,10 +247,10 @@ var dsector;
                 let z1;
                 let arrayList;
                 let time;
-                switch ((dsector.DSecSetupWindow.cameraMode_$LI$())) {
+                switch ((dsector.DSecSetupWindow.cameraMode_$LI$())) { // TODO: Fix camera bugs
                     case 0:
                         vertex = this.getCameraOverheadPositionForClosestTankDisplay();
-                        dsector.DSReference.scene.cameraRotation = dsector.Matrix4f.rotationXMatrix(3.1415927);
+                        dsector.DSReference.scene.cameraRotation = dsector.Matrix4f.rotationXMatrix(Math.PI);
                         break;
                     case 1:
                         time = ((CWSYSTEM.Environment.currentTime() % 10000000) | 0);
@@ -275,7 +275,7 @@ var dsector;
                         if (dsector.DSecSetupWindow.cameraMode_$LI$() >= 3) {
                             player = this.getPlayer((dsector.DSecSetupWindow.cameraMode_$LI$() - 1));
                         }
-                        y1 = Math.fround(3.1415927 + player.getAngle());
+                        y1 = Math.fround(Math.PI + player.getAngle());
                         rotateX = 1.3;
                         matrix = 0.2617994;
                         rotateY = 0.3;
@@ -376,10 +376,10 @@ var dsector;
         smoothlyAdjustedCameraPan(x, y, z) {
             let adjustX = (3.141592653589793E8 + x) % 6.283185307179586;
             let adjustY = (3.141592653589793E8 + y) % 6.283185307179586;
-            if (adjustY - adjustX < 3.141592653589793) {
+            if (adjustY - adjustX < Math.PI) {
                 adjustY += 6.283185307179586;
             }
-            if (adjustY - adjustX > 3.141592653589793) {
+            if (adjustY - adjustX > Math.PI) {
                 adjustX += 6.283185307179586;
             }
             return Math.fround((adjustX * z / this.gameSpeed() + adjustY) /

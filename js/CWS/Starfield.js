@@ -28,33 +28,36 @@ var dsector;
                     let var8;
                     switch (var2) {
                         case 1:
-                            var6 = Math.fround(Math.random() * 2.0 * 3.1415927);
-                            var7 = Math.fround(Math.random() * 2.0 * 3.1415927);
-                            var8 = Math.fround(Math.random() * 2.0 * 3.1415927);
+                            var6 = Math.fround(Math.random() * 2.0 * Math.PI);
+                            var7 = Math.fround(Math.random() * 2.0 * Math.PI);
+                            var8 = Math.fround(Math.random() * 2.0 * Math.PI);
                             var11.rotateVectorFromOriginAboutAxis$int$float(1, var7);
                             var11.rotateVectorFromOriginAboutAxis$int$float(0, var6);
                             var11.rotateVectorFromOriginAboutAxis$int$float(2, var8);
                             break;
                         case 2:
-                            var6 = Math.fround(Math.random() * 3.1415927);
-                            var7 = Math.fround(Math.random() * 3.1415927);
-                            var8 = Math.fround(Math.random() * 3.1415927);
+                            var6 = Math.fround(Math.random() * Math.PI);
+                            var7 = Math.fround(Math.random() * Math.PI);
+                            var8 = Math.fround(Math.random() * Math.PI);
                             var11.rotateVectorFromOriginAboutAxis$int$float(1, var7);
                             var11.rotateVectorFromOriginAboutAxis$int$float(0, var6);
                             var11.rotateVectorFromOriginAboutAxis$int$float(2, var8);
                             break;
                         case 3:
                             if (Math.random() > var3) {
-                                var6 = Math.fround(Math.random() * 2.0 * 3.1415927);
-                                var7 = Math.fround(Math.random() * 2.0 * 3.1415927);
-                                var8 = Math.fround(Math.random() * 2.0 * 3.1415927);
+                                var6 = Math.fround(Math.random() * 2.0 * Math.PI);
+                                var7 = Math.fround(Math.random() * 2.0 * Math.PI);
+                                var8 = Math.fround(Math.random() * 2.0 * Math.PI);
                                 var11.rotateVectorFromOriginAboutAxis$int$float(1, var7);
                                 var11.rotateVectorFromOriginAboutAxis$int$float(0, var6);
                                 var11.rotateVectorFromOriginAboutAxis$int$float(2, var8);
                             } else {
-                                var11.rotateVectorFromOriginAboutAxis$int$float$float(0, Math.random() * 2.0 - 1.0, Math.random() * 2.0 - 1.0);
-                                var11.rotateVectorFromOriginAboutAxis$int$float$float(1, Math.random(), Math.random());
-                                var11.rotateVectorFromOriginAboutAxis$int$float$float(2, Math.random() * 2.0 - 1.0, Math.random() * 2.0 - 1.0);
+                                var11.rotateVectorFromOriginAboutAxis$int$float$float(
+                                    0, Math.random() * 2.0 - 1.0, Math.random() * 2.0 - 1.0);
+                                var11.rotateVectorFromOriginAboutAxis$int$float$float(
+                                    1, Math.random(), Math.random());
+                                var11.rotateVectorFromOriginAboutAxis$int$float$float(
+                                    2, Math.random() * 2.0 - 1.0, Math.random() * 2.0 - 1.0);
                             }
                     }
                     this.star[var10] = var11;

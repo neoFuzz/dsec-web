@@ -112,7 +112,7 @@ var dsector;
                 base = 0.0;
                 specification.fire(this.owner, this.x, this.y, 0.0, vir3, base);
                 specification.fire(this.owner, this.x, this.y, 1.5707964, vir3, base);
-                specification.fire(this.owner, this.x, this.y, 3.1415927, vir3, base);
+                specification.fire(this.owner, this.x, this.y, Math.PI, vir3, base);
                 specification.fire(this.owner, this.x, this.y, 4.712389, vir3, base);
                 dsector.DSecFadingLight.add(Math.fround(0.1 + this.damage / 40.0), this.x, this.y, 30.0, 1500);
             }
@@ -125,7 +125,7 @@ var dsector;
                 base = this.weaponSpecification.defaultDamage / 8;
                 specification.fire(this.owner, this.x, this.y, 0.0, vir3, base);
                 specification.fire(this.owner, this.x, this.y, 1.5707964, vir3, base);
-                specification.fire(this.owner, this.x, this.y, 3.1415927, vir3, base);
+                specification.fire(this.owner, this.x, this.y, Math.PI, vir3, base);
                 specification.fire(this.owner, this.x, this.y, 4.712389, vir3, base);
                 specification = dsector.DSReference.preBuiltWeaponSpecifications.getPreBuiltSpecification(
                     dsector.PreBuiltWeaponSpecifications.SMALL_DEBRIS);

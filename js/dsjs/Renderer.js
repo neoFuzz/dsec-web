@@ -151,319 +151,6 @@ var dsector;
             }
         }
 
-        updateViewWindow(cwWindow) {
-            if (cwWindow == null) {
-                return;
-            }
-            if (cwWindow.nameID === ("X")) {
-                this.orthogonalProjection(0);
-            }
-            if (cwWindow.nameID === ("Y")) {
-                this.orthogonalProjection(1);
-            }
-            if (cwWindow.nameID === ("Z")) {
-                this.orthogonalProjection(2);
-            }
-            if (cwWindow.nameID === ("PER")) {
-                this.perspectiveProjection$();
-            }
-        }
-
-        updateViewWindowIncludingButtons(cwWindow) {
-            if (cwWindow == null) {
-                return;
-            }
-            const string = "PROJ_" + cwWindow.nameID + "_";
-            this.updateViewWindow(cwWindow);
-            cwWindow.deleteButton(string + "UP");
-            cwWindow.deleteButton(string + "DN");
-            cwWindow.deleteButton(string + "LT");
-            cwWindow.deleteButton(string + "RT");
-            cwWindow.deleteButton(string + "Z+");
-            cwWindow.deleteButton(string + "Z-");
-            cwWindow.deleteButton(string + "OF");
-            cwWindow.addButton$name$x$y$len$h$text$t$r(string + "UP", (cwWindow.w / 2 | 0) - 5, 3, 11, 11, "", 1, 1);
-            cwWindow.addButton$name$x$y$len$h$text$t$r(string + "DN", (cwWindow.w / 2 | 0) - 5, cwWindow.h - 10, 11, 11, "", 2, 1);
-            cwWindow.addButton$name$x$y$len$h$text$t$r(string + "LT", -1, (cwWindow.h / 2 | 0) - 5, 11, 11, "", 3, 1);
-            cwWindow.addButton$name$x$y$len$h$text$t$r(string + "RT", cwWindow.w - 10, (cwWindow.h / 2 | 0) - 5, 11, 11, "", 4, 1);
-            cwWindow.addButton$name$x$y$len$h$text$t$r(string + "Z+", cwWindow.w - 10, -1, 11, 11, "", 5, 1);
-            cwWindow.addButton$name$x$y$len$h$text$t$r(string + "Z-", cwWindow.w - 19, -1, 11, 11, "", 6, 1);
-            cwWindow.addButton$name$x$y$len$h$text$t$r(string + "OF", -1, -1, 11, 11, "", 8, 1);
-            cwWindow.drawWindow();
-        }
-
-        updateAllProjectiveViewWindows() {
-            this.orthogonalProjection(0);
-            this.orthogonalProjection(1);
-            this.orthogonalProjection(2);
-        }
-
-        updateAllViewWindows() {
-            this.orthogonalProjection(0);
-            this.orthogonalProjection(1);
-            this.orthogonalProjection(2);
-            this.perspectiveProjection$();
-        }
-
-        updateAllViewWindowsIncludingButtons() {
-            this.updateViewWindowIncludingButtons(dsector.DSReference.gui.getWindow$byName("X"));
-            this.updateViewWindowIncludingButtons(dsector.DSReference.gui.getWindow$byName("Y"));
-            this.updateViewWindowIncludingButtons(dsector.DSReference.gui.getWindow$byName("Z"));
-            this.perspectiveProjection$();
-        }
-
-        orthogonalProjection(n) {
-            let cwWindow = null;
-            switch (n) {
-                case 2: {
-                    cwWindow = dsector.DSReference.gui.getWindow$byName("Z");
-                    break;
-                }
-                case 1: {
-                    cwWindow = dsector.DSReference.gui.getWindow$byName("Y");
-                    break;
-                }
-                case 0: {
-                    cwWindow = dsector.DSReference.gui.getWindow$byName("X");
-                    break;
-                }
-            }
-            if (cwWindow == null) {
-                return;
-            }
-            const preAntiAliasedContent = cwWindow.preAntiAliasedContent;
-            const antiAliasedLevel = cwWindow.antiAliasedLevel;
-            const aaLW = cwWindow.w * antiAliasedLevel;
-            const aaLH = cwWindow.h * antiAliasedLevel;
-            const halfAALW = (cwWindow.w * antiAliasedLevel / 2 | 0);
-            const halfAALH = (cwWindow.h * antiAliasedLevel / 2 | 0);
-            let vertexYc = 0.0;
-            let vertexZc = 0.0;
-            let vertex2Yc = 0.0;
-            let vertex2Zc = 0.0;
-            let vertex3Yc = 0.0;
-            let vertex3Zc = 0.0;
-            const rScale = Renderer.scale[n];
-            cwWindow.clearPreAntiAliasedContent();
-            const offsetX = Renderer.offsetX[n];
-            const offsetY = Renderer.offsetY[n];
-            const oXScale = ((Math.fround(offsetX * rScale)) | 0);
-            const oYScale = ((Math.fround(offsetY * rScale)) | 0);
-            let vertexX = 0.0;
-            let xAxisView = 0;
-            let yAxisView = 0;
-            let zAxisView = 0;
-            switch (n) {
-                case 2: {
-                    xAxisView = CWSYSTEM.Environment.xAxisFlippedXYView_$LI$();
-                    yAxisView = CWSYSTEM.Environment.yAxisFlippedXYView_$LI$();
-                    zAxisView = CWSYSTEM.Environment.zAxisFlippedXYView_$LI$();
-                    break;
-                }
-                case 1: {
-                    xAxisView = CWSYSTEM.Environment.xAxisFlippedXZView_$LI$();
-                    yAxisView = CWSYSTEM.Environment.yAxisFlippedXZView_$LI$();
-                    zAxisView = CWSYSTEM.Environment.zAxisFlippedXZView_$LI$();
-                    break;
-                }
-                case 0: {
-                    xAxisView = CWSYSTEM.Environment.xAxisFlippedYZView_$LI$();
-                    yAxisView = CWSYSTEM.Environment.yAxisFlippedYZView_$LI$();
-                    zAxisView = CWSYSTEM.Environment.zAxisFlippedYZView_$LI$();
-                    break;
-                }
-            }
-            const model3DMatrix = dsector.DSReference.model3DMatrix;
-            if (model3DMatrix == null) {
-                return;
-            }
-            this.resetZBuffer(cwWindow.preAntiAliasedContent);
-            for (let i = 0; i < 2; ++i) {
-                const polygonIterator = new dsector.PolygonIterator(model3DMatrix,
-                    dsector.PolygonIterator.ALL_POLYGON_GROUPS);
-                while (true) {
-                    const nextPolygonGroup = polygonIterator.nextPolygonGroup();
-                    if (nextPolygonGroup == null) {
-                        break;
-                    }
-                    for (let j = nextPolygonGroup.transposedRepresentations.length - 1; j >= -1; --j) {
-                        if (j <= -1 || i !== 0) {
-                            let directRepresentation;
-                            if (j === -1) {
-                                directRepresentation = nextPolygonGroup.directRepresentation;
-                            } else {
-                                directRepresentation = nextPolygonGroup.transposedRepresentations[j];
-                            }
-                            if (directRepresentation.visible() || directRepresentation.active) {
-                                const vertex = new dsector.Vertex(0.0, 0.0, 0.0);
-                                const vertex2 = new dsector.Vertex(0.0, 0.0, 0.0);
-                                const vertex3 = new dsector.Vertex(0.0, 0.0, 0.0);
-                                for (let k = 0; k < nextPolygonGroup.polygons.length; ++k) {
-                                    const polygon = nextPolygonGroup.polygons[k];
-                                    if (i !== 0) {
-                                        vertex.x = polygon.v1.x;
-                                        vertex.y = polygon.v1.y;
-                                        vertex.z = polygon.v1.z;
-                                        vertex2.x = polygon.v2.x;
-                                        vertex2.y = polygon.v2.y;
-                                        vertex2.z = polygon.v2.z;
-                                        vertex3.x = polygon.v3.x;
-                                        vertex3.y = polygon.v3.y;
-                                        vertex3.z = polygon.v3.z;
-                                        vertex.selected = polygon.v1.selected;
-                                        vertex2.selected = polygon.v2.selected;
-                                        vertex3.selected = polygon.v3.selected;
-                                        if (j !== -1) {
-                                            const transformationMatrix = directRepresentation.transformationMatrix;
-                                            vertex.transform(transformationMatrix);
-                                            vertex2.transform(transformationMatrix);
-                                            vertex3.transform(transformationMatrix);
-                                        }
-                                        switch ((n)) {
-                                            case 0: {/* DOUBLE_SIDED_POLYGONS */
-                                                vertexYc = Math.fround(
-                                                    (vertex.y * yAxisView + offsetX) * rScale + halfAALW);
-                                                vertexZc = Math.fround(
-                                                    (vertex.z * zAxisView + offsetY) * rScale + halfAALH);
-                                                vertex2Yc = Math.fround(
-                                                    (vertex2.y * yAxisView + offsetX) * rScale + halfAALW);
-                                                vertex2Zc = Math.fround(
-                                                    (vertex2.z * zAxisView + offsetY) * rScale + halfAALH);
-                                                vertex3Yc = Math.fround(
-                                                    (vertex3.y * yAxisView + offsetX) * rScale + halfAALW);
-                                                vertex3Zc = Math.fround(
-                                                    (vertex3.z * zAxisView + offsetY) * rScale + halfAALH);
-                                                vertexX = Math.fround(vertex.x + vertex2.x + vertex3.x);
-                                                break;
-                                            }
-                                            case 1: {/* BACKFACE_CULLING */
-                                                vertexYc = Math.fround(
-                                                    (vertex.x * xAxisView + offsetX) * rScale + halfAALW);
-                                                vertexZc = Math.fround(
-                                                    (vertex.z * zAxisView + offsetY) * rScale + halfAALH);
-                                                vertex2Yc = Math.fround(
-                                                    (vertex2.x * xAxisView + offsetX) * rScale + halfAALW);
-                                                vertex2Zc = Math.fround(
-                                                    (vertex2.z * zAxisView + offsetY) * rScale + halfAALH);
-                                                vertex3Yc = Math.fround(
-                                                    (vertex3.x * xAxisView + offsetX) * rScale + halfAALW);
-                                                vertex3Zc = Math.fround(
-                                                    (vertex3.z * zAxisView + offsetY) * rScale + halfAALH);
-                                                vertexX = Math.fround(vertex.y + vertex2.y + vertex3.y);
-                                                break;
-                                            }
-                                            case 2: {/* HILIGHT_REVERSE_SIDE */
-                                                vertexYc = Math.fround(
-                                                    (vertex.x * xAxisView + offsetX) * rScale + halfAALW);
-                                                vertexZc = Math.fround(
-                                                    (vertex.y * yAxisView + offsetY) * rScale + halfAALH);
-                                                vertex2Yc = Math.fround(
-                                                    (vertex2.x * xAxisView + offsetX) * rScale + halfAALW);
-                                                vertex2Zc = Math.fround(
-                                                    (vertex2.y * yAxisView + offsetY) * rScale + halfAALH);
-                                                vertex3Yc = Math.fround(
-                                                    (vertex3.x * xAxisView + offsetX) * rScale + halfAALW);
-                                                vertex3Zc = Math.fround(
-                                                    (vertex3.y * yAxisView + offsetY) * rScale + halfAALH);
-                                                vertexX = Math.fround(vertex.z + vertex2.z + vertex3.z);
-                                                break;
-                                            }
-                                        }
-                                        if (i === 0) {
-                                            this.v.setColor$intCWColor(polygon.color);
-                                            this.v.renderPolygon(preAntiAliasedContent, this.zBuffer,
-                                                vertexX, vertexYc, vertexZc, vertex2Yc,
-                                                vertex2Zc, vertex3Yc, vertex3Zc, true, aaLW, aaLH,
-                                                null, null);
-                                        }
-                                        if (i === 1) {
-                                            if (j === -1 && directRepresentation.active) {
-                                                this.v.setColor$int(this.brightWhite);
-                                            } else {
-                                                this.v.setColor$int(this.dullBlue);
-                                            }
-                                            if ((vertexYc >= 0.0 || vertex2Yc >= 0.0) && (vertexZc >= 0.0 || vertex2Zc >= 0.0) &&
-                                                (vertexYc <= aaLW || vertex2Yc <= aaLW) && (vertexZc <= aaLH || vertex2Zc <= aaLH)) {
-                                                this.v.CWLine(preAntiAliasedContent, (vertexYc | 0), (vertexZc | 0),
-                                                    (vertex2Yc | 0), (vertex2Zc | 0), true);
-                                            }
-                                            if ((vertex2Yc >= 0.0 || vertex3Yc >= 0.0) && (vertex2Zc >= 0.0 || vertex3Zc >= 0.0) &&
-                                                (vertex2Yc <= aaLW || vertex3Yc <= aaLW) && (vertex2Zc <= aaLH || vertex3Zc <= aaLH)) {
-                                                this.v.CWLine(preAntiAliasedContent, (vertex2Yc | 0), (vertex2Zc | 0),
-                                                    (vertex3Yc | 0), (vertex3Zc | 0), true);
-                                            }
-                                            if ((vertex3Yc >= 0.0 || vertexYc >= 0.0) && (vertex3Zc >= 0.0 || vertexZc >= 0.0) &&
-                                                (vertex3Yc <= aaLW || vertexYc <= aaLW) && (vertex3Zc <= aaLH || vertexZc <= aaLH)) {
-                                                this.v.CWLine(preAntiAliasedContent, (vertex3Yc | 0), (vertex3Zc | 0),
-                                                    (vertexYc | 0), (vertexZc | 0), true);
-                                            }
-                                            if (j !== -1) {
-                                                if (directRepresentation.active) {
-                                                    this.v.setColor$int(this.brightBlue);
-                                                    this.v.CWDrawRectangleWithCropping(preAntiAliasedContent,
-                                                        (vertexYc | 0) - 3, (vertexZc | 0) - 3, 8, 8);
-                                                    this.v.CWDrawRectangleWithCropping(preAntiAliasedContent,
-                                                        (vertex2Yc | 0) - 3, (vertex2Zc | 0) - 3, 8, 8);
-                                                    this.v.CWDrawRectangleWithCropping(preAntiAliasedContent,
-                                                        (vertex3Yc | 0) - 3, (vertex3Zc | 0) - 3, 8, 8);
-                                                }
-                                            } else {
-                                                if (vertex.selected) {
-                                                    this.v.setColor$int(this.brightGreen);
-                                                    this.v.CWDrawRectangleWithCropping(preAntiAliasedContent,
-                                                        (vertexYc | 0) - 3, (vertexZc | 0) - 3, 8, 8);
-                                                }
-                                                if (vertex2.selected) {
-                                                    this.v.setColor$int(this.brightGreen);
-                                                    this.v.CWDrawRectangleWithCropping(preAntiAliasedContent,
-                                                        (vertex2Yc | 0) - 3, (vertex2Zc | 0) - 3, 8, 8);
-                                                }
-                                                if (vertex3.selected) {
-                                                    this.v.setColor$int(this.brightGreen);
-                                                    this.v.CWDrawRectangleWithCropping(preAntiAliasedContent,
-                                                        (vertex3Yc | 0) - 3, (vertex3Zc | 0) - 3, 8, 8);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            const allSpecialPoints = dsector.SpecialPoint.getAllSpecialPoints(model3DMatrix);
-            for (let index = 0; index < allSpecialPoints.length; ++index) {
-                const specialPoint = allSpecialPoints[index];
-                if (specialPoint.visibility$()) {
-                    let x1 = -1;
-                    let y1 = -1;
-                    switch ((n)) {
-                        case 2: {
-                            x1 = halfAALW + oXScale + xAxisView * ((Math.fround(rScale * specialPoint.x)) | 0);
-                            y1 = halfAALH + oYScale + yAxisView * ((Math.fround(rScale * specialPoint.y)) | 0);
-                            break;
-                        }
-                        case 1: {
-                            x1 = halfAALW + oXScale + xAxisView * ((Math.fround(rScale * specialPoint.x)) | 0);
-                            y1 = halfAALH + oYScale + zAxisView * ((Math.fround(rScale * specialPoint.z)) | 0);
-                            break;
-                        }
-                        case 0: {
-                            x1 = halfAALW + oXScale + yAxisView * ((Math.fround(rScale * specialPoint.y)) | 0);
-                            y1 = halfAALH + oYScale + zAxisView * ((Math.fround(rScale * specialPoint.z)) | 0);
-                            break;
-                        }
-                    }
-                    this.v.setColorVS$r$g$b$a(specialPoint.red, specialPoint.green, specialPoint.blue, 255);
-                    this.v.CWLine(preAntiAliasedContent, x1 - 6, y1 - 6, x1 + 6, y1 + 6, true);
-                    this.v.CWLine(preAntiAliasedContent, x1 + 6, y1 - 6, x1 - 6, y1 + 6, true);
-                }
-            }
-            this.v.setColorVS$r$g$b$a(255, 180, 180, 255);
-            cwWindow.renderingRequired = true;
-        }
-
         perspectiveProjection$() {
             CWSYSTEM.Debug.println("perspectiveProjection");
         }
@@ -802,7 +489,8 @@ var dsector;
                     cwWindow.dSecSpecialEffects.push(new dsector.DSecSpecialEffect(Renderer.tinyLensFlare(),
                         (x1 / cwWindow.antiAliasedLevel | 0) - (Renderer.tinyLensFlare().width / 2 | 0),
                         (y1 / cwWindow.antiAliasedLevel | 0) - (Renderer.tinyLensFlare().height / 2 | 0),
-                        ((Math.random()) * ((0.0 + (((ambiance - 3000.0)) / 3000.0))))));
+                        Math.random() * ((ambiance - 3000.0) / 3000.0)
+                    ));
                 }
             }
             cwWindow.renderingRequired = true;
@@ -862,7 +550,7 @@ var dsector;
          * @param {number} screenCenterX - The x-coordinate of the screen center.
          * @param {number} screenCenterY - The y-coordinate of the screen center.
          */
-        drawStarfield(screenData, antiAliasedLevel, matrix4f,
+        drawStarfield(screenData, antiAliasedLevel, transformationMatrix,
                       starCount, screenCenterX, screenCenterY) {
             const vectorInR3 = new dsector.VectorInR3(0.0, 0.0, 0.0);
             let cv = 1.0;
@@ -874,33 +562,37 @@ var dsector;
             } else if (screenCenterY < sdwCenter) {
                 cv *= Math.fround(screenCenterY / sdwCenter);
             }
+
+            const drawPixel = (x1, y1) => {
+                this.v.CWDrawPixelWithCropping(screenData, (x1 | 0) + 1, (y1 | 0));
+                this.v.CWDrawPixelWithCropping(screenData, (x1 | 0), (y1 | 0) + 1);
+                this.v.CWDrawPixelWithCropping(screenData, (x1 | 0) - 1, (y1 | 0));
+                this.v.CWDrawPixelWithCropping(screenData, (x1 | 0), (y1 | 0) - 1);
+            };
+
             for (let i = 0; i < this.starfield.numberOfStars; ++i) {
                 vectorInR3.x = this.starfield.star[i].x;
                 vectorInR3.y = this.starfield.star[i].y;
                 vectorInR3.z = this.starfield.star[i].z;
-                vectorInR3.transform(matrix4f);
+                vectorInR3.transform(transformationMatrix);
                 if (vectorInR3.z > 0.0) {
                     const dist = (Math.pow(i % 5, 2.8) | 0);
                     const x1 = Math.fround((vectorInR3.x / vectorInR3.z) * starCount + screenCenterX);
                     const y1 = Math.fround((vectorInR3.y / vectorInR3.z) * starCount + screenCenterY);
-                    this.v.setColorVS$r$g$b$a((((dist + Math.random() * 60.0) * cv) | 0),
-                        (((dist + Math.random() * 60.0) * cv) | 0), (((dist + Math.random() * 60.0) * cv) | 0), 255);
+                    const randomValue = Math.random() * 60.0;
+                    const colorValue = ((dist + randomValue) * cv) | 0;
+                    this.v.setColorVS$r$g$b$a(colorValue, colorValue, colorValue, 255);
                     if (antiAliasedLevel === 1) {
                         this.v.CWDrawPixelWithCropping(screenData, (x1 | 0), (y1 | 0));
                         if (this.starfield.twinkle[i] && Math.random() > 0.9) {
-                            this.v.setColorVS$r$g$b$a(((((dist / 3 | 0) + Math.random() * 30.0) * cv) | 0),
+                            this.v.setColorVS$r$g$b$a(
+                                ((((dist / 3 | 0) + Math.random() * 30.0) * cv) | 0),
                                 ((((dist / 3 | 0) + Math.random() * 30.0) * cv) | 0),
                                 ((((dist / 3 | 0) + Math.random() * 30.0) * cv) | 0), 255);
-                            this.v.CWDrawPixelWithCropping(screenData, (x1 | 0) + 1, (y1 | 0));
-                            this.v.CWDrawPixelWithCropping(screenData, (x1 | 0), (y1 | 0) + 1);
-                            this.v.CWDrawPixelWithCropping(screenData, (x1 | 0) - 1, (y1 | 0));
-                            this.v.CWDrawPixelWithCropping(screenData, (x1 | 0), (y1 | 0) - 1);
+                            //drawPixel(x1,y1);
                         }
                     } else {
-                        this.v.CWDrawPixelWithCropping(screenData, (x1 | 0) + 1, (y1 | 0));
-                        this.v.CWDrawPixelWithCropping(screenData, (x1 | 0), (y1 | 0) + 1);
-                        this.v.CWDrawPixelWithCropping(screenData, (x1 | 0) - 1, (y1 | 0));
-                        this.v.CWDrawPixelWithCropping(screenData, (x1 | 0), (y1 | 0) - 1);
+                        //drawPixel(x1,y1);
                         this.v.CWDrawPixelWithCropping(screenData, (x1 | 0) + 1, (y1 | 0) + 1);
                         this.v.CWDrawPixelWithCropping(screenData, (x1 | 0) + 1, (y1 | 0) - 1);
                         this.v.CWDrawPixelWithCropping(screenData, (x1 | 0) - 1, (y1 | 0) + 1);
@@ -916,6 +608,7 @@ var dsector;
                             this.v.CWDrawPixelWithCropping(screenData, (x1 | 0), (y1 | 0) - 2);
                         }
                     }
+                    drawPixel(x1,y1);
                 }
             }
         }
@@ -981,7 +674,7 @@ var dsector;
 
         flipCamera() {
             const matrix4f = new dsector.Matrix4f();
-            matrix4f.rotateY(3.1415927);
+            matrix4f.rotateY(Math.PI);
             dsector.DSReference.scene.cameraRotation.preMultiply(matrix4f);
             CWSYSTEM.Environment.perspectiveViewWindowsRequestedForUpdateNextCycle();
         }

@@ -184,13 +184,13 @@ var dsector;
                                 matrix4f = dsector.Matrix4f.rotationZMatrix(1.5707964);
                                 break;
                             case 2:
-                                matrix4f = dsector.Matrix4f.rotationZMatrix(3.1415927);
+                                matrix4f = dsector.Matrix4f.rotationZMatrix(Math.PI);
                                 break;
                             case 3:
                                 matrix4f = dsector.Matrix4f.rotationZMatrix(4.712389);
                         }
                     } else {
-                        matrix4f = dsector.Matrix4f.rotationZMatrix((Math.random() * 2.0 * 3.141592653589793));
+                        matrix4f = dsector.Matrix4f.rotationZMatrix((Math.random() * 2.0 * Math.PI));
                     }
                     const pModel = new dsector.PositionedModel(null, dsector.DSReference.modelLoader.getModel(modelName),
                         matrix4f, ran1, ran2, 4.0);

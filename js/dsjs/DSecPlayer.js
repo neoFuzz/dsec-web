@@ -846,7 +846,7 @@ var dsector;
                             ws.lifeSpanInMilliseconds = 4000;
                             ws.fire(this, this.x, this.y, 0.0, inr3, v);
                             ws.fire(this, this.x, this.y, 1.5707964, inr3, v);
-                            ws.fire(this, this.x, this.y, 3.1415927, inr3, v);
+                            ws.fire(this, this.x, this.y, Math.PI, inr3, v);
                             ws.fire(this, this.x, this.y, 4.712389, inr3, v);
                         }
                         ws = dsector.DSReference.preBuiltWeaponSpecifications.getPreBuiltSpecification(
@@ -863,7 +863,7 @@ var dsector;
                         ws.lifeSpanInMilliseconds = 2000 + ((Math.random() * 2000.0) | 0);
                         ws.fire(this, this.x, this.y, 0.0, inr3, (2.0 * v));
                         ws.fire(this, this.x, this.y, 1.5707964, inr3, (2.0 * v));
-                        ws.fire(this, this.x, this.y, 3.1415927, inr3, (2.0 * v));
+                        ws.fire(this, this.x, this.y, Math.PI, inr3, (2.0 * v));
                         ws.fire(this, this.x, this.y, 4.712389, inr3, (2.0 * v));
                     }
                     if (this.__hasLargerDeath) {

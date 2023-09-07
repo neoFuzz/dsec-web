@@ -221,7 +221,7 @@ var dsector;
                 amount = -1;
             }
             angle = Math.abs(atan - pAngle);
-            if (angle > 3.141592653589793) {
+            if (angle > Math.PI) {
                 amount = -amount;
                 angle = Math.fround(6.2831855 - angle);
             }
@@ -359,97 +359,97 @@ var dsector;
             switch (response) {
                 case 1:
                     return this.player.brain.closestObjectStrikingSensor(Math.fround(
-                            (this.player.robotSpecification.sensor1Angle * 3.1415927) / 180.0),
+                            (this.player.robotSpecification.sensor1Angle * Math.PI) / 180.0),
                         this.player.robotSpecification.sensor1Length, this.player.robotSpecification.sensor1Width,
                         this.player.robotSpecification.sensor1ParallelOffset,
                         this.player.robotSpecification.sensor1PerpendicularOffset);
                 case 2:
                     return this.player.brain.closestObjectStrikingSensor(Math.fround(
-                            (this.player.robotSpecification.sensor2Angle * 3.1415927) / 180.0),
+                            (this.player.robotSpecification.sensor2Angle * Math.PI/*Math.PI*/) / 180.0),
                         this.player.robotSpecification.sensor2Length, this.player.robotSpecification.sensor2Width,
                         this.player.robotSpecification.sensor2ParallelOffset,
                         this.player.robotSpecification.sensor2PerpendicularOffset);
                 case 3:
                     return this.player.brain.closestObjectStrikingSensor(Math.fround(
-                            (this.player.robotSpecification.sensor3Angle * 3.1415927) / 180.0),
+                            (this.player.robotSpecification.sensor3Angle * Math.PI) / 180.0),
                         this.player.robotSpecification.sensor3Length, this.player.robotSpecification.sensor3Width,
                         this.player.robotSpecification.sensor3ParallelOffset,
                         this.player.robotSpecification.sensor3PerpendicularOffset);
                 case 4:
                     return this.player.brain.closestObjectStrikingSensor(Math.fround(
-                            (this.player.robotSpecification.sensor4Angle * 3.1415927) / 180.0),
+                            (this.player.robotSpecification.sensor4Angle * Math.PI) / 180.0),
                         this.player.robotSpecification.sensor4Length, this.player.robotSpecification.sensor4Width,
                         this.player.robotSpecification.sensor4ParallelOffset,
                         this.player.robotSpecification.sensor4PerpendicularOffset);
                 case 5:
                     return this.player.brain.closestObjectStrikingSensor(Math.fround(
-                            (this.player.robotSpecification.sensor5Angle * 3.1415927) / 180.0),
+                            (this.player.robotSpecification.sensor5Angle * Math.PI) / 180.0),
                         this.player.robotSpecification.sensor5Length, this.player.robotSpecification.sensor5Width,
                         this.player.robotSpecification.sensor5ParallelOffset,
                         this.player.robotSpecification.sensor5PerpendicularOffset);
                 case 6:
                     return this.player.brain.closestObjectStrikingSensor(Math.fround(
-                            (this.player.robotSpecification.sensor6Angle * 3.1415927) / 180.0),
+                            (this.player.robotSpecification.sensor6Angle * Math.PI) / 180.0),
                         this.player.robotSpecification.sensor6Length, this.player.robotSpecification.sensor6Width,
                         this.player.robotSpecification.sensor6ParallelOffset,
                         this.player.robotSpecification.sensor6PerpendicularOffset);
                 case 7:
                     return this.player.brain.closestObjectStrikingSensor(Math.fround(
-                            (this.player.robotSpecification.sensor7Angle * 3.1415927) / 180.0),
+                            (this.player.robotSpecification.sensor7Angle * Math.PI) / 180.0),
                         this.player.robotSpecification.sensor7Length, this.player.robotSpecification.sensor7Width,
                         this.player.robotSpecification.sensor7ParallelOffset,
                         this.player.robotSpecification.sensor7PerpendicularOffset);
                 case 8:
                     return this.player.brain.closestObjectStrikingSensor(Math.fround(
-                            (this.player.robotSpecification.sensor8Angle * 3.1415927) / 180.0),
+                            (this.player.robotSpecification.sensor8Angle * Math.PI) / 180.0),
                         this.player.robotSpecification.sensor8Length, this.player.robotSpecification.sensor8Width,
                         this.player.robotSpecification.sensor8ParallelOffset,
                         this.player.robotSpecification.sensor8PerpendicularOffset);
                 case 9:
                     return this.player.brain.closestObjectStrikingSensor(Math.fround(
-                            (this.player.robotSpecification.sensor9Angle * 3.1415927) / 180.0),
+                            (this.player.robotSpecification.sensor9Angle * Math.PI) / 180.0),
                         this.player.robotSpecification.sensor9Length, this.player.robotSpecification.sensor9Width,
                         this.player.robotSpecification.sensor9ParallelOffset,
                         this.player.robotSpecification.sensor9PerpendicularOffset);
                 case 10:
                     return this.player.brain.closestObjectStrikingSensor(Math.fround(
-                            (this.player.robotSpecification.sensor10Angle * 3.1415927) / 180.0),
+                            (this.player.robotSpecification.sensor10Angle * Math.PI) / 180.0),
                         this.player.robotSpecification.sensor10Length, this.player.robotSpecification.sensor10Width,
                         this.player.robotSpecification.sensor10ParallelOffset,
                         this.player.robotSpecification.sensor10PerpendicularOffset);
                 case 11:
                     return this.player.brain.closestObjectStrikingSensor(Math.fround(
-                            (this.player.robotSpecification.sensor11Angle * 3.1415927) / 180.0),
+                            (this.player.robotSpecification.sensor11Angle * Math.PI) / 180.0),
                         this.player.robotSpecification.sensor11Length, this.player.robotSpecification.sensor11Width,
                         this.player.robotSpecification.sensor11ParallelOffset,
                         this.player.robotSpecification.sensor11PerpendicularOffset);
                 case 12:
                     return this.player.brain.closestObjectStrikingSensor(Math.fround(
-                            (this.player.robotSpecification.sensor12Angle * 3.1415927) / 180.0),
+                            (this.player.robotSpecification.sensor12Angle * Math.PI) / 180.0),
                         this.player.robotSpecification.sensor12Length, this.player.robotSpecification.sensor12Width,
                         this.player.robotSpecification.sensor12ParallelOffset,
                         this.player.robotSpecification.sensor12PerpendicularOffset);
                 case 13:
                     return this.player.brain.closestObjectStrikingSensor(Math.fround(
-                            (this.player.robotSpecification.sensor13Angle * 3.1415927) / 180.0),
+                            (this.player.robotSpecification.sensor13Angle * Math.PI) / 180.0),
                         this.player.robotSpecification.sensor13Length, this.player.robotSpecification.sensor13Width,
                         this.player.robotSpecification.sensor13ParallelOffset,
                         this.player.robotSpecification.sensor13PerpendicularOffset);
                 case 14:
                     return this.player.brain.closestObjectStrikingSensor(Math.fround(
-                            (this.player.robotSpecification.sensor14Angle * 3.1415927) / 180.0),
+                            (this.player.robotSpecification.sensor14Angle * Math.PI) / 180.0),
                         this.player.robotSpecification.sensor14Length, this.player.robotSpecification.sensor14Width,
                         this.player.robotSpecification.sensor14ParallelOffset,
                         this.player.robotSpecification.sensor14PerpendicularOffset);
                 case 15:
                     return this.player.brain.closestObjectStrikingSensor(Math.fround(
-                            (this.player.robotSpecification.sensor15Angle * 3.1415927) / 180.0),
+                            (this.player.robotSpecification.sensor15Angle * Math.PI) / 180.0),
                         this.player.robotSpecification.sensor15Length, this.player.robotSpecification.sensor15Width,
                         this.player.robotSpecification.sensor15ParallelOffset,
                         this.player.robotSpecification.sensor15PerpendicularOffset);
                 case 16:
                     return this.player.brain.closestObjectStrikingSensor(Math.fround(
-                            (this.player.robotSpecification.sensor16Angle * 3.1415927) / 180.0),
+                            (this.player.robotSpecification.sensor16Angle * Math.PI) / 180.0),
                         this.player.robotSpecification.sensor16Length, this.player.robotSpecification.sensor16Width,
                         this.player.robotSpecification.sensor16ParallelOffset,
                         this.player.robotSpecification.sensor16PerpendicularOffset);
