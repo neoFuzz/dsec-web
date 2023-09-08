@@ -247,7 +247,7 @@ var dsector;
                 let z1;
                 let arrayList;
                 let time;
-                switch ((dsector.DSecSetupWindow.cameraMode_$LI$())) { // TODO: Fix camera bugs
+                switch ((dsector.DSecSetupWindow.cameraMode_$LI$())) {
                     case 0:
                         vertex = this.getCameraOverheadPositionForClosestTankDisplay();
                         dsector.DSReference.scene.cameraRotation = dsector.Matrix4f.rotationXMatrix(Math.PI);

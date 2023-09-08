@@ -1,63 +1,37 @@
 var dsector;
 (function (dsector) {
+    /**
+     * Class representing a 4x4 matrix.
+     */
     class Matrix4f {
-        constructor(
-            element00, element10, element20, element30,
-            element01, element11, element21, element31,
-            element02, element12, element22, element32,
-            element03, element13, element23, element33
-        ) {
-            if (
-                typeof element00 === 'number' && typeof element10 === 'number' && typeof element20 === 'number' &&
-                typeof element30 === 'number' && typeof element01 === 'number' && typeof element11 === 'number' &&
-                typeof element21 === 'number' && typeof element31 === 'number' && typeof element02 === 'number' &&
-                typeof element12 === 'number' && typeof element22 === 'number' && typeof element32 === 'number' &&
-                typeof element03 === 'number' && typeof element13 === 'number' && typeof element23 === 'number' &&
-                typeof element33 === 'number'
-            ) {
-                this.element = [
-                    [element00, element10, element20, element30],
-                    [element01, element11, element21, element31],
-                    [element02, element12, element22, element32],
-                    [element03, element13, element23, element33]
-                ];
-            } else if (
-                element00 instanceof dsector.Matrix4f && element10 === undefined &&
-                element20 === undefined && element30 === undefined &&
-                element01 === undefined && element11 === undefined &&
-                element21 === undefined && element31 === undefined &&
-                element02 === undefined && element12 === undefined &&
-                element22 === undefined && element32 === undefined &&
-                element03 === undefined && element13 === undefined &&
-                element23 === undefined && element33 === undefined
-            ) {
-                const matrix4f = element00;
-                this.element = [
-                    matrix4f.element[0].slice(),
-                    matrix4f.element[1].slice(),
-                    matrix4f.element[2].slice(),
-                    matrix4f.element[3].slice()
-                ];
-            } else if (
-                element00 === undefined && element10 === undefined && element20 === undefined &&
-                element30 === undefined && element01 === undefined && element11 === undefined &&
-                element21 === undefined && element31 === undefined && element02 === undefined &&
-                element12 === undefined && element22 === undefined && element32 === undefined &&
-                element03 === undefined && element13 === undefined && element23 === undefined &&
-                element33 === undefined
-            ) {
-                this.element = [
-                    [0, 0, 0, 0],
-                    [0, 0, 0, 0],
-                    [0, 0, 0, 0],
-                    [0, 0, 0, 0]
-                ];
+        /**
+         * Create a 4x4 matrix.
+         * @param {...number} elements - The elements of the matrix. If 16 elements are provided, they are used to fill the matrix. If no elements are provided, a 4x4 zero matrix is created.
+         * @throws {Error} Will throw an error if the number of elements provided is not 0 or 16.
+         */
+        constructor(...elements) {
+            if (elements.length === 16) {
+                this.element = Array.from({length: 4}, () => Array.from({length: 4}, () => 0));
+                let index = 0;
+                for (let j = 0; j < 4; j++) {
+                    for (let i = 0; i < 4; i++) {
+                        this.element[i][j] = elements[index++];
+                    }
+                }
+            } else if (elements.length === 0) {
+                this.element = Array.from({length: 4}, () => Array.from({length: 4}, () => 0));
                 this.reset();
-            } else {
-                throw new Error('Invalid overload');
-            }
+            } else
+                throw new Error('invalid overload');
         }
 
+        /**
+         * Create a scale matrix.
+         * @param {number} e00 - The scale factor along the x-axis.
+         * @param {number} e11 - The scale factor along the y-axis.
+         * @param {number} e22 - The scale factor along the z-axis.
+         * @returns {Matrix4f} A new Matrix4f object representing a scale matrix.
+         */
         static scaleMatrix(e00, e11, e22) {
             const matrix4f = new Matrix4f();
             matrix4f.element[0][0] = e00;
@@ -66,6 +40,13 @@ var dsector;
             return matrix4f;
         }
 
+        /**
+         * Create a translation matrix.
+         * @param {number} e30 - The translation along the x-axis.
+         * @param {number} e31 - The translation along the y-axis.
+         * @param {number} e32 - The translation along the z-axis.
+         * @returns {Matrix4f} A new Matrix4f object representing a translation matrix.
+         */
         static translationMatrix(e30, e31, e32) {
             const matrix4f = new Matrix4f();
             matrix4f.element[3][0] = e30;
@@ -74,30 +55,52 @@ var dsector;
             return matrix4f;
         }
 
+        /**
+         * Create a rotation matrix around the x-axis.
+         * @param {number} rotateX - The angle of rotation in radians.
+         * @returns {Matrix4f} A new Matrix4f object representing a rotation matrix.
+         */
         static rotationXMatrix(rotateX) {
             const matrix4f = new Matrix4f();
             matrix4f.rotateX(rotateX);
             return matrix4f;
         }
 
+        /**
+         * Create a rotation matrix around the y-axis.
+         * @param {number} rotateY - The angle of rotation in radians.
+         * @returns {Matrix4f} A new Matrix4f object representing a rotation matrix.
+         */
         static rotationYMatrix(rotateY) {
             const matrix4f = new Matrix4f();
             matrix4f.rotateY(rotateY);
             return matrix4f;
         }
 
+        /**
+         * Create a rotation matrix around the z-axis.
+         * @param {number} rotateZ - The angle of rotation in radians.
+         * @returns {Matrix4f} A new Matrix4f object representing a rotation matrix.
+         */
         static rotationZMatrix(rotateZ) {
             const matrix4f = new Matrix4f();
             matrix4f.rotateZ(rotateZ);
             return matrix4f;
         }
 
+        /**
+         * Set the elements of this matrix to the elements of another matrix.
+         * @param {Matrix4f} matrix4f - The matrix to copy elements from.
+         */
         set(matrix4f) {
             for (let i = 0; i < 4; ++i) {
                 CWSYSTEM.CWUtils.copyArray(matrix4f.element[i], 0, this.element[i], 0, 4);
             }
         }
 
+        /**
+         * Fill the matrix with random elements.
+         */
         makeRandom() {
             for (let i = 0; i < 4; ++i) {
                 for (let j = 0; j < 4; ++j) {
@@ -106,166 +109,209 @@ var dsector;
             }
         }
 
+        /**
+         * Reset the matrix to the identity matrix.
+         */
         reset() {
             for (let i = 0; i < 4; ++i) {
-                this.element[i][i] = 1.0;
                 for (let j = 0; j < 4; ++j) {
-                    if (i !== j) {
-                        this.element[i][j] = 0.0;
-                    }
+                    this.element[i][j] = (i === j) ? 1.0 : 0.0;
                 }
             }
         }
 
+        /**
+         * Multiply this matrix by another matrix from the right.
+         * @param {Matrix4f} matrix4f - The matrix to multiply this matrix by.
+         */
         postMultiply(matrix4f) {
-            const element1 = this.element;
-            const m4fElement = matrix4f.element;
-            const result = [];
+            const matrixA = this.element;
+            const matrixB = matrix4f.element;
+            const resultMatrix = Array.from({length: 4}, () => Array.from({length: 4}, () => 0));
 
             for (let i = 0; i < 4; i++) {
-                const row = [];
                 for (let j = 0; j < 4; j++) {
-                    let sum = 0;
                     for (let k = 0; k < 4; k++) {
-                        sum += m4fElement[i][k] * element1[k][j];
+                        resultMatrix[i][j] += matrixB[i][k] * matrixA[k][j];
                     }
-                    row.push(Math.fround(sum));
+                    resultMatrix[i][j] = Math.fround(resultMatrix[i][j]);
                 }
-                result.push(row);
             }
-
-            for (let i = 0; i < 4; i++) {
-                CWSYSTEM.CWUtils.copyArray(result[i], 0, this.element[i], 0, 4);
+            for (let i = 0; i < 4; ++i) {
+                CWSYSTEM.CWUtils.copyArray(resultMatrix[i], 0, this.element[i], 0, 4);
             }
         }
 
-        preMultiply(var1) {
-            const element1 = var1.element;
-            const element2 = this.element;
-            const result = [];
+        /**
+         * Multiply this matrix by another matrix from the left.
+         * @param {Matrix4f} matrix4f - The matrix to multiply this matrix by.
+         */
+        preMultiply(matrix4f) {
+            const matrixA = this.element;
+            const matrixB = matrix4f.element;
+            const resultMatrix = Array.from(
+                {length: 4}, () => Array.from({length: 4}, () => 0)
+            );
+            resultMatrix[0][0] = Math.fround((((matrixA[0][0] * matrixB[0][0]) + (matrixA[0][1] * matrixB[1][0])) +
+                (matrixA[0][2] * matrixB[2][0])) + (matrixA[0][3] * matrixB[3][0]));
+            resultMatrix[0][1] = Math.fround((((matrixA[0][0] * matrixB[0][1]) + (matrixA[0][1] * matrixB[1][1])) +
+                (matrixA[0][2] * matrixB[2][1])) + (matrixA[0][3] * matrixB[3][1]));
+            resultMatrix[0][2] = Math.fround((((matrixA[0][0] * matrixB[0][2]) + (matrixA[0][1] * matrixB[1][2])) +
+                (matrixA[0][2] * matrixB[2][2])) + (matrixA[0][3] * matrixB[3][2]));
+            resultMatrix[0][3] = Math.fround((((matrixA[0][0] * matrixB[0][3]) + (matrixA[0][1] * matrixB[1][3])) +
+                (matrixA[0][2] * matrixB[2][3])) + (matrixA[0][3] * matrixB[3][3]));
+            resultMatrix[1][0] = Math.fround((((matrixA[1][0] * matrixB[0][0]) + (matrixA[1][1] * matrixB[1][0])) +
+                (matrixA[1][2] * matrixB[2][0])) + (matrixA[1][3] * matrixB[3][0]));
+            resultMatrix[1][1] = Math.fround((((matrixA[1][0] * matrixB[0][1]) + (matrixA[1][1] * matrixB[1][1])) +
+                (matrixA[1][2] * matrixB[2][1])) + (matrixA[1][3] * matrixB[3][1]));
+            resultMatrix[1][2] = Math.fround((((matrixA[1][0] * matrixB[0][2]) + (matrixA[1][1] * matrixB[1][2])) +
+                (matrixA[1][2] * matrixB[2][2])) + (matrixA[1][3] * matrixB[3][2]));
+            resultMatrix[1][3] = Math.fround((((matrixA[1][0] * matrixB[0][3]) + (matrixA[1][1] * matrixB[1][3])) +
+                (matrixA[1][2] * matrixB[2][3])) + (matrixA[1][3] * matrixB[3][3]));
+            resultMatrix[2][0] = Math.fround((((matrixA[2][0] * matrixB[0][0]) + (matrixA[2][1] * matrixB[1][0])) +
+                (matrixA[2][2] * matrixB[2][0])) + (matrixA[2][3] * matrixB[3][0]));
+            resultMatrix[2][1] = Math.fround((((matrixA[2][0] * matrixB[0][1]) + (matrixA[2][1] * matrixB[1][1])) +
+                (matrixA[2][2] * matrixB[2][1])) + (matrixA[2][3] * matrixB[3][1]));
+            resultMatrix[2][2] = Math.fround((((matrixA[2][0] * matrixB[0][2]) + (matrixA[2][1] * matrixB[1][2])) +
+                (matrixA[2][2] * matrixB[2][2])) + (matrixA[2][3] * matrixB[3][2]));
+            resultMatrix[2][3] = Math.fround((((matrixA[2][0] * matrixB[0][3]) + (matrixA[2][1] * matrixB[1][3])) +
+                (matrixA[2][2] * matrixB[2][3])) + (matrixA[2][3] * matrixB[3][3]));
+            resultMatrix[3][0] = Math.fround((((matrixA[3][0] * matrixB[0][0]) + (matrixA[3][1] * matrixB[1][0])) +
+                (matrixA[3][2] * matrixB[2][0])) + (matrixA[3][3] * matrixB[3][0]));
+            resultMatrix[3][1] = Math.fround((((matrixA[3][0] * matrixB[0][1]) + (matrixA[3][1] * matrixB[1][1])) +
+                (matrixA[3][2] * matrixB[2][1])) + (matrixA[3][3] * matrixB[3][1]));
+            resultMatrix[3][2] = Math.fround((((matrixA[3][0] * matrixB[0][2]) + (matrixA[3][1] * matrixB[1][2])) +
+                (matrixA[3][2] * matrixB[2][2])) + (matrixA[3][3] * matrixB[3][2]));
+            resultMatrix[3][3] = Math.fround((((matrixA[3][0] * matrixB[0][3]) + (matrixA[3][1] * matrixB[1][3])) +
+                (matrixA[3][2] * matrixB[2][3])) + (matrixA[3][3] * matrixB[3][3]));
 
-            for (let i = 0; i < 4; i++) {
-                const row = [];
-                for (let j = 0; j < 4; j++) {
-                    let sum = 0;
-                    for (let k = 0; k < 4; k++) {
-                        sum += element2[i][k] * element1[k][j];
-                    }
-                    row.push(Math.fround(sum));
-                }
-                result.push(row);
-            }
-
-            for (let i = 0; i < 4; i++) {
-                CWSYSTEM.CWUtils.copyArray(result[i], 0, this.element[i], 0, 4);
+            for (let i = 0; i < 4; ++i) {
+                CWSYSTEM.CWUtils.copyArray(resultMatrix[i], 0, this.element[i], 0, 4);
             }
         }
 
-
+        /**
+         * This function calculates the inverse of a square matrix.
+         * If the matrix is not square, the function will return undefined.
+         *
+         * @returns {Array} The inverse of the original matrix. If the original matrix is not square, returns undefined.
+         */
         inverse() {
-            const matrix = [
-                [this.element[0][0], this.element[1][0], this.element[2][0], this.element[3][0]],
-                [this.element[0][1], this.element[1][1], this.element[2][1], this.element[3][1]],
-                [this.element[0][2], this.element[1][2], this.element[2][2], this.element[3][2]],
-                [this.element[0][3], this.element[1][3], this.element[2][3], this.element[3][3]]
-            ];
-
-            // Calculate the determinant of the matrix
-            function determinant(matrix) {
-                const [
-                    [a, b, c, d],
-                    [e, f, g, h],
-                    [i, j, k, l],
-                    [m, n, o, p]
-                ] = matrix;
-
-                const kp_lo = k * p - l * o;
-                const jp_ln = j * p - l * n;
-                const jo_kn = j * o - k * n;
-                const ip_lm = i * p - l * m;
-                const io_km = i * o - k * m;
-                const in_jm = i * n - j * m;
-
-                return a * (f * kp_lo - g * jp_ln + h * jo_kn) -
-                    b * (e * kp_lo - g * ip_lm + h * io_km) +
-                    c * (e * jp_ln - f * ip_lm + h * in_jm) -
-                    d * (e * jo_kn - f * io_km + g * in_jm);
+            let matrixA = this.element;
+            //if the matrix isn't square: exit (error)
+            if (matrixA.length !== matrixA[0].length) {
+                return;
             }
 
-            // Calculate the adjugate of the matrix
-            function adjugate(matrix) {
-                const [
-                    [a, b, c, d],
-                    [e, f, g, h],
-                    [s, t, u, v],
-                    [w, x, y, z]
-                ] = matrix;
-
-                const uz_vy = u * z - v * y;
-                const tz_vx = t * z - v * x;
-                const ty_ux = t * y - u * x;
-                const sz_vw = s * z - v * w;
-                const sy_uw = s * y - u * w;
-                const sx_tw = s * x - t * w;
-
-                const a11 = f * uz_vy - g * tz_vx + h * ty_ux;
-                const a12 = -(e * uz_vy - g * sz_vw + h * sy_uw);
-                const a13 = e * tz_vx - f * sz_vw + h * sx_tw;
-                const a14 = -(e * ty_ux - f * sy_uw + g * sx_tw);
-                const a21 = -(b * uz_vy - c * tz_vx + d * ty_ux);
-                const a22 = a * uz_vy - c * sz_vw + d * sy_uw;
-                const a23 = -(a * tz_vx - b * sz_vw + d * sx_tw);
-                const a24 = a * ty_ux - b * sy_uw + d * sx_tw;
-                const a31 = b * g - c * f + d * e;
-                const a32 = -(a * g - c * d + d * b);
-                const a33 = a * f - b * d + d * a;
-                const a34 = -(a * e - b * c + d * a);
-                const a41 = -(b * ty_ux - c * sy_uw + d * sx_tw);
-                const a42 = a * ty_ux - b * sy_uw + d * sx_tw;
-                const a43 = -(a * tz_vx - b * sz_vw + d * sx_tw);
-                const a44 = a * tz_vx - b * sz_vw + d * ty_ux;
-
-                return [
-                    [a11, a21, a31, a41],
-                    [a12, a22, a32, a42],
-                    [a13, a23, a33, a43],
-                    [a14, a24, a34, a44]
-                ];
+            let i = 0, ii = 0, j = 0, dim = matrixA.length, e = 0, t = 0;
+            let resultMatrix = [], C = [];
+            for (i = 0; i < dim; i += 1) {
+                resultMatrix[resultMatrix.length] = [];
+                C[C.length] = [];
+                for (j = 0; j < dim; j += 1) {
+                    if (i === j) {
+                        resultMatrix[i][j] = 1;
+                    } else {
+                        resultMatrix[i][j] = 0;
+                    }
+                    C[i][j] = matrixA[i][j];
+                }
             }
+            for (i = 0; i < dim; i += 1) {
+                e = C[i][i];
+                if (e === 0) {
+                    for (ii = i + 1; ii < dim; ii += 1) {
+                        if (C[ii][i] !== 0) {
+                            for (j = 0; j < dim; j++) {
+                                e = C[i][j];
+                                C[i][j] = C[ii][j];
+                                C[ii][j] = e;
+                                e = resultMatrix[i][j];
+                                resultMatrix[i][j] = resultMatrix[ii][j];
+                                resultMatrix[ii][j] = e;
+                            }
+                            break;
+                        }
+                    }
+                    e = C[i][i];
+                    // If it's still 0, not invertible (error)
+                    if (e === 0) {
+                        return;
+                    }
+                }
+                for (j = 0; j < dim; j++) {
+                    C[i][j] = C[i][j] / e;
+                    resultMatrix[i][j] = resultMatrix[i][j] / e;
+                }
 
-            const det = determinant(matrix);
+                for (ii = 0; ii < dim; ii++) {
+                    if (ii === i) {
+                        continue;
+                    }
+                    e = C[ii][i];
 
-            if (det === 0) {
-                throw new Error('Matrix is not invertible');
+                    for (j = 0; j < dim; j++) {
+                        C[ii][j] -= e * C[i][j];
+                        resultMatrix[ii][j] -= e * resultMatrix[i][j];
+                    }
+                }
             }
-
-            const adj = adjugate(matrix);
-
-            return new Matrix4f(
-                adj[0][0], adj[0][1], adj[0][2], adj[0][3],
-                adj[1][0], adj[1][1], adj[1][2], adj[1][3],
-                adj[2][0], adj[2][1], adj[2][2], adj[2][3],
-                adj[3][0], adj[3][1], adj[3][2], adj[3][3]);
+            return new Matrix4f(resultMatrix[0][0], resultMatrix[1][0], resultMatrix[2][0], resultMatrix[3][0],
+                resultMatrix[0][1], resultMatrix[1][1], resultMatrix[2][1], resultMatrix[3][1],
+                resultMatrix[0][2], resultMatrix[1][2], resultMatrix[2][2], resultMatrix[3][2],
+                resultMatrix[0][3], resultMatrix[1][3], resultMatrix[2][3], resultMatrix[3][3]);
         }
 
+        /**
+         * This function scales the current matrix by the given factors along the x, y, and z axes.
+         * It pre-multiplies the current matrix by the scaling matrix and updates the current matrix.
+         *
+         * @param {number} e00 - The scaling factor along the x-axis.
+         * @param {number} e11 - The scaling factor along the y-axis.
+         * @param {number} e22 - The scaling factor along the z-axis.
+         * @returns {Matrix4f} The current matrix after scaling.
+         */
         scale(e00, e11, e22) {
             this.preMultiply(Matrix4f.scaleMatrix(e00, e11, e22));
             return this;
         }
 
+        /**
+         * This function translates the current matrix by the given distances along the x, y, and z axes.
+         * It pre-multiplies the current matrix by the translation matrix and updates the current matrix.
+         *
+         * @param {number} e30 - The distance to translate along the x-axis.
+         * @param {number} e31 - The distance to translate along the y-axis.
+         * @param {number} e32 - The distance to translate along the z-axis.
+         * @returns {Matrix4f} The current matrix after translation.
+         */
         translate(e30, e31, e32) {
             this.preMultiply(Matrix4f.translationMatrix(e30, e31, e32));
             return this;
         }
 
+        /**
+         * This function rotates the current matrix around the X-axis by the given angle.
+         * It pre-multiplies the current matrix by the rotation matrix and updates the current matrix.
+         *
+         * @param {number} x - The angle by which to rotate the matrix around the X-axis.
+         * @returns {Matrix4f} The current matrix after rotation.
+         */
         rotateX(x) {
             const sinV = Math.fround(Math.sin(x));
             const cosV = Math.fround(Math.cos(x));
-            this.rotateX$2v(sinV, cosV);
+            this.rotateX$ff(sinV, cosV);
             return this;
         }
 
-        rotateX$2v(start, end) {
+        /**
+         * This function is a helper function for rotateX. It creates a new rotation matrix and pre-multiplies it with the current matrix.
+         *
+         * @param {number} start - The sine of the angle by which to rotate the matrix.
+         * @param {number} end - The cosine of the angle by which to rotate the matrix.
+         * @returns {Matrix4f} The current matrix after rotation.
+         */
+        rotateX$ff(start, end) {
             const matrix4f = new Matrix4f();
             matrix4f.element[1][1] = end;
             matrix4f.element[2][2] = end;
@@ -275,14 +321,28 @@ var dsector;
             return this;
         }
 
+        /**
+         * This function rotates the current matrix around the Y-axis by the given angle.
+         * It pre-multiplies the current matrix by the rotation matrix and updates the current matrix.
+         *
+         * @param {number} rotateY - The angle by which to rotate the matrix around the Y-axis.
+         * @returns {Matrix4f} The current matrix after rotation.
+         */
         rotateY(rotateY) {
             const sin = Math.fround(Math.sin(rotateY));
             const cos = Math.fround(Math.cos(rotateY));
-            this.rotateY$2v(sin, cos);
+            this.rotateY$ff(sin, cos);
             return this;
         }
 
-        rotateY$2v(start, end) {
+        /**
+         * This function is a helper function for rotateY. It creates a new rotation matrix and pre-multiplies it with the current matrix.
+         *
+         * @param {number} start - The sine of the angle by which to rotate the matrix.
+         * @param {number} end - The cosine of the angle by which to rotate the matrix.
+         * @returns {Matrix4f} The current matrix after rotation.
+         */
+        rotateY$ff(start, end) {
             const matrix4f = new Matrix4f();
             matrix4f.element[0][0] = end;
             matrix4f.element[2][2] = end;
@@ -292,14 +352,27 @@ var dsector;
             return this;
         }
 
+        /**
+         * This function rotates the current matrix around the Z-axis by the given angle.
+         * It pre-multiplies the current matrix by the rotation matrix and updates the current matrix.
+         *
+         * @param {number} rotateZ - The angle by which to rotate the matrix around the Z-axis.
+         * @returns {Matrix4f} The current matrix after rotation.
+         */
         rotateZ(rotateZ) {
             const sin = Math.fround(Math.sin(rotateZ));
             const cos = Math.fround(Math.cos(rotateZ));
-            this.rotateZ$2v(sin, cos);
+            this.rotateZ$ff(sin, cos);
             return this;
         }
 
-        rotateZ$2v(start, end) {
+        /**
+         * This function is a helper function for rotateZ. It creates a new rotation matrix and pre-multiplies it with the current matrix.
+         *
+         * @param {number} start - The sine of the angle by which to rotate the matrix.
+         * @param {number} end - The cosine of the angle by which to rotate the matrix.
+         * @returns {Matrix4f} The current matrix after rotation. */
+        rotateZ$ff(start, end) {
             const matrix4f = new Matrix4f();
             matrix4f.element[0][0] = end;
             matrix4f.element[1][1] = end;
@@ -307,15 +380,6 @@ var dsector;
             matrix4f.element[0][1] = -start;
             this.preMultiply(matrix4f);
             return this;
-        }
-
-        print() {
-            let str = "";
-            for (let i = 0; i < 4; ++i) {
-                str += "\n" + this.element[3][i] + " " + this.element[2][i] + " " + this.element[1][i] +
-                    " " + this.element[0][i] + "\n";
-            }
-            return str;
         }
     }
 

@@ -581,14 +581,17 @@ var dsector;
                     const y1 = Math.fround((vectorInR3.y / vectorInR3.z) * starCount + screenCenterY);
                     const randomValue = Math.random() * 60.0;
                     const colorValue = ((dist + randomValue) * cv) | 0;
-                    this.v.setColorVS$r$g$b$a(colorValue, colorValue, colorValue, 255);
+                    const rr = Math.floor(Math.random() * (60 - 1)) + 1;
+                    const rb = Math.floor(Math.random() * (60 - 1)) + 1;
+                    const rg = Math.floor(Math.random() * (60 - 1)) + 1;
+                    this.v.setColorVS$r$g$b$a(colorValue + rr, colorValue + rg, colorValue + rb, 255);
                     if (antiAliasedLevel === 1) {
                         this.v.CWDrawPixelWithCropping(screenData, (x1 | 0), (y1 | 0));
                         if (this.starfield.twinkle[i] && Math.random() > 0.9) {
                             this.v.setColorVS$r$g$b$a(
-                                ((((dist / 3 | 0) + Math.random() * 30.0) * cv) | 0),
-                                ((((dist / 3 | 0) + Math.random() * 30.0) * cv) | 0),
-                                ((((dist / 3 | 0) + Math.random() * 30.0) * cv) | 0), 255);
+                                ((dist / 3 | 0) + Math.random() * 30.0) * cv,
+                                ((dist / 3 | 0) + Math.random() * 30.0) * cv,
+                                ((dist / 3 | 0) + Math.random() * 30.0) * cv, 255);
                             //drawPixel(x1,y1);
                         }
                     } else {
@@ -608,7 +611,7 @@ var dsector;
                             this.v.CWDrawPixelWithCropping(screenData, (x1 | 0), (y1 | 0) - 2);
                         }
                     }
-                    drawPixel(x1,y1);
+                    drawPixel(x1, y1);
                 }
             }
         }
@@ -757,20 +760,7 @@ var dsector;
             const height = screenData.height;
             if (this.zBuffer == null || (this.zBuffer != null &&
                 (this.zBuffer.length < height || this.zBuffer[0].length < width))) {
-                this.zBuffer = (function (dims) {
-                    let allocate = function (dims) {
-                        if (dims.length === 0) {
-                            return 0;
-                        } else {
-                            let array = [];
-                            for (let i = 0; i < dims[0]; i++) {
-                                array.push(allocate(dims.slice(1)));
-                            }
-                            return array;
-                        }
-                    };
-                    return allocate(dims);
-                })([height, width]);
+                this.zBuffer = Array.from({length: height}, () => new Array(width).fill(0));
             }
             const width2 = screenData.width;
             let height2 = screenData.height;
