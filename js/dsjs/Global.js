@@ -39,11 +39,23 @@ var CWSYSTEM;
             return Global.viewWindowMaxHeight;
         }
 
-        static initialize() {
-            Global.screenResolutionX = 800;//TODO: pull dynamically from page
+        static async initialize() {
+            Global.screenResolutionX = 800; // TODO: pull dynamically from page
             Global.screenResolutionY = 600;
             while (true) {
-                let maxMem = window.performance.memory.jsHeapSizeLimit;
+                let maxMem;
+                try { // TODO: Remove legacy memory check
+                    if (window.performance.memory === undefined) {
+                        // Firefox doesn't have window.performance. We need some value for memory calculation
+                        let ffMaxMem = await navigator.storage.estimate();
+                        maxMem = ffMaxMem.quota / 10;
+                    } else {
+                        // This works perfectly for Chromium browsers
+                        maxMem = window.performance.memory.jsHeapSizeLimit;
+                    }
+                } catch (e) {
+                    maxMem = 1073741824; // failsafe number of 1 GB
+                }
                 let pixelCount = Global.screenResolutionX * Global.screenResolutionY * 4 * (2 + Global.subFrames);
                 let maxMemRem = maxMem - 15728640;
                 maxMemRem -= pixelCount;
@@ -53,7 +65,7 @@ var CWSYSTEM;
                 } else {
                     Global.viewWindowMaxWidth = calculatedMem * 10 / 9;
                 }
-                if (calculatedMem * 9 / 10 >Global.screenResolutionY) {
+                if (calculatedMem * 9 / 10 > Global.screenResolutionY) {
                     Global.viewWindowMaxHeight = Global.screenResolutionY;
                 } else {
                     Global.viewWindowMaxHeight = calculatedMem * 9 / 10;
@@ -78,8 +90,8 @@ var CWSYSTEM;
         }
 
         static __static_initializer_0() {
-            let newColor = new CWSYSTEM.CWColor(55, 55, 55, 255).color;
-            Global.environmentBackgroundColor = newColor;//.color;
+            //let newColor = new CWSYSTEM.CWColor(55, 55, 55, 255).color;
+            Global.environmentBackgroundColor = new CWSYSTEM.CWColor(55, 55, 55, 255).color;
             Global.guidelineSelectRegionWidth = 8;
         }
 

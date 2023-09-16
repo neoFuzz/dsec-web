@@ -194,7 +194,7 @@ var dsector;
          * This function calculates the inverse of a square matrix.
          * If the matrix is not square, the function will return undefined.
          *
-         * @returns {Array} The inverse of the original matrix. If the original matrix is not square, returns undefined.
+         * @returns {Matrix4f} The inverse of the original matrix. If the original matrix is not square, returns undefined.
          */
         inverse() {
             let matrixA = this.element;
@@ -203,7 +203,7 @@ var dsector;
                 return;
             }
 
-            let i = 0, ii = 0, j = 0, dim = matrixA.length, e = 0, t = 0;
+            let i, ii = 0, j = 0, dim = matrixA.length, e = 0;
             let resultMatrix = [], C = [];
             for (i = 0; i < dim; i += 1) {
                 resultMatrix[resultMatrix.length] = [];
@@ -256,6 +256,8 @@ var dsector;
                     }
                 }
             }
+
+            // Return a new Matrix4f object using its specific format.
             return new Matrix4f(resultMatrix[0][0], resultMatrix[1][0], resultMatrix[2][0], resultMatrix[3][0],
                 resultMatrix[0][1], resultMatrix[1][1], resultMatrix[2][1], resultMatrix[3][1],
                 resultMatrix[0][2], resultMatrix[1][2], resultMatrix[2][2], resultMatrix[3][2],
