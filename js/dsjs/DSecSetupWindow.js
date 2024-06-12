@@ -11,7 +11,6 @@ var dsector;
             }
             this.savedX = -1;
             this.savedY = -1;
-            //this.startingCredits = 0;
             let dkblCount = 4;
             /* check for joysticks */
             try {
@@ -434,182 +433,25 @@ var dsector;
         }
 
         saveOptions() {
-            const strBuilder = {
-                str: "", toString: function () {
-                    return this.str;
-                }
-            };
+            let configString = `
+cameraMode=${DSecSetupWindow.cameraMode_$LI$()}
+showBackgrounds=${DSecSetupWindow.showBackgrounds}
+antialiasLevel=${DSecSetupWindow.antialiasLevel}
+soundMode=${DSecSetupWindow.soundMode}
+musicMode=${DSecSetupWindow.musicMode}
+startingCredits=${DSecSetupWindow.startingCredits}`;
 
-            (sb => {
-                sb.str += "\n";
-                return sb;
-            })((sb => {
-                sb.str += DSecSetupWindow.cameraMode_$LI$();
-                return sb;
-            })((sb => {
-                sb.str += "cameraMode=";
-                return sb;
-            })(strBuilder)));
-
-            (sb => {
-                sb.str += "\n";
-                return sb;
-            })((sb => {
-                sb.str += DSecSetupWindow.showBackgrounds;
-                return sb;
-            })((sb => {
-                sb.str += "showBackgrounds=";
-                return sb;
-            })(strBuilder)));
-
-            (sb => {
-                sb.str += "\n";
-                return sb;
-            })((sb => {
-                sb.str += DSecSetupWindow.antialiasLevel;
-                return sb;
-            })((sb => {
-                sb.str += "antialiasLevel=";
-                return sb;
-            })(strBuilder)));
-
-            (sb => {
-                sb.str += "\n";
-                return sb;
-            })((sb => {
-                sb.str += DSecSetupWindow.soundMode;
-                return sb;
-            })((sb => {
-                sb.str += "soundMode=";
-                return sb;
-            })(strBuilder)));
-
-            (sb => {
-                sb.str += "\n";
-                return sb;
-            })((sb => {
-                sb.str += DSecSetupWindow.musicMode;
-                return sb;
-            })((sb => {
-                sb.str += "musicMode=";
-                return sb;
-            })(strBuilder)));
-
-            (sb => {
-                sb.str += "\n";
-                return sb;
-            })((sb => {
-                sb.str += DSecSetupWindow.startingCredits;
-                return sb;
-            })((sb => {
-                sb.str += "startingCredits=";
-                return sb;
-            })(strBuilder)));
             for (let i = 0; i < 4; ++i) {
-
-                (sb => {
-                    sb.str += "\n";
-                    return sb;
-                })((sb => {
-                    sb.str += DSecSetupWindow.dsecKeyboardLayout[i].forwards;
-                    return sb;
-                })((sb => {
-                    sb.str += "Forwards=";
-                    return sb;
-                })((sb => {
-                    sb.str += i + 1;
-                    return sb;
-                })((sb => {
-                    sb.str += "keyboard";
-                    return sb;
-                })(strBuilder)))));
-
-                (sb => {
-                    sb.str += "\n";
-                    return sb;
-                })((sb => {
-                    sb.str += DSecSetupWindow.dsecKeyboardLayout[i].backwards;
-                    return sb;
-                })((sb => {
-                    sb.str += "Backwards=";
-                    return sb;
-                })((sb => {
-                    sb.str += i + 1;
-                    return sb;
-                })((sb => {
-                    sb.str += "keyboard";
-                    return sb;
-                })(strBuilder)))));
-
-                (sb => {
-                    sb.str += "\n";
-                    return sb;
-                })((sb => {
-                    sb.str += DSecSetupWindow.dsecKeyboardLayout[i].turnLeft;
-                    return sb;
-                })((sb => {
-                    sb.str += "TurnLeft=";
-                    return sb;
-                })((sb => {
-                    sb.str += i + 1;
-                    return sb;
-                })((sb => {
-                    sb.str += "keyboard";
-                    return sb;
-                })(strBuilder)))));
-
-                (sb => {
-                    sb.str += "\n";
-                    return sb;
-                })((sb => {
-                    sb.str += DSecSetupWindow.dsecKeyboardLayout[i].turnRight;
-                    return sb;
-                })((sb => {
-                    sb.str += "TurnRight=";
-                    return sb;
-                })((sb => {
-                    sb.str += i + 1;
-                    return sb;
-                })((sb => {
-                    sb.str += "keyboard";
-                    return sb;
-                })(strBuilder)))));
-
-                (sb => {
-                    sb.str += "\n";
-                    return sb;
-                })((sb => {
-                    sb.str += DSecSetupWindow.dsecKeyboardLayout[i].fireWeapon;
-                    return sb;
-                })((sb => {
-                    sb.str += "FireWeapon=";
-                    return sb;
-                })((sb => {
-                    sb.str += i + 1;
-                    return sb;
-                })((sb => {
-                    sb.str += "keyboard";
-                    return sb;
-                })(strBuilder)))));
-
-                (sb => {
-                    sb.str += "\n";
-                    return sb;
-                })((sb => {
-                    sb.str += DSecSetupWindow.dsecKeyboardLayout[i].changeWeapon;
-                    return sb;
-                })((sb => {
-                    sb.str += "ChangeWeapon=";
-                    return sb;
-                })((sb => {
-                    sb.str += i + 1;
-                    return sb;
-                })((sb => {
-                    sb.str += "keyboard";
-                    return sb;
-                })(strBuilder)))));
+                configString += `
+keyboard${i + 1}Forwards=${DSecSetupWindow.dsecKeyboardLayout[i].forwards}
+keyboard${i + 1}Backwards=${DSecSetupWindow.dsecKeyboardLayout[i].backwards}
+keyboard${i + 1}TurnLeft=${DSecSetupWindow.dsecKeyboardLayout[i].turnLeft}
+keyboard${i + 1}TurnRight=${DSecSetupWindow.dsecKeyboardLayout[i].turnRight}
+keyboard${i + 1}FireWeapon=${DSecSetupWindow.dsecKeyboardLayout[i].fireWeapon}
+keyboard${i + 1}ChangeWeapon=${DSecSetupWindow.dsecKeyboardLayout[i].changeWeapon}`;
             }
-            CWSYSTEM.CWFileTools.outputFile("config/dzsetup.cfg", strBuilder.toString());
+
+            CWSYSTEM.CWFileTools.outputFile("config/dzsetup.cfg", configString.trim());
         }
 
         loadOptions() {
@@ -617,87 +459,101 @@ var dsector;
             if (hashtable.hashMap === null) {
                 hashtable = null;
             }
-            let exceptionList = "";
+            let exceptionList = [];
             const x = [String.fromCharCode(10)];
             try {
                 DSecSetupWindow.cameraMode = parseInt(hashtable.get("cameraMode"));
             } catch (e) {
-                exceptionList += e + " : " + x;
+                exceptionList.push({"cameraMode": e.message});
             }
             try {
-                DSecSetupWindow.showBackgrounds = CWSYSTEM.CWStringTools.stringToBoolean(hashtable.get("showBackgrounds"));
+                DSecSetupWindow.showBackgrounds =
+                    CWSYSTEM.CWStringTools.stringToBoolean(hashtable.get("showBackgrounds"));
             } catch (e) {
-                exceptionList += e + " : " + x;
+                exceptionList.push({"showBackgrounds": e.message});
             }
             try {
                 DSecSetupWindow.antialiasLevel = parseInt(hashtable.get("antialiasLevel"));
             } catch (e) {
-                exceptionList += e + " : " + x;
+                exceptionList.push({"antialiasLevel": e.message});
             }
             try {
                 DSecSetupWindow.soundMode = parseInt(hashtable.get("soundMode"));
             } catch (e) {
-                exceptionList += e + " : " + x;
+                exceptionList.push({"soundMode": e.message});
             }
             try {
                 DSecSetupWindow.musicMode = parseInt(hashtable.get("musicMode"));
             } catch (e) {
-                exceptionList += e + " : " + x;
+                exceptionList.push({"musicMode": e.message});
             }
             try {
                 DSecSetupWindow.startingCredits = parseInt(hashtable.get("startingCredits"));
             } catch (e) {
-                exceptionList += e + " : " + x;
+                exceptionList.push({"startingCredits": e.message});
                 DSecSetupWindow.startingCredits = 0;
             }
-            if (!(exceptionList === (""))) {
-                CWSYSTEM.Debug.println("Exceptions thrown:\n" + exceptionList);
+
+            if (exceptionList.length > 0) {
+                CWSYSTEM.Debug.println("LO01: Exceptions thrown:\n" +
+                    JSON.stringify(exceptionList, null, 2) + "\nLO01: will try using defaults");
             }
-            exceptionList = "";
+
+            exceptionList = [];
             for (let i = 0; i < 4; ++i) {
                 try {
-                    DSecSetupWindow.dsecKeyboardLayout[i].forwards = parseInt(hashtable.get("keyboard" + (i + 1) + "Forwards"));
+                    DSecSetupWindow.dsecKeyboardLayout[i].forwards =
+                        parseInt(hashtable.get("keyboard" + (i + 1) + "Forwards"));
                 } catch (e) {
-                    exceptionList += e + " : \n";
-                    //console.error(e.message, e);
+                    exceptionList.push({[`keyboard${i + 1}Forwards`]: e.message});
                 }
                 try {
-                    DSecSetupWindow.dsecKeyboardLayout[i].backwards = parseInt(hashtable.get("keyboard" + (i + 1) + "Backwards"));
+                    DSecSetupWindow.dsecKeyboardLayout[i].backwards =
+                        parseInt(hashtable.get("keyboard" + (i + 1) + "Backwards"));
                 } catch (e) {
-                    exceptionList += e + " : \n";
+                    exceptionList.push({[`keyboard${i + 1}Backwards`]: e.message});
                 }
                 try {
-                    DSecSetupWindow.dsecKeyboardLayout[i].turnLeft = parseInt(hashtable.get("keyboard" + (i + 1) + "TurnLeft"));
+                    DSecSetupWindow.dsecKeyboardLayout[i].turnLeft =
+                        parseInt(hashtable.get("keyboard" + (i + 1) + "TurnLeft"));
                 } catch (e) {
-                    exceptionList += e + " : \n";
+                    exceptionList.push({[`keyboard${i + 1}TurnLeft`]: e.message});
                 }
                 try {
-                    DSecSetupWindow.dsecKeyboardLayout[i].turnRight = parseInt(hashtable.get("keyboard" + (i + 1) + "TurnRight"));
+                    DSecSetupWindow.dsecKeyboardLayout[i].turnRight =
+                        parseInt(hashtable.get("keyboard" + (i + 1) + "TurnRight"));
                 } catch (e) {
-                    exceptionList += e + " : \n";
+                    exceptionList.push({[`keyboard${i + 1}TurnRight`]: e.message});
                 }
                 try {
-                    DSecSetupWindow.dsecKeyboardLayout[i].fireWeapon = parseInt(hashtable.get("keyboard" + (i + 1) + "FireWeapon"));
+                    DSecSetupWindow.dsecKeyboardLayout[i].fireWeapon =
+                        parseInt(hashtable.get("keyboard" + (i + 1) + "FireWeapon"));
                 } catch (e) {
-                    exceptionList += e + " : \n";
+                    exceptionList.push({[`keyboard${i + 1}FireWeapon`]: e.message});
                 }
                 try {
-                    DSecSetupWindow.dsecKeyboardLayout[i].changeWeapon = parseInt(hashtable.get("keyboard" + (i + 1) + "ChangeWeapon"));
+                    DSecSetupWindow.dsecKeyboardLayout[i].changeWeapon =
+                        parseInt(hashtable.get("keyboard" + (i + 1) + "ChangeWeapon"));
                 } catch (e) {
-                    exceptionList += e + " : \n";
+                    exceptionList.push({[`keyboard${i + 1}ChangeWeapon`]: e.message});
                 }
             }
-            if (!(exceptionList === "")) {
-                CWSYSTEM.Debug.println("KB001: Exceptions thrown:\n" + exceptionList);
+
+            if (exceptionList.length > 0) {
+                CWSYSTEM.Debug.println("KB001: Exceptions thrown:\n" +
+                    JSON.stringify(exceptionList, null, 2) + "\nKB001: will use defaults...");
             }
         }
 
         /** @private */
         keyAlreadyUsed(keyDigit) {
             for (let i = 0; i < 4; ++i) {
-                if (DSecSetupWindow.dsecKeyboardLayout[i].forwards === keyDigit || DSecSetupWindow.dsecKeyboardLayout[i].backwards === keyDigit ||
-                    DSecSetupWindow.dsecKeyboardLayout[i].turnLeft === keyDigit || DSecSetupWindow.dsecKeyboardLayout[i].turnRight === keyDigit ||
-                    DSecSetupWindow.dsecKeyboardLayout[i].changeWeapon === keyDigit || DSecSetupWindow.dsecKeyboardLayout[i].fireWeapon === keyDigit) {
+                if (DSecSetupWindow.dsecKeyboardLayout[i].forwards === keyDigit ||
+                    DSecSetupWindow.dsecKeyboardLayout[i].backwards === keyDigit ||
+                    DSecSetupWindow.dsecKeyboardLayout[i].turnLeft === keyDigit ||
+                    DSecSetupWindow.dsecKeyboardLayout[i].turnRight === keyDigit ||
+                    DSecSetupWindow.dsecKeyboardLayout[i].changeWeapon === keyDigit ||
+                    DSecSetupWindow.dsecKeyboardLayout[i].fireWeapon === keyDigit) {
                     return true;
                 }
             }
