@@ -43,8 +43,8 @@ var CWSYSTEM;
                     // Load file
                     this.filedata = await CWSYSTEM.CWFileTools.readFileIDB(this.filename);
                 } catch (e) {
-                    //this.hashMap = null;
-                    console.error("RHF Error: " + e);
+                    this.hashMap = null;
+                    CWSYSTEM.Debug.error("RHF Error: " + e.message);
                     return;
                 }
             }
