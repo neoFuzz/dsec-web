@@ -1,5 +1,5 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: Deploy game content to webhost
 
 on:
   # Runs on pushes targeting the default branch
@@ -32,4 +32,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Deploy with rsync
-        run: rsync -avz ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/html/dsector/
+        run: rsync -avz ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/html/dsector/
