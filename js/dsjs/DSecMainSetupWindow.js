@@ -20,6 +20,8 @@ var dsector;
             }
             this.savedX = -1;
             this.savedY = -1;
+            this.hmPlayers = new CWSYSTEM.CWHashtable("config/players.cfg");
+            this.hmPlayers.readHashtableFromFile();
             CWSYSTEM.AlertManager.backgroundColor = new CWSYSTEM.CWColor(0, 0, 0, 180);
             CWSYSTEM.AlertManager.textColor = CWSYSTEM.CWColor.white_$LI$();
         }
@@ -381,36 +383,36 @@ var dsector;
 
         getDefaultNumberOfPlayers() {
             let playerCount = 4;
-            let hashmap = new CWSYSTEM.CWHashtable("config/players.cfg");
+            let hashmap = this.hmPlayers;
             //if (hashmap.hashMap.size === 0) {hashmap = null;}
             try {
                 playerCount = parseInt(hashmap.get("numberOfPlayers"));
             } catch (e) {
-                CWSYSTEM.Debug.println("Error GDNP: " + e.toString());
+                CWSYSTEM.Debug.println("Error GDNP: [" + e.message + "] using default");
             }
             return playerCount;
         }
 
         getDefaultPlayMode() {
             let mode = DSecMainSetupWindow.HOSTILE;
-            let hashMap = new CWSYSTEM.CWHashtable("config/players.cfg");
+            let hashMap = this.hmPlayers;
             //if (hashMap.hashMap.size === 0) {hashMap = null;}
             try {
                 mode = parseInt(hashMap.get("playMode"));
             } catch (e) {
-                CWSYSTEM.Debug.println("Error GDPM: " + e.toString());
+                CWSYSTEM.Debug.println("Error GDPM: [" + e.message + "] using default");
             }
             return mode;
         }
 
         getDefaultNumberOfRounds() {
             let rounds = 15;
-            let hashtable = new CWSYSTEM.CWHashtable("config/players.cfg");
+            let hashtable = this.hmPlayers;
             //if (hashtable.hashMap.size === 0) {hashtable = null;}
             try {
                 rounds = parseInt(hashtable.get("numberOfRounds"));
             } catch (e) {
-                CWSYSTEM.Debug.println("Error GDNR: " + e.toString());
+                CWSYSTEM.Debug.println("Error GDNR: [" + e.message + "] using default");
             }
             return rounds;
         }
@@ -418,14 +420,15 @@ var dsector;
         getDefaultPlayer(playerId) {
             let playerName = null;
             let type = null;
-            let hashMap = new CWSYSTEM.CWHashtable("config/players.cfg");
+            let hashMap = this.hmPlayers;
             let errorCodes = "";
             //if (hashMap.hashMap.size === 0) {hashMap = null;}
             try {
                 playerName = hashMap.get("player" + playerId + "Name");
-                //if (playerName === "undefined"){playerName = null;} // very JavaScript specific catch
+                if (playerName === "undefined"){playerName = "Player " + playerId} // very JavaScript specific catch
             } catch (e) {
-                errorCodes += "Error GDP1: " + e.toString() + "\n";
+                errorCodes += "Error GDP1: [" + e.message + "] using default\n";
+                playerName = "Player " + playerId;
             }
             try {
                 type = hashMap.get("player" + playerId + "Filename");
@@ -433,7 +436,7 @@ var dsector;
                     type = null;
                 }
             } catch (e) {
-                errorCodes += "Error GDP2: " + e.toString();
+                errorCodes += "Error GDP2: [" + e.message + "] using default";
             }
             CWSYSTEM.Debug.println(errorCodes);
             if (playerName == null) {
