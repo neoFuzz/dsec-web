@@ -1,5 +1,5 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Deploy game content to webhost
+name: Deploy Game to Web
 
 on:
   # Runs on pushes targeting the default branch
