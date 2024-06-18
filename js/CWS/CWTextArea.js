@@ -1,6 +1,21 @@
 var CWSYSTEM;
 (function (CWSYSTEM) {
+    /**
+     * Class representing a Canvas Window text area.
+     */
     class CWTextArea {
+        /**
+         * Create a text area.
+         * @param {Object} parent - The parent object.
+         * @param {number} index - The index of the text area.
+         * @param {string} name - The name of the text area.
+         * @param {number} x - The x coordinate of the text area.
+         * @param {number} y - The y coordinate of the text area.
+         * @param {number} width - The width of the text area.
+         * @param {number} numOfLines - The number of lines in the text area.
+         * @param {Object} font - The font used in the text area.
+         * @param {string} text - The initial text of the text area.
+         */
         constructor(parent, index, name, x, y, width, numOfLines, font, text) {
             if (this.parent === undefined) {
                 this.parent = null;
@@ -64,55 +79,96 @@ var CWSYSTEM;
             this.cursorPositionInText = 0;
         }
 
+        /**
+         * Deselects the currently selected text area.
+         */
         static deselectTextArea() {
             CWTextArea.__textAreaSelected = null;
         }
 
+        /**
+         * Selects a given text area.
+         * @param {CWTextArea} textArea - The text area to select.
+         */
         static selectTextArea(textArea) {
             CWTextArea.__textAreaSelected = textArea;
         }
 
+        /**
+         * Gets the currently selected text area.
+         * @returns {CWTextArea} The currently selected text area.
+         */
         static textAreaSelected() {
             return CWTextArea.__textAreaSelected;
         }
 
-        /** @private */
+        /**
+         * Gets the height of the font in pixels.
+         * @private
+         * @returns {number} The height of the font in pixels.
+         */
         fontHeight() {
             return CWSYSTEM.CWFontTools.textHeightInPixels("a", this.font);
         }
 
+        /**
+         * Resets the text in the text area.
+         */
         resetText() {
             this.text = "";
             this.cursorPositionInText = 0;
             this.draw();
         }
 
+        /**
+         * Gets the text in the text area.
+         * @returns {string} The text in the text area.
+         */
         getText() {
             return this.text;
         }
 
+        /**
+         * Sets the text in the text area.
+         * @param {string} text - The text to set.
+         */
         setText(text) {
             this.text = text;
             this.cursorPositionInText = text.length;
             this.draw();
         }
 
+        /**
+         * Gets the height of the text area.
+         * @returns {number} The height of the text area.
+         */
         height() {
             return this.fontHeight() * this.numberOfLines + 2 * this.border;
         }
 
-        /** @private */
+        /**
+         * Renders a test string in the text area.
+         * @private
+         * @param {string} text - The text to render.
+         */
         testRender(text) {
             CWSYSTEM.CWFontTools.renderText(null, text, this.parent.borderWidth + this.x + this.border,
                 this.parent.borderWidth + this.parent.__titleHeight + this.y + this.fontHeight() + this.border,
                 this.parent.v.serif8_font, this.parent.titleTextColor, this.width - 2 * this.border);
         }
 
+        /**
+         * Selects the text area at a given position.
+         * @param {number} x - The x coordinate.
+         * @param {number} y - The y coordinate.
+         */
         select(x, y) {
             CWSYSTEM.CWFontTools.CURSOR_POSITION_X_APPROX = x;
             CWSYSTEM.CWFontTools.CURSOR_POSITION_Y_APPROX = y;
             this.testRender(this.text);
-            this.cursorPositionInText = CWSYSTEM.CWFontTools.CURSOR_POSITION_IN_TEXT_FROM_APPROX_COORDS;
+            // Correctly set the cursor position for Unicode text
+            const approxPos = CWSYSTEM.CWFontTools.CURSOR_POSITION_IN_TEXT_FROM_APPROX_COORDS;
+            this.cursorPositionInText = Array.from(this.text).slice(0, approxPos).length;
             this.draw();
             const textArea = CWTextArea.textAreaSelected();
             CWTextArea.selectTextArea(this);
@@ -122,6 +178,9 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Deselects the text area.
+         */
         deselect() {
             if (this.deselectionCausesSubmit) {
                 this.submit();
@@ -130,7 +189,11 @@ var CWSYSTEM;
             this.parent.updated = false;
         }
 
-        /** @private */ informSuppliedObjectAboutNewTextAreaValue() {
+        /**
+         * Informs the supplied object about the new value of the text area.
+         * @private
+         */
+        informSuppliedObjectAboutNewTextAreaValue() {
             if (this.objectContainingTextAreaChangedMethod != null) {
                 const classes = [("").constructor, ("").constructor];
                 try {
@@ -143,19 +206,29 @@ var CWSYSTEM;
                     const objects = [this.name, this.text];
                     method.fn.apply(this.objectContainingTextAreaChangedMethod, [objects]);
                 } catch (e) {
-                    console.error("A problem occurred in CWWindow.informSuppliedObjectAboutNewTextAreaValue()for input box \'" + this.name + "\': " + e);
+                    console.error("A problem occurred in CWWindow.informSuppliedObjectAboutNewTextAreaValue() " +
+                        "for input box \'" + this.name + "\': " + e);
                 }
             }
         }
 
+        /**
+         * Adds a character to the text area.
+         * @param {string} character - The character to add.
+         */
         addCharacter(character) {
-            const fontCharacter = this.font.getCharacter("" + character);
+            const codePoint = character.codePointAt(0);
+            const charStr = String.fromCodePoint(codePoint);
+            const fontCharacter = this.font.getCharacter(charStr);
             if (fontCharacter !== this.font.symbolForNotFound()) {
-                const substr = this.text.substring(0, this.cursorPositionInText) + character + this.text.substring(this.cursorPositionInText);
-                this.testRender(this.textWithCursorAndEndMarkAdded(substr, this.cursorPositionInText + 1));
+                const beforeCursor = this.text.slice(0, this.cursorPositionInText);
+                const afterCursor = this.text.slice(this.cursorPositionInText);
+                const newText = beforeCursor + charStr + afterCursor;
+                this.testRender(this.textWithCursorAndEndMarkAdded(newText,
+                    this.cursorPositionInText + Array.from(charStr).length));
                 if (CWSYSTEM.CWFontTools.RENDERED_HEIGHT < this.height()) {
-                    this.text = substr;
-                    ++this.cursorPositionInText;
+                    this.text = newText;
+                    this.cursorPositionInText += Array.from(charStr).length; // Adjust cursor position correctly
                     this.draw();
                 }
                 this.parent.updated = false;
@@ -163,13 +236,18 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Handles the return key being typed.
+         */
         returnTyped() {
             if (this.numberOfLines !== 1 && !this.returnKeyCausesSubmit) {
-                const str = this.text.substring(0, this.cursorPositionInText) + '\n' + this.text.substring(this.cursorPositionInText);
-                this.testRender(this.textWithCursorAndEndMarkAdded(str, this.cursorPositionInText + 1));
+                const beforeCursor = this.text.slice(0, this.cursorPositionInText);
+                const afterCursor = this.text.slice(this.cursorPositionInText);
+                const newText = beforeCursor + '\n' + afterCursor;
+                this.testRender(this.textWithCursorAndEndMarkAdded(newText, this.cursorPositionInText + 1));
                 if (CWSYSTEM.CWFontTools.RENDERED_HEIGHT < this.height()) {
-                    this.text = str;
-                    ++this.cursorPositionInText;
+                    this.text = newText;
+                    this.cursorPositionInText += 1; // Adjust cursor position correctly
                     this.draw();
                 }
             } else {
@@ -179,6 +257,9 @@ var CWSYSTEM;
             this.informSuppliedObjectAboutNewTextAreaValue();
         }
 
+        /**
+         * Submits the text area.
+         */
         submit() {
             CWTextArea.__textAreaSelected = null;
             const classes = [this.constructor];
@@ -198,73 +279,123 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Handles the tab key being typed.
+         */
         tabTyped() {
             if (CWSYSTEM.Environment.shiftKeyPressed) {
-                this.parent.textArea[(this.index + this.parent.numberOfTextAreas - 1) % this.parent.numberOfTextAreas].select(0, 9999);
+                this.parent.textArea[(this.index + this.parent.numberOfTextAreas - 1) %
+                this.parent.numberOfTextAreas].select(0, 9999);
             } else {
                 this.parent.textArea[(this.index + 1) % this.parent.numberOfTextAreas].select(0, 9999);
             }
             this.informSuppliedObjectAboutNewTextAreaValue();
         }
 
+        /**
+         * Adds the cursor and end mark to the text.
+         * @param {string} text - The text to add the cursor and end mark to.
+         * @param {number} mark - The position of the mark.
+         * @returns {string} The text with the cursor and end mark added.
+         */
         textWithCursorAndEndMarkAdded(text, mark) {
             if (CWTextArea.textAreaSelected() === this) {
-                return text === ("") ? "\\C" + this.endMark : text.substring(0, mark) + "\\C" + text.substring(mark) + this.endMark;
+                return text === ("") ? "\\C" + this.endMark : Array.from(text).slice(0, mark).join('') +
+                    "\\C" + Array.from(text).slice(mark).join('') + this.endMark;
             } else {
                 return text;
             }
         }
 
+        /**
+         * Moves the cursor left.
+         */
         cursorLeft() {
-            --this.cursorPositionInText;
-            if (this.cursorPositionInText === -1) {
+            if (this.cursorPositionInText > 0) {
+                const codePointSize = Array.from(this.text.slice(0, this.cursorPositionInText)).pop().length;
+                this.cursorPositionInText -= codePointSize;
+            }
+            if (this.cursorPositionInText < 0) {
                 this.cursorPositionInText = 0;
             }
             this.parent.updated = false;
         }
 
+        /**
+         * Moves the cursor right.
+         */
         cursorRight() {
-            ++this.cursorPositionInText;
-            if (this.cursorPositionInText === this.text.length + 1) {
+            if (this.cursorPositionInText < this.text.length) {
+                const codePointSize = Array.from(this.text.slice(this.cursorPositionInText)).shift().length;
+                this.cursorPositionInText += codePointSize;
+            }
+            if (this.cursorPositionInText > this.text.length) {
                 this.cursorPositionInText = this.text.length;
             }
             this.parent.updated = false;
         }
 
+        /**
+         * Moves the cursor up.
+         */
         cursorUp() {
             this.select(this.cursorPixelPositionX, this.cursorPixelPositionY - this.fontHeight());
         }
 
+        /**
+         * Moves the cursor down.
+         */
         cursorDown() {
             this.select(this.cursorPixelPositionX, this.cursorPixelPositionY + this.fontHeight());
         }
 
+        /**
+         * Moves the cursor to the start of the line.
+         */
         cursorHome() {
             this.select(this.cursorPixelPositionX - 99999, this.cursorPixelPositionY);
         }
 
+        /**
+         * Moves the cursor to the end of the line.
+         */
         cursorEnd() {
             this.select(this.cursorPixelPositionX + 99999, this.cursorPixelPositionY);
         }
 
+        /**
+         * Moves the cursor up by one page.
+         */
         cursorPageUp() {
             this.select(0, -99999);
         }
 
+        /**
+         * Moves the cursor down by one page.
+         */
         cursorPageDown() {
             this.select(0, 99999);
         }
 
+        /**
+         * Deletes the character at the cursor position.
+         */
         deleteTyped() {
             if (this.cursorPositionInText !== this.text.length) {
-                this.text = this.text.substring(0, this.cursorPositionInText) +
-                    this.text.substring(this.cursorPositionInText + 1);
+                const codePointSize = Array.from(this.text.slice(
+                    this.cursorPositionInText, this.cursorPositionInText + 1)).length;
+                const beforeCursor = this.text.slice(0, this.cursorPositionInText);
+                const afterCursor = this.text.slice(this.cursorPositionInText + codePointSize);
+                this.text = beforeCursor + afterCursor;
                 this.draw();
                 this.parent.updated = false;
                 this.informSuppliedObjectAboutNewTextAreaValue();
             }
         }
 
+        /**
+         * Deletes the character before the cursor position.
+         */
         backSpaceTyped() {
             if (this.cursorPositionInText !== 0) {
                 this.cursorLeft();
@@ -272,6 +403,9 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Draws the text area.
+         */
         draw() {
             const vs = this.parent.v;
             vs.setColor$intCWColor(this.parent.titleTextColor);
@@ -284,7 +418,7 @@ var CWSYSTEM;
             vs.setColor$intCWColor(this.parent.titleTextColor);
             let text1 = this.text;
             if (this.passwordMode) {
-                text1 = CWSYSTEM.CWStringTools.stringRepeated("*", this.text.length);
+                text1 = CWSYSTEM.CWStringTools.stringRepeated("*", Array.from(this.text).length);
             }
             const endMark = this.textWithCursorAndEndMarkAdded(text1, this.cursorPositionInText);
             CWSYSTEM.CWFontTools.renderText(this.parent.window, endMark,

@@ -5,12 +5,13 @@ var CWSYSTEM;
             if (text == null) {
                 return 0;
             } else {
-                const charArray = (text).split('');
+                // Using Array.from to handle Unicode characters correctly
+                const charArray = Array.from(text);
                 let totalWidth = 0;
                 for (let index = 0; index < charArray.length; index++) {
                     let c = charArray[index];
                     {
-                        const character = font.getCharacter("" + c);
+                        const character = font.getCharacter(c);
                         totalWidth += character.width;
                     }
                 }
@@ -37,10 +38,11 @@ var CWSYSTEM;
                 if (text === ("")) {
                     text = " ";
                 }
-                const charArray = (text).split('');
+                // Using Array.from to handle Unicode characters correctly
+                const charArray = Array.from(text);
                 let textHeight = 0;
                 for (let i = 0; i < charArray.length; ++i) {
-                    const character = font.getCharacter("" + charArray[i]);
+                    const character = font.getCharacter(charArray[i]);
                     if (character.lineHeight > textHeight) {
                         textHeight = character.lineHeight;
                     }
@@ -51,31 +53,33 @@ var CWSYSTEM;
 
         static renderText(screenData, text, x, y, font, color, textWidth) {
             if (text != null) {
-                const charArray = (text).split('');
+                // Using Array.from to handle Unicode characters correctly
+                const charArray = Array.from(text);
                 let renderWidth = x;
                 const color1 = color.color;
                 const localY = y;
-                CWFontTools.RENDERED_WIDTH = 0;
-                CWFontTools.RENDERED_HEIGHT = 0;
+                CWFontTools.reinitialiseRenderingMetrics();
+
                 let bold = false;
                 let cursorPosition = 0;
-                let maxValue = 2147483647;
-                CWFontTools.CURSOR_POSITION_IN_TEXT_FROM_APPROX_COORDS = 0;
+                let maxValue = Number.MAX_SAFE_INTEGER;
+
                 for (let i = 0; i < charArray.length; ++i) {
-                    let character = font.getCharacter("" + charArray[i]);
+                    let character = font.getCharacter(charArray[i]);
                     let charHeight = character.height;
                     let charWidth = character.width;
                     let j;
-                    if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(charArray[i]) === ' '.charCodeAt(0)) {
+
+                    if (charArray[i] === ' ') {
                         let kerning = 0;
                         for (j = i + 1; j < charArray.length; ++j) {
-                            if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(charArray[j]) === '\\'.charCodeAt(0)) {
+                            if (charArray[j] === '\\') {
                                 ++j;
                             } else {
-                                if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(charArray[j]) === ' '.charCodeAt(0)) {
+                                if (charArray[j] === ' ') {
                                     break;
                                 }
-                                kerning += font.getCharacter("" + charArray[j]).width;
+                                kerning += font.getCharacter(charArray[j]).width;
                                 if (CWFontTools.BOLD) {
                                     ++kerning;
                                 }
@@ -92,12 +96,14 @@ var CWSYSTEM;
                             continue;
                         }
                     }
-                    if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(charArray[i]) === '\n'.charCodeAt(0)) {
+
+                    if (charArray[i] === '\n') {
                         renderWidth = x;
                         y += font.getCharacter("a").lineHeight + CWFontTools.ADDED_PIXEL_GAP_BETWEEN_LINES;
                         ++cursorPosition;
                     }
-                    if (charArray[i] === '\\' && i + 1 < charArray.length && charArray[i + 1] === 'C') {//if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(charArray[i]) === '\\'.charCodeAt(0) && i + 1 < charArray.length && (c => c.charCodeAt == null ? c : c.charCodeAt(0))(charArray[i + 1]) == 'C'.charCodeAt(0)) {
+
+                    if (charArray[i] === '\\' && i + 1 < charArray.length && charArray[i + 1] === 'C') {
                         ++i;
                         character = font.getCharacter("|");
                         charHeight = character.height;
@@ -105,43 +111,16 @@ var CWSYSTEM;
                         bold = true;
                         renderWidth -= (charWidth / 2 | 0);
                     }
+
                     if (!bold && renderWidth - x + charWidth > textWidth) {
                         renderWidth = x;
                         y += font.getCharacter("a").lineHeight + CWFontTools.ADDED_PIXEL_GAP_BETWEEN_LINES;
                     }
-                    if (CWFontTools.CURSOR_POSITION_Y_APPROX >= y - font.getCharacter("a").lineHeight && CWFontTools.CURSOR_POSITION_Y_APPROX <= y + 1) {
-                        if (CWFontTools.distance(CWFontTools.CURSOR_POSITION_X_APPROX, renderWidth) < maxValue) {
-                            CWFontTools.CURSOR_POSITION_IN_TEXT_FROM_APPROX_COORDS = cursorPosition;
-                            maxValue = CWFontTools.distance(CWFontTools.CURSOR_POSITION_X_APPROX, renderWidth);
-                        }
-                        if ((c => c.charCodeAt === null ? c : c.charCodeAt(0))(charArray[i]) !== '\n'.charCodeAt(0) && CWFontTools.distance(CWFontTools.CURSOR_POSITION_X_APPROX, renderWidth + charWidth) < maxValue) {
-                            CWFontTools.CURSOR_POSITION_IN_TEXT_FROM_APPROX_COORDS = cursorPosition + 1;
-                            maxValue = CWFontTools.distance(CWFontTools.CURSOR_POSITION_X_APPROX, renderWidth + charWidth);
-                        }
-                    }
-                    if ((c => c.charCodeAt === null ? c : c.charCodeAt(0))(charArray[i]) !== '\n'.charCodeAt(0)) {
-                        if (CWFontTools.CURSOR_POSITION_IN_TEXT === cursorPosition) {
-                            CWFontTools.LAST_CURSOR_X = renderWidth;
-                            CWFontTools.LAST_CURSOR_Y = y;
-                        }
-                        if (screenData != null) {
-                            try {
-                                const charBitmap = character.bitmap;
-                                for (j = 0; j < charHeight; ++j) {
-                                    for (let k = 0; k < charWidth; ++k) {
-                                        const charMap = charBitmap[j][k];
-                                        if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(charMap) === '1'.charCodeAt(0)) {
-                                            screenData.point[y - j][k + renderWidth] = color1;
-                                            if (CWFontTools.BOLD) {
-                                                screenData.point[y - j][k + renderWidth + 1] = color1;
-                                            }
-                                        }
-                                    }
-                                }
-                            } catch (e) {
-                                CWSYSTEM.Debug.println("Text rendering out of range in renderText().");
-                            }
-                        }
+
+                    this.updateCursorPositionAndDistance(charArray, i, cursorPosition, font, x, y, renderWidth, charWidth, maxValue);
+
+                    if (charArray[i] !== '\n') {
+                        this.renderCharacter(screenData, font, character, charArray, y, renderWidth, charHeight, charWidth, color1, i);
                         if (!bold) {
                             renderWidth += charWidth;
                             if (CWFontTools.BOLD) {
@@ -154,20 +133,67 @@ var CWSYSTEM;
                         }
                     }
                 }
-                CWSYSTEM.Environment.screenHasChanged = true;
-                CWFontTools.RENDERED_HEIGHT = y - localY + font.getCharacter("a").lineHeight;
-                if (renderWidth - x > CWFontTools.RENDERED_WIDTH) {
-                    CWFontTools.RENDERED_WIDTH = renderWidth - x;
-                }
-                if (CWFontTools.CURSOR_POSITION_Y_APPROX > y) {
+
+                this.finaliseRendering(y, localY, font, renderWidth, x, cursorPosition);
+            }
+        }
+
+        static reinitialiseRenderingMetrics() {
+            CWFontTools.RENDERED_WIDTH = 0;
+            CWFontTools.RENDERED_HEIGHT = 0;
+            CWFontTools.CURSOR_POSITION_IN_TEXT_FROM_APPROX_COORDS = 0;
+        }
+
+        static updateCursorPositionAndDistance(charArray, i, cursorPosition, font, x, y, renderWidth, charWidth, maxValue) {
+            if (CWFontTools.CURSOR_POSITION_Y_APPROX >= y - font.getCharacter("a").lineHeight &&
+                CWFontTools.CURSOR_POSITION_Y_APPROX <= y + 1) {
+                if (CWFontTools.distance(CWFontTools.CURSOR_POSITION_X_APPROX, renderWidth) < maxValue) {
                     CWFontTools.CURSOR_POSITION_IN_TEXT_FROM_APPROX_COORDS = cursorPosition;
+                    maxValue = CWFontTools.distance(CWFontTools.CURSOR_POSITION_X_APPROX, renderWidth);
                 }
+                if (charArray[i] !== '\n' &&
+                    CWFontTools.distance(CWFontTools.CURSOR_POSITION_X_APPROX, renderWidth + charWidth) < maxValue) {
+                    CWFontTools.CURSOR_POSITION_IN_TEXT_FROM_APPROX_COORDS = cursorPosition + 1;
+                    maxValue = CWFontTools.distance(CWFontTools.CURSOR_POSITION_X_APPROX, renderWidth + charWidth);
+                }
+            }
+        }
+
+        static renderCharacter(screenData, font, character, charArray, y, renderWidth, charHeight, charWidth, color1, i) {
+            if (screenData != null) {
+                try {
+                    const charBitmap = character.bitmap;
+                    for (let j = 0; j < charHeight; ++j) {
+                        for (let k = 0; k < charWidth; ++k) {
+                            const charMap = charBitmap[j][k];
+                            if (charMap === '1') {
+                                screenData.point[y - j][k + renderWidth] = color1;
+                                if (CWFontTools.BOLD) {
+                                    screenData.point[y - j][k + renderWidth + 1] = color1;
+                                }
+                            }
+                        }
+                    }
+                } catch (e) {
+                    CWSYSTEM.Debug.println("Text rendering out of range in renderText().");
+                }
+            }
+        }
+
+        static finaliseRendering(y, localY, font, renderWidth, x, cp) {
+            CWSYSTEM.Environment.screenHasChanged = true;
+            CWFontTools.RENDERED_HEIGHT = y - localY + font.getCharacter("a").lineHeight;
+            if (renderWidth - x > CWFontTools.RENDERED_WIDTH) {
+                CWFontTools.RENDERED_WIDTH = renderWidth - x;
+            }
+            if (CWFontTools.CURSOR_POSITION_Y_APPROX > y) {
+                CWFontTools.CURSOR_POSITION_IN_TEXT_FROM_APPROX_COORDS = cp;
             }
         }
 
         /** @private */
         static distance(point1, point2) {
-            return point1 > point2 ? point1 - point2 : point2 - point1;
+            return Math.abs(point1 - point2);
         }
     }
 

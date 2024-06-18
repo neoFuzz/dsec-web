@@ -1070,14 +1070,14 @@ var CWSYSTEM;
          * @param {number} y - The y-coordinate of the top-left corner of the rectangle.
          * @param {number} width - The width of the rectangle.
          * @param {number} height - The height of the rectangle.
-         * @param {CWSYSTEM.CWColor} cwColor - The starting color of the gradient.
-         * @param {CWSYSTEM.CWColor} cwColor2 - The ending color of the gradient.
+         * @param {CWColor} start - The starting color of the gradient.
+         * @param {CWColor} end - The ending color of the gradient.
          * @param {string} [gradientType='sine'] - The type of gradient. Valid values are 'sine' and 'linear'.
          *                                          Defaults to 'sine'.
          * @throws {Error} If an invalid gradient type is provided.
          */
         CWDrawFilledRectangleWithGradient(screenData, x, y, width, height,
-                                          cwColor, cwColor2, gradientType = 'sine') {
+                                          start, end, gradientType = 'sine') {
             CWSYSTEM.Environment.screenHasChanged = true;
             if (x > screenData.width - 1) {
                 x = screenData.width - 1;
@@ -1085,14 +1085,14 @@ var CWSYSTEM;
             if (y > screenData.height - 1) {
                 y = screenData.height - 1;
             }
-            const red = cwColor.red();
-            const green = cwColor.green();
-            const blue = cwColor.blue();
-            const alpha = cwColor.alpha();
-            const red2 = cwColor2.red();
-            const green2 = cwColor2.green();
-            const blue2 = cwColor2.blue();
-            const alpha2 = cwColor2.alpha();
+            const red = start.red();
+            const green = start.green();
+            const blue = start.blue();
+            const alpha = start.alpha();
+            const red2 = end.red();
+            const green2 = end.green();
+            const blue2 = end.blue();
+            const alpha2 = end.alpha();
             if (gradientType === 'sine') {
                 for (let i = y; i < y + height; ++i) {
                     const sin = Math.sin(Math.PI * ((i - y) / height));
@@ -1207,7 +1207,9 @@ var CWSYSTEM;
          * @param {Array|null} array - The array to store polygon information.
          * @returns {void}
          */
-        renderPolygon(screenData, buffer, colorA, v1x, v1y, v2x, v2y, v3x, v3y, bool, w0, h0, polygon, array) {
+        renderPolygon(screenData, buffer, colorA, v1x, v1y,
+                      v2x, v2y, v3x, v3y,
+                      bool, w0, h0, polygon, array) {
             let lastRow = screenData.height - 1;
             let decision = 0;
             const lastCol = w0 - 1;
