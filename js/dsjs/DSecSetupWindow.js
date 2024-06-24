@@ -359,7 +359,7 @@ var dsector;
             }
             const kbMsg = "Assigning different keys to each keyboard layout allows players to play from one computer" + " and share the same keyboard. External USB keyboards can be plugged in for greater comfort.";
             this.window.addTextBlock("", kbMsg, 10, 350, font, color, 420);
-            let button = null;
+            let button;
             button = this.window.addButton$name$x$y$len$h$text$t$r("", 394, 370, 40, 15, "Done", 9, 0);
             button.objectContainingButtonPressedMethod = this;
             button.buttonPressedMethodName = "doneButtonPressed";
@@ -444,9 +444,10 @@ keyboard${i + 1}ChangeWeapon=${DSecSetupWindow.dsecKeyboardLayout[i].changeWeapo
                 ht = null;
             }
             let exceptionList = [];
-            const x = [String.fromCharCode(10)];
+            //const x = [String.fromCharCode(10)];
             try {
                 DSecSetupWindow.cameraMode = parseInt(ht.get("cameraMode"));
+                //if(isNaN(DSecSetupWindow.cameraMode)){throw new DOMException("cameraError")}
             } catch (e) {
                 DSecSetupWindow.cameraMode = DSecSetupWindow.OVERHEAD;
                 exceptionList.push({"cameraMode": e.message});
