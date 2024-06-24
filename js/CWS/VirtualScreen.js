@@ -20,6 +20,7 @@ var CWSYSTEM;
             this.subFrameRefresh = false;
             this.serif8_font = new CWSYSTEM.CWFont("assets/fonts/serif8.jcf");
             this.serif11_font = new CWSYSTEM.CWFont("assets/fonts/serif11.jcf");
+            this.small_font = new CWSYSTEM.CWFont("assets/fonts/sans8.jcf");
             this.jcsmallfixed_font = new CWSYSTEM.CWFont("assets/fonts/jcsmallfixed.jcf");
             this.physicalWidth = CWSYSTEM.Global.screenResolutionX_$LI$();
             this.physicalHeight = CWSYSTEM.Global.screenResolutionY_$LI$();
@@ -941,7 +942,7 @@ var CWSYSTEM;
                         z7 = 0;
                     }
                     if (!mode2) {
-                        const character = CWSYSTEM.CWFont_SmallFont.getCharacter(c);
+                        const character = CWSYSTEM.CWSReference.virtualScreen.getCharacter(c);
                         for (let j = 0; j < spacing; ++j) {
                             if ((c => c.charCodeAt === null ? c :
                                 c.charCodeAt(0))(character.charAt(j)) === '1'.charCodeAt(0)) {
@@ -976,22 +977,22 @@ var CWSYSTEM;
             return yy5;
         }
 
-        drawStringDoubleSize(screenData, s, n, n2) {
+        drawStringDoubleSize(sd, t, x, y) {
             CWSYSTEM.Environment.screenHasChanged = true;
-            const n3 = 35;
-            const charArray = (s.toUpperCase()).split('');
-            const length = s.length;
+            const bitmapLength = 35;
+            const charArray = (t.toUpperCase()).split('');
+            const length = t.length;
             const n4 = 0;
             let n5 = 0;
             const n6 = 1;
             for (let i = 0; i < length; ++i) {
-                const character = CWSYSTEM.CWFont_SmallFont.getCharacter(charArray[i]);
-                for (let j = 0; j < n3; ++j) {
+                const character = this.small_font.getCharacter(charArray[i]).getCharacterReversed();
+                for (let j = 0; j < bitmapLength; ++j) {
                     if ((c => c.charCodeAt === null ? c :
                         c.charCodeAt(0))(character.charAt(j)) === '1'.charCodeAt(0)) {
                         for (let k = 0; k < n6; ++k) {
-                            this.CWDrawRectangleWithCropping(screenData, n + (j % 5 + n5 + k) * 2,
-                                n2 + (7 + (j / 5 | 0) + n4 * 10) * 2, 2, 2);
+                            this.CWDrawRectangleWithCropping(sd, x + (j % 5 + n5 + k) * 2,
+                                y + (7 + (j / 5 | 0) + n4 * 10) * 2, 2, 2);
                         }
                     }
                 }

@@ -47,7 +47,7 @@ var CWSYSTEM;
         }
 
         addCharacter(character) {
-            if (CWSYSTEM.CWFont_SmallFont.characterExists(character)) {
+            if (CWSYSTEM.CWSReference.virtualScreen.small_font.characterExists(character)) {
                 if ((this.text.length + 2) * 6 <= this.length - 4) {
                     const charString = "" + character;
                     this.text = this.text.concat(charString);
