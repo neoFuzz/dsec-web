@@ -954,7 +954,7 @@ Example to show the creating an image in a ImageData buffer<br>
         repaint() {
             let canvas = document.getElementById("3dSpace");
             let ctx = canvas.getContext("2d");
-            ctx.putImageData(dsector.DSReference.dsMain.bi, 0, 0);
+            ctx.putImageData(dsector.DSReference.virtualScreen.bi, 0, 0);
         }
 
         eventMouse() {

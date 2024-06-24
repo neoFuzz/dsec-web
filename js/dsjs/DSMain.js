@@ -2,12 +2,6 @@ var dsector;
 (function (dsector) {
     class DSMain {
         constructor() {
-            if (this.bi === undefined) {
-                let bix = 800; // TODO: get this to be read from the HTML page
-                let biy = 600;
-                this.bi = document.querySelector(
-                    "canvas").getContext("2d").createImageData((parseInt(bix)), (parseInt(biy)));
-            }
             this.userIOBuffer = new dsector.UserIOBuffer();
             CWSYSTEM.Global.graphicsInitialized = false;
             this.interval = null;
@@ -69,28 +63,16 @@ var dsector;
         repaint() {
             let canvas = document.getElementById("3dSpace");
             let ctx = canvas.getContext("2d");
-            ctx.putImageData(dsector.DSReference.dsMain.bi, 0, 0);
+            ctx.putImageData(dsector.DSReference.virtualScreen.bi, 0, 0);
         }
 
         begin() {
             dsector.DSReference.dsecSetupWindow = new dsector.DSecSetupWindow();
             CWSYSTEM.Global.graphicsInitialized = true;
-            dsector.DSReference.virtualScreen.update();
+            CWSYSTEM.CWSReference.virtualScreen.update();
             if (DSMain.discordEnabled) {
                 console.log("Discord Integration Enabled");
             }
-            /* possibly needs to be adapted from Java ***
-            var actionListener = new ActionListener() {
-                function actionPerformed(ActionEvent actionEvent) {
-                    if (DSReference.virtualScreen != null) {
-                        if (Environment.currentTime() - DSMain.mainLoopStartTime > 3000L) {
-                            DSMain.waitMessageBeingDisplayed = true;
-                            DSReference.virtualScreen.displayWaitPleaseWaitMessage();
-                        } else if (DSMain.waitMessageBeingDisplayed) {
-                            DSMain.waitMessageBeingDisplayed = false;
-                            DSReference.virtualScreen.removeWaitPleaseWaitMessage();
-                        }}}};
-            (new Timer(1500, actionListener)).start();*/
         }
 
         /** @public */

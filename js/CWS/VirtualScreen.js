@@ -2,6 +2,12 @@ var CWSYSTEM;
 (function (CWSYSTEM) {
     class VirtualScreen {
         constructor() {
+            if (this.bi === undefined) {
+                let bix = 800; // TODO: get this to be read from the HTML page
+                let biy = 600;
+                this.bi = document.querySelector(
+                    "canvas").getContext("2d").createImageData((parseInt(bix)), (parseInt(biy)));
+            }
             this.background = null;
             this.subFrame = null;
             this.actualScreen = null;
@@ -160,7 +166,7 @@ var CWSYSTEM;
                 this.createSubFrame(dsector.DSReference.gui);
                 this.createActualScreen();
                 if (this.subFrameCount === 0) {
-                    this.updatePhysicalScreen(dsector.DSReference.dsMain.bi);
+                    this.updatePhysicalScreen(this.bi);
                 }
                 if (dsector.DSReference.virtualScreen.subFrameCount === 0) {
                     this.repaint();
@@ -173,7 +179,7 @@ var CWSYSTEM;
         repaint() {
             let canvas = document.getElementById("3dSpace");
             let ctx = canvas.getContext("2d");
-            ctx.putImageData(dsector.DSReference.dsMain.bi, 0, 0);
+            ctx.putImageData(this.bi, 0, 0);
         }
 
         paint(graphics) {
@@ -195,7 +201,7 @@ var CWSYSTEM;
                     this.createActualScreen();
                 }
             } while ((this.subFrameCount !== 0));
-            this.updatePhysicalScreen(dsector.DSReference.dsMain.bi);
+            this.updatePhysicalScreen(this.bi);
             this.virtualScreenInUse = false;
         }
 
@@ -823,7 +829,7 @@ var CWSYSTEM;
                     imageData[n++] = this.actualScreen.point[i][j];
                 }
             }
-            dsMain.bi = CWSYSTEM.CWGraphics.convertScreenDataToBufferedImage(this.actualScreen);
+            this.bi = CWSYSTEM.CWGraphics.convertScreenDataToBufferedImage(this.actualScreen);
             if (this.__renderPleaseWaitMessage) {
                 this.renderPleaseWaitMessage();
             }
@@ -845,7 +851,7 @@ var CWSYSTEM;
             this.__renderPleaseWaitMessage = false;
             let spinner = document.getElementById('loading-spinner');
             spinner.hidden = true;
-            this.updatePhysicalScreen(dsector.DSReference.dsMain.bi);
+            this.updatePhysicalScreen(this.bi);
         }
 
         drawString$n$s$n2$n3(x, s, pad, y) {
