@@ -1,13 +1,19 @@
 var CWSYSTEM;
 (function (CWSYSTEM) {
-    /** AlertManager Class for managing alerts generated from the program. */
+    /**
+     * Represents an alert management system for handling and displaying alert messages within the application.
+     * It manages a queue of messages and displays them one at a time in a dedicated alert window.
+     */
     class AlertManager {
         constructor() {
             this.messageQueue = ([]);
         }
 
-        /** Erases the queue and puts `msg` in as the first message in the queue.
-         * @param {string} msg
+        /**
+         * Initializes the message queue to an empty array and adds the provided message as the first item.
+         * This method is intended to be called when a new message needs to be prominently displayed,
+         * clearing any previous messages.
+         * @param {string} msg - The message to be added to the queue.
          */
         message(msg) {
             this.messageQueue = ([]);
@@ -47,8 +53,19 @@ var CWSYSTEM;
         }
     }
 
+    /**
+     * Current alert window instance
+     * @type {CWSYSTEM.AlertWindow | null}
+     */
     AlertManager.alertWindow = null;
+    /**
+     * Background color for the alert window
+     * @type {CWSYSTEM.CWColor | null} */
     AlertManager.backgroundColor = null;
+    /**
+     * Text color for the alert message
+     * @type {CWSYSTEM.CWColor | null}
+     */
     AlertManager.textColor = null;
     CWSYSTEM.AlertManager = AlertManager;
     AlertManager["__class"] = "CWSYSTEM.AlertManager";

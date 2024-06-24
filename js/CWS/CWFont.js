@@ -1,31 +1,60 @@
 /* Re-written from Java */
 var CWSYSTEM;
 (function (CWSYSTEM) {
+    /**
+     * This class is responsible for loading and managing font data.
+     * @class
+     */
     class CWFont {
+        /**
+         * Represents a font that can be used to render text on the screen.
+         * @param {string} str - The path to the font file.
+         */
         constructor(str) {
             this.characters = new Map();
+            this.rows = 7;
+            this.cols = 5;
+            this.defaultSpacing = 6;
+            this.defaultHeight = 10;
+            this.badCharacter = "111101111";
             this.loadFont(str);
         }
 
-        getCharacter(character) {
-            const cwCharacter = this.characters.get(character);
-            return cwCharacter != null ? cwCharacter : this.symbolForNotFound();
+        /**
+         * Retrieves a character from the font.
+         * @param {string} char - The character to retrieve.
+         * @returns {CWCharacter|null} The CWCharacter object for the specified character, or null if not found.
+         */
+        getCharacter(char) {
+            const cwChar = this.characters.get(char);
+            return cwChar != null ? cwChar : this.symbolForNotFound();
         }
 
+        /**
+         * Provides a default symbol for characters that are not found in the font.
+         * @returns {CWCharacter} The CWCharacter object for the default symbol.
+         */
         symbolForNotFound() {
             return this.characters.get("null");
         }
 
+        /**
+         * Checks if the font is not installed.
+         * @returns {boolean} True if the font is not installed, false otherwise.
+         */
         notInstalled() {
             return this.characters == null;
         }
 
-        /** Load font files in to memory.
-         *
+        /**
+         * Loads the font data from a file.
+         * <p>
          * **NOTE:** font file line ending should be in Unix format and the last character in the file must be a '.' period.
          * Check there is not a 'new line' at the end of the file as this causes an error and the file will not load.
          * @param {URL} fileName URL to load the file from
-         * */
+         * @async
+         * @returns {Promise<void>} A promise that resolves when the font is loaded.
+         */
         async loadFont(fileName) {
             const bytea = 32;
             const chars = (function (dims) {
@@ -136,6 +165,11 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Tests the font by rendering specified characters.
+         * @param {string} args - A string containing characters to test.
+         * @returns {number} 1 if an error occurred, otherwise 0.
+         */
         fontTest(args) {
             args = args.split(" ");
             if (args.length < 2) {

@@ -119,7 +119,7 @@ var dsector;
         }
 
         process() {
-            dsector.DSReference.virtualScreen.cancelOption = false;
+            CWSYSTEM.CWSReference.virtualScreen.cancelOption = false;
             CWSYSTEM.Environment.ESCKeyPressedDuringThisCycle = false;
             while (!(this.instructions.length === 0)) {
                 const ioInstruction = this.instructions[0];

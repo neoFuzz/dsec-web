@@ -1,6 +1,19 @@
 var CWSYSTEM;
 (function (CWSYSTEM) {
+    /**
+     * Class representing an image.
+     * @memberof CWSYSTEM
+     */
     class CWImage {
+        /**
+         * Create a CWImage.
+         * @param {Object} parent - The parent object.
+         * @param {string} nameID - The ID of the image.
+         * @param {number} x - The x-coordinate of the image.
+         * @param {number} y - The y-coordinate of the image.
+         * @param {string} filePath - The file path of the image.
+         * @param {string} transparentColor - The transparent color of the image.
+         */
         constructor(parent, nameID, x, y, filePath, transparentColor) {
             if (this.parent === undefined) {
                 this.parent = null;
@@ -28,6 +41,15 @@ var CWSYSTEM;
             this.transparentColor = transparentColor;
         }
 
+        /**
+         * Draws an image using color-derived transparency.
+         * @param {string} filename - The name of the file.
+         * @param {Array} arrPoints - The array of points.
+         * @param {number} chosenA - The chosen A coordinate.
+         * @param {number} chosenB - The chosen B coordinate.
+         * @param {string} inColor - The input color.
+         * @param {number} scaleFlt - The scale factor.
+         */
         static drawUsingColorDerivedTransparency(filename, arrPoints, chosenA, chosenB, inColor, scaleFlt) {
             const screenData = (new CWSYSTEM.CWGraphics()).getJPG(filename);
             if (screenData != null) {
@@ -74,6 +96,14 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Draws an image using brightness overlay.
+         * @param {Object} screenData - The screen data.
+         * @param {Array} points - The array of points.
+         * @param {number} x - The x-coordinate.
+         * @param {number} y - The y-coordinate.
+         * @param {number} multi - The multiplier.
+         */
         static drawUsingBrightnessOverlay(screenData, points, x, y, multi) {
             if (screenData != null) {
                 const color1 = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.transparentBlack_$LI$());
@@ -97,6 +127,18 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Draws an image using brightness overlay with cropping.
+         * @param {Object} screenData - The screen data.
+         * @param {Array} points - The array of points.
+         * @param {number} x - The x-coordinate.
+         * @param {number} y - The y-coordinate.
+         * @param {number} multiplier - The multiplier.
+         * @param {number} minX - The minimum x-coordinate.
+         * @param {number} minY - The minimum y-coordinate.
+         * @param {number} maxX - The maximum x-coordinate.
+         * @param {number} maxY - The maximum y-coordinate.
+         */
         static drawUsingBrightnessOverlayWithCropping(screenData, points, x, y, multiplier, minX, minY, maxX, maxY) {
             if (screenData != null) {
                 const color1 = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.transparentBlack_$LI$());
@@ -130,6 +172,13 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Overlays colors with aesthetic saturation.
+         * @param {Object} color1 - The first color.
+         * @param {Object} color2 - The second color.
+         * @param {Object} color3 - The resulting color.
+         * @param {number} multiplier - The multiplier.
+         */
         static overlayColorsWithAestheticSaturation(color1, color2, color3, multiplier) {
             let calcColor1 = (color1.red() + (multiplier * color2.red()));
             let calcColor2 = (color1.green() + (multiplier * color2.green()));
@@ -210,6 +259,9 @@ var CWSYSTEM;
             color3.setColor$rgba((calcColor1 | 0), (calcColor2 | 0), (calcColor3 | 0), 255);
         }
 
+        /**
+         * Draws the CWImage.
+         */
         draw() {
             CWImage.drawUsingColorDerivedTransparency(this.filepath, this.parent.window.point,
                 this.x, this.y, this.transparentColor, 3.0);

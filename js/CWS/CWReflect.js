@@ -1,13 +1,18 @@
 /* Re-written from Java */
 var CWSYSTEM;
 (function (CWSYSTEM) {
-    /** Utility class for reflecting on objects and retrieving methods dynamically.
-     * @class */
+    /**
+     * Utility class for reflecting on objects and retrieving methods dynamically.
+     * Provides functionality to introspect objects for methods and properties.
+     * @class
+     */
     class CWReflect {
-        /** Retrieves a method from an object based on the method name and object name.
+        /**
+         * Retrieves a method from an object based on the method name and object name.
+         * This method allows for dynamic method invocation based on runtime conditions.
          * @param {object} obj - The object to retrieve the method from.
          * @param {string} name - The name of the method to retrieve.
-         * @returns {object} The method object containing the owner, name, and function.
+         * @returns {object|null} The method object containing the owner, name, and function if found; null otherwise.
          */
         static getMethod$obj$string(obj, name) {
             try {
@@ -18,11 +23,13 @@ var CWSYSTEM;
             }
         }
 
-        /** Retrieves a method from an object based on the method name and class object.
+        /**
+         * Retrieves a method from an object based on the method name and class object.
+         * This method is useful for cases where the method's class context is important for accurate retrieval.
          * @param {object} obj - The object to retrieve the method from.
          * @param {string} name - The name of the method to retrieve.
          * @param {object} classO - The class object to which the method belongs.
-         * @returns {object} The method object containing the owner, name, and function.
+         * @returns {object|null} The method object containing the owner, name, and function if found; null otherwise.
          */
         static getMethod$obj$name$class(obj, name, classO) {
             const types = [classO.constructor];
@@ -34,11 +41,13 @@ var CWSYSTEM;
             }
         }
 
-        /** Retrieves a method from an object based on the method name.
+        /**
+         * Retrieves a method from an object based on the method name.
+         * Overloaded method to provide flexibility in method retrieval based on available parameters.
          * @param {object} obj - The object to retrieve the method from.
          * @param {string} name - The name of the method to retrieve.
          * @param {object} [classO] - The class object to which the method belongs (optional).
-         * @returns {object} The method object containing the owner, name, and function.
+         * @returns {object|null} The method object containing the owner, name, and function if found; null otherwise.
          * @throws {Error} If invalid overload inputs are provided.
          */
         static getMethod(obj, name, classO) {

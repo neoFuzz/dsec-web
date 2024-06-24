@@ -942,7 +942,7 @@ var CWSYSTEM;
                         z7 = 0;
                     }
                     if (!mode2) {
-                        const character = CWSYSTEM.CWSReference.virtualScreen.getCharacter(c);
+                        const character = this.jcsmallfixed_font.getCharacter(c);
                         for (let j = 0; j < spacing; ++j) {
                             if ((c => c.charCodeAt === null ? c :
                                 c.charCodeAt(0))(character.charAt(j)) === '1'.charCodeAt(0)) {
@@ -1003,7 +1003,7 @@ var CWSYSTEM;
         setColorVS$r$g$b$a(red, green, blue, alpha) {
             this.defaultColor = CWSYSTEM.FastColorUtilities.color$r$g$b$a(red, green, blue, alpha);
         }
-        
+
         /** Sets the color using the provided {@link CWColor} object.
          * @param {CWColor} cwColor - The {@link CWColor} object containing the color to set.
          * @returns {void} - Returns nothing.

@@ -1,6 +1,15 @@
 var CWSYSTEM;
 (function (CWSYSTEM) {
+    /**
+     * Class representing a menu in the system.
+     * @class
+     * @memberof CWSYSTEM
+     */
     class CWMenu {
+        /**
+         * Create a CWMenu.
+         * @param {string} name - The name of the menu.
+         */
         constructor(name) {
             if (this.popupMenus === undefined) {
                 this.popupMenus = null;
@@ -24,13 +33,17 @@ var CWSYSTEM;
             this.popupMenus = ([]);
             this.mode = CWMenu.INACTIVE;
             this.buildX = 15;
-            this.buildY = dsector.DSReference.virtualScreen.topInset + 10;
+            this.buildY = CWSYSTEM.CWSReference.virtualScreen.topInset + 10;
         }
 
+        /**
+         * Handle mouse click events for menus.
+         * @static
+         */
         static mouseClicked() {
             if (CWSYSTEM.CWPopupMenu.cycleInWhichPopupOpened !== CWSYSTEM.Environment.cycleID_$LI$()) {
-                for (let i = 0; i < dsector.DSReference.gui.numberOfWindows(); ++i) {
-                    const guiWindow = dsector.DSReference.gui.getWindow$int(i);
+                for (let i = 0; i < CWSYSTEM.CWSReference.gui.numberOfWindows(); ++i) {
+                    const guiWindow = CWSYSTEM.CWSReference.gui.getWindow$int(i);
                     if (guiWindow.menuManager != null && guiWindow.menuManager.mode === CWMenu.ACTIVE) {
                         guiWindow.menuManager.mode = CWMenu.INACTIVE;
                         guiWindow.menuManager.destroyAllOpenPopupMenus();
@@ -39,6 +52,11 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Handle the event when a menu title is pressed.
+         * @param {string} pressed - The name of the pressed menu title.
+         * @static
+         */
         static menuTitlePressed(pressed) {
             if (CWSYSTEM.Environment.cycleID_$LI$() !== CWSYSTEM.CWPopupMenu.cycleInWhichPopupOpened) {
                 const whatPressed = CWSYSTEM.CWStringTools.messagesBetweenCharacters(
@@ -46,8 +64,8 @@ var CWSYSTEM;
                 const anInt = parseInt(CWSYSTEM.CWStringTools.messagesBetweenCharacters(
                     pressed, '[', ']')[0]);
                 let cwWindow = null;
-                for (let i = 0; i < dsector.DSReference.gui.numberOfWindows(); ++i) {
-                    const guiWindow = dsector.DSReference.gui.getWindow$int(i);
+                for (let i = 0; i < CWSYSTEM.CWSReference.gui.numberOfWindows(); ++i) {
+                    const guiWindow = CWSYSTEM.CWSReference.gui.getWindow$int(i);
                     if (guiWindow.menuManager != null && (guiWindow.menuManager.name === whatPressed)) {
                         cwWindow = guiWindow;
                         break;
@@ -71,6 +89,11 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Handle the event when the mouse is moved over a button.
+         * @param {CWSYSTEM.CWButton} cwButton - The button being hovered over.
+         * @static
+         */
         static mouseMovedOverButton(cwButton) {
             const btnName = cwButton.name;
             if (btnName.length > 11 && ((str, searchString, position = 0) => str.substring(
@@ -78,8 +101,8 @@ var CWSYSTEM;
                 const msgBetweenChar = CWSYSTEM.CWStringTools.messagesBetweenCharacters(btnName, '(', ')')[0];
                 const gap = parseInt(CWSYSTEM.CWStringTools.messagesBetweenCharacters(btnName, '[', ']')[0]);
                 let window0 = null;
-                for (let i = 0; i < dsector.DSReference.gui.numberOfWindows(); ++i) {
-                    const window1 = dsector.DSReference.gui.getWindow$int(i);
+                for (let i = 0; i < CWSYSTEM.CWSReference.gui.numberOfWindows(); ++i) {
+                    const window1 = CWSYSTEM.CWSReference.gui.getWindow$int(i);
                     if (window1.menuManager != null && (window1.menuManager.name === msgBetweenChar)) {
                         window0 = window1;
                         break;
@@ -97,21 +120,44 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Add a popup menu to the menu.
+         * @param {CWSYSTEM.CWPopupMenu} popupMenu - The popup menu to add.
+         */
         addMenu(popupMenu) {
             this.popupMenus.push(popupMenu);
         }
 
+        /**
+         * Set the build position of the menu.
+         * @param {number} buildX - The x-coordinate for the build position.
+         * @param {number} buildY - The y-coordinate for the build position.
+         */
         setBuildPosition(buildX, buildY) {
             this.buildX = buildX;
             this.buildY = buildY;
         }
 
+        /**
+         * Build the menu.
+         */
         build$() {
             this.build$int$int$int$Font$int$int$int$int(
-                this.buildX, this.buildY, 15, dsector.DSReference.virtualScreen.serif8_font,
+                this.buildX, this.buildY, 15, CWSYSTEM.CWSReference.virtualScreen.serif8_font,
                 7, 1, 0, 0);
         }
 
+        /**
+         * Build the menu with specified parameters.
+         * @param {number} buildX - The x-coordinate for the build position.
+         * @param {number} buildY - The y-coordinate for the build position.
+         * @param {number} height - The height of the menu.
+         * @param {CWSYSTEM.CWFont} font - The font used in the menu.
+         * @param {number} inWidth - The inner width of the menu.
+         * @param {number} maxWidth - The maximum width of the menu.
+         * @param {number} width - The width of the menu.
+         * @param {number} y1 - The y-coordinate offset for the build position.
+         */
         build$int$int$int$Font$int$int$int$int(buildX, buildY, height, font, inWidth, maxWidth, width, y1) {
             const baseW = 0;
             let width1 = baseW + width;
@@ -127,7 +173,7 @@ var CWSYSTEM;
             }
             width1 += width;
             height1 = y1 * 2 + height;
-            this.window = dsector.DSReference.gui.addWindow$name$style$title$x$y$w$h$v(
+            this.window = CWSYSTEM.CWSReference.gui.addWindow$name$style$title$x$y$w$h$v(
                 this.name, 3, "", buildX, buildY, width1 + 1, height1 + 1, true);
             this.window.titleVisible = false;
             this.window.menuManager = this;
@@ -150,6 +196,17 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Build the menu with various overloads.
+         * @param {number} [buildX] - The x-coordinate for the build position.
+         * @param {number} [buildY] - The y-coordinate for the build position.
+         * @param {number} [height] - The height of the menu.
+         * @param {CWSYSTEM.CWFont} [font] - The font used in the menu.
+         * @param {number} [inWidth] - The inner width of the menu.
+         * @param {number} [maxWidth] - The maximum width of the menu.
+         * @param {number} [width] - The width of the menu.
+         * @param {number} [y1] - The y-coordinate offset for the build position.
+         */
         build(buildX, buildY, height, font, inWidth, maxWidth, width, y1) {
             if (typeof buildX === 'number' && typeof buildY === 'number' &&
                 typeof height === 'number' && font instanceof CWSYSTEM.CWFont &&
@@ -166,6 +223,9 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Destroy all open popup menus.
+         */
         destroyAllOpenPopupMenus() {
             for (let i = 0; i < this.popupMenus.length; ++i) {
                 const popupMenu = this.popupMenus[i];
@@ -175,6 +235,9 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Destroy the menu.
+         */
         destroy() {
             if (this.window != null) {
                 this.destroyAllOpenPopupMenus();
@@ -183,6 +246,11 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Get the menu button corresponding to a given popup menu.
+         * @param {CWSYSTEM.CWPopupMenu} popupMenu - The popup menu.
+         * @returns {CWSYSTEM.CWButton|null} The corresponding menu button, or null if not found.
+         */
         getMenuButtonFromPopupMenu(popupMenu) {
             if (this.window != null) {
                 for (let i = 0; i < this.popupMenus.length; ++i) {
@@ -195,7 +263,17 @@ var CWSYSTEM;
         }
     }
 
+    /**
+     * Menu inactive state constant.
+     * @constant {number}
+     * @default
+     */
     CWMenu.INACTIVE = 0;
+    /**
+     * Menu active state constant.
+     * @constant {number}
+     * @default
+     */
     CWMenu.ACTIVE = 1;
     CWSYSTEM.CWMenu = CWMenu;
     CWMenu["__class"] = "CWSYSTEM.CWMenu";

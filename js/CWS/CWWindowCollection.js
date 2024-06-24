@@ -99,7 +99,7 @@ var CWSYSTEM;
         addWindow$name$style$title$x$y$w$h$v(name, style, title, xPos, yPos, w, h, visible) {
             if (this.__numberOfWindows > CWWindowCollection.numberOfWindowsBeforeWarningsAppear) {
                 const message = "A large number of windows have appeared. The last window added was \'" + name + "\'.";
-                dsector.DSReference.alertManager.messageQueued(message);
+                CWSYSTEM.CWSReference.alertManager.messageQueued(message);
                 console.error(message);
             }
             if (this.__numberOfWindows >= CWWindowCollection.maxNumberOfWindows) {

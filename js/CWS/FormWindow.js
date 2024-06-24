@@ -98,7 +98,7 @@ var dsector;
 
         popup$() {
             this.popup$gx$gy$f$my$x1$y1$w1$x2$h$w(CWSYSTEM.Environment.mouseXLastClicked_$LI$(),
-                CWSYSTEM.Environment.mouseYLastClicked_$LI$(), dsector.DSReference.virtualScreen.serif8_font,
+                CWSYSTEM.Environment.mouseYLastClicked_$LI$(), CWSYSTEM.CWSReference.virtualScreen.serif8_font,
                 14, 14, 15, 120, 12, 17, 5);
         }
 
@@ -154,7 +154,7 @@ var dsector;
                     gX = ((CWSYSTEM.Global.screenResolutionX_$LI$() - pos) / 2 | 0);
                     gY = ((CWSYSTEM.Global.screenResolutionY_$LI$() - heightN) / 2 | 0);
                 }
-                this.window = dsector.DSReference.gui.addWindow$name$style$title$x$y$w$h$v(formName, 3, this.windowTitle, gX, gY, pos, heightN, true);
+                this.window = CWSYSTEM.CWSReference.gui.addWindow$name$style$title$x$y$w$h$v(formName, 3, this.windowTitle, gX, gY, pos, heightN, true);
                 this.window.titleVisible = this.windowTitle != null;
                 this.window.ignoreWhenSavingAndRestoringEnvironment = true;
                 this.window.changeBackgroundColor$color$color(this.windowColor, this.windowSecondaryColor);

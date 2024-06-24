@@ -409,7 +409,7 @@ var CWSYSTEM;
         setVisibility(visible) {
             this.windowVisible = visible;
             if (this.windowVisible) {
-                dsector.DSReference.gui.moveWindowToTopByName(this.nameID);
+                CWSYSTEM.CWSReference.gui.moveWindowToTopByName(this.nameID);
             }
             this.updated = false;
         }
@@ -435,11 +435,11 @@ var CWSYSTEM;
         }
 
         destroy() {
-            dsector.DSReference.gui.destroyWindow(this.nameID);
+            CWSYSTEM.CWSReference.gui.destroyWindow(this.nameID);
         }
 
         moveToTop() {
-            dsector.DSReference.gui.moveWindowToTopByName(this.nameID);
+            CWSYSTEM.CWSReference.gui.moveWindowToTopByName(this.nameID);
         }
 
         destroyAllElementsExceptPulldownLists() {
@@ -1034,7 +1034,7 @@ var CWSYSTEM;
         }
 
         drawImageElement(iD) {
-            dsector.DSReference.graphics.renderImage(this.window, this.imageElement[iD].filename,
+            CWSYSTEM.CWSReference.graphics.renderImage(this.window, this.imageElement[iD].filename,
                 this.imageElement[iD].x, this.imageElement[iD].y);
         }
 

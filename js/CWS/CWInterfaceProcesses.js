@@ -1,6 +1,10 @@
 /* Re-written from Java */
 var CWSYSTEM;
 (function (CWSYSTEM) {
+    /**
+     * Class for managing interface processes.
+     * @class
+     */
     class CWInterfaceProcesses {
         constructor() {
             if (this.mainGUI === undefined) {
@@ -9,6 +13,12 @@ var CWSYSTEM;
             this.mainGUI = CWSYSTEM.CWSReference.gui;
         }
 
+        /**
+         * Processes a button press event.
+         * @param button
+         * @param x
+         * @param y
+         */
         processButton$btn$x$y(button, x, y) {
             const windowName = button.name;
             button.buttonPressed();
@@ -42,6 +52,12 @@ var CWSYSTEM;
             this.processButton$btn$x$y(button, 0, 0);
         }
 
+        /**
+         * Processes an input box event.
+         * @private
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
+         * @param inputBox
+         */
         processInputBox(inputBox) {
             CWSYSTEM.Environment.inputBoxSelected = null;
             inputBox.parentWindow.updated = false;
@@ -53,10 +69,45 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Processes a checkbox event.
+         * @private
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
+         * @param checkBox
+         */
         processCheckBox(checkBox) {
             this.mainGUI.moveWindowToTopByName(checkBox.parentWindow.nameID);
         }
 
+        /**
+         * Processes a pulldown menu event.
+         * @private
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
+         * @param pulldownMenu
+         * @param x
+         * @param y
+         */
+        processPulldownMenu$pulldownMenu$x$y(pulldownMenu, x, y) {
+            this.mainGUI.moveWindowToTopByName(pulldownMenu.nameID);
+            pulldownMenu.optionSelected(x, y);
+        }
+
+        /**
+         * Processes a pulldown menu event without coordinates.
+         * @private
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
+         * @param pulldownMenu
+         */
+        processPulldownMenu$pulldownMenu(pulldownMenu) {
+            this.processPulldownMenu$pulldownMenu$x$y(pulldownMenu, 0, 0);
+        }
+
+        /**
+         * Processes a keyboard character event.
+         * @private
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
+         * @param c
+         */
         processKeyboardChar(c) {
             if (CWSYSTEM.Environment.inputBoxSelected_$LI$() != null) {
                 if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(c) !== '\uffff'.charCodeAt(0)) {
@@ -71,6 +122,12 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Processes a keyboard press event.
+         * @private
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
+         * @param keyCode
+         */
         processKeyboardPress(keyCode) {
             //CWSYSTEM.CWSReference.object.keyPressed(keyCode);
             if (CWSYSTEM.Environment.inputBoxSelected_$LI$() != null) {
@@ -129,6 +186,12 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Processes a keyboard release event.
+         * @private
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
+         * @param keyCode
+         */
         processKeyboardRelease(keyCode) {
             switch (CWSYSTEM.Keyboard.focus) {
                 case CWSYSTEM.Keyboard.JCAD_DEFAULT:
@@ -161,6 +224,30 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Processes a mouse press event.
+         * @private
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
+         * @param x
+         * @param y
+         * @param button
+         */
+        processMousePress$x$y$btn(x, y, button) {
+            CWSYSTEM.Environment.windowScrollUp = false;
+            CWSYSTEM.Environment.windowScrollDown = false;
+            CWSYSTEM.Environment.windowPageUp = false;
+            CWSYSTEM.Environment.windowPageDown = false;
+            CWSYSTEM.Environment.scrollbarHeld = null;
+            if (CWSYSTEM.CWGUIManager.windowHeld != null) {
+                CWSYSTEM.CWGUIManager.windowHeld.holdHeader(x, y);
+            }
+        }
+
+        /**
+         * Processes a mouse release event.
+         * @private
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
+         */
         processMouseRelease() {
             CWSYSTEM.Environment.windowScrollUp = false;
             CWSYSTEM.Environment.windowScrollDown = false;

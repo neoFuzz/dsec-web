@@ -3,9 +3,11 @@ var CWSYSTEM;
 (function (CWSYSTEM) {
     /** AlertWindow Class - used to handle drawing the window for alerts and showing the message to the user */
     class AlertWindow {
-        /** Create an AlertWindow with a preloaded `message`
-         * @param {any} parent
-         * @param {string} message The alert message to show to the user */
+        /**
+         * Create an AlertWindow with a preloaded `message`
+         * @param {any} parent - The parent element or context
+         * @param {string} message - The alert message to show to the user
+         */
         constructor(message, parent) {
             if (this.window === undefined) {
                 this.window = null;
@@ -18,17 +20,17 @@ var CWSYSTEM;
                 //dsector.DSReference.gui.destroyWindow("ALE");
             }
             CWSYSTEM.CWFontTools.renderText(null, message, 0, 0,
-                dsector.DSReference.virtualScreen.serif8_font, CWSYSTEM.CWColor.black_$LI$(),
+                CWSYSTEM.CWSReference.virtualScreen.serif8_font, CWSYSTEM.CWColor.black_$LI$(),
                 AlertWindow.maximumTextWidth);
             const rWidth = CWSYSTEM.CWFontTools.RENDERED_WIDTH + 60;
             const rHeight = CWSYSTEM.CWFontTools.RENDERED_HEIGHT + 60 + 5;
             if (rHeight > AlertWindow.maximumHeight) {
                 message = "The alert message that you are trying to display was too long.";
                 CWSYSTEM.CWFontTools.renderText(null, message, 0, 0,
-                    dsector.DSReference.virtualScreen.serif8_font, CWSYSTEM.CWColor.black_$LI$(),
+                    CWSYSTEM.CWSReference.virtualScreen.serif8_font, CWSYSTEM.CWColor.black_$LI$(),
                     AlertWindow.maximumTextWidth);
             }
-            this.window = dsector.DSReference.gui.addWindow$name$style$title$x$y$w$h$v("ALE", 3, "! ALERT !",
+            this.window = CWSYSTEM.CWSReference.gui.addWindow$name$style$title$x$y$w$h$v("ALE", 3, "! ALERT !",
                 Math.floor((CWSYSTEM.Global.screenResolutionX_$LI$() - rWidth) / 2),
                 Math.floor((CWSYSTEM.Global.screenResolutionY_$LI$() - rHeight) / 2), rWidth, rHeight, true);
             this.window.ignoreWhenSavingAndRestoringEnvironment = true;
@@ -51,8 +53,22 @@ var CWSYSTEM;
         }
     }
 
+    /**
+     * Margin around the alert window content
+     * @type {number}
+     */
     AlertWindow.margin = 30;
+
+    /**
+     * Maximum width of the text within the alert window
+     * @type {number}
+     */
     AlertWindow.maximumTextWidth = 300;
+
+    /**
+     * Maximum height of the alert window
+     * @type {number}
+     */
     AlertWindow.maximumHeight = 600;
     CWSYSTEM.AlertWindow = AlertWindow;
     AlertWindow["__class"] = "CWSYSTEM.AlertWindow";

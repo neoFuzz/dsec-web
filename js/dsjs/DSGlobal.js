@@ -1,6 +1,9 @@
 var dsector;
 (function (dsector) {
-    /** Global Class that stores a variety of variables for setting up D-Sector.*/
+    /**
+     * Global Class that stores a variety of variables for setting up D-Sector.
+     * @class
+     */
     class DSGlobal {
         static __static_initialize() {
             if (!DSGlobal.__static_initialized) {

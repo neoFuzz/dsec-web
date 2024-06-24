@@ -1,6 +1,14 @@
 var CWSYSTEM;
 (function (CWSYSTEM) {
+    /**
+     * Represents a hashtable for storing key-value pairs.
+     * @class
+     */
     class CWHashtable {
+        /**
+         * Creates an instance of CWHashtable.
+         * @param {string} filename - The filename where the hashtable data is stored.
+         */
         constructor(filename) {
             if (this.hashMap === undefined) {
                 this.hashMap = null;
@@ -15,26 +23,46 @@ var CWSYSTEM;
             //this.readHashtableFromFile();
         }
 
+        /**
+         * Retrieves a value by key.
+         * @param {string} key - The key to retrieve the value for.
+         * @returns {string} The value associated with the key, or null if not found.
+         */
         get(value) {
             return "" + this.hashMap.get(value);
         }
 
+        /**
+         * Adds or updates a key-value pair in the hashtable.
+         * @param {string} key - The key associated with the value.
+         * @param {string} value - The value to store.
+         */
         put(key, value) {
             this.hashMap.set(key, value);
             this.writeHashtableToFile();
         }
 
+        /**
+         * Returns the number of key-value pairs in the hashtable.
+         * @returns {number} The size of the hashtable.
+         */
         size() {
             return this.hashMap.length;
         }
 
+        /**
+         * Gets the filename where the hashtable data is stored.
+         * @returns {string} The filename.
+         */
         getFilename() {
             return this.filename;
         }
 
-        /** Reads the file data into memory and processes it in to a `Map`
+        /**
+         * Reads the hashtable data from a file(IDB) and initializes the hashtable.
          * @async
-         * @public */
+         * @public
+         */
         async readHashtableFromFile() {
             this.hashMap = new Map();
             let strLength = "";
@@ -65,7 +93,10 @@ var CWSYSTEM;
             }
         }
 
-        /** @private */
+        /**
+         * Writes the current state of the hashtable to a file, which is actually a IDB.
+         * @private
+         */
         writeHashtableToFile() {
             // opens file
             const arrayList = Array.from(this.hashMap.keys());

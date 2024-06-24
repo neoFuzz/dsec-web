@@ -1,6 +1,15 @@
 var CWSYSTEM;
 (function (CWSYSTEM) {
+    /**
+     * Class providing font manipulation and text rendering tools.
+     */
     class CWFontTools {
+        /**
+         * Calculates the length of the given text in pixels using the specified font.
+         * @param {string} text - The text to measure.
+         * @param {object} font - The font object containing character width information.
+         * @returns {number} - The total width of the text in pixels.
+         */
         static textLengthInPixels(text, font) {
             if (text == null) {
                 return 0;
@@ -19,6 +28,14 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Calculates the height of a paragraph in pixels given the text, font, text width, and boldness.
+         * @param {string} text - The paragraph text to measure.
+         * @param {object} font - The font object containing character height information.
+         * @param {number} tWidth - The maximum width of the text.
+         * @param {boolean} isBold - Indicates if the text is bold.
+         * @returns {number} - The height of the paragraph in pixels.
+         */
         static heightOfParagraph(text, font, tWidth, isBold) {
             if (text == null) {
                 return 0;
@@ -31,6 +48,12 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Calculates the height of the given text in pixels using the specified font.
+         * @param {string} text - The text to measure.
+         * @param {object} font - The font object containing character height information.
+         * @returns {number} - The height of the text in pixels.
+         */
         static textHeightInPixels(text, font) {
             if (text == null) {
                 return 0;
@@ -51,6 +74,16 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Renders the given text on the screen data using the specified font and color.
+         * @param {object} screenData - The screen data object to render the text on.
+         * @param {string} text - The text to render.
+         * @param {number} x - The x-coordinate where the text rendering starts.
+         * @param {number} y - The y-coordinate where the text rendering starts.
+         * @param {object} font - The font object containing character rendering information.
+         * @param {object} color - The color object for the text.
+         * @param {number} textWidth - The maximum width of the text.
+         */
         static renderText(screenData, text, x, y, font, color, textWidth) {
             if (text != null) {
                 // Using Array.from to handle Unicode characters correctly
@@ -138,12 +171,27 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Re-initializes the rendering metrics.
+         */
         static reinitialiseRenderingMetrics() {
             CWFontTools.RENDERED_WIDTH = 0;
             CWFontTools.RENDERED_HEIGHT = 0;
             CWFontTools.CURSOR_POSITION_IN_TEXT_FROM_APPROX_COORDS = 0;
         }
 
+        /**
+         * Updates the cursor position and distance for text rendering.
+         * @param {Array} charArray - The array of characters in the text.
+         * @param {number} i - The current character index.
+         * @param {number} cursorPosition - The current cursor position in the text.
+         * @param {object} font - The font object containing character width information.
+         * @param {number} x - The x-coordinate where the text rendering starts.
+         * @param {number} y - The y-coordinate where the text rendering starts.
+         * @param {number} renderWidth - The current rendered width of the text.
+         * @param {number} charWidth - The width of the current character.
+         * @param {number} maxValue - The maximum value of the distance.
+         */
         static updateCursorPositionAndDistance(charArray, i, cursorPosition, font, x, y, renderWidth, charWidth, maxValue) {
             if (CWFontTools.CURSOR_POSITION_Y_APPROX >= y - font.getCharacter("a").lineHeight &&
                 CWFontTools.CURSOR_POSITION_Y_APPROX <= y + 1) {
@@ -159,6 +207,19 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Renders a single character on the screen data.
+         * @param {object} screenData - The screen data object to render the character on.
+         * @param {object} font - The font object containing character rendering information.
+         * @param {object} character - The character object to render.
+         * @param {Array} charArray - The array of characters in the text.
+         * @param {number} y - The y-coordinate where the text rendering starts.
+         * @param {number} renderWidth - The current rendered width of the text.
+         * @param {number} charHeight - The height of the current character.
+         * @param {number} charWidth - The width of the current character.
+         * @param {string} color1 - The color of the character.
+         * @param {number} i - The current character index
+         */
         static renderCharacter(screenData, font, character, charArray, y, renderWidth, charHeight, charWidth, color1, i) {
             if (screenData != null) {
                 try {
@@ -180,6 +241,15 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Finalizes the rendering process by updating the rendered height and width.
+         * @param {number} y - The y-coordinate where the text rendering starts.
+         * @param {number} localY - The local y-coordinate where the text rendering starts.
+         * @param {object} font - The font object containing character height information.
+         * @param {number} renderWidth - The current rendered width of the text.
+         * @param {number} x - The x-coordinate where the text rendering starts.
+         * @param {number} cp - The cursor position in the text.
+         */
         static finaliseRendering(y, localY, font, renderWidth, x, cp) {
             CWSYSTEM.Environment.screenHasChanged = true;
             CWFontTools.RENDERED_HEIGHT = y - localY + font.getCharacter("a").lineHeight;
@@ -191,21 +261,81 @@ var CWSYSTEM;
             }
         }
 
-        /** @private */
+        /**
+         * Calculates the distance between two points.
+         * @private
+         * @param {number} point1 - The first point.
+         * @param {number} point2 - The second point.
+         * @returns {number} - The distance between the points.
+         */
         static distance(point1, point2) {
             return Math.abs(point1 - point2);
         }
     }
 
+    /**
+     * The gap in pixels added between lines during text rendering.
+     * @type {number}
+     */
     CWFontTools.ADDED_PIXEL_GAP_BETWEEN_LINES = 2;
+    /**
+     * The gap in pixels added between lines during text rendering.
+     * @type {number}
+     */
+    CWFontTools.ADDED_PIXEL_GAP_BETWEEN_LINES = 2;
+
+    /**
+     * The rendered width of the text.
+     * @type {number}
+     */
     CWFontTools.RENDERED_WIDTH = 0;
+
+    /**
+     * The rendered height of the text.
+     * @type {number}
+     */
     CWFontTools.RENDERED_HEIGHT = 0;
+
+    /**
+     * Boolean indicating if the text is bold.
+     * @type {boolean}
+     */
     CWFontTools.BOLD = false;
+
+    /**
+     * The approximate x-coordinate of the cursor position.
+     * @type {number}
+     */
     CWFontTools.CURSOR_POSITION_X_APPROX = 0;
+
+    /**
+     * The approximate y-coordinate of the cursor position.
+     * @type {number}
+     */
     CWFontTools.CURSOR_POSITION_Y_APPROX = 0;
+
+    /**
+     * The cursor position in the text from approximate coordinates.
+     * @type {number}
+     */
     CWFontTools.CURSOR_POSITION_IN_TEXT_FROM_APPROX_COORDS = 0;
+
+    /**
+     * The current cursor position in the text.
+     * @type {number}
+     */
     CWFontTools.CURSOR_POSITION_IN_TEXT = 0;
+
+    /**
+     * The last known x-coordinate of the cursor.
+     * @type {number}
+     */
     CWFontTools.LAST_CURSOR_X = 0;
+
+    /**
+     * The last known y-coordinate of the cursor.
+     * @type {number}
+     */
     CWFontTools.LAST_CURSOR_Y = 0;
     CWSYSTEM.CWFontTools = CWFontTools;
     CWFontTools["__class"] = "CWSYSTEM.CWFontTools";

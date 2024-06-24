@@ -1,7 +1,14 @@
 /* Re-written from Java */
 var dsector;
 (function (dsector) {
+    /**
+     * Manages interface processes such as button clicks, input box processing, and keyboard interactions within the D-Sector application.
+     * @class
+     */
     class DSInterfaceProcesses {
+        /**
+         * Initializes the main GUI reference.
+         */
         constructor() {
             if (this.mainGUI === undefined) {
                 this.mainGUI = null;
@@ -9,6 +16,12 @@ var dsector;
             this.mainGUI = dsector.DSReference.gui;
         }
 
+        /**
+         * Processes actions based on button clicks.
+         * @param {Object} button - The button that was clicked.
+         * @param {number} x - The x coordinate of the click.
+         * @param {number} y - The y coordinate of the click.
+         */
         processButton$btn$x$y(button, x, y) {
             const windowName = button.name;
             button.buttonPressed();
@@ -36,21 +49,18 @@ var dsector;
             }
         }
 
-        processButton(button, x, y) {
-            if (((button != null && button instanceof CWSYSTEM.CWButton) || button === null) &&
-                ((typeof x === 'number') || x === null) && ((typeof y === 'number') || y === null)) {
-                return this.processButton$btn$x$y(button, x, y);
-            } else if (((button != null && button instanceof CWSYSTEM.CWButton) || button === null) &&
-                x === undefined && y === undefined) {
-                return this.processButton$button(button);
-            } else
-                throw new Error('invalid overload');
-        }
-
+        /**
+         * Overloaded method to process button clicks with default coordinates.
+         * @param {Object} button - The button that was clicked.
+         */
         processButton$button(button) {
             this.processButton$btn$x$y(button, 0, 0);
         }
 
+        /**
+         * Processes input box interactions.
+         * @param {Object} inputBox - The input box being interacted with.
+         */
         processInputBox(inputBox) {
             CWSYSTEM.Environment.inputBoxSelected = null;
             inputBox.parentWindow.updated = false;
@@ -73,10 +83,18 @@ var dsector;
             }
         }
 
+        /**
+         * Processes checkbox interactions.
+         * @param {Object} checkBox - The checkbox being interacted with.
+         */
         processCheckBox(checkBox) {
             this.mainGUI.moveWindowToTopByName(checkBox.parentWindow.nameID);
         }
 
+        /**
+         * Processes character inputs from the keyboard.
+         * @param {string} c - The character input.
+         */
         processKeyboardChar(c) {
             if (CWSYSTEM.Environment.inputBoxSelected_$LI$() != null) {
                 if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(c) !== '\uffff'.charCodeAt(0)) {
@@ -91,6 +109,10 @@ var dsector;
             }
         }
 
+        /**
+         * Processes keyboard key press actions.
+         * @param {number} keyCode - The code of the key pressed.
+         */
         processKeyboardPress(keyCode) {
             dsector.DSReference.dsecGame.keyPressed(keyCode);
             if (CWSYSTEM.Environment.inputBoxSelected_$LI$() != null) {
@@ -149,6 +171,10 @@ var dsector;
             }
         }
 
+        /**
+         * Processes keyboard key release actions.
+         * @param {number} keyCode - The code of the key released.
+         */
         processKeyboardRelease(keyCode) {
             switch (dsector.Keyboard.focus) {
                 case dsector.Keyboard.JCAD_DEFAULT:
@@ -189,6 +215,9 @@ var dsector;
             }
         }
 
+        /**
+         * Processes mouse release actions.
+         */
         processMouseRelease() {
             CWSYSTEM.Environment.windowScrollUp = false;
             CWSYSTEM.Environment.windowScrollDown = false;

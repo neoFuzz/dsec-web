@@ -66,8 +66,6 @@ loadScript('js/CWS/CWButton.js');
 loadScript('js/CWS/CWCharacter.js');
 loadScript('js/CWS/CWCheckBox.js');
 loadScript('js/CWS/CWFont.js');
-//loadScript('js/CWS/CWFont_Sans8.js');
-//loadScript('js/CWS/CWFont_SmallFont.js');
 loadScript('js/CWS/CWGraphics.js');
 loadScript('js/CWS/CWImage.js');
 loadScript('js/CWS/CWImageElement.js');

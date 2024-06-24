@@ -2,18 +2,34 @@
 
 var CWSYSTEM;
 (function (CWSYSTEM) {
+    /**
+     * Class representing CWGraphics with methods to handle image processing.
+     * @class
+     */
     class CWGraphics {
+        /**
+         * Constructs a new CWGraphics instance.
+         */
         constructor() {
+            /**
+             * The width of the image.
+             * @type {number}
+             */
             if (this.IMAGE_WIDTH === undefined) {
                 this.IMAGE_WIDTH = 0;
             }
             if (this.IMAGE_HEIGHT === undefined) {
+                /**
+                 * The height of the image.
+                 * @type {number}
+                 */
                 this.IMAGE_HEIGHT = 0;
             }
         }
 
-        /** Function that can process PNG picture data in to usable graphics data for the renderer.
-         * Function is actually empty.
+        /**
+         * Function that can process PNG picture data into usable graphics data for the renderer.
+         * This function is deprecated.
          * @param {Image} bufferedImage
          * @return {Image}
          * @deprecated
@@ -22,9 +38,11 @@ var CWSYSTEM;
             return bufferedImage;
         }
 
-        /** Convert {@link ScreenData} in to {@link ImageData}.
+        /**
+         * Convert {@link ScreenData} in to {@link ImageData}.
          * @param {ScreenData} sd CWSYSTEM.ScreenData object.
-         * @return {ImageData} New ImageData object. */
+         * @return {ImageData} New ImageData object.
+         * */
         static convertScreenDataToBufferedImage(sd) {
             let canvas = new OffscreenCanvas(
                 CWSYSTEM.Global.screenResolutionX_$LI$(), CWSYSTEM.Global.screenResolutionY_$LI$());
@@ -58,6 +76,13 @@ var CWSYSTEM;
             return "";
         }
 
+        /**
+         * Renders an image on the screen.
+         * @param {ScreenData} screenData The screen data.
+         * @param {string} filename The filename of the image to render.
+         * @param {number} w The width of the image.
+         * @param {number} h The height of the image.
+         */
         renderImage(screenData, filename, w, h) {
             CWSYSTEM.Debug.println("Loading image '" + filename + "'");
             let bufferedImage = null;
@@ -130,6 +155,11 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Reads a JPG file and converts it to base64.
+         * @param {string} url The URL of the JPG file.
+         * @return {Promise<string>} A promise that resolves with the base64 encoded string of the image.
+         */
         readJpgFileToBase64(url) {
             return new Promise((resolve, reject) => {
                 fetch(url)
@@ -144,9 +174,11 @@ var CWSYSTEM;
             });
         }
 
-        /** Returns the specified Image from the preloaded images as ScreenData object
-         * @param {string} fileName
-         * @requires CWSYSTEM.ScreenData */
+        /**
+         * Returns the specified Image from the preloaded images as ScreenData object.
+         * @param {string} fileName The name of the file to get.
+         * @return {ScreenData} The ScreenData representation of the image.
+         */
         getJPG(fileName) { // change to JS image preload in loader.js
             let o; // ScreenData
             let bufferedImage = preImages.get(fileName); // preloaded images
@@ -188,6 +220,11 @@ var CWSYSTEM;
             return o;
         }
 
+        /**
+         * Returns the size of a JPG image.
+         * @param {string} fileName The name of the JPG file.
+         * @return {Map<string, string>} A map containing the width and height of the image.
+         */
         JPGSize(fileName) {
             const screenData = dsector.DSReference.graphics.getJPG(fileName);
             if (screenData != null) {
@@ -199,9 +236,23 @@ var CWSYSTEM;
             return null;
         }
 
+        /**
+         * Saves the screen data as a JPG file.
+         * @todo implement with Electron
+         * @param screenData
+         * @param filePath
+         * @param type
+         */
         saveScreenDataAsJPG(screenData, filePath, type) {
         }
 
+        /**
+         * Saves the buffered image as a JPG file.
+         * @todo implement with Electron
+         * @param bufferedImage
+         * @param filename
+         * @param type
+         */
         saveImageAsJPG(bufferedImage, filename, type) {
         }
 

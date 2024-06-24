@@ -1,3 +1,4 @@
+// TODO: Fix option loading. Getting "NaN" in settings like antialiasLevel. This breaks the renderer.
 /* re-written from Java */
 var dsector;
 (function (dsector) {

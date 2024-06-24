@@ -7,7 +7,7 @@ var dsector;
                 this.__booleanValue = false;
                 this.__stringValue = "";
                 this.color = color;
-                const hashMap = dsector.DSReference.graphics.JPGSize(fileName);
+                const hashMap = CWSYSTEM.CWSReference.graphics.JPGSize(fileName);
                 this.imageHeight = hashMap != null ? parseInt(hashMap.get("height")) : 0;
             } else if (arguments.length === 1) {
                 this.type = fileName;

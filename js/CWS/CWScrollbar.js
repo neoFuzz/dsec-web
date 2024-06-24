@@ -1,6 +1,17 @@
 var CWSYSTEM;
 (function (CWSYSTEM) {
+    /**
+     * Represents a scrollbar component within a window.
+     * This class provides methods to handle the scrollbar's behavior,
+     * including drawing the scrollbar, handling mouse events, and updating
+     * the scrollbar's position and size based on the window's content.
+     * @class
+     */
     class CWScrollbar {
+        /**
+         * Constructs a CWScrollbar instance.
+         * @param {Object} window - The window object this scrollbar is associated with.
+         */
         constructor(window) {
             this.sliderSize = 0.33;
             if (this.window === undefined) {
@@ -13,6 +24,10 @@ var CWSYSTEM;
             this.positionPercent = 0.0;
         }
 
+        /**
+         * Returns the appropriate arrow up bitmap.
+         * @returns {*|number[][][]}
+         */
         static arrowUpBitmap_$LI$() {
             if (CWScrollbar.arrowUpBitmap == null) {
                 CWScrollbar.arrowUpBitmap = [[
@@ -58,6 +73,10 @@ var CWSYSTEM;
             return CWScrollbar.arrowUpBitmap;
         }
 
+        /**
+         * Returns the appropriate arrow down bitmap.
+         * @returns {*|number[][][]}
+         */
         static arrowDownBitmap_$LI$() {
             if (CWScrollbar.arrowDownBitmap == null) {
                 CWScrollbar.arrowDownBitmap = [[[255, 255, 255], [255, 255, 255], [255, 255, 255],
@@ -103,6 +122,9 @@ var CWSYSTEM;
             return CWScrollbar.arrowDownBitmap;
         }
 
+        /**
+         * Draws the scrollbar to the screen.
+         */
         draw() {
             const vs = this.window.v;
             if (!this.windowLargerThanScrollableContent()) {
@@ -155,6 +177,15 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Checks if the mouse is over the sliding bar of the scrollbar.
+         *
+         * The function calculates the position and size of the slider and determines if the provided
+         * x and y coordinates are within the boundaries of the sliding bar of the scrollbar.
+         *
+         * @param {number} x - The x-coordinate of the mouse position.
+         * @param {number} y - The y-coordinate of the mouse position.
+         */
         mouseIsOverSlidingBar(x, y) {
             const h = this.window.h - 26;
             const size = Math.fround((this.positionPercent * (1.0 - this.sliderSize)) * h);
@@ -165,6 +196,17 @@ var CWSYSTEM;
                 y <= this.window.yPosition + CWScrollbar.buttonHeight + size + slider;
         }
 
+        /**
+         * Checks if the mouse is over the upper space of the scrollbar.
+         *
+         * The function calculates the position of the slider and determines if the provided
+         * x and y coordinates are within the upper space of the scrollbar, which is above the slider.
+         *
+         * @param {number} x - The x-coordinate of the mouse position.
+         * @param {number} y - The y-coordinate of the mouse position.
+         * @returns {boolean} True if the mouse is over the upper space of the scrollbar, false otherwise.
+         * @method
+         */
         mouseIsOverScrollbarUpperSpace(x, y) {
             const h = this.window.h - 26;
             const size = Math.fround((this.positionPercent * (1.0 - this.sliderSize)) * h);
@@ -173,6 +215,17 @@ var CWSYSTEM;
                 y < this.window.yPosition + CWScrollbar.buttonHeight + size;
         }
 
+        /**
+         * Checks if the mouse is over the lower space of the scrollbar.
+         *
+         * The function calculates the position and size of the slider and determines if the provided
+         * x and y coordinates are within the lower space of the scrollbar, which is below the slider.
+         *
+         * @param {number} x - The x-coordinate of the mouse position.
+         * @param {number} y - The y-coordinate of the mouse position.
+         * @returns {boolean} True if the mouse is over the lower space of the scrollbar, false otherwise.
+         * @method
+         */
         mouseIsOverScrollbarLowerSpace(x, y) {
             const h = this.window.h - 26;
             const size = Math.fround((this.positionPercent * (1.0 - this.sliderSize)) * h);
@@ -183,12 +236,34 @@ var CWSYSTEM;
                 y < this.window.yPosition + CWScrollbar.buttonHeight + h;
         }
 
+        /**
+         * Checks if the mouse is over the upper button of the scrollbar.
+         *
+         * The function determines if the provided x and y coordinates are within the
+         * boundaries of the upper button of the scrollbar.
+         *
+         * @param {number} x - The x-coordinate of the mouse position.
+         * @param {number} y - The y-coordinate of the mouse position.
+         * @returns {boolean} True if the mouse is over the upper button of the scrollbar, false otherwise.
+         * @method
+         */
         mouseIsOverScrollbarUpperButton(x, y) {
             return x >= this.window.xPosition + this.window.w - CWScrollbar.width &&
                 x <= this.window.xPosition + this.window.w && y >= this.window.yPosition &&
                 y <= this.window.yPosition + CWScrollbar.buttonHeight;
         }
 
+        /**
+         * Checks if the mouse is over the lower button of the scrollbar.
+         *
+         * The function determines if the provided x and y coordinates are within the
+         * boundaries of the lower button of the scrollbar.
+         *
+         * @param {number} x - The x-coordinate of the mouse position.
+         * @param {number} y - The y-coordinate of the mouse position.
+         * @returns {boolean} True if the mouse is over the lower button of the scrollbar, false otherwise.
+         * @method
+         */
         mouseIsOverScrollbarLowerButton(x, y) {
             return x >= this.window.xPosition + this.window.w - CWScrollbar.width &&
                 x <= this.window.xPosition + this.window.w &&
@@ -196,6 +271,19 @@ var CWSYSTEM;
                 y <= this.window.yPosition + this.window.h;
         }
 
+        /**
+         * Moves the scrollbar up slowly by adjusting its position percentage.
+         *
+         * The position percentage is decreased based on the height of the window,
+         * the time elapsed since the last frame, and the length of the scrollable page.
+         *
+         * If the resulting position percentage exceeds 1.0, it is capped at 1.0.
+         * If it is less than 0.0, it is set to 0.0.
+         *
+         * After updating the position percentage, it marks the window as not updated.
+         *
+         * @method
+         */
         moveUpSlowly() {
             this.positionPercent -= Math.fround(((0.002 * this.window.h) *
                 CWSYSTEM.Environment.lastFramePeriod_$LI$()) / this.window.scrollablePage.length);
@@ -208,6 +296,19 @@ var CWSYSTEM;
             this.window.updated = false;
         }
 
+        /**
+         * Moves the scrollbar down slowly by adjusting its position percentage.
+         *
+         * The position percentage is increased based on the height of the window,
+         * the time elapsed since the last frame, and the length of the scrollable page.
+         *
+         * If the resulting position percentage exceeds 1.0, it is capped at 1.0.
+         * If it is less than 0.0, it is set to 0.0.
+         *
+         * After updating the position percentage, it marks the window as not updated.
+         *
+         * @method
+         */
         moveDownSlowly() {
             this.positionPercent += Math.fround((0.002 * this.window.h) *
                 CWSYSTEM.Environment.lastFramePeriod_$LI$() / this.window.scrollablePage.length);
@@ -220,6 +321,18 @@ var CWSYSTEM;
             this.window.updated = false;
         }
 
+        /**
+         * Moves the object up quickly by adjusting its position percentage.
+         * The position percentage is decreased based on the height of the window,
+         * the time elapsed since the last frame, and the length of the scrollable page.
+         *
+         * If the resulting position percentage exceeds 1.0, it is capped at 1.0.
+         * If it is less than 0.0, it is set to 0.0.
+         *
+         * After updating the position percentage, it marks the window as not updated.
+         *
+         * @method
+         */
         moveUpFast() {
             this.positionPercent -= Math.fround((0.01 * this.window.h) *
                 CWSYSTEM.Environment.lastFramePeriod_$LI$() / this.window.scrollablePage.length);
@@ -232,6 +345,18 @@ var CWSYSTEM;
             this.window.updated = false;
         }
 
+        /**
+         * Moves the object down quickly by adjusting its position percentage.
+         * The position percentage is increased based on the height of the window,
+         * the time elapsed since the last frame, and the length of the scrollable page.
+         *
+         * If the resulting position percentage exceeds 1.0, it is capped at 1.0.
+         * If it is less than 0.0, it is set to 0.0.
+         *
+         * After updating the position percentage, it marks the window as not updated.
+         *
+         * @method
+         */
         moveDownFast() {
             this.positionPercent += Math.fround((0.01 * this.window.h) *
                 CWSYSTEM.Environment.lastFramePeriod_$LI$() / this.window.scrollablePage.length);
@@ -244,6 +369,17 @@ var CWSYSTEM;
             this.window.updated = false;
         }
 
+        /**
+         * Calculates the offset scrolled in pixels based on the current position percentage.
+         *
+         * If the window height is greater than or equal to the length of the scrollable page,
+         * the position offset is set to 0. Otherwise, the position offset is calculated as
+         * the product of the position percentage and the difference between the length of
+         * the scrollable page and the window height, rounded to the nearest integer.
+         *
+         * @returns {number} The offset scrolled in pixels.
+         * @method
+         */
         getOffsetScrolledInPixels() {
             const size = this.window.scrollablePage.length;
             let pos;
@@ -255,6 +391,21 @@ var CWSYSTEM;
             return pos;
         }
 
+        /**
+         * Renders the scrollable page within the window.
+         *
+         * If the scrollable page has not been initialized, an error message is logged.
+         * Otherwise, it calculates the offset scrolled in pixels and copies the relevant
+         * portion of the scrollable page to the window's display buffer.
+         *
+         * The function ensures that the amount of data copied does not exceed the window's
+         * height or the length of the scrollable page. It also adjusts the width of the data
+         * to be copied if it is smaller than the window's width.
+         *
+         * After rendering the scrollable page, it updates the size of the slider.
+         *
+         * @method
+         */
         renderScrollablePage() {
             if (this.window.scrollablePage == null) {
                 CWSYSTEM.Debug.error("Error in Scrollbar.renderScrollablePage(): scrollablePage has not been initialized.");
@@ -278,6 +429,19 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Updates the size of the scrollbar slider.
+         *
+         * If the scrollable page has not been initialized, an error message is logged.
+         * Otherwise, it calculates the size of the slider based on the ratio of the window
+         * height to the length of the scrollable page.
+         *
+         * If the window height is greater than or equal to the length of the scrollable page,
+         * the slider size is set to 1.0. Otherwise, the slider size is calculated as the
+         * ratio of the window height to the length of the scrollable page.
+         *
+         * @method
+         */
         updateSliderSize() {
             if (this.window.scrollablePage == null) {
                 CWSYSTEM.Debug.error("Error in Scrollbar.windowLargerThanScrollableContent(): " +
@@ -292,6 +456,16 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Checks if the window height is larger than or equal to the length of the scrollable content.
+         *
+         * If the scrollable page has not been initialized, it returns false.
+         * Otherwise, it compares the window height to the length of the scrollable page and
+         * returns true if the window height is greater than or equal to the length of the scrollable page.
+         *
+         * @returns {boolean} True if the window height is larger than or equal to the length of the scrollable content, false otherwise.
+         * @method
+         */
         windowLargerThanScrollableContent() {
             if (this.window.scrollablePage == null) {
                 return false;

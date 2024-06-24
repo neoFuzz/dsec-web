@@ -41,14 +41,14 @@ var CWSYSTEM;
 
         static mouseClicked() {
             if (CWPopupMenu.cycleInWhichPopupOpened !== CWSYSTEM.Environment.cycleID_$LI$()) {
-                for (let i = 0; i < dsector.DSReference.gui.numberOfWindows(); ++i) {
-                    const window1 = dsector.DSReference.gui.getWindow$int(i);
+                for (let i = 0; i < CWSYSTEM.CWSReference.gui.numberOfWindows(); ++i) {
+                    const window1 = CWSYSTEM.CWSReference.gui.getWindow$int(i);
                     if (window1.rightClickPopupMenu != null) {
                         window1.rightClickPopupMenu.destroy();
                     }
                 }
-                if (dsector.DSReference.gui.rightClickPopupMenu != null) {
-                    dsector.DSReference.gui.rightClickPopupMenu.destroy();
+                if (CWSYSTEM.CWSReference.gui.rightClickPopupMenu != null) {
+                    CWSYSTEM.CWSReference.gui.rightClickPopupMenu.destroy();
                 }
                 if (CWPopupMenu.rightClickMenu != null) {
                     CWPopupMenu.rightClickMenu.destroy();
@@ -149,7 +149,7 @@ var CWSYSTEM;
                     mouseY = CWSYSTEM.Environment.mouseY_$LI$();
                 }
                 this.popup$int$int$int$dsector_JCFont$int$int$int$int$int$int(mouseX, mouseY, 16,
-                    dsector.DSReference.virtualScreen.serif8_font, 40, 5, 1, 0, 0, 2);
+                    CWSYSTEM.CWSReference.virtualScreen.serif8_font, 40, 5, 1, 0, 0, 2);
                 CWPopupMenu.cycleInWhichPopupOpened = CWSYSTEM.Environment.cycleID_$LI$();
             }
         }
@@ -183,7 +183,7 @@ var CWSYSTEM;
                 const byteCalc = 0;
                 const w1 = byteCalc + 2 * btnX + 2 * xWidth + i;
                 const name = "POPUP_" + ((Math.random() * 10000.0) | 0);
-                this.window = dsector.DSReference.gui.addWindow$name$style$title$x$y$w$h$v(
+                this.window = CWSYSTEM.CWSReference.gui.addWindow$name$style$title$x$y$w$h$v(
                     name, CWSYSTEM.CWWindowStyles.ROUNDED, "", xPos, yPos, w1 + 1, h1 + 1, true);
                 this.window.titleVisible = false;
                 this.window.ignoreWhenSavingAndRestoringEnvironment = true;

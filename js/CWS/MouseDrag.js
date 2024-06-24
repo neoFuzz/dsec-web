@@ -156,7 +156,7 @@ var CWSYSTEM;
                 this.releaseGuidelineMove();
             }
             if (this.mode === MouseDrag.WINDOW_RESIZE) {
-                const window1 = dsector.DSReference.gui.getWindow$int(this.windowResized);
+                const window1 = CWSYSTEM.CWSReference.gui.getWindow$int(this.windowResized);
                 CWSYSTEM.Debug.println("Tried using " + window1.nameID);
             }
             this.mode = MouseDrag.NOTHING_BEING_DRAGGED;
