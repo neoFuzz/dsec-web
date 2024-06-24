@@ -26,6 +26,9 @@ var dsector;
             DSReference.dsecSaveGameWindow = new dsector.DSecSaveGameWindow();
             DSReference.dsecLoadGameWindow = new dsector.DSecLoadGameWindow();
             DSReference.dsecTitlePage = new dsector.DSecTitlePage();
+            DSReference.dsecSetupWindow.dsOptions = new CWSYSTEM.CWHashtable("config/dzsetup.cfg");
+            DSReference.dsecSetupWindow.dsOptions.readHashtableFromFile();
+            DSReference.dsecSetupWindow.loadOptions();
         }
     }
 

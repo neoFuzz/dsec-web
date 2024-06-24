@@ -11,8 +11,8 @@ var CWSYSTEM;
             this.width = width || 0;
             this.height = height || 0;
             this.popupWindowItemHeight = height || 0;
-            this.titleBoxFont = dsector.DSReference.virtualScreen.serif8_font;
-            this.popupWindowFont = dsector.DSReference.virtualScreen.serif8_font;
+            this.titleBoxFont = CWSYSTEM.CWSReference.virtualScreen.serif8_font;
+            this.popupWindowFont = CWSYSTEM.CWSReference.virtualScreen.serif8_font;
             this.status = 0;
             this.CLOSED = 0;
             this.OPEN = 1;
@@ -88,7 +88,7 @@ var CWSYSTEM;
         mousePressedOverClosedSectionOrOverlayBorder() {
             if (CWSYSTEM.Environment.activePulldownMenu_$LI$() != null &&
                 CWSYSTEM.Environment.activePulldownMenu_$LI$().parent !== this.parent) {
-                dsector.DSReference.gui.destroyWindow("overlay");
+                CWSYSTEM.CWSReference.gui.destroyWindow("overlay");
                 CWSYSTEM.Environment.activePulldownMenu = null;
             }
             if (this.status === this.CLOSED) {
@@ -108,7 +108,7 @@ var CWSYSTEM;
                 if (moveY + cSize > CWSYSTEM.Global.screenResolutionY_$LI$() - 10) {
                     moveY = CWSYSTEM.Global.screenResolutionY_$LI$() - cSize - 10;
                 }
-                this.overlay = dsector.DSReference.gui.addWindow$name$style$title$x$y$w$h$v(
+                this.overlay = CWSYSTEM.CWSReference.gui.addWindow$name$style$title$x$y$w$h$v(
                     "overlay", 3, "", this.parent.xPosition + this.x +
                     (this.parent.borderWidth / 2 | 0), moveY, this.width - this.parent.borderWidth, cSize, true);
                 this.overlay.titleVisible = false;
@@ -125,7 +125,7 @@ var CWSYSTEM;
                     this.overlay.getButton("overlay_" + i).font = this.popupWindowFont;
                 }
             } else {
-                dsector.DSReference.gui.destroyWindow("overlay");
+                CWSYSTEM.CWSReference.gui.destroyWindow("overlay");
                 this.status = this.CLOSED;
                 CWSYSTEM.Environment.activePulldownMenu = null;
             }
@@ -133,7 +133,7 @@ var CWSYSTEM;
 
         optionSelected(button) {
             this.selectedOption = button.intProperty;
-            dsector.DSReference.gui.destroyWindow("overlay");
+            CWSYSTEM.CWSReference.gui.destroyWindow("overlay");
             this.status = this.CLOSED;
             CWSYSTEM.Environment.activePulldownMenu = null;
             this.parent.updated = false;
@@ -162,6 +162,14 @@ var CWSYSTEM;
                         this.name + "\': " + e);
                 }
             }
+        }
+
+        setDefaults(c, i) {
+            this.selectedOption = c;
+            this.objectContainingPulldownChangedMethod = this;
+            this.generalPurposeObject = i + 1;
+            this.popupWindowFont = CWSYSTEM.CWSReference.virtualScreen.jcsmallfixed_font;
+            this.popupWindowItemHeight = 12;
         }
     }
 

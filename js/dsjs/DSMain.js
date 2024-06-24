@@ -67,7 +67,7 @@ var dsector;
         }
 
         begin() {
-            dsector.DSReference.dsecSetupWindow = new dsector.DSecSetupWindow();
+            //dsector.DSReference.dsecSetupWindow = new dsector.DSecSetupWindow();
             CWSYSTEM.Global.graphicsInitialized = true;
             CWSYSTEM.CWSReference.virtualScreen.update();
             if (DSMain.discordEnabled) {

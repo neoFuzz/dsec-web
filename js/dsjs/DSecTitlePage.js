@@ -15,7 +15,8 @@ var dsector;
             dsector.DSReference.virtualScreen.setBackgroundImage("assets/images/dsectorTitle.jpg");
             dsector.Keyboard.focus = dsector.Keyboard.DSECTOR;
             CWSYSTEM.Global.windowsCanOnlyBeMovedByClickingTitleArea = false;
-            dsector.DSReference.dsecSetupWindow.loadOptions();
+            //dsector.DSReference.dsecSetupWindow.loadOptions();
+
         }
         respondToGameTick() {
             if (CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed) {
