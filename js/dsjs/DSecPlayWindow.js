@@ -1,7 +1,14 @@
 /* Re-written from Java */
 var dsector;
 (function (dsector) {
+    /**
+     * DSecPlayWindow class for managing the game play window.
+     * @class
+     */
     class DSecPlayWindow {
+        /**
+         * Constructor for DSecPlayWindow.
+         */
         constructor() {
             if (this.window === undefined) {
                 this.window = null;
@@ -28,11 +35,15 @@ var dsector;
             this.create();
             this.window.centerWithinDesktop();
             this.destroy();
-            if (dsector.DSecSetupWindow.musicMode === dsector.DSecSetupWindow.MUSIC_ON) {
+            if (dsector.DSReference.dsecSetupWindow.musicMode === dsector.DSecSetupWindow.MUSIC_ON) {
                 this.turnMusicOn();
             }
         }
 
+        /**
+         * Static initializer for DSecPlayWindow.
+         * @private
+         */
         static __static_initialize() {
             if (!DSecPlayWindow.__static_initialized) {
                 DSecPlayWindow.__static_initialized = true;
@@ -40,19 +51,34 @@ var dsector;
             }
         }
 
+        /**
+         * Get the rendering height.
+         * @returns {number} The rendering height.
+         */
         static renderingHeight_$LI$() {
             DSecPlayWindow.__static_initialize();
             return DSecPlayWindow.renderingHeight;
         }
 
+        /**
+         * Static initializer method.
+         * @private
+         */
         static __static_initializer_0() {
             DSecPlayWindow.renderingHeight = CWSYSTEM.Global.screenResolutionY;
         }
 
+        /**
+         * Check if the window is created.
+         * @returns {boolean} True if the window is created, false otherwise.
+         */
         isCreated() {
             return this.window != null;
         }
 
+        /**
+         * Toggle the creation status of the window.
+         */
         toggleCreated() {
             if (this.isCreated()) {
                 this.destroy();
@@ -61,6 +87,9 @@ var dsector;
             }
         }
 
+        /**
+         * Create the play window.
+         */
         create() {
             dsector.DSReference.virtualScreen.setBackgroundImage("assets/images/dsectorPlay.jpg");
             if (dsector.DSReference.dsecMainSetupWindow != null) {
@@ -76,7 +105,7 @@ var dsector;
                 dsector.DSReference.dsecSaveGameWindow.destroy();
             }
             this.drawWindow();
-            if (dsector.DSecSetupWindow.musicMode === dsector.DSecSetupWindow.MUSIC_ON) {
+            if (dsector.DSReference.dsecSetupWindow.musicMode === dsector.DSecSetupWindow.MUSIC_ON) {
                 this.turnMusicOn();
             }
             if (dsector.DSReference.dsecPlayWindow != null) {
@@ -84,6 +113,9 @@ var dsector;
             }
         }
 
+        /**
+         * Destroy the play window.
+         */
         destroy() {
             if (this.window != null) {
                 this.savedX = this.window.xPosition;
@@ -96,6 +128,9 @@ var dsector;
             this.turnMusicOff();
         }
 
+        /**
+         * Draw the play window.
+         */
         drawWindow() {
             if (this.window == null) {
                 if (this.savedW > CWSYSTEM.Global.viewWindowMaxWidth_$LI$()) {
@@ -164,65 +199,99 @@ var dsector;
             }
         }
 
+        /**
+         * Update the window rendering.
+         */
         update() {
             dsector.DSReference.renderer.perspectiveProjection$();
         }
 
+        /**
+         * Set standard overhead display mode.
+         */
         standardOverheadDisplay() {
-            dsector.DSecSetupWindow.cameraMode = dsector.DSecSetupWindow.OVERHEAD;
+            dsector.DSReference.dsecSetupWindow.cameraMode = dsector.DSecSetupWindow.OVERHEAD;
             dsector.DSReference.dsecSetupWindow.saveOptions();
         }
 
+        /**
+         * Set cyclic panning display mode.
+         */
         cyclicPanning() {
-            dsector.DSecSetupWindow.cameraMode = dsector.DSecSetupWindow.CYCLIC_PANNING;
+            dsector.DSReference.dsecSetupWindow.cameraMode = dsector.DSecSetupWindow.CYCLIC_PANNING;
             dsector.DSReference.dsecSetupWindow.saveOptions();
         }
 
-        playerXPerspective(playerID) {
-            if (playerID < 1) {
-                playerID = 2;
+        /**
+         * Set the camera to chosen player perspective mode.
+         * @param {number} pid - The ID of the player.
+         */
+        playerXPerspective(pid) {
+            if (pid < 1) {
+                pid = 2;
             }
-            dsector.DSecSetupWindow.cameraMode = parseInt(playerID) + 1;
+            dsector.DSReference.dsecSetupWindow.cameraMode = parseInt(pid) + 1;
             dsector.DSReference.dsecSetupWindow.saveOptions();
         }
 
+        /**
+         * Set the camera to player 1 perspective mode.
+         */
         player1Perspective() {
-            dsector.DSecSetupWindow.cameraMode = dsector.DSecSetupWindow.PLAYER_1_PERSPECTIVE;
+            dsector.DSReference.dsecSetupWindow.cameraMode = dsector.DSecSetupWindow.PLAYER_1_PERSPECTIVE;
             dsector.DSReference.dsecSetupWindow.saveOptions();
         }
 
+        /**
+         * Set the camera to player 2 perspective mode.
+         */
         player2Perspective() {
-            dsector.DSecSetupWindow.cameraMode = dsector.DSecSetupWindow.PLAYER_2_PERSPECTIVE;
+            dsector.DSReference.dsecSetupWindow.cameraMode = dsector.DSecSetupWindow.PLAYER_2_PERSPECTIVE;
             dsector.DSReference.dsecSetupWindow.saveOptions();
         }
 
+        /**
+         * Set no sound mode.
+         */
         noSound() {
-            dsector.DSecSetupWindow.soundMode = dsector.DSecSetupWindow.NO_SOUND;
+            dsector.DSReference.dsecSetupWindow.soundMode = dsector.DSecSetupWindow.NO_SOUND;
             dsector.DSReference.dsecSetupWindow.saveOptions();
         }
 
+        /**
+         * Set simplified sound mode.
+         */
         simplifiedSound() {
-            dsector.DSecSetupWindow.soundMode = dsector.DSecSetupWindow.SIMPLIFIED_SOUND;
+            dsector.DSReference.dsecSetupWindow.soundMode = dsector.DSecSetupWindow.SIMPLIFIED_SOUND;
             dsector.DSReference.dsecSetupWindow.saveOptions();
         }
 
+        /**
+         * Set normal sound mode.
+         */
         normalSound() {
-            dsector.DSecSetupWindow.soundMode = dsector.DSecSetupWindow.NORMAL_SOUND;
+            dsector.DSReference.dsecSetupWindow.soundMode = dsector.DSecSetupWindow.NORMAL_SOUND;
             dsector.DSReference.dsecSetupWindow.saveOptions();
         }
 
+        /**
+         * Toggle music on or off.
+         */
         toggleMusic() {
-            if (dsector.DSecSetupWindow.musicMode === dsector.DSecSetupWindow.MUSIC_OFF) {
-                dsector.DSecSetupWindow.musicMode = dsector.DSecSetupWindow.MUSIC_ON;
+            if (dsector.DSReference.dsecSetupWindow.musicMode === dsector.DSecSetupWindow.MUSIC_OFF) {
+                dsector.DSReference.dsecSetupWindow.musicMode = dsector.DSecSetupWindow.MUSIC_ON;
                 this.turnMusicOn();
                 dsector.DSReference.dsecSetupWindow.saveOptions();
-            } else if (dsector.DSecSetupWindow.musicMode === dsector.DSecSetupWindow.MUSIC_ON) {
-                dsector.DSecSetupWindow.musicMode = dsector.DSecSetupWindow.MUSIC_OFF;
+            } else if (dsector.DSReference.dsecSetupWindow.musicMode === dsector.DSecSetupWindow.MUSIC_ON) {
+                dsector.DSReference.dsecSetupWindow.musicMode = dsector.DSecSetupWindow.MUSIC_OFF;
                 this.turnMusicOff();
                 dsector.DSReference.dsecSetupWindow.saveOptions();
             }
         }
 
+        /**
+         * Turn music on.
+         */
         turnMusicOn() {
             if (dsector.DSReference.dsecGame != null && dsector.DSReference.dsecGame.dsecRound != null) {
                 const musicNumber = Math.floor(Math.random() * (3 - 1)) + 1;
@@ -231,17 +300,26 @@ var dsector;
             }
         }
 
+        /**
+         * Turn music off.
+         */
         turnMusicOff() {
             if (this.backgroundMusic != null) {
                 this.backgroundMusic.close();
             }
         }
 
+        /**
+         * Toggle the display of backgrounds.
+         */
         toggleBackgrounds() {
-            dsector.DSecSetupWindow.showBackgrounds = !dsector.DSecSetupWindow.showBackgrounds;
+            dsector.DSReference.dsecSetupWindow.showBackgrounds = !dsector.DSReference.dsecSetupWindow.showBackgrounds;
             dsector.DSReference.dsecSetupWindow.saveOptions();
         }
 
+        /**
+         * End the current round.
+         */
         endRound() {
             dsector.DSReference.dsecGame.endRound();
         }

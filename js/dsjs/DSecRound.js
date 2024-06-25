@@ -149,11 +149,11 @@ var dsector;
                 dsector.DSReference.dsecGame.blueTeam.prepareForStartOfRound();
             }
             i = dsector.DSReference.dsecGame.numberOfPlayers();
-            if (dsector.DSecSetupWindow.cameraMode_$LI$() === 4 && i < 3 ||
-                dsector.DSecSetupWindow.cameraMode_$LI$() === 5 && i < 4 ||
-                dsector.DSecSetupWindow.cameraMode_$LI$() === 6 && i < 5 ||
-                dsector.DSecSetupWindow.cameraMode_$LI$() === 7 && i < 6) {
-                dsector.DSecSetupWindow.cameraMode = 0;
+            if (dsector.DSReference.dsecSetupWindow._cameraMode() === 4 && i < 3 ||
+                dsector.DSReference.dsecSetupWindow._cameraMode() === 5 && i < 4 ||
+                dsector.DSReference.dsecSetupWindow._cameraMode() === 6 && i < 5 ||
+                dsector.DSReference.dsecSetupWindow._cameraMode() === 7 && i < 6) {
+                dsector.DSReference.dsecSetupWindow.cameraMode = 0;
             }
             const playerCountMode = dsector.DSReference.dsecMainSetupWindow.playMode() ===
             dsector.DSecMainSetupWindow.TEAMS ? (dsector.DSReference.dsecGame.numberOfPlayers() / 2 | 0) :
@@ -356,7 +356,7 @@ var dsector;
                 if ((player.getX() > 600.0 || player.getX() < -600.0 ||
                         player.getY() > 600.0 || player.getY() < -600.0) &&
                     CWSYSTEM.Environment.currentTime() - this.timeWhenLastOutOfAreaWarningStated > 10000 &&
-                    dsector.DSecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
+                    dsector.DSReference.dsecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
                     dsector.DSReference.cwSound.playSound("assets/sounds/returnToZoneWarning.wav", 1);
                     this.timeWhenLastOutOfAreaWarningStated = CWSYSTEM.Environment.currentTime();
                 }
@@ -388,7 +388,7 @@ var dsector;
 
         zeroFirePeriodExceeded() {
             const timePeriod = CWSYSTEM.Environment.currentTime() - this.__timeWhenAnyPlayerLastFired;
-            if (!this.endOfRoundWarningIssued && timePeriod > 120000 && dsector.DSecSetupWindow.soundMode !== 0) {
+            if (!this.endOfRoundWarningIssued && timePeriod > 120000 && dsector.DSReference.dsecSetupWindow.soundMode !== 0) {
                 dsector.DSReference.cwSound.playSound("assets/sounds/roundEndWarning.wav", 0);
                 this.endOfRoundWarningIssued = true;
             }

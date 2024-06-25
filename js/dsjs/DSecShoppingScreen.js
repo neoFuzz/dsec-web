@@ -13,7 +13,7 @@ var dsector;
             this.controlRoomSoundPlaying = false;
             this.savedX = -1;
             this.savedY = -1;
-            if (dsector.DSecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
+            if (dsector.DSReference.dsecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
                 try {
                     let clip = new Audio("assets/sounds/controlRoom.wav");
                     this.controlRoomSound = clip;
@@ -273,7 +273,7 @@ var dsector;
             this.currentShopper = this.getNextPlayer();
             if (this.currentShopper != null) {
                 this.update();
-                if (dsector.DSecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
+                if (dsector.DSReference.dsecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
                     // TODO: fix sound
                     try {
                         let clip = new Audio("assets/sounds/compressionDoor.wav");

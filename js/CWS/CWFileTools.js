@@ -1,4 +1,4 @@
-/* code from Java, butchered to fit JavaScript. Need to accommodate Electron */
+/* code from Java, butchered to fit JavaScript. */
 // TODO: make it work as intended for each platform (Electron goal)
 var CWSYSTEM;
 (function (CWSYSTEM) {
@@ -8,13 +8,8 @@ var CWSYSTEM;
         }
 
         static copy(fileName, newPath) {
-            if (((o1, o2) => o1.toUpperCase() === (o2 === null ? o2 :
-                o2.toUpperCase()))(fileName, newPath)) {
-                return false;
-            } else {
-                // attempt to make copy
-                return true;
-            }
+            return !((o1, o2) => o1.toUpperCase() === (o2 === null ? o2 :
+                o2.toUpperCase()))(fileName, newPath);
         }
 
         /** Output data in to IndexedDB */
@@ -134,7 +129,7 @@ var CWSYSTEM;
                     }
                 };
                 try {
-                    const byte1 = Array(1024).fill(0);
+                    //const byte1 = Array(1024).fill(0);
                     return newName.str;
                 } catch (e) {
                     return null;

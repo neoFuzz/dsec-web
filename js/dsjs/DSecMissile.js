@@ -99,7 +99,7 @@ var dsector;
             let base;
             let vir3 = new dsector.VectorInR3(0.0, 0.0, 0.0);
             if (this.weaponSpecification.actionWhenDestroyed === dsector.WeaponSpecification.DESTROY_AS_SMALL_BLAST) {
-                if (dsector.DSecSetupWindow.soundMode === dsector.DSecSetupWindow.NORMAL_SOUND &&
+                if (dsector.DSReference.dsecSetupWindow.soundMode === dsector.DSecSetupWindow.NORMAL_SOUND &&
                     !this.missileFarFromCamera()) {
                     if ((Math.random() * 2.0) === 0) {
                         dsector.DSReference.cwSound.playSound("assets/sounds/debrisExplosion1.wav", (Math.random() * 20.0));
@@ -117,7 +117,7 @@ var dsector;
                 dsector.DSecFadingLight.add(Math.fround(0.1 + this.damage / 40.0), this.x, this.y, 30.0, 1500);
             }
             if (this.weaponSpecification.actionWhenDestroyed === dsector.WeaponSpecification.DESTROY_AS_MEDIUM_BLAST) {
-                if (!this.missileFarFromCamera() && dsector.DSecSetupWindow.soundMode === dsector.DSecSetupWindow.NORMAL_SOUND) {
+                if (!this.missileFarFromCamera() && dsector.DSReference.dsecSetupWindow.soundMode === dsector.DSecSetupWindow.NORMAL_SOUND) {
                     dsector.DSReference.cwSound.playSound("assets/sounds/smallExplosion.wav", (Math.random() * 10.0));
                 }
                 specification = dsector.DSReference.preBuiltWeaponSpecifications.getPreBuiltSpecification(

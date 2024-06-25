@@ -8,11 +8,11 @@ var dsector;
             DSReference.interfaceProcesses = new dsector.DSInterfaceProcesses();
             DSReference.renderer = new dsector.Renderer(super.gui);
             DSReference.modelLoader = new dsector.ModelLoader();
-            DSReference.dsecPlayWindow = new dsector.DSecPlayWindow();
             DSReference.preBuiltWeaponSpecifications = new dsector.PreBuiltWeaponSpecifications();
             DSReference.scene = new dsector.Scene();
-            DSReference.dsecMainSetupWindow = new dsector.DSecMainSetupWindow();
             DSReference.dsecSetupWindow = new dsector.DSecSetupWindow();
+            DSReference.dsecPlayWindow = new dsector.DSecPlayWindow();
+            DSReference.dsecMainSetupWindow = new dsector.DSecMainSetupWindow();
             DSReference.dsecMissileManager = new dsector.DSecMissileManager();
             DSReference.dsecGame = new dsector.DSecGame();
             DSReference.playersStatusWindow = new dsector.PlayersStatusWindow();
@@ -26,8 +26,9 @@ var dsector;
             DSReference.dsecSaveGameWindow = new dsector.DSecSaveGameWindow();
             DSReference.dsecLoadGameWindow = new dsector.DSecLoadGameWindow();
             DSReference.dsecTitlePage = new dsector.DSecTitlePage();
-            DSReference.dsecSetupWindow.dsOptions = new CWSYSTEM.CWHashtable("config/dzsetup.cfg");
-            dsector.DSReference.dsecSetupWindow.dsOptions.readHashtableFromFile();
+            //dsector.DSecSetupWindow.dsOptions.loadOptions();
+            DSReference.dsecSetupWindow.dsOptions = new CWSYSTEM.CWHashtable("dzsetup.cfg");
+            DSReference.dsecSetupWindow.dsOptions.readHashtableFromFile();
         }
     }
 

@@ -20,7 +20,7 @@ var dsector;
             }
             this.savedX = -1;
             this.savedY = -1;
-            this.hmPlayers = new CWSYSTEM.CWHashtable("config/players.cfg");
+            this.hmPlayers = new CWSYSTEM.CWHashtable("players.cfg");
             this.hmPlayers.readHashtableFromFile();
             CWSYSTEM.AlertManager.backgroundColor = new CWSYSTEM.CWColor(0, 0, 0, 180);
             CWSYSTEM.AlertManager.textColor = CWSYSTEM.CWColor.white_$LI$();
@@ -377,7 +377,7 @@ var dsector;
                 message = message + "player" + (i + 1) + "Name=" + player.name + "\n";
                 message = message + "player" + (i + 1) + "Filename=" + player.robotSpecification.filenameCode() + "\n";
             }
-            CWSYSTEM.CWFileTools.outputFile("config/players.cfg", message).then(result => console.log(result)) // output: true
+            CWSYSTEM.CWFileTools.outputFile("players.cfg", message).then(result => console.log(result)) // output: true
                 .catch(error => console.error(error));
         }
 

@@ -127,12 +127,12 @@ var dsector;
 
         upgradeWeaponFuelQuality() {
             if (this.__weaponFuelUpgradeLevel === 0) {
-                if (dsector.DSecSetupWindow.soundMode !== 0) {
+                if (dsector.DSReference.dsecSetupWindow.soundMode !== 0) {
                     dsector.DSReference.cwSound.playSound("assets/sounds/upgradeSound.wav", (Math.random() * 5.0));
                 }
                 this.__weaponFuelUpgradeLevel = 1;
             } else if (this.__weaponFuelUpgradeLevel === 1) {
-                if (dsector.DSecSetupWindow.soundMode !== 0) {
+                if (dsector.DSReference.dsecSetupWindow.soundMode !== 0) {
                     dsector.DSReference.cwSound.playSound("assets/sounds/upgradeSound.wav", (Math.random() * 5.0));
                 }
                 this.__weaponFuelUpgradeLevel = 2;
@@ -141,12 +141,12 @@ var dsector;
 
         upgradeArmour() {
             if (this.__armourUpgradeLevel === 0) {
-                if (dsector.DSecSetupWindow.soundMode !== 0) {
+                if (dsector.DSReference.dsecSetupWindow.soundMode !== 0) {
                     dsector.DSReference.cwSound.playSound("assets/sounds/upgradeSound.wav", (Math.random() * 5.0));
                 }
                 this.__armourUpgradeLevel = 1;
             } else if (this.__armourUpgradeLevel === 1) {
-                if (dsector.DSecSetupWindow.soundMode !== 0) {
+                if (dsector.DSReference.dsecSetupWindow.soundMode !== 0) {
                     dsector.DSReference.cwSound.playSound("assets/sounds/upgradeSound.wav", (Math.random() * 5.0));
                 }
                 this.__armourUpgradeLevel = 2;
@@ -155,12 +155,12 @@ var dsector;
 
         upgradeTurnRate() {
             if (this.__turnRateUpgradeLevel === 0) {
-                if (dsector.DSecSetupWindow.soundMode !== 0) {
+                if (dsector.DSReference.dsecSetupWindow.soundMode !== 0) {
                     dsector.DSReference.cwSound.playSound("assets/sounds/upgradeSound.wav", (Math.random() * 5.0));
                 }
                 this.__turnRateUpgradeLevel = 1;
             } else if (this.__turnRateUpgradeLevel === 1) {
-                if (dsector.DSecSetupWindow.soundMode !== 0) {
+                if (dsector.DSReference.dsecSetupWindow.soundMode !== 0) {
                     dsector.DSReference.cwSound.playSound("assets/sounds/upgradeSound.wav", (Math.random() * 5.0));
                 }
                 this.__turnRateUpgradeLevel = 2;
@@ -169,12 +169,12 @@ var dsector;
 
         upgradeVelocity() {
             if (this.__velocityUpgradeLevel === 0) {
-                if (dsector.DSecSetupWindow.soundMode !== 0) {
+                if (dsector.DSReference.dsecSetupWindow.soundMode !== 0) {
                     dsector.DSReference.cwSound.playSound("assets/sounds/upgradeSound.wav", (Math.random() * 5.0));
                 }
                 this.__velocityUpgradeLevel = 1;
             } else if (this.__velocityUpgradeLevel === 1) {
-                if (dsector.DSecSetupWindow.soundMode !== 0) {
+                if (dsector.DSReference.dsecSetupWindow.soundMode !== 0) {
                     dsector.DSReference.cwSound.playSound("assets/sounds/upgradeSound.wav", (Math.random() * 5.0));
                 }
                 this.__velocityUpgradeLevel = 2;

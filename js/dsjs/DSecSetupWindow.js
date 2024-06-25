@@ -13,6 +13,14 @@ var dsector;
             this.savedX = -1;
             this.savedY = -1;
             let dkblCount = 4;
+
+            this.showBackgrounds = false;
+            this.antialiasLevel = 1;
+            this.soundMode = 1;
+            this.startingCredits = 0;
+            this.musicMode = 1;
+            this.dsOptions = null;
+
             /* check for joysticks */
             try {
                 dkblCount += dsector.DSReference.jsu.joysticksActive.size;
@@ -102,15 +110,21 @@ var dsector;
             this.keyLabels.push(new dsector.ObjectPair(88, "X"));
             this.keyLabels.push(new dsector.ObjectPair(89, "Y"));
             this.keyLabels.push(new dsector.ObjectPair(90, "Z"));
-
-            this.dsOptions = null;
         }
 
         static cameraMode_$LI$() {
-            if (DSecSetupWindow.cameraMode == null || isNaN(DSecSetupWindow.cameraMode)) {
-                DSecSetupWindow.cameraMode = DSecSetupWindow.OVERHEAD;
+            if (dsector.DSReference.dsecSetupWindow.cameraMode == null ||
+                isNaN(dsector.DSReference.dsecSetupWindow.cameraMode)) {
+                dsector.DSReference.dsecSetupWindow.cameraMode = DSecSetupWindow.OVERHEAD;
             }
-            return DSecSetupWindow.cameraMode;
+            return dsector.DSReference.dsecSetupWindow.cameraMode;
+        }
+
+        _cameraMode() {
+            if (this.cameraMode == null || isNaN(this.cameraMode)) {
+                this.cameraMode = DSecSetupWindow.OVERHEAD;
+            }
+            return dsector.DSReference.dsecSetupWindow.cameraMode;
         }
 
         isCreated() {
@@ -182,49 +196,49 @@ var dsector;
             this.window.addTextBlock("", "Music", 10, 150, font, color, 999);
             this.window.addTextBlock("", "Starting Credits", 10, 170, font, color, 999);
             let arrayList = ([]);
-            (arrayList.push(new dsector.StringPair("D-Sector standard display", "0")));
-            (arrayList.push(new dsector.StringPair("Cyclic panning", "1")));
-            (arrayList.push(new dsector.StringPair("Player 1 perspective", "2")));
-            (arrayList.push(new dsector.StringPair("Player 2 perspective", "3")));
-            (arrayList.push(new dsector.StringPair("Player 3 perspective", "4")));
-            (arrayList.push(new dsector.StringPair("Player 4 perspective", "5")));
-            (arrayList.push(new dsector.StringPair("Player 5 perspective", "6")));
-            (arrayList.push(new dsector.StringPair("Player 6 perspective", "7")));
+            arrayList.push(new dsector.StringPair("D-Sector standard display", "0"));
+            arrayList.push(new dsector.StringPair("Cyclic panning", "1"));
+            arrayList.push(new dsector.StringPair("Player 1 perspective", "2"));
+            arrayList.push(new dsector.StringPair("Player 2 perspective", "3"));
+            arrayList.push(new dsector.StringPair("Player 3 perspective", "4"));
+            arrayList.push(new dsector.StringPair("Player 4 perspective", "5"));
+            arrayList.push(new dsector.StringPair("Player 5 perspective", "6"));
+            arrayList.push(new dsector.StringPair("Player 6 perspective", "7"));
             let pd = this.window.addPulldown("cameraMode", arrayList, 235, 46, 200, 16);
-            pd.selectedOption = DSecSetupWindow.cameraMode_$LI$();
+            pd.selectedOption = this._cameraMode();
             pd.objectContainingPulldownChangedMethod = this;
             arrayList = ([]);
-            (arrayList.push(new dsector.StringPair("Yes", "true")));
-            (arrayList.push(new dsector.StringPair("No", "false")));
+            arrayList.push(new dsector.StringPair("Yes", "true"));
+            arrayList.push(new dsector.StringPair("No", "false"));
             pd = this.window.addPulldown("showBackgrounds", arrayList, 235, 66, 200, 16);
-            pd.selectedOption = DSecSetupWindow.showBackgrounds ? 0 : 1;
+            pd.selectedOption = this.showBackgrounds ? 0 : 1;
             pd.objectContainingPulldownChangedMethod = this;
             arrayList = ([]);
-            (arrayList.push(new dsector.StringPair("Disabled", "1")));
-            (arrayList.push(new dsector.StringPair("Four times super-sampled", "2")));
-            (arrayList.push(new dsector.StringPair("Nine times super-sampled", "3")));
+            arrayList.push(new dsector.StringPair("Disabled", "1"));
+            arrayList.push(new dsector.StringPair("Four times super-sampled", "2"));
+            arrayList.push(new dsector.StringPair("Nine times super-sampled", "3"));
             pd = this.window.addPulldown("antialiasLevel", arrayList, 235, 86, 200, 16);
-            pd.selectedOption = DSecSetupWindow.antialiasLevel - 1;
+            pd.selectedOption = this.antialiasLevel - 1;
             pd.objectContainingPulldownChangedMethod = this;
             arrayList = ([]);
-            (arrayList.push(new dsector.StringPair("No sound effects", "0")));
-            (arrayList.push(new dsector.StringPair("Simplified sound", "1")));
-            (arrayList.push(new dsector.StringPair("Extended sound", "2")));
+            arrayList.push(new dsector.StringPair("No sound effects", "0"));
+            arrayList.push(new dsector.StringPair("Simplified sound", "1"));
+            arrayList.push(new dsector.StringPair("Extended sound", "2"));
             pd = this.window.addPulldown("soundMode", arrayList, 235, 106, 200, 16);
-            pd.selectedOption = DSecSetupWindow.soundMode;
+            pd.selectedOption = this.soundMode;
             pd.objectContainingPulldownChangedMethod = this;
             arrayList = ([]);
             arrayList.push(new dsector.StringPair("Music off", "0"));
             arrayList.push(new dsector.StringPair("Music on", "1"));
             pd = this.window.addPulldown("musicMode", arrayList, 235, 126, 200, 16);
-            pd.selectedOption = DSecSetupWindow.musicMode;
+            pd.selectedOption = this.musicMode;
             pd.objectContainingPulldownChangedMethod = this;
             arrayList = ([]);
             arrayList.push(new dsector.StringPair("Default", "0"));
             arrayList.push(new dsector.StringPair("Fun", "1"));
             arrayList.push(new dsector.StringPair("OVERPOWERED!", "2"));
             pd = this.window.addPulldown("startingCredits", arrayList, 235, 146, 200, 16);
-            pd.selectedOption = DSecSetupWindow.startingCredits;
+            pd.selectedOption = this.startingCredits;
             pd.objectContainingPulldownChangedMethod = this;
             this.window.addTextBlock("", "Action", 10, 190, font, color, 999);
             this.window.addTextBlock("", "Keyboard 1", 124, 190, font, color, 999);
@@ -389,24 +403,24 @@ var dsector;
                 }
             }
             if (pd.name === ("cameraMode")) {
-                DSecSetupWindow.cameraMode = parseInt(pd.selectedValue());
+                this.cameraMode = parseInt(pd.selectedValue());
             }
             if (pd.name === ("showBackgrounds")) {
-                DSecSetupWindow.showBackgrounds = CWSYSTEM.CWStringTools.stringToBoolean(pd.selectedValue());
+                this.showBackgrounds = CWSYSTEM.CWStringTools.stringToBoolean(pd.selectedValue());
             }
             if (pd.name === ("antialiasLevel")) {
-                DSecSetupWindow.antialiasLevel = parseInt(pd.selectedValue());
+                this.antialiasLevel = parseInt(pd.selectedValue());
             }
             if (pd.name === ("soundMode")) {
-                DSecSetupWindow.soundMode = parseInt(pd.selectedValue());
+                this.soundMode = parseInt(pd.selectedValue());
             }
             if (pd.name === ("musicMode")) {
-                DSecSetupWindow.musicMode = parseInt(pd.selectedValue());
+                this.musicMode = parseInt(pd.selectedValue());
             }
             if (pd.name === ("startingCredits")) {
-                DSecSetupWindow.startingCredits = parseInt(pd.selectedValue());
+                this.startingCredits = parseInt(pd.selectedValue());
             }
-            this.saveOptions();
+            //this.saveOptions();
             this.update();
         }
 
@@ -418,12 +432,12 @@ var dsector;
 
         saveOptions() {
             let configString = `
-cameraMode=${DSecSetupWindow.cameraMode_$LI$()}
-showBackgrounds=${DSecSetupWindow.showBackgrounds}
-antialiasLevel=${DSecSetupWindow.antialiasLevel}
-soundMode=${DSecSetupWindow.soundMode}
-musicMode=${DSecSetupWindow.musicMode}
-startingCredits=${DSecSetupWindow.startingCredits}`;
+cameraMode=${this._cameraMode()}
+showBackgrounds=${this.showBackgrounds}
+antialiasLevel=${this.antialiasLevel}
+soundMode=${this.soundMode}
+musicMode=${this.musicMode}
+startingCredits=${this.startingCredits}`;
 
             for (let i = 0; i < 4; ++i) {
                 configString += `
@@ -435,52 +449,59 @@ keyboard${i + 1}FireWeapon=${DSecSetupWindow.dsecKeyboardLayout[i].fireWeapon}
 keyboard${i + 1}ChangeWeapon=${DSecSetupWindow.dsecKeyboardLayout[i].changeWeapon}`;
             }
 
-            CWSYSTEM.CWFileTools.outputFile("config/dzsetup.cfg", configString.trim());
+            CWSYSTEM.CWFileTools.outputFile("dzsetup.cfg", configString.trim());
         }
 
         loadOptions() {
+            let c;
             let ht = this.dsOptions;
             if (ht === null || ht.hashMap === null) {
                 ht = null;
             }
+            console.log(ht);
             let exceptionList = [];
             //const x = [String.fromCharCode(10)];
             try {
-                DSecSetupWindow.cameraMode = parseInt(ht.get("cameraMode"));
-                //if(isNaN(DSecSetupWindow.cameraMode)){throw new DOMException("cameraError")}
+                c = parseInt(ht.get("cameraMode"));
+                this.cameraMode = isNaN(c) ? DSecSetupWindow.OVERHEAD : c;
             } catch (e) {
-                DSecSetupWindow.cameraMode = DSecSetupWindow.OVERHEAD;
+                this.cameraMode = DSecSetupWindow.OVERHEAD;
                 exceptionList.push({"cameraMode": e.message});
             }
             try {
-                DSecSetupWindow.showBackgrounds =
+                this.showBackgrounds =
                     CWSYSTEM.CWStringTools.stringToBoolean(ht.get("showBackgrounds"));
             } catch (e) {
-                DSecSetupWindow.showBackgrounds = false;
+                this.showBackgrounds = false;
                 exceptionList.push({"showBackgrounds": e.message});
             }
             try {
-                DSecSetupWindow.antialiasLevel = parseInt(ht.get("antialiasLevel"));
+                c = parseInt(ht.get("antialiasLevel"));
+                this.antialiasLevel = isNaN(c) ? 1 : c;
             } catch (e) {
-                DSecSetupWindow.antialiasLevel = 1;
+                this.antialiasLevel = 1;
                 exceptionList.push({"antialiasLevel": e.message});
             }
             try {
-                DSecSetupWindow.soundMode = parseInt(ht.get("soundMode"));
+                c = parseInt(ht.get("soundMode"));
+                this.soundMode = isNaN(c) ? DSecSetupWindow.NORMAL_SOUND : c;
             } catch (e) {
-                DSecSetupWindow.soundMode = DSecSetupWindow.NORMAL_SOUND;
+                this.soundMode = DSecSetupWindow.NORMAL_SOUND;
                 exceptionList.push({"soundMode": e.message});
             }
             try {
-                DSecSetupWindow.musicMode = parseInt(ht.get("musicMode"));
+                c = parseInt(ht.get("musicMode"));
+                this.musicMode = isNaN(c) ? DSecSetupWindow.MUSIC_ON : c;
             } catch (e) {
-                DSecSetupWindow.musicMode = DSecSetupWindow.MUSIC_ON;
+                this.musicMode = DSecSetupWindow.MUSIC_ON;
                 exceptionList.push({"musicMode": e.message});
             }
             try {
-                DSecSetupWindow.startingCredits = parseInt(ht.get("startingCredits"));
+                c = parseInt(ht.get("startingCredits"));
+                console.log(`"${ht.get("startingCredits")}\nStarting Creds: ${c}`);
+                this.startingCredits = isNaN(c) ? 0 : c;
             } catch (e) {
-                DSecSetupWindow.startingCredits = 0;
+                this.startingCredits = 0;
                 exceptionList.push({"startingCredits": e.message});
             }
 
@@ -492,43 +513,43 @@ keyboard${i + 1}ChangeWeapon=${DSecSetupWindow.dsecKeyboardLayout[i].changeWeapo
             exceptionList = [];
             for (let i = 0; i < 4; ++i) {
                 try {
-                    DSecSetupWindow.dsecKeyboardLayout[i].forwards =
-                        parseInt(ht.get("keyboard" + (i + 1) + "Forwards"));
+                    c = parseInt(ht.get("keyboard" + (i + 1) + "Forwards"));
+                    DSecSetupWindow.dsecKeyboardLayout[i].forwards = isNaN(c) ? 38 : c;
                 } catch (e) {
                     DSecSetupWindow.dsecKeyboardLayout[i].forwards = 38;
                     exceptionList.push({[`keyboard${i + 1}Forwards`]: e.message});
                 }
                 try {
-                    DSecSetupWindow.dsecKeyboardLayout[i].backwards =
-                        parseInt(ht.get("keyboard" + (i + 1) + "Backwards"));
+                    c = parseInt(ht.get("keyboard" + (i + 1) + "Backwards"));
+                    DSecSetupWindow.dsecKeyboardLayout[i].backwards = isNaN(c) ? 40 : c;
                 } catch (e) {
                     DSecSetupWindow.dsecKeyboardLayout[i].backwards = 40;
                     exceptionList.push({[`keyboard${i + 1}Backwards`]: e.message});
                 }
                 try {
-                    DSecSetupWindow.dsecKeyboardLayout[i].turnLeft =
-                        parseInt(ht.get("keyboard" + (i + 1) + "TurnLeft"));
+                    c = parseInt(ht.get("keyboard" + (i + 1) + "TurnLeft"));
+                    DSecSetupWindow.dsecKeyboardLayout[i].turnLeft = isNaN(c) ? 37 : c;
                 } catch (e) {
                     DSecSetupWindow.dsecKeyboardLayout[i].turnLeft = 37;
                     exceptionList.push({[`keyboard${i + 1}TurnLeft`]: e.message});
                 }
                 try {
-                    DSecSetupWindow.dsecKeyboardLayout[i].turnRight =
-                        parseInt(ht.get("keyboard" + (i + 1) + "TurnRight"));
+                    c = parseInt(ht.get("keyboard" + (i + 1) + "TurnRight"));
+                    DSecSetupWindow.dsecKeyboardLayout[i].turnRight = isNaN(c) ? 39 : c;
                 } catch (e) {
                     DSecSetupWindow.dsecKeyboardLayout[i].turnRight = 39;
                     exceptionList.push({[`keyboard${i + 1}TurnRight`]: e.message});
                 }
                 try {
-                    DSecSetupWindow.dsecKeyboardLayout[i].fireWeapon =
-                        parseInt(ht.get("keyboard" + (i + 1) + "FireWeapon"));
+                    c = parseInt(ht.get("keyboard" + (i + 1) + "FireWeapon"));
+                    DSecSetupWindow.dsecKeyboardLayout[i].fireWeapon = isNaN(c) ? 32 : c;
                 } catch (e) {
                     DSecSetupWindow.dsecKeyboardLayout[i].fireWeapon = 32;
                     exceptionList.push({[`keyboard${i + 1}FireWeapon`]: e.message});
                 }
                 try {
-                    DSecSetupWindow.dsecKeyboardLayout[i].changeWeapon =
-                        parseInt(ht.get("keyboard" + (i + 1) + "ChangeWeapon"));
+                    c = parseInt(ht.get("keyboard" + (i + 1) + "ChangeWeapon"));
+                    DSecSetupWindow.dsecKeyboardLayout[i].changeWeapon = isNaN(c) ? 67 : c;
                 } catch (e) {
                     DSecSetupWindow.dsecKeyboardLayout[i].changeWeapon = 67;
                     exceptionList.push({[`keyboard${i + 1}ChangeWeapon`]: e.message});
@@ -539,7 +560,7 @@ keyboard${i + 1}ChangeWeapon=${DSecSetupWindow.dsecKeyboardLayout[i].changeWeapo
                 CWSYSTEM.Debug.println("KB001: Exceptions thrown:\n" +
                     JSON.stringify(exceptionList, null, 2) + "\nKB001: will use defaults...");
             }
-            this.saveOptions();
+            //this.saveOptions();
         }
 
         /** @private */
@@ -558,23 +579,23 @@ keyboard${i + 1}ChangeWeapon=${DSecSetupWindow.dsecKeyboardLayout[i].changeWeapo
         }
     }
 
-    DSecSetupWindow.showBackgrounds = false;
-    DSecSetupWindow.antialiasLevel = 1;
+    // DSecSetupWindow.showBackgrounds = false;
+    // DSecSetupWindow.antialiasLevel = 1;
+    // DSecSetupWindow.soundMode = 1;
+    // DSecSetupWindow.startingCredits = 0;
+    // DSecSetupWindow.musicMode = 1;
+    // DSecSetupWindow.dsOptions = null;
+    DSecSetupWindow.dsecKeyboardLayout = null;
+    DSecSetupWindow.rotationsPerMinute = 1.0;
     DSecSetupWindow.NO_SOUND = 0;
     DSecSetupWindow.SIMPLIFIED_SOUND = 1;
     DSecSetupWindow.NORMAL_SOUND = 2;
-    DSecSetupWindow.soundMode = 1;
     DSecSetupWindow.MUSIC_OFF = 0;
     DSecSetupWindow.MUSIC_ON = 1;
-    DSecSetupWindow.musicMode = 1;
-    DSecSetupWindow.startingCredits = 0;
     DSecSetupWindow.OVERHEAD = 0;
     DSecSetupWindow.CYCLIC_PANNING = 1;
     DSecSetupWindow.PLAYER_1_PERSPECTIVE = 2;
     DSecSetupWindow.PLAYER_2_PERSPECTIVE = 3;
-    DSecSetupWindow.rotationsPerMinute = 1.0;
-    DSecSetupWindow.dsOptions = null;
-    DSecSetupWindow.dsecKeyboardLayout = null;
     dsector.DSecSetupWindow = DSecSetupWindow;
     DSecSetupWindow["__class"] = "dsector.DSecSetupWindow";
 })(dsector || (dsector = {}));

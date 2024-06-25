@@ -84,7 +84,7 @@ var CWSYSTEM;
 
         buttonPressed() {
             if (this.objectContainingButtonPressedMethod != null) {
-                const classes = [this.constructor];
+                //const classes = [this.constructor];
                 try {
                     const declaredMethod = ((c, p) => {
                         if (c.prototype.hasOwnProperty(p) && typeof c.prototype[p] == 'function')
@@ -268,7 +268,7 @@ var CWSYSTEM;
                             const tHeight = this.height;
                             const lHeight = ((tHeight - textHeightInPixels) / 2 | 0);
                             CWSYSTEM.CWFontTools.renderText(null, this.text, 0, 0, this.font, color2, 9999);
-                            const checked = false;
+                            //const checked = false;
                             let width1;
                             if (this.textAlignment === CWButton.CENTERED) {
                                 width1 = ((this.length - CWSYSTEM.CWFontTools.RENDERED_WIDTH) / 2 | 0);

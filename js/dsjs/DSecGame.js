@@ -165,7 +165,7 @@ var dsector;
         startNextRound() {
             dsector.DSReference.dsecPlayWindow.create();
             dsector.DSReference.dsecPlayWindow.window.useAntiAliasedContentAreaAndNoInterfaceElements(
-                dsector.DSecSetupWindow.antialiasLevel, 1);
+                dsector.DSReference.dsecSetupWindow.antialiasLevel, 1);
             if (this.__currentRound === -1) {
                 this.__currentRound = 1;
             } else {
@@ -247,7 +247,7 @@ var dsector;
                 let z1;
                 let arrayList;
                 let time;
-                switch ((dsector.DSecSetupWindow.cameraMode_$LI$())) {
+                switch ((dsector.DSReference.dsecSetupWindow._cameraMode())) {
                     case 0:
                         vertex = this.getCameraOverheadPositionForClosestTankDisplay();
                         dsector.DSReference.scene.cameraRotation = dsector.Matrix4f.rotationXMatrix(Math.PI);
@@ -272,8 +272,8 @@ var dsector;
                         break;
                     default:
                         let player = this.getPlayer(1);
-                        if (dsector.DSecSetupWindow.cameraMode_$LI$() >= 3) {
-                            player = this.getPlayer((dsector.DSecSetupWindow.cameraMode_$LI$() - 1));
+                        if (dsector.DSReference.dsecSetupWindow._cameraMode() >= 3) {
+                            player = this.getPlayer((dsector.DSReference.dsecSetupWindow._cameraMode() - 1));
                         }
                         y1 = Math.fround(Math.PI + player.getAngle());
                         rotateX = 1.3;
@@ -301,7 +301,7 @@ var dsector;
                     positionedModel = this.dsecRound.backgroundObjects[time];
                     dsector.DSReference.scene.addPositionedModel(positionedModel);
                 }
-                if (dsector.DSecSetupWindow.showBackgrounds) {
+                if (dsector.DSReference.dsecSetupWindow.showBackgrounds) {
                     for (time = 0; time < this.dsecRound.silentBackgroundObjects.length; ++time) {
                         positionedModel = this.dsecRound.silentBackgroundObjects[time];
                         dsector.DSReference.scene.addPositionedModel(positionedModel);

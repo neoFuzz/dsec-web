@@ -124,7 +124,7 @@ var dsector;
             this.robotSpecification = new dsector.RobotSpecification(robotFileName);
             this.name = name;
             this.prepareForStartOfGame();
-            if (dsector.DSecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
+            if (dsector.DSReference.dsecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
                 try {
                     let clip = new Audio("assets/sounds/forwardMovement.wav");
                     clip.loop = false;
@@ -207,7 +207,7 @@ var dsector;
         prepareForStartOfGame() {
             this.tankSpecification = new dsector.TankSpecification(dsector.TankSpecification.STANDARD_TANK);
             this.__score = 0.0;//this.credits = 600;
-            switch (dsector.DSecSetupWindow.startingCredits) {
+            switch (dsector.DSReference.dsecSetupWindow.startingCredits) {
                 default:
                 case 0:
                     this.credits = 600;
@@ -497,7 +497,7 @@ var dsector;
                     dsector.DSReference.dsecGame.dsecRound.atLeastOnePlayerHasFired()) {
                     if (!selectedWeapon.alreadyFired(this)) {
                         if (Math.fround(this.weaponEnergy - selectedWeapon.fuelUse) < 0.0 &&
-                            dsector.DSecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
+                            dsector.DSReference.dsecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
                             if (this.robotSpecification.type !== dsector.RobotSpecification.ROBOT) {
                                 dsector.DSReference.cwSound.playSound("assets/sounds/missileFailed.wav",
                                     (Math.random() * 20.0));
@@ -569,7 +569,7 @@ var dsector;
                             this.__angleMovement = 1;
                             this.lastMovementInstruction = DSecPlayer.TURN_CLOCKWISE;
                             if (this.__angleMovement === 0 && this.angleMovementSound != null &&
-                                dsector.DSecSetupWindow.soundMode === dsector.DSecSetupWindow.NORMAL_SOUND) {
+                                dsector.DSReference.dsecSetupWindow.soundMode === dsector.DSecSetupWindow.NORMAL_SOUND) {
                                 this.angleMovementSound.loop = false;
                                 this.angleMovementSound.play();
                             }
@@ -580,7 +580,7 @@ var dsector;
                             this.__angleMovement = -1;
                             this.lastMovementInstruction = DSecPlayer.TURN_ANTICLOCKWISE;
                             if (this.__angleMovement === 0 && this.angleMovementSound != null &&
-                                dsector.DSecSetupWindow.soundMode === dsector.DSecSetupWindow.NORMAL_SOUND) {
+                                dsector.DSReference.dsecSetupWindow.soundMode === dsector.DSecSetupWindow.NORMAL_SOUND) {
                                 this.angleMovementSound.loop = false;
                                 this.angleMovementSound.play();
                             }
@@ -588,7 +588,7 @@ var dsector;
                         break;
                     case 5: /* STOP_TURNING */
                         if (this.angleMovementSound != null &&
-                            dsector.DSecSetupWindow.soundMode === dsector.DSecSetupWindow.NORMAL_SOUND) {
+                            dsector.DSReference.dsecSetupWindow.soundMode === dsector.DSecSetupWindow.NORMAL_SOUND) {
                             this.angleMovementSound.pause();
                         }
                         this.lastMovementInstruction = DSecPlayer.STOP_TURNING;
@@ -776,7 +776,7 @@ var dsector;
 
         takeDamage(missile) {
             if (this.__shieldActive) {
-                if (dsector.DSecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
+                if (dsector.DSReference.dsecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
                     dsector.DSReference.cwSound.playSound(
                         "assets/sounds/shieldDeflection.wav", (Math.random() * 20.0));
                 }
@@ -812,7 +812,7 @@ var dsector;
                     this.brain.setTankLastTakenHitFrom(owner);
                 }
                 if (this.shields <= 0.0) {
-                    if (dsector.DSecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
+                    if (dsector.DSReference.dsecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
                         if (this.__hasLargerDeath) {
                             dsector.DSReference.cwSound.playSound(
                                 "assets/sounds/mediumExplosion.wav", (Math.random() * 10.0));

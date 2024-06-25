@@ -1,5 +1,9 @@
 var dsector;
 (function (dsector) {
+    /**
+     * Class representing a weapon specification.
+     * @class WeaponSpecification
+     */
     class WeaponSpecification {
         /** Creates a new weapon specification.
          * @param {number} specificationID - The ID of the weapon specification.
@@ -115,8 +119,10 @@ var dsector;
             this.selfHealAmount = 0;
         }
 
-        /** @private */
-        static soundPlay(missile) {
+        /** Play a sound from the buffer.
+         * @param {number} m unused {@link Missile} parameter
+         *  @private */
+        static soundPlay(m) {
             try {
                 dsector.DSReference.cwSound.playSound("assets/sounds/laserMovement.wav", 1);
             } catch (e) {
@@ -126,6 +132,10 @@ var dsector;
             }
         }
 
+        /**
+         * Returns a copy of this weapon specification.
+         * @returns {WeaponSpecification}
+         */
         returnSelf() {
             return new dsector.WeaponSpecification(this.specificationID, false, this.type, this.fullName,
                 this.shoppingDescription, this.abbreviatedName, this.portName, this.modelName, this.portNumber,
@@ -135,28 +145,32 @@ var dsector;
                 this.guideSpecification, this.guidedTurnRate);
         }
 
-        actualPrice(player) {
+        /**
+         * Returns the actual price of the weapon based on whether the discount card is in the player's inventory.
+         * @param p
+         * @returns {number}
+         */
+        actualPrice(p) {
             const itemsOnSpecial = dsector.DSReference.dsecShoppingScreen.itemsOnSpecial;
-            if (player == null) {
+            if (p == null) {
                 return Math.ceil(this.price);
             } else {
-                const checked = true;
                 let price1 = this.price;
                 switch (this.specificationID) {
                     case dsector.PreBuiltWeaponSpecifications.FUEL_UPGRADE:
                     case dsector.PreBuiltWeaponSpecifications.METAL_UPGRADE:
                     case dsector.PreBuiltWeaponSpecifications.TURN_UPGRADE:
                     case dsector.PreBuiltWeaponSpecifications.SPEED_UPGRADE:
-                        price1 = player.tankSpecification.priceBeforeAllDiscounts();
+                        price1 = p.tankSpecification.priceBeforeAllDiscounts();
                         break;
                     case dsector.PreBuiltWeaponSpecifications.FUEL_UPGRADE_2:
                     case dsector.PreBuiltWeaponSpecifications.METAL_UPGRADE_2:
                     case dsector.PreBuiltWeaponSpecifications.TURN_UPGRADE_2:
                     case dsector.PreBuiltWeaponSpecifications.SPEED_UPGRADE_2:
-                        price1 = 2 * player.tankSpecification.priceBeforeAllDiscounts();
+                        price1 = 2 * p.tankSpecification.priceBeforeAllDiscounts();
                         break;
                 }
-                price1 = price1 * player.shoppingDiscount();
+                price1 = price1 * p.shoppingDiscount();
                 if (itemsOnSpecial != null) {
                     for (let index = 0; index < itemsOnSpecial.length; index++) {
                         const objectPair = itemsOnSpecial[index];
@@ -171,16 +185,26 @@ var dsector;
             }
         }
 
-        fireP(player) {
-            return this.fire(player, player.getX(), player.getY(), player.getAngle(),
+        /**
+         * Fires the weapon at the specified position and angle from the player.
+         * @param p
+         * @returns {DSecMissile}
+         */
+        fireP(p) {
+            return this.fire(p, p.getX(), p.getY(), p.getAngle(),
                 this.launchOffset, this.defaultDamage);
         }
 
-        alreadyFired(player) {
+        /**
+         * Checks if the weapon has already been fired by the player.
+         * @param p
+         * @returns {boolean}
+         */
+        alreadyFired(p) {
             if (this.actionWhenFiredAfterAlreadyLaunched !== WeaponSpecification.ACTION_NONE) {
                 for (let i = 0; i < dsector.DSReference.dsecMissileManager.missiles.length; ++i) {
                     const missile = dsector.DSReference.dsecMissileManager.missiles[i];
-                    if (missile.weaponSpecification === this && player === missile.owner) {
+                    if (missile.weaponSpecification === this && p === missile.owner) {
                         return true;
                     }
                 }
@@ -195,7 +219,8 @@ var dsector;
          * @param {number} mAngle The rate of turn the missile can turn.
          * @param {VectorInR3} r3 R3 vector.
          * @param {number} damage Damage the missile will do.
-         * @return null | any */
+         * @return null | any
+         */
         fire(owner, x, y, mAngle, r3, damage) {
             if (this.type === WeaponSpecification.TELEPORT_SELF) {
                 this.teleportSelf(owner);
@@ -231,6 +256,7 @@ var dsector;
                 }
                 return null;
             } else {
+                const p = dsector.DSReference.dsecSetupWindow.soundMode;
                 if (this.guideSpecification === WeaponSpecification.GUIDE_SPECIFICATION_SWIRLER) {
                     mAngle = mAngle + 4.71238898038469;
                 }
@@ -250,151 +276,151 @@ var dsector;
                     }
                     return null;
                 } else {
-                    let weaponSpec;
-                    const wVector000 = new dsector.VectorInR3(0.0, 0.0, 0.0);
+                    let w_Spec;
+                    const v000 = new dsector.VectorInR3(0.0, 0.0, 0.0);
                     if (this.launchSpecification === WeaponSpecification.LAUNCH_FRONT_DOUBLE) {
-                        weaponSpec = this.returnSelf();
-                        weaponSpec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
-                        weaponSpec.fire(owner, x, y, mAngle, new dsector.VectorInR3(0.0, 3.5, 0.0), (damage / 2.0));
-                        weaponSpec.fire(owner, x, y, mAngle, new dsector.VectorInR3(0.0, -3.5, 0.0), (damage / 2.0));
+                        w_Spec = this.returnSelf();
+                        w_Spec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
+                        w_Spec.fire(owner, x, y, mAngle, new dsector.VectorInR3(0.0, 3.5, 0.0), (damage / 2.0));
+                        w_Spec.fire(owner, x, y, mAngle, new dsector.VectorInR3(0.0, -3.5, 0.0), (damage / 2.0));
                         return null;
                     } else if (this.launchSpecification === WeaponSpecification.LAUNCH_FRONT_TRIPLE) {
-                        weaponSpec = this.returnSelf();
-                        weaponSpec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
-                        weaponSpec.fire(owner, x, y, mAngle, new dsector.VectorInR3(0.0, 4.5, 0.0), (damage / 3.0));
-                        weaponSpec.fire(owner, x, y, mAngle, wVector000, (damage / 3.0));
-                        weaponSpec.fire(owner, x, y, mAngle, new dsector.VectorInR3(0.0, -4.5, 0.0), (damage / 3.0));
+                        w_Spec = this.returnSelf();
+                        w_Spec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
+                        w_Spec.fire(owner, x, y, mAngle, new dsector.VectorInR3(0.0, 4.5, 0.0), (damage / 3.0));
+                        w_Spec.fire(owner, x, y, mAngle, v000, (damage / 3.0));
+                        w_Spec.fire(owner, x, y, mAngle, new dsector.VectorInR3(0.0, -4.5, 0.0), (damage / 3.0));
                         return null;
                     } else if (this.launchSpecification === WeaponSpecification.LAUNCH_REAR_DOUBLE) {
-                        weaponSpec = this.returnSelf();
-                        weaponSpec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
-                        weaponSpec.fire(owner, x, y, Math.fround((mAngle + Math.PI ) % 360.0), /*3.141592653589793*/
+                        w_Spec = this.returnSelf();
+                        w_Spec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
+                        w_Spec.fire(owner, x, y, Math.fround((mAngle + Math.PI) % 360.0), /*3.141592653589793*/
                             new dsector.VectorInR3(0.0, 3.5, 0.0), (damage / 2.0));
-                        weaponSpec.fire(owner, x, y, Math.fround((mAngle + Math.PI) % 360.0),
+                        w_Spec.fire(owner, x, y, Math.fround((mAngle + Math.PI) % 360.0),
                             new dsector.VectorInR3(0.0, -3.5, 0.0), (damage / 2.0));
                         return null;
                     } else if (this.launchSpecification === WeaponSpecification.LAUNCH_REAR_TRIPLE) {
-                        weaponSpec = this.returnSelf();
-                        weaponSpec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
-                        weaponSpec.fire(owner, x, y, Math.fround((mAngle + Math.PI) % 360.0),
+                        w_Spec = this.returnSelf();
+                        w_Spec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
+                        w_Spec.fire(owner, x, y, Math.fround((mAngle + Math.PI) % 360.0),
                             new dsector.VectorInR3(0.0, 4.5, 0.0), (damage / 3.0));
-                        weaponSpec.fire(owner, x, y, Math.fround((mAngle + Math.PI) % 360.0),
-                            wVector000, (damage / 3.0));
-                        weaponSpec.fire(owner, x, y, Math.fround((mAngle + Math.PI) % 360.0),
+                        w_Spec.fire(owner, x, y, Math.fround((mAngle + Math.PI) % 360.0),
+                            v000, (damage / 3.0));
+                        w_Spec.fire(owner, x, y, Math.fround((mAngle + Math.PI) % 360.0),
                             new dsector.VectorInR3(0.0, -4.5, 0.0), (damage / 3.0));
                         return null;
                     } else {
                         let fVal;
                         if (this.launchSpecification === WeaponSpecification.LAUNCH_ELECTRO_BUDS) {
-                            weaponSpec = this.returnSelf();
-                            weaponSpec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
+                            w_Spec = this.returnSelf();
+                            w_Spec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
                             fVal = (Math.random() * Math.PI * 2.0);
                             for (let turn = 0.0; turn < 6.283185307179586; turn = (turn + 0.8975979010256552)) {
-                                weaponSpec.fire(owner, x, y, (turn + fVal), wVector000, (damage / 7.0));
+                                w_Spec.fire(owner, x, y, (turn + fVal), v000, (damage / 7.0));
                             }
                             return null;
                         } else if (this.launchSpecification === WeaponSpecification.LAUNCH_BOMB) {
-                            weaponSpec = this.returnSelf();
-                            weaponSpec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
-                            weaponSpec.actionWhenDestroyed = WeaponSpecification.DESTROY_AS_SMALL_BLAST;
-                            weaponSpec.velocity = 12.0;
-                            weaponSpec.lifeSpanInMilliseconds = 4000;
-                            weaponSpec.modelName = "assets/models/standardMissile";
+                            w_Spec = this.returnSelf();
+                            w_Spec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
+                            w_Spec.actionWhenDestroyed = WeaponSpecification.DESTROY_AS_SMALL_BLAST;
+                            w_Spec.velocity = 12.0;
+                            w_Spec.lifeSpanInMilliseconds = 4000;
+                            w_Spec.modelName = "assets/models/standardMissile";
                             if (this.specificationID === dsector.PreBuiltWeaponSpecifications.DEATH_BOMB) {
-                                weaponSpec.modelName = "assets/models/deathSpike";
+                                w_Spec.modelName = "assets/models/deathSpike";
                             }
                             for (fVal = 0.0; fVal < 6.283185307179586; fVal = (fVal + 6.283185307179586 / damage)) {
-                                weaponSpec.fire(owner, x, y, fVal, wVector000, 2.0);
+                                w_Spec.fire(owner, x, y, fVal, v000, 2.0);
                             }
                             return null;
                         } else if (this.launchSpecification === WeaponSpecification.LAUNCH_TRI_BREAKER) {
-                            weaponSpec = this.returnSelf();
-                            weaponSpec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
-                            weaponSpec.actionWhenDestroyed = WeaponSpecification.DESTROY_AS_SMALL_BLAST;
-                            weaponSpec.fire(owner, x, y, Math.fround(mAngle - 0.5235987755982988),
+                            w_Spec = this.returnSelf();
+                            w_Spec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
+                            w_Spec.actionWhenDestroyed = WeaponSpecification.DESTROY_AS_SMALL_BLAST;
+                            w_Spec.fire(owner, x, y, Math.fround(mAngle - 0.5235987755982988),
                                 new dsector.VectorInR3(0.0, 0.0, 0.0), (damage * 2.0) / 3.0);
-                            weaponSpec.fire(owner, x, y, mAngle, wVector000, (damage * 2.0) / 3.0);
-                            weaponSpec.fire(owner, x, y, Math.fround(mAngle + 0.5235987755982988),
+                            w_Spec.fire(owner, x, y, mAngle, v000, (damage * 2.0) / 3.0);
+                            w_Spec.fire(owner, x, y, Math.fround(mAngle + 0.5235987755982988),
                                 new dsector.VectorInR3(0.0, 0.0, 0.0), (damage * 2.0) / 3.0);
                             return null;
                         } else if (this.launchSpecification === WeaponSpecification.LAUNCH_QUINT_BREAKER) {
-                            weaponSpec = this.returnSelf();
-                            weaponSpec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
-                            weaponSpec.actionWhenDestroyed = WeaponSpecification.DESTROY_AS_SMALL_BLAST;
-                            weaponSpec.fire(owner, x, y, Math.fround(mAngle - 0.6283185307179586), wVector000, Math.fround((2.0 * damage) / 5.0));
-                            weaponSpec.fire(owner, x, y, Math.fround(mAngle - 0.3141592653589793), wVector000, Math.fround((2.0 * damage) / 5.0));
-                            weaponSpec.fire(owner, x, y, mAngle, wVector000, Math.fround((2.0 * damage) / 5.0));
-                            weaponSpec.fire(owner, x, y, Math.fround(mAngle + 0.3141592653589793), wVector000, Math.fround((2.0 * damage) / 5.0));
-                            weaponSpec.fire(owner, x, y, Math.fround(mAngle + 0.6283185307179586), wVector000, Math.fround((2.0 * damage) / 5.0));
+                            w_Spec = this.returnSelf();
+                            w_Spec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
+                            w_Spec.actionWhenDestroyed = WeaponSpecification.DESTROY_AS_SMALL_BLAST;
+                            w_Spec.fire(owner, x, y, Math.fround(mAngle - 0.6283185307179586), v000, Math.fround((2.0 * damage) / 5.0));
+                            w_Spec.fire(owner, x, y, Math.fround(mAngle - 0.3141592653589793), v000, Math.fround((2.0 * damage) / 5.0));
+                            w_Spec.fire(owner, x, y, mAngle, v000, Math.fround((2.0 * damage) / 5.0));
+                            w_Spec.fire(owner, x, y, Math.fround(mAngle + 0.3141592653589793), v000, Math.fround((2.0 * damage) / 5.0));
+                            w_Spec.fire(owner, x, y, Math.fround(mAngle + 0.6283185307179586), v000, Math.fround((2.0 * damage) / 5.0));
                             return null;
                         } else if (this.launchSpecification === WeaponSpecification.LAUNCH_OCTO_BREAKER) {
-                            weaponSpec = this.returnSelf();
-                            weaponSpec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
-                            weaponSpec.actionWhenDestroyed = WeaponSpecification.DESTROY_AS_SMALL_BLAST;
-                            weaponSpec.fire(owner, x, y, Math.fround(mAngle - 0.7330382858376184), wVector000, Math.fround(2.0 * damage) / 8.0);
-                            weaponSpec.fire(owner, x, y, Math.fround(mAngle - 0.5235987755982988), wVector000, Math.fround(2.0 * damage) / 8.0);
-                            weaponSpec.fire(owner, x, y, Math.fround(mAngle - 0.3141592653589793), wVector000, Math.fround(2.0 * damage) / 8.0);
-                            weaponSpec.fire(owner, x, y, Math.fround(mAngle - 0.10471975511965977), wVector000, Math.fround(2.0 * damage) / 8.0);
-                            weaponSpec.fire(owner, x, y, Math.fround(mAngle + 0.10471975511965977), wVector000, Math.fround(2.0 * damage) / 8.0);
-                            weaponSpec.fire(owner, x, y, Math.fround(mAngle + 0.3141592653589793), wVector000, Math.fround(2.0 * damage) / 8.0);
-                            weaponSpec.fire(owner, x, y, Math.fround(mAngle + 0.5235987755982988), wVector000, Math.fround(2.0 * damage) / 8.0);
-                            weaponSpec.fire(owner, x, y, Math.fround(mAngle + 0.7330382858376184), wVector000, Math.fround(2.0 * damage) / 8.0);
+                            w_Spec = this.returnSelf();
+                            w_Spec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
+                            w_Spec.actionWhenDestroyed = WeaponSpecification.DESTROY_AS_SMALL_BLAST;
+                            w_Spec.fire(owner, x, y, Math.fround(mAngle - 0.7330382858376184), v000, Math.fround(2.0 * damage) / 8.0);
+                            w_Spec.fire(owner, x, y, Math.fround(mAngle - 0.5235987755982988), v000, Math.fround(2.0 * damage) / 8.0);
+                            w_Spec.fire(owner, x, y, Math.fround(mAngle - 0.3141592653589793), v000, Math.fround(2.0 * damage) / 8.0);
+                            w_Spec.fire(owner, x, y, Math.fround(mAngle - 0.10471975511965977), v000, Math.fround(2.0 * damage) / 8.0);
+                            w_Spec.fire(owner, x, y, Math.fround(mAngle + 0.10471975511965977), v000, Math.fround(2.0 * damage) / 8.0);
+                            w_Spec.fire(owner, x, y, Math.fround(mAngle + 0.3141592653589793), v000, Math.fround(2.0 * damage) / 8.0);
+                            w_Spec.fire(owner, x, y, Math.fround(mAngle + 0.5235987755982988), v000, Math.fround(2.0 * damage) / 8.0);
+                            w_Spec.fire(owner, x, y, Math.fround(mAngle + 0.7330382858376184), v000, Math.fround(2.0 * damage) / 8.0);
                             return null;
                         } else if (this.launchSpecification === WeaponSpecification.LAUNCH_BLAST) {
-                            weaponSpec = this.returnSelf();
-                            weaponSpec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
-                            weaponSpec.actionWhenDestroyed = WeaponSpecification.DESTROY_AS_SMALL_BLAST;
-                            weaponSpec.guideSpecification = WeaponSpecification.GUIDE_SPECIFICATION_NOT_GUIDED;
+                            w_Spec = this.returnSelf();
+                            w_Spec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
+                            w_Spec.actionWhenDestroyed = WeaponSpecification.DESTROY_AS_SMALL_BLAST;
+                            w_Spec.guideSpecification = WeaponSpecification.GUIDE_SPECIFICATION_NOT_GUIDED;
                             for (fVal = 0.0; fVal < 6.283185307179586; fVal = (fVal + 12.566370614359172 / damage)) {
-                                weaponSpec.fire(owner, x, y, fVal, new dsector.VectorInR3(0.0, 0.0, 0.0), 4.0);
+                                w_Spec.fire(owner, x, y, fVal, new dsector.VectorInR3(0.0, 0.0, 0.0), 4.0);
                             }
                             return null;
                         } else if (this.launchSpecification === WeaponSpecification.LAUNCH_GUIDED_BLAST) {
-                            weaponSpec = this.returnSelf();
-                            weaponSpec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
-                            weaponSpec.actionWhenDestroyed = WeaponSpecification.DESTROY_AS_SMALL_BLAST;
-                            weaponSpec.guideSpecification = WeaponSpecification.GUIDE_SPECIFICATION_SEEK_NEAREST_MOVING;
+                            w_Spec = this.returnSelf();
+                            w_Spec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
+                            w_Spec.actionWhenDestroyed = WeaponSpecification.DESTROY_AS_SMALL_BLAST;
+                            w_Spec.guideSpecification = WeaponSpecification.GUIDE_SPECIFICATION_SEEK_NEAREST_MOVING;
                             for (fVal = 0.0; fVal < 6.283185307179586; fVal = (fVal + 12.566370614359172 / damage)) {
-                                weaponSpec.fire(owner, x, y, fVal, wVector000, 4.0);
+                                w_Spec.fire(owner, x, y, fVal, v000, 4.0);
                             }
                             return null;
                         } else if (this.launchSpecification === WeaponSpecification.LAUNCH_QUINT_GUIDE) {
-                            weaponSpec = this.returnSelf();
-                            weaponSpec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
-                            weaponSpec.actionWhenDestroyed = WeaponSpecification.DESTROY_AS_SMALL_BLAST;
-                            weaponSpec.guideSpecification = WeaponSpecification.GUIDE_SPECIFICATION_SEEK_NEAREST_MOVING;
-                            weaponSpec.fire(owner, x, y, Math.fround(mAngle - 0.6283185307179586),
-                                wVector000, Math.fround((2.0 * damage) / 5.0));
-                            weaponSpec.fire(owner, x, y, Math.fround(mAngle - 0.3141592653589793),
-                                wVector000, Math.fround((2.0 * damage) / 5.0));
-                            weaponSpec.fire(owner, x, y, mAngle, wVector000, Math.fround((2.0 * damage) / 5.0));
-                            weaponSpec.fire(owner, x, y, Math.fround(mAngle + 0.3141592653589793),
-                                wVector000, Math.fround((2.0 * damage) / 5.0));
-                            weaponSpec.fire(owner, x, y, Math.fround(mAngle + 0.6283185307179586),
-                                wVector000, Math.fround((2.0 * damage) / 5.0));
+                            w_Spec = this.returnSelf();
+                            w_Spec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
+                            w_Spec.actionWhenDestroyed = WeaponSpecification.DESTROY_AS_SMALL_BLAST;
+                            w_Spec.guideSpecification = WeaponSpecification.GUIDE_SPECIFICATION_SEEK_NEAREST_MOVING;
+                            w_Spec.fire(owner, x, y, Math.fround(mAngle - 0.6283185307179586),
+                                v000, Math.fround((2.0 * damage) / 5.0));
+                            w_Spec.fire(owner, x, y, Math.fround(mAngle - 0.3141592653589793),
+                                v000, Math.fround((2.0 * damage) / 5.0));
+                            w_Spec.fire(owner, x, y, mAngle, v000, Math.fround((2.0 * damage) / 5.0));
+                            w_Spec.fire(owner, x, y, Math.fround(mAngle + 0.3141592653589793),
+                                v000, Math.fround((2.0 * damage) / 5.0));
+                            w_Spec.fire(owner, x, y, Math.fround(mAngle + 0.6283185307179586),
+                                v000, Math.fround((2.0 * damage) / 5.0));
                             return null;
                         } else if (this.launchSpecification === WeaponSpecification.LAUNCH_SWARM_MISSLE) {
                             let mspec = dsector.DSReference.preBuiltWeaponSpecifications.getPreBuiltSpecification(
                                 dsector.PreBuiltWeaponSpecifications.STANDARD_MISSILE);
-                            mspec.fire(owner, x, y, mAngle, wVector000, 5.0);
-                            weaponSpec = this.returnSelf();
-                            weaponSpec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
-                            weaponSpec.actionWhenDestroyed = WeaponSpecification.DESTROY_AS_SMALL_BLAST;
-                            weaponSpec.guideSpecification = WeaponSpecification.GUIDE_SPECIFICATION_SEEK_NEAREST;
-                            weaponSpec.guidedTurnRate = 8.0;
-                            weaponSpec.modelName = "assets/models/deathSpike";
+                            mspec.fire(owner, x, y, mAngle, v000, 5.0);
+                            w_Spec = this.returnSelf();
+                            w_Spec.launchSpecification = WeaponSpecification.LAUNCH_FRONT_SINGLE;
+                            w_Spec.actionWhenDestroyed = WeaponSpecification.DESTROY_AS_SMALL_BLAST;
+                            w_Spec.guideSpecification = WeaponSpecification.GUIDE_SPECIFICATION_SEEK_NEAREST;
+                            w_Spec.guidedTurnRate = 8.0;
+                            w_Spec.modelName = "assets/models/deathSpike";
                             let sVector = new dsector.VectorInR3(0, -3, 0); // offset location
                             let angle = Math.fround(mAngle - 0.6283185307179586); // launch angle bottom
                             for (let nx = 0; nx < 8; ++nx) {
                                 sVector.subtract(6, 1, 0);
-                                weaponSpec.fire(owner, x, y, angle, sVector, 5.0);
+                                w_Spec.fire(owner, x, y, angle, sVector, 5.0);
                             }
                             angle = Math.fround(mAngle + 0.6283185307179586); // launch angle top
                             sVector = new dsector.VectorInR3(0, -3, 0);
                             for (let nx = 0; nx < 8; ++nx) {
                                 sVector.subtract(6, 0, 0);
                                 sVector.add(0, 1, 0);
-                                weaponSpec.fire(owner, x, y, angle, sVector, 5.0);
+                                w_Spec.fire(owner, x, y, angle, sVector, 5.0);
                             }
                             return null;
                         } else if (this.launchSpecification !== WeaponSpecification.LAUNCH_BLAST_SWIRLER) {
@@ -412,7 +438,7 @@ var dsector;
                                 missile.setDamage(damage);
                                 dsector.DSReference.dsecMissileManager.addMissile(missile);
                                 if (this.specificationID === dsector.PreBuiltWeaponSpecifications.TRI_STRIKER) {
-                                    if (dsector.DSecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
+                                    if (p !== dsector.DSecSetupWindow.NO_SOUND) {
                                         switch ((((Math.random() * 3.0) | 0))) {
                                             case 0:
                                                 dsector.DSReference.cwSound.playSound("assets/sounds/powerLaser.wav",
@@ -427,12 +453,12 @@ var dsector;
                                                     (Math.random() * 10.0));
                                         }
                                     }
-                                    if (dsector.DSecSetupWindow.soundMode === dsector.DSecSetupWindow.NORMAL_SOUND) {
+                                    if (p === dsector.DSecSetupWindow.NORMAL_SOUND) {
                                         WeaponSpecification.soundPlay(missile);
                                     }
                                 }
                                 if (this.specificationID === dsector.PreBuiltWeaponSpecifications.POWER_LASER) {
-                                    if (dsector.DSecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
+                                    if (p !== dsector.DSecSetupWindow.NO_SOUND) {
                                         if ((Math.random() * 2.0) === 0) {
                                             dsector.DSReference.cwSound.playSound("assets/sounds/powerLaser.wav",
                                                 (Math.random() * 10.0));
@@ -442,12 +468,12 @@ var dsector;
 
                                         }
                                     }
-                                    if (dsector.DSecSetupWindow.soundMode === dsector.DSecSetupWindow.NORMAL_SOUND) {
+                                    if (p === dsector.DSecSetupWindow.NORMAL_SOUND) {
                                         WeaponSpecification.soundPlay(missile);
                                     }
                                 }
                                 if (this.specificationID === dsector.PreBuiltWeaponSpecifications.BEAM_LASER) {
-                                    if (dsector.DSecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
+                                    if (p !== dsector.DSecSetupWindow.NO_SOUND) {
                                         if ((Math.random() * 2.0) === 0) {
                                             dsector.DSReference.cwSound.playSound("assets/sounds/powerLaser2.wav",
                                                 (Math.random() * 10.0));
@@ -456,17 +482,17 @@ var dsector;
                                                 (Math.random() * 10.0));
                                         }
                                     }
-                                    if (dsector.DSecSetupWindow.soundMode === dsector.DSecSetupWindow.NORMAL_SOUND) {
+                                    if (p === dsector.DSecSetupWindow.NORMAL_SOUND) {
                                         WeaponSpecification.soundPlay(missile);
                                     }
                                 }
                                 return missile;
                             }
                         } else {
-                            weaponSpec = dsector.DSReference.preBuiltWeaponSpecifications.getPreBuiltSpecification(
+                            w_Spec = dsector.DSReference.preBuiltWeaponSpecifications.getPreBuiltSpecification(
                                 dsector.PreBuiltWeaponSpecifications.SWIRLER);
                             for (fVal = 0.0; fVal < 6.283185307179586; fVal = (fVal + 0.7853981633974483)) {
-                                weaponSpec.fire(owner, x, y, fVal, new dsector.VectorInR3(0.0, 0.0, 0.0),
+                                w_Spec.fire(owner, x, y, fVal, new dsector.VectorInR3(0.0, 0.0, 0.0),
                                     (2.0 * damage) / 8.0);
                             }
                             return null;
@@ -476,41 +502,59 @@ var dsector;
             }
         }
 
-        /** @private */
-        fireHealer(player) {
-            player.weaponEnergy -= this.fuelUse;
-            player.shields += this.defaultDamage;
-            if (player.shields > 100.0) {
-                player.shields = 100.0;
+        /**
+         * Fire a healer weapon.
+         * @param p {DSecPlayer}
+         * @private
+         */
+        fireHealer(p) {
+            p.weaponEnergy -= this.fuelUse;
+            p.shields += this.defaultDamage;
+            if (p.shields > 100.0) {
+                p.shields = 100.0;
             }
         }
 
-        /** @private */
-        teleportSelf(player) {
-            player.teleport();
+        /**
+         * Teleport the player to a random location.
+         * @param p {DSecPlayer}
+         * @private
+         */
+        teleportSelf(p) {
+            p.teleport();
         }
 
-        /** @private */
-        teleportFoe(player) {
-            const closestEnemyPlayer = player.getClosestEnemyPlayer();
+        /**
+         * Teleport the closest enemy player to a random location.
+         * @param p {DSecPlayer}
+         * @private
+         */
+        teleportFoe(p) {
+            const closestEnemyPlayer = p.getClosestEnemyPlayer();
             if (closestEnemyPlayer != null) {
                 closestEnemyPlayer.teleport();
             }
         }
 
-        /** @private */
-        fireECMHacker(player) {
+        /** Search for missiles in range of the player and destroy them
+         * @param p {DSecPlayer} the player to search for missiles in range from.
+         * @private */
+        fireECMHacker(p) {
             for (let i = dsector.DSReference.dsecMissileManager.missiles.length - 1; i >= 0; --i) {
                 const missile = dsector.DSReference.dsecMissileManager.missiles[i];
-                const distance = Math.sqrt(Math.pow(player.getX() - missile.getX(), 2.0) + Math.pow(player.getY() - missile.getY(), 2.0));
+                const distance = Math.sqrt(Math.pow(p.getX() - missile.getX(), 2.0) +
+                    Math.pow(p.getY() - missile.getY(), 2.0));
                 if (distance < 72.0) {
                     missile.destroy();
                 }
             }
         }
 
-        /** @private */
-        fireECMWiper(player) {
+        /**
+         * Destroy all missiles.
+         * @param p {DSecPlayer} the player to search for missiles in range from.
+         * @private */
+        fireECMWiper(p) {
             for (let i = dsector.DSReference.dsecMissileManager.missiles.length - 1; i >= 0; --i) {
                 const missile = dsector.DSReference.dsecMissileManager.missiles[i];
                 missile.destroy();

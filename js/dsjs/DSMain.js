@@ -27,6 +27,7 @@ var dsector;
             if (DSMain.discordEnabled) {
             }
             clearInterval(dsMain.interval);
+            dsector.DSReference.dsecSetupWindow.saveOptions();
             console.info("Application exited properly");
         }
 
