@@ -64,14 +64,39 @@ var CWSYSTEM;
             return imgData;
         }
 
+        /**
+         * Sets the display mode for all devices. This method is deprecated since it is not needed in a web browser.
+         * @deprecated
+         * @param window
+         * @param width
+         * @param height
+         * @param bitDepth
+         * @param refreshRate
+         * @returns {boolean}
+         */
         static setDisplayModeForAllDevices(window, width, height, bitDepth, refreshRate) {
             return true;
         }
 
+        /**
+         * This method is deprecated since it is not needed in a web browser.
+         * @deprecated
+         * @param window
+         * @param width
+         * @param height
+         * @param bitDepth
+         * @param refreshRate
+         * @returns {string}
+         */
         static setDisplayModeForDefaultDevice(window, width, height, bitDepth, refreshRate) {
             return "";
         }
 
+        /**
+         * This method is deprecated since it is not needed in a web browser.
+         * @deprecated
+         * @returns {string}
+         */
         static defaultDisplayMode() {
             return "";
         }

@@ -26,9 +26,46 @@ var dsector;
             DSReference.dsecSaveGameWindow = new dsector.DSecSaveGameWindow();
             DSReference.dsecLoadGameWindow = new dsector.DSecLoadGameWindow();
             DSReference.dsecTitlePage = new dsector.DSecTitlePage();
-            //dsector.DSecSetupWindow.dsOptions.loadOptions();
+
+            // Load the game settings IDB
             DSReference.dsecSetupWindow.dsOptions = new CWSYSTEM.CWHashtable("dzsetup.cfg");
             DSReference.dsecSetupWindow.dsOptions.readHashtableFromFile();
+
+            // Load sounds
+            let url = "assets/sounds/";
+            let sounds = ["angleMovement.wav",
+                "angleMovement2.wav",
+                "beamLaser2.wav",
+                "compressionDoor.wav",
+                "controlRoom.mp3",
+                "controlRoom.wav",
+                "debrisExplosion1.wav",
+                "debrisExplosion2.wav",
+                "forwardMovement.wav",
+                "jewelDestroyed.wav",
+                "largeCompressionDoor.wav",
+                "largeExplosion.wav",
+                "laserMovement.wav",
+                "mediumExplosion.wav",
+                "missileFailed.wav",
+                "powerLaser.wav",
+                "powerLaser2.wav",
+                "returnToZoneWarning.wav",
+                "roundEndWarning.wav",
+                "shieldActive.wav",
+                "shieldDeflection.wav",
+                "shieldSwitchOff.wav",
+                "shieldSwitchOn.wav",
+                "smallExplosion.wav",
+                "teleport.wav",
+                "upgradeSound.wav"];
+
+            sounds.forEach(file => {
+                DSReference.cwSound.loadSound(url + file)
+                    .then(buffer => DSReference.cwSound.cachedAudioClips.set(file, buffer));
+
+            });
+
         }
     }
 

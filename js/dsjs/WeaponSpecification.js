@@ -124,7 +124,7 @@ var dsector;
          *  @private */
         static soundPlay(m) {
             try {
-                dsector.DSReference.cwSound.playSound("assets/sounds/laserMovement.wav", 1);
+                dsector.DSReference.cwSound.playSound("laserMovement.wav", 1);
             } catch (e) {
                 CWSYSTEM.Debug.println("Error loading movement sounds from DSecPlayer.fireWeapon(..):" + e);
                 CWSYSTEM.Debug.println("Unsupported Audio format: " + e);
@@ -441,15 +441,15 @@ var dsector;
                                     if (p !== dsector.DSecSetupWindow.NO_SOUND) {
                                         switch ((((Math.random() * 3.0) | 0))) {
                                             case 0:
-                                                dsector.DSReference.cwSound.playSound("assets/sounds/powerLaser.wav",
+                                                dsector.DSReference.cwSound.playSound("powerLaser.wav",
                                                     (Math.random() * 10.0));
                                                 break;
                                             case 1:
-                                                dsector.DSReference.cwSound.playSound("assets/sounds/powerLaser2.wav",
+                                                dsector.DSReference.cwSound.playSound("powerLaser2.wav",
                                                     (Math.random() * 10.0));
                                                 break;
                                             case 2:
-                                                dsector.DSReference.cwSound.playSound("assets/sounds/beamLaser2.wav",
+                                                dsector.DSReference.cwSound.playSound("beamLaser2.wav",
                                                     (Math.random() * 10.0));
                                         }
                                     }
@@ -460,10 +460,10 @@ var dsector;
                                 if (this.specificationID === dsector.PreBuiltWeaponSpecifications.POWER_LASER) {
                                     if (p !== dsector.DSecSetupWindow.NO_SOUND) {
                                         if ((Math.random() * 2.0) === 0) {
-                                            dsector.DSReference.cwSound.playSound("assets/sounds/powerLaser.wav",
+                                            dsector.DSReference.cwSound.playSound("powerLaser.wav",
                                                 (Math.random() * 10.0));
                                         } else {
-                                            dsector.DSReference.cwSound.playSound("assets/sounds/powerLaser2.wav",
+                                            dsector.DSReference.cwSound.playSound("powerLaser2.wav",
                                                 (Math.random() * 10.0));
 
                                         }
@@ -475,10 +475,10 @@ var dsector;
                                 if (this.specificationID === dsector.PreBuiltWeaponSpecifications.BEAM_LASER) {
                                     if (p !== dsector.DSecSetupWindow.NO_SOUND) {
                                         if ((Math.random() * 2.0) === 0) {
-                                            dsector.DSReference.cwSound.playSound("assets/sounds/powerLaser2.wav",
+                                            dsector.DSReference.cwSound.playSound("powerLaser2.wav",
                                                 (Math.random() * 10.0));
                                         } else {
-                                            dsector.DSReference.cwSound.playSound("assets/sounds/beamLaser2.wav",
+                                            dsector.DSReference.cwSound.playSound("beamLaser2.wav",
                                                 (Math.random() * 10.0));
                                         }
                                     }

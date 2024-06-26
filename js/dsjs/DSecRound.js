@@ -357,7 +357,7 @@ var dsector;
                         player.getY() > 600.0 || player.getY() < -600.0) &&
                     CWSYSTEM.Environment.currentTime() - this.timeWhenLastOutOfAreaWarningStated > 10000 &&
                     dsector.DSReference.dsecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
-                    dsector.DSReference.cwSound.playSound("assets/sounds/returnToZoneWarning.wav", 1);
+                    dsector.DSReference.cwSound.playSound("returnToZoneWarning.wav", 1);
                     this.timeWhenLastOutOfAreaWarningStated = CWSYSTEM.Environment.currentTime();
                 }
                 if (player.getX() > 750.0 || player.getX() < -750.0 ||
@@ -389,7 +389,7 @@ var dsector;
         zeroFirePeriodExceeded() {
             const timePeriod = CWSYSTEM.Environment.currentTime() - this.__timeWhenAnyPlayerLastFired;
             if (!this.endOfRoundWarningIssued && timePeriod > 120000 && dsector.DSReference.dsecSetupWindow.soundMode !== 0) {
-                dsector.DSReference.cwSound.playSound("assets/sounds/roundEndWarning.wav", 0);
+                dsector.DSReference.cwSound.playSound("roundEndWarning.wav", 0);
                 this.endOfRoundWarningIssued = true;
             }
             return timePeriod > 139000;

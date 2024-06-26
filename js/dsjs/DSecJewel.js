@@ -90,7 +90,7 @@ var dsector;
                 this.energy = 0.0;
                 if (this.state === DSecJewel.ALIVE) {
                     if (dsector.DSReference.dsecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
-                        dsector.DSReference.cwSound.playSound("assets/sounds/jewelDestroyed.wav",
+                        dsector.DSReference.cwSound.playSound("jewelDestroyed.wav",
                             this.teamOfJewel().color);
                     }
                     this.state = DSecJewel.DESTROYED;

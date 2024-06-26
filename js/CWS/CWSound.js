@@ -1,44 +1,18 @@
-/* Converted from Java. will need to re-write in to Web Audio API https://web.dev/webaudio-intro/ */
+/* Converted from Java. Re-written to use Web Audio API */
 var CWSYSTEM;
 (function (CWSYSTEM) {
     class CWSound {
         constructor() {
+            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
             this.cachedAudioClips = new Map();
             if (this.lastSoundPlayed === undefined) {
                 this.lastSoundPlayed = null;
             }
         }
 
-        /** Plays the specified sound from cache. If not cached, load the sound then play it.
-         * @param {string} fileName The URL to get the file from
-         * @param {number} status Undocumented
+        /**
+         * Stops playing the selected sound.
          */
-        playSound(fileName, status) {
-            if (fileName == null) {
-                return;
-            }
-            let clip = null;
-            try {
-                clip = this.cachedAudioClips.get(fileName);// + "_" + status);
-            } catch (e) {
-                CWSYSTEM.Debug.println("Error CWSPS: " + e);
-                clip = null;
-            }
-            if (clip == null) {
-                // load sound
-                clip = new Audio(fileName);
-            }
-            if (clip !== null) {
-                clip.loop = false;
-                clip.play();
-                this.cachedAudioClips.set(fileName, clip);// + "_" + status, clip);
-                this.lastSoundPlayed = fileName;
-            } else {
-                clip.loop = false;
-                clip.play();
-            }
-        }
-
         stopSound() {
             if (this.lastSoundPlayed != null) {
                 let audioClip = this.cachedAudioClips.get(this.lastSoundPlayed);
@@ -49,6 +23,29 @@ var CWSYSTEM;
                     // nothing yet
                 }
             }
+        }
+
+        /**
+         * Loads a sound from the specified URL.
+         * @param url
+         * @returns {Promise<AudioBuffer>}
+         */
+        loadSound(url) {
+            return fetch(url)
+                .then(response => response.arrayBuffer())
+                .then(arrayBuffer => this.audioContext.decodeAudioData(arrayBuffer));
+        }
+
+        /**
+         * Play a sound using WebAudioAPI.
+         * @param sound filename of the sound that was preloaded
+         */
+        playSound(sound) {
+            const buffer = this.cachedAudioClips.get(sound);
+            const source = this.audioContext.createBufferSource();
+            source.buffer = buffer;
+            source.connect(this.audioContext.destination);
+            source.start();
         }
     }
 

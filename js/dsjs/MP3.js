@@ -6,30 +6,37 @@ var dsector;
      */
     class MP3 {
         /**
-         * Creates an instance of the MP3 class. The constructor takes a URL parameter and creates a new Audio object with the provided URL.
+         * Creates an instance of the MP3 class. The constructor takes a URL parameter and
+         * creates a new Audio object with the provided URL.
          * @param {string} url - The URL of the MP3 audio file.
          */
         constructor(url) {
-            if (this.filename === undefined) {
-                this.filename = null;
-            }
+            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
             this.filename = url;
-            this.audio = new Audio(url)
+            this.audioElement = new Audio(url);
+            this.audioElement.crossOrigin = "anonymous";
+            this.audioSource = this.audioContext.createMediaElementSource(this.audioElement);
+            this.audioSource.connect(this.audioContext.destination);
+            this.isBuffered = false;
+
+            // Ensure the audio is buffered before playing
+            this.audioElement.addEventListener('canplaythrough', () => {
+                this.isBuffered = true;
+            });
+
         }
 
         /**
-         * Stops the audio, clears the source URL, and prepares the object for cleanup.
-         */
-        close() {
-            this.stop();
-            this.audio.src = "";
-        }
-
-        /**
-         * Starts playing the audio.
+         * Plays the audio from the beginning.
          */
         play() {
-            this.audio.play();
+            if (this.isBuffered) {
+                this.audioElement.play();
+            } else {
+                this.audioElement.addEventListener('canplaythrough', () => {
+                    this.audioElement.play();
+                });
+            }
         }
 
         /**
@@ -37,26 +44,44 @@ var dsector;
          * @param {number} [count=Infinity] - The number of times to loop the audio (default: Infinity for infinite loop).
          */
         loop(count = Infinity) {
-            this.audio.loop = false;
+            this.audioElement.loop = false;
+            let playCount = 0;
 
             const onEnded = () => {
-                if (count > 1 || count === Infinity) {
-                    this.audio.currentTime = 0;
-                    count === Infinity ? this.play() : count--;
+                if (playCount < count - 1 || count === Infinity) {
+                    playCount++;
+                    this.audioElement.currentTime = 0;
+                    this.audioElement.play();
                 } else {
-                    this.audio.removeEventListener('ended', onEnded);
+                    this.audioElement.removeEventListener('ended', onEnded);
                 }
             };
 
-            this.audio.addEventListener('ended', onEnded);
+            this.audioElement.addEventListener('ended', onEnded);
+
+            if (this.isBuffered) {
+                this.audioElement.play();
+            } else {
+                this.audioElement.addEventListener('canplaythrough', () => {
+                    this.audioElement.play();
+                });
+            }
         }
 
         /**
          * Stops the audio playback and resets the current time to 0.
          */
         stop() {
-            this.audio.pause();
-            this.audio.currentTime = 0;
+            this.audioElement.pause();
+            this.audioElement.currentTime = 0;
+        }
+
+        /**
+         * Closes the audio element by stopping the playback and setting the source to an empty string.
+         */
+        close() {
+            this.stop();
+            this.audioElement.src = "";
         }
 
         /**
@@ -64,7 +89,7 @@ var dsector;
          * @returns {boolean} - `true` if the audio is currently playing, otherwise `false`.
          */
         getPlayingStatus() {
-            return !this.audio.paused;
+            return !this.audioElement.paused;
         }
 
         /**

@@ -8,19 +8,11 @@ var dsector;
             }
             this.currentShopper = null;
             if (this.controlRoomSound === undefined) {
-                this.controlRoomSound = null;
+                this.controlRoomSound = new dsector.MP3("assets/sounds/controlRoom.mp3");
             }
             this.controlRoomSoundPlaying = false;
             this.savedX = -1;
             this.savedY = -1;
-            if (dsector.DSReference.dsecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
-                try {
-                    let clip = new Audio("assets/sounds/controlRoom.wav");
-                    this.controlRoomSound = clip;
-                } catch (e) {
-                    CWSYSTEM.Debug.println("Error loading sounds from DSecShoppingScreen.create(): " + e);
-                }
-            }
         }
 
         static portDescription_$LI$() {
@@ -101,8 +93,7 @@ var dsector;
             dsector.DSReference.playersStatusWindow.destroy();
             this.drawWindow();
             if (!this.controlRoomSoundPlaying) {
-                this.controlRoomSound.loop = true;
-                this.controlRoomSound.play();
+                this.controlRoomSound.loop();
                 this.controlRoomSoundPlaying = true;
             }
         }
@@ -114,7 +105,7 @@ var dsector;
                 this.window.destroy();
                 this.window = null;
             }
-            this.controlRoomSound.pause();
+            this.controlRoomSound.setPlayingStatus(false);
             this.controlRoomSoundPlaying = false;
         }
 
@@ -274,14 +265,8 @@ var dsector;
             if (this.currentShopper != null) {
                 this.update();
                 if (dsector.DSReference.dsecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
-                    // TODO: fix sound
-                    try {
-                        let clip = new Audio("assets/sounds/compressionDoor.wav");
-                        clip.loop = false;
-                        clip.play();
-                    } catch (e) {
-                        console.error("Error loading sounds from DSecShoppingScreen.doneButtonPressed(..): " + e);
-                    }
+                    // TODO: fix sound playing with computer buying upgrade
+                    dsector.DSReference.cwSound.play("compressionDoor.wav");
                 }
             } else {
                 this.destroy();
