@@ -1,7 +1,9 @@
-var CWSYSTEM;
+/**/
 (function (CWSYSTEM) {
     /**
      * Class providing font manipulation and text rendering tools.
+     * @class
+     * @memberof CWSYSTEM
      */
     class CWFontTools {
         /**

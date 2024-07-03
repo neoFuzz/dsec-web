@@ -1,6 +1,14 @@
-var dsector;
+/**/
 (function (dsector) {
+    /**
+     * PlayersStatusWindow class responsible for managing the status window of players.
+     * @class
+     * @memberof dsector
+     */
     class PlayersStatusWindow {
+        /**
+         * Constructor for the PlayersStatusWindow class.
+         */
         constructor() {
             if (this.window === undefined) {
                 this.window = null;
@@ -10,7 +18,10 @@ var dsector;
             this.savedY = 25;
         }
 
-        /** @private */
+        /**
+         * Initializes the window.
+         * @private
+         */
         initialize() {
             this.initialized = true;
             this.create();
@@ -19,10 +30,17 @@ var dsector;
             this.destroy();
         }
 
+        /**
+         * Checks if the window is created.
+         * @returns {boolean} True if the window is created, false otherwise.
+         */
         isCreated() {
             return this.window != null;
         }
 
+        /**
+         * Toggles the creation state of the window.
+         */
         toggleCreated() {
             if (this.isCreated()) {
                 this.destroy();
@@ -31,6 +49,9 @@ var dsector;
             }
         }
 
+        /**
+         * Creates the window.
+         */
         create() {
             if (!this.initialized) {
                 this.initialize();
@@ -39,6 +60,9 @@ var dsector;
             this.restorePosition();
         }
 
+        /**
+         * Destroys the window.
+         */
         destroy() {
             if (this.window != null) {
                 this.savedX = this.window.xPosition;
@@ -49,7 +73,10 @@ var dsector;
             }
         }
 
-        /** @private */
+        /**
+         * Restores the position of the window.
+         * @private
+         */
         restorePosition() {
             if (this.savedX !== -1) {
                 this.window.xPosition = this.savedX;
@@ -59,12 +86,18 @@ var dsector;
             }
         }
 
+        /**
+         * Updates the window.
+         */
         update() {
             if (this.isCreated()) {
                 this.drawWindow();
             }
         }
 
+        /**
+         * Draws the window.
+         */
         drawWindow() {
             let baseX = 100;
             let baseY = 100;
@@ -97,18 +130,7 @@ var dsector;
                 let polygon = new dsector.Polygon(new dsector.Vertex(vX, (vY + h * i + 60), 0.0),
                     new dsector.Vertex(vX, (vY + h * i + 130), 0.0), new dsector.Vertex((vX + 50), (vY + h * i + 130),
                         0.0), new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$()));
-                vs.setColorVS$r$g$b$a(35, 35, 35, 255);
-                vs.renderPolygon(screenData, null, 0.0, polygon.v1.x, polygon.v1.y, polygon.v2.x, polygon.v2.y,
-                    polygon.v3.x, polygon.v3.y, false, wO, pRef, null, null);
-                PlayersStatusWindow.multiplyPolygon(polygon, 0.9);
-                vs.setColorVS$r$g$b$a(50, 50, 50, 255);
-                vs.renderPolygon(screenData, null, 0.0, polygon.v1.x, polygon.v1.y, polygon.v2.x, polygon.v2.y,
-                    polygon.v3.x, polygon.v3.y, false, wO, pRef, null, null);
-                PlayersStatusWindow.multiplyPolygon(polygon, 0.9);
-                vs.setColorVS$r$g$b$a(35, 35, 35, 255);
-                vs.renderPolygon(screenData, null, 0.0, polygon.v1.x, polygon.v1.y, polygon.v2.x, polygon.v2.y,
-                    polygon.v3.x, polygon.v3.y, false, wO, pRef, null, null);
-                PlayersStatusWindow.multiplyPolygon(polygon, 0.9);
+                PlayersStatusWindow.setupGlyph(vs, screenData, polygon, wO, pRef);
                 const displayColor = currentPlayer.getTankColor(2);
                 vs.setColor$intCWColor(displayColor);
                 vs.renderPolygon(screenData, null, 0.0, polygon.v1.x, polygon.v1.y, polygon.v2.x, polygon.v2.y,
@@ -120,18 +142,7 @@ var dsector;
                 polygon = new dsector.Polygon(new dsector.Vertex((wO - vX), (vY + h * i + 60), 0.0),
                     new dsector.Vertex((wO - vX), (vY + h * i + 130), 0.0), new dsector.Vertex((wO - vX - 50),
                         (vY + h * i + 130), 0.0), new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$()));
-                vs.setColorVS$r$g$b$a(35, 35, 35, 255);
-                vs.renderPolygon(screenData, null, 0.0, polygon.v1.x, polygon.v1.y, polygon.v2.x, polygon.v2.y,
-                    polygon.v3.x, polygon.v3.y, false, wO, pRef, null, null);
-                PlayersStatusWindow.multiplyPolygon(polygon, 0.9);
-                vs.setColorVS$r$g$b$a(50, 50, 50, 255);
-                vs.renderPolygon(screenData, null, 0.0, polygon.v1.x, polygon.v1.y, polygon.v2.x, polygon.v2.y,
-                    polygon.v3.x, polygon.v3.y, false, wO, pRef, null, null);
-                PlayersStatusWindow.multiplyPolygon(polygon, 0.9);
-                vs.setColorVS$r$g$b$a(35, 35, 35, 255);
-                vs.renderPolygon(screenData, null, 0.0, polygon.v1.x, polygon.v1.y, polygon.v2.x, polygon.v2.y,
-                    polygon.v3.x, polygon.v3.y, false, wO, pRef, null, null);
-                PlayersStatusWindow.multiplyPolygon(polygon, 0.9);
+                PlayersStatusWindow.setupGlyph(vs, screenData, polygon, wO, pRef);
                 vs.setColor$intCWColor(currentPlayer.getTankColor(2));
                 vs.renderPolygon(screenData, null, 0.0, polygon.v1.x, polygon.v1.y, polygon.v2.x, polygon.v2.y,
                     polygon.v3.x, polygon.v3.y, false, wO, pRef, null, null);
@@ -210,17 +221,47 @@ var dsector;
             }
         }
 
-        static multiplyPolygon(polygon, scaleAmount) {
-            const x1 = Math.fround((polygon.v1.x + polygon.v2.x + polygon.v3.x) / 3.0);
-            const y1 = Math.fround((polygon.v1.y + polygon.v2.y + polygon.v3.y) / 3.0);
-            const z1 = Math.fround((polygon.v1.z + polygon.v2.z + polygon.v3.z) / 3.0);
+        /**
+         * Sets up a glyph for the player status.
+         *
+         * @param vs {VirtualScreen} virtual screen to draw on
+         * @param sd {ScreenData} screen data to draw on
+         * @param p {Polygon} polygon to change
+         * @param w {number} width offset
+         * @param ref {number} reference to polygon
+         */
+        static setupGlyph(vs, sd, p, w, ref) {
+            function glyph2() {
+                vs.setColorVS$r$g$b$a(35, 35, 35, 255);
+                vs.renderPolygon(sd, null, 0.0, p.v1.x, p.v1.y, p.v2.x, p.v2.y,
+                    p.v3.x, p.v3.y, false, w, ref, null, null);
+                PlayersStatusWindow.multiplyPolygon(p, 0.9);
+            }
+
+            glyph2();
+            vs.setColorVS$r$g$b$a(50, 50, 50, 255);
+            vs.renderPolygon(sd, null, 0.0, p.v1.x, p.v1.y, p.v2.x, p.v2.y,
+                p.v3.x, p.v3.y, false, w, ref, null, null);
+            PlayersStatusWindow.multiplyPolygon(p, 0.9);
+            glyph2();
+        }
+
+        /**
+         * Multiplies the polygon by a scale amount.
+         * @param {Polygon} pg - The polygon to modify.
+         * @param {number} scalar - The amount to scale the polygon.
+         */
+        static multiplyPolygon(pg, scalar) {
+            const x1 = Math.fround((pg.v1.x + pg.v2.x + pg.v3.x) / 3.0);
+            const y1 = Math.fround((pg.v1.y + pg.v2.y + pg.v3.y) / 3.0);
+            const z1 = Math.fround((pg.v1.z + pg.v2.z + pg.v3.z) / 3.0);
             let matrix4f = new dsector.Matrix4f();
             matrix4f = matrix4f.translate(-x1, -y1, -z1);
-            matrix4f = matrix4f.scale(scaleAmount, scaleAmount, scaleAmount);
+            matrix4f = matrix4f.scale(scalar, scalar, scalar);
             matrix4f = matrix4f.translate(x1, y1, z1);
-            polygon.v1.transform(matrix4f);
-            polygon.v2.transform(matrix4f);
-            polygon.v3.transform(matrix4f);
+            pg.v1.transform(matrix4f);
+            pg.v2.transform(matrix4f);
+            pg.v3.transform(matrix4f);
         }
     }
 

@@ -1,5 +1,9 @@
-var dsector;
+/**/
 (function (dsector) {
+    /**
+     * @class
+     * @memberof CWSYSTEM
+     */
     class FormWindow {
         constructor(title) {
             this.window = null;
@@ -97,8 +101,8 @@ var dsector;
         }
 
         popup$() {
-            this.popup$gx$gy$f$my$x1$y1$w1$x2$h$w(CWSYSTEM.Environment.mouseXLastClicked_$LI$(),
-                CWSYSTEM.Environment.mouseYLastClicked_$LI$(), CWSYSTEM.CWSReference.virtualScreen.serif8_font,
+            this.popup$gx$gy$f$my$x1$y1$w1$x2$h$w(CWSYSTEM.Environment.mouseXLastClicked$(),
+                CWSYSTEM.Environment.mouseYLastClicked$(), CWSYSTEM.CWSReference.virtualScreen.serif8_font,
                 14, 14, 15, 120, 12, 17, 5);
         }
 

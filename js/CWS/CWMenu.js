@@ -1,4 +1,4 @@
-var CWSYSTEM;
+/**/
 (function (CWSYSTEM) {
     /**
      * Class representing a menu in the system.
@@ -41,7 +41,7 @@ var CWSYSTEM;
          * @static
          */
         static mouseClicked() {
-            if (CWSYSTEM.CWPopupMenu.cycleInWhichPopupOpened !== CWSYSTEM.Environment.cycleID_$LI$()) {
+            if (CWSYSTEM.CWPopupMenu.cycleInWhichPopupOpened !== CWSYSTEM.Environment.cycleID$()) {
                 for (let i = 0; i < CWSYSTEM.CWSReference.gui.numberOfWindows(); ++i) {
                     const guiWindow = CWSYSTEM.CWSReference.gui.getWindow$int(i);
                     if (guiWindow.menuManager != null && guiWindow.menuManager.mode === CWMenu.ACTIVE) {
@@ -58,7 +58,7 @@ var CWSYSTEM;
          * @static
          */
         static menuTitlePressed(pressed) {
-            if (CWSYSTEM.Environment.cycleID_$LI$() !== CWSYSTEM.CWPopupMenu.cycleInWhichPopupOpened) {
+            if (CWSYSTEM.Environment.cycleID$() !== CWSYSTEM.CWPopupMenu.cycleInWhichPopupOpened) {
                 const whatPressed = CWSYSTEM.CWStringTools.messagesBetweenCharacters(
                     pressed, '(', ')')[0];
                 const anInt = parseInt(CWSYSTEM.CWStringTools.messagesBetweenCharacters(
@@ -83,7 +83,7 @@ var CWSYSTEM;
                         menuManager.mode = CWMenu.ACTIVE;
                         const popupMenu = menuManager.popupMenus[anInt];
                         popupMenu.popup$();
-                        CWSYSTEM.CWPopupMenu.cycleInWhichPopupOpened = CWSYSTEM.Environment.cycleID_$LI$();
+                        CWSYSTEM.CWPopupMenu.cycleInWhichPopupOpened = CWSYSTEM.Environment.cycleID$();
                     }
                 }
             }
@@ -91,27 +91,29 @@ var CWSYSTEM;
 
         /**
          * Handle the event when the mouse is moved over a button.
-         * @param {CWSYSTEM.CWButton} cwButton - The button being hovered over.
+         * @param {CWSYSTEM.CWButton} cwBtn - The button being hovered over.
          * @static
          */
-        static mouseMovedOverButton(cwButton) {
-            const btnName = cwButton.name;
+        static mouseMovedOverButton(cwBtn) {
+            const btnName = cwBtn.name;
             if (btnName.length > 11 && ((str, searchString, position = 0) => str.substring(
                 position, searchString.length) === searchString)(btnName, "MENU_BUTTON")) {
-                const msgBetweenChar = CWSYSTEM.CWStringTools.messagesBetweenCharacters(btnName, '(', ')')[0];
-                const gap = parseInt(CWSYSTEM.CWStringTools.messagesBetweenCharacters(btnName, '[', ']')[0]);
-                let window0 = null;
+                const msgBtwnChar = CWSYSTEM.CWStringTools.messagesBetweenCharacters(
+                    btnName, '(', ')')[0];
+                const gap = parseInt(
+                    CWSYSTEM.CWStringTools.messagesBetweenCharacters(btnName, '[', ']')[0]);
+                let win0 = null;
                 for (let i = 0; i < CWSYSTEM.CWSReference.gui.numberOfWindows(); ++i) {
-                    const window1 = CWSYSTEM.CWSReference.gui.getWindow$int(i);
-                    if (window1.menuManager != null && (window1.menuManager.name === msgBetweenChar)) {
-                        window0 = window1;
+                    const win1 = CWSYSTEM.CWSReference.gui.getWindow$int(i);
+                    if (win1.menuManager != null && (win1.menuManager.name === msgBtwnChar)) {
+                        win0 = win1;
                         break;
                     }
                 }
-                if (window0.menuManager == null) {
+                if (win0.menuManager == null) {
                     return;
                 }
-                const menuManager = window0.menuManager;
+                const menuManager = win0.menuManager;
                 if (menuManager.mode === CWMenu.ACTIVE) {
                     menuManager.destroyAllOpenPopupMenus();
                     const popupMenu = menuManager.popupMenus[gap];
@@ -158,7 +160,8 @@ var CWSYSTEM;
          * @param {number} width - The width of the menu.
          * @param {number} y1 - The y-coordinate offset for the build position.
          */
-        build$int$int$int$Font$int$int$int$int(buildX, buildY, height, font, inWidth, maxWidth, width, y1) {
+        build$int$int$int$Font$int$int$int$int(buildX, buildY, height,
+                                               font, inWidth, maxWidth, width, y1) {
             const baseW = 0;
             let width1 = baseW + width;
             let height1;
@@ -207,7 +210,8 @@ var CWSYSTEM;
          * @param {number} [width] - The width of the menu.
          * @param {number} [y1] - The y-coordinate offset for the build position.
          */
-        build(buildX, buildY, height, font, inWidth, maxWidth, width, y1) {
+        build(buildX, buildY, height, font, inWidth,
+              maxWidth, width, y1) {
             if (typeof buildX === 'number' && typeof buildY === 'number' &&
                 typeof height === 'number' && font instanceof CWSYSTEM.CWFont &&
                 typeof inWidth === 'number' && typeof maxWidth === 'number' &&

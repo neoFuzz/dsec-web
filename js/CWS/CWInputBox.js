@@ -1,9 +1,10 @@
 /* re-written from Java */
-var CWSYSTEM;
 (function (CWSYSTEM) {
     /**
      * Represents an input box within the application, allowing for text input and interaction.
      * This class manages the creation, display, and functionality of an input box, including text entry and deletion.
+     * @class
+     * @memberof CWSYSTEM
      */
     class CWInputBox {
         /**
@@ -155,7 +156,7 @@ var CWSYSTEM;
          * @private
          */
         checkCursor() {
-            if (CWSYSTEM.Environment.inputBoxSelected_$LI$() !== this) {
+            if (CWSYSTEM.Environment.inputBoxSelected$() !== this) {
                 if (this.blinkState) {
                     this.blinkState = false;
                     this.parentWindow.updated = false;

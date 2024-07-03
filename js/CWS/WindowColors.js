@@ -1,5 +1,9 @@
-var CWSYSTEM;
+/**/
 (function (CWSYSTEM) {
+    /**
+     * @class
+     * @memberof CWSYSTEM
+     */
     class WindowColors {
         constructor() {
             this.windowColor = new Map();

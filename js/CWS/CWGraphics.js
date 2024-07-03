@@ -1,10 +1,9 @@
 /* Re-written from Java */
-
-var CWSYSTEM;
 (function (CWSYSTEM) {
     /**
      * Class representing CWGraphics with methods to handle image processing.
      * @class
+     * @memberof CWSYSTEM
      */
     class CWGraphics {
         /**
@@ -233,7 +232,7 @@ var CWSYSTEM;
 
                 let imageData = ([]);
                 for (let i = 0; i < intArray.length; i += 4) {
-                    imageData.push(CWSYSTEM.FastColorUtilities.color$r$g$b$a(
+                    imageData.push(CWSYSTEM.FastColorUtilities.colorRGBA(
                         intArray[i + 0], intArray[i + 1], intArray[i + 2], intArray[i + 3]));
                 }
                 for (let i = 0; i < imageHeight; ++i) {

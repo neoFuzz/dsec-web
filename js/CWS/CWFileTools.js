@@ -1,7 +1,11 @@
 /* code from Java, butchered to fit JavaScript. */
 // TODO: make it work as intended for each platform (Electron goal)
-var CWSYSTEM;
 (function (CWSYSTEM) {
+    /**
+     * Utility class built as a wrapper for handling file operations.
+     * @class
+     * @memberof CWSYSTEM
+     */
     class CWFileTools {
         static delete(fileName) {
             indexedDB.deleteDatabase(fileName);

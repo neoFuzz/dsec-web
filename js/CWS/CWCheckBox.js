@@ -1,5 +1,8 @@
-var CWSYSTEM;
 (function (CWSYSTEM) {
+    /**
+     * @class
+     * @memberof CWSYSTEM
+     */
     class CWCheckBox {
         constructor(parent, name, x, y, selected) {
             this.parentWindow = null;

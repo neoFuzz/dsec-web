@@ -1,6 +1,16 @@
-var dsector;
+/**/
 (function (dsector) {
+    /**
+     * @extends CWSYSTEM.CWSReference
+     * @description Represents the main reference class for the DSector game.
+     * @class DSReference
+     * @memberof dsector
+     */
     class DSReference extends CWSYSTEM.CWSReference {
+        /**
+         * @constructor
+         * @param {Object} w - The main DSector game object.
+         */
         constructor(w) {
             super();
             DSReference.jsu = new dsector.GamePadUtils();
@@ -69,30 +79,79 @@ var dsector;
         }
     }
 
+    /** The main DSector game object
+     * @type {Object}  */
     DSReference.dsMain = null;
+    /** The game scene
+     * @type {dsector.Scene} */
     DSReference.scene = null;
+    /** The renderer
+     * @type {dsector.Renderer} */
     DSReference.renderer = null;
+    /** The interface processes
+     * @type {dsector.DSInterfaceProcesses} */
     DSReference.interfaceProcesses = null;
+    /** The model loader
+     * @type {dsector.ModelLoader} */
     DSReference.modelLoader = null;
+    /** The setup window
+     * @type {dsector.DSecSetupWindow} */
     DSReference.dsecSetupWindow = null;
+    /** The play window
+     * @type {dsector.DSecPlayWindow} */
     DSReference.dsecPlayWindow = null;
+    /** The main setup window
+     * @type {dsector.DSecMainSetupWindow} */
     DSReference.dsecMainSetupWindow = null;
+    /** The game object
+     * @type {dsector.DSecGame} */
     DSReference.dsecGame = null;
+    /** The missile manager
+     * @type {dsector.DSecMissileManager} */
     DSReference.dsecMissileManager = null;
+    /** The pre-built weapon specifications
+     * @type {dsector.PreBuiltWeaponSpecifications} */
     DSReference.preBuiltWeaponSpecifications = null;
+    /** The players status window
+     * @type {dsector.PlayersStatusWindow} */
     DSReference.playersStatusWindow = null;
+    /** The shopping screen
+     * @type {dsector.DSecShoppingScreen} */
     DSReference.dsecShoppingScreen = null;
+    /** The scoreboard
+     * @type {dsector.DSecScoreboard} */
     DSReference.dsecScoreboard = null;
+    /** The robot chooser window
+     * @type {dsector.DSecRobotChooserWindow} */
     DSReference.dsecRobotChooserWindow = null;
+    /** The item description window
+     * @type {dsector.DSecItemDescriptionWindow} */
     DSReference.dsecItemDescriptionWindow = null;
+    /** The robot summary window
+     * @type {dsector.RobotSummaryWindow} */
     DSReference.robotSummaryWindow = null;
+    /** The robot sensors illustration window
+     *  @type {dsector.RobotSensorsIllustrationWindow} */
     DSReference.robotSensorsIllustrationWindow = null;
+    /**  The robot IO window
+     * @type {dsector.RobotIOWindow} */
     DSReference.robotIOWindow = null;
+    /**  The save game window
+     * @type {dsector.DSecSaveGameWindow} */
     DSReference.dsecSaveGameWindow = null;
+    /**  The load game window
+     * @type {dsector.DSecLoadGameWindow} */
     DSReference.dsecLoadGameWindow = null;
+    /** The title page
+     * @type {dsector.DSecTitlePage}  */
     DSReference.dsecTitlePage = null;
+    /** The gamepad utilities
+     * @type {dsector.GamePadUtils} */
     DSReference.jsu = null;
+    /** The 3D model matrix
+     * @type {Object}  */
     DSReference.model3DMatrix = null;
+
     dsector.DSReference = DSReference;
     DSReference["__class"] = "dsector.DSReference";
 })(dsector || (dsector = {}));

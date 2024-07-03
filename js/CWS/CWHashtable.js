@@ -1,8 +1,9 @@
-var CWSYSTEM;
+/* */
 (function (CWSYSTEM) {
     /**
      * Represents a hashtable for storing key-value pairs.
      * @class
+     * @memberof CWSYSTEM
      */
     class CWHashtable {
         /**

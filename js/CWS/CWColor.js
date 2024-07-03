@@ -1,6 +1,8 @@
-var CWSYSTEM;
 (function (CWSYSTEM) {
-    /** Re-written from java */
+    /** Re-written from java
+     * @class
+     * @memberof CWSYSTEM
+     */
     class CWColor {
         /**
          * Creates a new instance of CWColor.

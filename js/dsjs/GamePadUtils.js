@@ -1,6 +1,16 @@
-var dsector;
+/* info heading */
 (function (dsector) {
+    /**
+     * Utility class for handling game pad functionality.
+     * @class
+     * @memberof dsector
+     */
     class GamePadUtils {
+        /**
+         * Creates an instance of GamePadUtils.
+         * Initializes active joysticks and sets up gamepad connections.
+         * @constructor
+         */
         constructor() {
             if (this.joysticksActive === undefined) {
                 this.joysticksActive = new Map();
@@ -11,22 +21,25 @@ var dsector;
             const gamepads = navigator.getGamepads ? navigator.getGamepads() : (
                 navigator.webkitGetGamepads ? navigator.webkitGetGamepads() : []);
             for (let i = 0; i < gamepads.length; i++) {
-                if (gamepads[i]) { // && (gamepads[i].index in controllers)) {
-                    //controllers[gamepads[i].index] = gamepads[i];
+                if (gamepads[i]) {
                     joy = new dsector.Joystick();
                     joy.gamePadName = gamepads[i].id;
                     joy.joystickID = gamepads[i].index;
                     joy.internalID = gpID;
                     joy.gamePadAxes = gamepads[i].axes;
                     joy.gamePadButtons = gamepads[i].buttons;
-                    this.joysticksActive.set(gpID,joy);
+                    this.joysticksActive.set(gpID, joy);
                     gpID++;
                 }
             }
             // Wire up events, maybe?
-
         }
 
+        /**
+         * Checks if a joystick is connected and updates the active joysticks list.
+         * @param {dsector.Joystick} joystick - The joystick to check.
+         * @returns {boolean} True if the joystick is connected, false otherwise.
+         */
         checkJoystickConnected(joystick) {
             let gamepads = navigator.getGamepads ? navigator.getGamepads() :
                 (navigator.webkitGetGamepads ? navigator.webkitGetGamepads() : []);
@@ -47,20 +60,35 @@ var dsector;
         }
     }
 
+    /** @constant {number} */
     GamePadUtils.JOY_UP = 12;
+    /** @constant {number} */
     GamePadUtils.JOY_RIGHT = 15;
+    /** @constant {number} */
     GamePadUtils.JOY_DOWN = 13;
+    /** @constant {number} */
     GamePadUtils.JOY_LEFT = 14;
     dsector.GamePadUtils = GamePadUtils;
     GamePadUtils["__class"] = "dsector.GamePadUtils";
 })(dsector || (dsector = {}));
+
 // Gamepad functions
+/** @constant {boolean} */
 const haveEvents = 'GamepadEvent' in window;
 
+/**
+ * Handles gamepad disconnection events.
+ * @param {GamepadEvent} e - The gamepad event.
+ */
 function disconnectHandler(e) {
-    removegamepad(e.gamepad);
+    removeGamepad(e.gamepad);
 }
-function removegamepad(gamepad) {
+
+/**
+ * Removes a gamepad from the active joysticks list.
+ * @param {Gamepad} gamepad - The gamepad to remove.
+ */
+function removeGamepad(gamepad) {
     delete dsector.DSReference.jsu.joysticksActive[gamepad.index];
 }
 

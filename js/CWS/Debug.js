@@ -1,6 +1,11 @@
 /* Re-written from Java */
-var CWSYSTEM;
+let CWSYSTEM;
 (function (CWSYSTEM) {
+    /**
+     * Debug logging class.
+     * @class
+     * @memberof CWSYSTEM
+     */
     class Debug {
         static print(message) {
             if (Debug.terminalPrinting) {

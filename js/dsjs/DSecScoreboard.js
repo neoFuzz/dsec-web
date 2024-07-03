@@ -1,6 +1,10 @@
-var dsector;
+/**/
 (function (dsector) {
-    /** Sets up the Scoreboard window for use */
+    /**
+     * Sets up the Scoreboard window for use
+     * @class
+     * @memberof dsector
+     */
     class DSecScoreboard {
         constructor() {
             if (this.window === undefined) {

@@ -1,7 +1,16 @@
 /* Re-written from Java */
-var CWSYSTEM;
 (function (CWSYSTEM) {
+    /**
+     * Represents a CWPopupMenu class.
+     * @class
+     * @memberof CWSYSTEM
+     */
     class CWPopupMenu {
+        /**
+         * Constructor for CWPopupMenu.
+         * @param {(CWSYSTEM.CWMenu|CWSYSTEM.CWWindow|CWSYSTEM.CWWindowCollection|null)} menu - The menu, window, or window collection.
+         * @param {string|null} title - The title of the menu.
+         */
         constructor(menu, title) {
             this.type = 0;
             this.window = null;
@@ -39,8 +48,12 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Handles the mouse click event.
+         * @static
+         */
         static mouseClicked() {
-            if (CWPopupMenu.cycleInWhichPopupOpened !== CWSYSTEM.Environment.cycleID_$LI$()) {
+            if (CWPopupMenu.cycleInWhichPopupOpened !== CWSYSTEM.Environment.cycleID$()) {
                 for (let i = 0; i < CWSYSTEM.CWSReference.gui.numberOfWindows(); ++i) {
                     const window1 = CWSYSTEM.CWSReference.gui.getWindow$int(i);
                     if (window1.rightClickPopupMenu != null) {
@@ -56,81 +69,137 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Gets the type of the popup menu.
+         * @returns {number} The type of the popup menu.
+         */
         getType() {
             return this.type;
         }
 
+        /**
+         * Adds a menu item separator.
+         * @returns {CWSYSTEM.CWPopupMenuItem} The added menu item.
+         */
         addMenuItem$() {
             return this.addMenuItem$int$String$String$String$boolean(
                 CWSYSTEM.CWPopupMenuItem.SEPARATOR, "", "", null, false);
         }
 
-        addMenuItem$int$String$String$String$boolean(type, code, text, shortcutText, bulletStatus) {
+        /**
+         * Adds a menu item with detailed parameters.
+         * @param {number} type - The type of the menu item.
+         * @param {string} code - The code of the menu item.
+         * @param {string} text - The text of the menu item.
+         * @param {string} scTxt - The shortcut text of the menu item.
+         * @param {boolean} btSt - The bullet status of the menu item.
+         * @returns {CWSYSTEM.CWPopupMenuItem} The added menu item.
+         */
+        addMenuItem$int$String$String$String$boolean(type, code, text, scTxt, btSt) {
             const popupMenuItem = new CWSYSTEM.CWPopupMenuItem(type, code, text,
-                shortcutText, bulletStatus, null, null);
+                scTxt, btSt, null, null);
             this.popupMenuItems.push(popupMenuItem);
             return popupMenuItem;
         }
 
-        addMenuItem$type$code$text$String$Object$Method(type, code, text, shortcutText, invokedFrom,
-                                                        bulletStatusByMethod) {
-            const popupMenuItem = new CWSYSTEM.CWPopupMenuItem(
-                type, code, text, shortcutText, false, invokedFrom, bulletStatusByMethod);
-            this.popupMenuItems.push(popupMenuItem);
-            return popupMenuItem;
+        /**
+         * Adds a menu item with invoked method parameters.
+         * @param {number} type - The type of the menu item.
+         * @param {string} code - The code of the menu item.
+         * @param {string} text - The text of the menu item.
+         * @param {string} scTxt - The shortcut text of the menu item.
+         * @param {Object} invFrm - The object from which the method is invoked.
+         * @param {Method} btStByMthd - The method to determine bullet status.
+         * @returns {CWSYSTEM.CWPopupMenuItem} The added menu item.
+         */
+        addMenuItem$type$code$text$String$Object$Method(type, code, text, scTxt, invFrm,
+                                                        btStByMthd) {
+            const puMI = new CWSYSTEM.CWPopupMenuItem(
+                type, code, text, scTxt, false, invFrm, btStByMthd);
+            this.popupMenuItems.push(puMI);
+            return puMI;
         }
 
-        addMenuItem$Detailed(type, code, text, shortcutText, invokedFrom, bulletStatusByMethod,
-                             objectToInvokeExecuteMethodFrom, executeMethodUponSelection, parametersForExecuteMethod) {
+        /**
+         * Adds a detailed menu item with additional parameters.
+         * @param {number} type - The type of the menu item.
+         * @param {string} code - The code of the menu item.
+         * @param {string} text - The text of the menu item.
+         * @param {string} shortcutText - The shortcut text of the menu item.
+         * @param {Object} invokedFrom - The object from which the method is invoked.
+         * @param {CWReflect} btStFrmMthd - The method to determine bullet status.
+         * @param {Object} objInvMthdFrm - The object to invoke execute method from.
+         * @param {Object} exeMthdSel - The method to execute upon selection.
+         * @param {Array} paramsExeMthd - The parameters for the execute method.
+         * @returns {CWSYSTEM.CWPopupMenuItem} The added menu item.
+         */
+        addMenuItem$Detailed(type, code, text, shortcutText, invokedFrom, btStFrmMthd,
+                             objInvMthdFrm, exeMthdSel, paramsExeMthd) {
             const popupMenuItem = new CWSYSTEM.CWPopupMenuItem(type, code, text, shortcutText,
-                false, invokedFrom, bulletStatusByMethod);
-            popupMenuItem.objectToInvokeExecuteMethodFrom = objectToInvokeExecuteMethodFrom;
-            popupMenuItem.executeMethodUponSelection = executeMethodUponSelection;
-            popupMenuItem.parametersForExecuteMethod = parametersForExecuteMethod;
+                false, invokedFrom, btStFrmMthd);
+            popupMenuItem.objectToInvokeExecuteMethodFrom = objInvMthdFrm;
+            popupMenuItem.executeMethodUponSelection = exeMthdSel;
+            popupMenuItem.parametersForExecuteMethod = paramsExeMthd;
             this.popupMenuItems.push(popupMenuItem);
             return popupMenuItem;
         }
 
-        addMenuItem(type, code, text, shortcutText, invokedFrom, bulletStatusByMethod, objectToInvokeExecuteMethodFrom,
-                    executeMethodUponSelection, parametersForExecuteMethod) {
+        /**
+         * Adds a menu item.
+         * @param {number} type - The type of the menu item.
+         * @param {string} code - The code of the menu item.
+         * @param {string} text - The text of the menu item.
+         * @param {string} scTxt - The shortcut text of the menu item.
+         * @param {boolean|Object|null} invFrm - The object or boolean indicating the invocation source.
+         * @param {Object|null} bulletByMthd - The method to determine bullet status.
+         * @param {Object|null} objExeInvokeFrom - The object to invoke execute method from.
+         * @param {Object|null} exeMthdSel - The method to execute upon selection.
+         * @param {Array|null} paramsForExeMthd - The parameters for the execute method.
+         * @returns {CWSYSTEM.CWPopupMenuItem} The added menu item.
+         */
+        addMenuItem(type, code, text, scTxt, invFrm,
+                    bulletByMthd, objExeInvokeFrom, exeMthdSel, paramsForExeMthd) {
             if (typeof type === 'number' && typeof code === 'string' &&
-                typeof text === 'string' && typeof shortcutText === 'string' &&
-                (invokedFrom != null || invokedFrom === null) &&
-                (bulletStatusByMethod != null && bulletStatusByMethod instanceof Object || bulletStatusByMethod === null) &&
-                (objectToInvokeExecuteMethodFrom != null || objectToInvokeExecuteMethodFrom === null) &&
-                (executeMethodUponSelection != null && executeMethodUponSelection instanceof Object || executeMethodUponSelection === null) &&
-                (parametersForExecuteMethod != null && parametersForExecuteMethod instanceof Array &&
-                    (parametersForExecuteMethod.length === 0 || parametersForExecuteMethod[0] === null ||
-                        parametersForExecuteMethod[0] !== null))) {
-                return this.addMenuItem$Detailed(type, code, text, shortcutText, invokedFrom, bulletStatusByMethod,
-                    objectToInvokeExecuteMethodFrom, executeMethodUponSelection, parametersForExecuteMethod);
+                typeof text === 'string' && typeof scTxt === 'string' &&
+                (invFrm != null || invFrm === null) &&
+                (bulletByMthd != null && bulletByMthd instanceof Object || bulletByMthd === null) &&
+                (objExeInvokeFrom != null || objExeInvokeFrom === null) &&
+                (exeMthdSel != null && exeMthdSel instanceof Object || exeMthdSel === null) &&
+                (paramsForExeMthd != null && paramsForExeMthd instanceof Array &&
+                    (paramsForExeMthd.length === 0 || paramsForExeMthd[0] === null ||
+                        paramsForExeMthd[0] !== null))) {
+                return this.addMenuItem$Detailed(type, code, text, scTxt, invFrm, bulletByMthd,
+                    objExeInvokeFrom, exeMthdSel, paramsForExeMthd);
             } else if (typeof type === 'number' && typeof code === 'string' &&
-                typeof text === 'string' && typeof shortcutText === 'string' &&
-                (invokedFrom != null || invokedFrom === null) &&
-                (bulletStatusByMethod != null && bulletStatusByMethod instanceof Object || bulletStatusByMethod === null) &&
-                objectToInvokeExecuteMethodFrom === undefined &&
-                executeMethodUponSelection === undefined &&
-                parametersForExecuteMethod === undefined) {
-                return this.addMenuItem$type$code$text$String$Object$Method(type, code, text, shortcutText,
-                    invokedFrom, bulletStatusByMethod);
+                typeof text === 'string' && typeof scTxt === 'string' &&
+                (invFrm != null || invFrm === null) &&
+                (bulletByMthd != null && bulletByMthd instanceof Object || bulletByMthd === null) &&
+                objExeInvokeFrom === undefined &&
+                exeMthdSel === undefined &&
+                paramsForExeMthd === undefined) {
+                return this.addMenuItem$type$code$text$String$Object$Method(type, code, text, scTxt,
+                    invFrm, bulletByMthd);
             } else if (typeof type === 'number' && typeof code === 'string' &&
-                typeof text === 'string' && typeof shortcutText === 'string' &&
-                (typeof invokedFrom === 'boolean' || invokedFrom === null) &&
-                bulletStatusByMethod === undefined &&
-                objectToInvokeExecuteMethodFrom === undefined &&
-                executeMethodUponSelection === undefined &&
-                parametersForExecuteMethod === undefined) {
-                return this.addMenuItem$int$String$String$String$boolean(type, code, text, shortcutText, invokedFrom);
-            } else if (type === undefined && code === undefined && text === undefined && shortcutText === undefined &&
-                invokedFrom === undefined && bulletStatusByMethod === undefined &&
-                objectToInvokeExecuteMethodFrom === undefined && executeMethodUponSelection === undefined &&
-                parametersForExecuteMethod === undefined) {
+                typeof text === 'string' && typeof scTxt === 'string' &&
+                (typeof invFrm === 'boolean' || invFrm === null) &&
+                bulletByMthd === undefined &&
+                objExeInvokeFrom === undefined &&
+                exeMthdSel === undefined &&
+                paramsForExeMthd === undefined) {
+                return this.addMenuItem$int$String$String$String$boolean(type, code, text, scTxt, invFrm);
+            } else if (type === undefined && code === undefined && text === undefined && scTxt === undefined &&
+                invFrm === undefined && bulletByMthd === undefined &&
+                objExeInvokeFrom === undefined && exeMthdSel === undefined &&
+                paramsForExeMthd === undefined) {
                 return this.addMenuItem$();
             } else {
                 throw new Error('Invalid overload');
             }
         }
 
+        /**
+         * Pop up the menu.
+         */
         popup$() {
             if (!this.isPoppedUp()) {
                 let mouseX = 0;
@@ -145,17 +214,30 @@ var CWSYSTEM;
                         }
                     }
                 } else {
-                    mouseX = CWSYSTEM.Environment.mouseX_$LI$();
-                    mouseY = CWSYSTEM.Environment.mouseY_$LI$();
+                    mouseX = CWSYSTEM.Environment.mouseX$();
+                    mouseY = CWSYSTEM.Environment.mouseY$();
                 }
-                this.popup$int$int$int$dsector_JCFont$int$int$int$int$int$int(mouseX, mouseY, 16,
+                this.popup$JCFont(mouseX, mouseY, 16,
                     CWSYSTEM.CWSReference.virtualScreen.serif8_font, 40, 5, 1, 0, 0, 2);
-                CWPopupMenu.cycleInWhichPopupOpened = CWSYSTEM.Environment.cycleID_$LI$();
+                CWPopupMenu.cycleInWhichPopupOpened = CWSYSTEM.Environment.cycleID$();
             }
         }
 
-        popup$int$int$int$dsector_JCFont$int$int$int$int$int$int(xPos, yPos, btnHeight, font, pxlSize, xWidth,
-                                                                 he, btnX, height5, hMt) {
+        /**
+         * Create popup with customised parameters.
+         * @param xPos
+         * @param yPos
+         * @param btnHgt
+         * @param font
+         * @param pxlSize
+         * @param xWidth
+         * @param he
+         * @param btnX
+         * @param height5
+         * @param hMt
+         */
+        popup$JCFont(xPos, yPos, btnHgt, font, pxlSize, xWidth,
+                     he, btnX, height5, hMt) {
             if (!this.isPoppedUp()) {
                 const hc = 0;
                 let pixel = 0;
@@ -172,7 +254,7 @@ var CWSYSTEM;
                         h1 += hMt;
                         h1 += hMt;
                     } else {
-                        h1 += btnHeight;
+                        h1 += btnHgt;
                     }
                     if (i < this.popupMenuItems.length - 1) {
                         h1 += he;
@@ -214,7 +296,7 @@ var CWSYSTEM;
                             }
                             const btnLen = xWidth * 2 + i;
                             const button = this.window.addButton$name$x$y$len$h$text$t$r(popupMenuItem.code,
-                                btnX, btnY, btnLen, btnHeight, strBullet, 9, 1);
+                                btnX, btnY, btnLen, btnHgt, strBullet, 9, 1);
                             button.generalPurposeObject = popupMenuItem.generalPurposeObject;
                             button.secondText = popupMenuItem.text;
                             button.shortcutText = popupMenuItem.shortcutText;
@@ -230,7 +312,7 @@ var CWSYSTEM;
                             button.onPressedMethod = popupMenuItem.executeMethodUponSelection;
                             button.onPressedObject = popupMenuItem.objectToInvokeExecuteMethodFrom;
                             button.onPressedParameters = popupMenuItem.parametersForExecuteMethod;
-                            btnY += btnHeight;
+                            btnY += btnHgt;
                         }
                         btnY += he;
                     }
@@ -238,15 +320,29 @@ var CWSYSTEM;
             }
         }
 
-        popup(xPos, yPos, btnHeight, font, pxlSize, xWidth, he, btnX, height5, hMt) {
+        /**
+         * Pops up the menu at the specified position.
+         * @param {number} [xPos] - The x position of the popup.
+         * @param {number} [yPos] - The y position of the popup.
+         * @param {number} [btnHgt] - The height of the button.
+         * @param {CWSYSTEM.CWFont} [font] - The font of the popup menu.
+         * @param {number} [pxlSize] - The pixel size.
+         * @param {number} [xWidth] - The width of the x-axis.
+         * @param {number} [he] - The height element.
+         * @param {number} [btnX] - The x position of the button.
+         * @param {number} [height5] - The height 5.
+         * @param {number} [hMt] - The height margin top.
+         */
+        popup(xPos, yPos, btnHgt, font, pxlSize,
+              xWidth, he, btnX, height5, hMt) {
             if (typeof xPos === 'number' && typeof yPos === 'number' &&
-                typeof btnHeight === 'number' && font instanceof CWSYSTEM.CWFont &&
+                typeof btnHgt === 'number' && font instanceof CWSYSTEM.CWFont &&
                 typeof pxlSize === 'number' && typeof xWidth === 'number' &&
                 typeof he === 'number' && typeof btnX === 'number' &&
                 typeof height5 === 'number' && typeof hMt === 'number') {
-                return this.popup$int$int$int$dsector_JCFont$int$int$int$int$int$int(xPos, yPos, btnHeight,
+                return this.popup$JCFont(xPos, yPos, btnHgt,
                     font, pxlSize, xWidth, he, btnX, height5, hMt);
-            } else if (xPos === undefined && yPos === undefined && btnHeight === undefined &&
+            } else if (xPos === undefined && yPos === undefined && btnHgt === undefined &&
                 font === undefined && pxlSize === undefined && xWidth === undefined &&
                 he === undefined && btnX === undefined && height5 === undefined &&
                 hMt === undefined) {
@@ -256,6 +352,9 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Destroys the popup menu.
+         */
         destroy() {
             if (this.window != null) {
                 this.window.destroy();
@@ -263,6 +362,10 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Checks if the popup menu is popped up.
+         * @returns {boolean} True if the popup menu is popped up, otherwise false.
+         */
         isPoppedUp() {
             return this.window != null;
         }

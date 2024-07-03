@@ -1,6 +1,9 @@
 /* Re-written from Java */
-var dsector;
 (function (dsector) {
+    /**
+     * @class
+     * @memberof dsector
+     */
     class DSecRobotChooserWindow {
         constructor() {
             if (this.window === undefined) {

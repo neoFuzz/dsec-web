@@ -1,5 +1,9 @@
-var dsector;
+/**/
 (function (dsector) {
+    /**
+     * @class
+     * @memberof CWSYSTEM
+     */
     class FormWindowItem {
         constructor(fileName, color) {
             if (arguments.length === 2) {

@@ -1,8 +1,23 @@
 /* Re-written from Java */
-var CWSYSTEM;
 (function (CWSYSTEM) {
+    /**
+     * Represents a pulldown menu.
+     * @class
+     * @memberof CWSYSTEM
+     */
     class CWPulldown {
-        constructor(parent, name, options, x, y, width, height) {
+        /**
+         * Creates an instance of CWPulldown.
+         * @constructor
+         * @param {Object} parent - The parent object.
+         * @param {string|null} name - The name of the pulldown.
+         * @param {Array} opts - The options for the pulldown.
+         * @param {number} x - The x-coordinate of the pulldown.
+         * @param {number} y - The y-coordinate of the pulldown.
+         * @param {number} width - The width of the pulldown.
+         * @param {number} height - The height of the pulldown.
+         */
+        constructor(parent, name, opts, x, y, width, height) {
             this.parent = parent || null;
             this.name = name || null;
             this.overlay = null;
@@ -17,13 +32,17 @@ var CWSYSTEM;
             this.CLOSED = 0;
             this.OPEN = 1;
             this.selectedOption = 0;
-            this.options = options || null;
+            this.options = opts || null;
             this.optionalMethodToExecuteWhenNewValueSelected = null;
             this.objectHavingOptionalMethodToExecuteWhenNewValueSelected = null;
             this.objectContainingPulldownChangedMethod = null;
             this.generalPurposeObject = null;
         }
 
+        /**
+         * Gets the box color.
+         * @returns {CWSYSTEM.CWColor} The box color.
+         */
         static boxColor_$LI$() {
             if (CWPulldown.boxColor == null) {
                 CWPulldown.boxColor = new CWSYSTEM.CWColor(255, 255, 220, 255);
@@ -31,6 +50,10 @@ var CWSYSTEM;
             return CWPulldown.boxColor;
         }
 
+        /**
+         * Gets the text color.
+         * @returns {CWSYSTEM.CWColor} The text color.
+         */
         static textColor_$LI$() {
             if (CWPulldown.textColor == null) {
                 CWPulldown.textColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.black_$LI$());
@@ -38,10 +61,18 @@ var CWSYSTEM;
             return CWPulldown.textColor;
         }
 
+        /**
+         * Gets the selected value of the pulldown.
+         * @returns {*} The selected value.
+         */
         selectedValue() {
             return this.options[this.selectedOption].value;
         }
 
+        /**
+         * Draws the pulldown menu.
+         * @method
+         */
         draw() {
             const vs = this.parent.v;
             const intWidth = this.parent.borderWidth + this.x;
@@ -85,9 +116,13 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Handles the mouse pressed event for the pulldown menu.
+         * @method
+         */
         mousePressedOverClosedSectionOrOverlayBorder() {
-            if (CWSYSTEM.Environment.activePulldownMenu_$LI$() != null &&
-                CWSYSTEM.Environment.activePulldownMenu_$LI$().parent !== this.parent) {
+            if (CWSYSTEM.Environment.activePulldownMenu$() != null &&
+                CWSYSTEM.Environment.activePulldownMenu$().parent !== this.parent) {
                 CWSYSTEM.CWSReference.gui.destroyWindow("overlay");
                 CWSYSTEM.Environment.activePulldownMenu = null;
             }
@@ -131,8 +166,13 @@ var CWSYSTEM;
             }
         }
 
-        optionSelected(button) {
-            this.selectedOption = button.intProperty;
+        /**
+         * Handles the option selected event for the pulldown menu.
+         * @method
+         * @param b the option that was clicked
+         */
+        optionSelected(b) {
+            this.selectedOption = b.intProperty;
             CWSYSTEM.CWSReference.gui.destroyWindow("overlay");
             this.status = this.CLOSED;
             CWSYSTEM.Environment.activePulldownMenu = null;
@@ -147,7 +187,6 @@ var CWSYSTEM;
                 }
             }
             if (this.objectContainingPulldownChangedMethod != null) {
-                const classes = [this.constructor];
                 try {
                     const declaredMethod = ((c, p) => {
                         if (c.prototype.hasOwnProperty(p) && typeof c.prototype[p] == 'function')
@@ -164,6 +203,12 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Set up some default parameters.
+         * @method
+         * @param c
+         * @param i
+         */
         setDefaults(c, i) {
             this.selectedOption = c;
             this.objectContainingPulldownChangedMethod = this;

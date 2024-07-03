@@ -1,5 +1,9 @@
-var dsector;
+/**/
 (function (dsector) {
+    /**
+     * @class
+     * @memberof dsector
+     */
     class DSecGame {
         constructor() {
             if (this.dsecRound === undefined) {
@@ -80,12 +84,11 @@ var dsector;
 
         static randomBaseColor() {
             let rand = Math.random();
-            const d = rand * (0.225 - 0.0) + 0.0;
-            return d;
+            return rand * 0.225;
         }
 
         gameSpeed() {
-            let lastFramePeriod = CWSYSTEM.Environment.lastFramePeriod_$LI$();
+            let lastFramePeriod = CWSYSTEM.Environment.lastFramePeriod$();
             if (lastFramePeriod > CWSYSTEM.Global.maximumDoubleClickTime) {
                 lastFramePeriod = CWSYSTEM.Global.maximumDoubleClickTime;
             }
@@ -340,10 +343,10 @@ var dsector;
                 this.setMainLight(dsector.DSReference.scene);
                 dsector.DSecFadingLight.addLightsToScene(dsector.DSReference.scene);
                 dsector.DSReference.renderer.setDetailSensitiveRendering(true);
-                dsector.DSReference.renderer.perspectiveProjection$array$sd$window(null, null,
-                    dsector.DSReference.dsecPlayWindow.window);
+                dsector.DSReference.renderer.perspectiveProjection$sd$(
+                    null, null, dsector.DSReference.dsecPlayWindow.window);
                 this.addGlowShieldEffects();
-                if (CWSYSTEM.Environment.cycleID_$LI$() % 4 === 0) {
+                if (CWSYSTEM.Environment.cycleID$() % 4 === 0) {
                     dsector.DSReference.playersStatusWindow.update();
                 }
             }

@@ -1,7 +1,9 @@
-var CWSYSTEM;
+/**/
 (function (CWSYSTEM) {
     /**
-     Class representing screen data.
+     * Class representing screen data.
+     * @class
+     * @memberof CWSYSTEM
      */
     class ScreenData {
         /**

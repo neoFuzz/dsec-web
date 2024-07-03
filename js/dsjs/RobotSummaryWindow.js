@@ -1,31 +1,58 @@
-var dsector;
+/**/
 (function (dsector) {
+    /**
+     * Class representing a Robot Summary Window.
+     * @class
+     * @memberof dsector
+     */
     class RobotSummaryWindow {
+        /**
+         * Creates an instance of RobotSummaryWindow.
+         */
         constructor() {
-            if (this.window === undefined) {
-                this.window = null;
-            }
-            if (this.selectedRobotFilename === undefined) {
-                this.selectedRobotFilename = null;
-            }
+            /** @type {Object|null} */
+            this.window = null;
+
+            /** @type {string|null} */
+            this.selectedRobotFilename = null;
+
+            /** @type {number} */
             this.savedX = -1;
+
+            /** @type {number} */
             this.savedY = -1;
         }
+
+        /**
+         * Checks if the window is created.
+         * @returns {boolean} True if the window is created, otherwise false.
+         */
         isCreated() {
             return this.window != null;
         }
+
+        /**
+         * Toggles the creation of the window.
+         */
         toggleCreated() {
             if (this.isCreated()) {
                 this.destroy();
-            }
-            else {
+            } else {
                 this.create();
             }
         }
+
+        /**
+         * Creates the window and centers it within the desktop.
+         */
         create() {
             this.drawWindow();
             this.window.centerWithinDesktop();
         }
+
+        /**
+         * Destroys the window and saves its position.
+         */
         destroy() {
             if (this.window != null) {
                 this.savedX = this.window.xPosition;
@@ -34,12 +61,21 @@ var dsector;
                 this.window = null;
             }
         }
+
+        /**
+         * Updates the window if it is created.
+         */
         update() {
             if (this.isCreated()) {
                 this.drawWindow();
             }
         }
-        /** @private */ restorePosition() {
+
+        /**
+         * Restores the position of the window.
+         * @private
+         */
+        restorePosition() {
             if (this.savedX !== -1) {
                 this.window.xPosition = this.savedX;
             }
@@ -47,6 +83,10 @@ var dsector;
                 this.window.yPosition = this.savedY;
             }
         }
+
+        /**
+         * Draws the window and its components.
+         */
         drawWindow() {
             let x = 25;
             let y = 25;
@@ -85,6 +125,11 @@ var dsector;
             button.buttonPressedMethodName = "doneButtonPressed";
             this.window.h = baseline - 15;
         }
+
+        /**
+         * Handles the submission of a text area.
+         * @param textArea
+         */
         textAreaSubmitted(textArea) {
             if (textArea.name === ("name")) {
                 dsector.DSReference.dsecRobotChooserWindow.robotSpecification.name = textArea.getText();
@@ -94,10 +139,17 @@ var dsector;
             }
             dsector.DSReference.dsecRobotChooserWindow.robotSpecification.outputAsFile();
         }
+
+        /**
+         * Handles the press of the "Done" button.
+         * @private
+         * @param button
+         */
         doneButtonPressed(button) {
             this.destroy();
         }
     }
+
     dsector.RobotSummaryWindow = RobotSummaryWindow;
     RobotSummaryWindow["__class"] = "dsector.RobotSummaryWindow";
 })(dsector || (dsector = {}));

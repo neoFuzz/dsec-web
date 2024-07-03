@@ -1,45 +1,23 @@
 /* Re-written from java */
-var dsector;
 (function (dsector) {
+    /**
+     * Renderer class responsible for rendering graphical elements.
+     * @class
+     * @memberof dsector
+     */
     class Renderer {
+        /**
+         * Constructor for the Renderer class.
+         * @constructor
+         * @param {CWWindowCollection} mainGUI - The main graphical user interface.
+         */
         constructor(mainGUI) {
-            if (this.brightWhite === undefined) {
-                this.brightWhite = 0;
-            }
-            if (this.dullBlue === undefined) {
-                this.dullBlue = 0;
-            }
-            if (this.brightGreen === undefined) {
-                this.brightGreen = 0;
-            }
-            if (this.brightBlue === undefined) {
-                this.brightBlue = 0;
-            }
-            if (this.starfield === undefined) {
-                this.starfield = null;
-            }
-            if (this.numberOfStars === undefined) {
-                this.numberOfStars = 0;
-            }
-            if (this.mainGUI === undefined) {
-                this.mainGUI = null;
-            }
-            if (this.v === undefined) {
-                this.v = null;
-            }
-            if (this.__renderingMode === undefined) {
-                this.__renderingMode = 0;
-            }
-            if (this.zBuffer === undefined) {
-                this.zBuffer = null;
-            }
-            if (this.detailSensitiveRendering === undefined) {
-                this.detailSensitiveRendering = false;
-            }
-            this.brightWhite = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.lightGrey_$LI$()).color;
-            this.dullBlue = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.dullBlue_$LI$()).color;
-            this.brightGreen = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.brightGreen_$LI$()).color;
-            this.brightBlue = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.brightBlue_$LI$()).color;
+            this.starfield = null;
+            this.numberOfStars = 0;
+            this.v = null;
+            this.__renderingMode = 0;
+            this.zBuffer = null;
+            this.detailSensitiveRendering = false;
             this.__renderingMode = Renderer.BACKFACE_CULLING;
             this.detailSensitiveRendering = false;
             this.mainGUI = mainGUI;
@@ -59,6 +37,11 @@ var dsector;
             this.createStars();
         }
 
+        /**
+         * Gets the tiny lens flare graphic.
+         * @static
+         * @returns {CWGraphics} The tiny lens flare graphic.
+         */
         static tinyLensFlare() {
             if (Renderer.__tinyLensFlare == null) {
                 Renderer.__tinyLensFlare = new CWSYSTEM.CWGraphics().getJPG("assets/images/tinyLensFlare.jpg");
@@ -66,6 +49,11 @@ var dsector;
             return Renderer.__tinyLensFlare;
         }
 
+        /**
+         * Gets the small lens flare graphic.
+         * @static
+         * @returns {CWGraphics} The small lens flare graphic.
+         */
         static smallLensFlare() {
             if (Renderer.__smallLensFlare == null) {
                 Renderer.__smallLensFlare = new CWSYSTEM.CWGraphics().getJPG("assets/images/smallLensFlare.jpg");
@@ -73,6 +61,11 @@ var dsector;
             return Renderer.__smallLensFlare;
         }
 
+        /**
+         * Gets the medium lens flare graphic.
+         * @static
+         * @returns {CWGraphics} The medium lens flare graphic.
+         */
         static mediumLensFlare() {
             if (Renderer.__mediumLensFlare == null) {
                 Renderer.__mediumLensFlare = new CWSYSTEM.CWGraphics().getJPG("assets/images/mediumLensFlare.jpg");
@@ -80,6 +73,11 @@ var dsector;
             return Renderer.__mediumLensFlare;
         }
 
+        /**
+         * Gets the shield graphic.
+         * @static
+         * @returns {CWGraphics} The shield graphic.
+         */
         static shieldGraphic() {
             if (Renderer.__shieldGraphic == null) {
                 Renderer.__shieldGraphic = new CWSYSTEM.CWGraphics().getJPG("assets/images/shield.jpg");
@@ -87,75 +85,53 @@ var dsector;
             return Renderer.__shieldGraphic;
         }
 
+        /**
+         * Creates stars for the starfield.
+         */
         createStars() {
             this.starfield = new dsector.Starfield(15000);
         }
 
-        processButton(cwButton) {
-            const parent = cwButton.parent;
-            const substring = cwButton.name.substring(7, 9);
-            const substring2 = cwButton.name.substring(5, 6);
-            let n;
-            if (substring2 === ("X")) {
-                n = 0;
-            } else if (substring2 === ("Y")) {
-                n = 1;
-            } else {
-                n = 2;
-            }
-            switch ((substring)) {
-                case "UP":
-                    const offsetY = Renderer.offsetY;
-                    offsetY[n] += Math.fround((CWSYSTEM.Environment.lastFramePeriod_$LI$() / 10.0) / Renderer.scale[n]);
-                    break;
-                case "DN":
-                    const offsetY2 = Renderer.offsetY;
-                    offsetY2[n] -= Math.fround((CWSYSTEM.Environment.lastFramePeriod_$LI$() / 10.0) / Renderer.scale[n]);
-                    break;
-                case "LT":
-                    const offsetX = Renderer.offsetX;
-                    offsetX[n] += Math.fround((CWSYSTEM.Environment.lastFramePeriod_$LI$() / 10.0) / Renderer.scale[n]);
-                    break;
-                case "RT":
-                    const offsetX2 = Renderer.offsetX;
-                    offsetX2[n] -= Math.fround((CWSYSTEM.Environment.lastFramePeriod_$LI$() / 10.0) / Renderer.scale[n]);
-                    break;
-                case "Z+":
-                    this.zoomIn(n);
-                    break;
-                case "Z-":
-                    this.zoomOut(n);
-                    break;
-                case "OF":
-                    dsector.DSReference.mouseDrag.engageOffsetPad(CWSYSTEM.Environment.mouseX_$LI$(), CWSYSTEM.Environment.mouseY_$LI$(), parent);
-                    break;
-            }
-            //CWSYSTEM.Environment.oneProjectiveViewWindowRequestedForUpdateNextCycle(cwButton.parent);
-        }
-
+        /**
+         * Zooms out the view.
+         * @param {number} n - The index of the scale.
+         */
         zoomOut(n) {
             const scale = Renderer.scale;
-            scale[n] /= Math.fround(1.0 + CWSYSTEM.Environment.lastFramePeriod_$LI$() / 1500.0);
+            scale[n] /= Math.fround(1.0 + CWSYSTEM.Environment.lastFramePeriod$() / 1500.0);
             if (Renderer.scale[n] < 0.01) {
                 const scale2 = Renderer.scale;
                 scale2[n] *= 1.1;
             }
         }
 
+        /**
+         * Zooms in the view.
+         * @param {number} n - The index of the scale.
+         */
         zoomIn(n) {
             const scale = Renderer.scale;
-            scale[n] *= Math.fround(1.0 + CWSYSTEM.Environment.lastFramePeriod_$LI$() / 1500.0);
+            scale[n] *= Math.fround(1.0 + CWSYSTEM.Environment.lastFramePeriod$() / 1500.0);
             if (Renderer.scale[n] > 50000.0) {
                 const scale2 = Renderer.scale;
                 scale2[n] /= 1.1;
             }
         }
 
+        /**
+         * Logs the perspective projection.
+         */
         perspectiveProjection$() {
-            CWSYSTEM.Debug.println("perspectiveProjection");
+            CWSYSTEM.Debug.println("Using perspectiveProjection...");
         }
 
-        perspectiveProjection$array$sd$window(array, screenData, cwWindow) {
+        /**
+         * Performs perspective projection on an array of screen data.
+         * @param {Array} array - The array of data.
+         * @param {ScreenData} screenData - The screen data.
+         * @param {CWWindow} cwWindow - The window object.
+         */
+        perspectiveProjection$sd$(array, screenData, cwWindow) {
             const scene = dsector.DSReference.scene;
             if (cwWindow == null && screenData == null) {
                 return;
@@ -360,9 +336,9 @@ var dsector;
                                         if (colorFactor > ambiance) {
                                             ambiance = colorFactor;
                                             x1 = (((((vertex.x / vertex.z) * starCount) *
-                                                CWSYSTEM.Environment.perspectiveViewFlipX_$LI$()) + centerX) | 0);
+                                                CWSYSTEM.Environment.perspectiveViewFlipX$()) + centerX) | 0);
                                             y1 = (((((vertex.y / vertex.z) * starCount) *
-                                                CWSYSTEM.Environment.perspectiveViewFlipY_$LI$()) + centerY) | 0);
+                                                CWSYSTEM.Environment.perspectiveViewFlipY$()) + centerY) | 0);
                                         }
                                         if (redN > 255) {
                                             if (blueN > 255) {
@@ -445,17 +421,17 @@ var dsector;
                                             this.v.setColorVS$r$g$b$a(redN, greenN, blueN, alpha);
                                         }
                                         const transformedX1 = ((((vertex.x / vertex.z) * starCount) *
-                                            CWSYSTEM.Environment.perspectiveViewFlipX_$LI$()) + centerX);
+                                            CWSYSTEM.Environment.perspectiveViewFlipX$()) + centerX);
                                         const transformedY1 = ((((vertex.y / vertex.z) * starCount) *
-                                            CWSYSTEM.Environment.perspectiveViewFlipY_$LI$()) + centerY);
+                                            CWSYSTEM.Environment.perspectiveViewFlipY$()) + centerY);
                                         const transformedX2 = ((((vertex2.x / vertex2.z) * starCount) *
-                                            CWSYSTEM.Environment.perspectiveViewFlipX_$LI$()) + centerX);
+                                            CWSYSTEM.Environment.perspectiveViewFlipX$()) + centerX);
                                         const transformedY2 = ((((vertex2.y / vertex2.z) * starCount) *
-                                            CWSYSTEM.Environment.perspectiveViewFlipY_$LI$()) + centerY);
+                                            CWSYSTEM.Environment.perspectiveViewFlipY$()) + centerY);
                                         const transformedX3 = ((((vertex3.x / vertex3.z) * starCount) *
-                                            CWSYSTEM.Environment.perspectiveViewFlipX_$LI$()) + centerX);
+                                            CWSYSTEM.Environment.perspectiveViewFlipX$()) + centerX);
                                         const transformedY3 = ((((vertex3.y / vertex3.z) * starCount) *
-                                            CWSYSTEM.Environment.perspectiveViewFlipY_$LI$()) + centerY);
+                                            CWSYSTEM.Environment.perspectiveViewFlipY$()) + centerY);
                                         const sumX = ((vertex.x + vertex2.x) + vertex3.x);
                                         const sumY = ((vertex.y + vertex2.y) + vertex3.y);
                                         const sumZ = ((vertex.z + vertex2.z) + vertex3.z);
@@ -499,22 +475,9 @@ var dsector;
             }
         }
 
-        perspectiveProjection(polygonArr, screenData, cwWindow) {
-            if (((polygonArr != null && polygonArr instanceof Array && (polygonArr.length === 0 ||
-                    polygonArr[0] == null || polygonArr[0] instanceof Array)) || polygonArr === null) &&
-                ((screenData != null && screenData instanceof CWSYSTEM.ScreenData) || screenData === null) &&
-                ((cwWindow != null && cwWindow instanceof CWSYSTEM.CWWindow) || cwWindow === null)) {
-                return this.perspectiveProjection$array$sd$window(polygonArr, screenData, cwWindow);
-            } else if (polygonArr === undefined && screenData === undefined && cwWindow === undefined) {
-                return this.perspectiveProjection$();
-            } else
-                throw new Error('invalid overload');
-        }
-
         /**
          * Projects a 3D point from the universe onto the screen coordinates.
-         *
-         * @param {CWWindow} cwWindow - The CW window object containing width, height, and anti-aliasing level.
+         * @param {CWWindow} cwWindow - The CWWindow object containing width, height, and antialiasing level.
          * @param {number} x - The x-coordinate of the 3D point in the universe.
          * @param {number} y - The y-coordinate of the 3D point in the universe.
          * @param {number} z - The z-coordinate of the 3D point in the universe.
@@ -534,9 +497,9 @@ var dsector;
                 return null;
             }
             return new dsector.Vertex2D(
-                Math.fround(vertex.x / vertex.z * n9 * CWSYSTEM.Environment.perspectiveViewFlipX_$LI$() +
+                Math.fround(vertex.x / vertex.z * n9 * CWSYSTEM.Environment.perspectiveViewFlipX$() +
                     (cwWindow.w * antiAliasedLevel / 2 | 0)),
-                Math.fround(vertex.y / vertex.z * n9 * CWSYSTEM.Environment.perspectiveViewFlipY_$LI$() +
+                Math.fround(vertex.y / vertex.z * n9 * CWSYSTEM.Environment.perspectiveViewFlipY$() +
                     (cwWindow.h * antiAliasedLevel / 2 | 0)));
         }
 
@@ -544,8 +507,8 @@ var dsector;
          * Draws the starfield on the screen.
          *
          * @param {ScreenData} screenData - The screen data object.
-         * @param {number} antiAliasedLevel - The anti-aliasing level.
-         * @param {dsector.Matrix4f} transformationMatrix - The transformation matrix.
+         * @param {number} antiAliasedLevel - The antialiasing level.
+         * @param {Matrix4f} transformationMatrix - The transformation matrix.
          * @param {number} starCount - The number of stars in the starfield.
          * @param {number} screenCenterX - The x-coordinate of the screen center.
          * @param {number} screenCenterY - The y-coordinate of the screen center.
@@ -616,6 +579,10 @@ var dsector;
             }
         }
 
+        /**
+         * Pans the camera directly.
+         * @param {number} n - The amount to pan.
+         */
         panCameraDirectly(n) {
             const unitVectorToTheDirectRight =
                 dsector.Navigation.unitVectorToTheDirectRight(dsector.DSReference.scene);
@@ -629,6 +596,10 @@ var dsector;
             CWSYSTEM.Environment.perspectiveViewWindowsRequestedForUpdateNextCycle();
         }
 
+        /**
+         * Moves the camera directly.
+         * @param {number} n - The amount to move.
+         */
         moveCameraDirectly(n) {
             const unitVectorInDirectionOfOrientation =
                 dsector.Navigation.unitVectorInDirectionOfOrientation(dsector.DSReference.scene);
@@ -642,6 +613,10 @@ var dsector;
             CWSYSTEM.Environment.perspectiveViewWindowsRequestedForUpdateNextCycle();
         }
 
+        /**
+         * Changes the camera hue directly.
+         * @param {number} n - The amount to change the hue.
+         */
         changeCameraHueDirectly(n) {
             const matrix4f = new dsector.Matrix4f();
             matrix4f.rotateZ(n);
@@ -649,10 +624,19 @@ var dsector;
             CWSYSTEM.Environment.perspectiveViewWindowsRequestedForUpdateNextCycle();
         }
 
+        /**
+         * Changes the camera hue.
+         * @param {number} n - The amount to change the hue.
+         * @param {boolean} b - Unknown parameter.
+         */
         changeCameraHue(n, b) {
-            this.changeCameraHueDirectly(Math.fround((CWSYSTEM.Environment.lastFramePeriod_$LI$() / 1500.0) * n));
+            this.changeCameraHueDirectly(Math.fround((CWSYSTEM.Environment.lastFramePeriod$() / 1500.0) * n));
         }
 
+        /**
+         * Changes the camera vertical angle directly.
+         * @param {number} n - The amount to change the vertical angle.
+         */
         changeCameraVertDirectly(n) {
             const matrix4f = new dsector.Matrix4f();
             matrix4f.rotateX(n);
@@ -660,10 +644,19 @@ var dsector;
             CWSYSTEM.Environment.perspectiveViewWindowsRequestedForUpdateNextCycle();
         }
 
+        /**
+         * Changes the camera vertical angle.
+         * @param {number} n - The amount to change the vertical angle.
+         * @param {boolean} b - Unknown parameter.
+         */
         changeCameraVert(n, b) {
-            this.changeCameraVertDirectly(Math.fround((CWSYSTEM.Environment.lastFramePeriod_$LI$() / 1500.0) * n));
+            this.changeCameraVertDirectly(Math.fround((CWSYSTEM.Environment.lastFramePeriod$() / 1500.0) * n));
         }
 
+        /**
+         * Moves the camera pivot directly.
+         * @param {number} n - The amount to move the pivot.
+         */
         moveCameraPivotDirectly(n) {
             const matrix4f = new dsector.Matrix4f();
             matrix4f.rotateY(n);
@@ -671,10 +664,18 @@ var dsector;
             CWSYSTEM.Environment.perspectiveViewWindowsRequestedForUpdateNextCycle();
         }
 
+        /**
+         * Moves the camera pivot.
+         * @param {number} n - The amount to move the pivot.
+         * @param {boolean} b - Unknown parameter.
+         */
         moveCameraPivot(n, b) {
-            this.moveCameraPivotDirectly(Math.fround((CWSYSTEM.Environment.lastFramePeriod_$LI$() / 1500.0) * n));
+            this.moveCameraPivotDirectly(Math.fround((CWSYSTEM.Environment.lastFramePeriod$() / 1500.0) * n));
         }
 
+        /**
+         * Flips the camera.
+         */
         flipCamera() {
             const matrix4f = new dsector.Matrix4f();
             matrix4f.rotateY(Math.PI);
@@ -682,6 +683,10 @@ var dsector;
             CWSYSTEM.Environment.perspectiveViewWindowsRequestedForUpdateNextCycle();
         }
 
+        /**
+         * Sets the camera position X.
+         * @param {string} s - The X position as a string.
+         */
         setCameraPositionX(s) {
             let int1;
             try {
@@ -694,18 +699,26 @@ var dsector;
             CWSYSTEM.Environment.perspectiveViewWindowsRequestedForUpdateNextCycle();
         }
 
+        /**
+         * Sets the camera position Y.
+         * @param {string} s - The Y position as a string.
+         */
         setCameraPositionY(s) {
-            let int1;
+            let cY;
             try {
-                int1 = parseInt(s);
+                cY = parseInt(s);
             } catch (ex) {
                 dsector.DSReference.alertManager.messageQueued("Invalid Y value.");
                 return;
             }
-            dsector.DSReference.scene.cameraY = int1;
+            dsector.DSReference.scene.cameraY = cY;
             CWSYSTEM.Environment.perspectiveViewWindowsRequestedForUpdateNextCycle();
         }
 
+        /**
+         * Sets the camera position Z.
+         * @param {string} s - The Z position as a string.
+         */
         setCameraPositionZ(s) {
             let int1;
             try {
@@ -718,23 +731,40 @@ var dsector;
             CWSYSTEM.Environment.perspectiveViewWindowsRequestedForUpdateNextCycle();
         }
 
+        /**
+         * Returns the current rendering mode.
+         * @returns {number}
+         */
         renderingMode$() {
             return this.__renderingMode;
         }
 
-        renderingMode$int(renderingMode) {
-            this.__renderingMode = renderingMode;
+        /**
+         *
+         * @param rm The Rendering mode to use.
+         */
+        renderingMode$int(rm) {
+            this.__renderingMode = rm;
             CWSYSTEM.Environment.perspectiveViewWindowsRequestedForUpdateNextCycle();
         }
 
-        renderingMode$java_lang_Integer(n) {
+        /**
+         * Sets the rendering mode.
+         * @param {number} n
+         */
+        renderingMode$ji(n) {
             this.renderingMode$int((n | 0));
         }
 
+        /**
+         * Gets or sets the rendering mode.
+         * @param {number} [n] - The rendering mode to set.
+         * @returns {number} The current rendering mode.
+         */
         renderingMode(n) {
             if (((typeof n === 'number') || n === null)) {
-                return this.renderingMode$java_lang_Integer(n);
-            } else if ((typeof n === 'number') || n === null) {
+                return this.renderingMode$ji(n);
+            } else if ((typeof n === 'number')) {
                 return this.renderingMode$int(n);
             } else if (n === undefined) {
                 return this.renderingMode$();
@@ -742,24 +772,39 @@ var dsector;
                 throw new Error('invalid overload');
         }
 
+        /**
+         * Checks if double-sided polygons are used.
+         * @returns {boolean} True if double-sided polygons are used, false otherwise.
+         */
         usesDoubleSidedPolygons() {
             return this.__renderingMode === Renderer.DOUBLE_SIDED_POLYGONS;
         }
 
+        /**
+         * Checks if backface culling is used.
+         * @returns {boolean} True if backface culling is used, false otherwise.
+         */
         usesBackfaceCulling() {
             return this.__renderingMode === Renderer.BACKFACE_CULLING;
         }
 
+        /**
+         * Checks if reverse side highlighting is used.
+         * @returns {boolean} True if reverse side highlighting is used, false otherwise.
+         */
         usesHiglightReverseSide() {
             return this.__renderingMode === Renderer.HILIGHT_REVERSE_SIDE;
         }
 
-        /** @private */
+        /**
+         * Resets the Z-buffer.
+         * @param {ScreenData} screenData - The screen data object.
+         * @private
+         */
         resetZBuffer(screenData) {
             const width = screenData.width;
             const height = screenData.height;
-            if (this.zBuffer == null || (this.zBuffer != null &&
-                (this.zBuffer.length < height || this.zBuffer[0].length < width))) {
+            if (this.zBuffer == null || ((this.zBuffer.length < height || this.zBuffer[0].length < width))) {
                 this.zBuffer = Array.from({length: height}, () => new Array(width).fill(0));
             }
             const width2 = screenData.width;
@@ -769,10 +814,22 @@ var dsector;
             }
         }
 
+        /**
+         * Sets the detail-sensitive rendering flag.
+         * @param {boolean} detailSensitiveRendering - Whether to use detail-sensitive rendering.
+         */
         setDetailSensitiveRendering(detailSensitiveRendering) {
             this.detailSensitiveRendering = detailSensitiveRendering;
         }
 
+        /**
+         * Calculates the ideal polygon area based on camera location and positioned model.
+         * @param {number} n - Unknown parameter.
+         * @param {number} n2 - Unknown parameter.
+         * @param {number} n3 - Unknown parameter.
+         * @returns {number} The ideal polygon area.
+         * @private
+         */
         getIdealPolygonAreaFromCameraLocationAndPositionedModel(n, n2, n3) {
             if (n2 > n3) {
                 return Math.fround(Math.pow((1000.0 / n2 * n / 100.0), 2.0));
@@ -780,6 +837,13 @@ var dsector;
             return Math.fround(Math.pow((1000.0 / n3 * n / 100.0), 2.0));
         }
 
+        /**
+         * Finds the detail category closest to the given average polygon area.
+         * @param {Model3DMatrix} model3DMatrix - The 3D model matrix.
+         * @param {number} n - The target average polygon area.
+         * @returns {number} The closest detail category.
+         * @private
+         */
         detailCategoryClosestToGivenAveragePolygonArea(model3DMatrix, n) {
             let n2 = 0;
             let n3 = 3.4028235E38;
@@ -797,15 +861,59 @@ var dsector;
         }
     }
 
+    /**
+     * @constant {number}
+     * @default 0
+     */
     Renderer.DOUBLE_SIDED_POLYGONS = 0;
+    /**
+     * @constant {number}
+     * @default 1
+     */
     Renderer.BACKFACE_CULLING = 1;
+    /**
+     * @constant {number}
+     * @default 2
+     */
     Renderer.HILIGHT_REVERSE_SIDE = 2;
+    /**
+     * @static
+     * @type {Array<number>}
+     */
     Renderer.scale = null;
+    /**
+     * @static
+     * @type {Array<number>}
+     */
     Renderer.offsetX = null;
+    /**
+     * @static
+     * @type {Array<number>}
+     */
     Renderer.offsetY = null;
+    /**
+     * @static
+     * @type {CWGraphics}
+     * @private
+     */
     Renderer.__tinyLensFlare = null;
+    /**
+     * @static
+     * @type {CWGraphics}
+     * @private
+     */
     Renderer.__smallLensFlare = null;
+    /**
+     * @static
+     * @type {CWGraphics}
+     * @private
+     */
     Renderer.__mediumLensFlare = null;
+    /**
+     * @static
+     * @type {CWGraphics}
+     * @private
+     */
     Renderer.__shieldGraphic = null;
     dsector.Renderer = Renderer;
     Renderer["__class"] = "dsector.Renderer";

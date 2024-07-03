@@ -1,6 +1,9 @@
 /* Re-written from java */
-var dsector;
 (function (dsector) {
+    /**
+     * @class
+     * @memberof dsector
+     */
     class DSecFadingLight {
         constructor(initialBrightness, x, y, z, end) {
             if (this.initialBrightness === undefined) {

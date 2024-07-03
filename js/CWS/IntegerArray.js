@@ -1,5 +1,9 @@
-var CWSYSTEM;
+/**/
 (function (CWSYSTEM) {
+    /**
+     * @class
+     * @memberof CWSYSTEM
+     */
     class IntegerArray {
         constructor(value) {
             if (this.value === undefined) {

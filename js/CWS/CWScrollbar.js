@@ -1,4 +1,4 @@
-var CWSYSTEM;
+/* */
 (function (CWSYSTEM) {
     /**
      * Represents a scrollbar component within a window.
@@ -6,6 +6,7 @@ var CWSYSTEM;
      * including drawing the scrollbar, handling mouse events, and updating
      * the scrollbar's position and size based on the window's content.
      * @class
+     * @memberof CWSYSTEM
      */
     class CWScrollbar {
         /**
@@ -286,7 +287,7 @@ var CWSYSTEM;
          */
         moveUpSlowly() {
             this.positionPercent -= Math.fround(((0.002 * this.window.h) *
-                CWSYSTEM.Environment.lastFramePeriod_$LI$()) / this.window.scrollablePage.length);
+                CWSYSTEM.Environment.lastFramePeriod$()) / this.window.scrollablePage.length);
             if (this.positionPercent > 1.0) {
                 this.positionPercent = 1.0;
             }
@@ -311,7 +312,7 @@ var CWSYSTEM;
          */
         moveDownSlowly() {
             this.positionPercent += Math.fround((0.002 * this.window.h) *
-                CWSYSTEM.Environment.lastFramePeriod_$LI$() / this.window.scrollablePage.length);
+                CWSYSTEM.Environment.lastFramePeriod$() / this.window.scrollablePage.length);
             if (this.positionPercent > 1.0) {
                 this.positionPercent = 1.0;
             }
@@ -335,7 +336,7 @@ var CWSYSTEM;
          */
         moveUpFast() {
             this.positionPercent -= Math.fround((0.01 * this.window.h) *
-                CWSYSTEM.Environment.lastFramePeriod_$LI$() / this.window.scrollablePage.length);
+                CWSYSTEM.Environment.lastFramePeriod$() / this.window.scrollablePage.length);
             if (this.positionPercent > 1.0) {
                 this.positionPercent = 1.0;
             }
@@ -359,7 +360,7 @@ var CWSYSTEM;
          */
         moveDownFast() {
             this.positionPercent += Math.fround((0.01 * this.window.h) *
-                CWSYSTEM.Environment.lastFramePeriod_$LI$() / this.window.scrollablePage.length);
+                CWSYSTEM.Environment.lastFramePeriod$() / this.window.scrollablePage.length);
             if (this.positionPercent > 1.0) {
                 this.positionPercent = 1.0;
             }

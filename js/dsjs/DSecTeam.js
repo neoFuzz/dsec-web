@@ -1,6 +1,9 @@
 /* Re-written from Java */
-var dsector;
 (function (dsector) {
+    /**
+     * @class
+     * @memberof dsector
+     */
     class DSecTeam {
         constructor(colorName) {
             if (this.__color === undefined) {

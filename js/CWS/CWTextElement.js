@@ -1,5 +1,9 @@
-var CWSYSTEM;
+/**/
 (function (CWSYSTEM) {
+    /**
+     * @class
+     * @memberof CWSYSTEM
+     */
     class CWTextElement {
         constructor(nameID, text, x, y, textColor) {
             if (this.nameID === undefined) {

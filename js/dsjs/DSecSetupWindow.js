@@ -1,7 +1,9 @@
-// TODO: Fix option loading. Getting "NaN" in settings like antialiasLevel. This breaks the renderer.
 /* re-written from Java */
-var dsector;
 (function (dsector) {
+    /**
+     * @class
+     * @memberof dsector
+     */
     class DSecSetupWindow {
         constructor() {
             if (this.window === undefined) {

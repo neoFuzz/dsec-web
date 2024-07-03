@@ -1,7 +1,9 @@
 /* Re-written from Java */
-var CWSYSTEM;
 (function (CWSYSTEM) {
-    /** AlertWindow Class - used to handle drawing the window for alerts and showing the message to the user */
+    /** AlertWindow Class - used to handle drawing the window for alerts and showing the message to the user
+     * @class
+     * @memberof CWSYSTEM
+     */
     class AlertWindow {
         /**
          * Create an AlertWindow with a preloaded `message`
@@ -17,7 +19,6 @@ var CWSYSTEM;
             }
             if (CWSYSTEM.AlertManager.alertWindow != null) {
                 CWSYSTEM.CWSReference.gui.destroyWindow("ALE");
-                //dsector.DSReference.gui.destroyWindow("ALE");
             }
             CWSYSTEM.CWFontTools.renderText(null, message, 0, 0,
                 CWSYSTEM.CWSReference.virtualScreen.serif8_font, CWSYSTEM.CWColor.black_$LI$(),

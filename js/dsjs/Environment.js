@@ -1,10 +1,25 @@
-var CWSYSTEM;
+/**/
 (function (CWSYSTEM) {
+    /**
+     * Environment Class that stores a variety of variables.
+     * @class
+     * @memberof dsector
+     */
     class Environment {
+        /**
+         * Creates an instance of Environment.
+         * @constructor
+         * @private
+         */
         constructor() {
             Environment.applicationExpired();
         }
 
+        /**
+         * Initializes static members of the Environment class.
+         * @static
+         * @private
+         */
         static __static_initialize() {
             if (!Environment.__static_initialized) {
                 Environment.__static_initialized = true;
@@ -12,274 +27,224 @@ var CWSYSTEM;
             }
         }
 
-        static cycleID_$LI$() {
+        /**
+         * @static
+         * @returns {number} The current cycle ID
+         */
+        static cycleID$() {
             Environment.__static_initialize();
             return Environment.cycleID;
         }
 
-        static lastFramePeriod_$LI$() {
+        /**
+         * @static
+         * @returns {number} The last frame period
+         */
+        static lastFramePeriod$() {
             Environment.__static_initialize();
             return Environment.lastFramePeriod;
         }
 
-        /** @returns {CWInputBox} */
-        static inputBoxSelected_$LI$() {
+        /**
+         * @static
+         * @returns {CWInputBox} The currently selected input box
+         */
+        static inputBoxSelected$() {
             Environment.__static_initialize();
             return Environment.inputBoxSelected;
         }
 
-        static mouseXLastClicked_$LI$() {
+        /**
+         * @static
+         * @returns {number} The X co-ordinate the last time the mouse was clicked.
+         */
+        static mouseXLastClicked$() {
             Environment.__static_initialize();
             return Environment.mouseXLastClicked;
         }
 
-        static mouseYLastClicked_$LI$() {
+        /**
+         * @static
+         * @returns {number} The Y co-ordinate the last time the mouse was clicked.
+         */
+        static mouseYLastClicked$() {
             Environment.__static_initialize();
             return Environment.mouseYLastClicked;
         }
 
-        static lastMouseButtonPressed_$LI$() {
-            Environment.__static_initialize();
-            return Environment.lastMouseButtonPressed;
-        }
-
-        static buttonLastPressed_$LI$() {
+        /**
+         * @returns {number} The last button pressed.
+         * @private
+         */
+        static buttonLastPressed$() {
             Environment.__static_initialize();
             return Environment.buttonLastPressed;
         }
 
-        static buttonLastMovedOver_$LI$() {
+        /**
+         * @returns {CWButton} The last button moved over.
+         * @private
+         */
+        static buttonLastMovedOver$() {
             Environment.__static_initialize();
             return Environment.buttonLastMovedOver;
         }
 
-        static mouseX_$LI$() {
+        /**
+         * @returns {number} The X co-ordinate of the mouse.
+         * @private
+         */
+        static mouseX$() {
             Environment.__static_initialize();
             return Environment.mouseX;
         }
 
-        static mouseY_$LI$() {
+        /**
+         * @returns {number} The Y co-ordinate of the mouse.
+         * @private
+         */
+        static mouseY$() {
             Environment.__static_initialize();
             return Environment.mouseY;
         }
 
-        static activePulldownMenu_$LI$() {
+        /**
+         * @returns {CWPulldown} The active pulldown item
+         * @private
+         */
+        static activePulldownMenu$() {
             Environment.__static_initialize();
             return Environment.activePulldownMenu;
         }
 
-        static xyViewRequestedForUpdate_$LI$() {
-            Environment.__static_initialize();
-            return Environment.xyViewRequestedForUpdate;
-        }
-
-        static xzViewRequestedForUpdate_$LI$() {
-            Environment.__static_initialize();
-            return Environment.xzViewRequestedForUpdate;
-        }
-
-        static yzViewRequestedForUpdate_$LI$() {
-            Environment.__static_initialize();
-            return Environment.yzViewRequestedForUpdate;
-        }
-
-        static perspectiveViewRequestedForUpdate_$LI$() {
-            Environment.__static_initialize();
-            return Environment.perspectiveViewRequestedForUpdate;
-        }
-
-        static xAxisFlippedXYView_$LI$() {
-            Environment.__static_initialize();
-            return Environment.xAxisFlippedXYView;
-        }
-
-        static yAxisFlippedXYView_$LI$() {
-            Environment.__static_initialize();
-            return Environment.yAxisFlippedXYView;
-        }
-
-        static zAxisFlippedXYView_$LI$() {
-            Environment.__static_initialize();
-            return Environment.zAxisFlippedXYView;
-        }
-
-        static xAxisFlippedYZView_$LI$() {
-            Environment.__static_initialize();
-            return Environment.xAxisFlippedYZView;
-        }
-
-        static yAxisFlippedYZView_$LI$() {
-            Environment.__static_initialize();
-            return Environment.yAxisFlippedYZView;
-        }
-
-        static zAxisFlippedYZView_$LI$() {
-            Environment.__static_initialize();
-            return Environment.zAxisFlippedYZView;
-        }
-
-        static xAxisFlippedXZView_$LI$() {
-            Environment.__static_initialize();
-            return Environment.xAxisFlippedXZView;
-        }
-
-        static yAxisFlippedXZView_$LI$() {
-            Environment.__static_initialize();
-            return Environment.yAxisFlippedXZView;
-        }
-
-        static zAxisFlippedXZView_$LI$() {
-            Environment.__static_initialize();
-            return Environment.zAxisFlippedXZView;
-        }
-
-        static perspectiveViewFlipX_$LI$() {
+        /**
+         * @returns {number} The perspective state
+         */
+        static perspectiveViewFlipX$() {
             Environment.__static_initialize();
             return Environment.perspectiveViewFlipX;
         }
 
-        static perspectiveViewFlipY_$LI$() {
+        /**
+         * @returns {number} The perspective state.
+         */
+        static perspectiveViewFlipY$() {
             Environment.__static_initialize();
             return Environment.perspectiveViewFlipY;
         }
 
-        static ESCKeyPressedDuringThisCycle_$LI$() {
-            Environment.__static_initialize();
-            return Environment.ESCKeyPressedDuringThisCycle;
-        }
-
-        static moveCameraForwards_$LI$() {
-            Environment.__static_initialize();
-            return Environment.moveCameraForwards;
-        }
-
-        static moveCameraBackwards_$LI$() {
-            Environment.__static_initialize();
-            return Environment.moveCameraBackwards;
-        }
-
-        static moveCameraUp_$LI$() {
-            Environment.__static_initialize();
-            return Environment.moveCameraUp;
-        }
-
-        static moveCameraDown_$LI$() {
-            Environment.__static_initialize();
-            return Environment.moveCameraDown;
-        }
-
-        static moveCameraLeft_$LI$() {
-            Environment.__static_initialize();
-            return Environment.moveCameraLeft;
-        }
-
-        static moveCameraRight_$LI$() {
-            Environment.__static_initialize();
-            return Environment.moveCameraRight;
-        }
-
-        static moveCameraLeftPivot_$LI$() {
-            Environment.__static_initialize();
-            return Environment.moveCameraLeftPivot;
-        }
-
-        static moveCameraRightPivot_$LI$() {
-            Environment.__static_initialize();
-            return Environment.moveCameraRightPivot;
-        }
-
-        static windowColors_$LI$() {
+        /**
+         * @returns {CWColor} The assigned color.
+         */
+        static windowColors$() {
             Environment.__static_initialize();
             return Environment.windowColors;
         }
 
-        static windowScrollUp_$LI$() {
+        /**
+         * @returns {boolean} Whether or not the window has changed.
+         */
+        static windowScrollUp$() {
             Environment.__static_initialize();
             return Environment.windowScrollUp;
         }
 
-        static windowScrollDown_$LI$() {
+        /**
+         * @static
+         * @returns {boolean} Whether or not the window has changed.
+         */
+        static windowScrollDown$() {
             Environment.__static_initialize();
             return Environment.windowScrollDown;
         }
 
-        static windowPageUp_$LI$() {
+        /** Move the window content up
+         * @static
+         * @returns {boolean}
+         */
+        static windowPageUp$() {
             Environment.__static_initialize();
             return Environment.windowPageUp;
         }
 
-        static windowPageDown_$LI$() {
+        /** Move the window content down
+         * @returns {boolean}
+         */
+        static windowPageDown$() {
             Environment.__static_initialize();
             return Environment.windowPageDown;
         }
 
-        static scrollbarHeld_$LI$() {
+        /**
+         * @returns {CWScrollbar} The scrollbar being held
+         */
+        static scrollbarHeld$() {
             Environment.__static_initialize();
             return Environment.scrollbarHeld;
         }
 
-        static timeOnInitialPress_$LI$() {
+        /**
+         * @static
+         * @returns {number} The time (in milliseconds) when the initial mouse button was pressed.
+         */
+        static timeOnInitialPress$() {
             Environment.__static_initialize();
             return Environment.timeOnInitialPress;
         }
 
+        /**
+         * @static
+         * @returns {number} The current time in milliseconds.
+         */
         static currentTime() {
             return (new Date()).getTime() - 1;
         }
 
-        static operationExceedsFreeMemory(memory) {
-            return false;
-        }
-
+        /**
+         * Processes buttons and keys that are being held down.
+         * @static
+         */
         static processButtonsAndKeysThatAreHeld() {
-            let name = "";
-            if (Environment.buttonLastPressed_$LI$() != null) {
-                name = Environment.buttonLastPressed_$LI$().name;
-            }
-            if (Environment.buttonLastPressed_$LI$() != null) {
-                const nameID = Environment.buttonLastPressed_$LI$().parent.nameID;
-                if ((name === ("CAM_U")) || (name === ("CAM_D")) || (name === ("CAM_L")) || (name === ("CAM_R")) ||
-                    (name === ("CAM_F")) || (name === ("CAM_B")) || (nameID === ("DIR")) || (nameID === ("SYS")) &&
-                    !(name === ("SYS_WORLD_INFO")) || (nameID === ("X")) || (nameID === ("Y")) || (nameID === ("Z"))) {
-                    dsector.DSReference.interfaceProcesses.processButton$button(Environment.buttonLastPressed_$LI$());
-                }
-            }
-            const pressTime = Environment.currentTime() - Environment.timeOnInitialPress_$LI$();
-            if (Environment.windowScrollUp_$LI$()) {
+            const pressTime = Environment.currentTime() - Environment.timeOnInitialPress$();
+            if (Environment.windowScrollUp$()) {
                 Environment.screenHasChanged = true;
                 if (pressTime > CWSYSTEM.Global.maximumDoubleClickTime) {
-                    Environment.scrollbarHeld_$LI$().moveUpSlowly();
+                    Environment.scrollbarHeld$().moveUpSlowly();
                 }
             }
-            if (Environment.windowScrollDown_$LI$()) {
+            if (Environment.windowScrollDown$()) {
                 Environment.screenHasChanged = true;
                 if (pressTime > CWSYSTEM.Global.maximumDoubleClickTime) {
-                    Environment.scrollbarHeld_$LI$().moveDownSlowly();
+                    Environment.scrollbarHeld$().moveDownSlowly();
                 }
             }
-            if (Environment.windowPageUp_$LI$()) {
+            if (Environment.windowPageUp$()) {
                 Environment.screenHasChanged = true;
                 if (pressTime > CWSYSTEM.Global.maximumDoubleClickTime) {
-                    Environment.scrollbarHeld_$LI$().moveUpFast();
+                    Environment.scrollbarHeld$().moveUpFast();
                 }
             }
-            if (Environment.windowPageDown_$LI$()) {
+            if (Environment.windowPageDown$()) {
                 Environment.screenHasChanged = true;
                 if (pressTime > CWSYSTEM.Global.maximumDoubleClickTime) {
-                    Environment.scrollbarHeld_$LI$().moveDownFast();
+                    Environment.scrollbarHeld$().moveDownFast();
                 }
             }
         }
 
-        static escapeKeyPressed() {
-            return Environment.ESCKeyPressedDuringThisCycle_$LI$();
-        }
-
+        /**
+         * Requests an update for perspective view windows in the next cycle.
+         * @static
+         */
         static perspectiveViewWindowsRequestedForUpdateNextCycle() {
             Environment.perspectiveViewRequestedForUpdate = true;
             Environment.screenHasChanged = true;
         }
 
+        /**
+         * Requests an update for projective view windows in the next cycle.
+         * @static
+         */
         static projectiveViewWindowsRequestedForUpdateNextCycle() {
             Environment.xyViewRequestedForUpdate = true;
             Environment.xzViewRequestedForUpdate = true;
@@ -287,6 +252,10 @@ var CWSYSTEM;
             Environment.screenHasChanged = true;
         }
 
+        /**
+         * Requests an update for all view windows in the next cycle.
+         * @static
+         */
         static viewWindowsRequestedForUpdateNextCycle() {
             Environment.xyViewRequestedForUpdate = true;
             Environment.xzViewRequestedForUpdate = true;
@@ -295,6 +264,12 @@ var CWSYSTEM;
             Environment.screenHasChanged = true;
         }
 
+
+        /**
+         * Requests an update for a specific projective view window in the next cycle.
+         * @static
+         * @param {number} viewID - The ID of the view to update
+         */
         static oneProjectiveViewWindowRequestedForUpdateNextCycle(viewID) {
             switch (viewID) {
                 case 0:
@@ -312,14 +287,27 @@ var CWSYSTEM;
             Environment.screenHasChanged = true;
         }
 
+        /**
+         * Dummy function for the constructor.
+         * @returns {boolean}
+         */
         static applicationExpired() {
             return false;
         }
 
+        /**
+         * Advances the cycle counter
+         * @static
+         */
         static advanceCycle() {
             Environment.cycleID = (Environment.cycleID + 1) % 100000;
         }
 
+        /**
+         * Initializes static properties
+         * @static
+         * @private
+         */
         static __static_initializer_0() {
             Environment.cycleID = 0;
             Environment.mouseXLastClicked = (CWSYSTEM.Global.screenResolutionX / 2 | 0);
@@ -362,18 +350,83 @@ var CWSYSTEM;
     }
 
     Environment.__static_initialized = false;
+    /**
+     * @static
+     * @type {boolean}
+     */
     Environment.screenHasChanged = true;
+
+    /**
+     * @static
+     * @type {number}
+     */
     Environment.furtherRendering = 0;
+
+    /**
+     * @static
+     * @type {boolean}
+     */
     Environment.shiftKeyPressed = false;
+    /**
+     * @static
+     * @type {boolean}
+     */
     Environment.ctrlKeyPressed = false;
+    /**
+     * @static
+     * @type {boolean}
+     */
     Environment.altKeyPressed = false;
+    /**
+     * @static
+     * @type {boolean}
+     */
     Environment.spacebarPressed = false;
+    /**
+     * @static
+     * @type {boolean}
+     */
     Environment.mouseButtonOrAnyKeyPressed = false;
+    /**
+     * @static
+     * @type {boolean}
+     */
     Environment.VK_q_Pressed = false;
+    /**
+     * @static
+     * @type {number}
+     */
     Environment.timeWhenMouseLastClicked = 0;
+    /**
+     * @static
+     * @type {number}
+     */
     Environment.MOUSE_LEFT = 0;
+    /**
+     * @static
+     * @type {number}
+     */
     Environment.MOUSE_MIDDLE = 1;
+    /**
+     * @static
+     * @type {number}
+     */
     Environment.MOUSE_RIGHT = 2;
+    /**
+     * @static
+     * @type {number}
+     */
+    Environment.lastFramePeriod = 0;
+    /**
+     * @static
+     * @type {CWInputBox|null}
+     */
+    Environment.inputBoxSelected = null;
+    /**
+     * @static
+     * @type {number}
+     */
+    Environment.lastMouseButtonPressed = null;
     CWSYSTEM.Environment = Environment;
     Environment["__class"] = "CWSYSTEM.Environment";
 })(CWSYSTEM || (CWSYSTEM = {}));

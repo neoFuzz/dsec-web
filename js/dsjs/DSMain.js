@@ -1,8 +1,9 @@
-var dsector;
+/**/
 (function (dsector) {
     /**
      * Main class for the D-Sector application. Initializes the game, sets up event listeners, and contains the main game loop.
      * @class
+     * @memberof dsector
      */
     class DSMain {
         /**
@@ -101,7 +102,7 @@ var dsector;
             CWSYSTEM.Environment.lastFramePeriod = CWSYSTEM.Environment.currentTime() - DSMain.mainLoopStartTime;
             document.getElementById("frame-count").innerText = "" +
                 Math.floor(1000 / CWSYSTEM.Environment.lastFramePeriod);
-            if (CWSYSTEM.Environment.lastFramePeriod_$LI$() < (n => n < 0 ?
+            if (CWSYSTEM.Environment.lastFramePeriod$() < (n => n < 0 ?
                 Math.ceil(n) : Math.floor(n))(framePeriod)) {
                 CWSYSTEM.Environment.lastFramePeriod = framePeriod;
             }

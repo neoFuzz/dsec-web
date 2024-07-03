@@ -1,7 +1,9 @@
-var CWSYSTEM;
+/**/
 (function (CWSYSTEM) {
     /**
      * Class representing a Canvas Window text area.
+     * @class
+     * @memberof CWSYSTEM
      */
     class CWTextArea {
         /**
@@ -195,7 +197,6 @@ var CWSYSTEM;
          */
         informSuppliedObjectAboutNewTextAreaValue() {
             if (this.objectContainingTextAreaChangedMethod != null) {
-                const classes = [("").constructor, ("").constructor];
                 try {
                     const method = ((c, p) => {
                         if (c.prototype.hasOwnProperty(p) && typeof c.prototype[p] == 'function')
@@ -262,7 +263,6 @@ var CWSYSTEM;
          */
         submit() {
             CWTextArea.__textAreaSelected = null;
-            const classes = [this.constructor];
             const objects = [this];
             if (this.objectContainingTextAreaSubmittedMethod != null) {
                 try {

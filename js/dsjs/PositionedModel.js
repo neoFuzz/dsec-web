@@ -1,52 +1,48 @@
 /* Re-written from Java */
-var dsector;
 (function (dsector) {
+    /**
+     * Represents a 3D model with position and rotation.
+     * @class
+     * @memberof dsector
+     */
     class PositionedModel {
-        constructor(name, model3DMatrix, rotation, x, y, z) {
+        /**
+         * Creates a new PositionedModel.
+         * @param {string} [name] - The name of the model. If not provided, a random name will be generated.
+         * @param {dsector.Model3DMatrix} m3dMatrix - The 3D matrix of the model.
+         * @param {dsector.Matrix4f} rot - The rot matrix of the model.
+         * @param {number} x - The x-coordinate of the model's position.
+         * @param {number} y - The y-coordinate of the model's position.
+         * @param {number} z - The z-coordinate of the model's position.
+         */
+        constructor(name, m3dMatrix, rot = null,
+                    x = 0, y = 0, z = 0) {
             if (this.__name === undefined) {
                 this.__name = null;
             }
             if (this.model3DMatrix === undefined) {
                 this.model3DMatrix = null;
             }
-            if (this.rotation === undefined) {
-                this.rotation = null;
-            }
-            if (this.x === undefined) {
-                this.x = 0;
-            }
-            if (this.y === undefined) {
-                this.y = 0;
-            }
-            if (this.z === undefined) {
-                this.z = 0;
-            }
-            if (this.intersectedPolygon === undefined) {
-                this.intersectedPolygon = null;
-            }
-            if (this.numberOfCopiedPolygons === undefined) {
-                this.numberOfCopiedPolygons = 0;
-            }
-            if (name == null) {
-                name = "" + ((Math.random() * 1.0E9) | 0);
-            }
-            this.__name = name;
-            this.model3DMatrix = model3DMatrix;
-            this.rotation = rotation;
+
+            this.__name = name == null ? "" + ((Math.random() * 1.0E9) | 0) : name;
+            this.model3DMatrix = m3dMatrix;
+            this.rotation = rot;
             this.x = x;
             this.y = y;
             this.z = z;
+            this.intersectedPolygon = null;
+            this.numberOfCopiedPolygons = 0;
         }
 
         /**
          * Creates a positioned model from a group of polygons.
          * @param {string} s - The base name for the model.
-         * @param {Array} list - The list of polygons.
+         * @param {Array<Polygon>} list - The list of polygons.
          * @returns {PositionedModel} The created positioned model.
          */
         static createPositionedModelFromGroupOfPolygons(s, list) {
             const model3DMatrix1 = new dsector.Model3DMatrix();
-            model3DMatrix1.name = s + Math.random().toString();
+            model3DMatrix1.name = `${s}${Math.random()}`;
 
             const polygonGroup = new dsector.PolygonGroup("ghost", model3DMatrix1.rootFolder,
                 true, "Direct Representation", true,
@@ -54,33 +50,36 @@ var dsector;
             model3DMatrix1.rootFolder.polygonGroups.push(polygonGroup);
 
             // Calculate average values for x, y, and z
-            const averageX = list.reduce((a, b) => a + b.v1.x + b.v2.x + b.v3.x, 0) / list.length * 3;
-            const averageY = list.reduce((a, b) => a + b.v1.y + b.v2.y + b.v3.y, 0) / list.length * 3;
-            const averageZ = list.reduce((a, b) => a + b.v1.z + b.v2.z + b.v3.z, 0) / list.length * 3;
+            const rX = list.reduce((a, b) =>
+                a + b.v1.x + b.v2.x + b.v3.x, 0) / list.length * 3;
+            const rY = list.reduce((a, b) =>
+                a + b.v1.y + b.v2.y + b.v3.y, 0) / list.length * 3;
+            const rZ = list.reduce((a, b) =>
+                a + b.v1.z + b.v2.z + b.v3.z, 0) / list.length * 3;
 
             // Center the model around the origin by subtracting the average values from each vertex
             for (const polygon of list) {
                 const {v1, v2, v3} = polygon;
-                v1.x -= averageX;
-                v1.y -= averageY;
-                v1.z -= averageZ;
-                v2.x -= averageX;
-                v2.y -= averageY;
-                v2.z -= averageZ;
-                v3.x -= averageX;
-                v3.y -= averageY;
-                v3.z -= averageZ;
+                v1.x -= rX;
+                v1.y -= rY;
+                v1.z -= rZ;
+                v2.x -= rX;
+                v2.y -= rY;
+                v2.z -= rZ;
+                v3.x -= rX;
+                v3.y -= rY;
+                v3.z -= rZ;
                 model3DMatrix1.addPolygon(polygonGroup, polygon, 0);
             }
 
             // Return the positioned model
-            return new PositionedModel(model3DMatrix1.name, model3DMatrix1, new dsector.Matrix4f(),
-                averageX, averageY, averageZ);
+            return new PositionedModel(model3DMatrix1.name, model3DMatrix1, new dsector.Matrix4f(), rX, rY, rZ);
         }
 
         /**
-         * Retern the {@link PositionedModel}'s name
-         * @returns {string} */
+         * Returns the name of the {@link PositionedModel}.
+         * @returns {string} name of the model
+         */
         name() {
             return this.__name;
         }
@@ -148,7 +147,12 @@ var dsector;
             return false;
         }
 
-        /** @private */
+        /**
+         * Projects polygons to studio space.
+         * @private
+         * @param {number} i - Buffer selector (1 or 2).
+         * @param {PositionedModel} positionedModel - The model to project.
+         */
         projectPolygonsToStudioSpace(i, positionedModel) {
             if (++PositionedModel.numberOfProjections % 1000 === 0) {
                 if (i === 1) {

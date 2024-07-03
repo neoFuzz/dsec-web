@@ -1,8 +1,9 @@
-var CWSYSTEM;
 (function (CWSYSTEM) {
     /**
      * Represents an alert management system for handling and displaying alert messages within the application.
      * It manages a queue of messages and displays them one at a time in a dedicated alert window.
+     * @class
+     * @memberof CWSYSTEM
      */
     class AlertManager {
         constructor() {

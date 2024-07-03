@@ -1,6 +1,9 @@
 /* Re-written from java */
-var dsector;
 (function (dsector) {
+    /**
+     * @class
+     * @memberof dsector
+     */
     class DSecMainSetupWindow {
         constructor() {
             if (this.dsecPlayers === undefined) {
@@ -384,7 +387,6 @@ var dsector;
         getDefaultNumberOfPlayers() {
             let playerCount = 4;
             let hashmap = this.hmPlayers;
-            //if (hashmap.hashMap.size === 0) {hashmap = null;}
             try {
                 playerCount = parseInt(hashmap.get("numberOfPlayers"));
             } catch (e) {
@@ -396,7 +398,6 @@ var dsector;
         getDefaultPlayMode() {
             let mode = DSecMainSetupWindow.HOSTILE;
             let hashMap = this.hmPlayers;
-            //if (hashMap.hashMap.size === 0) {hashMap = null;}
             try {
                 mode = parseInt(hashMap.get("playMode"));
             } catch (e) {
@@ -408,7 +409,6 @@ var dsector;
         getDefaultNumberOfRounds() {
             let rounds = 15;
             let hashtable = this.hmPlayers;
-            //if (hashtable.hashMap.size === 0) {hashtable = null;}
             try {
                 rounds = parseInt(hashtable.get("numberOfRounds"));
             } catch (e) {
@@ -422,7 +422,6 @@ var dsector;
             let type = null;
             let hashMap = this.hmPlayers;
             let errorCodes = "";
-            //if (hashMap.hashMap.size === 0) {hashMap = null;}
             try {
                 playerName = hashMap.get("player" + playerId + "Name");
                 if (playerName === "undefined"){playerName = "Player " + playerId} // very JavaScript specific catch

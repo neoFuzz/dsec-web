@@ -1,5 +1,9 @@
-var CWSYSTEM;
+/**/
 (function (CWSYSTEM) {
+    /**
+     * @class
+     * @memberof CWSYSTEM
+    */
     class IOInstruction {
         constructor(type, x, y) {
             if (((typeof type === 'number') || type === null) && ((typeof x === 'number') || x === null) && ((typeof y === 'number') || y === null)) {

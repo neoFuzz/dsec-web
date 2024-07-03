@@ -1,8 +1,9 @@
-var dsector;
+/**/
 (function (dsector) {
     /**
      * Class representing a weapon specification.
-     * @class WeaponSpecification
+     * @class
+     * @memberof dsector
      */
     class WeaponSpecification {
         /** Creates a new weapon specification.
@@ -120,14 +121,13 @@ var dsector;
         }
 
         /** Play a sound from the buffer.
-         * @param {number} m unused {@link Missile} parameter
-         *  @private */
+         * @param {number} m unused Missile parameter
+         * @private
+         */
         static soundPlay(m) {
             try {
                 dsector.DSReference.cwSound.playSound("laserMovement.wav", 1);
             } catch (e) {
-                CWSYSTEM.Debug.println("Error loading movement sounds from DSecPlayer.fireWeapon(..):" + e);
-                CWSYSTEM.Debug.println("Unsupported Audio format: " + e);
                 CWSYSTEM.Debug.println("Error loading sound: " + e);
             }
         }
@@ -172,10 +172,9 @@ var dsector;
                 }
                 price1 = price1 * p.shoppingDiscount();
                 if (itemsOnSpecial != null) {
-                    for (let index = 0; index < itemsOnSpecial.length; index++) {
-                        const objectPair = itemsOnSpecial[index];
-                        const specification = objectPair.object1;
-                        const object2 = objectPair.object2;
+                    for (const item of itemsOnSpecial) {
+                        const specification = item.object1;
+                        const object2 = item.object2;
                         if (specification.specificationID === this.specificationID) {
                             price1 = (price1 * (100 - object2) / 100 | 0);
                         }
@@ -202,9 +201,8 @@ var dsector;
          */
         alreadyFired(p) {
             if (this.actionWhenFiredAfterAlreadyLaunched !== WeaponSpecification.ACTION_NONE) {
-                for (let i = 0; i < dsector.DSReference.dsecMissileManager.missiles.length; ++i) {
-                    const missile = dsector.DSReference.dsecMissileManager.missiles[i];
-                    if (missile.weaponSpecification === this && p === missile.owner) {
+                for (const m of dsector.DSReference.dsecMissileManager.missiles) {
+                    if (m.weaponSpecification === this && p === m.owner) {
                         return true;
                     }
                 }
@@ -262,15 +260,14 @@ var dsector;
                 }
                 if (this.actionWhenFiredAfterAlreadyLaunched !== WeaponSpecification.ACTION_NONE &&
                     this.alreadyFired(owner)) {
-                    for (let i = 0; i < dsector.DSReference.dsecMissileManager.missiles.length; ++i) {
-                        const missile = dsector.DSReference.dsecMissileManager.missiles[i];
-                        if (missile.weaponSpecification === this && owner === missile.owner) {
-                            missile.destroyWithoutExplosion();
+                    for (const m of dsector.DSReference.dsecMissileManager.missiles) {
+                        if (m.weaponSpecification === this && owner === m.owner) {
+                            m.destroyWithoutExplosion();
                             const specification = this.returnSelf();
                             specification.launchSpecification = this.actionWhenFiredAfterAlreadyLaunched;
                             specification.actionWhenFiredAfterAlreadyLaunched = WeaponSpecification.ACTION_NONE;
-                            specification.fire(owner, missile.getX(), missile.getY(), missile.getAngle(),
-                                new dsector.VectorInR3(0.0, 0.0, 0.0), missile.getDamage());
+                            specification.fire(owner, m.getX(), m.getY(), m.getAngle(),
+                                new dsector.VectorInR3(0.0, 0.0, 0.0), m.getDamage());
                         }
 
                     }
@@ -432,7 +429,7 @@ var dsector;
                                 const missile = new dsector.DSecMissile(owner, this);
                                 missile.setAngle(mAngle);
                                 const vector = new dsector.VectorInR3(r3);
-                                vector.rotateVectorFromOriginAboutAxis$int$float(2, owner.getAngle());
+                                vector.rotateAroundAxis(2, owner.getAngle());
                                 missile.setX(x + vector.x);
                                 missile.setY(y + vector.y);
                                 missile.setDamage(damage);

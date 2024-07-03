@@ -1,5 +1,10 @@
-var CWSYSTEM;
+/**/
 (function (CWSYSTEM) {
+    /**
+     *
+     * @class
+     * @memberof CWSYSTEM
+     */
     class CWWindowCollection {
         constructor(vs) {
             if (this.cwWindow === undefined) {
@@ -89,7 +94,7 @@ var CWSYSTEM;
         /** Adds a window with the specified properties to the CWWindowCollection.
          * @param {string} name - The name of the window.
          * @param {number} style - The numerical style of the window.
-         * @param {string || null} title - The title of the window.
+         * @param {string | null} title - The title of the window.
          * @param {number} xPos - The x-position of the window.
          * @param {number} yPos - The y-position of the window.
          * @param {number} w - The width of the window.

@@ -1,7 +1,9 @@
-var CWSYSTEM;
+/**/
 (function (CWSYSTEM) {
     /**
      * Provides utility functions for the CWSYSTEM.
+     * @class
+     * @memberof CWSYSTEM
      */
     class CWUtils {
         constructor() {

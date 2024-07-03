@@ -1,8 +1,9 @@
-var dsector;
+/**/
 (function (dsector) {
     /**
      * Represents a DSecSpecialEffect.
      * @class
+     * @memberof dsector
      */
     class DSecSpecialEffect {
         /**
@@ -52,6 +53,7 @@ var dsector;
             this.brightness = brightness;
         }
     }
+
     DSecSpecialEffect.IMAGE_COMPOSITE = 0;
     dsector.DSecSpecialEffect = DSecSpecialEffect;
     DSecSpecialEffect["__class"] = "dsector.DSecSpecialEffect";

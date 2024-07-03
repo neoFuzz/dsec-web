@@ -1,8 +1,14 @@
-var dsector;
+/**/
 (function (dsector) {
+    /**
+     * @class
+     * @memberof dsector
+     */
     class DSecMissile {
-        /** @param {DSecPlayer} player
-         * @param {WeaponSpecification} specification */
+        /**
+         * @param {DSecPlayer} player
+         * @param {WeaponSpecification} specification
+         */
         constructor(player, specification) {
             if (this.owner === undefined) {
                 this.owner = null;

@@ -1,42 +1,40 @@
-var dsector;
+/**/
 (function (dsector) {
+    /**
+     * Class representing a joystick.
+     * @class
+     * @memberof dsector
+     */
     class Joystick {
+        /**
+         * Constructor for the Joystick class. Initializes all properties to their default values.
+         */
         constructor() {
-
-            if (this.joystickID === undefined) {
-                this.joystickID = 0;
-            }
-            if (this.gpTriggersScaled === undefined) {
-                this.gpTriggersScaled = null;
-            }
-            if (this.gamePadName === undefined) {
-                this.gamePadName = null;
-            }
-            if (this.gamePadButtons === undefined) {
-                this.gamePadButtons = null;
-            }
-            if (this.gamePadAxes === undefined) {
-                this.gamePadAxes = null;
-            }
-            if (this.internalID === undefined) {
-                this.internalID = 0;
-            }
-            /** Trigger values stored in a FloatPair */
+            /** @property {string} gamePadName Name of the gamepad */
+            this.gamePadName = null;
+            /** @property {number} internalID Internal ID of the joystick */
+            this.internalID = 0;
+            /** Trigger values stored in a FloatPair
+             @property {dsector.FloatPair} gpTriggersScaled Scaled trigger values */
             this.gpTriggersScaled = new dsector.FloatPair(0.0, 0.0);
 
-            /** Gamepad axes storage */
+            /** Gamepad axes storage
+             @property {Array<number>} gamePadAxes Array of gamepad axes values */
             this.gamePadAxes = ([]);
 
-            /** Gamepad button storage */
+            /** Gamepad button storage
+             @property {Array<number>} gamePadButtons Array of gamepad button values */
             this.gamePadButtons = ([]);
 
-            /** Gamepad API index */
+            /** @property {number} joystickID Gamepad API index */
             this.joystickID = 0;
 
-            /** Non-zero indexed ID internal to the game. Starts at 5 as the Keyboard players are 1 through 4 */
+            /** @property {number} internalID
+             *  Non-zero indexed ID internal to the game. Starts at 5 as the Keyboard players are 1 through 4 */
             this.internalID = 5;
         }
     }
+
     dsector.Joystick = Joystick;
     Joystick["__class"] = "dsector.Joystick";
 })(dsector || (dsector = {}));

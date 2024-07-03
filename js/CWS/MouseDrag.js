@@ -1,5 +1,9 @@
-var CWSYSTEM;
+/**/
 (function (CWSYSTEM) {
+    /**
+     * @class
+     * @memberof CWSYSTEM
+     */
     class MouseDrag {
         constructor() {
             this.mode = MouseDrag.NOTHING_BEING_DRAGGED;
@@ -37,111 +41,29 @@ var CWSYSTEM;
             CWSYSTEM.Environment.mouseX = mouseX;
             CWSYSTEM.Environment.mouseY = mouseY;
             switch (this.mode) {
-                case 0 /* NOTHING_BEING_DRAGGED */
-                :
+                case 0: /* NOTHING_BEING_DRAGGED */
                     return;
-                case 1 /* WINDOW_MOVE */
-                :
+                case 1: /* WINDOW_MOVE */
                     this.processWindowMoved(mouseX, mouseY);
                     return;
-                case 2 /* WINDOW_RESIZE */
-                :
+                case 2: /* WINDOW_RESIZE */
                     this.processWindowResized(mouseX, mouseY);
                     return;
-                case 3 /* PAD_VERTEX_XY */
-                :
-                    this.processSelectedVertexesPositionPad(2, mouseX, mouseY);
-                    return;
-                case 4 /* PAD_VERTEX_XZ */
-                :
-                    this.processSelectedVertexesPositionPad(1, mouseX, mouseY);
-                    return;
-                case 5 /* PAD_VERTEX_YZ */
-                :
-                    this.processSelectedVertexesPositionPad(0, mouseX, mouseY);
-                    return;
-                case 6 /* PAD_TRANSPOSED_REPR_XY */
-                :
-                    this.processTransposedRepresentationPositionPad(2, mouseX, mouseY);
-                    return;
-                case 7 /* PAD_TRANSPOSED_REPR_XZ */
-                :
-                    this.processTransposedRepresentationPositionPad(1, mouseX, mouseY);
-                    return;
-                case 8 /* PAD_TRANSPOSED_REPR_YZ */
-                :
-                    this.processTransposedRepresentationPositionPad(0, mouseX, mouseY);
-                    return;
-                case 9 /* DRAW_RECTANGLE_SELECT */
-                :
-                    this.processRectangleSelect(mouseX, mouseY);
-                    return;
-                case 10 /* RED_PAD */
-                :
-                    this.processColorPad(mouseX, mouseY, 0);
-                    return;
-                case 11 /* GREEN_PAD */
-                :
-                    this.processColorPad(mouseX, mouseY, 1);
-                    return;
-                case 12 /* BLUE_PAD */
-                :
-                    this.processColorPad(mouseX, mouseY, 2);
-                    return;
-                case 13 /* ALPHA_PAD */
-                :
-                    this.processColorPad(mouseX, mouseY, 3);
-                    return;
-                case 14 /* REFLECTION_PAD */
-                :
-                    this.processReflectionPad(mouseX, mouseY);
-                    return;
-                case 15 /* REFLECTED_SHININESS_PAD */
-                :
-                    this.processReflectedShininessPad(mouseX, mouseY);
-                    return;
-                case 16 /* DISPERSED_SHININESS_PAD */
-                :
-                    this.processDispersedShininessPad(mouseX, mouseY);
-                    return;
-                case 17 /* GUIDELINE_MOVE */
-                :
-                    this.processGuidelineMove(mouseX, mouseY);
-                    return;
-                case 18 /* LOCATOR_MOVE */
-                :
-                    this.processLocatorMove(mouseX, mouseY);
-                    return;
-                case 19 /* XY_ROTATION */
-                :
-                case 20 /* XZ_ROTATION */
-                :
-                case 21 /* YZ_ROTATION */
-                :
+                case 19: /* XY_ROTATION */
+                case 20: /* XZ_ROTATION */
+                case 21: /* YZ_ROTATION */
                     this.processRotation(mouseX, mouseY);
                     return;
-                case 22 /* XY_OFFSET_PAD */
-                :
-                case 23 /* XZ_OFFSET_PAD */
-                :
-                case 24 /* YZ_OFFSET_PAD */
-                :
-                    this.processOffsetPad(mouseX, mouseY);
-                    return;
-                case 25 /* CAMERA_ROTATION */
-                :
+                case 25: /* CAMERA_ROTATION */
                     this.processCameraRotation(mouseX, mouseY);
                     return;
-                case 26 /* CAMERA_DIRECTION */
-                :
+                case 26: /* CAMERA_DIRECTION */
                     this.processCameraDirection(mouseX, mouseY);
                     return;
-                case 27 /* CAMERA_POSITION */
-                :
+                case 27: /* CAMERA_POSITION */
                     this.processCameraPosition(mouseX, mouseY);
                     return;
-                case 28 /* SLIDING_BAR */
-                :
+                case 28: /* SLIDING_BAR */
                     this.processSlidingBarMove(mouseX, mouseY);
                     return;
                 default:
@@ -152,110 +74,11 @@ var CWSYSTEM;
             if (this.mode === 9) {
                 this.releaseRectangleSelect(x, y);
             }
-            if (this.mode === 17) {
-                this.releaseGuidelineMove();
-            }
             if (this.mode === MouseDrag.WINDOW_RESIZE) {
                 const window1 = CWSYSTEM.CWSReference.gui.getWindow$int(this.windowResized);
                 CWSYSTEM.Debug.println("Tried using " + window1.nameID);
             }
             this.mode = MouseDrag.NOTHING_BEING_DRAGGED;
-        }
-
-        /** @private */
-        processColorPad(x, y, pad) {
-            const padY = y - this.mouseDraggedStartPosition.getY();
-            this.mouseDraggedStartPosition.setPosition(x, y);
-        }
-
-        /** @private */
-        processReflectionPad(x, y) {
-            const dragStartY = y - this.mouseDraggedStartPosition.getY();
-            this.mouseDraggedStartPosition.setPosition(x, y);
-        }
-
-        /** @private */
-        processDispersedShininessPad(x, y) {
-            const dragY = y - this.mouseDraggedStartPosition.getY();
-            this.mouseDraggedStartPosition.setPosition(x, y);
-        }
-
-        /** @private */
-        processReflectedShininessPad(x, y) {
-            const dragY = y - this.mouseDraggedStartPosition.getY();
-            this.mouseDraggedStartPosition.setPosition(x, y);
-        }
-
-        /** @private */
-        processSelectedVertexesPositionPad(mode, x, y) {
-            const xDrag = x - this.mouseDraggedStartPosition.getX();
-            const yDrag = y - this.mouseDraggedStartPosition.getY();
-            const axisID = 0;
-            const xAAScale = Math.fround((xDrag / dsector.Renderer.scale[axisID]) * this.window.antiAliasedLevel);
-            const yAAScale = Math.fround((yDrag / dsector.Renderer.scale[axisID]) * this.window.antiAliasedLevel);
-
-            for (let i = 0; i < this.copyOfSelectedVertex.length; ++i) {
-                const selectedVertex = this.copyOfSelectedVertex[i];
-                const vertex = new dsector.Vertex(0.0, 0.0, 0.0);
-                switch ((axisID)) {
-                    case 0:
-                        vertex.y = Math.fround(selectedVertex.y + (xAAScale * CWSYSTEM.Environment.yAxisFlippedYZView_$LI$()));
-                        vertex.z = Math.fround(selectedVertex.z + (yAAScale * CWSYSTEM.Environment.zAxisFlippedYZView_$LI$()));
-                        break;
-                    case 1:
-                        vertex.x = Math.fround(selectedVertex.x + (xAAScale * CWSYSTEM.Environment.xAxisFlippedXZView_$LI$()));
-                        vertex.z = Math.fround(selectedVertex.z + (yAAScale * CWSYSTEM.Environment.zAxisFlippedXZView_$LI$()));
-                        break;
-                    case 2:
-                        vertex.x = Math.fround(selectedVertex.x + (xAAScale * CWSYSTEM.Environment.xAxisFlippedXYView_$LI$()));
-                        vertex.y = Math.fround(selectedVertex.y + (yAAScale * CWSYSTEM.Environment.yAxisFlippedXYView_$LI$()));
-                }
-                const aaScale = Math.fround((4.0 / dsector.Renderer.scale[axisID]) * this.window.antiAliasedLevel);
-            }
-            CWSYSTEM.Environment.viewWindowsRequestedForUpdateNextCycle();
-        }
-
-        /** @private */
-        processTransposedRepresentationPositionPad(pad, x, y) {
-            const xDrag = x - this.mouseDraggedStartPosition.getX();
-            const yDrag = y - this.mouseDraggedStartPosition.getY();
-            const axisID = 0;
-            const xAAScale = Math.fround((xDrag / dsector.Renderer.scale[axisID]) * this.window.antiAliasedLevel);
-            const yAAScale = Math.fround((yDrag / dsector.Renderer.scale[axisID]) * this.window.antiAliasedLevel);
-            let matrix4f = null;
-            const polygonIterator = new dsector.PolygonIterator(dsector.DSReference.model3DMatrix, dsector.PolygonIterator.ALL_POLYGON_GROUPS);
-
-            while (true) {
-                const polygonGroup = polygonIterator.nextPolygonGroup();
-                if (polygonGroup == null) {
-                    this.mouseDraggedStartPosition.setPosition(x, y);
-                    CWSYSTEM.Environment.viewWindowsRequestedForUpdateNextCycle();
-                    return;
-                }
-                for (let i = 0; i < polygonGroup.transposedRepresentations.length; ++i) {
-                    const pgr = polygonGroup.transposedRepresentations[i];
-                    if (pgr.active) {
-                        switch (axisID) {
-                            case 0:
-                                matrix4f = dsector.Matrix4f.translationMatrix(0.0,
-                                    Math.fround(xAAScale * CWSYSTEM.Environment.xAxisFlippedXYView_$LI$()),
-                                    Math.fround(yAAScale * CWSYSTEM.Environment.yAxisFlippedXYView_$LI$()));
-                                break;
-                            case 1:
-                                matrix4f = dsector.Matrix4f.translationMatrix(
-                                    Math.fround(xAAScale * CWSYSTEM.Environment.xAxisFlippedXYView_$LI$()),
-                                    0.0, Math.fround(yAAScale * CWSYSTEM.Environment.yAxisFlippedXYView_$LI$()));
-                                break;
-                            case 2:
-                                matrix4f = dsector.Matrix4f.translationMatrix(
-                                    Math.fround(xAAScale * CWSYSTEM.Environment.xAxisFlippedXYView_$LI$()),
-                                    Math.fround(yAAScale * CWSYSTEM.Environment.yAxisFlippedXYView_$LI$()), 0.0);
-                        }
-                        pgr.transformationMatrix.preMultiply(matrix4f);
-                    }
-                }
-
-            }
         }
 
         /** @private */
@@ -294,35 +117,6 @@ var CWSYSTEM;
             dsector.DSReference.renderer.changeCameraHueDirectly(xDragFlt);
         }
 
-        engageOffsetPad(x, y, window) {
-            this.window = window;
-            const axisID = 0;
-            switch ((axisID)) {
-                case 0:
-                    this.mode = 24;
-                    break;
-                case 1:
-                    this.mode = 23;
-                    break;
-                case 2:
-                    this.mode = 22;
-            }
-            this.mouseDraggedStartPosition.setPosition(x, y);
-        }
-
-        /** @private */
-        processOffsetPad(x, y) {
-            const xDrag = x - this.mouseDraggedStartPosition.getX();
-            const yDrag = y - this.mouseDraggedStartPosition.getY();
-            this.mouseDraggedStartPosition.setPosition(x, y);
-            const axisID = 0;
-            const axisScale = dsector.Renderer.scale[axisID];
-            let offset = dsector.Renderer.offsetX;
-            offset[axisID] += Math.fround(5.0 * xDrag / axisScale);
-            offset = dsector.Renderer.offsetY;
-            offset[axisID] += Math.fround(5.0 * yDrag / axisScale);
-        }
-
         /** @private */
         processRotation(x, y) {
             const xDrag = x - this.mouseDraggedStartPosition.getX();
@@ -336,75 +130,6 @@ var CWSYSTEM;
                     break;
                 case 21:
             }
-        }
-
-        engageLocatorMove(window, x, y, axisToMove) {
-            this.window = window;
-            this.mode = 18;
-            this.mouseDraggedStartPosition.setPosition(x, y);
-            this.locatorAxisToMove = axisToMove;
-        }
-
-        /** @private */
-        processLocatorMove(x, y) {
-            const axisMove1 = this.locatorAxisToMove[0];
-            const axisMove2 = this.locatorAxisToMove[1];
-            if (axisMove1 !== -1) {
-                switch ((axisMove1)) {
-                    case 0:
-                    case 1:
-                        break;
-                    case 2:
-                }
-            }
-            if (axisMove2 !== -1) {
-                switch ((axisMove2)) {
-                    case 0:
-                    case 1:
-                        break;
-                    case 2:
-                }
-            }
-            CWSYSTEM.Environment.viewWindowsRequestedForUpdateNextCycle();
-        }
-
-        /** @private */
-        processGuidelineMove(x, y) {
-            let dragPos;
-            if (this.guidelineAssignedToAxis === 0) {
-                dragPos = x - this.mouseDraggedStartPosition.getX();
-            } else {
-                dragPos = y - this.mouseDraggedStartPosition.getY();
-            }
-            const axisID = 0;
-            const dragAALevel = Math.fround(dragPos / dsector.Renderer.scale[axisID] * this.window.antiAliasedLevel);
-            this.mouseDraggedStartPosition.setPosition(x, y);
-            const axisCheck = 0;
-            let xFlipYZ = 0;
-            let yFlipYZ = 0;
-            let zFlipYZ = 0;
-            switch ((axisID)) {
-                case 0:
-                    xFlipYZ = CWSYSTEM.Environment.xAxisFlippedYZView_$LI$();
-                    yFlipYZ = CWSYSTEM.Environment.yAxisFlippedYZView_$LI$();
-                    zFlipYZ = CWSYSTEM.Environment.zAxisFlippedYZView_$LI$();
-                    break;
-                case 1:
-                    xFlipYZ = CWSYSTEM.Environment.xAxisFlippedXZView_$LI$();
-                    yFlipYZ = CWSYSTEM.Environment.yAxisFlippedXZView_$LI$();
-                    zFlipYZ = CWSYSTEM.Environment.zAxisFlippedXZView_$LI$();
-                    break;
-                case 2:
-                    xFlipYZ = CWSYSTEM.Environment.xAxisFlippedXYView_$LI$();
-                    yFlipYZ = CWSYSTEM.Environment.yAxisFlippedXYView_$LI$();
-                    zFlipYZ = CWSYSTEM.Environment.zAxisFlippedXYView_$LI$();
-            }
-            CWSYSTEM.Environment.projectiveViewWindowsRequestedForUpdateNextCycle();
-        }
-
-        /** @private */
-        releaseGuidelineMove() {
-            const axisStr = ["x", "y", "z"];
         }
 
         engageSlidingBarMove(window, x, y) {
@@ -430,16 +155,6 @@ var CWSYSTEM;
                 scrollbar.positionPercent = 0.0;
             }
             this.window.updated = false;
-        }
-
-        /** @private */
-        engageRectangleSelect(window, x, y) {
-            this.xAnchor = x;
-            this.yAnchor = y;
-            this.window = window;
-            if (dsector.PolygonGroupRepresentation.activeRepresentationsHaveAtLeastOneDirectRepresentation()) {
-                this.mode = 9;
-            }
         }
 
         /** @private */
@@ -473,7 +188,7 @@ var CWSYSTEM;
             if (yWidth > this.window.h + this.window.borderWidth + this.window.__titleHeight) {
                 yWidth = this.window.h + this.window.borderWidth + this.window.__titleHeight;
             }
-            let color = null;
+            let color;
             if (CWSYSTEM.Environment.altKeyPressed) {
                 color = new CWSYSTEM.CWColor(255, 75, 0, 30);
             } else {

@@ -1,10 +1,30 @@
 /* Converted from Java. Re-written to use Web Audio API */
-var CWSYSTEM;
 (function (CWSYSTEM) {
+    /**
+     * CWSound class to handle audio context and audio clips.
+     * Represents a sound manager.
+     * @class
+     * @memberof CWSYSTEM
+     */
     class CWSound {
+        /**
+         * Creates an instance of CWSound.
+         */
         constructor() {
+            /**
+             * The audio context used to manage and play audio.
+             * @type {AudioContext}
+             */
             this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            /**
+             * A map to cache audio clips.
+             * @type {Map<string, AudioBuffer>}
+             */
             this.cachedAudioClips = new Map();
+            /**
+             * The last sound played.
+             * @type {AudioBufferSourceNode|null}
+             */
             if (this.lastSoundPlayed === undefined) {
                 this.lastSoundPlayed = null;
             }

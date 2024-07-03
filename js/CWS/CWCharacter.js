@@ -1,9 +1,9 @@
 /* Re-written from Java */
-var CWSYSTEM;
 (function (CWSYSTEM) {
     /**
      * Represents a character with width, height, and line height properties.
      * @class
+     * @memberof CWSYSTEM
      */
     class CWCharacter {
         /**

@@ -1,5 +1,9 @@
-var CWSYSTEM;
+/**/
 (function (CWSYSTEM) {
+    /**
+     * @class
+     * @memberof CWSYSTEM
+     */
     class VirtualScreen {
         constructor() {
             if (this.bi === undefined) {
@@ -118,7 +122,7 @@ var CWSYSTEM;
                 for (let i = 0; i < data.length; i += 4) {
                     //let r = data[i + 0];let g = data[i + 1];let b = data[i + 2];let a = data[i + 3];
                     //let pointColor = new CWSYSTEM.CWColor(r,g,b,a).color;
-                    imageData.push(CWSYSTEM.FastColorUtilities.color$r$g$b$a(
+                    imageData.push(CWSYSTEM.FastColorUtilities.colorRGBA(
                         data[i], data[i + 1], data[i + 2], data[i + 3]));
                 }
 
@@ -264,7 +268,7 @@ var CWSYSTEM;
                 for (let i = 0; i < height; ++i) {
                     for (let x12 = 0; x12 < width; ++x12) {
                         const eColor = this.background.point[i][x12];
-                        screenData.point[i][x12] = CWSYSTEM.FastColorUtilities.color$r$g$b$a((
+                        screenData.point[i][x12] = CWSYSTEM.FastColorUtilities.colorRGBA((
                                 Math.fround(CWSYSTEM.FastColorUtilities.red(eColor) * fadeTime) | 0),
                             (Math.fround(CWSYSTEM.FastColorUtilities.green(eColor) * fadeTime) | 0),
                             (Math.fround(CWSYSTEM.FastColorUtilities.blue(eColor) * fadeTime) | 0), 255);
@@ -322,7 +326,7 @@ var CWSYSTEM;
                                                     const x25 = x24 - xPosition2;
                                                     const pointColor = preAntiAliasedContent.point[yPos02][x25];
                                                     screenData2.point[yPos02][x25] =
-                                                        CWSYSTEM.FastColorUtilities.color$r$g$b$a(
+                                                        CWSYSTEM.FastColorUtilities.colorRGBA(
                                                             CWSYSTEM.FastColorUtilities.red(pointColor),
                                                             CWSYSTEM.FastColorUtilities.green(pointColor),
                                                             CWSYSTEM.FastColorUtilities.blue(pointColor),
@@ -339,7 +343,7 @@ var CWSYSTEM;
                                                     const pc3 = preAntiAliasedContent.point[y27 * 2 + 1][xPos02 * 2];
                                                     const pc4 = preAntiAliasedContent.point[y27 * 2 + 1][xPos02 * 2 + 1];
                                                     screenData2.point[y27][xPos02] =
-                                                        CWSYSTEM.FastColorUtilities.color$r$g$b$a(
+                                                        CWSYSTEM.FastColorUtilities.colorRGBA(
                                                             ((CWSYSTEM.FastColorUtilities.red(pc1) +
                                                                 CWSYSTEM.FastColorUtilities.red(pc2) +
                                                                 CWSYSTEM.FastColorUtilities.red(pc3) +
@@ -395,7 +399,7 @@ var CWSYSTEM;
                                                         temporalSupersample[i].point[y36][x38]);
                                                 }
                                                 rememberedPostTimeSupersampledScreenData.point[y36][x38] =
-                                                    CWSYSTEM.FastColorUtilities.color$r$g$b$a(
+                                                    CWSYSTEM.FastColorUtilities.colorRGBA(
                                                         (red1 / subframes | 0),
                                                         (green1 / subframes | 0),
                                                         (blue1 / subframes | 0),
@@ -440,7 +444,7 @@ var CWSYSTEM;
                                                         const alpha = CWSYSTEM.FastColorUtilities.alpha(preAntiAliasedContent2.point[y48][x50]);
                                                         const minAlpha = 255 - alpha;
                                                         screenData.point[y46][x49] =
-                                                            CWSYSTEM.FastColorUtilities.color$r$g$b(
+                                                            CWSYSTEM.FastColorUtilities.colorRGB(
                                                                 ((alpha * CWSYSTEM.FastColorUtilities.red(
                                                                         preAntiAliasedContent2.point[y48][x50]) + minAlpha *
                                                                     CWSYSTEM.FastColorUtilities.red(
@@ -522,7 +526,7 @@ var CWSYSTEM;
                                                                 CWSYSTEM.FastColorUtilities.alpha(color9)) / 9 | 0);
                                                         const newColor = 255 - cColor;
                                                         screenData.point[y46][x62] =
-                                                            CWSYSTEM.FastColorUtilities.color$r$g$b(
+                                                            CWSYSTEM.FastColorUtilities.colorRGB(
                                                                 (((cColor * (CWSYSTEM.FastColorUtilities.red(color1) +
                                                                         CWSYSTEM.FastColorUtilities.red(color2) +
                                                                         CWSYSTEM.FastColorUtilities.red(color3) +
@@ -657,7 +661,7 @@ var CWSYSTEM;
                     const y7 = startY - top;
                     const alpha = CWSYSTEM.FastColorUtilities.alpha(screenData.point[y7][x6]);
                     const alphaCalc = 255 - alpha;
-                    screenData2.point[startY][i] = CWSYSTEM.FastColorUtilities.color$r$g$b(
+                    screenData2.point[startY][i] = CWSYSTEM.FastColorUtilities.colorRGB(
                         ((alpha * CWSYSTEM.FastColorUtilities.red(screenData.point[y7][x6]) + alphaCalc *
                             CWSYSTEM.FastColorUtilities.red(screenData2.point[startY][i])) / 256 | 0),
                         ((alpha * CWSYSTEM.FastColorUtilities.green(screenData.point[y7][x6]) + alphaCalc *
@@ -690,7 +694,7 @@ var CWSYSTEM;
                 case 2: {
                     for (let j = 0; j < height; ++j) {
                         for (let k = 0; k < width; ++k) {
-                            this.actualScreen.point[j][k] = CWSYSTEM.FastColorUtilities.color$r$g$b(
+                            this.actualScreen.point[j][k] = CWSYSTEM.FastColorUtilities.colorRGB(
                                 ((CWSYSTEM.FastColorUtilities.red(this.subFrame[0].point[j][k]) +
                                     CWSYSTEM.FastColorUtilities.red(this.subFrame[1].point[j][k])) / 2 | 0),
                                 ((CWSYSTEM.FastColorUtilities.green(this.subFrame[0].point[j][k]) +
@@ -705,7 +709,7 @@ var CWSYSTEM;
                 case 3: {
                     for (let l = 0; l < height; ++l) {
                         for (let n = 0; n < width; ++n) {
-                            this.actualScreen.point[l][n] = CWSYSTEM.FastColorUtilities.color$r$g$b(
+                            this.actualScreen.point[l][n] = CWSYSTEM.FastColorUtilities.colorRGB(
                                 ((CWSYSTEM.FastColorUtilities.red(this.subFrame[0].point[l][n]) +
                                     CWSYSTEM.FastColorUtilities.red(this.subFrame[1].point[l][n]) +
                                     CWSYSTEM.FastColorUtilities.red(this.subFrame[2].point[l][n])) / 3 | 0),
@@ -722,7 +726,7 @@ var CWSYSTEM;
                 case 4: {
                     for (let y2 = 0; y2 < height; ++y2) {
                         for (let x3 = 0; x3 < width; ++x3) {
-                            this.actualScreen.point[y2][x3] = CWSYSTEM.FastColorUtilities.color$r$g$b(
+                            this.actualScreen.point[y2][x3] = CWSYSTEM.FastColorUtilities.colorRGB(
                                 ((CWSYSTEM.FastColorUtilities.red(this.subFrame[0].point[y2][x3]) +
                                     CWSYSTEM.FastColorUtilities.red(this.subFrame[1].point[y2][x3]) +
                                     CWSYSTEM.FastColorUtilities.red(this.subFrame[2].point[y2][x3]) +
@@ -742,7 +746,7 @@ var CWSYSTEM;
                 case 5: {
                     for (let y4 = 0; y4 < height; ++y4) {
                         for (let x5 = 0; x5 < width; ++x5) {
-                            this.actualScreen.point[y4][x5] = CWSYSTEM.FastColorUtilities.color$r$g$b(
+                            this.actualScreen.point[y4][x5] = CWSYSTEM.FastColorUtilities.colorRGB(
                                 ((CWSYSTEM.FastColorUtilities.red(this.subFrame[0].point[y4][x5]) +
                                     CWSYSTEM.FastColorUtilities.red(this.subFrame[1].point[y4][x5]) +
                                     CWSYSTEM.FastColorUtilities.red(this.subFrame[2].point[y4][x5]) +
@@ -765,7 +769,7 @@ var CWSYSTEM;
                 case 6: {
                     for (let y6 = 0; y6 < height; ++y6) {
                         for (let x7 = 0; x7 < width; ++x7) {
-                            this.actualScreen.point[y6][x7] = CWSYSTEM.FastColorUtilities.color$r$g$b(
+                            this.actualScreen.point[y6][x7] = CWSYSTEM.FastColorUtilities.colorRGB(
                                 ((CWSYSTEM.FastColorUtilities.red(this.subFrame[0].point[y6][x7]) +
                                     CWSYSTEM.FastColorUtilities.red(this.subFrame[1].point[y6][x7]) +
                                     CWSYSTEM.FastColorUtilities.red(this.subFrame[2].point[y6][x7]) +
@@ -799,7 +803,7 @@ var CWSYSTEM;
                                 green += CWSYSTEM.FastColorUtilities.green(this.subFrame[i].point[y8][x9]);
                                 blue += CWSYSTEM.FastColorUtilities.blue(this.subFrame[i].point[y8][x9]);
                             }
-                            this.actualScreen.point[y8][x9] = CWSYSTEM.FastColorUtilities.color$r$g$b(
+                            this.actualScreen.point[y8][x9] = CWSYSTEM.FastColorUtilities.colorRGB(
                                 (red / this.subFrames | 0), (green / this.subFrames | 0), (blue / this.subFrames | 0));
                         }
                     }
@@ -820,7 +824,7 @@ var CWSYSTEM;
 
             let imageData = ([]);
             for (let i = 0; i < data.length; i += 4) {
-                imageData.push(CWSYSTEM.FastColorUtilities.color$r$g$b$a(
+                imageData.push(CWSYSTEM.FastColorUtilities.colorRGBA(
                     data[i], data[i + 1], data[i + 2], data[i + 3]));
             }
 
@@ -1001,7 +1005,7 @@ var CWSYSTEM;
         }
 
         setColorVS$r$g$b$a(red, green, blue, alpha) {
-            this.defaultColor = CWSYSTEM.FastColorUtilities.color$r$g$b$a(red, green, blue, alpha);
+            this.defaultColor = CWSYSTEM.FastColorUtilities.colorRGBA(red, green, blue, alpha);
         }
 
         /** Sets the color using the provided {@link CWColor} object.
@@ -1103,13 +1107,13 @@ var CWSYSTEM;
             if (gradientType === 'sine') {
                 for (let i = y; i < y + height; ++i) {
                     const sin = Math.sin(Math.PI * ((i - y) / height));
-                    this.fastHorizontalLine(screenData, x, i, width, CWSYSTEM.FastColorUtilities.color$r$g$b$a(
+                    this.fastHorizontalLine(screenData, x, i, width, CWSYSTEM.FastColorUtilities.colorRGBA(
                         ((red + (red2 - red) * sin) | 0), ((green + (green2 - green) * sin) | 0),
                         ((blue + (blue2 - blue) * sin) | 0), ((alpha + (alpha2 - alpha) * sin) | 0)));
                 }
             } else if (gradientType === 'linear') {
                 for (let i = y; i < y + height; ++i) {
-                    this.fastHorizontalLine(screenData, x, i, width, CWSYSTEM.FastColorUtilities.color$r$g$b$a(
+                    this.fastHorizontalLine(screenData, x, i, width, CWSYSTEM.FastColorUtilities.colorRGBA(
                         red2 + ((red - red2) * (i - y) / height | 0),
                         green2 + ((green - green2) * (i - y) / height | 0),
                         blue2 + ((blue - blue2) * (i - y) / height | 0),
@@ -1315,7 +1319,7 @@ var CWSYSTEM;
                                 if (colorA < buffer[y38][x41]) {
                                     const color = point[y38][x41];
                                     const alphaValue = 255 - alpha;
-                                    point[y38][x41] = CWSYSTEM.FastColorUtilities.color$r$g$b$a(
+                                    point[y38][x41] = CWSYSTEM.FastColorUtilities.colorRGBA(
                                         ((alpha * defRed + alphaValue *
                                             CWSYSTEM.FastColorUtilities.red(color)) / 256 | 0),
                                         ((alpha * defGreen + alphaValue *
@@ -1332,7 +1336,7 @@ var CWSYSTEM;
                             for (const n46 = this.rightScanLine[y44]; x47 <= n46; ++x47) {
                                 const pColor = point[y44][x47];
                                 const pAlpha = 255 - alpha;
-                                point[y44][x47] = CWSYSTEM.FastColorUtilities.color$r$g$b$a(
+                                point[y44][x47] = CWSYSTEM.FastColorUtilities.colorRGBA(
                                     ((alpha * defRed + pAlpha *
                                         CWSYSTEM.FastColorUtilities.red(pColor)) / 256 | 0),
                                     ((alpha * defGreen + pAlpha *

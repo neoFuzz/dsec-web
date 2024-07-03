@@ -1,5 +1,9 @@
-var dsector;
+/**/
 (function (dsector) {
+    /**
+     * @class
+     * @memberof dsector
+     */
     class DSecJewel {
         constructor(color, angleFromCenter, x, y) {
             if (this.color === undefined) {

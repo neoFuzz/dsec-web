@@ -24,7 +24,7 @@ function loadScript(url) {
     script.src = url;
     head.appendChild(script);
 }
-
+let dsector;
 /* Utility Classes */
 
 loadScript('js/dsjs/LightManager.js');

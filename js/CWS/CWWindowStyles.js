@@ -1,8 +1,10 @@
 /* Re-written from Java */
-var CWSYSTEM;
 (function (CWSYSTEM) {
     /** Static class containing all the available Window Styles for {@link CWWindow}
-     * @static */
+     * @static
+     * @class
+     * @memberof CWSYSTEM
+     */
     class CWWindowStyles {
         static borderBitmapStyle0_$LI$() {
             if (CWWindowStyles.borderBitmapStyle0 == null) {

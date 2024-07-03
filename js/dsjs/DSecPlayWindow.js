@@ -1,9 +1,9 @@
 /* Re-written from Java */
-var dsector;
 (function (dsector) {
     /**
      * DSecPlayWindow class for managing the game play window.
      * @class
+     * @memberof dsector
      */
     class DSecPlayWindow {
         /**

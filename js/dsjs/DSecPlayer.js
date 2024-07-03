@@ -1,5 +1,9 @@
-var dsector;
+/**/
 (function (dsector) {
+    /**
+     * @class
+     * @memberof dsector
+     */
     class DSecPlayer {
         constructor(robotFileName, name) {
             this.brain = new dsector.DSecBrain(this);

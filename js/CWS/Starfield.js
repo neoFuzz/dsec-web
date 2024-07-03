@@ -1,5 +1,9 @@
-var dsector;
+/**/
 (function (dsector) {
+    /**
+     * @class
+     * @memberof dsector
+     */
     class Starfield {
         constructor(starCount) {
             if (this.star === undefined) {
@@ -31,32 +35,32 @@ var dsector;
                             var6 = Math.fround(Math.random() * 2.0 * Math.PI);
                             var7 = Math.fround(Math.random() * 2.0 * Math.PI);
                             var8 = Math.fround(Math.random() * 2.0 * Math.PI);
-                            var11.rotateVectorFromOriginAboutAxis$int$float(1, var7);
-                            var11.rotateVectorFromOriginAboutAxis$int$float(0, var6);
-                            var11.rotateVectorFromOriginAboutAxis$int$float(2, var8);
+                            var11.rotateAroundAxis(1, var7);
+                            var11.rotateAroundAxis(0, var6);
+                            var11.rotateAroundAxis(2, var8);
                             break;
                         case 2:
                             var6 = Math.fround(Math.random() * Math.PI);
                             var7 = Math.fround(Math.random() * Math.PI);
                             var8 = Math.fround(Math.random() * Math.PI);
-                            var11.rotateVectorFromOriginAboutAxis$int$float(1, var7);
-                            var11.rotateVectorFromOriginAboutAxis$int$float(0, var6);
-                            var11.rotateVectorFromOriginAboutAxis$int$float(2, var8);
+                            var11.rotateAroundAxis(1, var7);
+                            var11.rotateAroundAxis(0, var6);
+                            var11.rotateAroundAxis(2, var8);
                             break;
                         case 3:
                             if (Math.random() > var3) {
                                 var6 = Math.fround(Math.random() * 2.0 * Math.PI);
                                 var7 = Math.fround(Math.random() * 2.0 * Math.PI);
                                 var8 = Math.fround(Math.random() * 2.0 * Math.PI);
-                                var11.rotateVectorFromOriginAboutAxis$int$float(1, var7);
-                                var11.rotateVectorFromOriginAboutAxis$int$float(0, var6);
-                                var11.rotateVectorFromOriginAboutAxis$int$float(2, var8);
+                                var11.rotateAroundAxis(1, var7);
+                                var11.rotateAroundAxis(0, var6);
+                                var11.rotateAroundAxis(2, var8);
                             } else {
-                                var11.rotateVectorFromOriginAboutAxis$int$float$float(
+                                var11.rotateAroundAxisWithCosSin(
                                     0, Math.random() * 2.0 - 1.0, Math.random() * 2.0 - 1.0);
-                                var11.rotateVectorFromOriginAboutAxis$int$float$float(
+                                var11.rotateAroundAxisWithCosSin(
                                     1, Math.random(), Math.random());
-                                var11.rotateVectorFromOriginAboutAxis$int$float$float(
+                                var11.rotateAroundAxisWithCosSin(
                                     2, Math.random() * 2.0 - 1.0, Math.random() * 2.0 - 1.0);
                             }
                     }

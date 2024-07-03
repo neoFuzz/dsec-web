@@ -1,10 +1,11 @@
 /* Re-written from java */
-var dsector;
 (function (dsector) {
     /**
      * Represents a pair of objects. The purpose of this class is to store and manage a pair of objects together.
      * It can be used in various scenarios where two related objects need to be grouped and processed together.
      * If either of the provided objects is `undefined`, it sets the corresponding property to `null`.
+     * @class
+     * @memberof dsector
      */
     class ObjectPair {
         /**

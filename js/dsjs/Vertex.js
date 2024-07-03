@@ -1,57 +1,38 @@
-var dsector;
+/**/
 (function (dsector) {
+    /**
+     * Represents a vertex in 3D space.
+     * @class
+     * @memberof dsector
+     */
     class Vertex {
-        constructor(x, y, z) {
-            if (((typeof x === 'number') || x === null) && ((typeof y === 'number') || y === null) &&
-                ((typeof z === 'number') || z === null)) {
-                let __args = arguments;
-                if (this.x === undefined) {
-                    this.x = 0;
-                }
-                if (this.y === undefined) {
-                    this.y = 0;
-                }
-                if (this.z === undefined) {
-                    this.z = 0;
-                }
-                if (this.selected === undefined) {
-                    this.selected = false;
-                }
-                if (this.positionChangedSinceKeyframeLoaded === undefined) {
-                    this.positionChangedSinceKeyframeLoaded = false;
-                }
+        /**
+         * Creates an instance of Vertex.
+         * @param {number|dsector.Vertex} [x=0] - The x-coordinate or a Vertex instance.
+         * @param {number} [y=0] - The y-coordinate.
+         * @param {number} [z=0] - The z-coordinate.
+         * @throws {Error} Throws an error if the arguments are invalid.
+         */
+        constructor(x = 0, y = 0, z = 0) {
+            if (typeof x === 'number' && typeof y === 'number' && typeof z === 'number') {
                 this.x = x;
                 this.y = y;
                 this.z = z;
-                this.selected = false;
-            }
-            else if (((x != null && x instanceof dsector.Vertex) || x === null) && y === undefined && z === undefined) {
-                let __args = arguments;
-                let vertex = __args[0];
-                if (this.x === undefined) {
-                    this.x = 0;
-                }
-                if (this.y === undefined) {
-                    this.y = 0;
-                }
-                if (this.z === undefined) {
-                    this.z = 0;
-                }
-                if (this.selected === undefined) {
-                    this.selected = false;
-                }
-                if (this.positionChangedSinceKeyframeLoaded === undefined) {
-                    this.positionChangedSinceKeyframeLoaded = false;
-                }
-                this.x = vertex.x;
-                this.y = vertex.y;
-                this.z = vertex.z;
-            }
-            else
+            } else if (x instanceof dsector.Vertex) {
+                ({x: this.x, y: this.y, z: this.z} = x);
+            } else {
                 throw new Error('invalid overload');
+            }
+            this.selected = false;
+            this.positionChangedSinceKeyframeLoaded = false;
         }
-        transform(matrix4f) {
-            const element = matrix4f.element;
+
+        /**
+         * Transforms the vertex using a 4x4 matrix.
+         * @param {Matrix4f} m4f - The 4x4 transformation matrix.
+         */
+        transform(m4f) {
+            const element = m4f.element;
             const x = Math.fround((((element[0][0] * this.x) + (element[1][0] * this.y)) +
                 (element[2][0] * this.z)) + element[3][0]);
             const y = Math.fround((((element[0][1] * this.x) + (element[1][1] * this.y)) +
@@ -62,14 +43,24 @@ var dsector;
             this.y = y;
             this.z = z;
         }
-        set(vertex) {
-            this.x = vertex.x;
-            this.y = vertex.y;
-            this.z = vertex.z;
+
+        /**
+         * Sets the vertex coordinates to those of another vertex.
+         * @param {dsector.Vertex} v - The vertex to copy coordinates from.
+         */
+        set(v) {
+            ({x: this.x, y: this.y, z: this.z} = v);
         }
+
         print() {
-            console.info("\n" + this.x + " " + this.y + " " + this.z);
+            console.info(`\n${this.x} ${this.y} ${this.z}`);
         }
+
+        /**
+         * Calculates the distance to another vertex.
+         * @param {dsector.Vertex} vertex - The vertex to calculate the distance to.
+         * @returns {number} The distance to the vertex.
+         */
         distanceTo(vertex) {
             const xDist = Math.fround(vertex.x - this.x);
             const yDist = Math.fround(vertex.y - this.y);
@@ -77,6 +68,7 @@ var dsector;
             return Math.fround(Math.sqrt((xDist * xDist) + (yDist * yDist) + (zDist * zDist)));
         }
     }
+
     dsector.Vertex = Vertex;
     Vertex["__class"] = "dsector.Vertex";
 })(dsector || (dsector = {}));

@@ -1,9 +1,9 @@
 /* Re-written from Java */
-var CWSYSTEM;
 (function (CWSYSTEM) {
     /**
      * This class is responsible for loading and managing font data.
      * @class
+     * @memberof CWSYSTEM
      */
     class CWFont {
         /**

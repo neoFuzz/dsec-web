@@ -1,6 +1,12 @@
 /* Re-written from Java */
-var CWSYSTEM;
 (function (CWSYSTEM) {
+    /**
+     * Represents a stored line component within a window.
+     * This class encapsulates the properties and behavior of a stored line,
+     * such as its coordinates, color, and drawing functionality.
+     * @class
+     * @memberof CWSYSTEM
+     */
     class CWStoredLine {
         constructor(parent, x0, y0, x1, y1, red, green, blue, alpha) {
             this.parentWindow = parent || null;
@@ -11,6 +17,10 @@ var CWSYSTEM;
             this.color = new CWSYSTEM.CWColor(red, green, blue, alpha);
         }
 
+        /**
+         * Draws the stored line on the provided window.
+         * @method
+         */
         draw() {
             const vs = this.parentWindow.v;
             vs.setColor$intCWColor(this.color);

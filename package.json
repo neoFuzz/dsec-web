@@ -2,5 +2,9 @@
   "dependencies": {
     "three": "^0.153.0",
     "uglify-js": "^3.17.4"
+  },
+  "devDependencies": {
+    "docdash": "^2.0.2",
+    "jsdoc": "^4.0.3"
   }
 }

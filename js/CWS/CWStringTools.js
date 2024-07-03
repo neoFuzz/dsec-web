@@ -1,6 +1,17 @@
-var CWSYSTEM;
+/**/
 (function (CWSYSTEM) {
+    /**
+     * Provides utility methods for working with strings.
+     * @class
+     * @memberof CWSYSTEM
+     */
     class CWStringTools {
+        /**
+         * Breaks a sentence into words based on a given delimiter.
+         * @param {string} text - The text to break into words.
+         * @param {string} word - The delimiter to use for breaking the text.
+         * @return {string[]} - An array of words.
+         */
         static breakSentenceIntoWords(text, word) {
             let index = 0;
             const length = text.length + 1;
@@ -22,14 +33,19 @@ var CWSYSTEM;
             return separated;
         }
 
+        /**
+         * Breaks a string into words separated by a given string, case-insensitively.
+         * @param {string} text - The text to break into words.
+         * @param {string} word - The delimiter to use for breaking the text.
+         * @return {string[]} - An array of words.
+         */
         static breakStringIntoWordsSeparatedByStringCaseInsensitive(text, word) {
             if (word != null && word.length !== 0) {
                 if (text == null) {
                     return null;
                 } else {
                     let regEx = CWSYSTEM.CWStringTools.convertRegularExpressionSimple(word);
-                    let splitStr = text.split(regEx);
-                    return splitStr;
+                    return text.split(regEx);
                 }
             } else {
                 const arrayList = ([]);
@@ -38,6 +54,13 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Replaces occurrences of a word in a text with a replacement character, case-insensitively.
+         * @param {string} text - The text in which to replace the word.
+         * @param {string} word - The word to be replaced.
+         * @param {string} replacementChar - The replacement character.
+         * @return {string} - The modified text.
+         */
         static stringReplaceCaseInsensitive(text, word, replacementChar) {
             const arrList = CWSYSTEM.CWStringTools.breakStringIntoWordsSeparatedByStringCaseInsensitive(text, word);
             text = "";
@@ -50,6 +73,11 @@ var CWSYSTEM;
             return text;
         }
 
+        /**
+         * Converts a text into a regular expression string.
+         * @param {string} text - The text to convert.
+         * @return {string} - The regular expression string.
+         */
         static convertRegularExpressionToString(text) {
             let builder = "";
             for (let i = 0; i < text.length; ++i) {
@@ -58,10 +86,22 @@ var CWSYSTEM;
             return builder;
         }
 
+        /**
+         * Converts a word into a simple regular expression.
+         * @param {string} word - The word to convert.
+         * @return {string} - The regular expression string.
+         */
         static convertRegularExpressionSimple(word) {
             return word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
         }
 
+        /**
+         * Extracts messages between two characters in a text.
+         * @param {string} text - The text to search within.
+         * @param {string} char1 - The starting character.
+         * @param {string} char2 - The ending character.
+         * @return {string[]} - An array of messages between the characters.
+         */
         static messagesBetweenCharacters(text, char1, char2) {
             const arrayList = ([]);
             let checked = false;
@@ -85,76 +125,107 @@ var CWSYSTEM;
             return arrayList;
         }
 
-        static messagePrecedingCharacter(text, character) {
-            const textBytes = (text).split('').map(s => s.charCodeAt(0));
-            const checked = false;
-            let i;
-            for (i = 0; i < textBytes.length && textBytes[i] !==
-            (c => c.charCodeAt == null ? c : c.charCodeAt(0))(character); ++i) {
-                // TODO: work out function, missing from source
-            }
-            return text.substring(0, i);
+        /**
+         * Extracts the message preceding a given character in a text.
+         * @param {string} text - The text to search within.
+         * @param {string} char - The character to look for.
+         * @return {string} - The message preceding the character.
+         */
+        static messagePrecedingCharacter(text, char) {
+            const index = text.indexOf(char);
+            return index !== -1 ? text.substring(0, index) : text;
         }
 
+        /**
+         * Replaces all occurrences of a character in a text with another character.
+         * @param {string} text - The text in which to replace characters.
+         * @param {string} oldChar - The character to be replaced.
+         * @param {string} newChar - The replacement character.
+         * @return {string} - The modified text.
+         */
         static characterReplace(text, oldChar, newChar) {
             return text.split(oldChar).join(newChar);
         }
 
+        /**
+         * Removes all occurrences of a character from a text.
+         * @param {string} text - The text from which to remove the character.
+         * @param {string} target - The character to be removed.
+         * @return {string} - The modified text.
+         */
         static characterRemove(text, target) {
-            const textBytes = (text).split('').map(s => s.charCodeAt(0));
-            let count = 0;
-            for (let i = 0; i < textBytes.length - count; ++i) {
-                if (textBytes[i] === (c => c.charCodeAt == null ? c : c.charCodeAt(0))(target)) {
-                    for (let j = i; j < textBytes.length - 1; ++j) {
-                        textBytes[j] = textBytes[j + 1];
-                    }
-                    ++count;
-                    --i;
-                }
-            }
-            return (String.fromCharCode.apply(null, textBytes)).substring(0, text.length - count);
+            return text.split(target).join('');
         }
 
-        static removeRepeatedCharacters(text, target) {
-            if (text.length < 2) {
-                return text;
-            } else {
-                const checked = false;
-                const textBytes = (text).split('').map(s => s.charCodeAt(0));
-                const bytes = Array(textBytes.length).fill(0);
-                bytes[0] = textBytes[0];
-                let endIndex = 1;
-                for (let i = 1; i < textBytes.length; ++i) {
-                    const singleByte = textBytes[i];
-                    if (singleByte === (c => c.charCodeAt == null ? c : c.charCodeAt(0))(target)) {
-                        const aByte = textBytes[i - 1];
-                        if (singleByte === aByte) {
-                            continue;
-                        }
-                    }
-                    bytes[endIndex] = singleByte;
-                    ++endIndex;
+        /**
+         * Removes repeated occurrences of a character from a text.
+         * @param {string} txt - The text from which to remove repeated characters.
+         * @param {string} tgt - The character whose repetitions are to be removed.
+         * @return {string} - The modified text.
+         */
+        static removeRepeatedCharacters(txt, tgt) {
+            if (txt.length < 2) return txt;
+
+            let result = txt[0];
+            for (let i = 1; i < txt.length; ++i) {
+                if (!(txt[i] === tgt && txt[i] === txt[i - 1])) {
+                    result += txt[i];
                 }
-                return (String.fromCharCode.apply(null, bytes)).substring(0, endIndex);
             }
+            return result;
         }
 
+        /**
+         * Finds the first occurrence of a target string in a text.
+         * @param {string} text - The text to search within.
+         * @param {string} target - The string to find.
+         * @return {number} - The index of the first occurrence of the target string, or -1 if not found
+         */
         static find$Str$Str(text, target) {
             return CWSYSTEM.CWStringTools.find$txt$tgt$loc$case(text, target, 0, false);
         }
 
+        /**
+         * Finds the first occurrence of a target string in a text, ignoring case.
+         * @param {string} text - The text to search within.
+         * @param {string} target - The string to find.
+         * @return {number} - The index of the first occurrence of the target string, or -1 if not found.
+         */
         static findIgnoreCase$Str$Str(text, target) {
             return CWSYSTEM.CWStringTools.find$txt$tgt$loc$case(text, target, 0, true);
         }
 
+        /**
+         * Finds the first occurrence of a target string in a text starting from a specific location.
+         * @param {string} text - The text to search within.
+         * @param {string} target - The string to find.
+         * @param {number} loc - The location to start the search from.
+         * @return {number} - The index of the first occurrence of the target string, or -1 if not found.
+         */
         static find$txt$tgt$loc(text, target, loc) {
             return CWSYSTEM.CWStringTools.find$txt$tgt$loc$case(text, target, loc, false);
         }
 
+        /**
+         * Finds the first occurrence of a target string in a text starting from a specific location, ignoring case.
+         * @param {string} text - The text to search within.
+         * @param {string} target - The string to find.
+         * @param {number} loc - The location to start the search from.
+         * @return {number} - The index of the first occurrence of the target string, or -1 if not found.
+         */
         static findIgnoreCase$txt$tgt$loc(text, target, loc) {
             return CWSYSTEM.CWStringTools.find$txt$tgt$loc$case(text, target, loc, true);
         }
 
+        /**
+         * Finds the target string within the text starting from the specified location, ignoring case.
+         *
+         * @param {string} text - The text to search within.
+         * @param {string} target - The string to find.
+         * @param {number} loc - The location to start the search from.
+         * @returns {number} The index of the first occurrence of the target string, ignoring case.
+         * @throws {Error} If the provided parameters do not match any overload signature.
+         */
         static findIgnoreCase(text, target, loc) {
             if (((typeof text === 'string') || text === null) &&
                 ((typeof target === 'string') || target === null) &&
@@ -168,6 +239,14 @@ var CWSYSTEM;
                 throw new Error('invalid overload');
         }
 
+        /**
+         * Finds the first occurrence of a target string in a text with various options.
+         * @param {string} text - The text to search within.
+         * @param {string} target - The string to find.
+         * @param {number} loc - The location to start the search from.
+         * @param {boolean} caseBool - Whether to ignore case.
+         * @return {number} - The index of the first occurrence of the target string, or -1 if not found.
+         */
         static find$txt$tgt$loc$case(text, target, loc, caseBool) {
             const firstChar = target.substring(0, 1);
             const targetLen = target.length;
@@ -200,6 +279,16 @@ var CWSYSTEM;
             return -1;
         }
 
+        /**
+         * Finds the target string within the text starting from the specified location.
+         *
+         * @param {string} text - The text to search within.
+         * @param {string} target - The string to find.
+         * @param {number} loc - The location to start the search from.
+         * @param {boolean} caseBool - Whether the search is case-sensitive.
+         * @returns {number} The index of the first occurrence of the target string.
+         * @throws {Error} If the provided parameters do not match any overload signature.
+         */
         static find(text, target, loc, caseBool) {
             if (((typeof text === 'string') || text === null) &&
                 ((typeof target === 'string') || target === null) &&
@@ -217,44 +306,55 @@ var CWSYSTEM;
                 throw new Error('invalid overload');
         }
 
+        /**
+         * Trims leading and trailing whitespace, newlines, tabs, and carriage returns from a text.
+         * @param {string} text - The text to trim.
+         * @return {string} - The trimmed text.
+         */
         static trim(text) {
-            text = CWSYSTEM.CWStringTools.stringWithTrailingCharactersTrimmed(
-                CWSYSTEM.CWStringTools.stringWithLeadingCharactersTrimmed(text, ' '), ' ');
-            text = CWSYSTEM.CWStringTools.stringWithTrailingCharactersTrimmed(
-                CWSYSTEM.CWStringTools.stringWithLeadingCharactersTrimmed(text, '\n'), '\n');
-            text = CWSYSTEM.CWStringTools.stringWithTrailingCharactersTrimmed(
-                CWSYSTEM.CWStringTools.stringWithLeadingCharactersTrimmed(text, '\t'), '\t');
-            text = CWSYSTEM.CWStringTools.stringWithTrailingCharactersTrimmed(
-                CWSYSTEM.CWStringTools.stringWithLeadingCharactersTrimmed(text, '\r'), '\r');
+            const charactersToTrim = [' ', '\n', '\t', '\r'];
+            for (const char of charactersToTrim) {
+                text = CWSYSTEM.CWStringTools.stringWithLeadingCharactersTrimmed(text, char);
+                text = CWSYSTEM.CWStringTools.stringWithTrailingCharactersTrimmed(text, char);
+            }
             return text;
         }
 
-        static stringWithTrailingCharactersTrimmed(text, character) {
-            if (!(text === (""))) {
-                do {
-                    const subChar = (text.substring(text.length - 1)).split('')[0];
-                    if ((c => c.charCodeAt === null ? c : c.charCodeAt(0))(subChar) !==
-                        (c => c.charCodeAt == null ? c : c.charCodeAt(0))(character)) {
-                        return text;
-                    }
-                    text = text.substring(0, text.length - 1);
-                } while ((text.length !== 0));
+        /**
+         * Trims trailing occurrences of a specific character from a text.
+         * @param {string} text - The text to trim.
+         * @param {string} char - The character to trim.
+         * @return {string} - The trimmed text.
+         */
+        static stringWithTrailingCharactersTrimmed(text, char) {
+            while (text.length > 0 && text[text.length - 1] === char) {
+                text = text.substring(0, text.length - 1);
             }
-            return "";
+            return text;
         }
 
-        static stringWithLeadingCharactersTrimmed(text, character) {
-            const charArray = (text).split('');
-            const checked = false;
+        /**
+         * Trims the leading specified characters from the given string.
+         *
+         * @param {string} text - The input string to be trimmed.
+         * @param {string} char - The character to be trimmed from the start of the string.
+         * @returns {string} - The trimmed string with leading specified characters removed.
+         */
+        static stringWithLeadingCharactersTrimmed(text, char) {
+            const charArray = text.split('');
             let i;
-            for (i = 0; i < text.length &&
-            (c => c.charCodeAt === null ? c : c.charCodeAt(0))(charArray[i]) ===
-            (c => c.charCodeAt == null ? c : c.charCodeAt(0))(character); ++i) {
-                // TODO: work out what is missing, was blank in source code. incomplete?
+            for (i = 0; i < text.length && charArray[i] === char; ++i) {
+                // Iterate through leading characters
             }
-            return i < text.length ? text.substring(i, text.length - i) : "";
+            return i < text.length ? text.substring(i) : "";
         }
 
+        /**
+         * Formats a float value with a specified number of decimal places and trimming.
+         * @param {number} value - The float value to format.
+         * @param {number} trim - The maximum length of the formatted string.
+         * @return {string} - The formatted float value.
+         */
         static shortenedFloat(value, trim) {
             let string = "" + value;
             if (string.length > trim) {
@@ -264,6 +364,12 @@ var CWSYSTEM;
             return string;
         }
 
+        /**
+         * Retrieves the value associated with a name from a name-value pair string.
+         * @param {string} text - The name-value pair string.
+         * @param {string} target - The name whose value is to be retrieved.
+         * @return {string} - The value associated with the name, or null if the name is not found.
+         */
         static getValueFromNameValuePair(text, target) {
             const fromLine = CWStringTools.getNameAndValueParametersFromLine(text, '=', ' ');
             return fromLine.get(target);
@@ -293,6 +399,12 @@ var CWSYSTEM;
             return hashMap;
         }
 
+        /**
+         * Repeats the given string a specified number of times.
+         * @param {string} text - The string to be repeated.
+         * @param {number} count - The number of times to repeat the string.
+         * @returns {string} The concatenated result of the repeated string.
+         */
         static stringRepeated(text, count) {
             let builder = "";
             for (let i = 0; i < count; ++i) {
@@ -301,6 +413,12 @@ var CWSYSTEM;
             return builder;
         }
 
+        /**
+         * Cuts the given string into smaller lengths based on the specified length.
+         * @param {string} string - The input string to be cut.
+         * @param {number} length - The length of each smaller segment.
+         * @returns {Array<string>} An array of smaller string segments.
+         */
         static cutStringIntoSmallerLengths(string, length) {
             const arrayList = ([]);
             let i;
@@ -311,6 +429,12 @@ var CWSYSTEM;
             return arrayList;
         }
 
+        /**
+         * Creates word-wrapped lines from the given string based on the specified mode.
+         * @param {string} string - The input string to be word-wrapped.
+         * @param {number} mode - The maximum length of each line.
+         * @returns {Array<string>} An array of word-wrapped lines.
+         */
         static createWordWrappedLines(string, mode) {
             const arrayList = ([]);
             string = string + "\n";
@@ -339,11 +463,22 @@ var CWSYSTEM;
             return arrayList;
         }
 
+        /**
+         * Shortens the input string to the specified length, adding "..." if truncated.
+         * @param {string} text - The input string to be shortened.
+         * @param {number} amount - The maximum length of the output string.
+         * @returns {string} The shortened string.
+         */
         static shortenString(text, amount) {
             const length = text.length;
             return length > amount ? text.substring(0, amount) + "..." : text;
         }
 
+        /**
+         * Converts a vector of strings to an array of strings.
+         * @param {Array<string>} arrayList - The vector of strings.
+         * @returns {Array<string>} The converted array of strings.
+         */
         static vectorOfStringToArrayOfString(arrayList) {
             const string = Array(arrayList.length).fill(null);
             for (let i = 0; i < arrayList.length; ++i) {
@@ -352,23 +487,49 @@ var CWSYSTEM;
             return string;
         }
 
+        /**
+         * Converts a vector of integers to an array of integers.
+         * @param {Array<number>} arrayList - The vector of integers.
+         * @returns {Array<number>} The converted array of integers.
+         */
         static vectorOfIntegerToArrayOfInt(arrayList) {
             const ints = Array(arrayList.length).fill(0);
             for (let i = 0; i < arrayList.length; ++i) {
-                const processed = arrayList[i];
-                ints[i] = processed;
+                ints[i] = arrayList[i];
             }
             return ints;
         }
 
+        /**
+         * Replaces all non-alphanumeric characters in the given text with the specified replacement.
+         *
+         * @param {string} text - The input text in which to replace non-alphanumeric characters.
+         * @param {string} replacement - The string to replace each non-alphanumeric character with.
+         * @returns {string} The modified string with non-alphanumeric characters replaced.
+         */
         static replaceNonAlphaNumericalCharacters(text, replacement) {
             return text.replace(new RegExp("[^a-zA-Z0-9]", 'g'), replacement);
         }
 
+        /**
+         * Replaces all non-alphabetic characters in the given text with the specified replacement.
+         *
+         * @param {string} text - The input text in which to replace non-alphabetic characters.
+         * @param {string} replacement - The string to replace each non-alphabetic character with.
+         * @returns {string} The modified string with non-alphabetic characters replaced.
+         */
         static replaceNonAlphaCharacters(text, replacement) {
             return text.replace(new RegExp("[^a-zA-Z]", 'g'), replacement);
         }
 
+        /**
+         * Converts a given string to a boolean value.
+         * The function returns true if the string (after trimming and converting to lowercase) is "true", "yes", or "1".
+         * Otherwise, it returns false.
+         *
+         * @param {string} text - The input text to be converted to a boolean.
+         * @returns {boolean} The boolean value corresponding to the input text.
+         */
         static stringToBoolean(text) {
             if (text == null) {
                 return false;
@@ -379,80 +540,112 @@ var CWSYSTEM;
             }
         }
 
-        static stringStartsWith(text, startingText) {
-            if (text != null && startingText != null) {
-                if (startingText.length > text.length) {
+        /**
+         * Checks if a given string starts with the specified starting text.
+         *
+         * @param {string} txt - The text to be checked.
+         * @param {string} startTxt - The starting text to look for.
+         * @returns {boolean} True if the text starts with the specified starting text, otherwise false.
+         */
+        static stringStartsWith(txt, startTxt) {
+            if (txt != null && startTxt != null) {
+                if (startTxt.length > txt.length) {
                     return false;
                 } else {
-                    return ((str, searchString, position = 0) => str.substring(position,
-                        searchString.length) === searchString)(text, startingText);
+                    return ((str, search, pos = 0) =>
+                        str.substring(pos, search.length) === search)(txt, startTxt);
                 }
             } else {
                 return false;
             }
         }
 
-        static stringEndsWith(text, ending) {
-            if (text != null && ending != null) {
-                if (ending.length > text.length) {
+        /**
+         * Checks if a given string ends with the specified ending.
+         *
+         * @param {string} txt - The text to be checked.
+         * @param {string} e - The ending string to look for.
+         * @returns {boolean} True if the text ends with the specified ending, otherwise false.
+         */
+        static stringEndsWith(txt, e) {
+            if (txt != null && e != null) {
+                if (e.length > txt.length) {
                     return false;
                 } else {
-                    return ((str, searchString, position = 0) => str.substring(position, searchString.length) ===
-                        searchString)(text, ending, text.length - ending.length);
+                    return ((str, search, pos = 0) =>
+                        str.substring(pos, search.length) === search)(txt, e, txt.length - e.length);
                 }
             } else {
                 return false;
             }
         }
 
-        static filenameFilter(text) {
-            const charString = (text).split('');
-            let builderStr = "";
-            for (let i = 0; i < charString.length; ++i) {
-                if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(charString[i]) >= 'a'.charCodeAt(0) &&
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(charString[i]) <= 'z'.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(charString[i]) >= 'A'.charCodeAt(0) &&
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(charString[i]) <= 'Z'.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(charString[i]) >= '0'.charCodeAt(0) &&
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(charString[i]) <= '9'.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(charString[i]) === ' '.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(charString[i]) === '_'.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(charString[i]) === '-'.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(charString[i]) === '!'.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(charString[i]) === '$'.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(charString[i]) === '('.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(charString[i]) === ')'.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(charString[i]) === '#'.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(charString[i]) === '@'.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(charString[i]) === '.'.charCodeAt(0)) {
-                    builderStr = builderStr + charString[i];
+        /**
+         * Filters a given string to only include valid filename characters.
+         * Valid characters include letters (a-z, A-Z), digits (0-9), space,
+         * and certain special characters (_ - ! $ ( ) # @ .).
+         *
+         * @param {string} txt - The input text to be filtered.
+         * @returns {string} A string containing only valid filename characters. If the resulting string is empty, returns an underscore ("_").
+         */
+        static filenameFilter(txt) {
+            const cStr = (txt).split('');
+            let bStr = "";
+            for (let i = 0; i < cStr.length; ++i) {
+                if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) >= 'a'.charCodeAt(0) &&
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) <= 'z'.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) >= 'A'.charCodeAt(0) &&
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) <= 'Z'.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) >= '0'.charCodeAt(0) &&
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) <= '9'.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) === ' '.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) === '_'.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) === '-'.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) === '!'.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) === '$'.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) === '('.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) === ')'.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) === '#'.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) === '@'.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) === '.'.charCodeAt(0)) {
+                    bStr = bStr + cStr[i];
                 }
             }
-            if (builderStr.length === 0) {
+            if (bStr.length === 0) {
                 return "_";
             } else {
-                return builderStr;
+                return bStr;
             }
         }
 
-        static sorted(arrList) {
-            if (arrList == null) {
+        /**
+         * Sorts the given array and returns a list with the sorted elements.
+         * Uses a Map to remove duplicates and ensure natural ordering.
+         *
+         * @param {Array} arr - The array to be sorted.
+         * @returns {Array|null} The sorted array or null if the input is null.
+         */
+        static sorted(arr) {
+            if (arr == null) {
                 return null;
             } else {
                 let treeMap = new Map();
-                for (let i = 0; i < arrList.length; i++) {
-                    let comparable = arrList[i];
-                    treeMap.set(comparable, comparable);
+                for (let i = 0; i < arr.length; i++) {
+                    let element = arr[i];
+                    treeMap.set(element, element);
                 }
                 let values = treeMap.values();
-                let objects = Array.from(values);
-                let arrayList = [];
-                arrayList.push(...objects);
+                let objs = Array.from(values);
+                let list = [];
+                list.push(...objs);
 
-                return arrayList;
+                return list;
             }
         }
 
+        /**
+         * Main method for testing purposes.
+         */
         static main() {
             const arrList = ([]);
             arrList.push("tree");

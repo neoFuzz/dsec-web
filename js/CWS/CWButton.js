@@ -1,5 +1,10 @@
-var CWSYSTEM;
+/**/
 (function (CWSYSTEM) {
+    /**
+     * TODO: Document class
+     * @class
+     * @memberof CWSYSTEM
+     */
     class CWButton {
         constructor(window, name, x, y, length, height, inText, inType, responds) {
             if (!(window instanceof CWSYSTEM.CWWindow || window === null)) {

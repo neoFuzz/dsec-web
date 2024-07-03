@@ -1,5 +1,11 @@
-var dsector;
+/* * */
 (function (dsector) {
+    /**
+     * Contains the basic user input processing and handling.
+     * @todo decouple from dsector like CWSReference
+     * @class
+     * @memberof CWSYSTEM
+     */
     class UserIOBuffer {
         constructor() {
             this.instructions = ([]);
@@ -50,7 +56,7 @@ var dsector;
             }
             const currentTime = CWSYSTEM.Environment.currentTime();
             let timeCheck;
-            if (x === CWSYSTEM.Environment.mouseXLastClicked_$LI$() && y === CWSYSTEM.Environment.mouseYLastClicked_$LI$() &&
+            if (x === CWSYSTEM.Environment.mouseXLastClicked$() && y === CWSYSTEM.Environment.mouseYLastClicked$() &&
                 currentTime - CWSYSTEM.Environment.timeWhenMouseLastClicked < CWSYSTEM.Global.maximumDoubleClickTime) {
                 timeCheck = true;
                 CWSYSTEM.Environment.timeWhenMouseLastClicked = 0;
@@ -340,28 +346,28 @@ var dsector;
             CWSYSTEM.Environment.mouseY = y;
             const mouseIsOver = dsector.DSReference.gui.windowThatMouseIsOver(x, y);
             if (mouseIsOver === -1) {
-                if (CWSYSTEM.Environment.buttonLastMovedOver_$LI$() != null) {
-                    CWSYSTEM.Environment.buttonLastMovedOver_$LI$().mouseIsOver = false;
-                    CWSYSTEM.Environment.buttonLastMovedOver_$LI$().parent.updated = false;
+                if (CWSYSTEM.Environment.buttonLastMovedOver$() != null) {
+                    CWSYSTEM.Environment.buttonLastMovedOver$().mouseIsOver = false;
+                    CWSYSTEM.Environment.buttonLastMovedOver$().parent.updated = false;
                     CWSYSTEM.Environment.buttonLastMovedOver = null;
                 }
             } else {
                 const window = dsector.DSReference.gui.getWindow$int(mouseIsOver);
                 const button = dsector.DSReference.gui.buttonThatMouseIsOver(x, y);
                 if (button != null) {
-                    if (button !== CWSYSTEM.Environment.buttonLastMovedOver_$LI$()) {
+                    if (button !== CWSYSTEM.Environment.buttonLastMovedOver$()) {
                         button.mouseIsOver = true;
-                        if (CWSYSTEM.Environment.buttonLastMovedOver_$LI$() != null) {
-                            CWSYSTEM.Environment.buttonLastMovedOver_$LI$().mouseIsOver = false;
-                            CWSYSTEM.Environment.buttonLastMovedOver_$LI$().parent.updated = false;
+                        if (CWSYSTEM.Environment.buttonLastMovedOver$() != null) {
+                            CWSYSTEM.Environment.buttonLastMovedOver$().mouseIsOver = false;
+                            CWSYSTEM.Environment.buttonLastMovedOver$().parent.updated = false;
                         }
                         CWSYSTEM.Environment.buttonLastMovedOver = button;
                         window.updated = false;
                         CWSYSTEM.CWMenu.mouseMovedOverButton(button);
                     }
-                } else if (CWSYSTEM.Environment.buttonLastMovedOver_$LI$() != null) {
-                    CWSYSTEM.Environment.buttonLastMovedOver_$LI$().mouseIsOver = false;
-                    CWSYSTEM.Environment.buttonLastMovedOver_$LI$().parent.updated = false;
+                } else if (CWSYSTEM.Environment.buttonLastMovedOver$() != null) {
+                    CWSYSTEM.Environment.buttonLastMovedOver$().mouseIsOver = false;
+                    CWSYSTEM.Environment.buttonLastMovedOver$().parent.updated = false;
                     CWSYSTEM.Environment.buttonLastMovedOver = null;
                 }
             }
@@ -385,16 +391,16 @@ var dsector;
                 CWSYSTEM.Environment.screenHasChanged = true;
                 dsector.DSReference.gui.moveWindowToTop$int(mouseIsOver);
                 dsector.DSReference.gui.deactivateTextAreasInWindowsOtherThan(cwWindow);
-                if (CWSYSTEM.Environment.activePulldownMenu_$LI$() != null && cwWindow === CWSYSTEM.Environment.activePulldownMenu_$LI$().parent) {
-                    CWSYSTEM.Environment.activePulldownMenu_$LI$().mousePressedOverClosedSectionOrOverlayBorder();
+                if (CWSYSTEM.Environment.activePulldownMenu$() != null && cwWindow === CWSYSTEM.Environment.activePulldownMenu$().parent) {
+                    CWSYSTEM.Environment.activePulldownMenu$().mousePressedOverClosedSectionOrOverlayBorder();
                     this.mousePressedFinalize();
                 } else {
                     const inputBox = dsector.DSReference.gui.inputBoxThatMouseIsOver(xPos, yPos);
                     if (inputBox != null) {
                         CWSYSTEM.Environment.inputBoxSelected = inputBox;
                     }
-                    if (CWSYSTEM.Environment.inputBoxSelected_$LI$() != null && CWSYSTEM.Environment.inputBoxSelected_$LI$() !== inputBox) {
-                        dsector.DSReference.interfaceProcesses.processInputBox(CWSYSTEM.Environment.inputBoxSelected_$LI$());
+                    if (CWSYSTEM.Environment.inputBoxSelected$() != null && CWSYSTEM.Environment.inputBoxSelected$() !== inputBox) {
+                        dsector.DSReference.interfaceProcesses.processInputBox(CWSYSTEM.Environment.inputBoxSelected$());
                         CWSYSTEM.Environment.inputBoxSelected = null;
                     }
                     const textArea = dsector.DSReference.gui.textAreaThatMouseIsOver(xPos, yPos);
@@ -422,8 +428,8 @@ var dsector;
                             dsector.DSReference.interfaceProcesses.processCheckBox(cwChkBox);
                             this.mousePressedFinalize();
                         }
-                    } else if ((nameID === ("overlay")) && CWSYSTEM.Environment.activePulldownMenu_$LI$() != null) {
-                        CWSYSTEM.Environment.activePulldownMenu_$LI$().mousePressedOverClosedSectionOrOverlayBorder();
+                    } else if ((nameID === ("overlay")) && CWSYSTEM.Environment.activePulldownMenu$() != null) {
+                        CWSYSTEM.Environment.activePulldownMenu$().mousePressedOverClosedSectionOrOverlayBorder();
                         this.mousePressedFinalize();
                     } else {
                         const pulldownMO = dsector.DSReference.gui.pulldownThatMouseIsOver(xPos, yPos);
@@ -507,8 +513,8 @@ var dsector;
         mouseLeftReleased(x, y) {
             CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed = false;
             dsector.DSReference.mouseDrag.release(x, y);
-            if (CWSYSTEM.Environment.buttonLastPressed_$LI$() != null) {
-                CWSYSTEM.Environment.buttonLastPressed_$LI$().release();
+            if (CWSYSTEM.Environment.buttonLastPressed$() != null) {
+                CWSYSTEM.Environment.buttonLastPressed$().release();
             }
             dsector.DSReference.interfaceProcesses.processMouseRelease();
         }

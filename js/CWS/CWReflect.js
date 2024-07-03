@@ -1,10 +1,10 @@
 /* Re-written from Java */
-var CWSYSTEM;
 (function (CWSYSTEM) {
     /**
      * Utility class for reflecting on objects and retrieving methods dynamically.
      * Provides functionality to introspect objects for methods and properties.
      * @class
+     * @memberof CWSYSTEM
      */
     class CWReflect {
         /**

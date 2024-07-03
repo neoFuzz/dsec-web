@@ -1,8 +1,9 @@
 /* Generated from ChatGPT to replace Java code */
-var dsector;
 (function (dsector) {
     /**
      * Represents an MP3 player for playing audio files.
+     * @class
+     * @memberof dsector
      */
     class MP3 {
         /**

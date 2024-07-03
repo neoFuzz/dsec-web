@@ -1,5 +1,9 @@
-var CWSYSTEM;
+/**/
 (function (CWSYSTEM) {
+    /**
+     * @class
+     * @memberof CWSYSTEM
+     */
     class CWTextBlock {
         constructor(parent, nameID, text, leftMargin, baseLine, font, color, width) {
             if (this.parent === undefined) {

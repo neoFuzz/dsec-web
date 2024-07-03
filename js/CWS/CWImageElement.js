@@ -1,8 +1,8 @@
 /* Re-written from Java */
-var CWSYSTEM;
 (function (CWSYSTEM) {
     /**
      * Class representing an image element.
+     * @class
      * @memberof CWSYSTEM
      */
     class CWImageElement {

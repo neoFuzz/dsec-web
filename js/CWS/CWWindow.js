@@ -1,7 +1,9 @@
 /* Re-written from Java */
-var CWSYSTEM;
 (function (CWSYSTEM) {
-    /** Class used to create and manage CWWindow windows*/
+    /** Class used to create and manage CWWindow windows
+     * @class
+     * @memberof CWSYSTEM
+     */
     class CWWindow {
         /** Represents a CWWindow object.
          * @param {VirtualScreen} virtualScreen - The virtual screen to associate with the window.
@@ -873,7 +875,7 @@ var CWSYSTEM;
                 }
             } else {
                 for (k = 0; k < this.borderWidth; ++k) {
-                    color1 = CWSYSTEM.FastColorUtilities.color$r$g$b$a(this.borderBitmap[0][k][0],
+                    color1 = CWSYSTEM.FastColorUtilities.colorRGBA(this.borderBitmap[0][k][0],
                         this.borderBitmap[0][k][1], this.borderBitmap[0][k][2], this.borderBitmap[0][k][3]);
                     this.v.fastHorizontalLine(this.window, this.borderWidth,
                         this.__titleHeight + k, this.w, color1);

@@ -1,7 +1,8 @@
-var CWSYSTEM;
+/* * */
 (function (CWSYSTEM) {
     /**
      * Class representing an image.
+     * @class
      * @memberof CWSYSTEM
      */
     class CWImage {
@@ -84,7 +85,7 @@ var CWSYSTEM;
                                 const calcGreen = ((calcBlend * green2 + blended * green1) / 256 | 0);
                                 const calcBlue = ((calcBlend * blue2 + blended * blue1) / 256 | 0);
                                 const alphaBlend = ((calcBlend * alpha2 + blended * alpha1) / 256 | 0);
-                                arrPoints[chosenB + i][chosenA + j] = CWSYSTEM.FastColorUtilities.color$r$g$b$a(
+                                arrPoints[chosenB + i][chosenA + j] = CWSYSTEM.FastColorUtilities.colorRGBA(
                                     calcRed, calcGreen, calcBlue, alphaBlend);
                             }
                         }
