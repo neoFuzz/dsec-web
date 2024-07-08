@@ -1,10 +1,36 @@
 /**/
 (function (CWSYSTEM) {
     /**
+     * @classdesc VirtualScreen class representing a virtual screen for rendering graphics.
+     * @name VirtualScreen
+     * @typedef {Object} VirtualScreen
+     * @property {ImageData} bi - ImageData object used for rendering
+     * @property {CWSYSTEM.ScreenData} background - Background screen data
+     * @property {CWSYSTEM.ScreenData} subFrame - Subframe screen data
+     * @property {CWSYSTEM.ScreenData} actualScreen - Actual screen data
+     * @property {Array<CWSYSTEM.ScreenData>} subFrames - Array of subframe screen data
+     * @property {Array<number>} leftScanLine - Array representing the left scan line
+     * @property {Array<number>} rightScanLine - Array representing the right scan line
+     * @property {number} subFrameCount - Count of subframes
+     * @property {number} defaultColor - Default color value
+     * @property {boolean} drawCompleteBackground - Flag indicating if the complete background should be drawn
+     * @property {boolean} subFrameRefresh - Flag indicating if the subframe needs to be refreshed
+     * @property {CWSYSTEM.CWFont} serif8_font - Font object for serif8 font
+     * @property {CWSYSTEM.CWFont} serif11_font - Font object for serif11 font
+     * @property {CWSYSTEM.CWFont} small_font - Font object for small font
+     * @property {CWSYSTEM.CWFont} jcsmallfixed_font - Font object for jcsmallfixed font
+     * @property {number} physicalWidth - Physical width of the screen
+     * @property {number} physicalHeight - Physical height of the screen
+     * @property {number} topInset - Top inset of the screen
+     * @property {string} backgroundImage - Path to the background image
      * @class
      * @memberof CWSYSTEM
      */
     class VirtualScreen {
+        /**
+         * Constructs a new instance of the VirtualScreen class, initializing the necessary data structures and properties.
+         * @constructor
+         */
         constructor() {
             if (this.bi === undefined) {
                 let bix = 800; // TODO: get this to be read from the HTML page
@@ -57,13 +83,18 @@
             this.resetVirtualScreen();
         }
 
-
+        /**
+         * Dereferences large objects to free up memory.
+         */
         dereferenceLargeObjects() {
             this.subFrame = null;
             this.actualScreen = null;
             this.background = null;
         }
 
+        /**
+         * Initializes the large objects used for rendering.
+         */
         initializeLargeObjects() {
             this.subFrame = Array(this.subFrames).fill(null).map((_, i) =>
                 new CWSYSTEM.ScreenData(this.physicalWidth, this.physicalHeight, "Subframe " + i));
@@ -72,18 +103,24 @@
             this.resetVirtualScreen();
         }
 
+        /**
+         * Sets the background image for the virtual screen.
+         * @param backgroundImage
+         */
         setBackgroundImage(backgroundImage) {
             this.backgroundImage = backgroundImage;
             this.resetVirtualScreen();
         }
 
+        /**
+         * Resets the virtual screen by reloading the background image and initializing the necessary data structures.
+         */
         resetVirtualScreen() {
             this.drawCompleteBackground = true;
             this.subFrameRefresh = true;
             let b = false;
 
             let canvas = document.getElementById("3dSpace");
-            //let canvas = document.createElement('canvas', {willReadFrequently: true});
             if (canvas === null) {
                 canvas = document.createElement('canvas');
                 canvas.id = "3dSpace";
@@ -100,7 +137,7 @@
             image.width = canvas.width;
 
             try {
-                context.drawImage(image, 0, 0);//image.height*/);
+                context.drawImage(image, 0, 0);
                 bufferedImage = context.getImageData(0, 0, canvas.width, canvas.height);
             } catch (ex) {
                 b = true;
@@ -134,15 +171,22 @@
             }
         }
 
+        /**
+         * Fades in the background from black.
+         * @param n - The duration of the fade in effect in milliseconds.
+         */
         fadeInBackgroundFromBlack(n) {
             this.fadeStartTime = CWSYSTEM.Environment.currentTime();
             this.fadeEndTime = this.fadeStartTime + n;
             this.backgroundFadeInProgress = true;
         }
 
+        /**
+         * Changes the sub-frames.
+         */
         changeSubframes() {
             this.subFrames = CWSYSTEM.Global.subFrames;
-            this.subFrame = Array.from({ length: this.subFrames }, () => null);
+            this.subFrame = Array.from({length: this.subFrames}, () => null);
             for (let i = 0; i < this.subFrames; ++i) {
                 CWSYSTEM.Debug.println("Initializing actualScreenSubframe number" + i);
                 this.subFrame[i] = new CWSYSTEM.ScreenData(CWSYSTEM.Global.screenResolutionX_$LI$(),
@@ -155,6 +199,9 @@
             this.subFrameCount = 0;
         }
 
+        /**
+         * Updates the virtual screen.
+         */
         update() {
             if (this.backgroundFadeInProgress || CWSYSTEM.Environment.screenHasChanged ||
                 CWSYSTEM.Environment.furtherRendering > 0) {
@@ -171,7 +218,7 @@
                 this.createSubFrame(dsector.DSReference.gui);
                 this.createActualScreen();
                 if (this.subFrameCount === 0) {
-                    this.updatePhysicalScreen(this.bi);
+                    this.updatePhysicalScreen();
                 }
                 if (dsector.DSReference.virtualScreen.subFrameCount === 0) {
                     this.repaint();
@@ -181,12 +228,19 @@
             }
         }
 
+        /**
+         * Repaints the virtual screen.
+         */
         repaint() {
             let canvas = document.getElementById("3dSpace");
             let ctx = canvas.getContext("2d");
             ctx.putImageData(this.bi, 0, 0);
         }
 
+        /**
+         * Paints the graphics on the virtual screen.
+         * @param graphics - The graphics data to be painted.
+         */
         paint(graphics) {
             let canvas = document.getElementById("3dSpace");
             let ctx = canvas.getContext("2d");
@@ -195,22 +249,27 @@
             }
         }
 
+        /**
+         * Repeatedly updates the virtual screen through sub-frames.
+         */
         repeatedUpdateThroughSubframes() {
             if (this.virtualScreenInUse) {
                 return;
             }
             this.virtualScreenInUse = true;
             do {
-                {
-                    this.createSubFrame(dsector.DSReference.gui);
-                    this.createActualScreen();
-                }
+                this.createSubFrame(dsector.DSReference.gui);
+                this.createActualScreen();
             } while ((this.subFrameCount !== 0));
-            this.updatePhysicalScreen(this.bi);
+            this.updatePhysicalScreen();
             this.virtualScreenInUse = false;
         }
 
-        /** @private */
+        /**
+         * Creates the sub-frame.
+         * @param collection
+         * @private
+         */
         createSubFrame(collection) {
             const width = this.actualScreen.width;
             const height = this.actualScreen.height;
@@ -674,7 +733,10 @@
             }
         }
 
-        /** @private */
+        /**
+         * Creates the actual screen to display.
+         * @private
+         */
         createActualScreen() {
             ++this.subFrameCount;
             if (this.subFrameCount !== this.subFrames) {
@@ -813,26 +875,13 @@
             return true;
         }
 
-        /** @private */
-        updatePhysicalScreen(bufferedImage) {
+        /**
+         * Updates the physical screen.
+         * @private
+         */
+        updatePhysicalScreen() {
             if (CWSYSTEM.Environment.screenHasChanged) {
                 CWSYSTEM.Environment.furtherRendering = this.subFrames;
-            }
-            const data = bufferedImage.data; // RGBA format
-            const width2 = bufferedImage.width;
-            const height2 = bufferedImage.height;
-
-            let imageData = ([]);
-            for (let i = 0; i < data.length; i += 4) {
-                imageData.push(CWSYSTEM.FastColorUtilities.colorRGBA(
-                    data[i], data[i + 1], data[i + 2], data[i + 3]));
-            }
-
-            let n = 0;
-            for (let i = 0; i < height2; ++i) {
-                for (let j = 0; j < width2; ++j) {
-                    imageData[n++] = this.actualScreen.point[i][j];
-                }
             }
             this.bi = CWSYSTEM.CWGraphics.convertScreenDataToBufferedImage(this.actualScreen);
             if (this.__renderPleaseWaitMessage) {
@@ -840,34 +889,74 @@
             }
         }
 
-        /** @private */
+        /**
+         * Renders a please wait message.
+         * @private
+         */
         renderPleaseWaitMessage() {
             let spinner = document.getElementById('loading-spinner');
             spinner.hidden = false;
             this.repaint();
         }
 
+        /**
+         * Displays a please wait message.
+         * @private
+         */
         displayWaitPleaseWaitMessage() {
             this.__renderPleaseWaitMessage = true;
             this.renderPleaseWaitMessage();
         }
 
+        /**
+         * Removes a please wait message.
+         * @private
+         */
         removeWaitPleaseWaitMessage() {
             this.__renderPleaseWaitMessage = false;
             let spinner = document.getElementById('loading-spinner');
             spinner.hidden = true;
-            this.updatePhysicalScreen(this.bi);
+            this.updatePhysicalScreen();
         }
 
+        /**
+         * Draws a string on the screen.
+         * @param x - The x-coordinate of the text.
+         * @param s - The string to draw.
+         * @param pad - The padding value.
+         * @param y - The y-coordinate of the text.
+         * @returns {number}
+         */
         drawString$n$s$n2$n3(x, s, pad, y) {
             CWSYSTEM.Environment.screenHasChanged = true;
             return this.drawText(null, x, s, pad, y, false, true);
         }
 
+        /**
+         * Draws a string on the screen.
+         * @see CWSYSTEM.ScreenData
+         * @param screenData - the input ScreenData object
+         * @param x
+         * @param text - The text to draw.
+         * @param padX - The padded x-coordinate of the text.
+         * @param y - The y-coordinate of the text.
+         * @param b - The boolean parameter.
+         */
         drawString$sd$n$s$n2$n3$b(screenData, x, text, padX, y, b) {
             this.drawText(screenData, x, text, padX, y, b, false);
         }
 
+        /**
+         * Draws a string on the screen.
+         * @param screenData - The screen data.
+         * @param x - The x-coordinate of the text.
+         * @param s - The string to draw.
+         * @param padX - The padded x-coordinate of the text.
+         * @param y - The y-coordinate of the text.
+         * @param b - The boolean parameter.
+         * @returns {number|void} - The number of characters drawn.
+         * @see CWSYSTEM.ScreenData
+         */
         drawString(screenData, x, s, padX, y, b) {
             if ((screenData instanceof CWSYSTEM.ScreenData || screenData === null) &&
                 ((typeof x === 'number') || x === null) && ((typeof s === 'string') || s === null) &&
@@ -881,10 +970,19 @@
             } else throw new Error('invalid overload');
         }
 
-        /** @private */
+        /**
+         * Draws text on the screen.
+         * @param screenData - The screen data.
+         * @param len - The length of the text.
+         * @param text - The text to draw.
+         * @param x - The x-coordinate of the text.
+         * @param y - The y-coordinate of the text.
+         * @param mode1 - The mode1 parameter.
+         * @param mode2 - The mode2 parameter.
+         * @returns {number} - The number of characters drawn.
+         */
         drawText(screenData, len, text, x, y, mode1, mode2) {
             const spacing = 35;
-            //const array = Array(spacing).fill(null);
             const charArray = (text).split('');
             const length = text.length;
             let yy5 = 0;
@@ -896,7 +994,6 @@
             } else {
                 selector = 1;
             }
-            //const s2 = "";
             for (let i = 0; i < length; ++i) {
                 let c = charArray[i];
                 if ((c => c.charCodeAt === null ? c : c.charCodeAt(0))(c) === '^'.charCodeAt(0)) {
@@ -981,6 +1078,13 @@
             return yy5;
         }
 
+        /**
+         * Draws a string with double size.
+         * @param sd - The screen data.
+         * @param t - The string to draw.
+         * @param x - The x-coordinate.
+         * @param y - The y-coordinate.
+         */
         drawStringDoubleSize(sd, t, x, y) {
             CWSYSTEM.Environment.screenHasChanged = true;
             const bitmapLength = 35;
@@ -1004,6 +1108,13 @@
             }
         }
 
+        /**
+         * Sets the color using individual red, green, blue, and alpha values.
+         * @param red - The red value of the color.
+         * @param green - The green value of the color.
+         * @param blue - The blue value of the color.
+         * @param alpha - The alpha value (opacity) of the color.
+         */
         setColorVS$r$g$b$a(red, green, blue, alpha) {
             this.defaultColor = CWSYSTEM.FastColorUtilities.colorRGBA(red, green, blue, alpha);
         }
@@ -1016,14 +1127,30 @@
             this.defaultColor = cwColor.color;
         }
 
+        /**
+         * Sets the color using a single integer representing the color.
+         * @param defaultColor - The integer representing the color.
+         */
         setColor$int(defaultColor) {
             this.defaultColor = defaultColor;
         }
 
+        /**
+         * Draws a single pixel on the screen.
+         * @param screenData - The screen data object.
+         * @param x - The x-coordinate of the pixel.
+         * @param y - The y-coordinate of the pixel.
+         */
         CWDrawPixel(screenData, x, y) {
             screenData.point[y][x] = this.defaultColor;
         }
 
+        /**
+         * Draws a single pixel on the screen with cropping.
+         * @param screenData - The screen data object.
+         * @param x - The x-coordinate of the pixel.
+         * @param y - The y-coordinate of the pixel.
+         */
         CWDrawPixelWithCropping(screenData, x, y) {
             if (x >= 0 && y >= 0 && x < screenData.width && y < screenData.height) {
                 screenData.point[y][x] = this.defaultColor;
@@ -1048,19 +1175,37 @@
             }
         }
 
-        verticalLine(screenData, x, j, length, n) {
+        /**
+         * Draws a vertical line of a specified length and color on the screen.
+         * @param screenData - The screen data object.
+         * @param x - The x-coordinate of the line.
+         * @param y - The starting y-coordinate of the line.
+         * @param length - The length of the line.
+         * @param n - The color of the line.
+         */
+        verticalLine(screenData, x, y, length, n) {
             try {
                 CWSYSTEM.Environment.screenHasChanged = true;
-                let y = j;
-                for (const n2 = j + length; y < n2; ++y) {
-                    screenData.point[y][x] = n;
+                let yc = y;
+                for (const n2 = y + length; yc < n2; ++yc) {
+                    screenData.point[yc][x] = n;
                 }
             } catch (ex) {
-                CWSYSTEM.Debug.println("Rendering out of range in verticalLine(): x=" + x + ", y=" + j +
+                CWSYSTEM.Debug.println("Rendering out of range in verticalLine(): x=" + x + ", y=" + y +
                     ", length=" + length + ", datapoint.length=" + screenData.point.length);
             }
         }
 
+        /**
+         * Draws a filled rectangle on the screen.
+         * @param screenData - The screen data object.
+         * @param width - The width of the rectangle.
+         * @param height - The height of the rectangle.
+         * @param x - The x-coordinate of the top-left corner of the rectangle.
+         * @param y - The y-coordinate of the top-left corner of the rectangle.
+         * @param color - The color of the rectangle.
+         * @constructor
+         */
         CWDrawFilledRectangle(screenData, width, height, x, y, color) {
             CWSYSTEM.Environment.screenHasChanged = true;
             if (width > screenData.width - 1) {
@@ -1074,8 +1219,8 @@
             }
         }
 
-        /** Draws a filled rectangle on the screen with a gradient effect.
-         *
+        /**
+         * Draws a filled rectangle on the screen with a gradient effect.
          * @param {ScreenData} screenData - The screen data object.
          * @param {number} x - The x-coordinate of the top-left corner of the rectangle.
          * @param {number} y - The y-coordinate of the top-left corner of the rectangle.
@@ -1124,6 +1269,14 @@
             }
         }
 
+        /**
+         * Draws a rectangle on the screen with cropping.
+         * @param screenData - The screen data object.
+         * @param x - The x-coordinate of the top-left corner of the rectangle.
+         * @param y - The y-coordinate of the top-left corner of the rectangle.
+         * @param width - The width of the rectangle.
+         * @param length - The height of the rectangle.
+         */
         CWDrawRectangleWithCropping(screenData, x, y, width, length) {
             if (x >= 0 && y >= 0 && x + width < screenData.width && y + length < screenData.height) {
                 this.CWDrawRectangle(screenData, x, y, width, length);
@@ -1139,6 +1292,15 @@
             }
         }
 
+        /**
+         * Draws a rectangle on the screen.
+         * @param screenData - The screen data object.
+         * @param x - The x-coordinate of the top-left corner of the rectangle.
+         * @param y - The y-coordinate of the top-left corner of the rectangle.
+         * @param width - The width of the rectangle.
+         * @param length - The height of the rectangle.
+         * @constructor
+         */
         CWDrawRectangle(screenData, x, y, width, length) {
             this.verticalLine(screenData, x, y, length, this.defaultColor);
             this.verticalLine(screenData, x + width - 1, y, length, this.defaultColor);
@@ -1211,7 +1373,7 @@
          * @param {number} v2y - The y-coordinate of vertex 2.
          * @param {number} v3x - The x-coordinate of vertex 3.
          * @param {number} v3y - The y-coordinate of vertex 3.
-         * @param {boolean} bool
+         * @param {boolean} bool - A flag indicating whether to render the polygon or not.
          * @param {number} w0 - The width of the screen.
          * @param {number} h0 - The height of the screen.
          * @param {number|Polygon|null} polygon - The polygon identifier.
@@ -1365,6 +1527,15 @@
             }
         }
 
+        /**
+         * Draws a line on the screen with the specified color.
+         * @param screenData - The screen data object.
+         * @param x1 - The x-coordinate of the start point.
+         * @param y1 - The y-coordinate of the start point.
+         * @param x2 - The x-coordinate of the end point.
+         * @param y2 - The y-coordinate of the end point.
+         * @param b - boolean value indicating whether to perform additional operations
+         */
         CWLine(screenData, x1, y1, x2, y2, b) {
             CWSYSTEM.Environment.screenHasChanged = true;
             const width = screenData.width;
@@ -1390,7 +1561,18 @@
             }
         }
 
-        /** @private */
+        /**
+         * Draws a line segment using the octant 0 algorithm.
+         *
+         * @param {ScreenData} screenData - The screen data object.
+         * @param {number} x - The x-coordinate of the start point.
+         * @param {number} y - The y-coordinate of the start point.
+         * @param {number} remainingPoints - The number of remaining points to draw.
+         * @param {number} radius - The radius of the line segment.
+         * @param {number} xIncrement - The x-coordinate increment.
+         * @param {number} yIncrement - The y-coordinate increment.
+         * @private
+         */
         octant0(screenData, x, y, remainingPoints, radius, xIncrement, yIncrement) {
             const diameter = radius * 2;
             const points = diameter - remainingPoints * 2;
@@ -1408,7 +1590,18 @@
             }
         }
 
-        /** @private */
+        /**
+         * Draws a line segment using the octant 1 algorithm.
+         *
+         * @param {ScreenData} screenData - The screen data object.
+         * @param {number} x - The x-coordinate of the start point.
+         * @param {number} y - The y-coordinate of the start point.
+         * @param {number} radius - The radius of the line segment.
+         * @param {number} abs - The absolute value of the difference between the x and y coordinates.
+         * @param {number} xIncrement - The x-coordinate increment.
+         * @param {number} yIncrement - The y-coordinate increment.
+         * @private
+         */
         octant1(screenData, x, y, radius, abs, xIncrement, yIncrement) {
             const diameter = radius * 2;
             const points = diameter - abs * 2;
@@ -1488,24 +1681,31 @@
             }
         }
 
-        /** @private */
-        circlePointsWithCropping(screenData, x, y, n3, n4) {
-            if (n3 === 0) {
-                this.CWDrawPixelWithCropping(screenData, x, y + n4);
-                this.CWDrawPixelWithCropping(screenData, x, y - n4);
-                this.CWDrawPixelWithCropping(screenData, x + n4, y);
-                this.CWDrawPixelWithCropping(screenData, x - n4, y);
+        /**
+         * Draws the specific points on a circle with cropping.
+         * @param screenData - The screen data object.
+         * @param x - The x-coordinate of the circle's center.
+         * @param y - The y-coordinate of the circle's center.
+         * @param p - The current point on the circle.
+         * @param rad - The radius of the circle.
+         * @private */
+        circlePointsWithCropping(screenData, x, y, p, rad) {
+            if (p === 0) {
+                this.CWDrawPixelWithCropping(screenData, x, y + rad);
+                this.CWDrawPixelWithCropping(screenData, x, y - rad);
+                this.CWDrawPixelWithCropping(screenData, x + rad, y);
+                this.CWDrawPixelWithCropping(screenData, x - rad, y);
             } else { //else if (n3 === n4) 
-                this.CWDrawPixelWithCropping(screenData, x + n3, y + n4);
-                this.CWDrawPixelWithCropping(screenData, x - n3, y + n4);
-                this.CWDrawPixelWithCropping(screenData, x + n3, y - n4);
-                this.CWDrawPixelWithCropping(screenData, x - n3, y - n4);
+                this.CWDrawPixelWithCropping(screenData, x + p, y + rad);
+                this.CWDrawPixelWithCropping(screenData, x - p, y + rad);
+                this.CWDrawPixelWithCropping(screenData, x + p, y - rad);
+                this.CWDrawPixelWithCropping(screenData, x - p, y - rad);
             }
-            if (n3 < n4) {
-                this.CWDrawPixelWithCropping(screenData, x + n4, y + n3);
-                this.CWDrawPixelWithCropping(screenData, x - n4, y + n3);
-                this.CWDrawPixelWithCropping(screenData, x + n4, y - n3);
-                this.CWDrawPixelWithCropping(screenData, x - n4, y - n3);
+            if (p < rad) {
+                this.CWDrawPixelWithCropping(screenData, x + rad, y + p);
+                this.CWDrawPixelWithCropping(screenData, x - rad, y + p);
+                this.CWDrawPixelWithCropping(screenData, x + rad, y - p);
+                this.CWDrawPixelWithCropping(screenData, x - rad, y - p);
             }
         }
     }
