@@ -12,7 +12,6 @@
         /**
          * Static initializer.
          * @static
-         * @private
          */
         static __static_initialize() {
             if (!DSGlobal.__static_initialized) {

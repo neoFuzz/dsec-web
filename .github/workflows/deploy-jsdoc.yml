@@ -46,9 +46,9 @@ jobs:
       - name: Build JSDoc
         run: |
           npm install jsdoc
-          npm install --save-dev docdash
+          npm install --save-dev clean-jsdoc-theme
           mkdir out/jsdoc
-          jsdoc ./js/dsjs ./js/CWS -t -t ./node_modules/docdash  -r -d ./out/jsdoc
+          npm run generate-docs
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

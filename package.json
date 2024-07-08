@@ -4,7 +4,11 @@
     "uglify-js": "^3.17.4"
   },
   "devDependencies": {
+    "clean-jsdoc-theme": "^4.3.0",
     "docdash": "^2.0.2",
     "jsdoc": "^4.0.3"
+  },
+  "scripts": {
+    "generate-docs": "jsdoc --configure jsdoc.json --verbose"
   }
 }

@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <title>ImageData Test</title>
+</head>
 <body>
 <script src="js/bootstrap.bundle.js"></script>
 <script src="js/loader.js"></script>
@@ -9,11 +12,11 @@ Example to show the creating an image in a ImageData buffer<br>
 </canvas>
 
 <script>
-    var c = document.getElementById("myCanvas");
-    var ctx = c.getContext("2d");
-    var imgData = ctx.createImageData(640, 480);
+    let c = document.getElementById("myCanvas");
+    let ctx = c.getContext("2d");
+    let imgData = ctx.createImageData(640, 480);
     preloadImages(preImages);
-    var i;
+    let i;
     for (i = 0; i < imgData.data.length; i += 4) {
         imgData.data[i + 0] = i % 2 === 0 ? Math.random() * 200 : 255;
         imgData.data[i + 1] = i % 2 === 0 ? 0 : 255;

@@ -25,8 +25,8 @@ function loadScript(url) {
     head.appendChild(script);
 }
 let dsector;
-/* Utility Classes */
 
+/* Utility Classes */
 loadScript('js/dsjs/LightManager.js');
 loadScript('js/dsjs/ModelLoader.js');
 loadScript('js/dsjs/ModelFolder.js');
@@ -46,7 +46,6 @@ loadScript('js/dsjs/VectorInR3.js');
 loadScript('js/dsjs/Vertex.js');
 loadScript('js/dsjs/Vertex2D.js');
 loadScript('js/dsjs/TimedInstruction.js');
-//loadScript('js/dsjs/UserIOBuffer.js');
 
 /* Game Utility Classes */
 loadScript('js/dsjs/Global.js');
@@ -57,12 +56,9 @@ loadScript('js/dsjs/DSecKeyboardLayout.js');
 loadScript('js/dsjs/Joystick.js');
 loadScript('js/dsjs/GamePadUtils.js');
 loadScript('js/dsjs/InbuiltLight.js');
-//loadScript('js/dsjs/IOInstruction.js');
 loadScript('js/dsjs/DSInterfaceProcesses.js');
 loadScript('js/dsjs/Keyboard.js');
-//loadScript('js/dsjs/MouseDrag.js');
 loadScript('js/dsjs/MP3.js');
-//loadScript('js/dsjs/CWUtils.js');
 
 /* Game Element Classes*/
 loadScript('js/dsjs/DSecBackgroundConfiguration.js');
@@ -84,9 +80,7 @@ loadScript('js/dsjs/RobotSpecification.js');
 loadScript('js/dsjs/TankSpecification.js');
 
 /* GUI Classes */
-//loadScript('js/dsjs/Starfield.js');
 loadScript('js/dsjs/Renderer.js');
-//loadScript('js/dsjs/AlertWindow.js');
 loadScript('js/dsjs/DSecTitlePage.js');
 loadScript('js/dsjs/DSecLoadGameWindow.js');
 loadScript('js/dsjs/DSecMainSetupWindow.js');
@@ -145,8 +139,7 @@ const robotFiles = (["R1_Prototype.dzr", "R2_Prototype.dzr", "R3_Seeker.dzr",
     "R4_Hunter.dzr", "R5_Defender.dzr", "R6_Destroyer.dzr"]);
 const robotAIcode = new Map();
 function loadAI() {
-    for (let i = 0; i < robotFiles.length; ++i) {
-        let fileName = robotFiles[i];
+    for (const fileName of robotFiles) {
         try {
             if (CWSYSTEM.CWStringTools.findIgnoreCase(fileName, ".dzr") !== -1) {
                 let url = "assets/robots/" + fileName;
