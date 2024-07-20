@@ -1,11 +1,23 @@
-/* Re-written from Java */
 (function (CWSYSTEM) {
     /**
      * Class for managing interface processes.
+     *
+     * @property {CWSYSTEM.CWGUI} mainGUI - The main GUI object.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class CWInterfaceProcesses {
+        /**
+         * Creates an instance of CWInterfaceProcesses.
+         */
         constructor() {
             if (this.mainGUI === undefined) {
                 this.mainGUI = null;
@@ -15,9 +27,12 @@
 
         /**
          * Processes a button press event.
-         * @param button
-         * @param x
-         * @param y
+         *
+         * @param {CWSYSTEM.CWButton} button - the CWButton object
+         * @param {number} x - the x coordinate
+         * @param {number} y - the y coordinate
+         * @private
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
          */
         processButton$btn$x$y(button, x, y) {
             const windowName = button.name;
@@ -37,6 +52,15 @@
             }
         }
 
+        /**
+         * Processes a button press event without coordinates.
+         *
+         * @param {CWSYSTEM.CWButton} button - the CWButton object
+         * @param {number} x - the x coordinate
+         * @param {number} y - the y coordinate
+         * @private
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
+         */
         processButton(button, x, y) {
             if (((button != null && button instanceof CWSYSTEM.CWButton) || button === null) &&
                 ((typeof x === 'number') || x === null) && ((typeof y === 'number') || y === null)) {
@@ -48,15 +72,23 @@
                 throw new Error('invalid overload');
         }
 
+        /**
+         * Processes a button press event without coordinates.
+         *
+         * @param {CWSYSTEM.CWButton} button - the CWButton object
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
+         * @private
+         */
         processButton$button(button) {
             this.processButton$btn$x$y(button, 0, 0);
         }
 
         /**
          * Processes an input box event.
+         *
          * @private
          * @methodOf CWSYSTEM.CWInterfaceProcesses
-         * @param inputBox
+         * @param {CWSYSTEM.CWInputBox} inputBox - the CWInputBox object
          */
         processInputBox(inputBox) {
             CWSYSTEM.Environment.inputBoxSelected = null;
@@ -71,9 +103,10 @@
 
         /**
          * Processes a checkbox event.
+         *
+         * @param {CWSYSTEM.CWCheckBox} checkBox - The CWCheckBox object
          * @private
          * @methodOf CWSYSTEM.CWInterfaceProcesses
-         * @param checkBox
          */
         processCheckBox(checkBox) {
             this.mainGUI.moveWindowToTopByName(checkBox.parentWindow.nameID);
@@ -81,11 +114,12 @@
 
         /**
          * Processes a pulldown menu event.
+         *
+         * @param {CWSYSTEM.CWPulldown} pulldownMenu - the CWPulldown object
+         * @param {number} x - the x coordinate
+         * @param {number} y - the y coordinate
          * @private
          * @methodOf CWSYSTEM.CWInterfaceProcesses
-         * @param pulldownMenu
-         * @param x
-         * @param y
          */
         processPulldownMenu$pulldownMenu$x$y(pulldownMenu, x, y) {
             this.mainGUI.moveWindowToTopByName(pulldownMenu.nameID);
@@ -94,9 +128,10 @@
 
         /**
          * Processes a pulldown menu event without coordinates.
+         *
+         * @param {CWSYSTEM.CWPopupMenu} pulldownMenu the pulldown menu object
          * @private
          * @methodOf CWSYSTEM.CWInterfaceProcesses
-         * @param pulldownMenu
          */
         processPulldownMenu$pulldownMenu(pulldownMenu) {
             this.processPulldownMenu$pulldownMenu$x$y(pulldownMenu, 0, 0);
@@ -104,9 +139,10 @@
 
         /**
          * Processes a keyboard character event.
+         *
+         * @param {Object} c the character
          * @private
          * @methodOf CWSYSTEM.CWInterfaceProcesses
-         * @param c
          */
         processKeyboardChar(c) {
             if (CWSYSTEM.Environment.inputBoxSelected$() != null) {
@@ -124,9 +160,10 @@
 
         /**
          * Processes a keyboard press event.
+         *
+         * @param {number} keyCode Key code of pressed key.
          * @private
          * @methodOf CWSYSTEM.CWInterfaceProcesses
-         * @param keyCode
          */
         processKeyboardPress(keyCode) {
             //CWSYSTEM.CWSReference.object.keyPressed(keyCode);
@@ -188,9 +225,10 @@
 
         /**
          * Processes a keyboard release event.
+         *
+         * @param {number} keyCode Key code of released key.
          * @private
          * @methodOf CWSYSTEM.CWInterfaceProcesses
-         * @param keyCode
          */
         processKeyboardRelease(keyCode) {
             switch (CWSYSTEM.Keyboard.focus) {
@@ -201,11 +239,12 @@
 
         /**
          * Processes a mouse press event.
+         *
+         * @param {number} x - the x coordinate
+         * @param {number} y - the y coordinate
+         * @param {CWSYSTEM.CWButton} button - the button code
          * @private
          * @methodOf CWSYSTEM.CWInterfaceProcesses
-         * @param x
-         * @param y
-         * @param button
          */
         processMousePress$x$y$btn(x, y, button) {
             CWSYSTEM.Environment.windowScrollUp = false;
@@ -220,6 +259,7 @@
 
         /**
          * Processes a mouse release event.
+         *
          * @private
          * @methodOf CWSYSTEM.CWInterfaceProcesses
          */

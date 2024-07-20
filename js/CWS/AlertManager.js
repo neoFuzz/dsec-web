@@ -1,11 +1,26 @@
 (function (CWSYSTEM) {
     /**
-     * Represents an alert management system for handling and displaying alert messages within the application.
+     * The alert manager is responsible for displaying messages to the user in a dedicated window.
      * It manages a queue of messages and displays them one at a time in a dedicated alert window.
+     *
+     * @property {Array} messageQueue - An array containing the messages to be displayed.
+     *
      * @class
+     * @since    1.0.0
+     * @access   public
+     *
      * @memberof CWSYSTEM
+     * @requires CWSYSTEM.AlertWindow
+     * @requires CWSYSTEM.CWColor
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class AlertManager {
+        /**
+         * Creates an instance of AlertManager.
+         */
         constructor() {
             this.messageQueue = ([]);
         }
@@ -14,6 +29,7 @@
          * Initializes the message queue to an empty array and adds the provided message as the first item.
          * This method is intended to be called when a new message needs to be prominently displayed,
          * clearing any previous messages.
+         *
          * @param {string} msg - The message to be added to the queue.
          */
         message(msg) {
@@ -21,7 +37,9 @@
             this.messageQueued(msg);
         }
 
-        /** Queue a message using the input parameter.
+        /**
+         * Queue a message using the input parameter.
+         *
          * @param {string} msg
          */
         messageQueued(msg) {
@@ -31,7 +49,9 @@
             }
         }
 
-        /** Creates a window and displays the first message from the queue. */
+        /**
+         * Creates a window and displays the first message from the queue.
+         */
         displayFirstMessageInQueue() {
             if (this.messageQueue.length > 0) {
                 const msg = this.messageQueue[0];
@@ -42,7 +62,9 @@
             }
         }
 
-        /** Deletes the message from the queue then calls the function to display the first message from the queue.
+        /**
+         * Deletes the message from the queue then calls the function to display the first message from the queue.
+         *
          * @requires displayFirstMessageInQueue
          */
         processContinue() {
@@ -50,21 +72,26 @@
             this.messageQueue.splice(0, 1)[0];
             this.displayFirstMessageInQueue();
             if (AlertManager.alertWindow == null) {
+                CWSYSTEM.Debug.println("No more messages.");
             }
         }
     }
 
     /**
      * Current alert window instance
+     * @static
      * @type {CWSYSTEM.AlertWindow | null}
      */
     AlertManager.alertWindow = null;
     /**
      * Background color for the alert window
-     * @type {CWSYSTEM.CWColor | null} */
+     * @static
+     * @type {CWSYSTEM.CWColor | null}
+     */
     AlertManager.backgroundColor = null;
     /**
      * Text color for the alert message
+     * @static
      * @type {CWSYSTEM.CWColor | null}
      */
     AlertManager.textColor = null;

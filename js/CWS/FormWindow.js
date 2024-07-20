@@ -1,10 +1,50 @@
-/**/
 (function (dsector) {
     /**
+     * FormWindow class for creating interactive form windows in a GUI environment.
+     *
+     * This class allows for the creation of customizable form windows with various
+     * input types such as text boxes, checkboxes, and images. It handles form
+     * submission, cancellation, and provides methods for adding and manipulating
+     * form elements.
+     *
+     * @property {CWSYSTEM.CWWindow} window - The window object containing the form.
+     * @property {Map<string, FormWindowItem>} formWindowItems - Map of form items.
+     * @property {string[]} formWindowKeys - Array of form item keys.
+     * @property {Function} submitMethod - Method to be called on form submission.
+     * @property {Function} cancelMethod - Method to be called on form cancellation.
+     * @property {Object} objectToInvokeSubmitMethodFrom - Object to invoke the submit method from.
+     * @property {Object} objectToInvokeCancelMethodFrom - Object to invoke the cancel method from.
+     * @property {boolean} __addCancelButton - Flag to indicate if a cancel button should be added.
+     * @property {CWSYSTEM.CWColor} textColor - Text color for the form window.
+     * @property {CWSYSTEM.CWColor} windowColor - Background color for the form window.
+     * @property {CWSYSTEM.CWColor} windowSecondaryColor - Secondary background color for the form window.
+     * @property {string} windowTitle - Title of the form window.
+     * @property {string} submitLabel - Label for the submit button.
+     * @property {string} cancelLabel - Label for the cancel button.
+     * @property {Object} generalPurposeObject - General purpose object for method invocation.
+     *
+     * @example
+     * const form = new FormWindow("User Details");
+     * form.addInputBox("name");
+     * form.addCheckBox("subscribe", false);
+     * form.popup();
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class FormWindow {
+        /**
+         * Constructs a new FormWindow instance.
+         *
+         * @param {string} title - The title of the form window.
+         */
         constructor(title) {
             this.window = null;
             this.formWindowItems = new Map();
@@ -19,7 +59,7 @@
             this.__addCancelButton = false;
             this.generalPurposeObject = null;
             this.__centerWindow = false;
-            this.textColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$());
+            this.textColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__white());
             this.windowColor = new CWSYSTEM.CWColor(100, 100, 125, 255);
             this.windowSecondaryColor = new CWSYSTEM.CWColor(120, 120, 140, 255);
 
@@ -36,12 +76,22 @@
             }
         }
 
-
+        /**
+         * Adds an input box to the form window.
+         *
+         * @param {string} name - The name of the input box.
+         */
         addInputBox(name) {
             this.formWindowItems.set(name, new dsector.FormWindowItem(dsector.FormWindowItem.INPUTBOX));
             this.formWindowKeys.push(name);
         }
 
+        /**
+         * Adds a checkbox to the form window.
+         *
+         * @param {string} name - The name of the checkbox.
+         * @param {boolean} state - The initial state of the checkbox.
+         */
         addCheckBox(name, state) {
             const windowItem = (new dsector.FormWindowItem(
                 dsector.FormWindowItem.CHECKBOX)).setBooleanValue(state);
@@ -49,20 +99,47 @@
             this.formWindowKeys.push(name);
         }
 
+        /**
+         * Adds a text area to the form window.
+         *
+         * @param {string} name - The name of the text area.
+         */
         addText(name) {
             this.formWindowItems.set(name, new dsector.FormWindowItem(dsector.FormWindowItem.TEXT));
             this.formWindowKeys.push(name);
         }
 
+        /**
+         * Adds an image to the form window.
+         *
+         * @param {string} name - The name of the image.
+         * @param {CWSYSTEM.CWColor} color - The color of the image.
+         */
         addImage(name, color) {
             this.formWindowItems.set(name, new dsector.FormWindowItem(name, color));
             this.formWindowKeys.push(name);
         }
 
+        /**
+         * Retrieves a form item by its name.
+         *
+         * @param {string} name - The name of the form item.
+         * @returns {CWSYSTEM.FormWindowItem}
+         * @throws {Error} If the form item is not found.
+         */
         get(name) {
             return this.formWindowItems.get(name);
         }
 
+        /**
+         * Sets the response methods for the form window.
+         *
+         * @param {Object} parent - The parent object for the submit method.
+         * @param {Function} submitMethod - The submit method to be called.
+         * @param {Object} parent1 - The parent object for the cancel method.
+         * @param {Function} cancelMethod - The cancel method to be called.
+         * @throws {Error} If the submit method or cancel method is invalid.
+         */
         setResponseMethods(parent, submitMethod, parent1, cancelMethod) {
             this.submitMethod = submitMethod;
             this.cancelMethod = cancelMethod;
@@ -70,42 +147,98 @@
             this.objectToInvokeCancelMethodFrom = parent1;
         }
 
+        /**
+         * Sets the secondary method to be called if the submit method fails.
+         * This method can be used to handle form validation or error handling.
+         *
+         * @param {Object} parent - The parent object for the submit failed method.
+         * @param {Function} failedMethod - The submit failed method to be called.
+         */
         setSecondaryMethodIfSubmitMethodFails(parent, failedMethod) {
             this.submitFailedMethod = failedMethod;
             this.objectToInvokeSubmitFailedMethodFrom = parent;
         }
 
+        /**
+         * Adds a cancel button to the form window.
+         * This button will be added only if the `addCancelButton` method is called.
+         */
         addCancelButton() {
             this.__addCancelButton = true;
         }
 
+        /**
+         * Sets the labels for the submit and cancel buttons.
+         *
+         * @param {string} text - The text for the submit button.
+         */
         setSubmitLabel(text) {
             this.submitLabel = text;
         }
 
+        /**
+         * Sets the label for the cancel button.
+         * This button will be added only if the `addCancelButton` method is called.
+         *
+         * @param {string} text - The text for the cancel button.
+         */
         setCancelLabel(text) {
             this.cancelLabel = text;
         }
 
+        /**
+         * Centers the form window on the screen.
+         * This method should be called before calling the `popup` method.
+         */
         centerWindow() {
             this.__centerWindow = true;
         }
 
+        /**
+         * Sets the window colors.
+         *
+         * @param {CWSYSTEM.CWColor} color - The main color of the window.
+         * @param {CWSYSTEM.CWColor} secondaryColor - The secondary color of the window.
+         */
         setWindowColor(color, secondaryColor) {
             this.windowColor = color;
             this.windowSecondaryColor = secondaryColor;
         }
 
+        /**
+         * Sets the text color for the form window.
+         *
+         * @param {CWSYSTEM.CWColor} color - The text color.
+         */
         setTextColor(color) {
             this.textColor = color;
         }
 
+        /**
+         * Pops up the form window at the current mouse position.
+         * This method should be called after setting up the form window elements.
+         */
         popup$() {
             this.popup$gx$gy$f$my$x1$y1$w1$x2$h$w(CWSYSTEM.Environment.mouseXLastClicked$(),
                 CWSYSTEM.Environment.mouseYLastClicked$(), CWSYSTEM.CWSReference.virtualScreen.serif8_font,
                 14, 14, 15, 120, 12, 17, 5);
         }
 
+        /**
+         * Pops up the form window at the specified position.
+         * This method should be called after setting up the form window elements.
+         *
+         * @param {number} gX - The global x-position.
+         * @param {number} gY - The global y-position.
+         * @param {CWSYSTEM.CWFont} font - The font to be used.
+         * @param {number} marginY - The margin for the y-axis.
+         * @param {number} x1 - The x-offset for the first column.
+         * @param {number} y1 - The y-offset for the second column.
+         * @param {number} width1 - The width of the first column.
+         * @param {number} x2 - The x-offset for the third column.
+         * @param {number} height - The height of the form window.
+         * @param {number} width - The width of the form window.
+         */
         popup$gx$gy$f$my$x1$y1$w1$x2$h$w(gX, gY, font, marginY, x1, y1, width1, x2, height, width) {
             const textArea = new CWSYSTEM.CWTextArea(null, 0, "",
                 0, 0, 0, 0, font, "");
@@ -217,8 +350,9 @@
                 x3 = ((pos - 40 - k - tWidth) / 3 | 0);
                 let button;
                 if (this.__addCancelButton) {
-                    const button1 = this.window.addButton$name$x$y$len$h$text$t$r(formName + "_SUBMIT", x3,
-                        y2 + width, k + 20, height, this.submitLabel, 9, 0);
+                    const button1 = this.window.addButton(formName + "_SUBMIT", x3, y2 + width,
+                        k + 20, height, this.submitLabel,
+                        CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
                     try {
                         button1.onPressedMethod = ((c, p) => {
                             if (c.prototype.hasOwnProperty(p) && typeof c.prototype[p] == 'function')
@@ -231,7 +365,9 @@
                     } catch (e) {
                         console.info("Unable to obtain submit method in FormWindow.popup(..): " + e);
                     }
-                    button = this.window.addButton$name$x$y$len$h$text$t$r(formName + "_CANCEL", x3 * 2 + 20 + k, y2 + width, tWidth + 20, height, this.cancelLabel, 9, 0);
+                    button = this.window.addButton(formName + "_CANCEL", x3 * 2 + 20 + k, y2 + width,
+                        tWidth + 20, height, this.cancelLabel,
+                        CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
                     try {
                         button.onPressedMethod = ((c, p) => {
                             if (c.prototype.hasOwnProperty(p) && typeof c.prototype[p] == 'function')
@@ -246,7 +382,9 @@
                     }
                 } else {
                     const posDiv = ((pos - k - 20) / 2 | 0);
-                    button = this.window.addButton$name$x$y$len$h$text$t$r(formName + "_SUBMIT", posDiv, y2 + width, k + 20, height, this.submitLabel, 9, 0);
+                    button = this.window.addButton(formName + "_SUBMIT", posDiv, y2 + width,
+                        k + 20, height, this.submitLabel,
+                        CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
                     try {
                         button.onPressedMethod = ((c, p) => {
                             if (c.prototype.hasOwnProperty(p) && typeof c.prototype[p] == 'function')
@@ -263,6 +401,22 @@
             }
         }
 
+        /**
+         * Pops up the form window at the specified position.
+         * This method should be called after setting up the form window elements.
+         * Overloaded method to provide flexibility in method retrieval based on available parameters.
+         *
+         * @param {number} gX - The global x-position.
+         * @param {number} gY - The global y-position.
+         * @param {CWSYSTEM.CWFont} font - The font to be used.
+         * @param {number} marginY - The margin for the y-axis.
+         * @param {number} x1 - The x-offset for the first column.
+         * @param {number} y1 - The y-offset for the second column.
+         * @param {number} width1 - The width of the first column.
+         * @param {number} x2 - The x-offset for the third column.
+         * @param {number} height - The height of the form window.
+         * @param {number} width - The width of the form window.
+         */
         popup(gX, gY, font, marginY, x1, y1, width1, x2, height, width) {
             if (arguments.length === 0) {
                 return this.popup$();
@@ -273,10 +427,18 @@
             }
         }
 
+        /**
+         * Called when the text area is submitted.
+         *
+         * @param {CWSYSTEM.CWTextArea} textArea - The text area that was submitted.
+         */
         textAreaSubmitted(textArea) {
             this.submit();
         }
 
+        /**
+         * Submits the form window. This method should be overridden to provide custom submission logic.
+         */
         submit() {
             const objects = [this];
             if (this.submitMethod != null) {
@@ -293,6 +455,10 @@
             this.destroy();
         }
 
+        /**
+         * Called when the submission fails. This method should be overridden to provide custom failure logic.
+         * If not overridden, the form window will be destroyed after submission fails.
+         */
         submitFailed() {
             const objects = [this];
             if (this.submitFailedMethod != null) {
@@ -305,6 +471,10 @@
             this.destroy();
         }
 
+        /**
+         * Cancels the form window. This method should be overridden to provide custom cancellation logic.
+         * If not overridden, the form window will be destroyed after cancellation.
+         */
         cancel() {
             if (this.cancelMethod != null) {
                 try {
@@ -316,23 +486,43 @@
             this.destroy();
         }
 
-        textAreaChanged(s, s1) {
-            this.formWindowItems.delete(s);
-            this.formWindowItems.set(s, (new dsector.FormWindowItem(
-                dsector.FormWindowItem.INPUTBOX)).setStringValue(s1));
+        /**
+         * Called when the text area is changed.
+         *
+         * @param {string} id - The identifier of the text area.
+         * @param {string} str - The old text value.
+         */
+        textAreaChanged(id, str) {
+            this.formWindowItems.delete(id);
+            this.formWindowItems.set(id, (new dsector.FormWindowItem(
+                dsector.FormWindowItem.INPUTBOX)).setStringValue(str));
         }
 
+        /**
+         * Called when the checkbox is changed.
+         *
+         * @param {CWSYSTEM.CWCheckBox} checkBox - The checkbox that was changed.
+         */
         checkBoxChanged(checkBox) {
             this.formWindowItems.delete(checkBox.name);
             this.formWindowItems.set(checkBox.name, (new dsector.FormWindowItem(
                 dsector.FormWindowItem.CHECKBOX)).setBooleanValue(checkBox.selected$()));
         }
 
+        /**
+         * Checks if the form window is currently popped up.
+         *
+         * @returns {boolean} true if the form window is popped up, false otherwise.
+         */
         isPoppedUp() {
             return this.window != null;
         }
 
-        /** @private */
+        /**
+         * Destroys the form window and releases any resources it might be holding.
+         *
+         * @private
+         */
         destroy() {
             if (this.window != null) {
                 this.window.destroy();

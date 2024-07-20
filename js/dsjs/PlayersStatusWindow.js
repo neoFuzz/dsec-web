@@ -129,7 +129,7 @@
                 const currentPlayer = dsector.DSReference.dsecGame.getPlayer(i + 1);
                 let polygon = new dsector.Polygon(new dsector.Vertex(vX, (vY + h * i + 60), 0.0),
                     new dsector.Vertex(vX, (vY + h * i + 130), 0.0), new dsector.Vertex((vX + 50), (vY + h * i + 130),
-                        0.0), new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$()));
+                        0.0), new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__white()));
                 PlayersStatusWindow.setupGlyph(vs, screenData, polygon, wO, pRef);
                 const displayColor = currentPlayer.getTankColor(2);
                 vs.setColor$intCWColor(displayColor);
@@ -141,7 +141,7 @@
                     polygon.v3.x, polygon.v3.y, false, wO, pRef, null, null);
                 polygon = new dsector.Polygon(new dsector.Vertex((wO - vX), (vY + h * i + 60), 0.0),
                     new dsector.Vertex((wO - vX), (vY + h * i + 130), 0.0), new dsector.Vertex((wO - vX - 50),
-                        (vY + h * i + 130), 0.0), new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$()));
+                        (vY + h * i + 130), 0.0), new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__white()));
                 PlayersStatusWindow.setupGlyph(vs, screenData, polygon, wO, pRef);
                 vs.setColor$intCWColor(currentPlayer.getTankColor(2));
                 vs.renderPolygon(screenData, null, 0.0, polygon.v1.x, polygon.v1.y, polygon.v2.x, polygon.v2.y,
@@ -157,7 +157,7 @@
                     polygon = new dsector.Polygon(new dsector.Vertex(xH, yH, 0.0),
                         new dsector.Vertex(Math.fround(xH + flt1[j]), Math.fround(yH + flt2[j]), 0.0),
                         new dsector.Vertex(Math.fround(xH + flt1[(j + 1) % 6]), Math.fround(yH + flt2[(j + 1) % 6]),
-                            0.0), new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$()));
+                            0.0), new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__white()));
                     PlayersStatusWindow.multiplyPolygon(polygon, 0.95);
                     if (wSpec != null) {
                         if (currentPlayer.selectedPort() === j + 1) {
@@ -186,7 +186,7 @@
                     vs.renderPolygon(screenData, null, 0.0, xH, yH, Math.fround(xH + (flt1[j] / 4.0)),
                         Math.fround(yH + (flt2[j] / 4.0)), Math.fround(xH + (flt1[(j + 1) % 6] / 4.0)),
                         Math.fround(yH + (flt2[(j + 1) % 6] / 4.0)), false, wO, pRef, null, null);
-                    vs.setColor$intCWColor(CWSYSTEM.CWColor.black_$LI$());
+                    vs.setColor$intCWColor(CWSYSTEM.CWColor.__black());
                     vs.renderPolygon(screenData, null, 0.0, xH, yH, Math.fround(xH + (flt1[j] / 5.0)),
                         Math.fround(yH + (flt2[j] / 5.0)), Math.fround(xH + (flt1[(j + 1) % 6] / 5.0)),
                         Math.fround(yH + (flt2[(j + 1) % 6] / 5.0)), false, wO, pRef, null, null);
@@ -194,7 +194,7 @@
                     const scale2 = Math.fround((polygon.v1.y + polygon.v2.y + polygon.v3.y) / 3.0);
                     if (wSpec != null) {
                         if (currentPlayer.selectedPort() === j + 1) {
-                            vs.setColor$intCWColor(CWSYSTEM.CWColor.black_$LI$());
+                            vs.setColor$intCWColor(CWSYSTEM.CWColor.__black());
                         } else {
                             vs.setColor$intCWColor(currentPlayer.getTankColor(0));
                         }
@@ -205,11 +205,11 @@
                 if (currentPlayerName.length > 9) {
                     currentPlayerName = currentPlayerName.substring(0, 9);
                 }
-                vs.setColor$intCWColor(CWSYSTEM.CWColor.black_$LI$());
+                vs.setColor$intCWColor(CWSYSTEM.CWColor.__black());
                 vs.drawStringDoubleSize(screenData, currentPlayerName, 7, -3 + vY + h * i);
                 vs.setColor$intCWColor(currentPlayer.getTankColor(0));
                 vs.drawStringDoubleSize(screenData, currentPlayerName, 6, -4 + vY + h * i);
-                vs.setColor$intCWColor(CWSYSTEM.CWColor.black_$LI$());
+                vs.setColor$intCWColor(CWSYSTEM.CWColor.__black());
                 let abName = "None";
                 const wSpec1 = currentPlayer.selectedWeapon();
                 if (wSpec1 != null) {

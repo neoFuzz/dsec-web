@@ -75,7 +75,7 @@
             const font = dsector.DSReference.virtualScreen.serif8_font;
             this.window = dsector.DSReference.gui.addWindow$name$style$title$x$y$w$h$v("DSECLOADGAME",
                 3, null, x, y, 400, 48, true);
-            const colour = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$());
+            const colour = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__white());
             this.window.addTextBlock("", "Load Game", 10, 30, font, colour, 999);
             const list = ([]);
             list.push(new dsector.StringPair("- Select - ", ""));
@@ -94,14 +94,14 @@
             pulldown.selectedOption = count;
             pulldown.objectContainingPulldownChangedMethod = this;
             saveName = null;
-            let button = this.window.addButton$name$x$y$len$h$text$t$r("DELETE_GAME", 226, 27,
-                52, 15, "Delete", 9, 0);
+            let button = this.window.addButton("DELETE_GAME", 226, 27,
+                52, 15, "Delete", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
             button.objectContainingButtonPressedMethod = this;
             button.buttonPressedMethodName = "deleteButtonPressed";
-            button = this.window.addButton$name$x$y$len$h$text$t$r("LOAD_GAME", 288, 27, 42,
-                15, "Load", 9, 0);
-            button = this.window.addButton$name$x$y$len$h$text$t$r("", 342, 27, 52, 15,
-                "Cancel", 9, 0);
+            button = this.window.addButton("LOAD_GAME", 288, 27, 42,
+                15, "Load", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
+            button = this.window.addButton("", 342, 27, 52, 15,
+                "Cancel", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
             button.objectContainingButtonPressedMethod = this;
             button.buttonPressedMethodName = "cancelButtonPressed";
         }

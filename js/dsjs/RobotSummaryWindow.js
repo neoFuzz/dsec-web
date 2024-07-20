@@ -98,7 +98,7 @@
             const font = dsector.DSReference.virtualScreen.serif8_font;
             this.window = dsector.DSReference.gui.addWindow$name$style$title$x$y$w$h$v("ROBOTSUMMARY", 3, null, x, y, 400, 200, true);
             const cY = 30;
-            const color = CWSYSTEM.CWColor.white_$LI$();
+            const color = CWSYSTEM.CWColor.__white();
             this.window.addTextBlock("", "Robot Name", 10, cY, font, color, 999);
             this.window.addTextArea("name", 150, cY - 23, 245, 1, font, "").endMark = "";
             let baseline = cY + 30;
@@ -119,7 +119,8 @@
             textArea.deselectionCausesSubmit = true;
             textArea.returnKeyCausesSubmit = true;
             textArea.objectContainingTextAreaSubmittedMethod = this;
-            const button = this.window.addButton$name$x$y$len$h$text$t$r("done", 360, baseline - 23, 35, 15, "Done", 9, 0);
+            const button = this.window.addButton("done", 360, baseline - 23,
+                35, 15, "Done", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
             baseline += 15;
             button.objectContainingButtonPressedMethod = this;
             button.buttonPressedMethodName = "doneButtonPressed";

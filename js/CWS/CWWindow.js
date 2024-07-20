@@ -1,11 +1,37 @@
-/* Re-written from Java */
 (function (CWSYSTEM) {
-    /** Class used to create and manage CWWindow windows
+    /**
+     * Class used to create and manage CWWindow windows.
+     *
+     * @property {VirtualScreen} v - The virtual screen associated with the window.
+     * @property {number} w - The width of the window.
+     * @property {number} h - The height of the window.
+     * @property {number} maxWidth - The maximum width of the window.
+     * @property {number} maxHeight - The maximum height of the window.
+     * @property {number} minWidth - The minimum width of the window.
+     * @property {number} minHeight - The minimum height of the window.
+     * @property {number} xPosition - The x-position of the window.
+     * @property {number} yPosition - The y-position of the window.
+     * @property {string} nameId - The abbreviated identifier for the window.
+     * @property {number} style - The [CWWindowStyles]{@link CWSYSTEM.CWWindowStyles} defined style of the window.
+     * @property {string} title - The title of the window.
+     * @property {number} v - The virtual screen associated with the window.
+     *
+     * @see [CWWindowStyles]{@link CWSYSTEM.CWWindowStyles} for information on window styles.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class CWWindow {
-        /** Represents a CWWindow object.
+        /**
+         * Represents a CWWindow object.
+         *
          * @param {VirtualScreen} virtualScreen - The virtual screen to associate with the window.
          * @param {number} minWidth - The minimum width of the window.
          * @param {number} minHeight - The minimum height of the window.
@@ -18,238 +44,31 @@
          * @param {number} yPosition - The y-position of the window.
          * @param {number} w - The width of the window.
          * @param {number} h - The height of the window.
-         * @constructor
          */
-        constructor(virtualScreen, minWidth, minHeight, maxWidth, maxHeight,
-                    nameId, style, title, xPosition, yPosition, w, h) {
-            if (this.v === undefined) {
-                this.v = null;
-            }
-            if (this.w === undefined) {
-                this.w = 0;
-            }
-            if (this.h === undefined) {
-                this.h = 0;
-            }
-            if (this.maxWidth === undefined) {
-                this.maxWidth = 0;
-            }
-            if (this.maxHeight === undefined) {
-                this.maxHeight = 0;
-            }
-            if (this.minWidth === undefined) {
-                this.minWidth = 0;
-            }
-            if (this.minHeight === undefined) {
-                this.minHeight = 0;
-            }
-            if (this.xPosition === undefined) {
-                this.xPosition = 0;
-            }
-            if (this.yPosition === undefined) {
-                this.yPosition = 0;
-            }
-            if (this.xPrevPosition === undefined) {
-                this.xPrevPosition = 0;
-            }
-            if (this.yPrevPosition === undefined) {
-                this.yPrevPosition = 0;
-            }
-            if (this.title === undefined) {
-                this.title = null;
-            }
-            if (this.nameID === undefined) {
-                this.nameID = null;
-            }
-            if (this.style === undefined) {
-                this.style = 0;
-            }
-            if (this.resizable === undefined) {
-                this.resizable = false;
-            }
-            if (this.antiAliasedLevel === undefined) {
-                this.antiAliasedLevel = 0;
-            }
-            if (this.useAntiAliasedContent === undefined) {
-                this.useAntiAliasedContent = false;
-            }
-            if (this.hasInterfaceElements === undefined) {
-                this.hasInterfaceElements = false;
-            }
-            if (this.ignoreWhenSavingAndRestoringEnvironment === undefined) {
-                this.ignoreWhenSavingAndRestoringEnvironment = false;
-            }
-            if (this.window === undefined) {
-                this.window = null;
-            }
-            if (this.preAntiAliasedContent === undefined) {
-                this.preAntiAliasedContent = null;
-            }
-            if (this.temporalSupersample === undefined) {
-                this.temporalSupersample = null;
-            }
-            if (this.rememberedPostTimeSupersampledScreenData === undefined) {
-                this.rememberedPostTimeSupersampledScreenData = null;
-            }
-            if (this.subframes === undefined) {
-                this.subframes = 0;
-            }
-            if (this.depth === undefined) {
-                this.depth = 0;
-            }
-            if (this.updated === undefined) {
-                this.updated = false;
-            }
-            if (this.renderingRequired === undefined) {
-                this.renderingRequired = false;
-            }
-            if (this.oldW === undefined) {
-                this.oldW = 0;
-            }
-            if (this.oldH === undefined) {
-                this.oldH = 0;
-            }
-            if (this.oldX === undefined) {
-                this.oldX = 0;
-            }
-            if (this.oldY === undefined) {
-                this.oldY = 0;
-            }
-            if (this.titleVisible === undefined) {
-                this.titleVisible = false;
-            }
-            if (this.windowVisible === undefined) {
-                this.windowVisible = false;
-            }
-            if (this.floating === undefined) {
-                this.floating = false;
-            }
-            if (this.toBeDestroyed === undefined) {
-                this.toBeDestroyed = false;
-            }
-            if (this.windowBGColor === undefined) {
-                this.windowBGColor = null;
-            }
-            if (this.windowSecondaryBGColor === undefined) {
-                this.windowSecondaryBGColor = null;
-            }
-            if (this.titleTextColor === undefined) {
-                this.titleTextColor = null;
-            }
-            if (this.titleBGColor === undefined) {
-                this.titleBGColor = null;
-            }
-            if (this.titleBGColorSecondary === undefined) {
-                this.titleBGColorSecondary = null;
-            }
-            if (this.buttonColor === undefined) {
-                this.buttonColor = null;
-            }
-            if (this.inputBoxColor === undefined) {
-                this.inputBoxColor = null;
-            }
-            if (this.checkBoxColor === undefined) {
-                this.checkBoxColor = null;
-            }
-            if (this.windowText === undefined) {
-                this.windowText = null;
-            }
-            if (this.button === undefined) {
-                this.button = null;
-            }
-            if (this.image === undefined) {
-                this.image = null;
-            }
-            if (this.inputBox === undefined) {
-                this.inputBox = null;
-            }
-            if (this.textArea === undefined) {
-                this.textArea = null;
-            }
-            if (this.checkBox === undefined) {
-                this.checkBox = null;
-            }
-            if (this.textElement === undefined) {
-                this.textElement = null;
-            }
-            if (this.textBlock === undefined) {
-                this.textBlock = null;
-            }
-            if (this.imageElement === undefined) {
-                this.imageElement = null;
-            }
-            if (this.pulldown === undefined) {
-                this.pulldown = null;
-            }
-            if (this.storedLine === undefined) {
-                this.storedLine = null;
-            }
-            if (this.scrollbar === undefined) {
-                this.scrollbar = null;
-            }
-            if (this.scrollablePage === undefined) {
-                this.scrollablePage = null;
-            }
-            if (this.menuManager === undefined) {
-                this.menuManager = null;
-            }
-            if (this.rightClickPopupMenu === undefined) {
-                this.rightClickPopupMenu = null;
-            }
-            if (this.numberOfButtons === undefined) {
-                this.numberOfButtons = 0;
-            }
-            if (this.numberOfImages === undefined) {
-                this.numberOfImages = 0;
-            }
-            if (this.numberOfInputBoxes === undefined) {
-                this.numberOfInputBoxes = 0;
-            }
-            if (this.numberOfTextAreas === undefined) {
-                this.numberOfTextAreas = 0;
-            }
-            if (this.numberOfCheckBoxes === undefined) {
-                this.numberOfCheckBoxes = 0;
-            }
-            if (this.numberOfTextElements === undefined) {
-                this.numberOfTextElements = 0;
-            }
-            if (this.numberOfTextBlocks === undefined) {
-                this.numberOfTextBlocks = 0;
-            }
-            if (this.numberOfImageElements === undefined) {
-                this.numberOfImageElements = 0;
-            }
-            if (this.numberOfPulldowns === undefined) {
-                this.numberOfPulldowns = 0;
-            }
-            if (this.numberOfStoredLines === undefined) {
-                this.numberOfStoredLines = 0;
-            }
-            if (this.borderWidth === undefined) {
-                this.borderWidth = 0;
-            }
-            if (this.borderPatternThickness === undefined) {
-                this.borderPatternThickness = 0;
-            }
-            if (this.borderBitmap === undefined) {
-                this.borderBitmap = null;
-            }
-            if (this.cornerBitmap === undefined) {
-                this.cornerBitmap = null;
-            }
-            if (this.__titleHeight === undefined) {
-                this.__titleHeight = 0;
-            }
-            if (this.subFrame === undefined) {
-                this.subFrame = 0;
-            }
-            if (this.dSecSpecialEffects === undefined) {
-                this.dSecSpecialEffects = null;
-            }
+        constructor(virtualScreen, minWidth, minHeight, maxWidth, maxHeight, nameId, style, title, xPosition, yPosition, w, h) {
+            // Initialize properties with default values
+            this.v = null;
+            this.w = this.h = this.maxWidth = this.maxHeight = this.minWidth = this.minHeight = 0;
+            this.xPosition = this.yPosition = this.xPrevPosition = this.yPrevPosition = 0;
+            this.title = this.nameID = this.window = null;
+            this.style = 0;
+            this.resizable = this.useAntiAliasedContent = this.hasInterfaceElements = false;
+            this.antiAliasedLevel = this.subframes = this.depth = 0;
+            this.updated = this.renderingRequired = this.titleVisible = this.windowVisible = false;
+            this.oldW = this.oldH = this.oldX = this.oldY = 0;
+            this.floating = this.toBeDestroyed = false;
+
+            // Initialize color properties
+            this.windowBGColor = this.windowSecondaryBGColor = this.titleTextColor = this.titleBGColor =
+                this.titleBGColorSecondary = this.buttonColor = this.inputBoxColor = this.checkBoxColor = null;
+
+            // Initialize UI element arrays
+            ['button', 'image', 'inputBox', 'textArea', 'checkBox', 'textElement', 'textBlock', 'imageElement', 'pulldown', 'storedLine']
+                .forEach(elem => this[elem] = Array(CWWindow[`maximumNumberOf${elem.charAt(0).toUpperCase() + elem.slice(1)}s`]).fill(null));
+
+            // Set specific properties
             this.ignoreWhenSavingAndRestoringEnvironment = false;
-            this.subframes = 0;
-            this.resizable = true;
+            this.resizable = minHeight !== maxHeight || minWidth !== maxWidth;
             this.minWidth = minWidth;
             this.minHeight = minHeight;
             this.maxWidth = maxWidth;
@@ -258,86 +77,56 @@
             this.borderWidth = CWSYSTEM.CWWindowStyles.getBorderWidth(this.style);
             this.borderPatternThickness = CWSYSTEM.CWWindowStyles.getBorderPatternThickness(this.style);
             this.__titleHeight = CWSYSTEM.CWWindowStyles.getTitleHeight(this.style);
-            this.window = new CWSYSTEM.ScreenData(this.maxWidth + 2 * this.borderWidth,
-                this.maxHeight + 2 * this.borderWidth + this.__titleHeight, "CWWindow with nameID " + nameId);
+
+            // Create window
+            this.window = new CWSYSTEM.ScreenData(
+                this.maxWidth + 2 * this.borderWidth,
+                this.maxHeight + 2 * this.borderWidth + this.__titleHeight,
+                `CWWindow with nameID ${nameId}`
+            );
+
             this.v = virtualScreen;
             this.borderBitmap = CWSYSTEM.CWWindowStyles.getBorderBitmap(this.style);
             this.cornerBitmap = CWSYSTEM.CWWindowStyles.getCornerBitmap(this.style);
-            this.updated = false;
             this.windowVisible = true;
-            this.title = null;
+            this.title = title;
+            this.titleVisible = title !== null;
+            this.nameID = nameId;
+
+            // Set dimensions
+            this.w = Math.min(Math.max(w, this.minWidth), CWSYSTEM.Global.screenResolutionX_$LI$() - 2 * this.borderWidth);
+            this.h = Math.min(Math.max(h, this.minHeight), CWSYSTEM.Global.screenResolutionY_$LI$() - 2 * this.borderWidth - this.__titleHeight);
+
+            // Set position
+            this.xPosition = Math.min(Math.max(xPosition, this.borderWidth), CWSYSTEM.Global.screenResolutionX_$LI$() - this.w - this.borderWidth);
+            this.yPosition = Math.min(Math.max(yPosition, this.v.topInset + this.borderWidth + this.titleHeight()),
+                CWSYSTEM.Global.screenResolutionY_$LI$() - this.h - this.borderWidth - this.titleHeight());
+
+            this.oldX = this.xPrevPosition = this.xPosition;
+            this.oldY = this.yPrevPosition = this.yPosition;
+
+            // Set colors
             this.windowBGColor = CWSYSTEM.CWWindowStyles.getBackgroundColor(this.style);
             this.titleTextColor = new CWSYSTEM.CWColor(CWWindow.defaultTitleTextColor_$LI$());
             this.titleBGColor = new CWSYSTEM.CWColor(CWWindow.defaultTitleBGColor_$LI$());
             this.titleBGColorSecondary = new CWSYSTEM.CWColor(CWWindow.defaultTitleBGColorSecondary_$LI$());
             this.inputBoxColor = new CWSYSTEM.CWColor(CWWindow.defaultInputBoxColor_$LI$());
             this.checkBoxColor = new CWSYSTEM.CWColor(CWWindow.defaultCheckBoxColor_$LI$());
-            this.button = Array(CWWindow.maximumNumberOfButtons).fill(null);
-            this.image = Array(CWWindow.maximumNumberOfImages).fill(null);
-            this.inputBox = Array(CWWindow.maximumNumberOfInputBoxes).fill(null);
-            this.textArea = Array(CWWindow.maximumNumberOfTextAreas).fill(null);
-            this.checkBox = Array(CWWindow.maximumNumberOfCheckBoxes).fill(null);
-            this.textElement = Array(CWWindow.maximumNumberOfTextElements).fill(null);
-            this.textBlock = Array(CWWindow.maximumNumberOfTextBlocks).fill(null);
-            this.imageElement = Array(CWWindow.maximumNumberOfImageElements).fill(null);
-            this.pulldown = Array(CWWindow.maximumNumberOfPullDowns).fill(null);
-            this.storedLine = Array(CWWindow.maximumNumberOfStoredLines).fill(null);
-            this.numberOfButtons = 0;
-            this.numberOfImages = 0;
-            this.numberOfInputBoxes = 0;
-            this.numberOfTextAreas = 0;
-            this.numberOfCheckBoxes = 0;
-            this.numberOfTextElements = 0;
-            this.numberOfTextBlocks = 0;
-            this.numberOfImageElements = 0;
-            this.numberOfStoredLines = 0;
+
+            // Set additional properties
             this.antiAliasedLevel = 1;
             this.useAntiAliasedContent = false;
             this.hasInterfaceElements = true;
             this.scrollbar = null;
             this.depth = 0;
-            if (title == null) {
-                this.title = null;
-                this.titleVisible = false;
-            } else {
-                this.title = title;
-            }
-            this.nameID = nameId;
-            if (w < this.minWidth) {
-                this.w = this.minWidth;
-            } else {
-                this.w = Math.min(w, CWSYSTEM.Global.screenResolutionX_$LI$() - 2 * this.borderWidth);
-            }
-            if (h < this.minHeight) {
-                this.h = this.minHeight;
-            } else {
-                this.h = Math.min(h, CWSYSTEM.Global.screenResolutionY_$LI$() - 2 * this.borderWidth - this.__titleHeight);
-            }
-            if (xPosition <= this.borderWidth) {
-                this.xPosition = this.borderWidth;
-            } else if (xPosition + this.w + this.borderWidth >= CWSYSTEM.Global.screenResolutionX_$LI$()) {
-                this.xPosition = CWSYSTEM.Global.screenResolutionX_$LI$() - this.w - this.borderWidth;
-            } else {
-                this.xPosition = xPosition;
-            }
-            if (yPosition <= this.v.topInset + this.borderWidth + this.titleHeight()) {
-                this.yPosition = this.borderWidth + this.titleHeight() + this.v.topInset;
-            } else if (yPosition + this.h + this.borderWidth + this.__titleHeight >= CWSYSTEM.Global.screenResolutionY_$LI$()) {
-                this.yPosition = CWSYSTEM.Global.screenResolutionY_$LI$() - this.h - this.borderWidth - this.titleHeight();
-            } else {
-                this.yPosition = yPosition;
-            }
-            this.oldX = this.xPosition;
-            this.oldY = this.yPosition;
-            this.xPrevPosition = this.xPosition;
-            this.yPrevPosition = this.yPosition;
-            this.oldW = 0;
-            this.oldH = 0;
-            if (minHeight === maxHeight && minWidth === maxWidth) {
-                this.resizable = false;
-            }
         }
 
+        /**
+         * Returns the default title text color.
+         *
+         * @private
+         * @returns {*}
+         */
         static defaultTitleTextColor_$LI$() {
             if (CWWindow.defaultTitleTextColor == null) {
                 CWWindow.defaultTitleTextColor = new CWSYSTEM.CWColor(0, 0, 80, 255);
@@ -345,6 +134,12 @@
             return CWWindow.defaultTitleTextColor;
         }
 
+        /**
+         * Returns the default title background color.
+         *
+         * @private
+         * @returns {*}
+         */
         static defaultTitleBGColor_$LI$() {
             if (CWWindow.defaultTitleBGColor == null) {
                 CWWindow.defaultTitleBGColor = new CWSYSTEM.CWColor(235, 235, 255, 255);
@@ -352,6 +147,12 @@
             return CWWindow.defaultTitleBGColor;
         }
 
+        /**
+         * Returns the default secondary title background color.
+         *
+         * @private
+         * @returns {*}
+         */
         static defaultTitleBGColorSecondary_$LI$() {
             if (CWWindow.defaultTitleBGColorSecondary == null) {
                 CWWindow.defaultTitleBGColorSecondary = new CWSYSTEM.CWColor(185, 185, 205, 255);
@@ -359,6 +160,12 @@
             return CWWindow.defaultTitleBGColorSecondary;
         }
 
+        /**
+         * Returns the default input box color.
+         *
+         * @private
+         * @returns {*}
+         */
         static defaultInputBoxColor_$LI$() {
             if (CWWindow.defaultInputBoxColor == null) {
                 CWWindow.defaultInputBoxColor = new CWSYSTEM.CWColor(255, 255, 220, 255);
@@ -366,6 +173,12 @@
             return CWWindow.defaultInputBoxColor;
         }
 
+        /**
+         * Returns the default check box color.
+         *
+         * @private
+         * @returns {*}
+         */
         static defaultCheckBoxColor_$LI$() {
             if (CWWindow.defaultCheckBoxColor == null) {
                 CWWindow.defaultCheckBoxColor = new CWSYSTEM.CWColor(255, 255, 220, 255);
@@ -373,6 +186,12 @@
             return CWWindow.defaultCheckBoxColor;
         }
 
+        /**
+         * Returns the default window background color.
+         *
+         * @private
+         * @returns {*}
+         */
         static defaultWindowBGColor_$LI$() {
             if (CWWindow.defaultWindowBGColor == null) {
                 CWWindow.defaultWindowBGColor = new CWSYSTEM.CWColor(110, 130, 170, 255);
@@ -380,6 +199,12 @@
             return CWWindow.defaultWindowBGColor;
         }
 
+        /**
+         * Sets the anti-aliased content area and related properties.
+         *
+         * @param {number} aaLevel - The antialiasing level.
+         * @param {number} subFrames - The number of sub-frames for antialiasing.
+         */
         useAntiAliasedContentAreaAndNoInterfaceElements(aaLevel, subFrames) {
             this.antiAliasedLevel = aaLevel;
             this.useAntiAliasedContent = true;
@@ -388,26 +213,44 @@
             if (this.subframes >= 2) {
                 for (let i = 0; i < this.subframes; ++i) {
                     this.temporalSupersample[i] = new CWSYSTEM.ScreenData(this.maxWidth, this.maxHeight,
-                        "Subframe for antialiased content " + i);
+                        "Sub-frame for anti-aliased content " + i);
                 }
                 this.rememberedPostTimeSupersampledScreenData = new CWSYSTEM.ScreenData(this.maxWidth,
-                    this.maxHeight, "Remembered antialiased content for CWWindow " + this.nameID);
+                    this.maxHeight, "Remembered anti-aliased content for CWWindow " + this.nameID);
             }
             this.subFrame = 0;
             this.preAntiAliasedContent = new CWSYSTEM.ScreenData(this.maxWidth * aaLevel,
-                this.maxHeight * aaLevel, "Antialiased content for CWWindow " + this.nameID);
+                this.maxHeight * aaLevel, "Anti-aliased content for CWWindow " + this.nameID);
             this.hasInterfaceElements = false;
         }
 
+        /**
+         * Sets the anti-aliased content area and related properties, including interface elements.
+         * This method is typically used for windows with interactive elements like buttons or input boxes.
+         *
+         * @param {number} aaLevel - The antialiasing level.
+         * @param {number} subFrames - The number of sub-frames for antialiasing.
+         */
         useAntiAliasedContentAreaWithInterfaceElements(aaLevel, subFrames) {
             this.useAntiAliasedContentAreaAndNoInterfaceElements(aaLevel, subFrames);
             this.hasInterfaceElements = true;
         }
 
+        /**
+         * Returns the height of the title bar based on the window style.
+         *
+         * @returns {*|number}
+         */
         titleHeight() {
             return this.titleVisible ? this.__titleHeight : 0;
         }
 
+        /**
+         * Sets the visibility of the window.
+         * This method is typically used to hide or show a window without destroying it.
+         *
+         * @param {boolean} visible - Whether the window should be
+         */
         setVisibility(visible) {
             this.windowVisible = visible;
             if (this.windowVisible) {
@@ -416,16 +259,36 @@
             this.updated = false;
         }
 
+        /**
+         * Sets the background color of the window.
+         * This method is typically used to change the background color of a window.
+         *
+         * @param {CWSYSTEM.CWColor} color - The new background color for the window.
+         */
         changeBackgroundColor$CWColor(color) {
             this.windowBGColor = color;
             this.windowSecondaryBGColor = null;
         }
 
+        /**
+         * Sets the background color of the window.
+         * This method is typically used to change the background color of a window.
+         *
+         * @param {CWSYSTEM.CWColor} color - The new background color for the window.
+         * @param {CWSYSTEM.CWColor} color2 - The new secondary background color for the window.
+         */
         changeBackgroundColor$color$color(color1, color2) {
             this.windowBGColor = color1;
             this.windowSecondaryBGColor = color2;
         }
 
+        /**
+         * Sets the background color of the window.
+         * This method is typically used to change the background color of a window.
+         *
+         * @param {CWSYSTEM.CWColor} color1 - The new background color for the window.
+         * @param {CWSYSTEM.CWColor} color2 - The new secondary background color for the window.
+         */
         changeBackgroundColor(color1, color2) {
             if (((color1 != null && color1 instanceof CWSYSTEM.CWColor) || color1 === null) &&
                 ((color2 != null && color2 instanceof CWSYSTEM.CWColor) || color2 === null)) {
@@ -436,14 +299,26 @@
                 throw new Error('invalid overload');
         }
 
+        /**
+         * Destroys the window and removes it from the GUI.
+         * This method is typically used to close a window and clean up resources.
+         */
         destroy() {
             CWSYSTEM.CWSReference.gui.destroyWindow(this.nameID);
         }
 
+        /**
+         * Moves the window to the top of the GUI stack.
+         * This method is typically used to bring a window to the front when it has been clicked or interacted with.
+         */
         moveToTop() {
             CWSYSTEM.CWSReference.gui.moveWindowToTopByName(this.nameID);
         }
 
+        /**
+         * Destroys all elements of the window, except for pulldown lists.
+         * This method is typically used to clean up resources when the window is no longer needed.
+         */
         destroyAllElementsExceptPulldownLists() {
             let i;
             for (i = 0; i < this.numberOfButtons; ++i) {
@@ -485,6 +360,10 @@
             this.numberOfStoredLines = 0;
         }
 
+        /**
+         * Destroys all elements of the window, including pulldown lists.
+         * This method is typically used to clean up resources when the window is no longer needed.
+         */
         destroyAllElements() {
             this.destroyAllElementsExceptPulldownLists();
             for (let i = 0; i < this.numberOfPulldowns; ++i) {
@@ -493,23 +372,30 @@
             this.numberOfPulldowns = 0;
         }
 
+        /**
+         * Centers the window within the desktop area.
+         * This method is typically used to position a window in the center of the screen.
+         */
         centerWithinDesktop() {
             this.xPosition = Math.floor((CWSYSTEM.Global.screenResolutionX_$LI$() - this.w) / 2 | 0);
             this.yPosition = Math.floor((CWSYSTEM.Global.screenResolutionY_$LI$() - this.h) / 2 | 0);
         }
 
-        addButton$name$x$y$len$h$resp(name, x, y, length, height, responds) {
-            if (this.numberOfButtons >= CWWindow.maximumNumberOfButtons) {
-                CWSYSTEM.Debug.error("Critical error: Maximum number of buttons exceeded");
-                return null;
-            } else {
-                this.button[this.numberOfButtons] = new CWSYSTEM.CWButton(this, name, x, y, length, height, responds);
-                ++this.numberOfButtons;
-                return this.button[this.numberOfButtons - 1];
-            }
-        }
-
-        addButton$name$x$y$len$h$text$t$r(name, x, y, length, height, text, type, responds) {
+        /**
+         * Adds a button to the window.
+         * This method is typically used to add buttons to a window, such as for navigation or interaction.
+         *
+         * @param {string} name - The name of the button.
+         * @param {number} x - The x-coordinate of the button.
+         * @param {number} y - The y-coordinate of the button.
+         * @param {number} length - The length of the button.
+         * @param {number} height - The height of the button.
+         * @param {string} text - The text displayed on the button.
+         * @param {number} type - The type of the button.
+         * @param {number} responds - The response value for the button.
+         * @returns {CWSYSTEM.CWButton|null} The newly created button, or null if the maximum number of buttons has been reached.
+         */
+        addButton(name, x, y, length, height, text, type, responds) {
             if (this.numberOfButtons >= CWWindow.maximumNumberOfButtons) {
                 CWSYSTEM.Debug.error("Critical error: Maximum number of buttons exceeded");
                 return null;
@@ -521,22 +407,13 @@
             }
         }
 
-        addButton(name, x, y, length, height, text, type, responds) {
-            if (((typeof name === 'string') || name === null) && ((typeof x === 'number') || x === null) &&
-                ((typeof y === 'number') || y === null) && ((typeof length === 'number') || length === null) &&
-                ((typeof height === 'number') || height === null) && ((typeof text === 'string') || text === null) &&
-                ((typeof type === 'number') || type === null) && ((typeof responds === 'number') || responds === null)) {
-                return this.addButton$name$x$y$len$h$text$t$r(name, x, y, length, height, text, type, responds);
-            } else if (((typeof name === 'string') || name === null) &&
-                ((typeof x === 'number') || x === null) && ((typeof y === 'number') || y === null) &&
-                ((typeof length === 'number') || length === null) &&
-                ((typeof height === 'number') || height === null) && ((typeof text === 'number') || text === null) &&
-                type === undefined && responds === undefined) {
-                return this.addButton$name$x$y$len$h$resp(name, x, y, length, height, text);
-            } else
-                throw new Error('invalid overload');
-        }
-
+        /**
+         * Deletes a button from the window by name.
+         * This method is typically used to remove buttons from a window when they are no longer needed.
+         *
+         * @param {string} name - The name of the button to be deleted.
+         * @returns {boolean} True if the button was successfully deleted, false otherwise.
+         */
         deleteButton(name) {
             for (let i = 0; i < this.numberOfButtons; ++i) {
                 if (this.button[i].name === name) {
@@ -551,6 +428,13 @@
             return false;
         }
 
+        /**
+         * Returns a button by its name.
+         * This method is typically used to retrieve a button by its name for interaction or manipulation.
+         *
+         * @param {string} name - The name of the button to be retrieved.
+         * @returns {CWSYSTEM.CWButton|null} The button with the specified name, or null if not found.
+         */
         getButton(name) {
             for (let i = 0; i < this.numberOfButtons; ++i) {
                 if (this.button[i].name === name) {
@@ -560,16 +444,46 @@
             return null;
         }
 
+        /**
+         * Adds an image to the window.
+         * This method is typically used to add images to a window, such as for decorations or visual elements.
+         *
+         * @param {string} nameID - The name of the image.
+         * @param {number} x - The x-coordinate of the image.
+         * @param {number} y - The y-coordinate of the image.
+         * @param {string} path - The path to the image file.
+         * @param {CWSYSTEM.CWColor} color - The color of the image.
+         * @returns {CWSYSTEM.CWImage|null} The newly created image, or null if the maximum number of images has been reached.
+         */
         addImage(nameID, x, y, path, color) {
             this.image[this.numberOfImages++] = new CWSYSTEM.CWImage(this, nameID, x, y, path, color);
             return this.image[this.numberOfImages - 1];
         }
 
+        /**
+         * Adds a pulldown list to the window.
+         * This method is typically used to add pulldown lists to a window, such as for selecting options or filters.
+         *
+         * @param {string} name - The name of the pulldown list.
+         * @param {Array} options - The options to be displayed in the pulldown list.
+         * @param {number} x - The x-coordinate of the pulldown list.
+         * @param {number} y - The y-coordinate of the pulldown list.
+         * @param {number} width - The width of the pulldown list.
+         * @param {number} height - The height of the pulldown list.
+         * @returns {CWSYSTEM.CWPulldown|null} The newly created pulldown list, or null if the maximum number of pulldowns has been reached.
+         */
         addPulldown(name, options, x, y, width, height) {
             this.pulldown[this.numberOfPulldowns++] = new CWSYSTEM.CWPulldown(this, name, options, x, y, width, height);
             return this.pulldown[this.numberOfPulldowns - 1];
         }
 
+        /**
+         * Returns a pulldown list by its name.
+         * This method is typically used to retrieve a pulldown list by its name for interaction or manipulation.
+         *
+         * @param {string} name - The name of the pulldown list to be retrieved.
+         * @returns {CWSYSTEM.CWPulldown|null} The pulldown list with the specified name, or null if not found.
+         */
         getPulldown(name) {
             for (let i = 0; i < this.numberOfPulldowns; ++i) {
                 if (this.pulldown[i].name === name) {
@@ -579,6 +493,13 @@
             return null;
         }
 
+        /**
+         * Removes a pulldown list from the window by its name.
+         * This method is typically used to remove pulldown lists from a window when they are no longer needed.
+         *
+         * @param {string} name - The name of the pulldown list to be removed.
+         * @returns {boolean} True if the pulldown list was successfully removed, false otherwise.
+         */
         removePulldown(name) {
             for (let i = 0; i < this.numberOfPulldowns; ++i) {
                 if (this.pulldown[i].name === name) {
@@ -592,6 +513,19 @@
             return false;
         }
 
+        /**
+         * Adds a text area to the window.
+         * This method is typically used to add text areas to a window, such as for input or display of text.
+         *
+         * @param {string} name - The name of the text area.
+         * @param {number} x - The x-coordinate of the text area.
+         * @param {number} y - The y-coordinate of the text area.
+         * @param {number} width - The width of the text area.
+         * @param {number} numberOfLines - The number of lines the text area can display.
+         * @param {string} font - The font used in the text area.
+         * @param {string} text - The initial text displayed in the text area.
+         * @returns {CWSYSTEM.CWTextArea|null} The newly created text area, or null if the maximum number of text areas has been reached.
+         */
         addTextArea(name, x, y, width, numberOfLines, font, text) {
             if (this.numberOfTextAreas >= CWWindow.maximumNumberOfTextAreas) {
                 CWSYSTEM.Debug.println("Maximum number of CWTextArea objects exceeded");
@@ -604,6 +538,13 @@
             }
         }
 
+        /**
+         * Returns a text area by its name.
+         * This method is typically used to retrieve a text area by its name for interaction or manipulation.
+         *
+         * @param {string} name - The name of the text area to be retrieved.
+         * @returns {CWSYSTEM.CWTextArea|null} The text area with the specified name, or null if not found.
+         */
         getTextArea(name) {
             for (let i = 0; i < this.numberOfTextAreas; ++i) {
                 if (this.textArea[i].name === name) {
@@ -613,6 +554,13 @@
             return null;
         }
 
+        /**
+         * Returns a text block by its name.
+         * This method is typically used to retrieve a text block by its name for interaction or manipulation.
+         *
+         * @param {string} name - The name of the text block to be retrieved.
+         * @returns {CWSYSTEM.CWTextBlock|null} The text block with the specified name, or null if not found.
+         */
         getTextBlock(name) {
             for (let i = 0; i < this.numberOfTextBlocks; ++i) {
                 if (this.textBlock[i].nameID === name) {
@@ -622,6 +570,17 @@
             return null;
         }
 
+        /**
+         * Adds an input box to the window.
+         * This method is typically used to add input boxes to a window, such as for user input or data entry.
+         *
+         * @param {string} name - The name of the input box.
+         * @param {number} x - The x-coordinate of the input box.
+         * @param {number} y - The y-coordinate of the input box.
+         * @param {number} length - The length of the input box.
+         * @param {string} text - The initial text displayed in the input box.
+         * @returns {CWSYSTEM.CWInputBox|null} The newly created input box, or null if the maximum number of input boxes has been reached.
+         */
         addInputBox(name, x, y, length, text) {
             if (this.numberOfInputBoxes >= CWWindow.maximumNumberOfInputBoxes) {
                 return null;
@@ -632,6 +591,13 @@
             }
         }
 
+        /**
+         * Deletes an input box from the window by its name.
+         * This method is typically used to remove input boxes from a window when they are no longer needed.
+         *
+         * @param {string} name - The name of the input box to be deleted.
+         * @returns {boolean} True if the input box was successfully deleted, false otherwise.
+         */
         deleteInputBox(name) {
             for (let i = 0; i < this.numberOfInputBoxes; ++i) {
                 if (this.inputBox[i].name === name) {
@@ -645,6 +611,13 @@
             return false;
         }
 
+        /**
+         * Returns an input box by its name.
+         * This method is typically used to retrieve an input box by its name for interaction or manipulation.
+         *
+         * @param {string} name - The name of the input box to be retrieved.
+         * @returns {CWSYSTEM.CWInputBox|null} The input box with the specified name, or null if not found.
+         */
         getInputBox(name) {
             for (let i = 0; i < this.numberOfInputBoxes; ++i) {
                 if (this.inputBox[i].name === name) {
@@ -654,10 +627,31 @@
             return null;
         }
 
+        /**
+         * Adds a checkbox to the window.
+         * This method is typically used to add check boxes to a window, such as for selecting options or filters.
+         *
+         * @param {string} name - The name of the checkbox.
+         * @param {number} x - The x-coordinate of the checkbox.
+         * @param {number} y - The y-coordinate of the checkbox.
+         * @param {boolean} selected - Whether the checkbox is initially selected or not.
+         * @returns {CWSYSTEM.CWCheckBox|null} The newly created checkbox, or null if the maximum number of checkboxes has been reached.
+         */
         addCheckBox(name, x, y, selected) {
             return this.addRadioButton(name, x, y, selected, -1);
         }
 
+        /**
+         * Adds a radio button to the window.
+         * This method is typically used to add radio buttons to a window, such as for selecting a single option from a group.
+         *
+         * @param {string} name - The name of the radio button.
+         * @param {number} x - The x-coordinate of the radio button.
+         * @param {number} y - The y-coordinate of the radio button.
+         * @param {boolean} selected - Whether the radio button is initially selected or not.
+         * @param {number} radioId - The ID of the radio button group.
+         * @returns {CWSYSTEM.CWCheckBox|null} The newly created radio button, or null if the maximum number of checkboxes has been reached.
+         */
         addRadioButton(name, x, y, selected, radioId) {
             if (this.numberOfCheckBoxes >= CWWindow.maximumNumberOfCheckBoxes) {
                 return null;
@@ -669,6 +663,13 @@
             }
         }
 
+        /**
+         * Returns a checkbox by its name.
+         * This method is typically used to retrieve a checkbox by its name for interaction or manipulation.
+         *
+         * @param {string} name - The name of the checkbox to be retrieved.
+         * @returns {CWSYSTEM.CWCheckBox|null} The checkbox with the specified name, or null if not found.
+         */
         getCheckBox(name) {
             for (let i = 0; i < this.numberOfCheckBoxes; ++i) {
                 if (this.checkBox[i].name === name) {
@@ -678,6 +679,13 @@
             return null;
         }
 
+        /**
+         * Deletes a checkbox from the window by its name.
+         * This method is typically used to remove checkboxes from a window when they are no longer needed.
+         *
+         * @param {string} name - The name of the checkbox to be deleted.
+         * @returns {boolean} True if the checkbox was successfully deleted, false otherwise.
+         */
         deleteCheckBox(name) {
             for (let i = 0; i < this.numberOfCheckBoxes; ++i) {
                 if (this.checkBox[i].name === name) {
@@ -691,6 +699,19 @@
             return false;
         }
 
+        /**
+         * Adds a stored line to the window.
+         * This method is typically used to add stored lines to a window, such as for drawing lines or shapes on a canvas.
+         *
+         * @param {number} x0 - The x-coordinate of the starting point of the line.
+         * @param {number} y0 - The y-coordinate of the starting point of the line.
+         * @param {number} x1 - The x-coordinate of the ending point of the line.
+         * @param {number} y1 - The y-coordinate of the ending point of the line.
+         * @param {number} red - The red component of the line color.
+         * @param {number} green - The green component of the line color.
+         * @param {number} blue - The blue component of the line color.
+         * @param {number} alpha - The alpha (transparency) component of the line color.
+         */
         addStoredLine(x0, y0, x1, y1, red, green, blue, alpha) {
             if (this.numberOfStoredLines < CWWindow.maximumNumberOfStoredLines) {
                 this.storedLine[this.numberOfStoredLines] =
@@ -700,6 +721,16 @@
             }
         }
 
+        /**
+         * Adds a text element to the window.
+         * This method is typically used to add text elements to a window, such as for displaying text or labels.
+         *
+         * @param {string} name - The name of the text element.
+         * @param {string} text - The text to be displayed.
+         * @param {number} x - The x-coordinate of the text element.
+         * @param {number} y - The y-coordinate of the text element.
+         * @param {string} color - The color of the text element.
+         */
         addTextElement(name, text, x, y, color) {
             if (this.numberOfTextElements < CWWindow.maximumNumberOfTextElements) {
                 this.textElement[this.numberOfTextElements] = new CWSYSTEM.CWTextElement(name, text, x, y, color);
@@ -708,6 +739,13 @@
             }
         }
 
+        /**
+         * Deletes a text element from the window by its name.
+         * This method is typically used to remove text elements from a window when they are no longer needed.
+         *
+         * @param {string} name - The name of the text element to be deleted.
+         * @returns {boolean} True if the text element was successfully deleted, false otherwise.
+         */
         deleteTextElement(name) {
             for (let i = 0; i < this.numberOfTextElements; ++i) {
                 if (this.textElement[i].nameID === name) {
@@ -721,6 +759,19 @@
             return false;
         }
 
+        /**
+         * Adds a text block to the window.
+         * This method is typically used to add text blocks to a window, such as for displaying text or labels.
+         *
+         * @param {string} nameId - The name of the text block.
+         * @param {string} text - The text to be displayed.
+         * @param {number} leftMargin - The left margin of the text block.
+         * @param {number} baseLine - The base line of the text block.
+         * @param {string} font - The font of the text block.
+         * @param {string} color - The color of the text block.
+         * @param {number} width - The width of the text block.
+         * @returns {CWSYSTEM.CWTextBlock|null} The newly created text block, or null if the maximum number of text blocks has been reached.
+         */
         addTextBlock(nameId, text, leftMargin, baseLine, font, color, width) {
             if (this.numberOfTextBlocks >= CWWindow.maximumNumberOfTextBlocks) {
                 return null;
@@ -733,6 +784,15 @@
             }
         }
 
+        /**
+         * Adds an image element to the window.
+         * This method is typically used to add image elements to a window, such as for displaying images or graphics.
+         *
+         * @param {string} nameID - The name of the image element.
+         * @param {string} fileName - The file name of the image.
+         * @param {number} x - The x-coordinate of the image element.
+         * @param {number} y - The y-coordinate of the image element.
+         */
         addImageElement(nameID, fileName, x, y) {
             if (this.numberOfImageElements < CWWindow.maximumNumberOfImageElements) {
                 this.imageElement[this.numberOfImageElements] = new CWSYSTEM.CWImageElement(nameID, fileName, x, y);
@@ -741,6 +801,13 @@
             }
         }
 
+        /**
+         * Returns the button that the mouse is currently over.
+         *
+         * @param {number} x - The x-coordinate of the mouse pointer.
+         * @param {number} y - The y-coordinate of the mouse pointer.
+         * @returns {CWSYSTEM.CWButton|null} The button that the mouse is over, or null if no button is being hovered over.
+         */
         buttonThatMouseIsOver(x, y) {
             let button = null;
             for (let i = 0; i < this.numberOfButtons; ++i) {
@@ -755,6 +822,13 @@
             return button;
         }
 
+        /**
+         * Returns the input box that the mouse is currently over.
+         *
+         * @param {number} x - The x-coordinate of the mouse pointer.
+         * @param {number} y - The y-coordinate of the mouse pointer.
+         * @returns {CWSYSTEM.CWInputBox|null} The input box that the mouse is over, or null if no input box is being hovered over.
+         */
         inputBoxThatMouseIsOver(x, y) {
             for (let i = 0; i < this.numberOfInputBoxes; ++i) {
                 if (x >= this.xPosition + this.inputBox[i].x &&
@@ -767,6 +841,13 @@
             return null;
         }
 
+        /**
+         * Returns the text area that the mouse is currently over.
+         *
+         * @param {number} x - The x-coordinate of the mouse pointer.
+         * @param {number} y - The y-coordinate of the mouse pointer.
+         * @returns {CWSYSTEM.CWTextArea|null} The text area that the mouse is over, or null if no text area is being hovered over.
+         */
         textAreaThatMouseIsOver(x, y) {
             for (let i = 0; i < this.numberOfTextAreas; ++i) {
                 if (x >= this.xPosition + this.textArea[i].x &&
@@ -779,6 +860,13 @@
             return null;
         }
 
+        /**
+         * Returns the checkbox that the mouse is currently over.
+         *
+         * @param {number} x - The x-coordinate of the mouse pointer.
+         * @param {number} y - The y-coordinate of the mouse pointer.
+         * @returns {CWSYSTEM.CWCheckBox|null} The checkbox that the mouse is over, or null if no checkbox is being hovered over.
+         */
         checkBoxThatMouseIsOver(x, y) {
             let checkBox = null;
             for (let i = 0; i < this.numberOfCheckBoxes; ++i) {
@@ -793,19 +881,33 @@
             return checkBox;
         }
 
+        /**
+         * Returns the pulldown menu that the mouse is currently over.
+         *
+         * @param {number} x - The x-coordinate of the mouse pointer.
+         * @param {number} y - The y-coordinate of the mouse pointer.
+         * @returns {CWSYSTEM.CWPulldownMenu|null} The pulldown menu that the mouse is over, or null if no pulldown menu is being hovered over.
+         */
         pulldownThatMouseIsOver(x, y) {
-            let pulldown1 = null;
+            let pd = null;
             for (let i = 0; i < this.numberOfPulldowns; ++i) {
                 if (x >= this.xPosition + this.pulldown[i].x && x <= this.xPosition + this.pulldown[i].x +
                     this.pulldown[i].width && y >= this.yPosition + this.pulldown[i].y && y <= this.yPosition +
                     this.pulldown[i].y + this.pulldown[i].height) {
-                    pulldown1 = this.pulldown[i];
+                    pd = this.pulldown[i];
                     break;
                 }
             }
-            return pulldown1;
+            return pd;
         }
 
+        /**
+         * Returns the corner of the window that the mouse is currently over.
+         *
+         * @param {number} x - The x-coordinate of the mouse pointer.
+         * @param {number} y - The y-coordinate of the mouse pointer.
+         * @returns {number} The corner of the window that the mouse is over, or 0 if the mouse is not over any corner.
+         */
         cornerThatMouseIsOver(x, y) {
             if (x >= this.xPosition + this.w && y >= this.yPosition + this.h) {
                 return 1;
@@ -818,6 +920,13 @@
             }
         }
 
+        /**
+         * Returns whether the mouse is over the title area of the window.
+         *
+         * @param {number} x - The x-coordinate of the mouse pointer.
+         * @param {number} y - The y-coordinate of the mouse pointer.
+         * @returns {boolean} True if the mouse is over the title area, false otherwise.
+         */
         mouseOverTitleArea(x, y) {
             return x >= this.xPosition - this.borderWidth &&
                 x <= this.xPosition + this.w + this.borderWidth &&
@@ -825,10 +934,14 @@
                 y <= this.yPosition - this.borderWidth - this.__titleHeight + this.titleBarHeight();
         }
 
+        /**
+         * Clears the content area of the window.
+         * This method is typically used to clear the content area of a window before drawing new content.
+         */
         clearContentArea() {
             if (this.useAntiAliasedContent) {
                 this.v.CWDrawFilledRectangle(this.window, this.borderWidth, this.borderWidth + this.__titleHeight,
-                    this.w, this.h, CWSYSTEM.CWColor.transparentBlack_$LI$());
+                    this.w, this.h, CWSYSTEM.CWColor.__transparentBlack());
             } else if (this.windowSecondaryBGColor == null) {
                 this.v.CWDrawFilledRectangle(this.window, this.borderWidth, this.borderWidth + this.__titleHeight,
                     this.w, this.h, this.windowBGColor);
@@ -838,11 +951,19 @@
             }
         }
 
+        /**
+         * Clears the pre-anti-aliased content area of the window.
+         * This method is typically used to clear the pre-anti-aliased content area of a window before drawing new content.
+         */
         clearPreAntiAliasedContent() {
             this.v.CWDrawFilledRectangle(this.preAntiAliasedContent, 0, 0, this.w * this.antiAliasedLevel,
                 this.h * this.antiAliasedLevel, this.windowBGColor);
         }
 
+        /**
+         * Draws the border of the window.
+         * This method is typically used to draw the border of a window, such as for creating a window frame.
+         */
         drawBorder() {
             let i;
             let j;
@@ -918,25 +1039,50 @@
             }
         }
 
+        /**
+         * Returns the vertical space between the title bar and the content area.
+         *
+         * @returns {number} The vertical space between the title bar and the content area.
+         */
         titleBarSag() {
             return this.style === CWSYSTEM.CWWindowStyles.ROUNDED ? 1 : 2;
         }
 
+        /**
+         * Returns the vertical space between the title bar and the content area.
+         *
+         * @returns {number} The vertical space between the title bar and the content area.
+         */
         titleBarVerticalSpace() {
             return 2;
         }
 
+        /**
+         * Returns the width of the title text.
+         *
+         * @returns {number} The width of the title text.
+         */
         titleTextWidth() {
             CWSYSTEM.CWFontTools.renderText(null, this.title, 0, 0, this.v.serif8_font,
-                CWSYSTEM.CWColor.black_$LI$(), 9999);
+                CWSYSTEM.CWColor.__black(), 9999);
             return CWSYSTEM.CWFontTools.RENDERED_WIDTH;
         }
 
+        /**
+         * Returns the height of the title text.
+         *
+         * @returns {number} The height of the title text.
+         */
         titleTextHeight() {
             const height = this.title != null ? this.title : "";
             return CWSYSTEM.CWFontTools.heightOfParagraph(height, this.v.serif8_font, 9999, false);
         }
 
+        /**
+         * Returns the vertical offset of the title text.
+         *
+         * @returns {number} The vertical offset of the title text.
+         */
         titleTextVerticalOffset() {
             if (this.style === CWSYSTEM.CWWindowStyles.ROUNDED) {
                 return 2;
@@ -945,14 +1091,29 @@
             }
         }
 
+        /**
+         * Returns the width of the title bar.
+         *
+         * @returns {number} The width of the title bar.
+         */
         titleBarWidth() {
             return this.titleTextWidth() + 10;
         }
 
+        /**
+         * Returns the height of the title bar.
+         *
+         * @returns {number} The height of the title bar.
+         */
         titleBarHeight() {
             return this.titleTextHeight() + 2 * this.titleBarVerticalSpace() - 1;
         }
 
+        /**
+         * Draws the window and its components.
+         *
+         * @returns {boolean} True if the window should continue to exist, false otherwise.
+         */
         drawWindow() {
             if (this.toBeDestroyed) {
                 return false;
@@ -1021,9 +1182,16 @@
             }
         }
 
+        /**
+         * Draws a text element.
+         *
+         * @param {number} item The index of the text element to draw.
+         * @returns {boolean} True if the text element was drawn successfully, false otherwise.
+         * @private
+         */
         drawTextElement(item) {
             if (this.textElement[item].shadow) {
-                this.v.setColor$intCWColor(CWSYSTEM.CWColor.black_$LI$());
+                this.v.setColor$intCWColor(CWSYSTEM.CWColor.__black());
                 this.v.drawString$sd$n$s$n2$n3$b(this.window, this.w - this.borderWidth - this.textElement[item].x,
                     this.textElement[item].text, this.borderWidth + this.textElement[item].x + 1,
                     this.borderWidth + this.__titleHeight + this.textElement[item].y + 1, false);
@@ -1035,11 +1203,23 @@
             return true;
         }
 
+        /**
+         * Draws an image element.
+         *
+         * @param {number} iD The index of the image element to draw.
+         * @private
+         */
         drawImageElement(iD) {
             CWSYSTEM.CWSReference.graphics.renderImage(this.window, this.imageElement[iD].filename,
                 this.imageElement[iD].x, this.imageElement[iD].y);
         }
 
+        /**
+         * Draws an input box.
+         *
+         * @param {number} iD The index of the input box to draw.
+         * @private
+         */
         drawInputBox(iD) {
             this.v.setColor$intCWColor(this.titleTextColor);
             this.v.CWDrawRectangle(this.window, this.borderWidth + this.inputBox[iD].x,
@@ -1062,18 +1242,36 @@
             return true;
         }
 
+        /**
+         * Adds a scrollbar to the window.
+         */
         addScrollbar() {
             this.scrollbar = new CWSYSTEM.CWScrollbar(this);
         }
 
+        /**
+         * Removes the scrollbar from the window.
+         */
         removeScrollbar() {
             this.scrollbar = null;
         }
 
+        /**
+         * Returns whether the window has a scrollbar.
+         *
+         * @returns {boolean} True if the window has a scrollbar, false otherwise.
+         */
         hasScrollbar() {
             return this.scrollbar != null;
         }
 
+        /**
+         * Applies special effects to the window.
+         *
+         * @param {Array} effectArr The array of special effects to apply.
+         * @param {number} x The x-coordinate of the window.
+         * @param {number} y The y-coordinate of the window.
+         */
         applySpecialEffects(effectArr, x, y) {
             if (this.dSecSpecialEffects != null) {
                 for (let i = 0; i < this.dSecSpecialEffects.length; ++i) {
@@ -1088,6 +1286,18 @@
         }
     }
 
+    /**
+     * @property {number} maximumNumberOfButtons - The maximum number of buttons that can be created.
+     * @property {number} maximumNumberOfImages - The maximum number of images that can be created.
+     * @property {number} maximumNumberOfInputBoxes - The maximum number of input boxes that can be created.
+     * @property {number} maximumNumberOfTextAreas - The maximum number of text areas that can be created.
+     * @property {number} maximumNumberOfCheckBoxes - The maximum number of check boxes that can be created.
+     * @property {number} maximumNumberOfTextElements - The maximum number of text elements that can be created.
+     * @property {number} maximumNumberOfImageElements - The maximum number of image elements that can be created.
+     * @property {number} maximumNumberOfTextBlocks - The maximum number of text blocks that can be created.
+     * @property {number} maximumNumberOfPullDowns - The maximum number of pull downs that can be created.
+     * @property {number} maximumNumberOfStoredLines - The maximum number of stored lines that can be created.
+     */
     CWWindow.maximumNumberOfButtons = 100;
     CWWindow.maximumNumberOfImages = 100;
     CWWindow.maximumNumberOfInputBoxes = 100;

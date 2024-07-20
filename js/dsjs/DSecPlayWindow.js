@@ -141,9 +141,9 @@
                 }
                 this.window = dsector.DSReference.gui.addWindow$fullDefinition(
                     100, 15, CWSYSTEM.Global.viewWindowMaxWidth_$LI$(),
-                    CWSYSTEM.Global.viewWindowMaxHeight_$LI$(), "DSW", 1, "D-Sector",
+                    CWSYSTEM.Global.viewWindowMaxHeight_$LI$(), "DSW", CWSYSTEM.CWWindowStyles.SQUARE_RESIZE, "D-Sector",
                     this.savedX, this.savedY, this.savedW, this.savedH, true);
-                this.window.changeBackgroundColor$CWColor(new CWSYSTEM.CWColor(CWSYSTEM.CWColor.black_$LI$()));
+                this.window.changeBackgroundColor$CWColor(new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__black()));
                 const popupMenu = new CWSYSTEM.CWPopupMenu(this.window, "dsecPlayWindowPopup");
                 if (dsector.DSReference.dsecGame != null) {
                     popupMenu.addMenuItem$Detailed(CWSYSTEM.CWPopupMenuItem.NORMAL, "",

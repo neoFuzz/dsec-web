@@ -1,10 +1,27 @@
-/**/
 (function (dsector) {
     /**
+     * A class for managing the Starfield effect in the renderer.
+     *
+     * @property {Array} star - The star array.
+     * @property {Array} twinkle - The twinkle array.
+     * @property {number} numberOfStars - The number of stars in the starfield.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class Starfield {
+        /**
+         * Constructs a new instance of the Starfield class with the specified number of stars.
+         *
+         * @param {number} starCount - The number of stars in the starfield.
+         */
         constructor(starCount) {
             if (this.star === undefined) {
                 this.star = null;
@@ -23,9 +40,9 @@
             this.numberOfStars = starCount;
             this.star = Array(starCount).fill(null);
             this.twinkle = Array(starCount).fill(false);
-            for (let var5 = 0; var5 < (starCount / 50 | 0); ++var5) {
+            for (let i = 0; i < (starCount / 50 | 0); ++i) {
                 for (let var9 = 0; var9 < 50; ++var9) {
-                    const var10 = var5 * 50 + var9;
+                    const var10 = i * 50 + var9;
                     const var11 = new dsector.VectorInR3(1.0E21, 0.0, 0.0);
                     let var6;
                     let var7;

@@ -1,14 +1,31 @@
-/* Re-written from Java */
 (function (CWSYSTEM) {
     /**
-     * Represents a pulldown menu.
+     * Represents a pulldown combo box GUI element.
+     *
+     * @property {number} status - The status of the pulldown (0 for closed, 1 for open).
+     * @property {number} CLOSED - Constant representing the closed state of the pulldown.
+     * @property {number} OPEN - Constant representing the open state of the pulldown.
+     * @property {number} selectedOption - The index of the currently selected option in the pulldown.
+     * @property {Array} options - The options to be displayed in the pulldown.
+     * @property {Function|null} optionalMethodToExecuteWhenNewValueSelected - An optional method to execute when a new value is selected.
+     * @property {Object|null} objectHavingOptionalMethodToExecuteWhenNewValueSelected - The object containing the optional method to execute when a new value is selected.
+     * @property {Object|null} objectContainingPulldownChangedMethod - The object containing the method to execute when the pulldown state changes.
+     * @property {Object|null} generalPurposeObject - A general-purpose object for storing any purpose.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class CWPulldown {
         /**
          * Creates an instance of CWPulldown.
-         * @constructor
+         *
          * @param {Object} parent - The parent object.
          * @param {string|null} name - The name of the pulldown.
          * @param {Array} opts - The options for the pulldown.
@@ -41,6 +58,7 @@
 
         /**
          * Gets the box color.
+         *
          * @returns {CWSYSTEM.CWColor} The box color.
          */
         static boxColor_$LI$() {
@@ -52,17 +70,19 @@
 
         /**
          * Gets the text color.
+         *
          * @returns {CWSYSTEM.CWColor} The text color.
          */
         static textColor_$LI$() {
             if (CWPulldown.textColor == null) {
-                CWPulldown.textColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.black_$LI$());
+                CWPulldown.textColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__black());
             }
             return CWPulldown.textColor;
         }
 
         /**
          * Gets the selected value of the pulldown.
+         *
          * @returns {*} The selected value.
          */
         selectedValue() {
@@ -71,7 +91,6 @@
 
         /**
          * Draws the pulldown menu.
-         * @method
          */
         draw() {
             const vs = this.parent.v;
@@ -118,7 +137,6 @@
 
         /**
          * Handles the mouse pressed event for the pulldown menu.
-         * @method
          */
         mousePressedOverClosedSectionOrOverlayBorder() {
             if (CWSYSTEM.Environment.activePulldownMenu$() != null &&
@@ -153,9 +171,9 @@
                     let name = this.options[i].name;
                     name = CWSYSTEM.CWStringTools.stringReplaceCaseInsensitive(name, "\n", "");
                     const overlayStr = "overlay_" + i;
-                    this.overlay.addButton$name$x$y$len$h$text$t$r(overlayStr, 1,
-                        1 + (this.popupWindowItemHeight - 1) * i, this.width - 8,
-                        this.popupWindowItemHeight - 1, name, 10, 1);
+                    this.overlay.addButton(overlayStr, 1, 1 + (this.popupWindowItemHeight - 1) * i,
+                        this.width - 8, this.popupWindowItemHeight - 1, name,
+                        CWSYSTEM.CWButton.SQUARE_TEXT_BUTTON, CWSYSTEM.CWButton.PRESSED);
                     this.overlay.getButton("overlay_" + i).intProperty = i;
                     this.overlay.getButton("overlay_" + i).font = this.popupWindowFont;
                 }
@@ -168,7 +186,7 @@
 
         /**
          * Handles the option selected event for the pulldown menu.
-         * @method
+         *
          * @param b the option that was clicked
          */
         optionSelected(b) {
@@ -183,7 +201,7 @@
                     this.optionalMethodToExecuteWhenNewValueSelected.fn.apply(
                         this.objectHavingOptionalMethodToExecuteWhenNewValueSelected, [objects1]);
                 } catch (e) {
-                    console.info("Problem invoking method in CWPulldown.optionSelected(..)");
+                    CWSYSTEM.Debug.println("Problem invoking method in CWPulldown.optionSelected(..)");
                 }
             }
             if (this.objectContainingPulldownChangedMethod != null) {
@@ -197,7 +215,7 @@
                     const objects = [this];
                     declaredMethod.fn.apply(this.objectContainingPulldownChangedMethod, [objects]);
                 } catch (e) {
-                    console.error("A problem occured in CWPulldown.optionSelected()for pulldown \'" +
+                    CWSYSTEM.Debug.error("A problem occured in CWPulldown.optionSelected()for pulldown \'" +
                         this.name + "\': " + e);
                 }
             }
@@ -205,9 +223,9 @@
 
         /**
          * Set up some default parameters.
-         * @method
-         * @param c
-         * @param i
+         *
+         * @param {number} c - selected option.
+         * @param {number} i - an integer.
          */
         setDefaults(c, i) {
             this.selectedOption = c;

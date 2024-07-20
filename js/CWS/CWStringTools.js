@@ -1,16 +1,27 @@
-/**/
 (function (CWSYSTEM) {
     /**
      * Provides utility methods for working with strings.
+     * This class includes methods for breaking strings into words, replacing substrings, and more.
+     *
+     * @property {object} [constructor=null]
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class CWStringTools {
         /**
          * Breaks a sentence into words based on a given delimiter.
+         *
          * @param {string} text - The text to break into words.
          * @param {string} word - The delimiter to use for breaking the text.
-         * @return {string[]} - An array of words.
+         * @returns {string[]} - An array of words.
          */
         static breakSentenceIntoWords(text, word) {
             let index = 0;
@@ -35,9 +46,10 @@
 
         /**
          * Breaks a string into words separated by a given string, case-insensitively.
+         *
          * @param {string} text - The text to break into words.
          * @param {string} word - The delimiter to use for breaking the text.
-         * @return {string[]} - An array of words.
+         * @returns {string[]} - An array of words.
          */
         static breakStringIntoWordsSeparatedByStringCaseInsensitive(text, word) {
             if (word != null && word.length !== 0) {
@@ -56,10 +68,11 @@
 
         /**
          * Replaces occurrences of a word in a text with a replacement character, case-insensitively.
+         *
          * @param {string} text - The text in which to replace the word.
          * @param {string} word - The word to be replaced.
          * @param {string} replacementChar - The replacement character.
-         * @return {string} - The modified text.
+         * @returns {string} - The modified text.
          */
         static stringReplaceCaseInsensitive(text, word, replacementChar) {
             const arrList = CWSYSTEM.CWStringTools.breakStringIntoWordsSeparatedByStringCaseInsensitive(text, word);
@@ -75,8 +88,9 @@
 
         /**
          * Converts a text into a regular expression string.
+         *
          * @param {string} text - The text to convert.
-         * @return {string} - The regular expression string.
+         * @returns {string} - The regular expression string.
          */
         static convertRegularExpressionToString(text) {
             let builder = "";
@@ -88,8 +102,9 @@
 
         /**
          * Converts a word into a simple regular expression.
+         *
          * @param {string} word - The word to convert.
-         * @return {string} - The regular expression string.
+         * @returns {string} - The regular expression string.
          */
         static convertRegularExpressionSimple(word) {
             return word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
@@ -97,10 +112,11 @@
 
         /**
          * Extracts messages between two characters in a text.
+         *
          * @param {string} text - The text to search within.
          * @param {string} char1 - The starting character.
          * @param {string} char2 - The ending character.
-         * @return {string[]} - An array of messages between the characters.
+         * @returns {string[]} - An array of messages between the characters.
          */
         static messagesBetweenCharacters(text, char1, char2) {
             const arrayList = ([]);
@@ -127,9 +143,10 @@
 
         /**
          * Extracts the message preceding a given character in a text.
+         *
          * @param {string} text - The text to search within.
          * @param {string} char - The character to look for.
-         * @return {string} - The message preceding the character.
+         * @returns {string} - The message preceding the character.
          */
         static messagePrecedingCharacter(text, char) {
             const index = text.indexOf(char);
@@ -138,10 +155,11 @@
 
         /**
          * Replaces all occurrences of a character in a text with another character.
+         *
          * @param {string} text - The text in which to replace characters.
          * @param {string} oldChar - The character to be replaced.
          * @param {string} newChar - The replacement character.
-         * @return {string} - The modified text.
+         * @returns {string} - The modified text.
          */
         static characterReplace(text, oldChar, newChar) {
             return text.split(oldChar).join(newChar);
@@ -149,9 +167,10 @@
 
         /**
          * Removes all occurrences of a character from a text.
+         *
          * @param {string} text - The text from which to remove the character.
          * @param {string} target - The character to be removed.
-         * @return {string} - The modified text.
+         * @returns {string} - The modified text.
          */
         static characterRemove(text, target) {
             return text.split(target).join('');
@@ -159,9 +178,10 @@
 
         /**
          * Removes repeated occurrences of a character from a text.
+         *
          * @param {string} txt - The text from which to remove repeated characters.
          * @param {string} tgt - The character whose repetitions are to be removed.
-         * @return {string} - The modified text.
+         * @returns {string} - The modified text.
          */
         static removeRepeatedCharacters(txt, tgt) {
             if (txt.length < 2) return txt;
@@ -177,9 +197,10 @@
 
         /**
          * Finds the first occurrence of a target string in a text.
+         *
          * @param {string} text - The text to search within.
          * @param {string} target - The string to find.
-         * @return {number} - The index of the first occurrence of the target string, or -1 if not found
+         * @returns {number} - The index of the first occurrence of the target string, or -1 if not found
          */
         static find$Str$Str(text, target) {
             return CWSYSTEM.CWStringTools.find$txt$tgt$loc$case(text, target, 0, false);
@@ -187,9 +208,10 @@
 
         /**
          * Finds the first occurrence of a target string in a text, ignoring case.
+         *
          * @param {string} text - The text to search within.
          * @param {string} target - The string to find.
-         * @return {number} - The index of the first occurrence of the target string, or -1 if not found.
+         * @returns {number} - The index of the first occurrence of the target string, or -1 if not found.
          */
         static findIgnoreCase$Str$Str(text, target) {
             return CWSYSTEM.CWStringTools.find$txt$tgt$loc$case(text, target, 0, true);
@@ -197,10 +219,11 @@
 
         /**
          * Finds the first occurrence of a target string in a text starting from a specific location.
+         *
          * @param {string} text - The text to search within.
          * @param {string} target - The string to find.
          * @param {number} loc - The location to start the search from.
-         * @return {number} - The index of the first occurrence of the target string, or -1 if not found.
+         * @returns {number} - The index of the first occurrence of the target string, or -1 if not found.
          */
         static find$txt$tgt$loc(text, target, loc) {
             return CWSYSTEM.CWStringTools.find$txt$tgt$loc$case(text, target, loc, false);
@@ -208,10 +231,11 @@
 
         /**
          * Finds the first occurrence of a target string in a text starting from a specific location, ignoring case.
+         *
          * @param {string} text - The text to search within.
          * @param {string} target - The string to find.
          * @param {number} loc - The location to start the search from.
-         * @return {number} - The index of the first occurrence of the target string, or -1 if not found.
+         * @returns {number} - The index of the first occurrence of the target string, or -1 if not found.
          */
         static findIgnoreCase$txt$tgt$loc(text, target, loc) {
             return CWSYSTEM.CWStringTools.find$txt$tgt$loc$case(text, target, loc, true);
@@ -241,11 +265,12 @@
 
         /**
          * Finds the first occurrence of a target string in a text with various options.
+         *
          * @param {string} text - The text to search within.
          * @param {string} target - The string to find.
          * @param {number} loc - The location to start the search from.
          * @param {boolean} caseBool - Whether to ignore case.
-         * @return {number} - The index of the first occurrence of the target string, or -1 if not found.
+         * @returns {number} - The index of the first occurrence of the target string, or -1 if not found.
          */
         static find$txt$tgt$loc$case(text, target, loc, caseBool) {
             const firstChar = target.substring(0, 1);
@@ -308,8 +333,9 @@
 
         /**
          * Trims leading and trailing whitespace, newlines, tabs, and carriage returns from a text.
+         *
          * @param {string} text - The text to trim.
-         * @return {string} - The trimmed text.
+         * @returns {string} - The trimmed text.
          */
         static trim(text) {
             const charactersToTrim = [' ', '\n', '\t', '\r'];
@@ -322,9 +348,10 @@
 
         /**
          * Trims trailing occurrences of a specific character from a text.
+         *
          * @param {string} text - The text to trim.
          * @param {string} char - The character to trim.
-         * @return {string} - The trimmed text.
+         * @returns {string} - The trimmed text.
          */
         static stringWithTrailingCharactersTrimmed(text, char) {
             while (text.length > 0 && text[text.length - 1] === char) {
@@ -351,9 +378,10 @@
 
         /**
          * Formats a float value with a specified number of decimal places and trimming.
+         *
          * @param {number} value - The float value to format.
          * @param {number} trim - The maximum length of the formatted string.
-         * @return {string} - The formatted float value.
+         * @returns {string} - The formatted float value.
          */
         static shortenedFloat(value, trim) {
             let string = "" + value;
@@ -366,9 +394,10 @@
 
         /**
          * Retrieves the value associated with a name from a name-value pair string.
+         *
          * @param {string} text - The name-value pair string.
          * @param {string} target - The name whose value is to be retrieved.
-         * @return {string} - The value associated with the name, or null if the name is not found.
+         * @returns {string} - The value associated with the name, or null if the name is not found.
          */
         static getValueFromNameValuePair(text, target) {
             const fromLine = CWStringTools.getNameAndValueParametersFromLine(text, '=', ' ');
@@ -377,10 +406,11 @@
 
         /**
          * Get name and value parameters from line.
-         * @param {string} text
-         * @param {string} name
-         * @param {number} value
-         * @return {Map}
+         *
+         * @param {string} text - The input string containing name-value pairs.
+         * @param {string} name - The name parameter to search for.
+         * @param {string} value - The value parameter to search for.
+         * @returns {Map} - A Map containing the name-value pairs found in the input string.
          */
         static getNameAndValueParametersFromLine(text, name, value) {
             const hashMap = new Map();
@@ -401,6 +431,7 @@
 
         /**
          * Repeats the given string a specified number of times.
+         *
          * @param {string} text - The string to be repeated.
          * @param {number} count - The number of times to repeat the string.
          * @returns {string} The concatenated result of the repeated string.
@@ -415,6 +446,7 @@
 
         /**
          * Cuts the given string into smaller lengths based on the specified length.
+         *
          * @param {string} string - The input string to be cut.
          * @param {number} length - The length of each smaller segment.
          * @returns {Array<string>} An array of smaller string segments.
@@ -431,11 +463,12 @@
 
         /**
          * Creates word-wrapped lines from the given string based on the specified mode.
+         *
          * @param {string} string - The input string to be word-wrapped.
-         * @param {number} mode - The maximum length of each line.
+         * @param {number} len - The maximum length of each line.
          * @returns {Array<string>} An array of word-wrapped lines.
          */
-        static createWordWrappedLines(string, mode) {
+        static createWordWrappedLines(string, len) {
             const arrayList = ([]);
             string = string + "\n";
             const word = (string).split('');
@@ -451,7 +484,7 @@
                             c.charCodeAt(0))(word[j]) !== ' '.charCodeAt(0); ++j) {
                             ++count;
                         }
-                        if (str.length + count > mode - 1) {
+                        if (str.length + count > len - 1) {
                             arrayList.push(str);
                             str = "";
                             continue;
@@ -465,6 +498,7 @@
 
         /**
          * Shortens the input string to the specified length, adding "..." if truncated.
+         *
          * @param {string} text - The input string to be shortened.
          * @param {number} amount - The maximum length of the output string.
          * @returns {string} The shortened string.
@@ -476,6 +510,7 @@
 
         /**
          * Converts a vector of strings to an array of strings.
+         *
          * @param {Array<string>} arrayList - The vector of strings.
          * @returns {Array<string>} The converted array of strings.
          */
@@ -489,6 +524,7 @@
 
         /**
          * Converts a vector of integers to an array of integers.
+         *
          * @param {Array<number>} arrayList - The vector of integers.
          * @returns {Array<number>} The converted array of integers.
          */
@@ -645,6 +681,8 @@
 
         /**
          * Main method for testing purposes.
+         *
+         * @static
          */
         static main() {
             const arrList = ([]);

@@ -1,16 +1,26 @@
-/* Re-written from Java */
 (function (dsector) {
     /**
      * Represents a colourless polygon defined by three vertices.
+     *
+     * @property {dsector.Vertex} v1 - The first vertex of the polygon.
+     * @property {dsector.Vertex} v2 - The second vertex of the polygon.
+     * @property {dsector.Vertex} v3 - The third vertex of the polygon.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class ColourlessPolygon {
         /**
-         * @param {Object} v1 - The first vertex of the polygon.
-         * @param {Object} v2 - The second vertex of the polygon.
-         * @param {Object} v3 - The third vertex of the polygon.
-         * @constructor
+         * @param {dsector.Vertex} v1 - The first vertex of the polygon.
+         * @param {dsector.Vertex} v2 - The second vertex of the polygon.
+         * @param {dsector.Vertex} v3 - The third vertex of the polygon.
          */
         constructor(v1, v2, v3) {
             if (this.v1 === undefined) {

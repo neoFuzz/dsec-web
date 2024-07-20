@@ -1,13 +1,26 @@
-/* Re-written from Java */
 (function (CWSYSTEM) {
     /**
-     * Represents a character with width, height, and line height properties.
+     * Represents a visual character with width, height, and line height properties.
+     *
+     * @property {number} width - The width of the character.
+     * @property {number} height - The height of the character.
+     * @property {number} lineHeight - The line height of the character.
+     * @property {Array|null} bitmap - The bitmap representation of the character.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class CWCharacter {
         /**
          * Creates an instance of CWCharacter.
+         *
          * @param {number} width - The width of the character.
          * @param {number} height - The height of the character.
          * @param {number} lineHeight - The line height of the character.
@@ -21,6 +34,7 @@
 
         /**
          * Allocates a bitmap array based on the given height and width.
+         *
          * @param {number} h - The height of the bitmap.
          * @param {number} w - The width of the bitmap.
          * @returns {Array|null} The allocated bitmap or null if height or width is zero.
@@ -45,8 +59,8 @@
          * @returns {string} The string representation of the reversed bitmap.
          *
          * @example
-         * // Assuming `this.bitmap.toReversed()` returns [[1,0],[0,1]]
-         * getCharacterReversed(); // "1001"
+         * // Assuming `this.bitmap.toReversed()` returns [[1,1,1],[0,1,0]]
+         * getCharacterReversed(); // "010111"
          *
          * @example
          * // Assuming `this.bitmap.toReversed()` returns an empty or zero-filled array

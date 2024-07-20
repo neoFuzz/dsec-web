@@ -110,7 +110,6 @@
 
         /**
          * @returns {CWPulldown} The active pulldown item
-         * @private
          */
         static activePulldownMenu$() {
             Environment.__static_initialize();

@@ -89,7 +89,7 @@
             CWSYSTEM.Global.graphicsInitialized = true;
             dsector.DSReference.virtualScreen.update();
             if (DSMain.discordEnabled) {
-                console.log("Discord Integration Enabled");
+                CWSYSTEM.Debug.println("Discord Integration Enabled");
             }
         }
 

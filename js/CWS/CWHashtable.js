@@ -1,40 +1,47 @@
-/* */
 (function (CWSYSTEM) {
     /**
      * Represents a hashtable for storing key-value pairs.
+     *
+     * @property {Map} hashMap - The underlying data structure used to store the key-value pairs.
+     * @property {string} filename - The filename where the hashtable data is stored.
+     * @property {string} filedata - The data read from the file.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class CWHashtable {
         /**
          * Creates an instance of CWHashtable.
+         *
          * @param {string} filename - The filename where the hashtable data is stored.
          */
         constructor(filename) {
-            if (this.hashMap === undefined) {
-                this.hashMap = null;
-            }
-            if (this.filename === undefined) {
-                this.filename = null;
-            }
-            if (this.filedata === undefined) {
-                this.filedata = "";
-            }
+            this.hashMap = null;
             this.filename = filename;
-            //this.readHashtableFromFile();
+            this.filedata = "";
+            // we used to read from the file here, but it's done later to avoid bugs now.
         }
 
         /**
          * Retrieves a value by key.
+         *
          * @param {string} key - The key to retrieve the value for.
          * @returns {string} The value associated with the key, or null if not found.
          */
-        get(value) {
-            return "" + this.hashMap.get(value);
+        get(key) {
+            return "" + this.hashMap.get(key);
         }
 
         /**
          * Adds or updates a key-value pair in the hashtable.
+         *
          * @param {string} key - The key associated with the value.
          * @param {string} value - The value to store.
          */
@@ -45,6 +52,7 @@
 
         /**
          * Returns the number of key-value pairs in the hashtable.
+         *
          * @returns {number} The size of the hashtable.
          */
         size() {
@@ -53,6 +61,7 @@
 
         /**
          * Gets the filename where the hashtable data is stored.
+         *
          * @returns {string} The filename.
          */
         getFilename() {
@@ -61,6 +70,7 @@
 
         /**
          * Reads the hashtable data from a file(IDB) and initializes the hashtable.
+         *
          * @async
          * @public
          */
@@ -78,12 +88,10 @@
                 }
             }
             strLength = "" + this.filedata;
-            strLength = CWSYSTEM.CWStringTools.stringReplaceCaseInsensitive(strLength, "\r", "\n");
-            strLength = CWSYSTEM.CWStringTools.stringReplaceCaseInsensitive(strLength, "\n\n", "\n");
+            strLength = CWSYSTEM.CWStringTools.stringReplaceCaseInsensitive(strLength, "\r", "");
             const arrayList =
                 CWSYSTEM.CWStringTools.breakStringIntoWordsSeparatedByStringCaseInsensitive(strLength, "\n");
-            for (let i = 0; i < arrayList.length; ++i) {
-                const listProc = arrayList[i];
+            for (const listProc of arrayList) {
                 const breakList =
                     CWSYSTEM.CWStringTools.breakStringIntoWordsSeparatedByStringCaseInsensitive(listProc, "=");
                 if (breakList.length === 2) {
@@ -95,8 +103,15 @@
         }
 
         /**
-         * Writes the current state of the hashtable to a file, which is actually a IDB.
-         * @private
+         *
+         * This method iterates over the keys in the hashmap and constructs a string
+         * with key-value pairs separated by an equal sign (=) and newline characters.
+         * It then writes this string to a file using the `CWSYSTEM.CWFileTools.outputFile`
+         * method.
+         *
+         * @throws {Error} If an error occurs while writing to the file, it logs an error message
+         *                 to the console.
+         * @public
          */
         writeHashtableToFile() {
             // opens file
@@ -104,14 +119,13 @@
             let values = "";
 
             try {
-                for (let i = 0; i < arrayList.length; ++i) {
-                    const value = arrayList[i];
+                for (const value of arrayList) {
                     const v = this.hashMap.get(value);
                     //write to file
-                    values += value + "=" + this.hashMap.get(value) + "\n";
+                    values += value + "=" + v + "\n";
                 }
             } catch (e) {
-                console.error("There was an error writing the file in CWHashtable.writeHashtableToFile().");
+                CWSYSTEM.Debug.error("There was an error writing the file in CWHashtable.writeHashtableToFile().");
             }
             CWSYSTEM.CWFileTools.outputFile(this.filename, values);
         }

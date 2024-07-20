@@ -26,7 +26,7 @@
             this.hmPlayers = new CWSYSTEM.CWHashtable("players.cfg");
             this.hmPlayers.readHashtableFromFile();
             CWSYSTEM.AlertManager.backgroundColor = new CWSYSTEM.CWColor(0, 0, 0, 180);
-            CWSYSTEM.AlertManager.textColor = CWSYSTEM.CWColor.white_$LI$();
+            CWSYSTEM.AlertManager.textColor = CWSYSTEM.CWColor.__white();
         }
 
         numberOfPlayers() {
@@ -167,23 +167,24 @@
                 "Setup", x, y, 390, 100 + 20 * this.numberOfPlayers(), true);
             this.window.changeBackgroundColor$CWColor(new CWSYSTEM.CWColor(0, 0, 0, 50));
             let cwButton = null;
-            cwButton = this.window.addButton$name$x$y$len$h$text$t$r("ENTER_DSECTOR", 10, 12, 80, 15,
-                "Enter D-Sector", 9, 0 || 1);
-            cwButton = this.window.addButton$name$x$y$len$h$text$t$r("SETUP", 120, 12, 50, 15,
-                "Setup", 9, 0);
+            cwButton = this.window.addButton("ENTER_DSECTOR", 10, 12, 80, 15,
+                "Enter D-Sector", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON,
+                CWSYSTEM.CWButton.CLICKED || CWSYSTEM.CWButton.PRESSED);
+            cwButton = this.window.addButton("SETUP", 120, 12, 50, 15,
+                "Setup", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.PRESSED);
             cwButton.objectContainingButtonPressedMethod = this;
             cwButton.buttonPressedMethodName = "setupButtonPressed";
-            cwButton = this.window.addButton$name$x$y$len$h$text$t$r("LOAD_GAME_FROM_MAIN_MENU", 208, 12,
-                70, 15, "Load Game", 9, 0);
+            cwButton = this.window.addButton("LOAD_GAME_FROM_MAIN_MENU", 208, 12,
+                70, 15, "Load Game", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
             cwButton.objectContainingButtonPressedMethod = this;
             cwButton.buttonPressedMethodName = "loadGameButtonPressed";
-            cwButton = this.window.addButton$name$x$y$len$h$text$t$r("EXIT_DSECTOR", 305, 12, 75,
-                15, "Exit D-Sector", 9, 0);
+            cwButton = this.window.addButton("EXIT_DSECTOR", 305, 12, 75,
+                15, "Exit D-Sector", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
             cwButton.objectContainingButtonPressedMethod = this;
             cwButton.buttonPressedMethodName = "exitDSectorButtonPressed";
-            this.window.addTextBlock("", "Players", 15, 69, font, CWSYSTEM.CWColor.white_$LI$(), 999);
-            this.window.addTextBlock("", "Rounds", 143, 69, font, CWSYSTEM.CWColor.white_$LI$(), 999);
-            this.window.addTextBlock("", "Mode", 285, 69, font, CWSYSTEM.CWColor.white_$LI$(), 999);
+            this.window.addTextBlock("", "Players", 15, 69, font, CWSYSTEM.CWColor.__white(), 999);
+            this.window.addTextBlock("", "Rounds", 143, 69, font, CWSYSTEM.CWColor.__white(), 999);
+            this.window.addTextBlock("", "Mode", 285, 69, font, CWSYSTEM.CWColor.__white(), 999);
             let arrayList = ([]);
             for (let j = 2; j <= dsector.DSMain.maxPlayers; ++j) {
                 arrayList.push(new dsector.StringPair("" + j, "" + j)); // > 0)
@@ -226,13 +227,13 @@
                 const player = this.getPlayer(i + 1);
                 if (this.__playMode === DSecMainSetupWindow.HOSTILE) {
                     this.window.addTextBlock("", "Player " + (i + 1), 15, 105 + 22 * i, font,
-                        CWSYSTEM.CWColor.white_$LI$(), 999);
+                        CWSYSTEM.CWColor.__white(), 999);
                 } else {
                     if (i === 0) {
-                        this.window.addTextBlock("", "Blue", 15, 105 + 22 * i, font, CWSYSTEM.CWColor.white_$LI$(), 999);
+                        this.window.addTextBlock("", "Blue", 15, 105 + 22 * i, font, CWSYSTEM.CWColor.__white(), 999);
                     }
                     if (i === (this.numberOfPlayers() / 2 | 0)) {
-                        this.window.addTextBlock("", "Red", 15, 105 + 22 * i, font, CWSYSTEM.CWColor.white_$LI$(), 999);
+                        this.window.addTextBlock("", "Red", 15, 105 + 22 * i, font, CWSYSTEM.CWColor.__white(), 999);
                     }
                 }
                 arrayList = ([]);
@@ -248,7 +249,7 @@
                 playersPullDown.generalPurposeObject = player;
                 playersPullDown.selectedOption = j;
                 playersPullDown.objectContainingPulldownChangedMethod = this;
-                this.window.addTextBlock("", "Name", 210, 105 + 22 * i, font, CWSYSTEM.CWColor.white_$LI$(), 378);
+                this.window.addTextBlock("", "Name", 210, 105 + 22 * i, font, CWSYSTEM.CWColor.__white(), 378);
                 this.window.addTextArea("name" + i, 250, 79 + 22 * i, 130, 1, font, "").endMark = "";
                 const textArea = this.window.getTextArea("name" + i);
                 textArea.setText(player.name);
@@ -380,7 +381,7 @@
                 message = message + "player" + (i + 1) + "Name=" + player.name + "\n";
                 message = message + "player" + (i + 1) + "Filename=" + player.robotSpecification.filenameCode() + "\n";
             }
-            CWSYSTEM.CWFileTools.outputFile("players.cfg", message).then(result => console.log(result)) // output: true
+            CWSYSTEM.CWFileTools.outputFile("players.cfg", message).then(result => CWSYSTEM.Debug.println(result)) // output: true
                 .catch(error => console.error(error));
         }
 
@@ -424,7 +425,9 @@
             let errorCodes = "";
             try {
                 playerName = hashMap.get("player" + playerId + "Name");
-                if (playerName === "undefined"){playerName = "Player " + playerId} // very JavaScript specific catch
+                if (playerName === "undefined") {
+                    playerName = "Player " + playerId
+                } // very JavaScript specific catch
             } catch (e) {
                 errorCodes += "Error GDP1: [" + e.message + "] using default\n";
                 playerName = "Player " + playerId;

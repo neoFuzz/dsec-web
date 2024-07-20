@@ -1,13 +1,29 @@
-/* Re-written from Java */
 (function (CWSYSTEM) {
     /**
      * This class is responsible for loading and managing font data.
+     *
+     * @property {Map} characters - A map containing the characters in the font.
+     * @property {number} rows - The number of rows in the font.
+     * @property {number} cols - The number of columns in the font.
+     * @property {number} defaultSpacing - The default spacing between characters.
+     * @property {number} defaultHeight - The default height of characters.
+     * @property {string} badCharacter - A string representing a bad character.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof CWSYSTEM
+     * @requires CWSYSTEM.CWCharacter
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class CWFont {
         /**
          * Represents a font that can be used to render text on the screen.
+         *
          * @param {string} str - The path to the font file.
          */
         constructor(str) {
@@ -22,8 +38,9 @@
 
         /**
          * Retrieves a character from the font.
+         *
          * @param {string} char - The character to retrieve.
-         * @returns {CWCharacter|null} The CWCharacter object for the specified character, or null if not found.
+         * @returns {CWSYSTEM.CWCharacter|null} The CWCharacter object for the specified character, or null if not found.
          */
         getCharacter(char) {
             const cwChar = this.characters.get(char);
@@ -32,7 +49,8 @@
 
         /**
          * Provides a default symbol for characters that are not found in the font.
-         * @returns {CWCharacter} The CWCharacter object for the default symbol.
+         *
+         * @returns {CWSYSTEM.CWCharacter} The CWCharacter object for the default symbol.
          */
         symbolForNotFound() {
             return this.characters.get("null");
@@ -40,6 +58,7 @@
 
         /**
          * Checks if the font is not installed.
+         *
          * @returns {boolean} True if the font is not installed, false otherwise.
          */
         notInstalled() {
@@ -51,6 +70,8 @@
          * <p>
          * **NOTE:** font file line ending should be in Unix format and the last character in the file must be a '.' period.
          * Check there is not a 'new line' at the end of the file as this causes an error and the file will not load.
+         * </p>
+         *
          * @param {URL} fileName URL to load the file from
          * @async
          * @returns {Promise<void>} A promise that resolves when the font is loaded.
@@ -117,8 +138,8 @@
                 try {
                     intBuffer = parseInt(hBbuffer);
                 } catch (e) {
-                    CWSYSTEM.Debug.error("Bad format in " + fileName + ", symbol \'" + chrBuffer +
-                        "\'. Line height \'" + hBbuffer + "\' is not an integer.");
+                    CWSYSTEM.Debug.error("Bad format in " + fileName + ", symbol '" + chrBuffer +
+                        "'. Line height '" + hBbuffer + "' is not an integer.");
                     this.characters = null;
                     return;
                 }
@@ -138,7 +159,6 @@
                     if (n === 0) {
                         r = chars1.length;
                     }
-                    //if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(chars1[0]) === '.'.charCodeAt(0)) {
                     if (chars1[0] === '.' || chars1 === "") {
                         s = i;
                         break;
@@ -167,14 +187,16 @@
 
         /**
          * Tests the font by rendering specified characters.
+         *
          * @param {string} args - A string containing characters to test.
          * @returns {number} 1 if an error occurred, otherwise 0.
          */
         fontTest(args) {
-            args = args.split(" ");
+            args = args.split(" "); // TODO: fix for Unicode characters
             if (args.length < 2) {
                 CWSYSTEM.Debug.println("To test characters, use the following:\n" +
-                    "new CWFont file [symbol] {..symbol}\n\nFor example: new CWFont FixedWidthSmall.jcf a b c");
+                    'new CWFont(file).fontTest(..symbols)\n\n' +
+                    'For example: new CWFont("FixedWidthSmall.jcf").fontTest("a b c")');
                 return 1;
             }
 
@@ -186,17 +208,17 @@
             let imgData = ctx.createImageData(CWSYSTEM.Global.screenResolutionX_$LI$(),
                 CWSYSTEM.Global.screenResolutionY_$LI$());
 
-            for (let i = 0; i < args.length; ++i) {
+            for (const element of args) {
                 if (cwFont.notInstalled()) {
                     CWSYSTEM.Debug.println("An error with the font installation was caught successfully using " +
                         "the notInstalled() method");
                     return 1;
                 } else {
-                    let character = cwFont.getCharacter(args[i]);
+                    let character = cwFont.getCharacter(element);
                     if (character == null) {
-                        CWSYSTEM.Debug.println("\nCharacter '" + args[i] + "' not covered in " + args[0]);
+                        CWSYSTEM.Debug.println("\nCharacter '" + element + "' not covered in " + args[0]);
                     } else {
-                        CWSYSTEM.Debug.println("\nBitmap for the letter '" + args[i] +
+                        CWSYSTEM.Debug.println("\nBitmap for the letter '" + element +
                             "', height " + character.lineHeight + ":");
                         let line = "";
                         for (let j = character.height - 1; j >= 0; --j) {

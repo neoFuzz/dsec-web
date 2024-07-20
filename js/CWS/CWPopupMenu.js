@@ -1,13 +1,26 @@
-/* Re-written from Java */
 (function (CWSYSTEM) {
     /**
      * Represents a CWPopupMenu class.
+     *
+     * @property {number} CONNECTED_MENU - Constant representing a connected menu.
+     * @property {number} RIGHT_CLICK_MENU - Constant representing a right-click menu.
+     * @property {CWSYSTEM.CWPopupMenu} rightClickMenu - The right-click menu.
+     * @property {number} cycleInWhichPopupOpened - The cycle in which the popup menu was opened.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class CWPopupMenu {
         /**
          * Constructor for CWPopupMenu.
+         *
          * @param {(CWSYSTEM.CWMenu|CWSYSTEM.CWWindow|CWSYSTEM.CWWindowCollection|null)} menu - The menu, window, or window collection.
          * @param {string|null} title - The title of the menu.
          */
@@ -18,8 +31,7 @@
             this.parentMenu = null;
             this.popupMenuItems = null;
 
-            if ((menu instanceof CWSYSTEM.CWMenu || menu === null) &&
-                (typeof title === 'string' || title === null)) {
+            if ((menu instanceof CWSYSTEM.CWMenu || menu === null) && (typeof title === 'string' || title === null)) {
                 this.type = CWPopupMenu.CONNECTED_MENU;
                 this.popupMenuItems = [];
                 this.menuTitle = title;
@@ -50,6 +62,7 @@
 
         /**
          * Handles the mouse click event.
+         *
          * @static
          */
         static mouseClicked() {
@@ -71,6 +84,7 @@
 
         /**
          * Gets the type of the popup menu.
+         *
          * @returns {number} The type of the popup menu.
          */
         getType() {
@@ -79,15 +93,17 @@
 
         /**
          * Adds a menu item separator.
+         *
          * @returns {CWSYSTEM.CWPopupMenuItem} The added menu item.
          */
         addMenuItem$() {
-            return this.addMenuItem$int$String$String$String$boolean(
+            return this.addMenuItem(
                 CWSYSTEM.CWPopupMenuItem.SEPARATOR, "", "", null, false);
         }
 
         /**
          * Adds a menu item with detailed parameters.
+         *
          * @param {number} type - The type of the menu item.
          * @param {string} code - The code of the menu item.
          * @param {string} text - The text of the menu item.
@@ -95,7 +111,7 @@
          * @param {boolean} btSt - The bullet status of the menu item.
          * @returns {CWSYSTEM.CWPopupMenuItem} The added menu item.
          */
-        addMenuItem$int$String$String$String$boolean(type, code, text, scTxt, btSt) {
+        addMenuItem(type, code, text, scTxt, btSt) {
             const popupMenuItem = new CWSYSTEM.CWPopupMenuItem(type, code, text,
                 scTxt, btSt, null, null);
             this.popupMenuItems.push(popupMenuItem);
@@ -103,31 +119,14 @@
         }
 
         /**
-         * Adds a menu item with invoked method parameters.
-         * @param {number} type - The type of the menu item.
-         * @param {string} code - The code of the menu item.
-         * @param {string} text - The text of the menu item.
-         * @param {string} scTxt - The shortcut text of the menu item.
-         * @param {Object} invFrm - The object from which the method is invoked.
-         * @param {Method} btStByMthd - The method to determine bullet status.
-         * @returns {CWSYSTEM.CWPopupMenuItem} The added menu item.
-         */
-        addMenuItem$type$code$text$String$Object$Method(type, code, text, scTxt, invFrm,
-                                                        btStByMthd) {
-            const puMI = new CWSYSTEM.CWPopupMenuItem(
-                type, code, text, scTxt, false, invFrm, btStByMthd);
-            this.popupMenuItems.push(puMI);
-            return puMI;
-        }
-
-        /**
          * Adds a detailed menu item with additional parameters.
+         *
          * @param {number} type - The type of the menu item.
          * @param {string} code - The code of the menu item.
          * @param {string} text - The text of the menu item.
          * @param {string} shortcutText - The shortcut text of the menu item.
          * @param {Object} invokedFrom - The object from which the method is invoked.
-         * @param {CWReflect} btStFrmMthd - The method to determine bullet status.
+         * @param {CWSYSTEM.CWReflect} btStFrmMthd - The method to determine bullet status.
          * @param {Object} objInvMthdFrm - The object to invoke execute method from.
          * @param {Object} exeMthdSel - The method to execute upon selection.
          * @param {Array} paramsExeMthd - The parameters for the execute method.
@@ -142,59 +141,6 @@
             popupMenuItem.parametersForExecuteMethod = paramsExeMthd;
             this.popupMenuItems.push(popupMenuItem);
             return popupMenuItem;
-        }
-
-        /**
-         * Adds a menu item.
-         * @param {number} type - The type of the menu item.
-         * @param {string} code - The code of the menu item.
-         * @param {string} text - The text of the menu item.
-         * @param {string} scTxt - The shortcut text of the menu item.
-         * @param {boolean|Object|null} invFrm - The object or boolean indicating the invocation source.
-         * @param {Object|null} bulletByMthd - The method to determine bullet status.
-         * @param {Object|null} objExeInvokeFrom - The object to invoke execute method from.
-         * @param {Object|null} exeMthdSel - The method to execute upon selection.
-         * @param {Array|null} paramsForExeMthd - The parameters for the execute method.
-         * @returns {CWSYSTEM.CWPopupMenuItem} The added menu item.
-         */
-        addMenuItem(type, code, text, scTxt, invFrm,
-                    bulletByMthd, objExeInvokeFrom, exeMthdSel, paramsForExeMthd) {
-            if (typeof type === 'number' && typeof code === 'string' &&
-                typeof text === 'string' && typeof scTxt === 'string' &&
-                (invFrm != null || invFrm === null) &&
-                (bulletByMthd != null && bulletByMthd instanceof Object || bulletByMthd === null) &&
-                (objExeInvokeFrom != null || objExeInvokeFrom === null) &&
-                (exeMthdSel != null && exeMthdSel instanceof Object || exeMthdSel === null) &&
-                (paramsForExeMthd != null && paramsForExeMthd instanceof Array &&
-                    (paramsForExeMthd.length === 0 || paramsForExeMthd[0] === null ||
-                        paramsForExeMthd[0] !== null))) {
-                return this.addMenuItem$Detailed(type, code, text, scTxt, invFrm, bulletByMthd,
-                    objExeInvokeFrom, exeMthdSel, paramsForExeMthd);
-            } else if (typeof type === 'number' && typeof code === 'string' &&
-                typeof text === 'string' && typeof scTxt === 'string' &&
-                (invFrm != null || invFrm === null) &&
-                (bulletByMthd != null && bulletByMthd instanceof Object || bulletByMthd === null) &&
-                objExeInvokeFrom === undefined &&
-                exeMthdSel === undefined &&
-                paramsForExeMthd === undefined) {
-                return this.addMenuItem$type$code$text$String$Object$Method(type, code, text, scTxt,
-                    invFrm, bulletByMthd);
-            } else if (typeof type === 'number' && typeof code === 'string' &&
-                typeof text === 'string' && typeof scTxt === 'string' &&
-                (typeof invFrm === 'boolean' || invFrm === null) &&
-                bulletByMthd === undefined &&
-                objExeInvokeFrom === undefined &&
-                exeMthdSel === undefined &&
-                paramsForExeMthd === undefined) {
-                return this.addMenuItem$int$String$String$String$boolean(type, code, text, scTxt, invFrm);
-            } else if (type === undefined && code === undefined && text === undefined && scTxt === undefined &&
-                invFrm === undefined && bulletByMthd === undefined &&
-                objExeInvokeFrom === undefined && exeMthdSel === undefined &&
-                paramsForExeMthd === undefined) {
-                return this.addMenuItem$();
-            } else {
-                throw new Error('Invalid overload');
-            }
         }
 
         /**
@@ -225,23 +171,24 @@
 
         /**
          * Create popup with customised parameters.
-         * @param xPos
-         * @param yPos
-         * @param btnHgt
-         * @param font
-         * @param pxlSize
-         * @param xWidth
-         * @param he
-         * @param btnX
-         * @param height5
-         * @param hMt
+         *
+         * @param {number} xPos - The x position of the popup.
+         * @param {number} yPos - The y position of the popup.
+         * @param {number} btnHgt - The height of the buttons.
+         * @param {CWSYSTEM.CWFont} font - The font of the buttons.
+         * @param {number} pxlSize - The pixel size of the buttons.
+         * @param {number} xWidth - The x width of the buttons.
+         * @param {number} he - The height of the popup.
+         * @param {number} btnX - The x position of the buttons.
+         * @param {number} pHeight - The height of the popup.
+         * @param {number} hMt - The height of the margin.
          */
         popup$JCFont(xPos, yPos, btnHgt, font, pxlSize, xWidth,
-                     he, btnX, height5, hMt) {
+                     he, btnX, pHeight, hMt) {
             if (!this.isPoppedUp()) {
                 const hc = 0;
                 let pixel = 0;
-                let h1 = hc + height5;
+                let h1 = hc + pHeight;
                 let i;
                 for (i = 0; i < this.popupMenuItems.length; ++i) {
                     const popupMenuItem = this.popupMenuItems[i];
@@ -261,7 +208,7 @@
                     }
                 }
                 i = pixel + pxlSize;
-                h1 += height5;
+                h1 += pHeight;
                 const byteCalc = 0;
                 const w1 = byteCalc + 2 * btnX + 2 * xWidth + i;
                 const name = "POPUP_" + ((Math.random() * 10000.0) | 0);
@@ -271,7 +218,7 @@
                 this.window.ignoreWhenSavingAndRestoringEnvironment = true;
                 this.window.changeBackgroundColor$CWColor(new CWSYSTEM.CWColor(200, 200, 255, 150));
                 const base1 = 0;
-                let btnY = base1 + height5;
+                let btnY = base1 + pHeight;
                 for (let index = 0; index < this.popupMenuItems.length; index++) {
                     let menuItem = this.popupMenuItems[index];
                     {
@@ -295,19 +242,20 @@
                                 }
                             }
                             const btnLen = xWidth * 2 + i;
-                            const button = this.window.addButton$name$x$y$len$h$text$t$r(popupMenuItem.code,
-                                btnX, btnY, btnLen, btnHgt, strBullet, 9, 1);
+                            const button = this.window.addButton(popupMenuItem.code, btnX, btnY,
+                                btnLen, btnHgt, strBullet, CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON,
+                                CWSYSTEM.CWButton.PRESSED);
                             button.generalPurposeObject = popupMenuItem.generalPurposeObject;
                             button.secondText = popupMenuItem.text;
                             button.shortcutText = popupMenuItem.shortcutText;
                             button.secondTextHorizontalOffset = 10;
                             button.textAlignment = CWSYSTEM.CWButton.LEFT;
-                            button.textColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.navy_$LI$());
-                            button.bgColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$());
-                            button.secondaryBackgroundColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.lightGrey_$LI$());
-                            button.bgColorHighlighted = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.nearBlack_$LI$());
+                            button.textColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__navy());
+                            button.bgColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__white());
+                            button.secondaryBackgroundColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__lightGrey());
+                            button.bgColorHighlighted = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__nearBlack());
                             button.secondaryBackgroundColorHighlighted =
-                                new CWSYSTEM.CWColor(CWSYSTEM.CWColor.brightBlue_$LI$());
+                                new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__brightBlue());
                             button.fillStyle = CWSYSTEM.CWButton.LINEAR_GRADIENT;
                             button.onPressedMethod = popupMenuItem.executeMethodUponSelection;
                             button.onPressedObject = popupMenuItem.objectToInvokeExecuteMethodFrom;
@@ -322,6 +270,7 @@
 
         /**
          * Pops up the menu at the specified position.
+         *
          * @param {number} [xPos] - The x position of the popup.
          * @param {number} [yPos] - The y position of the popup.
          * @param {number} [btnHgt] - The height of the button.
@@ -364,6 +313,7 @@
 
         /**
          * Checks if the popup menu is popped up.
+         *
          * @returns {boolean} True if the popup menu is popped up, otherwise false.
          */
         isPoppedUp() {
@@ -371,11 +321,47 @@
         }
     }
 
+    /**
+     * Constant representing a right-click menu.
+     * @constant
+     * @type {number}
+     * @default
+     */
     CWPopupMenu.RIGHT_CLICK_MENU = 0;
+    /**
+     * Constant representing a connected menu.
+     * @constant
+     * @type {number}
+     * @default
+     */
     CWPopupMenu.CONNECTED_MENU = 1;
+    /**
+     * Constant representing the vertical offset from the menu.
+     * @constant
+     * @type {number}
+     * @default
+     */
     CWPopupMenu.verticalOffsetFromMenu = 5;
+    /**
+     * The right-click menu.
+     * @static
+     * @type {Object}
+     * @default
+     */
     CWPopupMenu.rightClickMenu = null;
+    /**
+     * The cycle in which a popup was opened.
+     * @static
+     * @type {number}
+     * @default
+     */
     CWPopupMenu.cycleInWhichPopupOpened = 0;
+    /**
+     * The margin for the separator.
+     * @static
+     * @type {number}
+     * @default
+     */
     CWPopupMenu.separatorMargin = 0;
     CWSYSTEM.CWPopupMenu = CWPopupMenu;
     CWPopupMenu["__class"] = "CWSYSTEM.CWPopupMenu";

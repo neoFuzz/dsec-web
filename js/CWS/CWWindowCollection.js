@@ -1,36 +1,54 @@
-/**/
 (function (CWSYSTEM) {
     /**
+     * A class for managing a collection of GUI windows.
      *
+     * @property {CWSYSTEM.CWWindow[]} cwWindow - An array of CWWindow objects.
+     * @property {CWSYSTEM.IntegerArray} depthSortedSequence - An array of window IDs sorted by depth.
+     * @property {CWSYSTEM.CWPopupMenu} rightClickPopupMenu - The right-click popup menu.
+     * @property {CWSYSTEM.VirtualScreen} virtualScreen - The virtual screen object.
+     * @property {number} __numberOfWindows - The number of windows currently managed by the CWWindowCollection object.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class CWWindowCollection {
+        /**
+         * Constructor for creating a new CWWindowCollection object.
+         *
+         * @param {CWSYSTEM.VirtualScreen} vs - The virtual screen object to associate with the window collection.
+         */
         constructor(vs) {
-            if (this.cwWindow === undefined) {
-                this.cwWindow = null;
-            }
-            if (this.depthSortedSequence === undefined) {
-                this.depthSortedSequence = new CWSYSTEM.IntegerArray(1);
-            }
-            if (this.rightClickPopupMenu === undefined) {
-                this.rightClickPopupMenu = null;
-            }
-            if (this.virtualScreen === undefined) {
-                this.virtualScreen = null;
-            }
-            if (this.__numberOfWindows === undefined) {
-                this.__numberOfWindows = 0;
-            }
+            this.depthSortedSequence = new CWSYSTEM.IntegerArray(1);
+            this.rightClickPopupMenu = null;
+            this.__numberOfWindows = 0;
             this.virtualScreen = vs;
             this.cwWindow = Array(CWWindowCollection.maxNumberOfWindows).fill(null);
             this.__numberOfWindows = 0;
         }
 
+        /**
+         * Returns the number of windows currently managed by the CWWindowCollection object.
+         *
+         * @returns {number} the number of windows stored
+         */
         numberOfWindows() {
             return this.__numberOfWindows;
         }
 
+        /**
+         * Retrieves a window by its name.
+         *
+         * @param {string} name The name of the window to retrieve.
+         * @returns {CWSYSTEM.CWWindow|null} The window with the specified name, or null if not found.
+         * @throws {Error} If the provided name is not a string or null.
+         */
         getWindow$byName(name) {
             for (let i = 0; i < this.__numberOfWindows; ++i) {
                 if (this.cwWindow[i].nameID === name) {
@@ -40,6 +58,13 @@
             return null;
         }
 
+        /**
+         * Retrieves a window by its ID.
+         *
+         * @param {number} name The ID of the window to retrieve.
+         * @returns {CWSYSTEM.CWWindow|null} The window with the specified ID, or null if not found.
+         * @throws {Error} If the provided name is not a string or null.
+         */
         getWindow(name) {
             if ((typeof name === 'string') || name === null) {
                 return this.getWindow$byName(name);
@@ -49,7 +74,14 @@
                 throw new Error('invalid overload');
         }
 
-        /** @private */
+        /**
+         * Retrieves the ID of a window by its name.
+         *
+         * @param {string} name The name of the window to retrieve the ID for.
+         * @returns {number} The ID of the window with the specified name, or -1 if not found.
+         * @throws {Error} If the provided name is not a string or null.
+         * @private
+         */
         getWindowID(name) {
             for (let i = 0; i < this.__numberOfWindows; ++i) {
 
@@ -60,13 +92,39 @@
             return -1;
         }
 
+        /**
+         * Retrieves a window by its ID.
+         *
+         * @param {number} intID The ID of the window to retrieve.
+         * @returns {CWSYSTEM.CWWindow} The window with the specified ID.
+         * @throws {Error} If the provided ID is not a number or null.
+         * @private
+         */
         getWindow$int(intID) {
             return this.cwWindow[intID];
         }
 
-        addWindow$fullDefinition(minW, minH, maxW, maxH, name, style, title, xPos, yPos, w, h, visible) {
+        /**
+         * Adds a new window to the collection.
+         *
+         * @param {number} minW The minimum width of the window.
+         * @param {number} minH The minimum height of the window.
+         * @param {number} maxW The maximum width of the window.
+         * @param {number} maxH The maximum height of the window.
+         * @param {string} name The name of the window.
+         * @param {CWWindowStyles} style The style of the window.
+         * @param {string} title The title of the window.
+         * @param {number} xPos The x-coordinate of the window.
+         * @param {number} yPos The y-coordinate of the window.
+         * @param {number} w The width of the window.
+         * @param {number} h The height of the window.
+         * @param {boolean} visible Whether the window is visible or not.
+         * @returns {CWSYSTEM.CWWindow|null} The newly added window, or null if the maximum number of windows has been reached.
+         */
+        addWindow$fullDefinition(minW, minH, maxW, maxH, name, style,
+                                 title, xPos, yPos, w, h, visible) {
             if (this.__numberOfWindows > CWWindowCollection.numberOfWindowsBeforeWarningsAppear) {
-                const message = "A large number of windows have appeared. The last window added was \'" + name + "\'.";
+                const message = "A large number of windows have appeared. The last window added was '" + name + "'.";
                 CWSYSTEM.CWSReference.alertManager.messageQueued(message);
                 console.error(message);
             }
@@ -82,6 +140,23 @@
             }
         }
 
+        /**
+         * Adds a new window to the collection.
+         *
+         * @param {string} name The name of the window.
+         * @param {number} minW The minimum width of the window.
+         * @param {number} minH The minimum height of the window.
+         * @param {number} maxW The maximum width of the window.
+         * @param {number} maxH The maximum height of the window.
+         * @param {CWWindowStyles} style The style of the window.
+         * @param {string} title The title of the window.
+         * @param {number} xPos The x-coordinate of the window.
+         * @param {number} yPos The y-coordinate of the window.
+         * @param {number} w The width of the window.
+         * @param {number} h The height of the window.
+         * @param {boolean} visible Whether the window is visible or not.
+         * @returns {CWSYSTEM.CWWindow|null} The newly added window, or null if the maximum number of windows has been reached.
+         */
         addWindow(minW, minH, maxW, maxH, name, style, title, xPos, yPos, w, h, visible) {
             if (((typeof minW === 'number') || minW === null) && ((typeof minH === 'number') || minH === null) && ((typeof maxW === 'number') || maxW === null) && ((typeof maxH === 'number') || maxH === null) && ((typeof name === 'string') || name === null) && ((typeof style === 'number') || style === null) && ((typeof title === 'string') || title === null) && ((typeof xPos === 'number') || xPos === null) && ((typeof yPos === 'number') || yPos === null) && ((typeof w === 'number') || w === null) && ((typeof h === 'number') || h === null) && ((typeof visible === 'boolean') || visible === null)) {
                 return this.addWindow$fullDefinition(minW, minH, maxW, maxH, name, style, title, xPos, yPos, w, h, visible);
@@ -91,9 +166,11 @@
                 throw new Error('invalid overload');
         }
 
-        /** Adds a window with the specified properties to the CWWindowCollection.
+        /**
+         * Adds a window with the specified properties to the CWWindowCollection.
+         *
          * @param {string} name - The name of the window.
-         * @param {number} style - The numerical style of the window.
+         * @param {CWWindowStyles} style - The numerical style of the window.
          * @param {string | null} title - The title of the window.
          * @param {number} xPos - The x-position of the window.
          * @param {number} yPos - The y-position of the window.
@@ -103,7 +180,7 @@
          */
         addWindow$name$style$title$x$y$w$h$v(name, style, title, xPos, yPos, w, h, visible) {
             if (this.__numberOfWindows > CWWindowCollection.numberOfWindowsBeforeWarningsAppear) {
-                const message = "A large number of windows have appeared. The last window added was \'" + name + "\'.";
+                const message = "A large number of windows have appeared. The last window added was '" + name + "'.";
                 CWSYSTEM.CWSReference.alertManager.messageQueued(message);
                 console.error(message);
             }
@@ -119,6 +196,11 @@
             }
         }
 
+        /**
+         * Destroys a window by its name.
+         *
+         * @param {string} name The name of the window to destroy.
+         */
         destroyWindow(name) {
             const window = this.getWindow$byName(name);
             if (window != null) {
@@ -136,6 +218,11 @@
             }
         }
 
+        /**
+         * Destroys all windows that are marked as terminated.
+         *
+         * @private
+         */
         destroyTerminallyIllWindows() {
             for (let i = 0; i < this.__numberOfWindows; ++i) {
                 if (this.cwWindow[i].toBeDestroyed) {
@@ -145,7 +232,13 @@
             }
         }
 
-        /** @private */
+        /**
+         * Deletes a window by its ID.
+         *
+         * @param {number} idNumber The ID of the window to delete.
+         * @returns {boolean} True if the window was successfully deleted, false otherwise.
+         * @private
+         */
         deleteWindow(idNumber) {
             if (idNumber >= 0 && idNumber < this.__numberOfWindows) {
                 for (let i = idNumber; i < this.__numberOfWindows - 1; ++i) {
@@ -160,6 +253,11 @@
             }
         }
 
+        /**
+         * Draws all windows in the collection.
+         *
+         * @returns {boolean} True if all windows were successfully drawn, false otherwise.
+         */
         drawWindows() {
             this.updateTextBoxCursors();
             let check = true;
@@ -175,7 +273,11 @@
             return check;
         }
 
-        /** @private */
+        /**
+         * Updates the cursor positions of all text boxes in the windows.
+         *
+         * @private
+         */
         updateTextBoxCursors() {
             for (let i = 0; i < this.__numberOfWindows; ++i) {
                 for (let j = 0; j < this.cwWindow[i].numberOfInputBoxes; ++j) {
@@ -184,6 +286,13 @@
             }
         }
 
+        /**
+         * Returns the ID of the window that the mouse is over.
+         *
+         * @param {number} x The x-coordinate of the mouse pointer.
+         * @param {number} y The y-coordinate of the mouse pointer.
+         * @returns {number} The ID of the window that the mouse is over, or -1 if none is found.
+         */
         windowThatMouseIsOver(x, y) {
             let z = -1;
             let z2 = -1;
@@ -196,6 +305,11 @@
             return z2;
         }
 
+        /**
+         * Moves a window to the top of the depth sorted sequence.
+         *
+         * @param {string} targetWindow The name of the window to move to the top.
+         */
         moveWindowToTopByName(targetWindow) {
             for (let i = 0; i < this.__numberOfWindows; ++i) {
                 if (this.cwWindow[i].nameID === targetWindow) {
@@ -204,15 +318,25 @@
             }
         }
 
+        /**
+         * Moves a window to the top of the depth sorted sequence.
+         *
+         * @param {string|CWSYSTEM.CWWindow} targetWindow The window to bring to the top.
+         */
         moveWindowToTop(targetWindow) {
             if (((typeof targetWindow === 'string') || targetWindow === null)) {
                 return this.moveWindowToTopByName(targetWindow);
-            } else if (((typeof targetWindow === 'number') || targetWindow === null)) {
+            } else if ((typeof targetWindow === 'number')) {
                 return this.moveWindowToTop$int(targetWindow);
             } else
                 throw new Error('invalid overload');
         }
 
+        /**
+         * Moves a window to the top of the depth sorted sequence.
+         *
+         * @param {number} iD The ID of the window to move to the top.
+         */
         moveWindowToTop$int(iD) {
             let i;
             for (i = 0; i < this.__numberOfWindows; ++i) {
@@ -230,6 +354,11 @@
             this.generateDepthSortedSequence();
         }
 
+        /**
+         * Deactivates all text areas in windows other than the specified window.
+         *
+         * @param {CWSYSTEM.CWWindow} window The window to keep active.
+         */
         deactivateTextAreasInWindowsOtherThan(window) {
             for (let i = 0; i < this.__numberOfWindows; ++i) {
                 if (this.cwWindow[i] !== window) {
@@ -240,31 +369,69 @@
             }
         }
 
+        /**
+         * Returns the button that the mouse is over, or null if none is found.
+         *
+         * @param {number} x The x-coordinate of the mouse pointer.
+         * @param {number} y The y-coordinate of the mouse pointer.
+         * @returns {CWButton|null} The button that the mouse is over, or null if none is found.
+         */
         buttonThatMouseIsOver(x, y) {
             const item = this.windowThatMouseIsOver(x, y);
             return item !== -1 ? this.cwWindow[item].buttonThatMouseIsOver(x, y) : null;
         }
 
+        /**
+         * Determines the input box that the mouse cursor is currently over.
+         *
+         * @param {number} x - The x-coordinate of the mouse cursor.
+         * @param {number} y - The y-coordinate of the mouse cursor.
+         * @returns {CWSYSTEM.CWInputBox|null} The input box object that the mouse cursor is over, or null if no input box is found.
+         */
         inputBoxThatMouseIsOver(x, y) {
             const item = this.windowThatMouseIsOver(x, y);
             return item !== -1 ? this.cwWindow[item].inputBoxThatMouseIsOver(x, y) : null;
         }
 
+        /**
+         * Determines the text area that the mouse cursor is currently over.
+         *
+         * @param {number} x - The x-coordinate of the mouse cursor.
+         * @param {number} y - The y-coordinate of the mouse cursor.
+         * @returns {CWSYSTEM.CWTextArea|null} The text area object that the mouse cursor is over, or null if no text area is found.
+         */
         textAreaThatMouseIsOver(x, y) {
             const item = this.windowThatMouseIsOver(x, y);
             return item !== -1 ? this.cwWindow[item].textAreaThatMouseIsOver(x, y) : null;
         }
 
+        /**
+         * Determines the checkbox that the mouse cursor is currently over.
+         *
+         * @param {number} x The x-coordinate of the mouse cursor.
+         * @param {number} y The y-coordinate of the mouse cursor.
+         * @returns {CWSYSTEM.CWCheckBox|null} The check box object that the mouse cursor is over, or null if no check box is found.
+         */
         checkBoxThatMouseIsOver(x, y) {
             const item = this.windowThatMouseIsOver(x, y);
             return item !== -1 ? this.cwWindow[item].checkBoxThatMouseIsOver(x, y) : null;
         }
 
+        /**
+         * Determines the pulldown that the mouse cursor is currently over.
+         *
+         * @param {number} x The x-coordinate of the mouse cursor.
+         * @param {number} y The y-coordinate of the mouse cursor.
+         * @returns {CWSYSTEM.CWPulldown|null} The pulldown object that the mouse cursor is over, or null if no pulldown is found.
+         */
         pulldownThatMouseIsOver(x, y) {
             const item = this.windowThatMouseIsOver(x, y);
             return item !== -1 ? this.cwWindow[item].pulldownThatMouseIsOver(x, y) : null;
         }
 
+        /**
+         * Generates a depth sorted sequence of windows.
+         */
         generateDepthSortedSequence() {
             const integerArray = new CWSYSTEM.IntegerArray(this.__numberOfWindows);
             for (let i = 0; i < this.__numberOfWindows; ++i) {
@@ -273,6 +440,9 @@
             this.depthSortedSequence = integerArray.sortedSequence();
         }
 
+        /**
+         * Ensures that all windows are within the virtual screen boundaries.
+         */
         ensureAllWindowsWithinVirtualScreen() {
             for (let i = 0; i < this.__numberOfWindows; ++i) {
                 const window = this.cwWindow[i];
@@ -310,7 +480,19 @@
         }
     }
 
+    /**
+     * The maximum number of windows that can be created.
+     * @type {number}
+     * @static
+     * @default
+     */
     CWWindowCollection.maxNumberOfWindows = 100;
+    /**
+     * The number of windows before warnings appear.
+     * @type {number}
+     * @static
+     * @default
+     */
     CWWindowCollection.numberOfWindowsBeforeWarningsAppear = 75;
     CWSYSTEM.CWWindowCollection = CWWindowCollection;
     CWWindowCollection["__class"] = "CWSYSTEM.CWWindowCollection";

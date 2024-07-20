@@ -133,11 +133,11 @@
                     if (dsector.PolygonIntersection.tri_tri_intersect(vert1, vert2, vert3, vert4, vert5, vert6) === 1) {
                         this.intersectedPolygon = new dsector.Polygon(
                             clPolygon.v1, clPolygon.v2, clPolygon.v3,
-                            new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$())
+                            new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__white())
                         );
                         positionedModel.intersectedPolygon = new dsector.Polygon(
                             colourlessPolygon.v1, colourlessPolygon.v2, colourlessPolygon.v3,
-                            new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$())
+                            new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__white())
                         );
                         return true;
                     }

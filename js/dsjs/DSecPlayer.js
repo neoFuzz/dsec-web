@@ -189,7 +189,7 @@
         }
 
         /** Returns the player's current score
-         * @return {number} */
+         * @returns {number} */
         score() {
             return this.__score;
         }

@@ -114,7 +114,6 @@
          * @param {number} e - The starting value of the parameter difference.
          * @param {number} f - The starting value of the y-coordinate difference.
          * @param {FloatPair} floatPair - An object to store the intersection point.
-         * @returns {void}
          */
         static ISECT(a, b, c, d, e, f, floatPair) {
             floatPair.set(Math.fround(a + (b - a) * d / (d - e)),

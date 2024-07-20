@@ -1,11 +1,21 @@
-/**/
 (function (CWSYSTEM) {
     /**
      * Provides utility functions for the CWSYSTEM.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class CWUtils {
+        /**
+         * Initializes a new instance of the CWUtils class.
+         */
         constructor() {
             CWUtils.initialize();
         }
@@ -22,6 +32,7 @@
 
         /**
          * Returns the maximum Y value.
+         *
          * @returns {number} The maximum Y value.
          */
         static maxY_$LI$() {
@@ -31,6 +42,7 @@
 
         /**
          * Returns the multi-segment scan line.
+         *
          * @returns {Array} The multi-segment scan line.
          */
         static multiSegmentScanLine_$LI$() {
@@ -40,6 +52,7 @@
 
         /**
          * Returns the scan line length.
+         *
          * @returns {Array} The scan line length.
          */
         static scanLineLength_$LI$() {
@@ -49,6 +62,7 @@
 
         /**
          * Returns the overlapping segment.
+         *
          * @returns {Array} The overlapping segment.
          */
         static overlappingSegment_$LI$() {
@@ -81,6 +95,7 @@
 
         /**
          * Adds a segment to the scan line.
+         *
          * @param {number} index - The index of the scan line.
          * @param {number} start - The start position of the segment.
          * @param {number} end - The end position of the segment.
@@ -135,6 +150,7 @@
 
         /**
          * Displays the scan line.
+         *
          * @param {number} line - The line number to display.
          */
         static displayScanLine(line) {
@@ -155,6 +171,7 @@
 
         /**
          * Rounds a float to a specified number of decimal places.
+         *
          * @param {number} value - The value to round.
          * @param {number} places - The number of decimal places.
          * @returns {number} The rounded value.
@@ -166,11 +183,11 @@
 
         /**
          * Fills a portion of an array with a specified value.
+         *
          * @param {Array} array - The target array to be filled.
          * @param {number} fromIndex - The index to start filling from (inclusive).
          * @param {number} toIndex - The index to stop filling at (exclusive).
          * @param {*} value - The value to fill the array with.
-         * @returns {void}
          */
         static fillArray(array, fromIndex, toIndex, value) {
             for (let i = fromIndex; i < toIndex; i++) {
@@ -180,6 +197,7 @@
 
         /**
          * Copies elements from the source array to the destination array.
+         *
          * @param {Array} srcPts - The source array from which elements will be copied.
          * @param {number} srcOff - The starting index in the source array.
          * @param {Array} dstPts - The destination array to which elements will be copied.
@@ -199,7 +217,9 @@
             }
         }
 
-        /** Runs a multi-segment scan line test */
+        /**
+         *  Runs a multi-segment scan line test.
+         */
         multiSegmentScanLineTest() {
             CWUtils.addSegmentToScanLine(1, 40, 50);
             CWUtils.displayScanLine(1);

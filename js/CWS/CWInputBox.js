@@ -1,14 +1,39 @@
-/* re-written from Java */
 (function (CWSYSTEM) {
     /**
      * Represents an input box within the application, allowing for text input and interaction.
      * This class manages the creation, display, and functionality of an input box, including text entry and deletion.
+     *
+     * @property {CWSYSTEM.CWWindow} parentWindow - The parent window to which this input box belongs.
+     * @property {string} name - The name of the input box.
+     * @property {number} x - The x-coordinate of the input box within the parent window.
+     * @property {number} y - The y-coordinate of the input box within the parent window.
+     * @property {number} length - The length of the input box.
+     * @property {number} height - The height of the input box.
+     * @property {string} text - The text currently displayed in the input box.
+     * @property {CWSYSTEM.CWColor} borderColor - The color of the input box border.
+     * @property {CWSYSTEM.CWColor} bgColor - The background color of the input box.
+     * @property {CWSYSTEM.CWColor} textColor - The color of the text in the input box.
+     * @property {boolean} blinkState - The current blink state of the input box cursor.
+     * @property {Object} objectContainingInputBoxChangedMethod - The object containing the method to be called when the input box text changes.
+     * @property {Object} objectContainingInputBoxReturnTypedMethod - The object containing the method to be called when the input box text is returned (e.g., on Enter key press).
+     * @property {Object} generalPurposeObject - An optional object to associate with the input box.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof CWSYSTEM
+     * @requires CWSYSTEM.CWColor
+     * @requires CWSYSTEM.CWWindow
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class CWInputBox {
         /**
          * Constructs a new CWInputBox instance.
+         *
          * @param {CWSYSTEM.CWWindow} parent - The parent window to which this input box belongs.
          * @param {string} name - The name of the input box.
          * @param {number} x - The x-coordinate of the input box within the parent window.
@@ -37,18 +62,20 @@
 
         /**
          * Returns the default border color for the input box.
+         *
          * @static
          * @returns {CWSYSTEM.CWColor} The default border color.
          */
         static defaultBorderColor_$LI$() {
             if (CWInputBox.defaultBorderColor == null) {
-                CWInputBox.defaultBorderColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$());
+                CWInputBox.defaultBorderColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__white());
             }
             return CWInputBox.defaultBorderColor;
         }
 
         /**
          * Returns the default background color for the input box.
+         *
          * @static
          * @returns {CWSYSTEM.CWColor} The default background color. */
         static defaultBGColor_$LI$() {
@@ -60,16 +87,22 @@
 
         /**
          * Returns the default text color for the input box.
+         *
          * @static
          * @returns {CWSYSTEM.CWColor} The default text color.
          */
         static defaultTextColor_$LI$() {
             if (CWInputBox.defaultTextColor == null) {
-                CWInputBox.defaultTextColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.black_$LI$());
+                CWInputBox.defaultTextColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__black());
             }
             return CWInputBox.defaultTextColor;
         }
 
+        /**
+         * Informs the associated object that the input box submission has been triggered.
+         *
+         * @see informSuppliedObjectInputBoxSubmitted
+         */
         returnTyped() {
             this.informSuppliedObjectInputBoxSubmitted();
         }
@@ -77,6 +110,7 @@
         /**
          * Adds a character to the input box's text.
          * This method checks if the character exists in the font and if adding it does not exceed the input box's length.
+         *
          * @param {string} char - The character to add to the input box's text.
          */
         addCharacter(char) {
@@ -106,6 +140,7 @@
          * Notifies the associated object about the new value of the input box.
          * This method is invoked whenever the text in the input box changes, either through adding or deleting characters.
          * It serves to inform any listening objects that the input box's value has been updated.
+         *
          * @private
          */ informSuppliedObjectAboutNewInputBoxValue() {
             if (this.objectContainingInputBoxChangedMethod != null) {
@@ -129,7 +164,9 @@
         /**
          * Informs the associated object that the input box submission has been triggered.
          * This method is typically called when the user submits the input (e.g., by pressing Enter).
-         * @private */ informSuppliedObjectInputBoxSubmitted() {
+         *
+         * @private
+         */ informSuppliedObjectInputBoxSubmitted() {
             if (this.objectContainingInputBoxReturnTypedMethod != null) {
                 const classes = [this.constructor];
                 try {
@@ -144,7 +181,7 @@
                     declaredMethod.fn.apply(this.objectContainingInputBoxReturnTypedMethod, [objects]);
                 } catch (ex) {
                     console.error("A problem occurred in CWWindow.informSuppliedObjectInputBoxSubmitted() for" +
-                        " input box \'" + this.name + "\': " + ex);
+                        " input box '" + this.name + "': " + ex);
                 }
             }
         }
@@ -153,6 +190,7 @@
          * Manages the cursor's blink state within the input box.
          * This method checks if the input box is selected and updates the cursor's blink state based on the current time.
          * It should be called periodically to ensure the cursor's visibility is updated appropriately.
+         *
          * @private
          */
         checkCursor() {

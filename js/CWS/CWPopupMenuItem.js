@@ -1,14 +1,34 @@
-/**/
 (function (CWSYSTEM) {
     /**
-     * Represents a popup menu item.
+     * A class that is used to represent a popup menu item.
+     *
+     * @property {number} type - The type of the menu item.
+     * @property {string|null} code - The code associated with the menu item.
+     * @property {string|null} text - The display text of the menu item.
+     * @property {string|null} shortcutText - The shortcut text for the menu item.
+     * @property {boolean} bulletStatus - The bullet status of the menu item.
+     * @property {Object|null} generalPurposeObject - The object from which the method is invoked.
+     * @property {Function|null} bulletStatusDeterminedByMethod - The method to determine bullet status.
+     * @property {Object|null} objectThatMethodInvokedFrom - The object from which the method is invoked.
+     * @property {Function|null} executeMethodUponSelection - The method to execute upon selection.
+     * @property {Object|null} objectToInvokeExecuteMethodFrom - The object to invoke the execute method from.
+     * @property {Array|null} parametersForExecuteMethod - The parameters for the execute method.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof CWSYSTEM
+     * @requires CWSYSTEM.CWPopupMenu
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class CWPopupMenuItem {
         /**
          * Creates an instance of CWPopupMenuItem.
-         * @constructor
+         *
          * @param {number} type - The type of the menu item.
          * @param {string|null} code - The code associated with the menu item.
          * @param {string|null} text - The display text of the menu item.
@@ -60,6 +80,7 @@
 
         /**
          * Gets the bullet status of the menu item.
+         *
          * @returns {boolean} The bullet status of the menu item.
          */
         bulletStatus() {
@@ -80,14 +101,17 @@
 
     /** Normal menu item type.
      * @constant {number}
+     * @static
      */
     CWPopupMenuItem.NORMAL = 0;
     /** Bulleted menu item type.
      * @constant {number}
+     * @static
      */
     CWPopupMenuItem.BULLETED = 1;
     /** Separator menu item type.
      * @constant {number}
+     * @static
      */
     CWPopupMenuItem.SEPARATOR = 2;
     CWSYSTEM.CWPopupMenuItem = CWPopupMenuItem;

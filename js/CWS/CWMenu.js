@@ -1,34 +1,32 @@
-/**/
 (function (CWSYSTEM) {
     /**
-     * Class representing a menu in the system.
+     * Class representing a menu in the Canvas Windowing system.
+     *
+     * @property {CWSYSTEM.CWWindow|null} window - The window associated with this menu (if any).
+     * @property {string} name - The name of the menu.
+     * @property {Array<CWSYSTEM.CWPopupMenu>} popupMenus - The list of popup menus associated with this menu.
+     * @property {number} mode - The mode of the menu (active or inactive).
+     * @property {number} buildX - The x-coordinate for building the menu.
+     * @property {number} buildY - The y-coordinate for building the menu.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class CWMenu {
         /**
          * Create a CWMenu.
+         *
          * @param {string} name - The name of the menu.
          */
         constructor(name) {
-            if (this.popupMenus === undefined) {
-                this.popupMenus = null;
-            }
-            if (this.window === undefined) {
-                this.window = null;
-            }
-            if (this.mode === undefined) {
-                this.mode = 0;
-            }
-            if (this.name === undefined) {
-                this.name = null;
-            }
-            if (this.buildX === undefined) {
-                this.buildX = 0;
-            }
-            if (this.buildY === undefined) {
-                this.buildY = 0;
-            }
+            this.window = null;
             this.name = name;
             this.popupMenus = ([]);
             this.mode = CWMenu.INACTIVE;
@@ -38,6 +36,7 @@
 
         /**
          * Handle mouse click events for menus.
+         *
          * @static
          */
         static mouseClicked() {
@@ -54,6 +53,7 @@
 
         /**
          * Handle the event when a menu title is pressed.
+         *
          * @param {string} pressed - The name of the pressed menu title.
          * @static
          */
@@ -72,8 +72,8 @@
                     }
                 }
                 if (cwWindow == null) {
-                    CWSYSTEM.CWSReference.alertManager.messageQueued("A button was pressed with name \'" +
-                        pressed + "\' but no menu was found for this window.");
+                    CWSYSTEM.CWSReference.alertManager.messageQueued("A button was pressed with name '" +
+                        pressed + "' but no menu was found for this window.");
                 } else {
                     const menuManager = cwWindow.menuManager;
                     menuManager.destroyAllOpenPopupMenus();
@@ -91,6 +91,7 @@
 
         /**
          * Handle the event when the mouse is moved over a button.
+         *
          * @param {CWSYSTEM.CWButton} cwBtn - The button being hovered over.
          * @static
          */
@@ -102,18 +103,18 @@
                     btnName, '(', ')')[0];
                 const gap = parseInt(
                     CWSYSTEM.CWStringTools.messagesBetweenCharacters(btnName, '[', ']')[0]);
-                let win0 = null;
+                let wind = null;
                 for (let i = 0; i < CWSYSTEM.CWSReference.gui.numberOfWindows(); ++i) {
-                    const win1 = CWSYSTEM.CWSReference.gui.getWindow$int(i);
-                    if (win1.menuManager != null && (win1.menuManager.name === msgBtwnChar)) {
-                        win0 = win1;
+                    const gcw = CWSYSTEM.CWSReference.gui.getWindow$int(i);
+                    if (gcw.menuManager != null && (gcw.menuManager.name === msgBtwnChar)) {
+                        wind = gcw;
                         break;
                     }
                 }
-                if (win0.menuManager == null) {
+                if (wind.menuManager === null) {
                     return;
                 }
-                const menuManager = win0.menuManager;
+                const menuManager = wind.menuManager;
                 if (menuManager.mode === CWMenu.ACTIVE) {
                     menuManager.destroyAllOpenPopupMenus();
                     const popupMenu = menuManager.popupMenus[gap];
@@ -124,6 +125,7 @@
 
         /**
          * Add a popup menu to the menu.
+         *
          * @param {CWSYSTEM.CWPopupMenu} popupMenu - The popup menu to add.
          */
         addMenu(popupMenu) {
@@ -132,6 +134,7 @@
 
         /**
          * Set the build position of the menu.
+         *
          * @param {number} buildX - The x-coordinate for the build position.
          * @param {number} buildY - The y-coordinate for the build position.
          */
@@ -141,16 +144,17 @@
         }
 
         /**
-         * Build the menu.
+         * Build a basic menu.
          */
         build$() {
-            this.build$int$int$int$Font$int$int$int$int(
+            this.build(
                 this.buildX, this.buildY, 15, CWSYSTEM.CWSReference.virtualScreen.serif8_font,
                 7, 1, 0, 0);
         }
 
         /**
          * Build the menu with specified parameters.
+         *
          * @param {number} buildX - The x-coordinate for the build position.
          * @param {number} buildY - The y-coordinate for the build position.
          * @param {number} height - The height of the menu.
@@ -160,8 +164,8 @@
          * @param {number} width - The width of the menu.
          * @param {number} y1 - The y-coordinate offset for the build position.
          */
-        build$int$int$int$Font$int$int$int$int(buildX, buildY, height,
-                                               font, inWidth, maxWidth, width, y1) {
+        build(buildX, buildY, height,
+              font, inWidth, maxWidth, width, y1) {
             const baseW = 0;
             let width1 = baseW + width;
             let height1;
@@ -186,44 +190,16 @@
             for (let k = 0; k < this.popupMenus.length; ++k) {
                 const popupMenu = this.popupMenus[k];
                 const length2 = inWidth * 2 + CWSYSTEM.CWFontTools.textLengthInPixels(popupMenu.menuTitle, font);
-                const button = this.window.addButton$name$x$y$len$h$text$t$r(
-                    "MENU_BUTTON(" + this.name + ")[" + k + "]", x1, y1, length2, height,
-                    popupMenu.menuTitle, 9, 1);
+                const button = this.window.addButton("MENU_BUTTON(" + this.name + ")[" + k + "]",
+                    x1, y1, length2, height, popupMenu.menuTitle,
+                    CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.PRESSED);
                 button.textColor = new CWSYSTEM.CWColor(0, 0, 100, 255);
-                button.bgColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$());
+                button.bgColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__white());
                 button.secondaryBackgroundColor = new CWSYSTEM.CWColor(180, 180, 180, 255);
-                button.bgColorHighlighted = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.nearBlack_$LI$());
-                button.secondaryBackgroundColorHighlighted = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.brightBlue_$LI$());
+                button.bgColorHighlighted = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__nearBlack());
+                button.secondaryBackgroundColorHighlighted = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__brightBlue());
                 button.fillStyle = CWSYSTEM.CWButton.LINEAR_GRADIENT;
                 x1 += length2 + maxWidth;
-            }
-        }
-
-        /**
-         * Build the menu with various overloads.
-         * @param {number} [buildX] - The x-coordinate for the build position.
-         * @param {number} [buildY] - The y-coordinate for the build position.
-         * @param {number} [height] - The height of the menu.
-         * @param {CWSYSTEM.CWFont} [font] - The font used in the menu.
-         * @param {number} [inWidth] - The inner width of the menu.
-         * @param {number} [maxWidth] - The maximum width of the menu.
-         * @param {number} [width] - The width of the menu.
-         * @param {number} [y1] - The y-coordinate offset for the build position.
-         */
-        build(buildX, buildY, height, font, inWidth,
-              maxWidth, width, y1) {
-            if (typeof buildX === 'number' && typeof buildY === 'number' &&
-                typeof height === 'number' && font instanceof CWSYSTEM.CWFont &&
-                typeof inWidth === 'number' && typeof maxWidth === 'number' &&
-                typeof width === 'number' && typeof y1 === 'number') {
-                return this.build$int$int$int$Font$int$int$int$int(buildX, buildY, height, font,
-                    inWidth, maxWidth, width, y1);
-            } else if (buildX === undefined && buildY === undefined && height === undefined &&
-                font === undefined && inWidth === undefined && maxWidth === undefined &&
-                width === undefined && y1 === undefined) {
-                return this.build$();
-            } else {
-                throw new Error('Invalid overload');
             }
         }
 
@@ -252,6 +228,7 @@
 
         /**
          * Get the menu button corresponding to a given popup menu.
+         *
          * @param {CWSYSTEM.CWPopupMenu} popupMenu - The popup menu.
          * @returns {CWSYSTEM.CWButton|null} The corresponding menu button, or null if not found.
          */
@@ -269,13 +246,15 @@
 
     /**
      * Menu inactive state constant.
-     * @constant {number}
+     * @constant
+     * @type {number}
      * @default
      */
     CWMenu.INACTIVE = 0;
     /**
      * Menu active state constant.
-     * @constant {number}
+     * @constant
+     * @type {number}
      * @default
      */
     CWMenu.ACTIVE = 1;

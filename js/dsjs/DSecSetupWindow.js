@@ -188,7 +188,7 @@
             const font = dsector.DSReference.virtualScreen.serif8_font;
             this.window = dsector.DSReference.gui.addWindow$name$style$title$x$y$w$h$v("DSECTORSETUP", 3,
                 null, initX, initY, 440, 390, true);
-            const color = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$());
+            const color = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__white());
             this.window.addTextBlock("", "Right-click over playfield to adjust options during game",
                 10, 30, font, color, 999);
             this.window.addTextBlock("", "Default camera mode", 10, 70, font, color, 999);
@@ -376,7 +376,8 @@
             const kbMsg = "Assigning different keys to each keyboard layout allows players to play from one computer" + " and share the same keyboard. External USB keyboards can be plugged in for greater comfort.";
             this.window.addTextBlock("", kbMsg, 10, 350, font, color, 420);
             let button;
-            button = this.window.addButton$name$x$y$len$h$text$t$r("", 394, 370, 40, 15, "Done", 9, 0);
+            button = this.window.addButton("", 394, 370, 40, 15, "Done",
+                CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
             button.objectContainingButtonPressedMethod = this;
             button.buttonPressedMethodName = "doneButtonPressed";
         }
@@ -460,7 +461,7 @@ keyboard${i + 1}ChangeWeapon=${DSecSetupWindow.dsecKeyboardLayout[i].changeWeapo
             if (ht === null || ht.hashMap === null) {
                 ht = null;
             }
-            console.log(ht);
+            CWSYSTEM.Debug.println(ht);
             let exceptionList = [];
             //const x = [String.fromCharCode(10)];
             try {
@@ -500,7 +501,7 @@ keyboard${i + 1}ChangeWeapon=${DSecSetupWindow.dsecKeyboardLayout[i].changeWeapo
             }
             try {
                 c = parseInt(ht.get("startingCredits"));
-                console.log(`"${ht.get("startingCredits")}\nStarting Creds: ${c}`);
+                CWSYSTEM.Debug.println(`"${ht.get("startingCredits")}\nStarting Creds: ${c}`);
                 this.startingCredits = isNaN(c) ? 0 : c;
             } catch (e) {
                 this.startingCredits = 0;

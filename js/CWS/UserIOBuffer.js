@@ -1,25 +1,60 @@
-/* * */
 (function (dsector) {
     /**
      * Contains the basic user input processing and handling.
+     *
+     * @property {CWSYSTEM.IOInstruction[]} instructions - An array of IOInstruction objects representing user input events.
+     * @property {boolean} buttonActionPerformedOnButtonPressed - Whether a button action was performed on button press.
+     *
      * @todo decouple from dsector like CWSReference
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class UserIOBuffer {
+        /**
+         * Constructor for creating a new UserIOBuffer object.
+         *
+         * @access public
+         */
         constructor() {
             this.instructions = ([]);
             this.buttonActionPerformedOnButtonPressed = false;
         }
 
+        /**
+         * Adds a mouse entered event to the instructions array.
+         *
+         * @access public
+         * @param {number} x - The x-coordinate of the mouse event.
+         * @param {number} y - The y-coordinate of the mouse event.
+         */
         addMouseEnteredEvent(x, y) {
             this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.mouseEntered, x, y));
         }
 
+        /**
+         * Adds a mouse exited event to the instructions array.
+         *
+         * @access public
+         * @param {number} x - The x-coordinate of the mouse event.
+         * @param {number} y - The y-coordinate of the mouse event.
+         */
         addMouseExitedEvent(x, y) {
             this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.mouseExited, x, y));
         }
 
+        /**
+         * Adds a mouse pressed event to the instructions array.
+         *
+         * @access public
+         * @param {MouseEvent} mouseEvent - The mouse event object.
+         */
         addMousePressedEvent(mouseEvent) {
             if (mouseEvent.button === 0) {
                 CWSYSTEM.Environment.lastMouseButtonPressed = CWSYSTEM.Environment.MOUSE_LEFT;
@@ -32,6 +67,12 @@
             }
         }
 
+        /**
+         * Adds a mouse released event to the instructions array.
+         *
+         * @access public
+         * @param {MouseEvent} mouseEvent - The mouse event object.
+         */
         addMouseReleasedEvent(mouseEvent) {
             if (mouseEvent.button === 0) {
                 CWSYSTEM.Environment.lastMouseButtonPressed = CWSYSTEM.Environment.MOUSE_LEFT;
@@ -44,6 +85,12 @@
             }
         }
 
+        /**
+         * Adds a mouse clicked event to the instructions array.
+         *
+         * @access public
+         * @param {MouseEvent} mouseEvent - The mouse event object.
+         */
         addMouseClickedEvent(mouseEvent) {
             let x = mouseEvent.x;
             let y = mouseEvent.y;
@@ -79,18 +126,44 @@
             }
         }
 
+        /**
+         * Adds a mouse dragged event to the instructions array.
+         *
+         * @access public
+         * @param {number} x - The x-coordinate of the mouse event.
+         * @param {number} y - The y-coordinate of the mouse event.
+         */
         addMouseDraggedEvent(x, y) {
             this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.mouseDragged, x, y));
         }
 
+        /**
+         * Adds a mouse moved event to the instructions array.
+         *
+         * @access public
+         * @param {number} x - The x-coordinate of the mouse event.
+         * @param {number} y - The y-coordinate of the mouse event.
+         */
         addMouseMovedEvent(x, y) {
             this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.mouseMoved, x, y));
         }
 
+        /**
+         * Adds a key typed event to the instructions array.
+         *
+         * @access public
+         * @param {number} c - The character code of the key typed event.
+         */
         addKeyTypedEvent(c) {
             this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.keyTyped, c));
         }
 
+        /**
+         * Adds a key pressed event to the instructions array.
+         *
+         * @access public
+         * @param {number} evt - The key code of the key pressed event.
+         */
         addKeyPressedEvent(evt) {
             this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.keyPressed, evt));
             if (evt === 27) {
@@ -99,10 +172,21 @@
             }
         }
 
+        /**
+         * Adds a key released event to the instructions array.
+         *
+         * @access public
+         * @param {number} keyCode - The key code of the key released event.
+         */
         addKeyReleasedEvent(keyCode) {
             this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.keyReleased, keyCode));
         }
 
+        /**
+         * Clears the instructions array.
+         *
+         * @access public
+         */
         clear() {
             while ((!(this.instructions.length === 0))) {
                 const ioInstruction = this.instructions[0];
@@ -124,6 +208,11 @@
             CWSYSTEM.Environment.VK_q_Pressed = false;
         }
 
+        /**
+         * Processes the instructions in the instructions array.
+         *
+         * @access public
+         */
         process() {
             CWSYSTEM.CWSReference.virtualScreen.cancelOption = false;
             CWSYSTEM.Environment.ESCKeyPressedDuringThisCycle = false;
@@ -192,7 +281,9 @@
             this.handleGamePads();
         }
 
-        /** Check game pads are connected then processes each game pad's pending actions
+        /**
+         * Check game pads are connected then processes each game pad's pending actions
+         *
          * @private
          */
         handleGamePads() {
@@ -203,7 +294,13 @@
             });
         }
 
-        /** @private */
+        /**
+         * Processes the game pad's pending actions
+         *
+         * @param {Gamepad} joy - The game pad object
+         * @param {number} joyId - The game pad's ID
+         * @private
+         */
         processGamePad(joy, joyId) {
             let gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads() : []);
             let buttonPressed = false;
@@ -333,7 +430,7 @@
                     this.instructions.push(new CWSYSTEM.IOInstruction(keyMode, (keySelector + 10)));
                 }
                 if (i === 5) {
-                    console.log("hit " + i)
+                    CWSYSTEM.Debug.println("hit " + i)
                 }
             }*/
             joy.gamePadButtons = gamePadButtons;
@@ -341,6 +438,12 @@
             dsector.DSReference.jsu.joysticksActive.set(joyId, joy);
         }
 
+        /**
+         * Handles mouse movement and updates the mouse position and button hover state
+         *
+         * @param {number} x - The x position of the mouse
+         * @param {number} y - The y position of the mouse
+         */
         mouseMoved(x, y) {
             CWSYSTEM.Environment.mouseX = x;
             CWSYSTEM.Environment.mouseY = y;
@@ -373,13 +476,23 @@
             }
         }
 
-        /** @private */
+        /**
+         * Handles mouse press events and performs the appropriate actions
+         *
+         * @private
+         */
         mousePressedFinalize() {
             CWSYSTEM.CWMenu.mouseClicked();
             CWSYSTEM.CWPopupMenu.mouseClicked();
         }
 
-        /** @private */
+        /**
+         * Handles mouse press events and performs the appropriate actions
+         *
+         * @param {number} xPos - The x position of the mouse
+         * @param {number} yPos - The y position of the mouse
+         * @private
+         */
         mouseLeftPressed(xPos, yPos) {
             CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed = true;
             const mouseIsOver = dsector.DSReference.gui.windowThatMouseIsOver(xPos, yPos);
@@ -421,7 +534,7 @@
                     const cwChkBox = dsector.DSReference.gui.checkBoxThatMouseIsOver(xPos, yPos);
                     if (cwChkBox != null) {
                         if (cwChkBox.isRadioButton()) {
-                            cwChkBox.selected$boolean(true);
+                            cwChkBox.setSelected(true);
                             this.mousePressedFinalize();
                         } else {
                             cwChkBox.invertSelectedState();
@@ -491,7 +604,13 @@
             }
         }
 
-        /** @private */
+        /**
+         * Handles right mouse press events and performs the appropriate actions
+         *
+         * @param {number} x - The x position of the mouse
+         * @param {number} y - The y position of the mouse
+         * @private
+         */
         mouseRightPressed(x, y) {
             CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed = true;
             const ref = dsector.DSReference.gui.windowThatMouseIsOver(x, y);
@@ -509,7 +628,13 @@
             }
         }
 
-        /** @private */
+        /**
+         * Handles mouse release events and performs the appropriate actions
+         *
+         * @param {number} x - The x position of the mouse
+         * @param {number} y - The y position of the mouse
+         * @private
+         */
         mouseLeftReleased(x, y) {
             CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed = false;
             dsector.DSReference.mouseDrag.release(x, y);
@@ -519,12 +644,24 @@
             dsector.DSReference.interfaceProcesses.processMouseRelease();
         }
 
-        /** @private */
+        /**
+         * Handles right mouse release events and performs the appropriate actions
+         *
+         * @param {number} x - The x position of the mouse
+         * @param {number} y - The y position of the mouse
+         * @private
+         */
         mouseRightReleased(x, y) {
             CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed = false;
         }
 
-        /** @private */
+        /**
+         * Handles mouse double click events and performs the appropriate actions
+         *
+         * @param {number} x - The x position of the mouse
+         * @param {number} y - The y position of the mouse
+         * @private
+         */
         mouseDoubleLeftClicked(x, y) {
             const ref = dsector.DSReference.gui.windowThatMouseIsOver(x, y);
             if (ref !== -1) {
@@ -532,12 +669,25 @@
             }
         }
 
-        /** @private */
+        /**
+         * Handles right mouse double click events and performs the appropriate actions
+         *
+         * @deprecated This method is deprecated and will be updated in a future version.
+         * @param {number} x - The x position of the mouse
+         * @param {number} y - The y position of the mouse
+         * @private
+         */
         mouseDoubleRightClicked(x, y) {
             CWSYSTEM.Debug.print("");
         }
 
-        /** @private */
+        /**
+         * Handles left mouse click events and performs the appropriate actions
+         *
+         * @param {number} x - The x position of the mouse
+         * @param {number} y - The y position of the mouse
+         * @private
+         */
         mouseLeftClicked(x, y) {
             if (this.buttonActionPerformedOnButtonPressed) {
                 this.buttonActionPerformedOnButtonPressed = false;
@@ -553,20 +703,42 @@
             }
         }
 
-        /** @private */
+        /**
+         * Handles right mouse click events and performs the appropriate actions
+         *
+         * @param {number} x - The x position of the mouse
+         * @param {number} y - The y position of the mouse
+         * @note outputs a log message since it isn't used yet
+         * @private
+         */
         mouseRightClicked(x, y) {
             CWSYSTEM.Debug.print("RC X: " + x + " | Y: " + y);
         }
 
+        /**
+         * Handles tab key press events and performs the appropriate actions
+         *
+         * @private
+         */
         tabKeyPressed() {
             dsector.DSReference.interfaceProcesses.processKeyboardPress(9);
         }
 
-        /** @private */
+        /**
+         * Handles key typed events and performs the appropriate actions
+         *
+         * @param {string} c - The character typed
+         * @private
+         */
         keyTyped(c) {
             dsector.DSReference.interfaceProcesses.processKeyboardChar(c);
         }
 
+        /**
+         * Handles key press events and performs the appropriate actions
+         *
+         * @param {number} keycode - The key code of the pressed key
+         */
         keyPressed(keycode) {
             CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed = true;
             switch (keycode) {
@@ -589,6 +761,11 @@
             dsector.DSReference.interfaceProcesses.processKeyboardPress(keycode);
         }
 
+        /**
+         * Handles key release events and performs the appropriate actions
+         *
+         * @param {number} keycode - The key code of the released key
+         */
         keyReleased(keycode) {
             CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed = false;
             switch (keycode) {
@@ -612,6 +789,11 @@
         }
     }
 
+    /**
+     * The minimum guaranteed size of the buffer.
+     * @static
+     * @type {number}
+     */
     UserIOBuffer.minimumGuaranteedBufferSize = 20;
     dsector.UserIOBuffer = UserIOBuffer;
     UserIOBuffer["__class"] = "dsector.UserIOBuffer";

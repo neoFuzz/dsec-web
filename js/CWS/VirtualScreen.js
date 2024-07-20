@@ -1,35 +1,41 @@
-/**/
 (function (CWSYSTEM) {
     /**
-     * @classdesc VirtualScreen class representing a virtual screen for rendering graphics.
-     * @name VirtualScreen
-     * @typedef {Object} VirtualScreen
-     * @property {ImageData} bi - ImageData object used for rendering
-     * @property {CWSYSTEM.ScreenData} background - Background screen data
-     * @property {CWSYSTEM.ScreenData} subFrame - Subframe screen data
-     * @property {CWSYSTEM.ScreenData} actualScreen - Actual screen data
-     * @property {Array<CWSYSTEM.ScreenData>} subFrames - Array of subframe screen data
-     * @property {Array<number>} leftScanLine - Array representing the left scan line
-     * @property {Array<number>} rightScanLine - Array representing the right scan line
-     * @property {number} subFrameCount - Count of subframes
-     * @property {number} defaultColor - Default color value
-     * @property {boolean} drawCompleteBackground - Flag indicating if the complete background should be drawn
-     * @property {boolean} subFrameRefresh - Flag indicating if the subframe needs to be refreshed
-     * @property {CWSYSTEM.CWFont} serif8_font - Font object for serif8 font
-     * @property {CWSYSTEM.CWFont} serif11_font - Font object for serif11 font
-     * @property {CWSYSTEM.CWFont} small_font - Font object for small font
-     * @property {CWSYSTEM.CWFont} jcsmallfixed_font - Font object for jcsmallfixed font
-     * @property {number} physicalWidth - Physical width of the screen
-     * @property {number} physicalHeight - Physical height of the screen
-     * @property {number} topInset - Top inset of the screen
-     * @property {string} backgroundImage - Path to the background image
+     * VirtualScreen class representing a virtual screen for rendering graphics.
+     * It is the primary area GUI components are drawn.
+     *
+     * @property {ImageData} bi - ImageData object used for rendering.
+     * @property {CWSYSTEM.ScreenData} background - Background screen data.
+     * @property {CWSYSTEM.ScreenData} subFrame - Subframe screen data.
+     * @property {CWSYSTEM.ScreenData} actualScreen - Actual screen data.
+     * @property {Array<CWSYSTEM.ScreenData>} subFrames - Array of subframe screen data.
+     * @property {Array<number>} leftScanLine - Array representing the left scan line.
+     * @property {Array<number>} rightScanLine - Array representing the right scan line.
+     * @property {number} subFrameCount - Count of sub-frames.
+     * @property {number} defaultColor - Default color value.
+     * @property {boolean} drawCompleteBackground - Flag indicating if the complete background should be drawn.
+     * @property {boolean} subFrameRefresh - Flag indicating if the subframe needs to be refreshed.
+     * @property {CWSYSTEM.CWFont} serif8_font - Font object for serif8 font.
+     * @property {CWSYSTEM.CWFont} serif11_font - Font object for serif11 font.
+     * @property {CWSYSTEM.CWFont} small_font - Font object for small font.
+     * @property {CWSYSTEM.CWFont} jcsmallfixed_font - Font object for jcsmallfixed font.
+     * @property {number} physicalWidth - Physical width of the screen.
+     * @property {number} physicalHeight - Physical height of the screen.
+     * @property {number} topInset - Top inset of the screen.
+     * @property {string} backgroundImage - Path to the background image.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class VirtualScreen {
         /**
          * Constructs a new instance of the VirtualScreen class, initializing the necessary data structures and properties.
-         * @constructor
          */
         constructor() {
             if (this.bi === undefined) {
@@ -105,7 +111,8 @@
 
         /**
          * Sets the background image for the virtual screen.
-         * @param backgroundImage
+         *
+         * @param {string} backgroundImage The background image to use, defined by its filename
          */
         setBackgroundImage(backgroundImage) {
             this.backgroundImage = backgroundImage;
@@ -173,7 +180,8 @@
 
         /**
          * Fades in the background from black.
-         * @param n - The duration of the fade in effect in milliseconds.
+         *
+         * @param {number} n - The duration of the fade in effect in milliseconds.
          */
         fadeInBackgroundFromBlack(n) {
             this.fadeStartTime = CWSYSTEM.Environment.currentTime();
@@ -239,7 +247,8 @@
 
         /**
          * Paints the graphics on the virtual screen.
-         * @param graphics - The graphics data to be painted.
+         *
+         * @param {ImageData} graphics - The graphics data to be painted.
          */
         paint(graphics) {
             let canvas = document.getElementById("3dSpace");
@@ -267,6 +276,7 @@
 
         /**
          * Creates the sub-frame.
+         *
          * @param collection
          * @private
          */
@@ -702,7 +712,9 @@
             dsector.DSReference.gui.destroyTerminallyIllWindows();
         }
 
-        /** Copies a horizontal line from `screenData` to a subframe with alpha transparency.
+        /**
+         * Copies a horizontal line from `screenData` to a subframe with alpha transparency.
+         *
          * @private
          * @param {ScreenData} screenData - The screen data object containing the source line.
          * @param {number} startY - The Y-coordinate of the target line in the subframe.
@@ -735,6 +747,7 @@
 
         /**
          * Creates the actual screen to display.
+         *
          * @private
          */
         createActualScreen() {
@@ -877,6 +890,7 @@
 
         /**
          * Updates the physical screen.
+         *
          * @private
          */
         updatePhysicalScreen() {
@@ -891,6 +905,7 @@
 
         /**
          * Renders a please wait message.
+         *
          * @private
          */
         renderPleaseWaitMessage() {
@@ -901,6 +916,7 @@
 
         /**
          * Displays a please wait message.
+         *
          * @private
          */
         displayWaitPleaseWaitMessage() {
@@ -910,6 +926,7 @@
 
         /**
          * Removes a please wait message.
+         *
          * @private
          */
         removeWaitPleaseWaitMessage() {
@@ -921,11 +938,12 @@
 
         /**
          * Draws a string on the screen.
-         * @param x - The x-coordinate of the text.
-         * @param s - The string to draw.
-         * @param pad - The padding value.
-         * @param y - The y-coordinate of the text.
-         * @returns {number}
+         *
+         * @param {number} x - The x-coordinate of the text.
+         * @param {number} s - The string to draw.
+         * @param {number} pad - The padding value.
+         * @param {number} y - The y-coordinate of the text.
+         * @returns {number} - The number of characters drawn.
          */
         drawString$n$s$n2$n3(x, s, pad, y) {
             CWSYSTEM.Environment.screenHasChanged = true;
@@ -934,13 +952,15 @@
 
         /**
          * Draws a string on the screen.
-         * @see CWSYSTEM.ScreenData
-         * @param screenData - the input ScreenData object
-         * @param x
-         * @param text - The text to draw.
-         * @param padX - The padded x-coordinate of the text.
-         * @param y - The y-coordinate of the text.
-         * @param b - The boolean parameter.
+         *
+         * @see [ScreenData]{@link CWSYSTEM.ScreenData} for more information.
+         *
+         * @param {CWSYSTEM.ScreenData} screenData - the input ScreenData object
+         * @param {number} x - The x-coordinate of the text.
+         * @param {string} text - The text to draw.
+         * @param {number} padX - The padded x-coordinate of the text.
+         * @param {number} y - The y-coordinate of the text.
+         * @param {boolean} b - The boolean parameter.
          */
         drawString$sd$n$s$n2$n3$b(screenData, x, text, padX, y, b) {
             this.drawText(screenData, x, text, padX, y, b, false);
@@ -948,37 +968,38 @@
 
         /**
          * Draws a string on the screen.
-         * @param screenData - The screen data.
-         * @param x - The x-coordinate of the text.
-         * @param s - The string to draw.
-         * @param padX - The padded x-coordinate of the text.
-         * @param y - The y-coordinate of the text.
-         * @param b - The boolean parameter.
+         *
+         * @param {CWSYSTEM.ScreenData} screenData - The screen data.
+         * @param {number} x - The x-coordinate of the text.
+         * @param {string} s - The string to draw.
+         * @param {number} pad - The padded coordinate of the text.
+         * @param {number} y - The y-coordinate of the text.
+         * @param {boolean} b - The boolean parameter.
          * @returns {number|void} - The number of characters drawn.
-         * @see CWSYSTEM.ScreenData
+         * @see [ScreenData]{@link CWSYSTEM.ScreenData}
          */
-        drawString(screenData, x, s, padX, y, b) {
+        drawString(screenData, x, s, pad, y, b) {
             if ((screenData instanceof CWSYSTEM.ScreenData || screenData === null) &&
                 ((typeof x === 'number') || x === null) && ((typeof s === 'string') || s === null) &&
-                ((typeof padX === 'number') || padX === null) && ((typeof y === 'number') || y === null) &&
+                ((typeof pad === 'number') || pad === null) && ((typeof y === 'number') || y === null) &&
                 ((typeof b === 'boolean') || b === null)) {
-                return this.drawString$sd$n$s$n2$n3$b(screenData, x, s, padX, y, b);
+                return this.drawString$sd$n$s$n2$n3$b(screenData, x, s, pad, y, b);
             } else if (((typeof screenData === 'number') || screenData === null) &&
                 ((typeof x === 'string') || x === null) && ((typeof s === 'number') || s === null) &&
-                ((typeof padX === 'number') || padX === null) && y === undefined && b === undefined) {
-                return this.drawString$n$s$n2$n3(screenData, x, s, padX);
+                ((typeof pad === 'number') || pad === null) && y === undefined && b === undefined) {
+                return this.drawString$n$s$n2$n3(screenData, x, s, pad);
             } else throw new Error('invalid overload');
         }
 
         /**
          * Draws text on the screen.
-         * @param screenData - The screen data.
-         * @param len - The length of the text.
-         * @param text - The text to draw.
-         * @param x - The x-coordinate of the text.
-         * @param y - The y-coordinate of the text.
-         * @param mode1 - The mode1 parameter.
-         * @param mode2 - The mode2 parameter.
+         * @param {CWSYSTEM.ScreenData} screenData - The screen data.
+         * @param {number} len - The length of the text.
+         * @param {string} text - The text to draw.
+         * @param {number} x - The x-coordinate of the text.
+         * @param {number} y - The y-coordinate of the text.
+         * @param {number} mode1 - The mode1 parameter.
+         * @param {number} mode2 - The mode2 parameter.
          * @returns {number} - The number of characters drawn.
          */
         drawText(screenData, len, text, x, y, mode1, mode2) {
@@ -1080,10 +1101,10 @@
 
         /**
          * Draws a string with double size.
-         * @param sd - The screen data.
-         * @param t - The string to draw.
-         * @param x - The x-coordinate.
-         * @param y - The y-coordinate.
+         * @param {CWSYSTEM.ScreenData} sd - The screen data.
+         * @param {string} t - The string to draw.
+         * @param {number} x - The x-coordinate.
+         * @param {number} y - The y-coordinate.
          */
         drawStringDoubleSize(sd, t, x, y) {
             CWSYSTEM.Environment.screenHasChanged = true;
@@ -1110,18 +1131,20 @@
 
         /**
          * Sets the color using individual red, green, blue, and alpha values.
-         * @param red - The red value of the color.
-         * @param green - The green value of the color.
-         * @param blue - The blue value of the color.
-         * @param alpha - The alpha value (opacity) of the color.
+         *
+         * @param {number} red - The red value of the color.
+         * @param {number} green - The green value of the color.
+         * @param {number} blue - The blue value of the color.
+         * @param {number} alpha - The alpha value (opacity) of the color.
          */
         setColorVS$r$g$b$a(red, green, blue, alpha) {
             this.defaultColor = CWSYSTEM.FastColorUtilities.colorRGBA(red, green, blue, alpha);
         }
 
-        /** Sets the color using the provided {@link CWColor} object.
+        /**
+         * Sets the color using the provided {@link CWColor} object.
+         *
          * @param {CWColor} cwColor - The {@link CWColor} object containing the color to set.
-         * @returns {void} - Returns nothing.
          */
         setColor$intCWColor(cwColor) {
             this.defaultColor = cwColor.color;
@@ -1129,6 +1152,7 @@
 
         /**
          * Sets the color using a single integer representing the color.
+         *
          * @param defaultColor - The integer representing the color.
          */
         setColor$int(defaultColor) {
@@ -1137,9 +1161,10 @@
 
         /**
          * Draws a single pixel on the screen.
-         * @param screenData - The screen data object.
-         * @param x - The x-coordinate of the pixel.
-         * @param y - The y-coordinate of the pixel.
+         *
+         * @param {CWSYSTEM.ScreenData} screenData - The screen data object.
+         * @param {number} x - The x-coordinate of the pixel.
+         * @param {number} y - The y-coordinate of the pixel.
          */
         CWDrawPixel(screenData, x, y) {
             screenData.point[y][x] = this.defaultColor;
@@ -1147,9 +1172,10 @@
 
         /**
          * Draws a single pixel on the screen with cropping.
-         * @param screenData - The screen data object.
-         * @param x - The x-coordinate of the pixel.
-         * @param y - The y-coordinate of the pixel.
+         *
+         * @param {CWSYSTEM.ScreenData} screenData - The screen data object.
+         * @param {number} x - The x-coordinate of the pixel.
+         * @param {number} y - The y-coordinate of the pixel.
          */
         CWDrawPixelWithCropping(screenData, x, y) {
             if (x >= 0 && y >= 0 && x < screenData.width && y < screenData.height) {
@@ -1159,12 +1185,12 @@
 
         /**
          * Draws a horizontal line of a specified length and color on the screen.
-         * @param {object} screenData - The screen data object containing the point array.
+         *
+         * @param {CWSYSTEM.ScreenData} screenData - The screen data object containing the point array.
          * @param {number} x - The starting x-coordinate of the line.
          * @param {number} y - The y-coordinate of the line.
          * @param {number} length - The length of the line.
-         * @param {string} color - The color of the line.
-         * @returns {void}
+         * @param {CWSYSTEM.CWColor} color - The color of the line.
          */
         fastHorizontalLine(screenData, x, y, length, color) {
             try {
@@ -1177,11 +1203,12 @@
 
         /**
          * Draws a vertical line of a specified length and color on the screen.
-         * @param screenData - The screen data object.
-         * @param x - The x-coordinate of the line.
-         * @param y - The starting y-coordinate of the line.
-         * @param length - The length of the line.
-         * @param n - The color of the line.
+         *
+         * @param {CWSYSTEM.ScreenData} screenData - The screen data object.
+         * @param {number} x - The x-coordinate of the line.
+         * @param {number} y - The starting y-coordinate of the line.
+         * @param {number} length - The length of the line.
+         * @param {CWSYSTEM.CWColor.color} n - The color of the line.
          */
         verticalLine(screenData, x, y, length, n) {
             try {
@@ -1198,13 +1225,13 @@
 
         /**
          * Draws a filled rectangle on the screen.
-         * @param screenData - The screen data object.
-         * @param width - The width of the rectangle.
-         * @param height - The height of the rectangle.
-         * @param x - The x-coordinate of the top-left corner of the rectangle.
-         * @param y - The y-coordinate of the top-left corner of the rectangle.
-         * @param color - The color of the rectangle.
-         * @constructor
+         *
+         * @param {CWSYSTEM.ScreenData} screenData - The screen data object.
+         * @param {number} width - The width of the rectangle.
+         * @param {number} height - The height of the rectangle.
+         * @param {number} x - The x-coordinate of the top-left corner of the rectangle.
+         * @param {number} y - The y-coordinate of the top-left corner of the rectangle.
+         * @param {CWSYSTEM.CWColor.color} color - The color of the rectangle.
          */
         CWDrawFilledRectangle(screenData, width, height, x, y, color) {
             CWSYSTEM.Environment.screenHasChanged = true;
@@ -1221,13 +1248,14 @@
 
         /**
          * Draws a filled rectangle on the screen with a gradient effect.
-         * @param {ScreenData} screenData - The screen data object.
+         *
+         * @param {CWSYSTEM.ScreenData} screenData - The screen data object.
          * @param {number} x - The x-coordinate of the top-left corner of the rectangle.
          * @param {number} y - The y-coordinate of the top-left corner of the rectangle.
          * @param {number} width - The width of the rectangle.
          * @param {number} height - The height of the rectangle.
-         * @param {CWColor} start - The starting color of the gradient.
-         * @param {CWColor} end - The ending color of the gradient.
+         * @param {CWSYSTEM.CWColor} start - The starting color of the gradient.
+         * @param {CWSYSTEM.CWColor} end - The ending color of the gradient.
          * @param {string} [gradientType='sine'] - The type of gradient. Valid values are 'sine' and 'linear'.
          *                                          Defaults to 'sine'.
          * @throws {Error} If an invalid gradient type is provided.
@@ -1271,11 +1299,12 @@
 
         /**
          * Draws a rectangle on the screen with cropping.
-         * @param screenData - The screen data object.
-         * @param x - The x-coordinate of the top-left corner of the rectangle.
-         * @param y - The y-coordinate of the top-left corner of the rectangle.
-         * @param width - The width of the rectangle.
-         * @param length - The height of the rectangle.
+         *
+         * @param {CWSYSTEM.ScreenData} screenData - The screen data object.
+         * @param {number} x - The x-coordinate of the top-left corner of the rectangle.
+         * @param {number} y - The y-coordinate of the top-left corner of the rectangle.
+         * @param {number} width - The width of the rectangle.
+         * @param {number} length - The height of the rectangle.
          */
         CWDrawRectangleWithCropping(screenData, x, y, width, length) {
             if (x >= 0 && y >= 0 && x + width < screenData.width && y + length < screenData.height) {
@@ -1294,18 +1323,18 @@
 
         /**
          * Draws a rectangle on the screen.
-         * @param screenData - The screen data object.
-         * @param x - The x-coordinate of the top-left corner of the rectangle.
-         * @param y - The y-coordinate of the top-left corner of the rectangle.
-         * @param width - The width of the rectangle.
-         * @param length - The height of the rectangle.
-         * @constructor
+         *
+         * @param {CWSYSTEM.ScreenData} sd - The screen data object.
+         * @param {number} x - The x-coordinate of the top-left corner of the rectangle.
+         * @param {number} y - The y-coordinate of the top-left corner of the rectangle.
+         * @param {number} width - The width of the rectangle.
+         * @param {number} length - The height of the rectangle.
          */
-        CWDrawRectangle(screenData, x, y, width, length) {
-            this.verticalLine(screenData, x, y, length, this.defaultColor);
-            this.verticalLine(screenData, x + width - 1, y, length, this.defaultColor);
-            this.fastHorizontalLine(screenData, x + 1, y, width - 2, this.defaultColor);
-            this.fastHorizontalLine(screenData, x + 1, y + length - 1, width - 2, this.defaultColor);
+        CWDrawRectangle(sd, x, y, width, length) {
+            this.verticalLine(sd, x, y, length, this.defaultColor);
+            this.verticalLine(sd, x + width - 1, y, length, this.defaultColor);
+            this.fastHorizontalLine(sd, x + 1, y, width - 2, this.defaultColor);
+            this.fastHorizontalLine(sd, x + 1, y + length - 1, width - 2, this.defaultColor);
         }
 
         /**
@@ -1364,7 +1393,8 @@
 
         /**
          * Renders a polygon on the screen with the specified color.
-         * @param {ScreenData} screenData - The screen data object containing the point array.
+         *
+         * @param {CWSYSTEM.ScreenData} screenData - The screen data object containing the point array.
          * @param {Array|null} buffer - The buffer array to store color information.
          * @param {number} colorA - The color value to render the polygon with.
          * @param {number} v1x - The x-coordinate of vertex 1.
@@ -1378,7 +1408,6 @@
          * @param {number} h0 - The height of the screen.
          * @param {number|Polygon|null} polygon - The polygon identifier.
          * @param {Array|null} array - The array to store polygon information.
-         * @returns {void}
          */
         renderPolygon(screenData, buffer, colorA, v1x, v1y,
                       v2x, v2y, v3x, v3y,
@@ -1529,12 +1558,13 @@
 
         /**
          * Draws a line on the screen with the specified color.
-         * @param screenData - The screen data object.
-         * @param x1 - The x-coordinate of the start point.
-         * @param y1 - The y-coordinate of the start point.
-         * @param x2 - The x-coordinate of the end point.
-         * @param y2 - The y-coordinate of the end point.
-         * @param b - boolean value indicating whether to perform additional operations
+         *
+         * @param {CWSYSTEM.ScreenData} screenData - The screen data object.
+         * @param {number} x1 - The x-coordinate of the start point.
+         * @param {number} y1 - The y-coordinate of the start point.
+         * @param {number} x2 - The x-coordinate of the end point.
+         * @param {number} y2 - The y-coordinate of the end point.
+         * @param {boolean} b - boolean value indicating whether to perform additional operations
          */
         CWLine(screenData, x1, y1, x2, y2, b) {
             CWSYSTEM.Environment.screenHasChanged = true;
@@ -1564,7 +1594,7 @@
         /**
          * Draws a line segment using the octant 0 algorithm.
          *
-         * @param {ScreenData} screenData - The screen data object.
+         * @param {CWSYSTEM.ScreenData} screenData - The screen data object.
          * @param {number} x - The x-coordinate of the start point.
          * @param {number} y - The y-coordinate of the start point.
          * @param {number} remainingPoints - The number of remaining points to draw.
@@ -1593,7 +1623,7 @@
         /**
          * Draws a line segment using the octant 1 algorithm.
          *
-         * @param {ScreenData} screenData - The screen data object.
+         * @param {CWSYSTEM.ScreenData} screenData - The screen data object.
          * @param {number} x - The x-coordinate of the start point.
          * @param {number} y - The y-coordinate of the start point.
          * @param {number} radius - The radius of the line segment.
@@ -1622,14 +1652,14 @@
         /**
          * Draws a circle on the screen using the midpoint circle algorithm.
          *
-         * @param {ScreenData} screenData - The screen data object.
+         * @param {CWSYSTEM.ScreenData} screenData - The screen data object.
          * @param {number} x - The x-coordinate of the circle's center.
          * @param {number} y - The y-coordinate of the circle's center.
          * @param {number} radius - The radius of the circle.
-         * @param {CWColor} color - The color of the circle.
+         * @param {CWSYSTEM.CWColor} color - The color of the circle.
          * @param {boolean} cropFlag - Flag indicating whether to apply cropping or not.
          */
-        JCCircle(screenData, x, y, radius, color, cropFlag) {
+        CWSCircle(screenData, x, y, radius, color, cropFlag) {
             CWSYSTEM.Environment.screenHasChanged = true;
             this.setColor$intCWColor(color);
 
@@ -1655,12 +1685,13 @@
         /**
          * Draws the specific points on a circle.
          *
-         * @param {ScreenData} screenData - The screen data object.
+         * @param {CWSYSTEM.ScreenData} screenData - The screen data object.
          * @param {number} x - The x-coordinate of the circle's center.
          * @param {number} y - The y-coordinate of the circle's center.
          * @param {number} point - The current point on the circle.
          * @param {number} radius - The radius of the circle.
-         * @private */
+         * @private
+         */
         circlePoints(screenData, x, y, point, radius) {
             const drawPixel = this.CWDrawPixel.bind(this, screenData);
 
@@ -1683,12 +1714,14 @@
 
         /**
          * Draws the specific points on a circle with cropping.
-         * @param screenData - The screen data object.
-         * @param x - The x-coordinate of the circle's center.
-         * @param y - The y-coordinate of the circle's center.
-         * @param p - The current point on the circle.
-         * @param rad - The radius of the circle.
-         * @private */
+         *
+         * @param {CWSYSTEM.ScreenData} screenData - The screen data object.
+         * @param {number} x - The x-coordinate of the circle's center.
+         * @param {number} y - The y-coordinate of the circle's center.
+         * @param {number} p - The current point on the circle.
+         * @param {number} rad - The radius of the circle.
+         * @private
+         */
         circlePointsWithCropping(screenData, x, y, p, rad) {
             if (p === 0) {
                 this.CWDrawPixelWithCropping(screenData, x, y + rad);

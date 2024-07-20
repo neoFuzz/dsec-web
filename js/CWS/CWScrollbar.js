@@ -1,17 +1,29 @@
-/* */
 (function (CWSYSTEM) {
     /**
      * Represents a scrollbar component within a window.
      * This class provides methods to handle the scrollbar's behavior,
      * including drawing the scrollbar, handling mouse events, and updating
      * the scrollbar's position and size based on the window's content.
+     *
+     * @property {CWSYSTEM.CWWindow} window - The window object this scrollbar is associated with.
+     * @property {number} positionPercent - The position of the scrollbar as a percentage of the window's content height.
+     * @property {number} sliderSize - The size of the scrollbar slider as a percentage of the window's content height.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class CWScrollbar {
         /**
          * Constructs a CWScrollbar instance.
-         * @param {Object} window - The window object this scrollbar is associated with.
+         *
+         * @param {CWSYSTEM.CWWindow} window - The window object this scrollbar is associated with.
          */
         constructor(window) {
             this.sliderSize = 0.33;
@@ -27,7 +39,8 @@
 
         /**
          * Returns the appropriate arrow up bitmap.
-         * @returns {*|number[][][]}
+         *
+         * @returns {*|number[][][]} - The arrow up bitmap.
          */
         static arrowUpBitmap_$LI$() {
             if (CWScrollbar.arrowUpBitmap == null) {
@@ -76,7 +89,8 @@
 
         /**
          * Returns the appropriate arrow down bitmap.
-         * @returns {*|number[][][]}
+         *
+         * @returns {*|number[][][]} - The arrow down bitmap.
          */
         static arrowDownBitmap_$LI$() {
             if (CWScrollbar.arrowDownBitmap == null) {
@@ -124,6 +138,35 @@
         }
 
         /**
+         * Returns the color for the first part of the scrollbar.
+         *
+         * @param {number} t - The transparency value for the color.
+         * @returns {CWSYSTEM.CWColor} - The color for the first part of the scrollbar.
+         */
+        static scrollBarColor1(t) {
+            return new CWSYSTEM.CWColor(150, 150, 150, t);
+        }
+
+        /**
+         * Returns the color for the second part of the scrollbar.
+         *
+         * @param {number} t - The transparency value for the color.
+         * @returns {CWSYSTEM.CWColor} - The color for the second part of the scrollbar.
+         */
+        static scrollBarColor2(t) {
+            return new CWSYSTEM.CWColor(160, 160, 210, t);
+        }
+
+        /**
+         * Returns the color for the second part of the scrollbar.
+         *
+         * @returns {CWSYSTEM.CWColor} - The color for the second part of the scrollbar.
+         */
+        static sliderColor2() {
+            return new CWSYSTEM.CWColor(250, 250, 250, CWSYSTEM.CWColor.__black().alpha());
+        }
+
+        /**
          * Draws the scrollbar to the screen.
          */
         draw() {
@@ -133,22 +176,21 @@
                 vs.CWDrawFilledRectangleWithGradient(screenData,
                     this.window.borderWidth + this.window.w - CWScrollbar.width,
                     this.window.borderWidth + this.window.__titleHeight + CWScrollbar.buttonHeight,
-                    14, this.window.h - 26 + 1, new CWSYSTEM.CWColor(CWScrollbar.bgColorR1,
-                        CWScrollbar.bgColorG1, CWScrollbar.bgColorB1, CWScrollbar.scrollbarTransparency),
-                    new CWSYSTEM.CWColor(CWScrollbar.bgColorR2, CWScrollbar.bgColorG2, CWScrollbar.bgColorB2,
-                        CWScrollbar.scrollbarTransparency));
+                    14, this.window.h - 26 + 1,
+                    CWScrollbar.scrollBarColor1(CWScrollbar.scrollbarTransparency),
+                    CWScrollbar.scrollBarColor2(CWScrollbar.scrollbarTransparency));
                 let i;
                 let j;
                 for (i = 0; i < CWScrollbar.buttonHeight; ++i) {
                     for (j = 0; j < CWScrollbar.width; ++j) {
                         vs.setColorVS$r$g$b$a(
                             CWScrollbar.arrowUpBitmap_$LI$()[i][j][0], CWScrollbar.arrowUpBitmap_$LI$()[i][j][1],
-                            CWScrollbar.arrowUpBitmap_$LI$()[i][j][2], CWSYSTEM.CWColor.black_$LI$().alpha());
+                            CWScrollbar.arrowUpBitmap_$LI$()[i][j][2], CWSYSTEM.CWColor.__black().alpha());
                         vs.CWDrawPixel(screenData, this.window.borderWidth + this.window.w - CWScrollbar.width + j,
                             this.window.borderWidth + this.window.__titleHeight + i);
                         vs.setColorVS$r$g$b$a(
                             CWScrollbar.arrowDownBitmap_$LI$()[i][j][0], CWScrollbar.arrowDownBitmap_$LI$()[i][j][1],
-                            CWScrollbar.arrowDownBitmap_$LI$()[i][j][2], CWSYSTEM.CWColor.black_$LI$().alpha());
+                            CWScrollbar.arrowDownBitmap_$LI$()[i][j][2], CWSYSTEM.CWColor.__black().alpha());
                         vs.CWDrawPixel(screenData, this.window.borderWidth + this.window.w - CWScrollbar.width + j,
                             this.window.borderWidth + this.window.__titleHeight + i +
                             this.window.h - CWScrollbar.buttonHeight);
@@ -157,17 +199,16 @@
                 i = this.window.h - 26;
                 j = Math.fround((this.positionPercent * (1.0 - this.sliderSize)) * i);
                 const sliderSize = Math.fround(i * this.sliderSize);
-                vs.CWDrawFilledRectangleWithGradient(screenData, this.window.borderWidth + this.window.w - CWScrollbar.width,
+                vs.CWDrawFilledRectangleWithGradient(screenData,
+                    this.window.borderWidth + this.window.w - CWScrollbar.width,
                     this.window.borderWidth + this.window.__titleHeight + CWScrollbar.buttonHeight + j,
-                    CWScrollbar.width, sliderSize, new CWSYSTEM.CWColor(CWScrollbar.sliderColorR1,
-                        CWScrollbar.sliderColorG1, CWScrollbar.sliderColorB1, CWSYSTEM.CWColor.black_$LI$().alpha()),
-                    new CWSYSTEM.CWColor(CWScrollbar.sliderColorR2, CWScrollbar.sliderColorG2,
-                        CWScrollbar.sliderColorB2, CWSYSTEM.CWColor.black_$LI$().alpha()));
-                vs.setColorVS$r$g$b$a(100, 100, 100, CWSYSTEM.CWColor.black_$LI$().alpha());
+                    CWScrollbar.width, sliderSize, CWScrollbar.scrollBarColor1(CWSYSTEM.CWColor.__black().alpha()),
+                    CWScrollbar.sliderColor2());
+                vs.setColorVS$r$g$b$a(100, 100, 100, CWSYSTEM.CWColor.__black().alpha());
                 vs.CWDrawRectangle(screenData, this.window.borderWidth + this.window.w - CWScrollbar.width,
                     this.window.borderWidth + this.window.__titleHeight + CWScrollbar.buttonHeight + j,
                     CWScrollbar.width, sliderSize + 1);
-                vs.setColorVS$r$g$b$a(130, 130, 130, CWSYSTEM.CWColor.black_$LI$().alpha());
+                vs.setColorVS$r$g$b$a(130, 130, 130, CWSYSTEM.CWColor.__black().alpha());
                 for (let l = this.window.borderWidth + this.window.w - CWScrollbar.width + 2;
                      l < this.window.borderWidth + this.window.w - 2; l += 2) {
                     vs.CWLine(screenData, l, this.window.borderWidth + this.window.__titleHeight +
@@ -477,21 +518,24 @@
         }
     }
 
+    /**
+     * The width of the scrollbar.
+     * @type {number}
+     * @static
+     */
     CWScrollbar.width = 13;
+    /**
+     * The height of the scrollbar buttons.
+     * @type {number}
+     * @static
+     */
     CWScrollbar.buttonHeight = 13;
-    CWScrollbar.bgColorR1 = 95;
-    CWScrollbar.bgColorG1 = 95;
-    CWScrollbar.bgColorB1 = 135;
-    CWScrollbar.bgColorR2 = 160;
-    CWScrollbar.bgColorG2 = 160;
-    CWScrollbar.bgColorB2 = 210;
+
+    /**
+     * The transparency of the scrollbar.
+     * @type {number}
+     */
     CWScrollbar.scrollbarTransparency = 200;
-    CWScrollbar.sliderColorR1 = 150;
-    CWScrollbar.sliderColorG1 = 150;
-    CWScrollbar.sliderColorB1 = 150;
-    CWScrollbar.sliderColorR2 = 250;
-    CWScrollbar.sliderColorG2 = 250;
-    CWScrollbar.sliderColorB2 = 250;
     CWSYSTEM.CWScrollbar = CWScrollbar;
     CWScrollbar["__class"] = "CWSYSTEM.CWScrollbar";
 })(CWSYSTEM || (CWSYSTEM = {}));

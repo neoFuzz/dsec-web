@@ -217,7 +217,7 @@
          * @param {number} mAngle The rate of turn the missile can turn.
          * @param {VectorInR3} r3 R3 vector.
          * @param {number} damage Damage the missile will do.
-         * @return null | any
+         * @returns null | any
          */
         fire(owner, x, y, mAngle, r3, damage) {
             if (this.type === WeaponSpecification.TELEPORT_SELF) {

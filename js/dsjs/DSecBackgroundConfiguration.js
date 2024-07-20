@@ -1,10 +1,47 @@
-/* Re-written from Java */
 (function (dsector) {
     /**
+     * This class that holds all the background object configurations used within the game.
+     *
+     * @property {number} edgeStyle - The edge style for the background objects.
+     * @property {number} limitRotationsTo90Degrees - Whether to limit rotations to 90 degrees.
+     * @property {Array} silentBackgroundObjects - An array of silent background objects.
+     * @property {Array} backgroundObjectNumbers - An array of background object numbers.
+     *
+     * @property {number} SMALL_BLOCK - Constant representing the small block model.
+     * @property {number} SMALL_SPHERE - Constant representing the small sphere model.
+     * @property {number} LARGE_SPHERE - Constant representing the large sphere model.
+     * @property {number} SHORT_LINE - Constant representing the short line model.
+     * @property {number} MEDIUM_LINE - Constant representing the medium line model.
+     * @property {number} LONG_LINE - Constant representing the long line model.
+     * @property {number} LONG_LINE_45_SHORT_LINE1 - Constant representing the long line with a 45-degree angle and short line 1.
+     * @property {number} LONG_LINE_45_SHORT_LINE2 - Constant representing the long line with a 45-degree angle and short line 2.
+     * @property {number} SQUARE_LOOP1 - Constant representing the square loop 1.
+     * @property {number} SQUARE_LOOP2 - Constant representing the square loop 2.
+     * @property {number} SQUARE_LOOP3 - Constant representing the square loop 3.
+     *
+     * @property {number} setNumberOfObjects - Sets the number of objects for a given model.
+     * @property {number} allowAnyRotation - Allows any rotation.
+     * @property {number} getModelName - Gets the model name for a given model constant.
+     *
+     * @example
+     * var config = new DSecBackgroundConfiguration([]);
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class DSecBackgroundConfiguration {
+        /**
+         * Constructor for DSecBackgroundConfiguration.
+         *
+         * @param {Array} arrayList - An array list of silent background objects.
+         */
         constructor(arrayList) {
             if (this.silentBackgroundObjects === undefined) {
                 this.silentBackgroundObjects = null;
@@ -31,7 +68,13 @@
             this.allowAnyRotation();
         }
 
-        /** private function */
+        /**
+         * Gets the model name for a given mode.
+         *
+         * @private
+         * @param {number} mode - The mode constant.
+         * @returns {string|null} The model name or null if the mode is not recognized.
+         */
         getModelName(mode) {
             switch (mode) {
                 case 0: /* SMALL_BLOCK */
@@ -61,6 +104,13 @@
             }
         }
 
+        /**
+         * Sets the number of objects for a given model.
+         *
+         * @private
+         * @param {number} key - The model constant.
+         * @param {number} value - The number of objects.
+         */
         setNumberOfObjects(key, value) {
             if (this.backgroundObjectNumbers == null) {
                 this.backgroundObjectNumbers = new Map();
@@ -68,23 +118,48 @@
             this.backgroundObjectNumbers.set(key, value);
         }
 
+        /**
+         * Gets the number of objects for a given model.
+         *
+         * @private
+         * @param {number} key - The model constant.
+         * @returns {number} The number of objects.
+         */
         getNumberOfObjects(key) {
             const number = this.backgroundObjectNumbers.get(key);
             return number == null ? 0 : number;
         }
 
+        /**
+         * Allows any rotation.
+         */
         allowAnyRotation() {
             this.limitRotationsTo90Degrees = false;
         }
 
+        /**
+         * Allows only 90-degree rotations.
+         */
         allow90DegreeRotations() {
             this.limitRotationsTo90Degrees = true;
         }
 
+        /**
+         * Sets the edge style.
+         *
+         * @private
+         * @param {number} edgeStyle - The edge style.
+         */
         setEdgeStyle(edgeStyle) {
             this.edgeStyle = edgeStyle;
         }
 
+        /**
+         * Uses a preset configuration.
+         *
+         * @private
+         * @param {number} mode - The preset mode.
+         */
         usePresetConfiguration(mode) {
             switch (mode) {
                 case 0:
@@ -128,6 +203,12 @@
             }
         }
 
+        /**
+         * Generates a random scene.
+         *
+         * @private
+         * @param {Array} arrayList - An array list of silent background objects.
+         */
         generateRandomScene(arrayList) {
             if (this.edgeStyle === 1) {
                 this.placeObjectsAtEdge(arrayList, 0);
@@ -148,7 +229,13 @@
             this.placeObjectsRandomly(arrayList, 12);
         }
 
-        /** private function */
+        /**
+         * Places objects at the edge of the scene.
+         *
+         * @private
+         * @param {Array} arrayList - An array list of silent background objects.
+         * @param {number} number - The model constant.
+         */
         placeObjectsAtEdge(arrayList, number) {
             let randomNumber;
             if (Math.random() < 0.5) {
@@ -169,7 +256,13 @@
             }
         }
 
-        /** private function */
+        /**
+         * Places objects randomly in the scene.
+         *
+         * @private
+         * @param {Array} arrayList - An array list of silent background objects.
+         * @param {number} number - The model constant.
+         */
         placeObjectsRandomly(arrayList, number) {
             const numberOfObjects = this.getNumberOfObjects(number);
             const modelName = this.getModelName(number);
@@ -202,7 +295,13 @@
             }
         }
 
-        /** private function */
+        /**
+         * Adds a positioned model to the array list if its position is clear.
+         *
+         * @private
+         * @param {Array} arrayList - An array list of objects.
+         * @param {dsector.PositionedModel} positionedModel - The positioned model to add.
+         */
         addPositionedModelIfSpaceClear(arrayList, positionedModel) {
             if (arrayList == null) {
                 arrayList = ([]);
