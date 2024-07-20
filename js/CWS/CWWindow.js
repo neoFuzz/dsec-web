@@ -45,26 +45,27 @@
          * @param {number} w - The width of the window.
          * @param {number} h - The height of the window.
          */
-        constructor(virtualScreen, minWidth, minHeight, maxWidth, maxHeight, nameId, style, title, xPosition, yPosition, w, h) {
+        constructor(virtualScreen, minWidth, minHeight, maxWidth, maxHeight,
+                    nameId, style, title, xPosition, yPosition, w, h) {
             // Initialize properties with default values
             this.v = null;
             this.w = this.h = this.maxWidth = this.maxHeight = this.minWidth = this.minHeight = 0;
             this.xPosition = this.yPosition = this.xPrevPosition = this.yPrevPosition = 0;
             this.title = this.nameID = this.window = null;
-            this.style = 0;
             this.resizable = this.useAntiAliasedContent = this.hasInterfaceElements = false;
             this.antiAliasedLevel = this.subframes = this.depth = 0;
             this.updated = this.renderingRequired = this.titleVisible = this.windowVisible = false;
             this.oldW = this.oldH = this.oldX = this.oldY = 0;
             this.floating = this.toBeDestroyed = false;
+            this.style = style !== null ? style : CWSYSTEM.CWWindowStyles.ROUNDED;
+
+            this.preAntiAliasedContent = null;
+            this.temporalSupersample = null;
+            this.rememberedPostTimeSupersampledScreenData = null;
 
             // Initialize color properties
             this.windowBGColor = this.windowSecondaryBGColor = this.titleTextColor = this.titleBGColor =
                 this.titleBGColorSecondary = this.buttonColor = this.inputBoxColor = this.checkBoxColor = null;
-
-            // Initialize UI element arrays
-            ['button', 'image', 'inputBox', 'textArea', 'checkBox', 'textElement', 'textBlock', 'imageElement', 'pulldown', 'storedLine']
-                .forEach(elem => this[elem] = Array(CWWindow[`maximumNumberOf${elem.charAt(0).toUpperCase() + elem.slice(1)}s`]).fill(null));
 
             // Set specific properties
             this.ignoreWhenSavingAndRestoringEnvironment = false;
@@ -73,23 +74,42 @@
             this.minHeight = minHeight;
             this.maxWidth = maxWidth;
             this.maxHeight = maxHeight;
-            this.style = style;
             this.borderWidth = CWSYSTEM.CWWindowStyles.getBorderWidth(this.style);
             this.borderPatternThickness = CWSYSTEM.CWWindowStyles.getBorderPatternThickness(this.style);
-            this.__titleHeight = CWSYSTEM.CWWindowStyles.getTitleHeight(this.style);
-
-            // Create window
-            this.window = new CWSYSTEM.ScreenData(
-                this.maxWidth + 2 * this.borderWidth,
-                this.maxHeight + 2 * this.borderWidth + this.__titleHeight,
-                `CWWindow with nameID ${nameId}`
-            );
-
-            this.v = virtualScreen;
             this.borderBitmap = CWSYSTEM.CWWindowStyles.getBorderBitmap(this.style);
             this.cornerBitmap = CWSYSTEM.CWWindowStyles.getCornerBitmap(this.style);
+            this.__titleHeight = CWSYSTEM.CWWindowStyles.getTitleHeight(this.style);
+
+            this.button = null;
+            this.image = null;
+            this.inputBox = null;
+            this.textArea = null;
+            this.checkBox = null;
+            this.textElement = null;
+            this.textBlock = null;
+            this.imageElement = null;
+            this.pulldown = null;
+            this.storedLine = null;
+            this.scrollbar = null;
+            this.scrollablePage = null;
+            this.menuManager = null;
+            this.rightClickPopupMenu = null;
+            this.numberOfPulldowns = 0;
+            this.numberOfStoredLines = 0;
+
+            this.subFrame = 0;
+            this.dSecSpecialEffects = null;
+            this.ignoreWhenSavingAndRestoringEnvironment = false;
+            this.subframes = 0;
+            this.resizable = true;
+
+            this.window = new CWSYSTEM.ScreenData(this.maxWidth + 2 * this.borderWidth,
+                this.maxHeight + 2 * this.borderWidth + this.__titleHeight,
+                `CWWindow with nameID ${nameId}`);
+
+            this.v = virtualScreen;
             this.windowVisible = true;
-            this.title = title;
+            this.title = title !== null ? title : null;
             this.titleVisible = title !== null;
             this.nameID = nameId;
 
@@ -101,7 +121,6 @@
             this.xPosition = Math.min(Math.max(xPosition, this.borderWidth), CWSYSTEM.Global.screenResolutionX_$LI$() - this.w - this.borderWidth);
             this.yPosition = Math.min(Math.max(yPosition, this.v.topInset + this.borderWidth + this.titleHeight()),
                 CWSYSTEM.Global.screenResolutionY_$LI$() - this.h - this.borderWidth - this.titleHeight());
-
             this.oldX = this.xPrevPosition = this.xPosition;
             this.oldY = this.yPrevPosition = this.yPosition;
 
@@ -113,12 +132,38 @@
             this.inputBoxColor = new CWSYSTEM.CWColor(CWWindow.defaultInputBoxColor_$LI$());
             this.checkBoxColor = new CWSYSTEM.CWColor(CWWindow.defaultCheckBoxColor_$LI$());
 
+            // Fill out GUI element arrays
+            this.button = Array(CWWindow.maximumNumberOfButtons).fill(null);
+            this.image = Array(CWWindow.maximumNumberOfImages).fill(null);
+            this.inputBox = Array(CWWindow.maximumNumberOfInputBoxes).fill(null);
+            this.textArea = Array(CWWindow.maximumNumberOfTextAreas).fill(null);
+            this.checkBox = Array(CWWindow.maximumNumberOfCheckBoxes).fill(null);
+            this.textElement = Array(CWWindow.maximumNumberOfTextElements).fill(null);
+            this.textBlock = Array(CWWindow.maximumNumberOfTextBlocks).fill(null);
+            this.imageElement = Array(CWWindow.maximumNumberOfImageElements).fill(null);
+            this.pulldown = Array(CWWindow.maximumNumberOfPullDowns).fill(null);
+            this.storedLine = Array(CWWindow.maximumNumberOfStoredLines).fill(null);
+
             // Set additional properties
             this.antiAliasedLevel = 1;
             this.useAntiAliasedContent = false;
             this.hasInterfaceElements = true;
             this.scrollbar = null;
             this.depth = 0;
+            this.numberOfButtons = 0;
+            this.numberOfImages = 0;
+            this.numberOfInputBoxes = 0;
+            this.numberOfTextAreas = 0;
+            this.numberOfCheckBoxes = 0;
+            this.numberOfTextElements = 0;
+            this.numberOfTextBlocks = 0;
+            this.numberOfImageElements = 0;
+            this.numberOfStoredLines = 0;
+            this.oldW = 0;
+            this.oldH = 0;
+            if (minHeight === maxHeight && minWidth === maxWidth) {
+                this.resizable = false;
+            }
         }
 
         /**

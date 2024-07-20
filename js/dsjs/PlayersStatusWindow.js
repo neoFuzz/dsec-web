@@ -115,7 +115,7 @@
             const wO = vX * 2 + w;
             const aaLevel = 2;
             this.window = dsector.DSReference.gui.addWindow$name$style$title$x$y$w$h$v(
-                "PLS", 3, "", baseX, baseY, (wO / aaLevel | 0), (pRef / aaLevel | 0), true);
+                "PLS", 3, null, baseX, baseY, (wO / aaLevel | 0), (pRef / aaLevel | 0), true);
             this.window.ignoreWhenSavingAndRestoringEnvironment = true;
             this.window.useAntiAliasedContentAreaWithInterfaceElements(aaLevel, 1);
             const color = new CWSYSTEM.CWColor(0, 0, 0, 200);
