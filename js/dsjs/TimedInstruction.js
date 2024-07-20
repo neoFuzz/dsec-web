@@ -1,7 +1,19 @@
-var dsector;
+/**/
 (function (dsector) {
+    /**
+     * Represents a timed instruction that will execute a specified method
+     * on a parent object after a certain amount of time.
+     * @class
+     * @memberof dsector
+     */
     class TimedInstruction {
-        constructor(time, parent, methodName) {
+        /**
+         * Creates an instance of TimedInstruction.
+         * @param {number} time - The time after which the method should be executed.
+         * @param {Object} parent - The object on which the method should be executed.
+         * @param {string} name - The name of the method to be executed.
+         */
+        constructor(time, parent, name) {
             if (this.time === undefined) {
                 this.time = 0;
             }
@@ -13,43 +25,57 @@ var dsector;
             }
             this.time = time;
             this.objectToExecuteMethod = parent;
-            this.methodName = methodName;
+            this.methodName = name;
         }
 
-        static addTimedInstruction(time, parent, methodName) {
+        /**
+         * Adds a new timed instruction to the list of timed instructions.
+         * @param {number} time - The time after which the method should be executed.
+         * @param {Object} parent - The object on which the method should be executed.
+         * @param {string} name - The name of the method to be executed.
+         */
+        static addTimedInstruction(time, parent, name) {
             if (TimedInstruction.timedInstructions == null) {
                 TimedInstruction.timedInstructions = ([]);
             }
-            TimedInstruction.timedInstructions.push(new TimedInstruction(time, parent, methodName));
+            TimedInstruction.timedInstructions.push(new TimedInstruction(time, parent, name));
         }
 
+        /**
+         * Executes all instructions that are due to be executed.
+         * Checks the current time against the time specified in each instruction
+         * and executes the method if the time has been reached or exceeded.
+         */
         static executeInstructionsDue() {
             if (TimedInstruction.timedInstructions != null) {
-                for (let i = 0; i < TimedInstruction.timedInstructions.length; ++i) {
-                    const instruction = TimedInstruction.timedInstructions[i];
-                    if (CWSYSTEM.Environment.currentTime() >= instruction.time) {
+                let removeList = [];
+
+                TimedInstruction.timedInstructions.forEach(ins => {
+                    if (CWSYSTEM.Environment.currentTime() >= ins.time) {
                         try {
                             const method = ((c, p) => {
                                 if (c.prototype.hasOwnProperty(p) && typeof c.prototype[p] == 'function')
                                     return {owner: c, name: p, fn: c.prototype[p]};
                                 else
                                     return null;
-                            })(instruction.objectToExecuteMethod.constructor, instruction.methodName);
-                            method.fn.apply(instruction.objectToExecuteMethod, [null]);
+                            })(ins.objectToExecuteMethod.constructor, ins.methodName);
+
+                            if (method) {
+                                method.fn.apply(ins.objectToExecuteMethod, [null]);
+                            }
                         } catch (e) {
                             console.error("Problem in executeInstructionsDue(): " + e);
                         }
-                        (a => {
-                            let index = a.indexOf(instruction);
-                            if (index >= 0) {
-                                a.splice(index, 1);
-                                return true;
-                            } else {
-                                return false;
-                            }
-                        })(TimedInstruction.timedInstructions);
+
+                        // Flag the instruction for removal
+                        removeList.push(ins);
                     }
-                }
+                });
+
+                // Remove flagged instructions
+                TimedInstruction.timedInstructions = TimedInstruction.timedInstructions.filter(inst =>
+                    !removeList.includes(inst)
+                );
             }
         }
     }

@@ -1,25 +1,49 @@
-var CWSYSTEM;
+/* ported from Java */
 (function (CWSYSTEM) {
+    /**
+     * Utility class for fast color operations.
+     * @class
+     * @memberof CWSYSTEM
+     */
     class FastColorUtilities {
-        static color$r$g$b(red, green, blue) {
-            return (red << 16) + (green << 8) + blue;
+        /**
+         * Creates a color from RGB values.
+         * @param {number} red - Red component (0-255).
+         * @param {number} green - Green component (0-255).
+         * @param {number} blue - Blue component (0-255).
+         * @returns {number} The color as a 32-bit integer.
+         */
+        static colorRGB(red, green, blue) {
+            return (red << 16) | (green << 8) | blue;
         }
 
-        static color$r$g$b$a(red, green, blue, alpha) {
-            return (alpha << 24) + (red << 16) + (green << 8) + blue;
+        /**
+         * Creates a color from RGBA values.
+         * @param {number} red - Red component (0-255).
+         * @param {number} green - Green component (0-255).
+         * @param {number} blue - Blue component (0-255).
+         * @param {number} alpha - Alpha component (0-255).
+         * @returns {number} The color as a 32-bit integer.
+         */
+        static colorRGBA(red, green, blue, alpha) {
+            return (alpha << 24) | (red << 16) | (green << 8) | blue;
         }
 
+        /**
+         * Creates a color from RGB or RGBA values.
+         * @param {number} red - Red component (0-255).
+         * @param {number} green - Green component (0-255).
+         * @param {number} blue - Blue component (0-255).
+         * @param {number} [alpha] - Optional alpha component (0-255).
+         * @returns {number} The color as a 32-bit integer.
+         */
         static color(red, green, blue, alpha) {
-            if (((typeof red === 'number') || red === null) && ((typeof green === 'number') || green === null) &&
-                ((typeof blue === 'number') || blue === null) && ((typeof alpha === 'number') || alpha === null)) {
-                return CWSYSTEM.FastColorUtilities.color$r$g$b$a(red, green, blue, alpha);
-            } else if (((typeof red === 'number') || red === null) && ((typeof green === 'number') || green === null) &&
-                ((typeof blue === 'number') || blue === null) && alpha === undefined) {
-                return CWSYSTEM.FastColorUtilities.color$r$g$b(red, green, blue);
-            } else
-                throw new Error('invalid overload');
+            return alpha !== undefined ? this.colorRGBA(red, green, blue, alpha) : this.colorRGB(red, green, blue);
         }
 
+        /**
+         * Initializes the gamma correction lookup table.
+         */
         static initializeGammaCorrectionLookupTable() {
             FastColorUtilities.gammaCorrectionLookupTable = Array(256).fill(0);
             for (let i = 0; i < 256; ++i) {
@@ -28,46 +52,83 @@ var CWSYSTEM;
             }
         }
 
-        /** Return a Gamma adjusted color.
-         * @param {number} red
-         * @param {number} green
-         * @param {number} blue */
+        /**
+         * Returns a gamma-adjusted color.
+         * @param {number} red - Red component (0-255).
+         * @param {number} green - Green component (0-255).
+         * @param {number} blue - Blue component (0-255).
+         * @returns {number} The gamma-adjusted color as a 32-bit integer.
+         */
         static colorWithGammaAdjustment(red, green, blue) {
-            return (red << 16) + (green << 8) + blue;
+            if (!FastColorUtilities.gammaCorrectionLookupTable) {
+                FastColorUtilities.initializeGammaCorrectionLookupTable();
+            }
+            const table = FastColorUtilities.gammaCorrectionLookupTable;
+            return (table[red] << 16) | (table[green] << 8) | table[blue];
         }
 
+        /**
+         * Extracts the alpha component from a color.
+         * @param {number} alpha - The color as a 32-bit integer.
+         * @returns {number} The alpha component (0-255).
+         */
         static alpha(alpha) {
             return (((alpha & FastColorUtilities.alphaMask) >> 24) + 256) % 256;
         }
 
-        static red(red) {
-            return (red & FastColorUtilities.redMask) >> 16;
+        /**
+         * Extracts the red component from a color.
+         * @param {number} color - The color as a 32-bit integer.
+         * @returns {number} The red component (0-255).
+         */
+        static red(color) {
+            return (color & FastColorUtilities.redMask) >> 16;
         }
 
-        static green(green) {
-            return (green & FastColorUtilities.greenMask) >> 8;
+        /**
+         * Extracts the green component from a color.
+         * @param {number} color - The color as a 32-bit integer.
+         * @returns {number} The green component (0-255).
+         */
+        static green(color) {
+            return (color & FastColorUtilities.greenMask) >> 8;
         }
 
-        static blue(blue) {
-            return blue & FastColorUtilities.blueMask;
+        /**
+         * Extracts the blue component from a color.
+         * @param {number} color - The color as a 32-bit integer.
+         * @returns {number} The blue component (0-255).
+         */
+        static blue(color) {
+            return color & FastColorUtilities.blueMask;
         }
 
+        /**
+         * Extracts RGB components from a color.
+         * @param {number} color - The color as a 32-bit integer.
+         * @returns {{red: number, green: number, blue: number, alpha: number}} An object containing the color components.
+         */
         static getColorRGB(color) {
-            let red = (color >> 16) & 0xff;
-            let green = (color >> 8) & 0xff;
-            let blue = color & 0xff;
-            let alpha = 255; // assuming alpha is not included in the original calculation
-
-            return {red: red, green: green, blue: blue, alpha: alpha};
+            return {
+                red: this.red(color),
+                green: this.green(color),
+                blue: this.blue(color),
+                alpha: 255
+            };
         }
 
+        /**
+         * Extracts RGBA components from a color.
+         * @param {number} color - The color as a 32-bit integer.
+         * @returns {{red: number, green: number, blue: number, alpha: number}} An object containing the color components.
+         */
         static getColorRGBA(color) {
-            let alpha = this.alpha(color);//(color >>> 24) & 0xff;
-            let red = this.red(color);// (color >> 16) & 0xff;
-            let green = this.green(color);// (color >> 8) & 0xff;
-            let blue = this.blue(color);// color & 0xff;
-
-            return {red: red, green: green, blue: blue, alpha: alpha};
+            return {
+                red: this.red(color),
+                green: this.green(color),
+                blue: this.blue(color),
+                alpha: this.alpha(color)
+            };
         }
     }
 

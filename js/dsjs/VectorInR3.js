@@ -1,55 +1,41 @@
-var dsector;
+/**/
 (function (dsector) {
+    /**
+     * @class
+     * @memberof dsector
+     */
     class VectorInR3 {
         /**
          * @param {number | VectorInR3} x
-         * @param {number} y
-         * @param {number} z
-         * */
-        constructor(x, y, z) {
-            if (((typeof x === 'number') || x === null) &&
-                ((typeof y === 'number') || y === null) &&
-                ((typeof z === 'number') || z === null)) {
-                if (this.x === undefined) {
-                    this.x = 0;
-                }
-                if (this.y === undefined) {
-                    this.y = 0;
-                }
-                if (this.z === undefined) {
-                    this.z = 0;
-                }
+         * @param {number} [y]
+         * @param {number} [z]
+         */
+        constructor(x = 0, y = 0, z = 0) {
+            if (typeof x === 'number') {
                 this.x = x;
                 this.y = y;
                 this.z = z;
-            } else if (((x != null && x instanceof dsector.VectorInR3) || x === null) &&
-                y === undefined && z === undefined) {
-                let inR3 = arguments[0];
-                if (this.x === undefined) {
-                    this.x = 0;
-                }
-                if (this.y === undefined) {
-                    this.y = 0;
-                }
-                if (this.z === undefined) {
-                    this.z = 0;
-                }
-                this.x = inR3.x;
-                this.y = inR3.y;
-                this.z = inR3.z;
-            } else
-                throw new Error('invalid overload');
-        }
-
-        /** adds on to existing values
-         * @param {VectorInR3} inR3 */
-        addVIR3(inR3) {
-            this.x += inR3.x;
-            this.y += inR3.y;
-            this.z += inR3.z;
+            } else if (x instanceof VectorInR3) {
+                this.x = x.x;
+                this.y = x.y;
+                this.z = x.z;
+            } else {
+                throw new Error('Invalid arguments');
+            }
         }
 
         /**
+         * adds on to existing values
+         * @param {VectorInR3} v
+         */
+        addVector(v) {
+            this.x += v.x;
+            this.y += v.y;
+            this.z += v.z;
+        }
+
+        /**
+         * Adds the specified values to this vector.
          * @param {number} x
          * @param {number} y
          * @param {number} z
@@ -60,7 +46,8 @@ var dsector;
             this.z += z;
         }
 
-        /** Subtract the parameter value from the specified axes.
+        /**
+         * Subtracts the specified values from this vector.
          * @param {number} x Number to subtract from the X axis.
          * @param {number} y Number to subtract from the Y axis.
          * @param {number} z Number to subtract from the Z axis.
@@ -71,86 +58,108 @@ var dsector;
             this.z -= z;
         }
 
-        /** Multiplies existing values by ``multiple`` value
-         * @param {number} multiple */
-        multiply(multiple) {
-            this.x *= multiple;
-            this.y *= multiple;
-            this.z *= multiple;
+        /**
+         * Multiplies this vector by a scalar value.
+         * @param {number} scalar
+         */
+        multiply(scalar) {
+            this.x *= scalar;
+            this.y *= scalar;
+            this.z *= scalar;
         }
 
         /**
-         * @returns the calculated length. */
+         * Calculates the length of this vector.
+         * @returns {number} the calculated length.
+         */
         length() {
             return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
         }
 
-        dotProduct(inR3) {
-            return this.x * inR3.x + this.y * inR3.y + this.z * inR3.z;
+        /**
+         * Calculates the dot product with another vector.
+         * @param {VectorInR3} v
+         * @returns {number}
+         */
+        dotProduct(v) {
+            return this.x * v.x + this.y * v.y + this.z * v.z;
         }
 
         /**
-         * @param {VectorInR3} inR3
+         * Calculates the cross product with another vector and updates this vector.
+         * @param {VectorInR3} v
          */
-        crossProduct(inR3) {
+        crossProduct(v) {
             const x1 = this.x;
             const y1 = this.y;
             const z1 = this.z;
-            const inX = inR3.x;
-            const inY = inR3.y;
-            const inZ = inR3.z;
+            const inX = v.x;
+            const inY = v.y;
+            const inZ = v.z;
             this.x = y1 * inZ - z1 * inY;
             this.y = z1 * inX - x1 * inZ;
             this.z = x1 * inY - y1 * inX;
         }
 
         /**
-         * @param {number} mode
+         * Rotates this vector around the specified axis by the given angle.
+         * @param {number} axis
          * @param {number} angle
          */
-        rotateVectorFromOriginAboutAxis$int$float(mode, angle) {
+        rotateAroundAxis(axis, angle) {
             const cos = Math.cos(angle);
             const sin = Math.sin(angle);
-            this.rotateVectorFromOriginAboutAxis$int$float$float(mode, cos, sin);
+            this.rotateAroundAxisWithCosSin(axis, cos, sin);
         }
 
         /**
-         * @param {number} mode
-         * @param {number} angle1
-         * @param {number} angle2
+         * Rotates this vector around the specified axis by given cosine and sine of the angle.
+         * @param {number} axis
+         * @param {number} cos
+         * @param {number} sin
          */
-        rotateVectorFromOriginAboutAxis$int$float$float(mode, angle1, angle2) {
+        rotateAroundAxisWithCosSin(axis, cos, sin) {
             const x1 = this.x;
             const y1 = this.y;
             const z1 = this.z;
-            switch (mode) {
+            switch (axis) {
                 case 0:
-                    this.y = y1 * angle1 - z1 * angle2;
-                    this.z = y1 * angle2 + z1 * angle1;
+                    this.y = y1 * cos - z1 * sin;
+                    this.z = y1 * sin + z1 * cos;
                     break;
                 case 1:
-                    this.x = x1 * angle1 + z1 * angle2;
-                    this.z = -x1 * angle2 + z1 * angle1;
+                    this.x = x1 * cos + z1 * sin;
+                    this.z = -x1 * sin + z1 * cos;
                     break;
                 case 2:
-                    this.x = x1 * angle1 - y1 * angle2;
-                    this.y = x1 * angle2 + y1 * angle1;
+                    this.x = x1 * cos - y1 * sin;
+                    this.y = x1 * sin + y1 * cos;
             }
         }
 
-        rotateVectorFromOriginAboutAxis(mode, angle1, angle2) {
-            if (((typeof mode === 'number') || mode === null) && ((typeof angle1 === 'number') || angle1 === null) &&
-                ((typeof angle2 === 'number') || angle2 === null)) {
-                return this.rotateVectorFromOriginAboutAxis$int$float$float(mode, angle1, angle2);
-            } else if (((typeof mode === 'number') || mode === null) &&
-                ((typeof angle1 === 'number') || angle1 === null) && angle2 === undefined) {
-                return this.rotateVectorFromOriginAboutAxis$int$float(mode, angle1);
-            } else
-                throw new Error('invalid overload');
+        /**
+         * Rotates this vector around the specified axis.
+         * If only angle is provided, computes cosine and sine internally.
+         * @param {number} axis
+         * @param {number} angle
+         * @param {number} [sin]
+         */
+        rotateAroundAxisSin(axis, angle, sin) {
+            if (typeof sin === 'undefined') {
+                const cos = Math.cos(angle);
+                const sin = Math.sin(angle);
+                this.rotateAroundAxisWithCosSin(axis, cos, sin);
+            } else {
+                this.rotateAroundAxisWithCosSin(axis, angle, sin);
+            }
         }
 
-        transform(matrix4f) {
-            const element = matrix4f.element;
+        /**
+         * Transforms this vector by a 4x4 matrix.
+         * @param {object} m4f
+         */
+        transform(m4f) {
+            const element = m4f.element;
             const x = Math.fround(element[0][0] * this.x + element[1][0] * this.y +
                 element[2][0] * this.z + element[3][0]);
             const y = Math.fround(element[0][1] * this.x + element[1][1] * this.y +
@@ -162,8 +171,11 @@ var dsector;
             this.z = z;
         }
 
+        /**
+         * Prints the vector.
+         */
         print() {
-            CWSYSTEM.Debug.println("[" + this.x + ", " + this.y + ", " + this.z + "]");
+            CWSYSTEM.Debug.println(`[${this.x}, ${this.y}, ${this.z}]`);
         }
     }
 

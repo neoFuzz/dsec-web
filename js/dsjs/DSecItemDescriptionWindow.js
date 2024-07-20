@@ -1,5 +1,9 @@
-var dsector;
+/**/
 (function (dsector) {
+    /**
+     * @class
+     * @memberof dsector
+     */
     class DSecItemDescriptionWindow {
         constructor() {
             if (this.window === undefined) {
@@ -72,7 +76,7 @@ var dsector;
                     3, null, 30, 30, 260, 200, true);
                 this.window.changeBackgroundColor$CWColor(new CWSYSTEM.CWColor(0, 0, 0, 210));
                 this.window.floating = true;
-                const color = CWSYSTEM.CWColor.white_$LI$();
+                const color = CWSYSTEM.CWColor.__white();
                 let fullName = this.weaponSpecification.fullName;
                 if (this.weaponSpecification.type === dsector.WeaponSpecification.LASER ||
                     this.weaponSpecification.type === dsector.WeaponSpecification.PROJECTILE ||
@@ -150,8 +154,8 @@ var dsector;
                     }
                 }
                 baseline -= 25;
-                const button = this.window.addButton$name$x$y$len$h$text$t$r("", 101, baseline, 57,
-                    15, "Close", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, 0);
+                const button = this.window.addButton("", 101, baseline, 57,
+                    15, "Close", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
                 button.objectContainingButtonPressedMethod = this;
                 button.buttonPressedMethodName = "closeWindow";
                 baseline += 24;

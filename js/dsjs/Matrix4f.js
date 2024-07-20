@@ -1,7 +1,9 @@
-var dsector;
+/**/
 (function (dsector) {
     /**
      * Class representing a 4x4 matrix.
+     * @class
+     * @memberof dsector
      */
     class Matrix4f {
         /**

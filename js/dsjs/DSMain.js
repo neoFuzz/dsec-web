@@ -1,13 +1,15 @@
-var dsector;
+/**/
 (function (dsector) {
+    /**
+     * Main class for the D-Sector application. Initializes the game, sets up event listeners, and contains the main game loop.
+     * @class
+     * @memberof dsector
+     */
     class DSMain {
+        /**
+         * Initializes the game, sets up the canvas, and starts the main loop.
+         */
         constructor() {
-            if (this.bi === undefined) {
-                let bix = 800; // TODO: get this to be read from the HTML page
-                let biy = 600;
-                this.bi = document.querySelector(
-                    "canvas").getContext("2d").createImageData((parseInt(bix)), (parseInt(biy)));
-            }
             this.userIOBuffer = new dsector.UserIOBuffer();
             CWSYSTEM.Global.graphicsInitialized = false;
             this.interval = null;
@@ -19,15 +21,19 @@ var dsector;
             this.eventKeyListener();
         }
 
-        /** Function carried over from desktop version. */
+        /**
+         * Ends the application and clears the main loop interval.
+         */
         static endApplication() {
             if (DSMain.discordEnabled) {
             }
             clearInterval(dsMain.interval);
+            dsector.DSReference.dsecSetupWindow.saveOptions();
             console.info("Application exited properly");
         }
 
-        /** Sets up the activity to show for the user in Discord
+        /**
+         * Sets up Discord activity status based on the user's current state in the game.
          * @param {string} location - The screen the user is on
          * @param {string} state - The state of the user. Either, Alive or Dead
          * @param {string} assetImageName - one of the predefined names on the Discord Dev console.
@@ -66,43 +72,38 @@ var dsector;
             dsMain.interval = setInterval(dsMain.loop, 33);// timeout controls the max framerate
         }
 
+        /**
+         * Updates the canvas with the current game state.
+         */
         repaint() {
             let canvas = document.getElementById("3dSpace");
             let ctx = canvas.getContext("2d");
-            ctx.putImageData(dsector.DSReference.dsMain.bi, 0, 0);
+            ctx.putImageData(CWSYSTEM.CWSReference.bi, 0, 0);
         }
 
+        /**
+         * Initializes the game setup window and updates the virtual screen.
+         */
         begin() {
-            dsector.DSReference.dsecSetupWindow = new dsector.DSecSetupWindow();
+            //dsector.DSReference.dsecSetupWindow = new dsector.DSecSetupWindow();
             CWSYSTEM.Global.graphicsInitialized = true;
             dsector.DSReference.virtualScreen.update();
             if (DSMain.discordEnabled) {
-                console.log("Discord Integration Enabled");
+                CWSYSTEM.Debug.println("Discord Integration Enabled");
             }
-            /* possibly needs to be adapted from Java ***
-            var actionListener = new ActionListener() {
-                function actionPerformed(ActionEvent actionEvent) {
-                    if (DSReference.virtualScreen != null) {
-                        if (Environment.currentTime() - DSMain.mainLoopStartTime > 3000L) {
-                            DSMain.waitMessageBeingDisplayed = true;
-                            DSReference.virtualScreen.displayWaitPleaseWaitMessage();
-                        } else if (DSMain.waitMessageBeingDisplayed) {
-                            DSMain.waitMessageBeingDisplayed = false;
-                            DSReference.virtualScreen.removeWaitPleaseWaitMessage();
-                        }}}};
-            (new Timer(1500, actionListener)).start();*/
         }
 
-        /** @public */
+        /**
+         * Main game loop. Processes user input, game logic, and updates the display.
+         */
         loop() {
             const framePeriod = (33 / CWSYSTEM.Global.subFrames | 0);
             CWSYSTEM.Environment.advanceCycle();
             CWSYSTEM.Environment.lastFramePeriod = CWSYSTEM.Environment.currentTime() - DSMain.mainLoopStartTime;
             document.getElementById("frame-count").innerText = "" +
                 Math.floor(1000 / CWSYSTEM.Environment.lastFramePeriod);
-            if (CWSYSTEM.Environment.lastFramePeriod_$LI$() < (n => n < 0 ?
+            if (CWSYSTEM.Environment.lastFramePeriod$() < (n => n < 0 ?
                 Math.ceil(n) : Math.floor(n))(framePeriod)) {
-                // framePeriod - Environment.lastFramePeriod
                 CWSYSTEM.Environment.lastFramePeriod = framePeriod;
             }
             if (DSMain.discordEnabled) {
@@ -120,6 +121,9 @@ var dsector;
             }
         }
 
+        /**
+         * Sets up mouse event listeners on the canvas.
+         */
         eventMouse() {
             const canvas = document.getElementById('3dSpace');
             canvas.addEventListener("mousedown", (event) => {
@@ -156,6 +160,9 @@ var dsector;
             });
         }
 
+        /**
+         * Sets up keyboard event listeners.
+         */
         eventKeyListener() {
             const canvas = document.body;
             canvas.addEventListener("keypress", (event) => {
@@ -172,6 +179,11 @@ var dsector;
             });
         }
 
+        /**
+         * Processes mouse events and updates the user input buffer accordingly.
+         * @param {Event} event - The mouse event.
+         * @param {string} type - The type of mouse event.
+         */
         dsMouseEvent(event, type) {
             event.preventDefault();
             let canvas = document.getElementById('3dSpace');

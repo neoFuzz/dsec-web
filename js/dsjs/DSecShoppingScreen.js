@@ -1,6 +1,9 @@
 /* Re-written from Java */
-var dsector;
 (function (dsector) {
+    /**
+     * @class
+     * @memberof dsector
+     */
     class DSecShoppingScreen {
         constructor() {
             if (this.window === undefined) {
@@ -8,19 +11,11 @@ var dsector;
             }
             this.currentShopper = null;
             if (this.controlRoomSound === undefined) {
-                this.controlRoomSound = null;
+                this.controlRoomSound = new dsector.MP3("assets/sounds/controlRoom.mp3");
             }
             this.controlRoomSoundPlaying = false;
             this.savedX = -1;
             this.savedY = -1;
-            if (dsector.DSecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
-                try {
-                    let clip = new Audio("assets/sounds/controlRoom.wav");
-                    this.controlRoomSound = clip;
-                } catch (e) {
-                    CWSYSTEM.Debug.println("Error loading sounds from DSecShoppingScreen.create(): " + e);
-                }
-            }
         }
 
         static portDescription_$LI$() {
@@ -101,8 +96,7 @@ var dsector;
             dsector.DSReference.playersStatusWindow.destroy();
             this.drawWindow();
             if (!this.controlRoomSoundPlaying) {
-                this.controlRoomSound.loop = true;
-                this.controlRoomSound.play();
+                this.controlRoomSound.loop();
                 this.controlRoomSoundPlaying = true;
             }
         }
@@ -114,7 +108,7 @@ var dsector;
                 this.window.destroy();
                 this.window = null;
             }
-            this.controlRoomSound.pause();
+            this.controlRoomSound.setPlayingStatus(false);
             this.controlRoomSoundPlaying = false;
         }
 
@@ -156,20 +150,23 @@ var dsector;
                 if (currentName.length > 12) {
                     currentName = currentName.substring(0, 12);
                 }
-                this.window.addTextBlock("", currentName, 5 + margin, 35, font, CWSYSTEM.CWColor.white_$LI$(), 999);
-                this.window.addTextBlock("", "Money " + this.currentShopper.credits, margin + 88, 35, font, CWSYSTEM.CWColor.white_$LI$(), 999);
+                this.window.addTextBlock("", currentName, 5 + margin, 35, font, CWSYSTEM.CWColor.__white(), 999);
+                this.window.addTextBlock("", "Money " + this.currentShopper.credits, margin + 88, 35, font, CWSYSTEM.CWColor.__white(), 999);
                 let refRound = 1;
                 if (dsector.DSReference.dsecGame.currentRound() > 0) {
                     refRound = dsector.DSReference.dsecGame.currentRound() + 1;
                 }
-                this.window.addTextBlock("", "Round " + refRound + " of " + dsector.DSReference.dsecMainSetupWindow.numberOfRounds(), margin + 160, 35, font, CWSYSTEM.CWColor.white_$LI$(), 999);
-                let button = this.window.addButton$name$x$y$len$h$text$t$r("", w - 285, 11, 70, 15, "Load Game", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
+                this.window.addTextBlock("", "Round " + refRound + " of " + dsector.DSReference.dsecMainSetupWindow.numberOfRounds(), margin + 160, 35, font, CWSYSTEM.CWColor.__white(), 999);
+                let button = this.window.addButton("", w - 285, 11, 70, 15,
+                    "Load Game", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
                 button.objectContainingButtonPressedMethod = this;
                 button.buttonPressedMethodName = "loadGame";
-                button = this.window.addButton$name$x$y$len$h$text$t$r("", w - 185, 11, 70, 15, "Save Game", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
+                button = this.window.addButton("", w - 185, 11, 70, 15, "Save Game",
+                    CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
                 button.objectContainingButtonPressedMethod = this;
                 button.buttonPressedMethodName = "saveGame";
-                button = this.window.addButton$name$x$y$len$h$text$t$r("", w - 85, 11, 76, 15, "Abort Game", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
+                button = this.window.addButton("", w - 85, 11, 76, 15, "Abort Game",
+                    CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
                 button.objectContainingButtonPressedMethod = this;
                 button.buttonPressedMethodName = "abortGame";
                 let baseline = 40;
@@ -198,10 +195,10 @@ var dsector;
                             }
                             this.window.addTextBlock("", "Port " + j + ", " +
                                 DSecShoppingScreen.portDescription_$LI$()[j - 1] + " : " + wName1,
-                                5 + margin, 25 + baseline, font, CWSYSTEM.CWColor.white_$LI$(), 999);
+                                5 + margin, 25 + baseline, font, CWSYSTEM.CWColor.__white(), 999);
                         } else {
                             this.window.addTextBlock("", "Items", 5 + margin, 25 + baseline, font,
-                                CWSYSTEM.CWColor.white_$LI$(), 999);
+                                CWSYSTEM.CWColor.__white(), 999);
                         }
                         baseline += 16;
                         h = 0;
@@ -212,7 +209,7 @@ var dsector;
                                 this.itemAvailable(weaponSpec) &&
                                 (weaponSpec.specificationID !== dsector.PreBuiltWeaponSpecifications.SHOPPING_CARD ||
                                     !this.currentShopper.hasShoppingCard())) {
-                                button = this.window.addButton$name$x$y$len$h$text$t$r("", margin + h * defWidth,
+                                button = this.window.addButton("", margin + h * defWidth,
                                     baseline, defWidth - 18, 15, weaponSpec.fullName,
                                     CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
                                 if (weaponSpec.type === dsector.WeaponSpecification.TANK) {
@@ -229,7 +226,7 @@ var dsector;
                                 button.generalPurposeObject = weaponSpec;
                                 button.objectContainingButtonPressedMethod = this;
                                 button.buttonPressedMethodName = "itemPurchaseButtonPressed";
-                                button = this.window.addButton$name$x$y$len$h$text$t$r("",
+                                button = this.window.addButton("",
                                     margin + (h + 1) * defWidth - 17, baseline, 12, 15, "i",
                                     CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
                                 button.generalPurposeObject = weaponSpec;
@@ -248,7 +245,8 @@ var dsector;
                         baseline += 8;
                     }
                 }
-                this.window.addButton$name$x$y$len$h$text$t$r("SHOPPING_DONE_BUTTON", ((w - 30) / 2 | 0), baseline, 42, 15, "Done", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
+                this.window.addButton("SHOPPING_DONE_BUTTON", ((w - 30) / 2 | 0), baseline, 42, 15,
+                    "Done", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
                 this.window.h = baseline + 22;
                 this.window.centerWithinDesktop();
             }
@@ -273,15 +271,9 @@ var dsector;
             this.currentShopper = this.getNextPlayer();
             if (this.currentShopper != null) {
                 this.update();
-                if (dsector.DSecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
-                    // TODO: fix sound
-                    try {
-                        let clip = new Audio("assets/sounds/compressionDoor.wav");
-                        clip.loop = false;
-                        clip.play();
-                    } catch (e) {
-                        console.error("Error loading sounds from DSecShoppingScreen.doneButtonPressed(..): " + e);
-                    }
+                if (dsector.DSReference.dsecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
+                    // TODO: fix sound playing with computer buying upgrade
+                    dsector.DSReference.cwSound.play("compressionDoor.wav");
                 }
             } else {
                 this.destroy();

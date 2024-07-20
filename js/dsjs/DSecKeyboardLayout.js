@@ -1,9 +1,9 @@
 /* Re-written from Java */
-var dsector;
 (function (dsector) {
     /**
      * Represents a keyboard layout for DSector (game) controls.
      * @class
+     * @memberof dsector
      */
     class DSecKeyboardLayout {
         /**

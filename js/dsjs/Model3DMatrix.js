@@ -1,30 +1,24 @@
-var dsector;
+/**/
 (function (dsector) {
-    /** Imports 3DMatrix XML model files. Re-written from Java */
+    /**
+     * Imports 3DMatrix XML model files. Re-written from Java.
+     * @class
+     * @memberof dsector
+     */
     class Model3DMatrix {
+        /**
+         * @constructor
+         * @param {string|null} [file] - The file path to load the model from, or null to create a new model.
+         */
         constructor(file) {
-            let __args = arguments;
-            if (this.totalPolygonAreaWhenModelLoaded === undefined) {
-                this.totalPolygonAreaWhenModelLoaded = null;
-            }
-            if (this.totalNumberOfPolygonsWhenModelLoaded === undefined) {
-                this.totalNumberOfPolygonsWhenModelLoaded = null;
-            }
-            if (this.__maximumDistanceOfVertexToCenterWhenModelLoaded === undefined) {
-                this.__maximumDistanceOfVertexToCenterWhenModelLoaded = 0;
-            }
-            if (this.name === undefined) {
-                this.name = null;
-            }
-            if (this.absoluteFilepath === undefined) {
-                this.absoluteFilepath = null;
-            }
-            if (this.rootFolder === undefined) {
-                this.rootFolder = null;
-            }
-            if (this.XMLFormatError === undefined) {
-                this.XMLFormatError = null;
-            }
+            this.totalPolygonAreaWhenModelLoaded = null;
+            this.totalNumberOfPolygonsWhenModelLoaded = null;
+            this.__maximumDistanceOfVertexToCenterWhenModelLoaded = 0;
+            this.name = null;
+            this.absoluteFilepath = null;
+            this.rootFolder = null;
+            this.XMLFormatError = null;
+
             if ((typeof file === 'string') || file === null) {
                 this.resetModelLoadStatistics();
                 this.createModelFromFile(file);
@@ -38,6 +32,13 @@ var dsector;
             }
         }
 
+        /**
+         * Get child nodes by tag name.
+         * @static
+         * @param {Element} element1 - The parent element.
+         * @param {string} name - The tag name to search for.
+         * @returns {Element[]} An array of matching child elements.
+         */
         static getChildNodesByTagName(element1, name) {
             const childNodes = element1.childNodes;
             const arrayList = ([]);
@@ -60,6 +61,20 @@ var dsector;
             return arrayList;
         }
 
+        /**
+         * Calculate the area of a polygon.
+         * @static
+         * @param {number} x2 - X coordinate of the second vertex.
+         * @param {number} y2 - Y coordinate of the second vertex.
+         * @param {number} z2 - Z coordinate of the second vertex.
+         * @param {number} x1 - X coordinate of the first vertex.
+         * @param {number} y1 - Y coordinate of the first vertex.
+         * @param {number} z1 - Z coordinate of the first vertex.
+         * @param {number} x3 - X coordinate of the third vertex.
+         * @param {number} y3 - Y coordinate of the third vertex.
+         * @param {number} z3 - Z coordinate of the third vertex.
+         * @returns {number} The area of the polygon.
+         */
         static polygonArea(x2, y2, z2, x1, y1, z1, x3, y3, z3) {
             const vectorInR3 = new dsector.VectorInR3(Math.fround(x1 - x2), Math.fround(y1 - y2),
                 Math.fround(z1 - z2));
@@ -72,8 +87,9 @@ var dsector;
 
         /**
          * Get the Detail Category number from the PolygonGroup's name.
-         * @param {string} name
-         * @return {number}
+         * @static
+         * @param {string} name - The name of the PolygonGroup.
+         * @returns {number} The Detail Category number.
          */
         static getDetailCategoryFromPolygonGroupName(name) {
             let detail = 0;
@@ -88,25 +104,41 @@ var dsector;
             return detail;
         }
 
+        /**
+         * Calculate the average polygon area when the model was loaded.
+         * @param {number} model - The model index.
+         * @returns {number} The average polygon area.
+         */
         averagePolygonAreaWhenModelLoaded(model) {
             return this.totalNumberOfPolygonsWhenModelLoaded[model] === 0 ? -1.0 : Math.fround(
                 (this.totalPolygonAreaWhenModelLoaded[model] / this.totalNumberOfPolygonsWhenModelLoaded[model]) / 3.0);
         }
 
+        /**
+         * Get the maximum distance of a vertex to the center when the model was loaded.
+         * @returns {number} The maximum distance.
+         */
         maximumDistanceOfVertexToCenterWhenModelLoaded() {
             return this.__maximumDistanceOfVertexToCenterWhenModelLoaded;
         }
 
-        /** @private */
+        /**
+         * Reset model load statistics.
+         * @private
+         */
         resetModelLoadStatistics() {
             this.__maximumDistanceOfVertexToCenterWhenModelLoaded = 0.0;
             this.totalPolygonAreaWhenModelLoaded = [0, 0, 0, 0, 0, 0];
             this.totalNumberOfPolygonsWhenModelLoaded = [0, 0, 0, 0, 0, 0];
         }
 
-        /** @private */
+        /**
+         * Create a model from a file.
+         * @private
+         * @param {string} filePath - The path to the model file.
+         */
         createModelFromFile(filePath) {
-            let xmldoc = null;
+            let xmldoc;
             try { // Since XML processing is built in to Web browsers, we can just retrieve the XML file using the filePath
                 let xmlHttp = new XMLHttpRequest();
                 xmlHttp.open("GET", filePath, false);
@@ -125,15 +157,18 @@ var dsector;
                     '".\nError M3DM02:\n' + this.XMLFormatError);
                 this.createNewModelWithLights();
             } else {
+                // Missing code from Java conversion, has to do with creating blank models.
                 //const file = filePath;
-                /* Missing code from Java conversion, has to do with creating blank models.
-                File file = new File(filePath); this.name = file.getName(); **/
+                //File file = new File(filePath); this.name = file.getName();
                 this.absoluteFilepath = filePath;
             }
             xmldoc = null;
             this.activateFirstPolygonGroup();
         }
 
+        /**
+         * Activate the first polygon group.
+         */
         activateFirstPolygonGroup() {
             const polygonIterator = new dsector.PolygonIterator(this, dsector.PolygonIterator.ALL_POLYGON_GROUPS);
             const polygonGroup = polygonIterator.nextPolygonGroup();
@@ -142,6 +177,9 @@ var dsector;
             }
         }
 
+        /**
+         * Create a new model.
+         */
         createNewModel() {
             this.name = "Untitled";
             this.absoluteFilepath = null;
@@ -152,9 +190,12 @@ var dsector;
             this.rootFolder.polygonGroups.push(polygonGroup);
         }
 
+        /**
+         * Create a new model with lights.
+         */
         createNewModelWithLights() {
             this.createNewModel();
-            let inbuiltLight = null;
+            let inbuiltLight;
             inbuiltLight = new dsector.InbuiltLight(this.rootFolder, "Untitled Light", true,
                 -200.0, 200.0, 500.0, 40.0, 40.0, 40.0);
             this.rootFolder.inbuiltLights.push(inbuiltLight);
@@ -166,6 +207,11 @@ var dsector;
             this.rootFolder.inbuiltLights.push(inbuiltLight);
         }
 
+        /**
+         * Build a 3D model from an XML document.
+         * @param {Document} xdocument - The XML document.
+         * @returns {boolean} True if the model was built successfully, false otherwise.
+         */
         build3DModelFromDocument(xdocument) {
             this.XMLFormatError = "";
             const element = xdocument.firstChild; // seems to match Document.getDocumentElement() close enough
@@ -174,8 +220,6 @@ var dsector;
                     "The tag <model3DMatrix name=\"Filename\"> was not found at the root level of the XML file. ";
                 return false;
             } else {
-                //const arrayList = Model3DMatrix.getChildNodesByTagName(element, "camera");
-                //const element1 = arrayList[0];
                 const arrayList1 = Model3DMatrix.getChildNodesByTagName(element, "folder");
                 if (arrayList1.length === 0) {
                     this.XMLFormatError = "There were no <folder name=\"folderName\"> tags found under the model3DMatrix tag. ";
@@ -197,6 +241,12 @@ var dsector;
             }
         }
 
+        /**
+         * Build a 3D model from an XML folder element.
+         * @param {Element} element - The XML folder element.
+         * @param {ModelFolder|null} modelFolder - The parent model folder.
+         * @returns {boolean} True if the model was built successfully, false otherwise.
+         */
         build3DModelFromFolder(element, modelFolder) {
             let arrayList;
             let i;
@@ -665,6 +715,11 @@ var dsector;
             return true;
         }
 
+        /**
+         * Get a model folder by its ID.
+         * @param {number} folderId - The ID of the folder.
+         * @returns {ModelFolder|null} The model folder, or null if not found.
+         */
         getModelFolderFromID(folderId) {
             const polygonIterator = new dsector.PolygonIterator(this, dsector.PolygonIterator.ALL_POLYGON_GROUPS);
             let modelFolder;
@@ -679,6 +734,11 @@ var dsector;
             return modelFolder;
         }
 
+        /**
+         * Get a polygon group by its ID.
+         * @param {number} pgID - The ID of the polygon group.
+         * @returns {PolygonGroup|null} The polygon group, or null if not found.
+         */
         getPolygonGroupFromID(pgID) {
             const polygonIterator = new dsector.PolygonIterator(this, dsector.PolygonIterator.ALL_POLYGON_GROUPS);
             let polygonGroup;
@@ -691,6 +751,11 @@ var dsector;
             return polygonGroup;
         }
 
+        /**
+         * Get a polygon group representation by its ID.
+         * @param {number} pgrID - The ID of the polygon group representation.
+         * @returns {PolygonGroupRepresentation|null} The polygon group representation, or null if not found.
+         */
         getPolygonGroupRepresentationFromID(pgrID) {
             const polygonIterator = new dsector.PolygonIterator(this, dsector.PolygonIterator.ALL_POLYGON_GROUPS);
             while (true) {
@@ -714,6 +779,11 @@ var dsector;
 
         }
 
+        /**
+         * Get an inbuilt light by its ID.
+         * @param {number} inbuiltLightID - The ID of the inbuilt light.
+         * @returns {InbuiltLight|null} The inbuilt light, or null if not found.
+         */
         getInbuiltLightFromID(inbuiltLightID) {
             const polygonIterator = new dsector.PolygonIterator(this, dsector.PolygonIterator.ALL_POLYGON_GROUPS);
             while (true) {
@@ -722,7 +792,6 @@ var dsector;
                     return null;
                 }
                 for (let i = 0; i < modelFolder.inbuiltLights.length; ++i) {
-
                     const inbuiltLight = modelFolder.inbuiltLights[i];
                     if (inbuiltLight.id === inbuiltLightID) {
                         return inbuiltLight;
@@ -731,7 +800,12 @@ var dsector;
             }
         }
 
-        getSpecialPointFromID(specialPointID) {
+        /**
+         * Get a special point by its ID.
+         * @param {number} spid - The ID of the special point.
+         * @returns {SpecialPoint|null} The special point, or null if not found
+         */
+        getSpecialPointFromID(spid) {
             const polygonIterator = new dsector.PolygonIterator(this, dsector.PolygonIterator.ALL_POLYGON_GROUPS);
             while (true) {
                 const modelFolder = polygonIterator.nextModelFolder();
@@ -739,16 +813,18 @@ var dsector;
                     return null;
                 }
                 for (let i = 0; i < modelFolder.specialPoints.length; ++i) {
-                    {
-                        const specialPoint = modelFolder.specialPoints[i];
-                        if (specialPoint.id === specialPointID) {
-                            return specialPoint;
-                        }
+                    const specialPoint = modelFolder.specialPoints[i];
+                    if (specialPoint.id === spid) {
+                        return specialPoint;
                     }
                 }
             }
         }
 
+        /**
+         * Get the total number of polygons in the model.
+         * @returns {number} The total number of polygons.
+         */
         numberOfPolygons() {
             const polygonIterator = new dsector.PolygonIterator(this, dsector.PolygonIterator.ALL_POLYGON_GROUPS);
             let idy = 0;
@@ -761,17 +837,23 @@ var dsector;
             }
         }
 
-        addPolygon(polygonGroup, polygon, idy) {
-            polygonGroup.polygons.push(polygon);
-            const v1x = polygon.v1.x;
-            const v1y = polygon.v1.y;
-            const v1z = polygon.v1.z;
-            const v2x = polygon.v2.x;
-            const v2y = polygon.v2.y;
-            const v2z = polygon.v2.z;
-            const v3x = polygon.v3.x;
-            const v3y = polygon.v3.y;
-            const v3z = polygon.v3.z;
+        /**
+         * Add a polygon to a polygon group.
+         * @param {PolygonGroup} pg - The polygon group to add the polygon to.
+         * @param {Polygon} p - The polygon to add.
+         * @param {number} id - The index of the polygon.
+         */
+        addPolygon(pg, p, id) {
+            pg.polygons.push(p);
+            const v1x = p.v1.x;
+            const v1y = p.v1.y;
+            const v1z = p.v1.z;
+            const v2x = p.v2.x;
+            const v2y = p.v2.y;
+            const v2z = p.v2.z;
+            const v3x = p.v3.x;
+            const v3y = p.v3.y;
+            const v3z = p.v3.z;
             let sqr = Math.fround(Math.sqrt(v1x * v1x + v1y * v1y + v1z * v1z));
             if (sqr > this.__maximumDistanceOfVertexToCenterWhenModelLoaded) {
                 this.__maximumDistanceOfVertexToCenterWhenModelLoaded = sqr;
@@ -785,34 +867,41 @@ var dsector;
                 this.__maximumDistanceOfVertexToCenterWhenModelLoaded = sqr;
             }
             const totalArea = this.totalPolygonAreaWhenModelLoaded;
-            totalArea[idy] += Model3DMatrix.polygonArea(v1x, v1y, v1z, v2x, v2y, v2z, v3x, v3y, v3z);
+            totalArea[id] += Model3DMatrix.polygonArea(v1x, v1y, v1z, v2x, v2y, v2z, v3x, v3y, v3z);
         }
-/** DSReference {@link https://threejs.org/docs/#api/en/loaders/BufferGeometryLoader}
- * */
+
+        /**
+         * Convert the XML model to a JSON OBJ scene.
+         *
+         * @see https://threejs.org/docs/#api/en/loaders/BufferGeometryLoader
+         * @returns {string} The JSON string representing the OBJ scene.
+         */
         xmlToJsonOBJScene() {
             let jsonString = '{"metadata":{"version": 4,"type": "BufferGeometry",' +
                 '"generator": "Model3DMatrix.xmlToJsonOBJScene"},"data":{"attributes":{';
             let posjson = '"position":{"itemSize":3,"type": "Float32Array","array":[';
             let normjson = '"normal":{"itemSize":3,"type":"Float32Array","array":[';
             let uvjson = '"uv":{"itemSize":2,"type":"Float32Array","array":[';
-            const guid = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-                (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)).toUpperCase();
+//            const guid = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+//                (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)).toUpperCase();
             this.rootFolder.polygonGroups[0].polygons.forEach(
-                (item,index) => {
-                    posjson += `${item.v1.x},${item.v1.y},${item.v1.z},${item.v2.x},${item.v2.y},${item.v2.z},${item.v3.x},${item.v3.y},${item.v3.z},` ;
+                (item, index) => {
+                    posjson += `${item.v1.x},${item.v1.y},${item.v1.z},${item.v2.x},${item.v2.y},${item.v2.z},${item.v3.x},${item.v3.y},${item.v3.z},`;
                     normjson += "0,0,1,";
                     uvjson += "0,1,";
                 });
 
-            posjson = posjson.substring(0,posjson.length - 1) + "]},";
-            normjson = normjson.substring(0,normjson.length - 1) + "]},";
-            uvjson = uvjson.substring(0,uvjson.length - 1) + "]}";
+            posjson = posjson.substring(0, posjson.length - 1) + "]},";
+            normjson = normjson.substring(0, normjson.length - 1) + "]},";
+            uvjson = uvjson.substring(0, uvjson.length - 1) + "]}";
             jsonString += posjson + normjson + uvjson + "}}}";
             return jsonString;
         }
     }
 
+    /** The maximum detail category value. */
     Model3DMatrix.maximumDetailCategoryValue = 5;
+    /** Constant indicating to create a new model if the file is not found. */
     Model3DMatrix.CREATE_NEW_IF_FILE_NOT_FOUND = 0;
     dsector.Model3DMatrix = Model3DMatrix;
     Model3DMatrix["__class"] = "dsector.Model3DMatrix";

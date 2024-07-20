@@ -1,7 +1,21 @@
-var CWSYSTEM;
 (function (CWSYSTEM) {
     /**
-     Class representing screen data.
+     * Class representing screen data. The point array will contain [CWColor]{@link CWSYSTEM.CWColor} data.
+     *
+     * @property {Array<CWSYSTEM.CWColor>} point - A multidimensional array representing the screen data.
+     * @property {number} width - The width of the screen.
+     * @property {number} height - The height of the screen.
+     * @property {string} description - The description of the screen.
+     *
+     * @since    1.0.0
+     * @access   public
+     * @class
+     *
+     * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class ScreenData {
         /**
@@ -11,40 +25,26 @@ var CWSYSTEM;
          @param {string} [description=null] - The description of the screen.
          */
         constructor(width, height, description) {
-            /**
-             @type {Array}
-             */
-            this.point = null;
-            /**
-             @type {number}
-             */
-            this.width = 0;
-            /**
-             @type {number}
-             */
-            this.height = 0;
-            /**
-             @type {string}
-             */
-            this.description = null;
-
-            this.description = description;
+            this.description = description | null;
             this.point = createMultiDimensionalArray([height, width]);
-            this.width = width;
-            this.height = height;
+            this.width = width | 0;
+            this.height = height | 0;
         }
     }
 
     /**
-     Creates a multidimensional array.
-     @param {number[]} dimensions - An array of dimensions for the multidimensional array.
-     @returns {Array} The created multidimensional array.
+     * Creates a multidimensional array.
+     *
+     * @param {number[]} dimensions - An array of dimensions for the multidimensional array.
+     * @returns {Array} The created multidimensional array.
      */
     function createMultiDimensionalArray(dimensions) {
         /**
-         Allocates the multidimensional array based on the provided dimensions.
-         @param {number[]} dims - Dimensions for the array.
-         @returns {Array | number} Allocated multidimensional array or 0 if dimensions are empty.
+         * Allocates the multidimensional array based on the provided dimensions.
+         *
+         * @param {number[]} dims - Dimensions for the array.
+         * @returns {Array | number} Allocated multidimensional array or 0 if dimensions are empty.
+         * @private
          */
         function allocate(dims) {
             if (dims.length === 0) {
@@ -57,6 +57,7 @@ var CWSYSTEM;
                 return array;
             }
         }
+
         return allocate(dimensions);
     }
 

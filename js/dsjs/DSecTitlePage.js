@@ -1,5 +1,9 @@
-var dsector;
+/**/
 (function (dsector) {
+    /**
+     * @class
+     * @memberof dsector
+     */
     class DSecTitlePage {
         constructor() {
             this.titleScreenOpen = false;
@@ -7,7 +11,7 @@ var dsector;
                 this.controlRoomSound = null;
             }
             this.titleScreenOpen = true;
-            if (dsector.DSecSetupWindow.soundMode !== 0) {
+            if (dsector.DSReference.dsecSetupWindow.soundMode !== 0) {
                 this.controlRoomSound = new dsector.MP3("assets/sounds/title.mp3");
                 this.controlRoomSound.play();
             }
@@ -15,11 +19,11 @@ var dsector;
             dsector.DSReference.virtualScreen.setBackgroundImage("assets/images/dsectorTitle.jpg");
             dsector.Keyboard.focus = dsector.Keyboard.DSECTOR;
             CWSYSTEM.Global.windowsCanOnlyBeMovedByClickingTitleArea = false;
-            dsector.DSReference.dsecSetupWindow.loadOptions();
         }
         respondToGameTick() {
             if (CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed) {
                 this.titleScreenOpen = false;
+                dsector.DSReference.dsecSetupWindow.loadOptions();
                 dsector.DSReference.dsecMainSetupWindow.create();
                 if (this.controlRoomSound != null) {
                     this.controlRoomSound.close();

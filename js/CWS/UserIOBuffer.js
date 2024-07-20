@@ -1,19 +1,60 @@
-var dsector;
 (function (dsector) {
+    /**
+     * Contains the basic user input processing and handling.
+     *
+     * @property {CWSYSTEM.IOInstruction[]} instructions - An array of IOInstruction objects representing user input events.
+     * @property {boolean} buttonActionPerformedOnButtonPressed - Whether a button action was performed on button press.
+     *
+     * @todo decouple from dsector like CWSReference
+     * @since    1.0.0
+     * @access   public
+     * @class
+     *
+     * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
+     */
     class UserIOBuffer {
+        /**
+         * Constructor for creating a new UserIOBuffer object.
+         *
+         * @access public
+         */
         constructor() {
             this.instructions = ([]);
             this.buttonActionPerformedOnButtonPressed = false;
         }
 
+        /**
+         * Adds a mouse entered event to the instructions array.
+         *
+         * @access public
+         * @param {number} x - The x-coordinate of the mouse event.
+         * @param {number} y - The y-coordinate of the mouse event.
+         */
         addMouseEnteredEvent(x, y) {
             this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.mouseEntered, x, y));
         }
 
+        /**
+         * Adds a mouse exited event to the instructions array.
+         *
+         * @access public
+         * @param {number} x - The x-coordinate of the mouse event.
+         * @param {number} y - The y-coordinate of the mouse event.
+         */
         addMouseExitedEvent(x, y) {
             this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.mouseExited, x, y));
         }
 
+        /**
+         * Adds a mouse pressed event to the instructions array.
+         *
+         * @access public
+         * @param {MouseEvent} mouseEvent - The mouse event object.
+         */
         addMousePressedEvent(mouseEvent) {
             if (mouseEvent.button === 0) {
                 CWSYSTEM.Environment.lastMouseButtonPressed = CWSYSTEM.Environment.MOUSE_LEFT;
@@ -26,6 +67,12 @@ var dsector;
             }
         }
 
+        /**
+         * Adds a mouse released event to the instructions array.
+         *
+         * @access public
+         * @param {MouseEvent} mouseEvent - The mouse event object.
+         */
         addMouseReleasedEvent(mouseEvent) {
             if (mouseEvent.button === 0) {
                 CWSYSTEM.Environment.lastMouseButtonPressed = CWSYSTEM.Environment.MOUSE_LEFT;
@@ -38,6 +85,12 @@ var dsector;
             }
         }
 
+        /**
+         * Adds a mouse clicked event to the instructions array.
+         *
+         * @access public
+         * @param {MouseEvent} mouseEvent - The mouse event object.
+         */
         addMouseClickedEvent(mouseEvent) {
             let x = mouseEvent.x;
             let y = mouseEvent.y;
@@ -50,7 +103,7 @@ var dsector;
             }
             const currentTime = CWSYSTEM.Environment.currentTime();
             let timeCheck;
-            if (x === CWSYSTEM.Environment.mouseXLastClicked_$LI$() && y === CWSYSTEM.Environment.mouseYLastClicked_$LI$() &&
+            if (x === CWSYSTEM.Environment.mouseXLastClicked$() && y === CWSYSTEM.Environment.mouseYLastClicked$() &&
                 currentTime - CWSYSTEM.Environment.timeWhenMouseLastClicked < CWSYSTEM.Global.maximumDoubleClickTime) {
                 timeCheck = true;
                 CWSYSTEM.Environment.timeWhenMouseLastClicked = 0;
@@ -73,18 +126,44 @@ var dsector;
             }
         }
 
+        /**
+         * Adds a mouse dragged event to the instructions array.
+         *
+         * @access public
+         * @param {number} x - The x-coordinate of the mouse event.
+         * @param {number} y - The y-coordinate of the mouse event.
+         */
         addMouseDraggedEvent(x, y) {
             this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.mouseDragged, x, y));
         }
 
+        /**
+         * Adds a mouse moved event to the instructions array.
+         *
+         * @access public
+         * @param {number} x - The x-coordinate of the mouse event.
+         * @param {number} y - The y-coordinate of the mouse event.
+         */
         addMouseMovedEvent(x, y) {
             this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.mouseMoved, x, y));
         }
 
+        /**
+         * Adds a key typed event to the instructions array.
+         *
+         * @access public
+         * @param {number} c - The character code of the key typed event.
+         */
         addKeyTypedEvent(c) {
             this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.keyTyped, c));
         }
 
+        /**
+         * Adds a key pressed event to the instructions array.
+         *
+         * @access public
+         * @param {number} evt - The key code of the key pressed event.
+         */
         addKeyPressedEvent(evt) {
             this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.keyPressed, evt));
             if (evt === 27) {
@@ -93,10 +172,21 @@ var dsector;
             }
         }
 
+        /**
+         * Adds a key released event to the instructions array.
+         *
+         * @access public
+         * @param {number} keyCode - The key code of the key released event.
+         */
         addKeyReleasedEvent(keyCode) {
             this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.keyReleased, keyCode));
         }
 
+        /**
+         * Clears the instructions array.
+         *
+         * @access public
+         */
         clear() {
             while ((!(this.instructions.length === 0))) {
                 const ioInstruction = this.instructions[0];
@@ -118,8 +208,13 @@ var dsector;
             CWSYSTEM.Environment.VK_q_Pressed = false;
         }
 
+        /**
+         * Processes the instructions in the instructions array.
+         *
+         * @access public
+         */
         process() {
-            dsector.DSReference.virtualScreen.cancelOption = false;
+            CWSYSTEM.CWSReference.virtualScreen.cancelOption = false;
             CWSYSTEM.Environment.ESCKeyPressedDuringThisCycle = false;
             while (!(this.instructions.length === 0)) {
                 const ioInstruction = this.instructions[0];
@@ -186,7 +281,9 @@ var dsector;
             this.handleGamePads();
         }
 
-        /** Check game pads are connected then processes each game pad's pending actions
+        /**
+         * Check game pads are connected then processes each game pad's pending actions
+         *
          * @private
          */
         handleGamePads() {
@@ -197,7 +294,13 @@ var dsector;
             });
         }
 
-        /** @private */
+        /**
+         * Processes the game pad's pending actions
+         *
+         * @param {Gamepad} joy - The game pad object
+         * @param {number} joyId - The game pad's ID
+         * @private
+         */
         processGamePad(joy, joyId) {
             let gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads() : []);
             let buttonPressed = false;
@@ -327,7 +430,7 @@ var dsector;
                     this.instructions.push(new CWSYSTEM.IOInstruction(keyMode, (keySelector + 10)));
                 }
                 if (i === 5) {
-                    console.log("hit " + i)
+                    CWSYSTEM.Debug.println("hit " + i)
                 }
             }*/
             joy.gamePadButtons = gamePadButtons;
@@ -335,45 +438,61 @@ var dsector;
             dsector.DSReference.jsu.joysticksActive.set(joyId, joy);
         }
 
+        /**
+         * Handles mouse movement and updates the mouse position and button hover state
+         *
+         * @param {number} x - The x position of the mouse
+         * @param {number} y - The y position of the mouse
+         */
         mouseMoved(x, y) {
             CWSYSTEM.Environment.mouseX = x;
             CWSYSTEM.Environment.mouseY = y;
             const mouseIsOver = dsector.DSReference.gui.windowThatMouseIsOver(x, y);
             if (mouseIsOver === -1) {
-                if (CWSYSTEM.Environment.buttonLastMovedOver_$LI$() != null) {
-                    CWSYSTEM.Environment.buttonLastMovedOver_$LI$().mouseIsOver = false;
-                    CWSYSTEM.Environment.buttonLastMovedOver_$LI$().parent.updated = false;
+                if (CWSYSTEM.Environment.buttonLastMovedOver$() != null) {
+                    CWSYSTEM.Environment.buttonLastMovedOver$().mouseIsOver = false;
+                    CWSYSTEM.Environment.buttonLastMovedOver$().parent.updated = false;
                     CWSYSTEM.Environment.buttonLastMovedOver = null;
                 }
             } else {
                 const window = dsector.DSReference.gui.getWindow$int(mouseIsOver);
                 const button = dsector.DSReference.gui.buttonThatMouseIsOver(x, y);
                 if (button != null) {
-                    if (button !== CWSYSTEM.Environment.buttonLastMovedOver_$LI$()) {
+                    if (button !== CWSYSTEM.Environment.buttonLastMovedOver$()) {
                         button.mouseIsOver = true;
-                        if (CWSYSTEM.Environment.buttonLastMovedOver_$LI$() != null) {
-                            CWSYSTEM.Environment.buttonLastMovedOver_$LI$().mouseIsOver = false;
-                            CWSYSTEM.Environment.buttonLastMovedOver_$LI$().parent.updated = false;
+                        if (CWSYSTEM.Environment.buttonLastMovedOver$() != null) {
+                            CWSYSTEM.Environment.buttonLastMovedOver$().mouseIsOver = false;
+                            CWSYSTEM.Environment.buttonLastMovedOver$().parent.updated = false;
                         }
                         CWSYSTEM.Environment.buttonLastMovedOver = button;
                         window.updated = false;
                         CWSYSTEM.CWMenu.mouseMovedOverButton(button);
                     }
-                } else if (CWSYSTEM.Environment.buttonLastMovedOver_$LI$() != null) {
-                    CWSYSTEM.Environment.buttonLastMovedOver_$LI$().mouseIsOver = false;
-                    CWSYSTEM.Environment.buttonLastMovedOver_$LI$().parent.updated = false;
+                } else if (CWSYSTEM.Environment.buttonLastMovedOver$() != null) {
+                    CWSYSTEM.Environment.buttonLastMovedOver$().mouseIsOver = false;
+                    CWSYSTEM.Environment.buttonLastMovedOver$().parent.updated = false;
                     CWSYSTEM.Environment.buttonLastMovedOver = null;
                 }
             }
         }
 
-        /** @private */
+        /**
+         * Handles mouse press events and performs the appropriate actions
+         *
+         * @private
+         */
         mousePressedFinalize() {
             CWSYSTEM.CWMenu.mouseClicked();
             CWSYSTEM.CWPopupMenu.mouseClicked();
         }
 
-        /** @private */
+        /**
+         * Handles mouse press events and performs the appropriate actions
+         *
+         * @param {number} xPos - The x position of the mouse
+         * @param {number} yPos - The y position of the mouse
+         * @private
+         */
         mouseLeftPressed(xPos, yPos) {
             CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed = true;
             const mouseIsOver = dsector.DSReference.gui.windowThatMouseIsOver(xPos, yPos);
@@ -385,16 +504,16 @@ var dsector;
                 CWSYSTEM.Environment.screenHasChanged = true;
                 dsector.DSReference.gui.moveWindowToTop$int(mouseIsOver);
                 dsector.DSReference.gui.deactivateTextAreasInWindowsOtherThan(cwWindow);
-                if (CWSYSTEM.Environment.activePulldownMenu_$LI$() != null && cwWindow === CWSYSTEM.Environment.activePulldownMenu_$LI$().parent) {
-                    CWSYSTEM.Environment.activePulldownMenu_$LI$().mousePressedOverClosedSectionOrOverlayBorder();
+                if (CWSYSTEM.Environment.activePulldownMenu$() != null && cwWindow === CWSYSTEM.Environment.activePulldownMenu$().parent) {
+                    CWSYSTEM.Environment.activePulldownMenu$().mousePressedOverClosedSectionOrOverlayBorder();
                     this.mousePressedFinalize();
                 } else {
                     const inputBox = dsector.DSReference.gui.inputBoxThatMouseIsOver(xPos, yPos);
                     if (inputBox != null) {
                         CWSYSTEM.Environment.inputBoxSelected = inputBox;
                     }
-                    if (CWSYSTEM.Environment.inputBoxSelected_$LI$() != null && CWSYSTEM.Environment.inputBoxSelected_$LI$() !== inputBox) {
-                        dsector.DSReference.interfaceProcesses.processInputBox(CWSYSTEM.Environment.inputBoxSelected_$LI$());
+                    if (CWSYSTEM.Environment.inputBoxSelected$() != null && CWSYSTEM.Environment.inputBoxSelected$() !== inputBox) {
+                        dsector.DSReference.interfaceProcesses.processInputBox(CWSYSTEM.Environment.inputBoxSelected$());
                         CWSYSTEM.Environment.inputBoxSelected = null;
                     }
                     const textArea = dsector.DSReference.gui.textAreaThatMouseIsOver(xPos, yPos);
@@ -415,15 +534,15 @@ var dsector;
                     const cwChkBox = dsector.DSReference.gui.checkBoxThatMouseIsOver(xPos, yPos);
                     if (cwChkBox != null) {
                         if (cwChkBox.isRadioButton()) {
-                            cwChkBox.selected$boolean(true);
+                            cwChkBox.setSelected(true);
                             this.mousePressedFinalize();
                         } else {
                             cwChkBox.invertSelectedState();
                             dsector.DSReference.interfaceProcesses.processCheckBox(cwChkBox);
                             this.mousePressedFinalize();
                         }
-                    } else if ((nameID === ("overlay")) && CWSYSTEM.Environment.activePulldownMenu_$LI$() != null) {
-                        CWSYSTEM.Environment.activePulldownMenu_$LI$().mousePressedOverClosedSectionOrOverlayBorder();
+                    } else if ((nameID === ("overlay")) && CWSYSTEM.Environment.activePulldownMenu$() != null) {
+                        CWSYSTEM.Environment.activePulldownMenu$().mousePressedOverClosedSectionOrOverlayBorder();
                         this.mousePressedFinalize();
                     } else {
                         const pulldownMO = dsector.DSReference.gui.pulldownThatMouseIsOver(xPos, yPos);
@@ -485,7 +604,13 @@ var dsector;
             }
         }
 
-        /** @private */
+        /**
+         * Handles right mouse press events and performs the appropriate actions
+         *
+         * @param {number} x - The x position of the mouse
+         * @param {number} y - The y position of the mouse
+         * @private
+         */
         mouseRightPressed(x, y) {
             CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed = true;
             const ref = dsector.DSReference.gui.windowThatMouseIsOver(x, y);
@@ -503,22 +628,40 @@ var dsector;
             }
         }
 
-        /** @private */
+        /**
+         * Handles mouse release events and performs the appropriate actions
+         *
+         * @param {number} x - The x position of the mouse
+         * @param {number} y - The y position of the mouse
+         * @private
+         */
         mouseLeftReleased(x, y) {
             CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed = false;
             dsector.DSReference.mouseDrag.release(x, y);
-            if (CWSYSTEM.Environment.buttonLastPressed_$LI$() != null) {
-                CWSYSTEM.Environment.buttonLastPressed_$LI$().release();
+            if (CWSYSTEM.Environment.buttonLastPressed$() != null) {
+                CWSYSTEM.Environment.buttonLastPressed$().release();
             }
             dsector.DSReference.interfaceProcesses.processMouseRelease();
         }
 
-        /** @private */
+        /**
+         * Handles right mouse release events and performs the appropriate actions
+         *
+         * @param {number} x - The x position of the mouse
+         * @param {number} y - The y position of the mouse
+         * @private
+         */
         mouseRightReleased(x, y) {
             CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed = false;
         }
 
-        /** @private */
+        /**
+         * Handles mouse double click events and performs the appropriate actions
+         *
+         * @param {number} x - The x position of the mouse
+         * @param {number} y - The y position of the mouse
+         * @private
+         */
         mouseDoubleLeftClicked(x, y) {
             const ref = dsector.DSReference.gui.windowThatMouseIsOver(x, y);
             if (ref !== -1) {
@@ -526,12 +669,25 @@ var dsector;
             }
         }
 
-        /** @private */
+        /**
+         * Handles right mouse double click events and performs the appropriate actions
+         *
+         * @deprecated This method is deprecated and will be updated in a future version.
+         * @param {number} x - The x position of the mouse
+         * @param {number} y - The y position of the mouse
+         * @private
+         */
         mouseDoubleRightClicked(x, y) {
             CWSYSTEM.Debug.print("");
         }
 
-        /** @private */
+        /**
+         * Handles left mouse click events and performs the appropriate actions
+         *
+         * @param {number} x - The x position of the mouse
+         * @param {number} y - The y position of the mouse
+         * @private
+         */
         mouseLeftClicked(x, y) {
             if (this.buttonActionPerformedOnButtonPressed) {
                 this.buttonActionPerformedOnButtonPressed = false;
@@ -547,20 +703,42 @@ var dsector;
             }
         }
 
-        /** @private */
+        /**
+         * Handles right mouse click events and performs the appropriate actions
+         *
+         * @param {number} x - The x position of the mouse
+         * @param {number} y - The y position of the mouse
+         * @note outputs a log message since it isn't used yet
+         * @private
+         */
         mouseRightClicked(x, y) {
             CWSYSTEM.Debug.print("RC X: " + x + " | Y: " + y);
         }
 
+        /**
+         * Handles tab key press events and performs the appropriate actions
+         *
+         * @private
+         */
         tabKeyPressed() {
             dsector.DSReference.interfaceProcesses.processKeyboardPress(9);
         }
 
-        /** @private */
+        /**
+         * Handles key typed events and performs the appropriate actions
+         *
+         * @param {string} c - The character typed
+         * @private
+         */
         keyTyped(c) {
             dsector.DSReference.interfaceProcesses.processKeyboardChar(c);
         }
 
+        /**
+         * Handles key press events and performs the appropriate actions
+         *
+         * @param {number} keycode - The key code of the pressed key
+         */
         keyPressed(keycode) {
             CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed = true;
             switch (keycode) {
@@ -583,6 +761,11 @@ var dsector;
             dsector.DSReference.interfaceProcesses.processKeyboardPress(keycode);
         }
 
+        /**
+         * Handles key release events and performs the appropriate actions
+         *
+         * @param {number} keycode - The key code of the released key
+         */
         keyReleased(keycode) {
             CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed = false;
             switch (keycode) {
@@ -606,6 +789,11 @@ var dsector;
         }
     }
 
+    /**
+     * The minimum guaranteed size of the buffer.
+     * @static
+     * @type {number}
+     */
     UserIOBuffer.minimumGuaranteedBufferSize = 20;
     dsector.UserIOBuffer = UserIOBuffer;
     UserIOBuffer["__class"] = "dsector.UserIOBuffer";

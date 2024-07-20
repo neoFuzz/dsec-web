@@ -1,8 +1,40 @@
-/* Re-written from Java */
-var CWSYSTEM;
 (function (CWSYSTEM) {
+    /**
+     * Represents a pulldown combo box GUI element.
+     *
+     * @property {number} status - The status of the pulldown (0 for closed, 1 for open).
+     * @property {number} CLOSED - Constant representing the closed state of the pulldown.
+     * @property {number} OPEN - Constant representing the open state of the pulldown.
+     * @property {number} selectedOption - The index of the currently selected option in the pulldown.
+     * @property {Array} options - The options to be displayed in the pulldown.
+     * @property {Function|null} optionalMethodToExecuteWhenNewValueSelected - An optional method to execute when a new value is selected.
+     * @property {Object|null} objectHavingOptionalMethodToExecuteWhenNewValueSelected - The object containing the optional method to execute when a new value is selected.
+     * @property {Object|null} objectContainingPulldownChangedMethod - The object containing the method to execute when the pulldown state changes.
+     * @property {Object|null} generalPurposeObject - A general-purpose object for storing any purpose.
+     *
+     * @since    1.0.0
+     * @access   public
+     * @class
+     *
+     * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
+     */
     class CWPulldown {
-        constructor(parent, name, options, x, y, width, height) {
+        /**
+         * Creates an instance of CWPulldown.
+         *
+         * @param {Object} parent - The parent object.
+         * @param {string|null} name - The name of the pulldown.
+         * @param {Array} opts - The options for the pulldown.
+         * @param {number} x - The x-coordinate of the pulldown.
+         * @param {number} y - The y-coordinate of the pulldown.
+         * @param {number} width - The width of the pulldown.
+         * @param {number} height - The height of the pulldown.
+         */
+        constructor(parent, name, opts, x, y, width, height) {
             this.parent = parent || null;
             this.name = name || null;
             this.overlay = null;
@@ -11,19 +43,24 @@ var CWSYSTEM;
             this.width = width || 0;
             this.height = height || 0;
             this.popupWindowItemHeight = height || 0;
-            this.titleBoxFont = dsector.DSReference.virtualScreen.serif8_font;
-            this.popupWindowFont = dsector.DSReference.virtualScreen.serif8_font;
+            this.titleBoxFont = CWSYSTEM.CWSReference.virtualScreen.serif8_font;
+            this.popupWindowFont = CWSYSTEM.CWSReference.virtualScreen.serif8_font;
             this.status = 0;
             this.CLOSED = 0;
             this.OPEN = 1;
             this.selectedOption = 0;
-            this.options = options || null;
+            this.options = opts || null;
             this.optionalMethodToExecuteWhenNewValueSelected = null;
             this.objectHavingOptionalMethodToExecuteWhenNewValueSelected = null;
             this.objectContainingPulldownChangedMethod = null;
             this.generalPurposeObject = null;
         }
 
+        /**
+         * Gets the box color.
+         *
+         * @returns {CWSYSTEM.CWColor} The box color.
+         */
         static boxColor_$LI$() {
             if (CWPulldown.boxColor == null) {
                 CWPulldown.boxColor = new CWSYSTEM.CWColor(255, 255, 220, 255);
@@ -31,17 +68,30 @@ var CWSYSTEM;
             return CWPulldown.boxColor;
         }
 
+        /**
+         * Gets the text color.
+         *
+         * @returns {CWSYSTEM.CWColor} The text color.
+         */
         static textColor_$LI$() {
             if (CWPulldown.textColor == null) {
-                CWPulldown.textColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.black_$LI$());
+                CWPulldown.textColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__black());
             }
             return CWPulldown.textColor;
         }
 
+        /**
+         * Gets the selected value of the pulldown.
+         *
+         * @returns {*} The selected value.
+         */
         selectedValue() {
             return this.options[this.selectedOption].value;
         }
 
+        /**
+         * Draws the pulldown menu.
+         */
         draw() {
             const vs = this.parent.v;
             const intWidth = this.parent.borderWidth + this.x;
@@ -85,10 +135,13 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Handles the mouse pressed event for the pulldown menu.
+         */
         mousePressedOverClosedSectionOrOverlayBorder() {
-            if (CWSYSTEM.Environment.activePulldownMenu_$LI$() != null &&
-                CWSYSTEM.Environment.activePulldownMenu_$LI$().parent !== this.parent) {
-                dsector.DSReference.gui.destroyWindow("overlay");
+            if (CWSYSTEM.Environment.activePulldownMenu$() != null &&
+                CWSYSTEM.Environment.activePulldownMenu$().parent !== this.parent) {
+                CWSYSTEM.CWSReference.gui.destroyWindow("overlay");
                 CWSYSTEM.Environment.activePulldownMenu = null;
             }
             if (this.status === this.CLOSED) {
@@ -108,7 +161,7 @@ var CWSYSTEM;
                 if (moveY + cSize > CWSYSTEM.Global.screenResolutionY_$LI$() - 10) {
                     moveY = CWSYSTEM.Global.screenResolutionY_$LI$() - cSize - 10;
                 }
-                this.overlay = dsector.DSReference.gui.addWindow$name$style$title$x$y$w$h$v(
+                this.overlay = CWSYSTEM.CWSReference.gui.addWindow$name$style$title$x$y$w$h$v(
                     "overlay", 3, "", this.parent.xPosition + this.x +
                     (this.parent.borderWidth / 2 | 0), moveY, this.width - this.parent.borderWidth, cSize, true);
                 this.overlay.titleVisible = false;
@@ -118,22 +171,27 @@ var CWSYSTEM;
                     let name = this.options[i].name;
                     name = CWSYSTEM.CWStringTools.stringReplaceCaseInsensitive(name, "\n", "");
                     const overlayStr = "overlay_" + i;
-                    this.overlay.addButton$name$x$y$len$h$text$t$r(overlayStr, 1,
-                        1 + (this.popupWindowItemHeight - 1) * i, this.width - 8,
-                        this.popupWindowItemHeight - 1, name, 10, 1);
+                    this.overlay.addButton(overlayStr, 1, 1 + (this.popupWindowItemHeight - 1) * i,
+                        this.width - 8, this.popupWindowItemHeight - 1, name,
+                        CWSYSTEM.CWButton.SQUARE_TEXT_BUTTON, CWSYSTEM.CWButton.PRESSED);
                     this.overlay.getButton("overlay_" + i).intProperty = i;
                     this.overlay.getButton("overlay_" + i).font = this.popupWindowFont;
                 }
             } else {
-                dsector.DSReference.gui.destroyWindow("overlay");
+                CWSYSTEM.CWSReference.gui.destroyWindow("overlay");
                 this.status = this.CLOSED;
                 CWSYSTEM.Environment.activePulldownMenu = null;
             }
         }
 
-        optionSelected(button) {
-            this.selectedOption = button.intProperty;
-            dsector.DSReference.gui.destroyWindow("overlay");
+        /**
+         * Handles the option selected event for the pulldown menu.
+         *
+         * @param b the option that was clicked
+         */
+        optionSelected(b) {
+            this.selectedOption = b.intProperty;
+            CWSYSTEM.CWSReference.gui.destroyWindow("overlay");
             this.status = this.CLOSED;
             CWSYSTEM.Environment.activePulldownMenu = null;
             this.parent.updated = false;
@@ -143,11 +201,10 @@ var CWSYSTEM;
                     this.optionalMethodToExecuteWhenNewValueSelected.fn.apply(
                         this.objectHavingOptionalMethodToExecuteWhenNewValueSelected, [objects1]);
                 } catch (e) {
-                    console.info("Problem invoking method in CWPulldown.optionSelected(..)");
+                    CWSYSTEM.Debug.println("Problem invoking method in CWPulldown.optionSelected(..)");
                 }
             }
             if (this.objectContainingPulldownChangedMethod != null) {
-                const classes = [this.constructor];
                 try {
                     const declaredMethod = ((c, p) => {
                         if (c.prototype.hasOwnProperty(p) && typeof c.prototype[p] == 'function')
@@ -158,10 +215,24 @@ var CWSYSTEM;
                     const objects = [this];
                     declaredMethod.fn.apply(this.objectContainingPulldownChangedMethod, [objects]);
                 } catch (e) {
-                    console.error("A problem occured in CWPulldown.optionSelected()for pulldown \'" +
+                    CWSYSTEM.Debug.error("A problem occured in CWPulldown.optionSelected()for pulldown \'" +
                         this.name + "\': " + e);
                 }
             }
+        }
+
+        /**
+         * Set up some default parameters.
+         *
+         * @param {number} c - selected option.
+         * @param {number} i - an integer.
+         */
+        setDefaults(c, i) {
+            this.selectedOption = c;
+            this.objectContainingPulldownChangedMethod = this;
+            this.generalPurposeObject = i + 1;
+            this.popupWindowFont = CWSYSTEM.CWSReference.virtualScreen.jcsmallfixed_font;
+            this.popupWindowItemHeight = 12;
         }
     }
 

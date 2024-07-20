@@ -1,34 +1,59 @@
-var CWSYSTEM;
 (function (CWSYSTEM) {
+    /**
+     * Represents an image and its data within the CWSYSTEM.
+     * Handles image rendering with various effects and transformations.
+     *
+     * @property {Object} parent - The parent object.
+     * @property {string} nameID - The ID of the image.
+     * @property {number} x - The x-coordinate of the image.
+     * @property {number} y - The y-coordinate of the image.
+     * @property {string} filepath - The file path of the image.
+     * @property {CWSYSTEM.CWColor} transparentColor - The transparent color of the image.
+     *
+     * @since    1.0.0
+     * @access   public
+     * @class
+     * @requires CWGraphics
+     * @requires CWColor
+     *
+     * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
+     */
     class CWImage {
+        /**
+         * Create a CWImage instance.
+         *
+         * @param {Object} parent - The parent object.
+         * @param {string} nameID - The ID of the image.
+         * @param {number} x - The x-coordinate of the image.
+         * @param {number} y - The y-coordinate of the image.
+         * @param {string} filePath - The file path of the image.
+         * @param {CWSYSTEM.CWColor} transparentColor - The transparent color of the image.
+         */
         constructor(parent, nameID, x, y, filePath, transparentColor) {
-            if (this.parent === undefined) {
-                this.parent = null;
-            }
-            if (this.nameID === undefined) {
-                this.nameID = null;
-            }
-            if (this.x === undefined) {
-                this.x = 0;
-            }
-            if (this.y === undefined) {
-                this.y = 0;
-            }
-            if (this.filepath === undefined) {
-                this.filepath = null;
-            }
-            if (this.transparentColor === undefined) {
-                this.transparentColor = null;
-            }
-            this.parent = parent;
-            this.nameID = nameID;
-            this.x = x;
-            this.y = y;
-            this.filepath = filePath;
-            this.transparentColor = transparentColor;
+            this.parent = parent || null;
+            this.nameID = nameID || null;
+            this.x = x || 0;
+            this.y = y || 0;
+            this.filepath = filePath || null;
+            this.transparentColor = transparentColor || null;
         }
 
-        static drawUsingColorDerivedTransparency(filename, arrPoints, chosenA, chosenB, inColor, scaleFlt) {
+        /**
+         * Draws an image using color-derived transparency.
+         *
+         * @static
+         * @param {string} filename - The name of the file.
+         * @param {Array} pts - The array of points.
+         * @param {number} chosenA - The chosen A coordinate.
+         * @param {number} chosenB - The chosen B coordinate.
+         * @param {CWSYSTEM.CWColor} inColor - The input color.
+         * @param {number} scaleFlt - The scale factor.
+         */
+        static drawUsingColorDerivedTransparency(filename, pts, chosenA, chosenB, inColor, scaleFlt) {
             const screenData = (new CWSYSTEM.CWGraphics()).getJPG(filename);
             if (screenData != null) {
                 const points = screenData.point;
@@ -37,11 +62,11 @@ var CWSYSTEM;
                         let j;
                         if (inColor == null) {
                             for (j = 0; j < screenData.width; ++j) {
-                                arrPoints[chosenB + i][chosenA + j] = points[i][j];
+                                pts[chosenB + i][chosenA + j] = points[i][j];
                             }
                         } else {
                             for (j = 0; j < screenData.width; ++j) {
-                                const cPoint = arrPoints[chosenB + i][chosenA + j];
+                                const cPoint = pts[chosenB + i][chosenA + j];
                                 const pointsValue = points[i][j];
                                 const red1 = CWSYSTEM.FastColorUtilities.red(cPoint);
                                 const green1 = CWSYSTEM.FastColorUtilities.green(cPoint);
@@ -62,7 +87,7 @@ var CWSYSTEM;
                                 const calcGreen = ((calcBlend * green2 + blended * green1) / 256 | 0);
                                 const calcBlue = ((calcBlend * blue2 + blended * blue1) / 256 | 0);
                                 const alphaBlend = ((calcBlend * alpha2 + blended * alpha1) / 256 | 0);
-                                arrPoints[chosenB + i][chosenA + j] = CWSYSTEM.FastColorUtilities.color$r$g$b$a(
+                                pts[chosenB + i][chosenA + j] = CWSYSTEM.FastColorUtilities.colorRGBA(
                                     calcRed, calcGreen, calcBlue, alphaBlend);
                             }
                         }
@@ -74,19 +99,29 @@ var CWSYSTEM;
             }
         }
 
-        static drawUsingBrightnessOverlay(screenData, points, x, y, multi) {
-            if (screenData != null) {
-                const color1 = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.transparentBlack_$LI$());
-                const color2 = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.transparentBlack_$LI$());
-                const color3 = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.transparentBlack_$LI$());
-                const sdPoints = screenData.point;
-                for (let i = 0; i < screenData.height; ++i) {
+        /**
+         * Draws an image using brightness overlay.
+         *
+         * @static
+         * @param {CWSYSTEM.ScreenData} sd - The screen data.
+         * @param {Array} points - The array of points.
+         * @param {number} x - The x-coordinate.
+         * @param {number} y - The y-coordinate.
+         * @param {number} multi - The multiplier.
+         */
+        static drawUsingBrightnessOverlay(sd, points, x, y, multi) {
+            if (sd != null) {
+                const color1 = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__transparentBlack());
+                const color2 = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__transparentBlack());
+                const color3 = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__transparentBlack());
+                const sdPoints = sd.point;
+                for (let i = 0; i < sd.height; ++i) {
                     try {
-                        for (let j = 0; j < screenData.width; ++j) {
+                        for (let j = 0; j < sd.width; ++j) {
                             const pixelColor1 = points[y + i][x + j];
                             const pixelColor2 = sdPoints[i][j];
-                            color1.setColor$int(pixelColor1);
-                            color2.setColor$int(pixelColor2);
+                            color1.setColor(pixelColor1);
+                            color2.setColor(pixelColor2);
                             CWImage.overlayColorsWithAestheticSaturation(color1, color2, color3, multi);
                             points[y + i][x + j] = color3.color;
                         }
@@ -97,16 +132,30 @@ var CWSYSTEM;
             }
         }
 
-        static drawUsingBrightnessOverlayWithCropping(screenData, points, x, y, multiplier, minX, minY, maxX, maxY) {
-            if (screenData != null) {
-                const color1 = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.transparentBlack_$LI$());
-                const color2 = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.transparentBlack_$LI$());
-                const color3 = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.transparentBlack_$LI$());
-                const intArray = screenData.point;
-                for (let i = 0; i < screenData.height; ++i) {
+        /**
+         * Draws an image using brightness overlay with cropping.
+         *
+         * @static
+         * @param {CWSYSTEM.ScreenData} sd - The screen data.
+         * @param {Array} points - The array of points.
+         * @param {number} x - The x-coordinate.
+         * @param {number} y - The y-coordinate.
+         * @param {number} multiplier - The multiplier.
+         * @param {number} minX - The minimum x-coordinate.
+         * @param {number} minY - The minimum y-coordinate.
+         * @param {number} maxX - The maximum x-coordinate.
+         * @param {number} maxY - The maximum y-coordinate.
+         */
+        static drawUsingBrightnessOverlayWithCropping(sd, points, x, y, multiplier, minX, minY, maxX, maxY) {
+            if (sd != null) {
+                const color1 = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__transparentBlack());
+                const color2 = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__transparentBlack());
+                const color3 = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__transparentBlack());
+                const intArray = sd.point;
+                for (let i = 0; i < sd.height; ++i) {
                     if (y + i >= minY && y + i <= maxY) {
                         let sLine = 0;
-                        let width = screenData.width;
+                        let width = sd.width;
                         if (x + sLine < minX) {
                             sLine = minX - x;
                         }
@@ -130,6 +179,15 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Overlays colors with aesthetic saturation.
+         *
+         * @static
+         * @param {CWSYSTEM.CWColor} color1 - The first color.
+         * @param {CWSYSTEM.CWColor} color2 - The second color.
+         * @param {CWSYSTEM.CWColor} color3 - The resulting color.
+         * @param {number} multiplier - The multiplier.
+         */
         static overlayColorsWithAestheticSaturation(color1, color2, color3, multiplier) {
             let calcColor1 = (color1.red() + (multiplier * color2.red()));
             let calcColor2 = (color1.green() + (multiplier * color2.green()));
@@ -210,6 +268,9 @@ var CWSYSTEM;
             color3.setColor$rgba((calcColor1 | 0), (calcColor2 | 0), (calcColor3 | 0), 255);
         }
 
+        /**
+         * Draws the CWImage.
+         */
         draw() {
             CWImage.drawUsingColorDerivedTransparency(this.filepath, this.parent.window.point,
                 this.x, this.y, this.transparentColor, 3.0);

@@ -1,7 +1,23 @@
-/* Re-written from Java */
-var CWSYSTEM;
 (function (CWSYSTEM) {
+    /**
+     * Class for managing interface processes.
+     *
+     * @property {CWSYSTEM.CWGUI} mainGUI - The main GUI object.
+     *
+     * @since    1.0.0
+     * @access   public
+     * @class
+     *
+     * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
+     */
     class CWInterfaceProcesses {
+        /**
+         * Creates an instance of CWInterfaceProcesses.
+         */
         constructor() {
             if (this.mainGUI === undefined) {
                 this.mainGUI = null;
@@ -9,11 +25,20 @@ var CWSYSTEM;
             this.mainGUI = CWSYSTEM.CWSReference.gui;
         }
 
+        /**
+         * Processes a button press event.
+         *
+         * @param {CWSYSTEM.CWButton} button - the CWButton object
+         * @param {number} x - the x coordinate
+         * @param {number} y - the y coordinate
+         * @private
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
+         */
         processButton$btn$x$y(button, x, y) {
             const windowName = button.name;
             button.buttonPressed();
-            if ((button.parent.nameID === ("overlay")) && CWSYSTEM.Environment.activePulldownMenu_$LI$() != null) {
-                CWSYSTEM.Environment.activePulldownMenu_$LI$().optionSelected(button);
+            if ((button.parent.nameID === ("overlay")) && CWSYSTEM.Environment.activePulldownMenu$() != null) {
+                CWSYSTEM.Environment.activePulldownMenu$().optionSelected(button);
             } else {
                 if (windowName === ("DESTROY_WINDOW")) {
                     CWSYSTEM.CWSReference.alertManager.processContinue();
@@ -27,6 +52,15 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Processes a button press event without coordinates.
+         *
+         * @param {CWSYSTEM.CWButton} button - the CWButton object
+         * @param {number} x - the x coordinate
+         * @param {number} y - the y coordinate
+         * @private
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
+         */
         processButton(button, x, y) {
             if (((button != null && button instanceof CWSYSTEM.CWButton) || button === null) &&
                 ((typeof x === 'number') || x === null) && ((typeof y === 'number') || y === null)) {
@@ -38,10 +72,24 @@ var CWSYSTEM;
                 throw new Error('invalid overload');
         }
 
+        /**
+         * Processes a button press event without coordinates.
+         *
+         * @param {CWSYSTEM.CWButton} button - the CWButton object
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
+         * @private
+         */
         processButton$button(button) {
             this.processButton$btn$x$y(button, 0, 0);
         }
 
+        /**
+         * Processes an input box event.
+         *
+         * @private
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
+         * @param {CWSYSTEM.CWInputBox} inputBox - the CWInputBox object
+         */
         processInputBox(inputBox) {
             CWSYSTEM.Environment.inputBoxSelected = null;
             inputBox.parentWindow.updated = false;
@@ -53,14 +101,53 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Processes a checkbox event.
+         *
+         * @param {CWSYSTEM.CWCheckBox} checkBox - The CWCheckBox object
+         * @private
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
+         */
         processCheckBox(checkBox) {
             this.mainGUI.moveWindowToTopByName(checkBox.parentWindow.nameID);
         }
 
+        /**
+         * Processes a pulldown menu event.
+         *
+         * @param {CWSYSTEM.CWPulldown} pulldownMenu - the CWPulldown object
+         * @param {number} x - the x coordinate
+         * @param {number} y - the y coordinate
+         * @private
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
+         */
+        processPulldownMenu$pulldownMenu$x$y(pulldownMenu, x, y) {
+            this.mainGUI.moveWindowToTopByName(pulldownMenu.nameID);
+            pulldownMenu.optionSelected(x, y);
+        }
+
+        /**
+         * Processes a pulldown menu event without coordinates.
+         *
+         * @param {CWSYSTEM.CWPopupMenu} pulldownMenu the pulldown menu object
+         * @private
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
+         */
+        processPulldownMenu$pulldownMenu(pulldownMenu) {
+            this.processPulldownMenu$pulldownMenu$x$y(pulldownMenu, 0, 0);
+        }
+
+        /**
+         * Processes a keyboard character event.
+         *
+         * @param {Object} c the character
+         * @private
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
+         */
         processKeyboardChar(c) {
-            if (CWSYSTEM.Environment.inputBoxSelected_$LI$() != null) {
+            if (CWSYSTEM.Environment.inputBoxSelected$() != null) {
                 if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(c) !== '\uffff'.charCodeAt(0)) {
-                    CWSYSTEM.Environment.inputBoxSelected_$LI$().addCharacter(c);
+                    CWSYSTEM.Environment.inputBoxSelected$().addCharacter(c);
                 }
             } else if (CWSYSTEM.CWTextArea.textAreaSelected() != null) {
                 if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(c) !== '\uffff'.charCodeAt(0)) {
@@ -71,18 +158,25 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Processes a keyboard press event.
+         *
+         * @param {number} keyCode Key code of pressed key.
+         * @private
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
+         */
         processKeyboardPress(keyCode) {
             //CWSYSTEM.CWSReference.object.keyPressed(keyCode);
-            if (CWSYSTEM.Environment.inputBoxSelected_$LI$() != null) {
+            if (CWSYSTEM.Environment.inputBoxSelected$() != null) {
                 if (keyCode !== 46 && keyCode !== 8) {
                     if (keyCode === 13) { // 13 is Enter
                         CWSYSTEM.CWSReference.interfaceProcesses.processInputBox(
-                            CWSYSTEM.Environment.inputBoxSelected_$LI$());
+                            CWSYSTEM.Environment.inputBoxSelected$());
                     } else if (keyCode === 27) {
                         CWSYSTEM.Environment.inputBoxSelected = null;
                     }
                 } else {
-                    CWSYSTEM.Environment.inputBoxSelected_$LI$().deleteCharacter();
+                    CWSYSTEM.Environment.inputBoxSelected$().deleteCharacter();
                 }
             } else if (CWSYSTEM.CWTextArea.textAreaSelected() != null) {
                 switch (keyCode) {
@@ -129,38 +223,46 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Processes a keyboard release event.
+         *
+         * @param {number} keyCode Key code of released key.
+         * @private
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
+         */
         processKeyboardRelease(keyCode) {
             switch (CWSYSTEM.Keyboard.focus) {
-                case CWSYSTEM.Keyboard.JCAD_DEFAULT:
-                    CWSYSTEM.Environment.screenHasChanged = true;
-                    switch (keyCode) {
-                        case 37:
-                            return;
-                        case 38:
-                            return;
-                        case 39:
-                            return;
-                        case 40:
-                            return;
-                        case 44:
-                        case 45:
-                            return;
-                        case 46:
-                        case 61:
-                        case 521:
-                            return;
-                        case 59:
-                            return;
-                        case 222:
-                            return;
-                        default:
-                            return;
-                    }
                 case CWSYSTEM.Keyboard.DSECTOR:
                 //dsector.DSReference.dsecGame.keyReleased(keyCode);
             }
         }
 
+        /**
+         * Processes a mouse press event.
+         *
+         * @param {number} x - the x coordinate
+         * @param {number} y - the y coordinate
+         * @param {CWSYSTEM.CWButton} button - the button code
+         * @private
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
+         */
+        processMousePress$x$y$btn(x, y, button) {
+            CWSYSTEM.Environment.windowScrollUp = false;
+            CWSYSTEM.Environment.windowScrollDown = false;
+            CWSYSTEM.Environment.windowPageUp = false;
+            CWSYSTEM.Environment.windowPageDown = false;
+            CWSYSTEM.Environment.scrollbarHeld = null;
+            if (CWSYSTEM.CWGUIManager.windowHeld != null) {
+                CWSYSTEM.CWGUIManager.windowHeld.holdHeader(x, y);
+            }
+        }
+
+        /**
+         * Processes a mouse release event.
+         *
+         * @private
+         * @methodOf CWSYSTEM.CWInterfaceProcesses
+         */
         processMouseRelease() {
             CWSYSTEM.Environment.windowScrollUp = false;
             CWSYSTEM.Environment.windowScrollDown = false;

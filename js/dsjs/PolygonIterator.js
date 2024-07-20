@@ -1,53 +1,40 @@
-
-var dsector;
+/**/
 (function (dsector) {
+    /**
+     * @classdesc Iterates over polygons, polygon groups, and model folders in a 3D model matrix.
+     * @class
+     * @memberof dsector
+     */
     class PolygonIterator {
-        constructor(var1, var2) {
-            if (this.model3DMatrix === undefined) {
-                this.model3DMatrix = null;
-            }
-            if (this.modelFolders === undefined) {
-                this.modelFolders = null;
-            }
-            if (this.modelFolderIterator === undefined) {
-                this.modelFolderIterator = 0;
-            }
-            if (this.polygonGroupIterator === undefined) {
-                this.polygonGroupIterator = 0;
-            }
-            if (this.polygonIterator === undefined) {
-                this.polygonIterator = 0;
-            }
-            if (this.vertexIterator === undefined) {
-                this.vertexIterator = 0;
-            }
-            if (this.finished === undefined) {
-                this.finished = false;
-            }
-            if (this.__lastFetchedModelFolder === undefined) {
-                this.__lastFetchedModelFolder = null;
-            }
-            if (this.__lastFetchedPolygonGroup === undefined) {
-                this.__lastFetchedPolygonGroup = null;
-            }
-            if (this.__lastFetchedPolygon === undefined) {
-                this.__lastFetchedPolygon = null;
-            }
-            if (this.__lastFetchedVertex === undefined) {
-                this.__lastFetchedVertex = null;
-            }
-            if (this.selectionCriteria === undefined) {
-                this.selectionCriteria = 0;
-            }
-            if (this.__numberOfPolygons === undefined) {
-                this.__numberOfPolygons = 0;
-            }
-            this.model3DMatrix = var1;
-            this.selectionCriteria = var2;
+        /**
+         * @constructor
+         * @param {Model3DMatrix} m3dm - The 3D model matrix to iterate over.
+         * @param {number} sel - The selection criteria for polygon groups.
+         */
+        constructor(m3dm, sel) {
+            this.modelFolders = null;
+            this.modelFolderIterator = 0;
+            this.polygonGroupIterator = 0;
+            this.polygonIterator = 0;
+            this.vertexIterator = 0;
+            this.finished = false;
+            this.__lastFetchedModelFolder = null;
+            this.__lastFetchedPolygonGroup = null;
+            this.__lastFetchedPolygon = null;
+            this.__lastFetchedVertex = null;
+            this.selectionCriteria = 0;
+            this.__numberOfPolygons = 0;
+            this.model3DMatrix = m3dm != null ? m3dm : null;
+            this.selectionCriteria = sel;
             this.prepareLinearList();
         }
 
-        /** @private */ prepareLinearList() {
+        /**
+         * @private
+         * @method prepareLinearList
+         * @description Prepares a linear list of model folders for iteration.
+         */
+        prepareLinearList() {
             this.modelFolders = ([]);
             this.addModelFoldersFromParentFolder(this.model3DMatrix.rootFolder);
             this.modelFolderIterator = 0;
@@ -58,7 +45,13 @@ var dsector;
             this.finished = this.modelFolders.length === 0;
         }
 
-        /** @private */ polygonGroupMatchesCriteria(pg) {
+        /**
+         * @private
+         * @method polygonGroupMatchesCriteria
+         * @param {PolygonGroup} pg - The polygon group to check.
+         * @returns {boolean} True if the polygon group matches the selection criteria, false otherwise.
+         */
+        polygonGroupMatchesCriteria(pg) {
             if (this.selectionCriteria === PolygonIterator.ACTIVE_POLYGON_GROUPS && !pg.directRepresentation.active) {
                 return false;
             } else {
@@ -66,7 +59,13 @@ var dsector;
             }
         }
 
-        /** @private */ addModelFoldersFromParentFolder(folder) {
+        /**
+         * @private
+         * @method addModelFoldersFromParentFolder
+         * @param {ModelFolder} folder - The parent folder to add model folders from.
+         * @description Recursively adds model folders from the parent folder to the linear list.
+         */
+        addModelFoldersFromParentFolder(folder) {
             let i;
             for (i = 0; i < folder.polygonGroups.length; ++i) {
                 const var3 = folder.polygonGroups[i];
@@ -81,6 +80,11 @@ var dsector;
             }
         }
 
+        /**
+         * @method nextVertex
+         * @returns {Vertex|null} The next vertex in the iteration, or null if finished.
+         * @description Moves to the next vertex in the iteration.
+         */
         nextVertex() {
             if (this.finished) {
                 return null;
@@ -135,6 +139,11 @@ var dsector;
             }
         }
 
+        /**
+         * @method nextPolygon
+         * @returns {Polygon|null} The next polygon in the iteration, or null if finished.
+         * @description Moves to the next polygon in the iteration.
+         */
         nextPolygon() {
             if (this.finished) {
                 return null;
@@ -172,6 +181,11 @@ var dsector;
             }
         }
 
+        /**
+         * @method nextPolygonGroup
+         * @returns {PolygonGroup|null} The next polygon group in the iteration, or null if finished.
+         * @description Moves to the next polygon group in the iteration.
+         */
         nextPolygonGroup() {
             if (this.finished) {
                 return null;
@@ -198,6 +212,11 @@ var dsector;
             }
         }
 
+        /**
+         * @method nextModelFolder
+         * @returns {ModelFolder|null} The next model folder in the iteration, or null if finished.
+         * @description Moves to the next model folder in the iteration.
+         */
         nextModelFolder() {
             if (this.finished) {
                 return null;
@@ -214,29 +233,67 @@ var dsector;
             }
         }
 
+        /**
+         * @method lastFetchedModelFolder
+         * @returns {ModelFolder} The last fetched model folder.
+         */
         lastFetchedModelFolder() {
             return this.__lastFetchedModelFolder;
         }
 
+        /**
+         * @method lastFetchedPolygonGroup
+         * @returns {PolygonGroup} The last fetched polygon group.
+         */
         lastFetchedPolygonGroup() {
             return this.__lastFetchedPolygonGroup;
         }
 
+        /**
+         * @method lastFetchedPolygon
+         * @returns {Polygon} The last fetched polygon.
+         */
         lastFetchedPolygon() {
             return this.__lastFetchedPolygon;
         }
 
+        /**
+         * @method lastFetchedVertex
+         * @returns {Vertex} The last fetched vertex.
+         */
         lastFetchedVertex() {
             return this.__lastFetchedVertex;
         }
 
+        /**
+         * @method numberOfPolygons
+         * @returns {number} The total number of polygons in the iteration.
+         */
         numberOfPolygons() {
             return this.__numberOfPolygons;
         }
     }
 
+    /**
+     * @static
+     * @readonly
+     * @type {number}
+     * @description Constant representing the selection of all polygon groups.
+     */
     PolygonIterator.ALL_POLYGON_GROUPS = 0;
+    /**
+     * @static
+     * @readonly
+     * @type {number}
+     * @description Constant representing the selection of active polygon groups only.
+     */
     PolygonIterator.ACTIVE_POLYGON_GROUPS = 1;
+    /**
+     * @static
+     * @readonly
+     * @type {number}
+     * @description Constant representing the selection of visible polygon groups only.
+     */
     PolygonIterator.VISIBLE_POLYGON_GROUPS = 2;
     dsector.PolygonIterator = PolygonIterator;
     PolygonIterator["__class"] = "dsector.PolygonIterator";

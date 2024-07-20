@@ -1,6 +1,9 @@
 /* Re-written from Java */
-var dsector;
 (function (dsector) {
+    /**
+     * @class
+     * @memberof dsector
+     */
     class DSecSaveGameWindow {
         constructor() {
             if (this.window === undefined) {
@@ -141,15 +144,15 @@ var dsector;
             const font = dsector.DSReference.virtualScreen.serif8_font;
             this.window = dsector.DSReference.gui.addWindow$name$style$title$x$y$w$h$v(
                 "DSECTORSAVEGAME", 3, null, x, y, 300, 48, true);
-            const color = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$());
+            const color = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__white());
             this.window.addTextBlock("", "Save Game", 10, 30, font, color, 999);
             this.window.addTextArea("filename", 95, 5, 200, 1,
                 dsector.DSReference.virtualScreen.serif8_font, "").endMark = "";
             let button = null;
-            button = this.window.addButton$name$x$y$len$h$text$t$r("SAVE_GAME", 190, 27, 40,
-                15, "Save", 9, 0);
-            button = this.window.addButton$name$x$y$len$h$text$t$r("", 242, 27, 52, 15,
-                "Cancel", 9, 0);
+            button = this.window.addButton("SAVE_GAME", 190, 27, 40,
+                15, "Save", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
+            button = this.window.addButton("", 242, 27, 52, 15,
+                "Cancel", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
             button.objectContainingButtonPressedMethod = this;
             button.buttonPressedMethodName = "cancelButtonPressed";
         }

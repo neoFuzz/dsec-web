@@ -1,5 +1,9 @@
-var dsector;
+/**/
 (function (dsector) {
+    /**
+     * @class
+     * @memberof dsector
+     */
     class DSecJewel {
         constructor(color, angleFromCenter, x, y) {
             if (this.color === undefined) {
@@ -89,8 +93,8 @@ var dsector;
             if (this.energy <= 0.0) {
                 this.energy = 0.0;
                 if (this.state === DSecJewel.ALIVE) {
-                    if (dsector.DSecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
-                        dsector.DSReference.cwSound.playSound("assets/sounds/jewelDestroyed.wav",
+                    if (dsector.DSReference.dsecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
+                        dsector.DSReference.cwSound.playSound("jewelDestroyed.wav",
                             this.teamOfJewel().color);
                     }
                     this.state = DSecJewel.DESTROYED;

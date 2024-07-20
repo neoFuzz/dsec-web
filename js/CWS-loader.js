@@ -44,9 +44,7 @@ loadScript('js/dsjs/ScreenPosition.js');
 loadScript('js/CWS/UserIOBuffer.js');
 
 /* Game Utility Classes */
-//loadScript('js/CWS/Global.js');
 loadScript('js/CWS/CWSReference.js');
-//loadScript('js/CWS/Environment.js');
 loadScript('js/dsjs/Scene.js');
 loadScript('js/CWS/ScreenData.js');
 loadScript('js/CWS/AlertManager.js');
@@ -66,8 +64,6 @@ loadScript('js/CWS/CWButton.js');
 loadScript('js/CWS/CWCharacter.js');
 loadScript('js/CWS/CWCheckBox.js');
 loadScript('js/CWS/CWFont.js');
-loadScript('js/CWS/CWFont_Sans8.js');
-loadScript('js/CWS/CWFont_SmallFont.js');
 loadScript('js/CWS/CWGraphics.js');
 loadScript('js/CWS/CWImage.js');
 loadScript('js/CWS/CWImageElement.js');

@@ -11,205 +11,14 @@ Example to show the creating an image in a ImageData buffer<br>
 <canvas width="800" height="600" id="3dSpace"></canvas>
 <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
 <script type="importmap">
-{
-    "imports": {
-        "three": "https://unpkg.com/three@0.153.0/build/three.module.js",
-        "three/addons/": "https://unpkg.com/three@0.153.0/examples/jsm/"
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.153.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.153.0/examples/jsm/"
+        }
     }
-}
-
-
-
-
-
 </script>
-
 <script type="module">
-
-    class tjMenu extends CWSYSTEM.CWMenu {
-        constructor(name) {
-            super();
-            if (this.popupMenus === undefined) {
-                this.popupMenus = null;
-            }
-            if (this.window === undefined) {
-                this.window = null;
-            }
-            if (this.mode === undefined) {
-                this.mode = 0;
-            }
-            if (this.name === undefined) {
-                this.name = null;
-            }
-            if (this.buildX === undefined) {
-                this.buildX = 0;
-            }
-            if (this.buildY === undefined) {
-                this.buildY = 0;
-            }
-            this.name = name;
-            this.popupMenus = ([]);
-            this.mode = 0;
-            this.buildX = 15;
-            this.buildY = tjmain.ref.virtualScreen.topInset + 10;
-        }
-
-        static mouseClicked() {
-            if (CWSYSTEM.CWPopupMenu.cycleInWhichPopupOpened !== CWSYSTEM.Environment.cycleID_$LI$()) {
-                for (let i = 0; i < tjmain.ref.gui.numberOfWindows(); ++i) {
-                    const guiWindow = tjmain.ref.gui.getWindow$int(i);
-                    if (guiWindow.menuManager != null && guiWindow.menuManager.mode === CWSYSTEM.CWMenu.ACTIVE) {
-                        guiWindow.menuManager.mode = CWSYSTEM.CWMenu.INACTIVE;
-                        guiWindow.menuManager.destroyAllOpenPopupMenus();
-                    }
-                }
-            }
-        }
-
-        static menuTitlePressed(pressed) {
-            if (CWSYSTEM.Environment.cycleID_$LI$() !== CWSYSTEM.CWPopupMenu.cycleInWhichPopupOpened) {
-                const whatPressed = CWSYSTEM.CWStringTools.messagesBetweenCharacters(pressed, '(', ')')[0];
-                const anInt = parseInt(CWSYSTEM.CWStringTools.messagesBetweenCharacters(pressed, '[', ']')[0]);
-                let cwWindow = null;
-                for (let i = 0; i < tjmain.ref.gui.numberOfWindows(); ++i) {
-                    const guiWindow = tjmain.ref.gui.getWindow$int(i);
-                    if (guiWindow.menuManager != null && (guiWindow.menuManager.name === whatPressed)) {
-                        cwWindow = guiWindow;
-                        break;
-                    }
-                }
-                if (cwWindow == null) {
-                    tjmain.ref.alertManager.messageQueued("A button was pressed with name \'" + pressed + "\' but no menu was found for this window.");
-                } else {
-                    const menuManager = cwWindow.menuManager;
-                    menuManager.destroyAllOpenPopupMenus();
-                    if (menuManager.mode === CWSYSTEM.CWMenu.ACTIVE) {
-                        menuManager.mode = CWSYSTEM.CWMenu.INACTIVE;
-                    } else {
-                        menuManager.mode = CWSYSTEM.CWMenu.ACTIVE;
-                        const popupMenu = menuManager.popupMenus[anInt];
-                        popupMenu.popup$();
-                        CWSYSTEM.CWPopupMenu.cycleInWhichPopupOpened = CWSYSTEM.Environment.cycleID_$LI$();
-                    }
-                }
-            }
-        }
-
-        static mouseMovedOverButton(cwButton) {
-            const btnName = cwButton.name;
-            if (btnName.length > 11 && ((str, searchString, position = 0) => str.substr(position, searchString.length) === searchString)(btnName, "MENU_BUTTON")) {
-                const msgBetweenChar = CWSYSTEM.CWStringTools.messagesBetweenCharacters(btnName, '(', ')')[0];
-                const gap = parseInt(CWSYSTEM.CWStringTools.messagesBetweenCharacters(btnName, '[', ']')[0]);
-                let window0 = null;
-                for (let i = 0; i < tjmain.ref.gui.numberOfWindows(); ++i) {
-                    const window1 = tjmain.ref.gui.getWindow$int(i);
-                    if (window1.menuManager != null && (window1.menuManager.name === msgBetweenChar)) {
-                        window0 = window1;
-                        break;
-                    }
-                }
-                if (window0.menuManager == null) {
-                    return;
-                }
-                const menuManager = window0.menuManager;
-                if (menuManager.mode === CWSYSTEM.CWMenu.ACTIVE) {
-                    menuManager.destroyAllOpenPopupMenus();
-                    const popupMenu = menuManager.popupMenus[gap];
-                    popupMenu.popup$();
-                }
-            }
-        }
-
-        addMenu(popupMenu) {
-            this.popupMenus.push(popupMenu);
-        }
-
-        setBuildPosition(buildX, buildY) {
-            this.buildX = buildX;
-            this.buildY = buildY;
-        }
-
-        build$() {
-            this.build$int$int$int$dsector_JCFont$int$int$int$int(this.buildX, this.buildY, 15, tjmain.ref.virtualScreen.serif8_font, 7, 1, 0, 0);
-        }
-
-        build$int$int$int$Font$int$int$int$int(buildX, buildY, height, font, inWidth, maxWidth, width, y1) {
-            const baseW = 0;
-            let width1 = baseW + width;
-            let height1;
-            for (height1 = 0; height1 < this.popupMenus.length; ++height1) {
-                const popupMenu = this.popupMenus[height1];
-                width1 += inWidth;
-                width1 += CWSYSTEM.CWFontTools.textLengthInPixels(popupMenu.menuTitle, font);
-                width1 += inWidth;
-                if (height1 < this.popupMenus.length - 1) {
-                    width1 += maxWidth;
-                }
-            }
-            width1 += width;
-            height1 = y1 * 2 + height;
-            this.window = tjmain.ref.gui.addWindow$name$style$title$x$y$w$h$v(this.name, 3, "", buildX, buildY, width1 + 1, height1 + 1, true);
-            this.window.titleVisible = false;
-            this.window.menuManager = this;
-            this.window.changeBackgroundColor$CWColor(new CWSYSTEM.CWColor(200, 200, 255, 150));
-            const bWidth = 0;
-            let x1 = bWidth + width;
-            for (let k = 0; k < this.popupMenus.length; ++k) {
-                const popupMenu = this.popupMenus[k];
-                const length2 = inWidth * 2 + CWSYSTEM.CWFontTools.textLengthInPixels(popupMenu.menuTitle, font);
-                const button = this.window.addButton$name$x$y$len$h$text$t$r("MENU_BUTTON(" + this.name + ")[" + k + "]", x1, y1, length2, height, popupMenu.menuTitle, 9, 1);
-                button.textColor = new CWSYSTEM.CWColor(0, 0, 100, 255);
-                button.bgColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$());
-                button.secondaryBackgroundColor = new CWSYSTEM.CWColor(180, 180, 180, 255);
-                button.bgColorHighlighted = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.nearBlack_$LI$());
-                button.secondaryBackgroundColorHighlighted = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.brightBlue_$LI$());
-                button.fillStyle = CWSYSTEM.CWButton.LINEAR_GRADIENT;
-                x1 += length2 + maxWidth;
-            }
-        }
-
-        build(buildX, buildY, height, font, inWidth, maxWidth, width, y1) {
-            if (((typeof buildX === 'number') || buildX === null) &&
-                ((typeof buildY === 'number') || buildY === null) &&
-                ((typeof height === 'number') || height === null) &&
-                ((font != null && font instanceof CWSYSTEM.CWFont) || font === null) &&
-                ((typeof inWidth === 'number') || inWidth === null) &&
-                ((typeof maxWidth === 'number') || maxWidth === null) &&
-                ((typeof width === 'number') || width === null) && ((typeof y1 === 'number') || y1 === null)) {
-                return this.build$int$int$int$dsector_JCFont$int$int$int$int(buildX, buildY, height, font, inWidth, maxWidth, width, y1);
-            } else if (buildX === undefined && buildY === undefined && height === undefined && font === undefined && inWidth === undefined && maxWidth === undefined && width === undefined && y1 === undefined) {
-                return this.build$();
-            } else throw new Error('invalid overload');
-        }
-
-        destroyAllOpenPopupMenus() {
-            for (let i = 0; i < this.popupMenus.length; ++i) {
-                const popupMenu = this.popupMenus[i];
-                if (popupMenu.isPoppedUp()) {
-                    popupMenu.destroy();
-                }
-            }
-        }
-
-        destroy() {
-            if (this.window != null) {
-                this.destroyAllOpenPopupMenus();
-                this.window.destroy();
-                this.window = null;
-            }
-        }
-
-        getMenuButtonFromPopupMenu(popupMenu) {
-            if (this.window != null) {
-                for (let i = 0; i < this.popupMenus.length; ++i) {
-                    if (popupMenu === this.popupMenus[i]) {
-                        return this.window.getButton("MENU_BUTTON(" + this.name + ")[" + i + "]");
-                    }
-                }
-            }
-            return null;
-        }
-    }
 
     class tjUserIOBuffer extends dsector.UserIOBuffer {
         constructor() {
@@ -327,7 +136,7 @@ Example to show the creating an image in a ImageData buffer<br>
             }
             const currentTime = CWSYSTEM.Environment.currentTime();
             let timeCheck;
-            if (x === CWSYSTEM.Environment.mouseXLastClicked_$LI$() && y === CWSYSTEM.Environment.mouseYLastClicked_$LI$() &&
+            if (x === CWSYSTEM.Environment.mouseXLastClicked$() && y === CWSYSTEM.Environment.mouseYLastClicked$() &&
                 currentTime - CWSYSTEM.Environment.timeWhenMouseLastClicked < CWSYSTEM.Global.maximumDoubleClickTime) {
                 timeCheck = true;
                 CWSYSTEM.Environment.timeWhenMouseLastClicked = 0;
@@ -467,28 +276,28 @@ Example to show the creating an image in a ImageData buffer<br>
             CWSYSTEM.Environment.mouseY = y;
             const mouseIsOver = tjmain.ref.gui.windowThatMouseIsOver(x, y);
             if (mouseIsOver === -1) {
-                if (CWSYSTEM.Environment.buttonLastMovedOver_$LI$() != null) {
-                    CWSYSTEM.Environment.buttonLastMovedOver_$LI$().mouseIsOver = false;
-                    CWSYSTEM.Environment.buttonLastMovedOver_$LI$().parent.updated = false;
+                if (CWSYSTEM.Environment.buttonLastMovedOver$() != null) {
+                    CWSYSTEM.Environment.buttonLastMovedOver$().mouseIsOver = false;
+                    CWSYSTEM.Environment.buttonLastMovedOver$().parent.updated = false;
                     CWSYSTEM.Environment.buttonLastMovedOver = null;
                 }
             } else {
                 const window = tjmain.ref.gui.getWindow$int(mouseIsOver);
                 const button = tjmain.ref.gui.buttonThatMouseIsOver(x, y);
                 if (button != null) {
-                    if (button !== CWSYSTEM.Environment.buttonLastMovedOver_$LI$()) {
+                    if (button !== CWSYSTEM.Environment.buttonLastMovedOver$()) {
                         button.mouseIsOver = true;
-                        if (CWSYSTEM.Environment.buttonLastMovedOver_$LI$() != null) {
-                            CWSYSTEM.Environment.buttonLastMovedOver_$LI$().mouseIsOver = false;
-                            CWSYSTEM.Environment.buttonLastMovedOver_$LI$().parent.updated = false;
+                        if (CWSYSTEM.Environment.buttonLastMovedOver$() != null) {
+                            CWSYSTEM.Environment.buttonLastMovedOver$().mouseIsOver = false;
+                            CWSYSTEM.Environment.buttonLastMovedOver$().parent.updated = false;
                         }
                         CWSYSTEM.Environment.buttonLastMovedOver = button;
                         window.updated = false;
                         tjMenu.mouseMovedOverButton(button);
                     }
-                } else if (CWSYSTEM.Environment.buttonLastMovedOver_$LI$() != null) {
-                    CWSYSTEM.Environment.buttonLastMovedOver_$LI$().mouseIsOver = false;
-                    CWSYSTEM.Environment.buttonLastMovedOver_$LI$().parent.updated = false;
+                } else if (CWSYSTEM.Environment.buttonLastMovedOver$() != null) {
+                    CWSYSTEM.Environment.buttonLastMovedOver$().mouseIsOver = false;
+                    CWSYSTEM.Environment.buttonLastMovedOver$().parent.updated = false;
                     CWSYSTEM.Environment.buttonLastMovedOver = null;
                 }
             }
@@ -512,16 +321,16 @@ Example to show the creating an image in a ImageData buffer<br>
                 CWSYSTEM.Environment.screenHasChanged = true;
                 tjmain.ref.gui.moveWindowToTop$int(mouseIsOver);
                 tjmain.ref.gui.deactivateTextAreasInWindowsOtherThan(cwWindow);
-                if (CWSYSTEM.Environment.activePulldownMenu_$LI$() != null && cwWindow === CWSYSTEM.Environment.activePulldownMenu_$LI$().parent) {
-                    CWSYSTEM.Environment.activePulldownMenu_$LI$().mousePressedOverClosedSectionOrOverlayBorder();
+                if (CWSYSTEM.Environment.activePulldownMenu$() != null && cwWindow === CWSYSTEM.Environment.activePulldownMenu$().parent) {
+                    CWSYSTEM.Environment.activePulldownMenu$().mousePressedOverClosedSectionOrOverlayBorder();
                     this.mousePressedFinalize();
                 } else {
                     const inputBox = tjmain.ref.gui.inputBoxThatMouseIsOver(xPos, yPos);
                     if (inputBox != null) {
                         CWSYSTEM.Environment.inputBoxSelected = inputBox;
                     }
-                    if (CWSYSTEM.Environment.inputBoxSelected_$LI$() != null && CWSYSTEM.Environment.inputBoxSelected_$LI$() !== inputBox) {
-                        tjmain.ref.interfaceProcesses.processInputBox(CWSYSTEM.Environment.inputBoxSelected_$LI$());
+                    if (CWSYSTEM.Environment.inputBoxSelected$() != null && CWSYSTEM.Environment.inputBoxSelected$() !== inputBox) {
+                        tjmain.ref.interfaceProcesses.processInputBox(CWSYSTEM.Environment.inputBoxSelected$());
                         CWSYSTEM.Environment.inputBoxSelected = null;
                     }
                     const textArea = tjmain.ref.gui.textAreaThatMouseIsOver(xPos, yPos);
@@ -549,8 +358,8 @@ Example to show the creating an image in a ImageData buffer<br>
                             tjmain.ref.interfaceProcesses.processCheckBox(cwChkBox);
                             this.mousePressedFinalize();
                         }
-                    } else if ((nameID === ("overlay")) && CWSYSTEM.Environment.activePulldownMenu_$LI$() != null) {
-                        CWSYSTEM.Environment.activePulldownMenu_$LI$().mousePressedOverClosedSectionOrOverlayBorder();
+                    } else if ((nameID === ("overlay")) && CWSYSTEM.Environment.activePulldownMenu$() != null) {
+                        CWSYSTEM.Environment.activePulldownMenu$().mousePressedOverClosedSectionOrOverlayBorder();
                         this.mousePressedFinalize();
                     } else {
                         const pulldownMO = tjmain.ref.gui.pulldownThatMouseIsOver(xPos, yPos);
@@ -636,8 +445,8 @@ Example to show the creating an image in a ImageData buffer<br>
         mouseLeftReleased(x, y) {
             CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed = false;
             tjmain.ref.mouseDrag.release(x, y);
-            if (CWSYSTEM.Environment.buttonLastPressed_$LI$() != null) {
-                CWSYSTEM.Environment.buttonLastPressed_$LI$().release();
+            if (CWSYSTEM.Environment.buttonLastPressed$() != null) {
+                CWSYSTEM.Environment.buttonLastPressed$().release();
             }
             tjmain.ref.interfaceProcesses.processMouseRelease();
         }
@@ -745,10 +554,12 @@ Example to show the creating an image in a ImageData buffer<br>
             this.mouseDrag = new CWSYSTEM.MouseDrag();
 
         }
-        init(){
+
+        init() {
             this.interfaceProcesses = new tjADInterfaceProcesses();
         }
     }
+
     class tjADInterfaceProcesses {
         constructor() {
             if (this.mainGUI === undefined) {
@@ -760,8 +571,8 @@ Example to show the creating an image in a ImageData buffer<br>
         processButton$btn$x$y(button, x, y) {
             const windowName = button.name;
             button.buttonPressed();
-            if ((button.parent.nameID === ("overlay")) && CWSYSTEM.Environment.activePulldownMenu_$LI$() != null) {
-                CWSYSTEM.Environment.activePulldownMenu_$LI$().optionSelected(button);
+            if ((button.parent.nameID === ("overlay")) && CWSYSTEM.Environment.activePulldownMenu$() != null) {
+                CWSYSTEM.Environment.activePulldownMenu$().optionSelected(button);
             } else {
                 if (windowName === ("DESTROY_WINDOW")) {
                     tjmain.ref.alertManager.processContinue();
@@ -806,9 +617,9 @@ Example to show the creating an image in a ImageData buffer<br>
         }
 
         processKeyboardChar(c) {
-            if (CWSYSTEM.Environment.inputBoxSelected_$LI$() != null) {
+            if (CWSYSTEM.Environment.inputBoxSelected$() != null) {
                 if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(c) !== '\uffff'.charCodeAt(0)) {
-                    CWSYSTEM.Environment.inputBoxSelected_$LI$().addCharacter(c);
+                    CWSYSTEM.Environment.inputBoxSelected$().addCharacter(c);
                 }
             } else if (CWSYSTEM.CWTextArea.textAreaSelected() != null) {
                 if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(c) !== '\uffff'.charCodeAt(0)) {
@@ -821,15 +632,15 @@ Example to show the creating an image in a ImageData buffer<br>
 
         processKeyboardPress(keyCode) {
             //tjmain.ref.dsecGame.keyPressed(keyCode);
-            if (CWSYSTEM.Environment.inputBoxSelected_$LI$() != null) {
+            if (CWSYSTEM.Environment.inputBoxSelected$() != null) {
                 if (keyCode !== 46 && keyCode !== 8) {
                     if (keyCode === 13) { // 13 is Enter
-                        tjmain.ref.interfaceProcesses.processInputBox(CWSYSTEM.Environment.inputBoxSelected_$LI$());
+                        tjmain.ref.interfaceProcesses.processInputBox(CWSYSTEM.Environment.inputBoxSelected$());
                     } else if (keyCode === 27) {
                         CWSYSTEM.Environment.inputBoxSelected = null;
                     }
                 } else {
-                    CWSYSTEM.Environment.inputBoxSelected_$LI$().deleteCharacter();
+                    CWSYSTEM.Environment.inputBoxSelected$().deleteCharacter();
                 }
             } else if (CWSYSTEM.CWTextArea.textAreaSelected() != null) {
                 switch (keyCode) {
@@ -878,39 +689,6 @@ Example to show the creating an image in a ImageData buffer<br>
 
         processKeyboardRelease(keyCode) {
             switch (dsector.Keyboard.focus) {
-                case dsector.Keyboard.JCAD_DEFAULT:
-                    CWSYSTEM.Environment.screenHasChanged = true;
-                    switch (keyCode) {
-                        case 37:
-                            CWSYSTEM.Environment.moveCameraLeft = false;
-                            return;
-                        case 38:
-                            CWSYSTEM.Environment.moveCameraUp = false;
-                            return;
-                        case 39:
-                            CWSYSTEM.Environment.moveCameraRight = false;
-                            return;
-                        case 40:
-                            CWSYSTEM.Environment.moveCameraDown = false;
-                            return;
-                        case 44:
-                        case 45:
-                            CWSYSTEM.Environment.moveCameraBackwards = false;
-                            return;
-                        case 46:
-                        case 61:
-                        case 521:
-                            CWSYSTEM.Environment.moveCameraForwards = false;
-                            return;
-                        case 59:
-                            CWSYSTEM.Environment.moveCameraLeftPivot = false;
-                            return;
-                        case 222:
-                            CWSYSTEM.Environment.moveCameraRightPivot = false;
-                            return;
-                        default:
-                            return;
-                    }
                 case dsector.Keyboard.DSECTOR:
                 //dsector.DSReference.dsecGame.keyReleased(keyCode);
             }
@@ -924,6 +702,7 @@ Example to show the creating an image in a ImageData buffer<br>
             CWSYSTEM.Environment.scrollbarHeld = null;
         }
     }
+
     class tjMain {
         constructor() {
             this.graphicsInitialized = false;
@@ -936,7 +715,8 @@ Example to show the creating an image in a ImageData buffer<br>
             this.eventMouse();
             this.ref = null;
         }
-        main(){
+
+        main() {
             this.userIOBuffer = new tjUserIOBuffer();
             this.ref = new tJReference();
             this.ref.init();
@@ -954,7 +734,7 @@ Example to show the creating an image in a ImageData buffer<br>
         repaint() {
             let canvas = document.getElementById("3dSpace");
             let ctx = canvas.getContext("2d");
-            ctx.putImageData(dsector.DSReference.dsMain.bi, 0, 0);
+            ctx.putImageData(dsector.DSReference.virtualScreen.bi, 0, 0);
         }
 
         eventMouse() {
@@ -1088,7 +868,7 @@ Example to show the creating an image in a ImageData buffer<br>
             const framePeriod = (33 / CWSYSTEM.Global.subFrames | 0);
             CWSYSTEM.Environment.advanceCycle();
             CWSYSTEM.Environment.lastFramePeriod = CWSYSTEM.Environment.currentTime() - tjmain.mainLoopStartTime;
-            if (CWSYSTEM.Environment.lastFramePeriod_$LI$() < (n => n < 0 ? Math.ceil(n) : Math.floor(n))(framePeriod)) {
+            if (CWSYSTEM.Environment.lastFramePeriod$() < (n => n < 0 ? Math.ceil(n) : Math.floor(n))(framePeriod)) {
                 // sleep?
                 // framePeriod - Environment.lastFramePeriod
                 CWSYSTEM.Environment.lastFramePeriod = framePeriod;

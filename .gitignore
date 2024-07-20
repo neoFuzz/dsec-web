@@ -1,3 +1,9 @@
 # Project exclude paths
 /out/
 /node_modules/
+/.idea/sonarlint/
+/.idea/aws.xml
+
+# exclude the compiled JS files since they are built from source
+/js/ds.js
+/js/ds.js.map

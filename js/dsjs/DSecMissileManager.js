@@ -1,5 +1,9 @@
-var dsector;
+/**/
 (function (dsector) {
+    /**
+     * @class
+     * @memberof dsector
+     */
     class DSecMissileManager {
         constructor() {
             this.missiles = ([]);

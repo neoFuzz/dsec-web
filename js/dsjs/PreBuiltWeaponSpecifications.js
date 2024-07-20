@@ -1,8 +1,15 @@
 /* re-written from Java */
-var dsector;
 (function (dsector) {
-    /** Static class containing all the pre-built weapon specifications */
+    /**
+     * Static class containing all the pre-built weapon specifications
+     * @class
+     * @memberof dsector
+     */
     class PreBuiltWeaponSpecifications {
+        /**
+         * Initializes the pre-built weapon specifications.
+         * @constructor
+         */
         constructor() {
             this.preBuiltSpecifications = ([]);
             this.preBuiltSpecifications.push(new dsector.WeaponSpecification(PreBuiltWeaponSpecifications.STANDARD_TANK,
@@ -161,76 +168,310 @@ var dsector;
                 null, -1, -1, -1, -1, -1.0));
         }
 
-        getPreBuiltSpecification(specId) {
+        /**
+         * Returns a pre-built weapon specification of a given specification ID.
+         * @param sid
+         * @returns {WeaponSpecification|null} A {@link WeaponSpecification} or null if not found.
+         */
+        getPreBuiltSpecification(sid) {
             for (let index = 0; index < this.preBuiltSpecifications.length; index++) {
-                let preBuiltSpecification = this.preBuiltSpecifications[index];
-                const specification = preBuiltSpecification;
-                if (specification.specificationID === specId) {
-                    return specification;
+                let pbs = this.preBuiltSpecifications[index];
+                const spec = pbs;
+                if (spec.specificationID === sid) {
+                    return spec;
                 }
             }
-            dsector.DSReference.alertManager.messageQueued("No pre-built weapon specification of specificationID " + specId);
+            dsector.DSReference.alertManager.messageQueued(
+                "No pre-built weapon specification of specificationID " + sid);
             return null;
         }
     }
 
+    /**
+     * @constant {number} NONE - Represents no weapon (500)
+     */
     PreBuiltWeaponSpecifications.NONE = 500;
+
+    /**
+     * @constant {number} SMALL_DEBRIS - Represents small debris (501)
+     */
     PreBuiltWeaponSpecifications.SMALL_DEBRIS = 501;
+
+    /**
+     * @constant {number} MEDIUM_DEBRIS - Represents medium debris (502)
+     */
     PreBuiltWeaponSpecifications.MEDIUM_DEBRIS = 502;
+
+    /**
+     * @constant {number} SPARK_DEBRIS - Represents spark debris (503)
+     */
     PreBuiltWeaponSpecifications.SPARK_DEBRIS = 503;
+
+    /**
+     * @constant {number} LASER_DEBRIS - Represents laser debris (504)
+     */
     PreBuiltWeaponSpecifications.LASER_DEBRIS = 504;
+
+    /**
+     * @constant {number} TOUCH_FOE - Represents touching a foe (505)
+     */
     PreBuiltWeaponSpecifications.TOUCH_FOE = 505;
+
+    /**
+     * @constant {number} STANDARD_MISSILE - Represents a standard missile (300)
+     */
     PreBuiltWeaponSpecifications.STANDARD_MISSILE = 300;
+
+    /**
+     * @constant {number} DOUBLE_MISSILE - Represents a double missile (301)
+     */
     PreBuiltWeaponSpecifications.DOUBLE_MISSILE = 301;
+
+    /**
+     * @constant {number} TRIPLE_MISSILE - Represents a triple missile (302)
+     */
     PreBuiltWeaponSpecifications.TRIPLE_MISSILE = 302;
+
+    /**
+     * @constant {number} BEAM_LASER - Represents a beam laser (303)
+     */
     PreBuiltWeaponSpecifications.BEAM_LASER = 303;
+
+    /**
+     * @constant {number} POWER_LASER - Represents a power laser (304)
+     */
     PreBuiltWeaponSpecifications.POWER_LASER = 304;
+
+    /**
+     * @constant {number} BLASTER - Represents a blaster (305)
+     */
     PreBuiltWeaponSpecifications.BLASTER = 305;
+
+    /**
+     * @constant {number} NUKE_BLASTER - Represents a nuke blaster (306)
+     */
     PreBuiltWeaponSpecifications.NUKE_BLASTER = 306;
+
+    /**
+     * @constant {number} GUIDE_BLASTER - Represents a guide blaster (307)
+     */
     PreBuiltWeaponSpecifications.GUIDE_BLASTER = 307;
+
+    /**
+     * @constant {number} BLAST_GUIDER - Represents a blast guider (308)
+     */
     PreBuiltWeaponSpecifications.BLAST_GUIDER = 308;
+
+    /**
+     * @constant {number} BLAST_SWIRLER - Represents a blast swirler (309)
+     */
     PreBuiltWeaponSpecifications.BLAST_SWIRLER = 309;
+
+    /**
+     * @constant {number} REAR_DOUBLE - Represents a rear double weapon (310)
+     */
     PreBuiltWeaponSpecifications.REAR_DOUBLE = 310;
+
+    /**
+     * @constant {number} REAR_TRIPLE - Represents a rear triple weapon (311)
+     */
     PreBuiltWeaponSpecifications.REAR_TRIPLE = 311;
+
+    /**
+     * @constant {number} REAR_GUIDERS - Represents rear guiders (312)
+     */
     PreBuiltWeaponSpecifications.REAR_GUIDERS = 312;
+
+    /**
+     * @constant {number} ELECTRO_BUDS - Represents electro buds (313)
+     */
     PreBuiltWeaponSpecifications.ELECTRO_BUDS = 313;
+
+    /**
+     * @constant {number} TELEPORT_FOE - Represents teleporting a foe (314)
+     */
     PreBuiltWeaponSpecifications.TELEPORT_FOE = 314;
+
+    /**
+     * @constant {number} TELEPORT_SELF - Represents self-teleportation (315)
+     */
     PreBuiltWeaponSpecifications.TELEPORT_SELF = 315;
+
+    /**
+     * @constant {number} TRI_BREAKER - Represents a tri-breaker weapon (316)
+     */
     PreBuiltWeaponSpecifications.TRI_BREAKER = 316;
+
+    /**
+     * @constant {number} TRI_STRIKER - Represents a tri-striker weapon (317)
+     */
     PreBuiltWeaponSpecifications.TRI_STRIKER = 317;
+
+    /**
+     * @constant {number} QUINT_BREAKER - Represents a quint-breaker weapon (318)
+     */
     PreBuiltWeaponSpecifications.QUINT_BREAKER = 318;
+
+    /**
+     * @constant {number} OCTO_BREAKER - Represents an octo-breaker weapon (319)
+     */
     PreBuiltWeaponSpecifications.OCTO_BREAKER = 319;
+
+    /**
+     * @constant {number} GUIDED_MISSILE - Represents a guided missile (320)
+     */
     PreBuiltWeaponSpecifications.GUIDED_MISSILE = 320;
+
+    /**
+     * @constant {number} QUINT_GUIDER - Represents a quint-guider weapon (321)
+     */
     PreBuiltWeaponSpecifications.QUINT_GUIDER = 321;
+
+    /**
+     * @constant {number} SPARK_FIENDS - Represents spark fiends (322)
+     */
     PreBuiltWeaponSpecifications.SPARK_FIENDS = 322;
+
+    /**
+     * @constant {number} SWIRLER - Represents a swirler weapon (323)
+     */
     PreBuiltWeaponSpecifications.SWIRLER = 323;
+
+    /**
+     * @constant {number} NORMAL_BOMB - Represents a normal bomb (324)
+     */
     PreBuiltWeaponSpecifications.NORMAL_BOMB = 324;
+
+    /**
+     * @constant {number} DEATH_BOMB - Represents a death bomb (325)
+     */
     PreBuiltWeaponSpecifications.DEATH_BOMB = 325;
+
+    /**
+     * @constant {number} GLOW_SHIELD - Represents a glow shield (327)
+     */
     PreBuiltWeaponSpecifications.GLOW_SHIELD = 327;
+
+    /**
+     * @constant {number} ECM_HACKER - Represents an ECM hacker (328)
+     */
     PreBuiltWeaponSpecifications.ECM_HACKER = 328;
+
+    /**
+     * @constant {number} ECM_WIPER - Represents an ECM wiper (329)
+     */
     PreBuiltWeaponSpecifications.ECM_WIPER = 329;
+
+    /**
+     * @constant {number} HEALER - Represents a healer (330)
+     */
     PreBuiltWeaponSpecifications.HEALER = 330;
+
+    /**
+     * @constant {number} DEATH_TOUCH - Represents a death touch (331)
+     */
     PreBuiltWeaponSpecifications.DEATH_TOUCH = 331;
+
+    /**
+     * @constant {number} SWARM_MISSILE - Represents a swarm missile (332)
+     */
     PreBuiltWeaponSpecifications.SWARM_MISSILE = 332;
+
+    /**
+     * @constant {number} STANDARD_TANK - Represents a standard tank (400)
+     */
     PreBuiltWeaponSpecifications.STANDARD_TANK = 400;
+
+    /**
+     * @constant {number} ROTRA_1 - Represents ROTRA-1 tank (401)
+     */
     PreBuiltWeaponSpecifications.ROTRA_1 = 401;
+
+    /**
+     * @constant {number} ROTRA_2 - Represents ROTRA-2 tank (402)
+     */
     PreBuiltWeaponSpecifications.ROTRA_2 = 402;
+
+    /**
+     * @constant {number} OPEC_1 - Represents OPEC-1 tank (403)
+     */
     PreBuiltWeaponSpecifications.OPEC_1 = 403;
+
+    /**
+     * @constant {number} OPEC_2 - Represents OPEC-2 tank (404)
+     */
     PreBuiltWeaponSpecifications.OPEC_2 = 404;
+
+    /**
+     * @constant {number} SHOPPING_CARD - Represents a shopping discount card (405)
+     */
     PreBuiltWeaponSpecifications.SHOPPING_CARD = 405;
+
+    /**
+     * @constant {number} LARGER_DEATH - Represents a larger death (406)
+     */
     PreBuiltWeaponSpecifications.LARGER_DEATH = 406;
+
+    /**
+     * @constant {number} SCORE_BRIBE - Represents a score bribe (407)
+     */
     PreBuiltWeaponSpecifications.SCORE_BRIBE = 407;
+
+    /**
+     * @constant {number} FAST_RECHARGE - Represents fast recharge (408)
+     */
     PreBuiltWeaponSpecifications.FAST_RECHARGE = 408;
+
+    /**
+     * @constant {number} AUTO_HEALER - Represents an auto healer (409)
+     */
     PreBuiltWeaponSpecifications.AUTO_HEALER = 409;
+
+    /**
+     * @constant {number} FUEL_UPGRADE - Represents a fuel upgrade (410)
+     */
     PreBuiltWeaponSpecifications.FUEL_UPGRADE = 410;
+
+    /**
+     * @constant {number} METAL_UPGRADE - Represents a metal upgrade (411)
+     */
     PreBuiltWeaponSpecifications.METAL_UPGRADE = 411;
+
+    /**
+     * @constant {number} TURN_UPGRADE - Represents a turn upgrade (412)
+     */
     PreBuiltWeaponSpecifications.TURN_UPGRADE = 412;
+
+    /**
+     * @constant {number} SPEED_UPGRADE - Represents a speed upgrade (413)
+     */
     PreBuiltWeaponSpecifications.SPEED_UPGRADE = 413;
+
+    /**
+     * @constant {number} FUEL_UPGRADE_2 - Represents a second fuel upgrade (414)
+     */
     PreBuiltWeaponSpecifications.FUEL_UPGRADE_2 = 414;
+
+    /**
+     * @constant {number} METAL_UPGRADE_2 - Represents a second metal upgrade (415)
+     */
     PreBuiltWeaponSpecifications.METAL_UPGRADE_2 = 415;
+
+    /**
+     * @constant {number} TURN_UPGRADE_2 - Represents a second turn upgrade (416)
+     */
     PreBuiltWeaponSpecifications.TURN_UPGRADE_2 = 416;
+
+    /**
+     * @constant {number} SPEED_UPGRADE_2 - Represents a second speed upgrade (417)
+     */
     PreBuiltWeaponSpecifications.SPEED_UPGRADE_2 = 417;
+
+    /**
+     * @constant {number} OPEC_X - Represents OPEC-X (418)
+     */
     PreBuiltWeaponSpecifications.OPEC_X = 418;
+
     dsector.PreBuiltWeaponSpecifications = PreBuiltWeaponSpecifications;
     PreBuiltWeaponSpecifications["__class"] = "dsector.PreBuiltWeaponSpecifications";
 })(dsector || (dsector = {}));

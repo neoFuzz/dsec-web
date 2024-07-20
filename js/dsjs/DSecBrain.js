@@ -1,90 +1,132 @@
-/* Re-written from Java */
-var dsector;
 (function (dsector) {
+    /**
+     * Represents the brain of a DSector player, handling decision-making and actions.
+     *
+     * @property {number} NONE - Constant representing no target type.
+     * @property {number} TANK - Constant representing a tank target type.
+     * @property {number} POWERUP - Constant representing a power-up target type.
+     * @property {number} JEWEL - Constant representing a base jewel target type.
+     * @property {number} WALL - Constant representing a wall.
+     * @property {number} MISSILE - Constant representing a missile object.
+     * @property {number} amountToTurnInRadians - The amount to turn in radians.
+     * @property {number} __amountTurned - The amount turned so far.
+     * @property {DSecPlayer|null} __tankLastDetectedBySensor - The tank last detected by sensor.
+     * @property {DSecPlayer|null} tankLastTakenHitFrom - The tank last taken hit from.
+     * @property {DSecPlayer} player - The player this brain belongs to.
+     * @property {number} targetType - The target type.
+     * @property {DSecPlayer|null} target - The target.
+     *
+     * @since    1.0.0
+     * @access   public
+     * @class
+     *
+     * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
+     */
     class DSecBrain {
+        /**
+         * Constructor for DSecBrain.
+         *
+         * @param {DSecPlayer} player - The player this brain belongs to.
+         */
         constructor(player) {
-            if (this.targetType === undefined) {
-                this.targetType = 0;
-            }
-            if (this.target === undefined) {
-                this.target = null;
-            }
-            if (this.player === undefined) {
-                this.player = null;
-            }
-            if (this.amountToTurnInRadians === undefined) {
-                this.amountToTurnInRadians = 0;
-            }
-            if (this.__amountTurned === undefined) {
-                this.__amountTurned = 0;
-            }
-            if (this.__tankLastDetectedBySensor === undefined) {
-                this.__tankLastDetectedBySensor = null;
-            }
-            if (this.tankLastTakenHitFrom === undefined) {
-                this.tankLastTakenHitFrom = null;
-            }
             this.player = player;
             this.targetType = DSecBrain.NONE;
             this.target = null;
             this.amountToTurnInRadians = 0.0;
+            this.__amountTurned = 0;
+            this.__tankLastDetectedBySensor = null;
+            this.tankLastTakenHitFrom = null;
         }
 
+        /**
+         * Responds to a game tick.
+         */
         respondToGameTick() {
             this.stopTurningIfAmountTurnedExceedsTarget();
         }
 
+        /**
+         * Resets the amount turned to zero.
+         */
         resetAmountTurned() {
             this.__amountTurned = 0.0;
         }
 
-        adjustAmountTurned(amount) {
-            this.__amountTurned += amount;
+        /**
+         * Adjusts the amount turned by a given amount.
+         *
+         * @param {number} n - The amount to adjust by.
+         */
+        adjustAmountTurned(n) {
+            this.__amountTurned += n;
         }
 
+        /**
+         * Returns the amount turned.
+         *
+         * @returns {number} The current amount turned.
+         */
         amountTurned() {
             return this.__amountTurned;
         }
 
+        /**
+         * Returns the tank last detected by sensor.
+         *
+         * @returns {DSecPlayer|null} The tank last detected by sensor.
+         */
         tankLastDetectedBySensor() {
             return this.__tankLastDetectedBySensor;
         }
 
-        turnRightForGivenRadians(radians) {
+        /**
+         * Turns the player right by a given number of radians.
+         *
+         * @param {number} rad - The number of radians to turn.
+         */
+        turnRightForGivenRadians(rad) {
             this.resetAmountTurned();
             this.player.acceptInstruction(dsector.DSecPlayer.TURN_CLOCKWISE);
-            this.amountToTurnInRadians = -radians;
+            this.amountToTurnInRadians = -rad;
         }
 
-        turnLeftForGivenRadians(radians) {
+        /**
+         * Turns the player left by a given number of radians.
+         *
+         * @param {number} rad - The number of radians to turn.
+         */
+        turnLeftForGivenRadians(rad) {
             this.resetAmountTurned();
             this.player.acceptInstruction(dsector.DSecPlayer.TURN_ANTICLOCKWISE);
-            this.amountToTurnInRadians = radians;
+            this.amountToTurnInRadians = rad;
         }
 
-        /** private function */
+        /**
+         * Stops turning if the amount turned exceeds the target.\
+         *
+         * @private
+         */
         stopTurningIfAmountTurnedExceedsTarget() {
             if (this.amountToTurnInRadians !== 0.0) {
-                if (this.player.angleMovement() === 1) {
-                    if (this.amountToTurnInRadians > 0.0) {
-                        this.amountToTurnInRadians = 0.0;
-                    } else if (this.__amountTurned < this.amountToTurnInRadians) {
-                        this.resetAmountTurned();
-                        this.player.acceptInstruction(dsector.DSecPlayer.STOP_TURNING);
-                    }
-                } else if (this.player.angleMovement() === -1) {
-                    if (this.amountToTurnInRadians < 0.0) {
-                        this.amountToTurnInRadians = 0.0;
-                    } else if (this.__amountTurned > this.amountToTurnInRadians) {
-                        this.resetAmountTurned();
-                        this.player.acceptInstruction(dsector.DSecPlayer.STOP_TURNING);
-                    }
+                const angleMovement = this.player.angleMovement();
+                const stopTurningCondition = (angleMovement === 1 && this.__amountTurned < this.amountToTurnInRadians) ||
+                    (angleMovement === -1 && this.__amountTurned > this.amountToTurnInRadians);
+                if (stopTurningCondition) {
+                    this.resetAmountTurned();
+                    this.player.acceptInstruction(dsector.DSecPlayer.STOP_TURNING);
                 } else {
                     this.amountToTurnInRadians = 0.0;
                 }
             }
         }
 
+        /**
+         * Sets the target as the tank last detected by the sensor.
+         */
         setTargetAsTankLastDetectedWithSensor() {
             if (this.__tankLastDetectedBySensor != null) {
                 this.targetType = DSecBrain.TANK;
@@ -92,25 +134,31 @@ var dsector;
             }
         }
 
+        /**
+         * Sets the target as the nearest enemy tank.
+         */
         setTargetAsNearestEnemyTank() {
-            let player = null;
-            let maxValue = 3.4028235E38;
-            for (let i = 0; i < dsector.DSReference.dsecGame.numberOfPlayers(); ++i) {
-                const player1 = dsector.DSReference.dsecGame.getPlayer(i + 1);
-                if (this.player.playerIsEnemy(player1) && player1 !== this.player && player1.aliveState !== 0) {
-                    const dist = this.player.distanceToPlayer(player1);
-                    if (dist < maxValue) {
-                        maxValue = dist;
-                        player = player1;
+            let nearestPlayer = null;
+            let minDistance = Number.MAX_VALUE;
+            const players = dsector.DSReference.dsecMainSetupWindow.dsecPlayers;
+            players.forEach(player => {
+                if (this.player.playerIsEnemy(player) && player !== this.player && player.aliveState !== 0) {
+                    const dist = this.player.distanceToPlayer(player);
+                    if (dist < minDistance) {
+                        minDistance = dist;
+                        nearestPlayer = player;
                     }
                 }
-            }
-            if (player != null) {
+            });
+            if (nearestPlayer != null) {
                 this.targetType = DSecBrain.TANK;
-                this.target = player;
+                this.target = nearestPlayer;
             }
         }
 
+        /**
+         * Sets the target as the enemy jewel in team mode.
+         */
         setTargetAsEnemyJewel() {
             if (dsector.DSReference.dsecMainSetupWindow.playMode() === dsector.DSecMainSetupWindow.TEAMS) {
                 this.targetType = DSecBrain.JEWEL;
@@ -118,6 +166,9 @@ var dsector;
             }
         }
 
+        /**
+         * Sets the target as the nearest enemy tank or jewel based on game conditions.
+         */
         setTargetAsNearestEnemyTankOrJewel() {
             this.setTargetAsNearestEnemyTank();
             if (dsector.DSReference.dsecMainSetupWindow.playMode() !== dsector.DSecMainSetupWindow.HOSTILE) {
@@ -125,16 +176,15 @@ var dsector;
                     this.setTargetAsEnemyJewel();
                 } else {
                     if (this.targetType === DSecBrain.TANK) {
-                        const player = this.target;
-                        const targetJewel = Math.sqrt(Math.pow(this.player.enemyJewel().x - this.player.getX(),
-                            2.0) + Math.pow(this.player.enemyJewel().y - this.player.getY(), 2.0));
-                        const targetPlayer = Math.sqrt(Math.pow(player.getX() - this.player.getX(), 2.0) +
-                            Math.pow(player.getY() - this.player.getY(), 2.0));
-                        if (targetJewel < targetPlayer && (this.player.allEnemyTanksDestroyed() ||
-                            this.player.teamOfPlayer().totalTankStrengthOfTeam() <
-                            this.player.enemyTeamOfPlayer().totalTankStrengthOfTeam() ||
+                        const target = this.target;
+                        const targetJewel = this.player.distanceToEnemyJewel();
+                        const distToPlayer = this.player.distanceToPlayer(target);
+                        if (targetJewel < distToPlayer && (
+                            this.player.allEnemyTanksDestroyed() ||
+                            this.player.teamOfPlayer().totalTankStrengthOfTeam() < this.player.enemyTeamOfPlayer().totalTankStrengthOfTeam() ||
                             this.player.isWeakestInTeamAndAtLeastOneOtherPlayerOfSameTeamAlive() ||
-                            this.enemyJewelCanProbablyBeDestroyedQuickly())) {
+                            this.enemyJewelCanProbablyBeDestroyedQuickly()
+                        )) {
                             this.setTargetAsEnemyJewel();
                         }
                     }
@@ -142,48 +192,66 @@ var dsector;
             }
         }
 
+        /**
+         * Set the target as the tank with the highest score.
+         */
         setTargetAsTankWithHighestScore() {
-            let player = null;
-            let score = 0.0;
-            for (let i = 0; i < dsector.DSReference.dsecGame.numberOfPlayers(); ++i) {
-                const player1 = dsector.DSReference.dsecGame.getPlayer(i + 1);
-                if (this.player.playerIsEnemy(player1) && player1 !== this.player &&
-                    player1.aliveState !== 0 && player1.score() >= score) {
-                    score = player1.score();
-                    player = player1;
-                }
-            }
-            if (player != null) {
-                this.targetType = DSecBrain.TANK;
-                this.target = player;
-            }
-            if (this.player.allEnemyTanksDestroyed() && this.player.enemyJewel() != null) {
-                this.setTargetAsEnemyJewel();
-            }
-        }
-
-        setTargetAsTankWithLowestScore() {
-            let maxValue = 3.4028235E38;
-            for (let i = 0; i < dsector.DSReference.dsecGame.numberOfPlayers(); ++i) {
-                const player = dsector.DSReference.dsecGame.getPlayer(i + 1);
+            let highestScoringPlayer = null;
+            let highestScore = 0.0;
+            const players = dsector.DSReference.dsecMainSetupWindow.dsecPlayers;
+            players.forEach(player => {
                 if (this.player.playerIsEnemy(player) && player !== this.player &&
-                    player.aliveState !== 0 && player.score() <= maxValue) {
-                    maxValue = player.score();
+                    player.aliveState !== 0 && player.score() >= highestScore) {
+                    highestScore = player.score();
+                    highestScoringPlayer = player;
                 }
-            }
-            if (this.player != null) {
+            });
+            if (highestScoringPlayer != null) {
                 this.targetType = DSecBrain.TANK;
-                this.target = this.player;
+                this.target = highestScoringPlayer;
             }
             if (this.player.allEnemyTanksDestroyed() && this.player.enemyJewel() != null) {
                 this.setTargetAsEnemyJewel();
             }
         }
 
+        /**
+         * Set the target to the tank with the lowest score.
+         */
+        setTargetAsTankWithLowestScore() {
+            let minScore = Number.MAX_VALUE;
+            let lowestScoringPlayer = null;
+            const players = dsector.DSReference.dsecMainSetupWindow.dsecPlayers;
+            players.forEach(player => {
+                if (this.player.playerIsEnemy(player) && player !== this.player &&
+                    player.aliveState !== 0 && player.score() <= minScore) {
+                    minScore = player.score();
+                    lowestScoringPlayer = player;
+                }
+            });
+            if (lowestScoringPlayer != null) {
+                this.targetType = DSecBrain.TANK;
+                this.target = lowestScoringPlayer;
+            }
+            if (this.player.allEnemyTanksDestroyed() && this.player.enemyJewel() != null) {
+                this.setTargetAsEnemyJewel();
+            }
+        }
+
+        /**
+         * Remember which tank we took a hit from.
+         *
+         * @param {DSecPlayer} player - the [DSecPlayer]{@link dsector.DSecPlayer} we took the hit from.
+         */
         setTankLastTakenHitFrom(player) {
             this.tankLastTakenHitFrom = player;
         }
 
+        /**
+         * Set the target as the tank we took a hit from.
+         *
+         * @private
+         */
         setTargetAsTankLastTakenHitFrom() {
             if (this.tankLastTakenHitFrom != null) {
                 this.targetType = DSecBrain.TANK;
@@ -191,31 +259,35 @@ var dsector;
             }
         }
 
+        /**
+         * Turns towards the target.
+         *
+         * @private
+         */
         turnTowardsTarget() {
-            let cPosX = 0.0;
-            let cPosY = 0.0;
+            let targetPosX = 0.0;
+            let targetPosY = 0.0;
             let angle;
             if (this.targetType === DSecBrain.TANK) {
-                const player1 = this.player;
-                const player2 = this.target;
-                const p2Angle = Math.cos(player2.getAngle());
-                angle = Math.sin(player2.getAngle());
-                const p2X = player2.getX() + ((20.0 * p2Angle) * player2.tankSpecification.maximumVelocity()) *
-                    player2.forwardMovement();
-                const p2Y = player2.getY() + ((20.0 * angle) * player2.tankSpecification.maximumVelocity()) *
-                    player2.forwardMovement();
-                cPosX = p2X - player1.getX();
-                cPosY = p2Y - player1.getY();
+                const player = this.player;
+                const target = this.target;
+                const p2Angle = Math.cos(target.getAngle());
+                angle = Math.sin(target.getAngle());
+                const p2X = target.getX() + ((20.0 * p2Angle) * target.tankSpecification.maximumVelocity()) *
+                    target.forwardMovement();
+                const p2Y = target.getY() + ((20.0 * angle) * target.tankSpecification.maximumVelocity()) *
+                    target.forwardMovement();
+                targetPosX = p2X - player.getX();
+                targetPosY = p2Y - player.getY();
             }
             if (this.targetType === DSecBrain.JEWEL &&
                 dsector.DSReference.dsecMainSetupWindow.playMode() === dsector.DSecMainSetupWindow.TEAMS) {
-                cPosX = this.player.enemyJewel().x - this.player.getX();
-                cPosY = this.player.enemyJewel().y - this.player.getY();
+                targetPosX = this.player.enemyJewel().x - this.player.getX();
+                targetPosY = this.player.enemyJewel().y - this.player.getY();
             }
-            let atan = Math.atan2(cPosY, cPosX);
-            let pAngle = this.player.getAngle();
-            atan = (atan + 6.283185307179586) % 6.2831855;
-            pAngle = (pAngle + 6.283185307179586) % 6.2831855;
+            let piX2 = Math.PI * 2;
+            let atan = (Math.atan2(targetPosY, targetPosX) + piX2) % piX2;
+            let pAngle = (this.player.getAngle() + piX2) % piX2;
             let amount = 1;
             if (atan > pAngle) {
                 amount = -1;
@@ -223,7 +295,7 @@ var dsector;
             angle = Math.abs(atan - pAngle);
             if (angle > Math.PI) {
                 amount = -amount;
-                angle = Math.fround(6.2831855 - angle);
+                angle = Math.fround(piX2 - angle);
             }
             if (angle < 0.031415926535897934) {
                 this.resetAmountTurned();
@@ -237,16 +309,33 @@ var dsector;
             }
         }
 
+        /**
+         * Checks if the sensors are visible.
+         *
+         * @private
+         * @returns {boolean} True if the player can see the sensors.
+         */
         sensorsVisible() {
-            return this.player.robotSpecification.type === 4 &&
+            return this.player.robotSpecification.type === dsector.RobotSpecification.ROBOT &&
                 this.player.robotSpecification.viewSensors === dsector.RobotSpecification.TRUE;
         }
 
-        closestObjectStrikingSensor(ap, va, vv, m, csin) {
+        /**
+         * Finds the closest object striking the sensor.
+         *
+         * @private
+         * @param {number} ap - The angle position.
+         * @param {number} va - The view angle.
+         * @param {number} vv - The view volume.
+         * @param {number} m - The distance from the player.
+         * @param {number} cSin - The cosine of the angle position.
+         * @returns {number|null} The closest object type striking the sensor, or null if no object is found.
+         */
+        closestObjectStrikingSensor(ap, va, vv, m, cSin) {
             const angle = this.player.getAngle();
             const anglePos = Math.fround(this.player.getAngle() + ap);
-            const vX = (this.player.getX() + m * Math.cos(angle) - csin * Math.sin(angle));
-            const vY = (this.player.getY() + m * Math.sin(angle) + csin * Math.cos(angle));
+            const vX = (this.player.getX() + m * Math.cos(angle) - cSin * Math.sin(angle));
+            const vY = (this.player.getY() + m * Math.sin(angle) + cSin * Math.cos(angle));
             const angleVX = vX + Math.cos(anglePos) * va;
             const angleVY = vY + Math.sin(anglePos) * va;
             const polygon = new dsector.Polygon(new dsector.Vertex(vX, vY, 0.0),
@@ -262,7 +351,7 @@ var dsector;
             if (this.sensorsVisible()) {
                 dsector.DSReference.dsecGame.addObjectForDisplayOnlyDuringTheNextFrame(sensor);
             }
-            const arrayList1 = ([]);
+            const array1 = ([]);
             let round = dsector.DSReference.dsecGame.dsecRound;
             let i;
             for (i = 0; i < round.backgroundObjects.length; ++i) {
@@ -270,7 +359,7 @@ var dsector;
                 if (sensor.intersectsWith(model)) {
                     const polygonCenter = this.distanceBetweenPointAndPolygonCenter(
                         this.player.getX(), this.player.getY(), 0.0, model.intersectedPolygon);
-                    arrayList1.push(new dsector.IntersectingDSecObject(polygonCenter,
+                    array1.push(new dsector.IntersectingDSecObject(polygonCenter,
                         DSecBrain.WALL, null, null, null));
                 }
             }
@@ -283,7 +372,7 @@ var dsector;
                     if (sensor.intersectsWith(positionedModel)) {
                         v = this.distanceBetweenPointAndPolygonCenter(this.player.getX(), this.player.getY(),
                             0.0, positionedModel.intersectedPolygon);
-                        arrayList1.push(new dsector.IntersectingDSecObject(v, DSecBrain.TANK, player1, null, null));
+                        array1.push(new dsector.IntersectingDSecObject(v, DSecBrain.TANK, player1, null, null));
                     }
                 }
             }
@@ -294,7 +383,7 @@ var dsector;
                     if (sensor.intersectsWith(positionedModel)) {
                         v = this.distanceBetweenPointAndPolygonCenter(this.player.getX(), this.player.getY(),
                             0.0, positionedModel.intersectedPolygon);
-                        arrayList1.push(new dsector.IntersectingDSecObject(v, DSecBrain.MISSILE, null, missile, null));
+                        array1.push(new dsector.IntersectingDSecObject(v, DSecBrain.MISSILE, null, missile, null));
                     }
                 }
             }
@@ -305,24 +394,24 @@ var dsector;
                 if (sensor.intersectsWith(model)) {
                     polyCenter = this.distanceBetweenPointAndPolygonCenter(this.player.getX(), this.player.getY(),
                         0.0, model.intersectedPolygon);
-                    arrayList1.push(new dsector.IntersectingDSecObject(polyCenter, DSecBrain.JEWEL, null,
+                    array1.push(new dsector.IntersectingDSecObject(polyCenter, DSecBrain.JEWEL, null,
                         null, this.player.enemyJewel()));
                 }
                 model = this.player.ownJewel().constructPositionedModel();
                 if (sensor.intersectsWith(model)) {
                     polyCenter = this.distanceBetweenPointAndPolygonCenter(this.player.getX(), this.player.getY(),
                         0.0, model.intersectedPolygon);
-                    arrayList1.push(new dsector.IntersectingDSecObject(polyCenter, DSecBrain.WALL,
+                    array1.push(new dsector.IntersectingDSecObject(polyCenter, DSecBrain.WALL,
                         null, null, null));
                 }
             }
-            if (arrayList1.length === 0) {
+            if (array1.length === 0) {
                 return DSecBrain.NONE;
             } else {
                 let intersectingObject = null;
                 polyCenter = 3.4028235E38;
-                for (let j = 0; j < arrayList1.length; ++j) {
-                    const intersObject = arrayList1[j];
+                for (let j = 0; j < array1.length; ++j) {
+                    const intersObject = array1[j];
                     if (intersObject.distance < polyCenter) {
                         intersectingObject = intersObject;
                         polyCenter = intersObject.distance;
@@ -338,15 +427,24 @@ var dsector;
                     }
                 }
                 if (intersectingObject.type === DSecBrain.MISSILE &&
-                    intersectingObject.intersectingMissile.weaponSpecification.actionWhenFiredAfterAlreadyLaunched === 14 &&
-                    !this.player.shieldActive()) {
+                    intersectingObject.intersectingMissile.weaponSpecification
+                        .actionWhenFiredAfterAlreadyLaunched === 14 && !this.player.shieldActive()) {
                     intersectingObject.type = DSecBrain.WALL;
                 }
                 return intersectingObject.type;
             }
         }
 
-        /** private function */
+        /**
+         * Return the distance between a point and a polygon center.
+         *
+         * @private
+         * @param {number} inVX the x coordinate of the point.
+         * @param {number} inVY the y coordinate of the point.
+         * @param {number} inVZ the z coordinate of the point.
+         * @param {dsector.Polygon} polygon the polygon to calculate the distance to.
+         * @return {number} the distance between the point and the polygon center.
+         */
         distanceBetweenPointAndPolygonCenter(inVX, inVY, inVZ, polygon) {
             const vX = ((polygon.v1.x + polygon.v2.x) + polygon.v3.x) / 3.0;
             const vY = ((polygon.v1.y + polygon.v2.y) + polygon.v3.y) / 3.0;
@@ -355,6 +453,12 @@ var dsector;
                 Math.pow(vY - inVY, 2.0) + Math.pow(vZ - inVZ, 2.0)));
         }
 
+        /**
+         * Return the type of object intersected by the sensor.
+         *
+         * @param {number} response the sensor response number.
+         * @return {number} the type of object intersected by the sensor.
+         */
         sensorResponse(response) {
             switch (response) {
                 case 1:
@@ -458,6 +562,12 @@ var dsector;
             }
         }
 
+        /**
+         * Checks if the destination tank or jewel is within the specified range.
+         *
+         * @private
+         * @returns {boolean} True if the destination tank or jewel is within the specified range, false otherwise.
+         */
         destinationTankOrJewelWithin(range) {
             let distance;
             if (this.targetType === DSecBrain.TANK) {
@@ -475,6 +585,12 @@ var dsector;
             }
         }
 
+        /**
+         * Checks if the destination tank is within the specified range.
+         *
+         * @private
+         * @returns {boolean} True if the destination tank is within the specified range, false otherwise.
+         */
         destinationTankWithin(range) {
             if (this.targetType === DSecBrain.TANK) {
                 const player = this.target;
@@ -486,6 +602,12 @@ var dsector;
             }
         }
 
+        /**
+         * Checks if no enemy tank or jewel is within the specified range.
+         *
+         * @private
+         * @returns {boolean} True if no enemy tank or jewel is within the specified range, false otherwise.
+         */
         noEnemyTankOrJewelWithin(range) {
             for (let i = 0; i < dsector.DSReference.dsecGame.numberOfPlayers(); ++i) {
                 const player = dsector.DSReference.dsecGame.getPlayer(i + 1);
@@ -506,10 +628,23 @@ var dsector;
             return true;
         }
 
+        /**
+         * Checks if no player has moved since the given ID.
+         *
+         * @private
+         * @param {number} id - The ID to check against.
+         * @returns {boolean} True if no player has moved since the given ID, false otherwise.
+         */
         noPlayerHasMovedSince(id) {
             return DSecBrain.timeOfLastForwardMovementOfAnyTank < id;
         }
 
+        /**
+         * Returns the number of enemies alive.
+         *
+         * @private
+         * @returns {number} The number of enemies alive.
+         */
         numberOfEnemiesAlive() {
             let count = 0;
             for (let i = 0; i < dsector.DSReference.dsecGame.numberOfPlayers(); ++i) {
@@ -523,6 +658,12 @@ var dsector;
             return count;
         }
 
+        /**
+         * Checks if the player is within an optimal zone for firing at the enemy jewel.
+         *
+         * @private
+         * @returns {boolean} True if the player is within the optimal zone, false otherwise.
+         */
         withinOptimalZoneForFiringAtJewel() {
             if (dsector.DSReference.dsecMainSetupWindow.playMode() === dsector.DSecMainSetupWindow.TEAMS &&
                 this.targetType === DSecBrain.JEWEL) {
@@ -551,6 +692,12 @@ var dsector;
             return false;
         }
 
+        /**
+         * Checks if the enemy jewel can probably be destroyed quickly.
+         *
+         * @private
+         * @returns {boolean} True if the enemy jewel can probably be destroyed quickly, false otherwise.
+         */
         enemyJewelCanProbablyBeDestroyedQuickly() {
             const jewel = this.player.enemyJewel();
             const remE = Math.sqrt(Math.pow(this.player.getX() - jewel.x, 2.0) +
@@ -558,6 +705,14 @@ var dsector;
             return (Math.fround(jewel.energy * 20.0)) + remE < (Math.fround(10.0 * this.player.weaponEnergy));
         }
 
+        /**
+         * Checks if an enemy missile is within a certain distance and damage threshold.
+         *
+         * @private
+         * @param {number} v - The distance threshold.
+         * @param {number} dmg - The damage threshold.
+         * @returns {boolean} True if an enemy missile is within the specified distance and damage threshold, false otherwise.
+         */
         enemyMissileWithin(v, dmg) {
             for (let i = 0; i < dsector.DSReference.dsecMissileManager.missiles.length; ++i) {
                 const missile = dsector.DSReference.dsecMissileManager.missiles[i];
@@ -575,6 +730,11 @@ var dsector;
             return false;
         }
 
+        /**
+         * Attempts to turn on the shield.
+         *
+         * @private
+         */
         attemptToTurnShieldOn() {
             if (!this.player.shieldActive()) {
                 for (let i = 1; i <= 6; ++i) {
@@ -587,6 +747,11 @@ var dsector;
             }
         }
 
+        /**
+         * Executes the shopping actions based on the provided conditions.
+         *
+         * @private
+         */
         goShopping() {
             this.shoppingLog("-------------------------------------------\n" + this.player.name + " is going shopping");
             const shoppingActions = [this.player.robotSpecification.shoppingStrategyAction1,
@@ -616,7 +781,12 @@ var dsector;
             }
         }
 
-        /** private function */
+        /**
+         * Checks if the shopping condition is met.
+         *
+         * @private
+         * @param {number} condition - The condition to check.
+         */
         passesShoppingCondition(condition) {
             const remainingRounds =
                 dsector.DSReference.dsecMainSetupWindow.numberOfRounds() - dsector.DSReference.dsecGame.currentRound();
@@ -701,7 +871,12 @@ var dsector;
             }
         }
 
-        /** private function */
+        /**
+         * Attempts to execute a shopping action.
+         *
+         * @private
+         * @param {number} action - The action to execute.
+         */
         attemptToExecuteShoppingAction(action) {
             switch (action) {
                 case 10:
@@ -860,7 +1035,13 @@ var dsector;
             }
         }
 
-        /** private function */
+        /**
+         * Attempts to purchase the given item.
+         *
+         * @private
+         * @param item {number} The item to purchase.
+         * @returns {boolean} True if the item was purchased, false otherwise.
+         */
         attemptToPurchaseGivenItem(item) {
             if (item === -1) {
                 return false;
@@ -919,7 +1100,12 @@ var dsector;
             }
         }
 
-        /** private function */
+        /**
+         * Attempts to purchase the most affordable weapon from the given weapon strategy.
+         *
+         * @param {number} strat - The weapon strategy.
+         * @private
+         */
         attemptToPurchaseMostAffordableWeaponFromGivenWeaponStrategy(strat) {
             const stratFav = [this.player.robotSpecification.weaponStrategyFavourite1,
                 this.player.robotSpecification.weaponStrategyFavourite2,
@@ -979,9 +1165,14 @@ var dsector;
             }
         }
 
-        /** private function */
+        /**
+         * Logs shopping-related messages.
+         *
+         * @private
+         * @param {string} message - The message to log.
+         */
         shoppingLog(message) {
-            console.info(message);
+            CWSYSTEM.Debug.println(message);
         }
     }
 

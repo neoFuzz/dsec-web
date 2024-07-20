@@ -1,6 +1,10 @@
-var dsector;
+/**/
 (function (dsector) {
-    /** Sets up the Scoreboard window for use */
+    /**
+     * Sets up the Scoreboard window for use
+     * @class
+     * @memberof dsector
+     */
     class DSecScoreboard {
         constructor() {
             if (this.window === undefined) {
@@ -88,9 +92,9 @@ var dsector;
                 color1 = this.winningPlayer().getTankColor(3);
             }
             this.window.changeBackgroundColor$CWColor(color1);
-            const roundsColor = roundsRemain === 0 ? new CWSYSTEM.CWColor(CWSYSTEM.CWColor.lightGrey_$LI$()) :
-                new CWSYSTEM.CWColor(CWSYSTEM.CWColor.silver_$LI$());
-            const color3 = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.white_$LI$());
+            const roundsColor = roundsRemain === 0 ? new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__lightGrey()) :
+                new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__silver());
+            const color3 = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__white());
             let blNum = 30;
             if (roundsRemain === 0) {
                 this.addTextBlock("", "-- FINAL STATISTICS --", Math.round((refScore - 120) / 2),
@@ -273,8 +277,8 @@ var dsector;
                     this.addTextBlock("", roundsRemain + " rounds left, Space continues, Ctrl-Q aborts",
                         10, blNum, font, roundsColor, 999);
             }
-            const aContinue = this.window.addButton$name$x$y$len$h$text$t$r("", refScore - 72, blNum - 23,
-                65, 15, "Continue", 9, 0);
+            const aContinue = this.window.addButton("", refScore - 72, blNum - 23,
+                65, 15, "Continue", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
             aContinue.objectContainingButtonPressedMethod = this;
             aContinue.buttonPressedMethodName = "continueButtonPressed";
             this.window.h = Math.ceil(blNum);
@@ -375,7 +379,7 @@ var dsector;
         /** @private */
         addTextBlock(nameId, text, leftMargin, baseLine, font, color, width) {
             this.window.addTextBlock(nameId, text, leftMargin + 1, baseLine + 1, font,
-                new CWSYSTEM.CWColor(CWSYSTEM.CWColor.black_$LI$()), width);
+                new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__black()), width);
             this.window.addTextBlock(nameId, text, leftMargin, baseLine, font, color, width);
         }
     }

@@ -1,43 +1,26 @@
-var dsector;
+/**/
 (function (dsector) {
-    /** Re-written from Java*/
+    /**
+     * Represents an inbuilt light in the dsector environment. Re-written from the Java port.
+     * @class
+     * @memberof dsector
+     */
     class InbuiltLight {
+        /**
+         * Creates a new InbuiltLight instance.
+         * @param {Object} parent - The parent object of the light.
+         * @param {string} name - The name of the light.
+         * @param {boolean} on - The initial state of the light (on/off).
+         * @param {number} x - The x-coordinate of the light.
+         * @param {number} y - The y-coordinate of the light.
+         * @param {number} z - The z-coordinate of the light.
+         * @param {number} red - The red component of the light color (0-1).
+         * @param {number} green - The green component of the light color (0-1).
+         * @param {number} blue - The blue component of the light color (0-1).
+         */
         constructor(parent, name, on, x, y, z, red, green, blue) {
-            if (this.parent === undefined) {
-                this.parent = null;
-            }
-            if (this.name === undefined) {
-                this.name = null;
-            }
-            if (this.id === undefined) {
-                this.id = 0;
-            }
-            if (this.positionLockedToLocator === undefined) {
-                this.positionLockedToLocator = false;
-            }
-            if (this.__on === undefined) {
-                this.__on = false;
-            }
-            if (this.__x === undefined) {
-                this.__x = 0;
-            }
-            if (this.__y === undefined) {
-                this.__y = 0;
-            }
-            if (this.__z === undefined) {
-                this.__z = 0;
-            }
-            if (this.__red === undefined) {
-                this.__red = 0;
-            }
-            if (this.__green === undefined) {
-                this.__green = 0;
-            }
-            if (this.__blue === undefined) {
-                this.__blue = 0;
-            }
-            this.parent = parent;
-            this.name = name;
+            this.parent = parent || null;
+            this.name = name || null;
             this.id = dsector.NumberTools.randomLong();
             this.__on = on;
             this.__x = x;
@@ -46,155 +29,139 @@ var dsector;
             this.__red = red;
             this.__green = green;
             this.__blue = blue;
-            this.positionLockedToLocator = false;
         }
-        on$() {
-            return this.__on;
-        }
+
+
+        /**
+         * Checks if the light is on.
+         * @returns {boolean} True if the light is on, false otherwise.
+         */
         isOn() {
             return this.__on;
         }
+
+        /**
+         * Checks if the light is off.
+         * @returns {boolean} True if the light is off, false otherwise.
+         */
         isOff() {
             return !this.__on;
         }
-        on_skipWindowUpdates(skip) {
-            this.__on = skip;
-        }
-        on$boolean(state) {
+
+        /**
+         * Gets or sets the light state.
+         * @param {boolean} [state] - The new state of the light.
+         * @returns {boolean} The current state of the light if no parameter is provided.
+         */
+        on(state) {
+            if (state === undefined) {
+                return this.__on;
+            }
             this.__on = state;
             this.updateWindowsShowingLightOnStatus();
         }
-        on(state) {
-            if (((typeof state === 'boolean') || state === null)) {
-                return this.on$boolean(state);
-            }
-            else if (state === undefined) {
-                return this.on$();
-            }
-            else
-                throw new Error('invalid overload');
-        }
-        x$float(x) {
-            this.__x = x;
+
+        /**
+         * Updates a coordinate value and refreshes the window display.
+         * @param {string} co - The coordinate to update ('x', 'y', or 'z').
+         * @param {number} value - The new value for the coordinate.
+         * @private
+         */
+        _updateCoord(co, value) {
+            this[`__${co}`] = value;
             this.updateWindowsShowingLightPosition();
         }
-        x(x) {
-            if (((typeof x === 'number') || x === null)) {
-                return this.x$float(x);
-            }
-            else if (x === undefined) {
-                return this.x$();
-            }
-            else
-                throw new Error('invalid overload');
+
+        /**
+         * Gets or sets the x-coordinate of the light.
+         * @param {number} [value] - The new x-coordinate value.
+         * @returns {number} The current x-coordinate if no parameter is provided.
+         */
+        x(value) {
+            return (value === undefined) ? this.__x : this._updateCoord('x', value);
         }
-        x_noWindowUpdate(x) {
-            this.__x = x;
+
+        /**
+         * Gets or sets the y-coordinate of the light.
+         * @param {number} [value] - The new y-coordinate value.
+         * @returns {number} The current y-coordinate if no parameter is provided.
+         */
+        y(value) {
+            return (value === undefined) ? this.__y : this._updateCoord('y', value);
         }
-        x$() {
-            return this.__x;
+
+        /**
+         * Gets or sets the z-coordinate of the light.
+         * @param {number} [value] - The new z-coordinate value.
+         * @returns {number} The current z-coordinate if no parameter is provided.
+         */
+        z(value) {
+            return (value === undefined) ? this.__z : this._updateCoord('z', value);
         }
-        y$float(y) {
-            this.__y = y;
-            this.updateWindowsShowingLightPosition();
-        }
-        y(y) {
-            if (((typeof y === 'number') || y === null)) {
-                return this.y$float(y);
-            }
-            else if (y === undefined) {
-                return this.y$();
-            }
-            else
-                throw new Error('invalid overload');
-        }
-        y_noWindowUpdate(y) {
-            this.__y = y;
-        }
-        y$() {
-            return this.__y;
-        }
-        z$float(z) {
-            this.__z = z;
-            this.updateWindowsShowingLightPosition();
-        }
-        z(z) {
-            if (((typeof z === 'number') || z === null)) {
-                return this.z$float(z);
-            }
-            else if (z === undefined) {
-                return this.z$();
-            }
-            else
-                throw new Error('invalid overload');
-        }
-        z_noWindowUpdate(z) {
-            this.__z = z;
-        }
-        z$() {
-            return this.__z;
-        }
-        red$float(value) {
-            this.__red = value;
+
+        /**
+         * Updates a color component and refreshes the window display.
+         * @param {string} color - The color component to update ('red', 'green', or 'blue').
+         * @param {number} value - The new value for the color component (0-1).
+         * @private
+         */
+        _updateColor(color, value) {
+            this[`__${color}`] = value;
             this.updateWindowsShowingLightColor();
         }
+
+        /**
+         * Gets or sets the red component of the light color.
+         * @param {number} [value] - The new red component value (0-1).
+         * @returns {number} The current red component if no parameter is provided.
+         */
         red(value) {
-            if (((typeof value === 'number') || value === null)) {
-                return this.red$float(value);
-            }
-            else if (value === undefined) {
-                return this.red$();
-            }
-            else
-                throw new Error('invalid overload');
+            return (value === undefined) ? this.__red : this._updateColor('red', value);
         }
-        red$() {
-            return this.__red;
-        }
-        green$float(value) {
-            this.__green = value;
-            this.updateWindowsShowingLightColor();
-        }
+
+        /**
+         * Gets or sets the green component of the light color.
+         * @param {number} [value] - The new green component value (0-1).
+         * @returns {number} The current green component if no parameter is provided.
+         */
         green(value) {
-            if (((typeof value === 'number') || value === null)) {
-                return this.green$float(value);
-            }
-            else if (value === undefined) {
-                return this.green$();
-            }
-            else
-                throw new Error('invalid overload');
+            return (value === undefined) ? this.__green : this._updateColor('green', value);
         }
-        green$() {
-            return this.__green;
-        }
-        blue$float(value) {
-            this.__blue = value;
-            this.updateWindowsShowingLightColor();
-        }
+
+        /**
+         * Gets or sets the blue component of the light color.
+         * @param {number} [value] - The new blue component value (0-1).
+         * @returns {number} The current blue component if no parameter is provided.
+         */
         blue(value) {
-            if (((typeof value === 'number') || value === null)) {
-                return this.blue$float(value);
-            }
-            else if (value === undefined) {
-                return this.blue$();
-            }
-            else
-                throw new Error('invalid overload');
+            return (value === undefined) ? this.__blue : this._updateColor('blue', value);
         }
-        blue$() {
-            return this.__blue;
-        }
+
+        /**
+         * Updates windows showing light on/off status.
+         * @private
+         */
         updateWindowsShowingLightOnStatus() {
             CWSYSTEM.Environment.perspectiveViewWindowsRequestedForUpdateNextCycle();
         }
+
+        /**
+         * Updates windows showing light position.
+         * @private
+         */
         updateWindowsShowingLightPosition() {
             CWSYSTEM.Environment.perspectiveViewWindowsRequestedForUpdateNextCycle();
         }
+
+        /**
+         * Updates windows showing light color.
+         * @private
+         */
         updateWindowsShowingLightColor() {
             CWSYSTEM.Environment.perspectiveViewWindowsRequestedForUpdateNextCycle();
         }
     }
+
     dsector.InbuiltLight = InbuiltLight;
     InbuiltLight["__class"] = "dsector.InbuiltLight";
 })(dsector || (dsector = {}));

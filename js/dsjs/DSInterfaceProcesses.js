@@ -1,7 +1,14 @@
 /* Re-written from Java */
-var dsector;
 (function (dsector) {
+    /**
+     * Manages interface processes such as button clicks, input box processing, and keyboard interactions within the D-Sector application.
+     * @class
+     * @memberof dsector
+     */
     class DSInterfaceProcesses {
+        /**
+         * Initializes the main GUI reference.
+         */
         constructor() {
             if (this.mainGUI === undefined) {
                 this.mainGUI = null;
@@ -9,11 +16,17 @@ var dsector;
             this.mainGUI = dsector.DSReference.gui;
         }
 
+        /**
+         * Processes actions based on button clicks.
+         * @param {Object} button - The button that was clicked.
+         * @param {number} x - The x coordinate of the click.
+         * @param {number} y - The y coordinate of the click.
+         */
         processButton$btn$x$y(button, x, y) {
             const windowName = button.name;
             button.buttonPressed();
-            if ((button.parent.nameID === ("overlay")) && CWSYSTEM.Environment.activePulldownMenu_$LI$() != null) {
-                CWSYSTEM.Environment.activePulldownMenu_$LI$().optionSelected(button);
+            if ((button.parent.nameID === ("overlay")) && CWSYSTEM.Environment.activePulldownMenu$() != null) {
+                CWSYSTEM.Environment.activePulldownMenu$().optionSelected(button);
             } else {
                 if (windowName === ("DESTROY_WINDOW")) {
                     dsector.DSReference.alertManager.processContinue();
@@ -36,21 +49,18 @@ var dsector;
             }
         }
 
-        processButton(button, x, y) {
-            if (((button != null && button instanceof CWSYSTEM.CWButton) || button === null) &&
-                ((typeof x === 'number') || x === null) && ((typeof y === 'number') || y === null)) {
-                return this.processButton$btn$x$y(button, x, y);
-            } else if (((button != null && button instanceof CWSYSTEM.CWButton) || button === null) &&
-                x === undefined && y === undefined) {
-                return this.processButton$button(button);
-            } else
-                throw new Error('invalid overload');
-        }
-
+        /**
+         * Overloaded method to process button clicks with default coordinates.
+         * @param {Object} button - The button that was clicked.
+         */
         processButton$button(button) {
             this.processButton$btn$x$y(button, 0, 0);
         }
 
+        /**
+         * Processes input box interactions.
+         * @param {Object} inputBox - The input box being interacted with.
+         */
         processInputBox(inputBox) {
             CWSYSTEM.Environment.inputBoxSelected = null;
             inputBox.parentWindow.updated = false;
@@ -73,14 +83,22 @@ var dsector;
             }
         }
 
+        /**
+         * Processes checkbox interactions.
+         * @param {Object} checkBox - The checkbox being interacted with.
+         */
         processCheckBox(checkBox) {
             this.mainGUI.moveWindowToTopByName(checkBox.parentWindow.nameID);
         }
 
+        /**
+         * Processes character inputs from the keyboard.
+         * @param {string} c - The character input.
+         */
         processKeyboardChar(c) {
-            if (CWSYSTEM.Environment.inputBoxSelected_$LI$() != null) {
+            if (CWSYSTEM.Environment.inputBoxSelected$() != null) {
                 if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(c) !== '\uffff'.charCodeAt(0)) {
-                    CWSYSTEM.Environment.inputBoxSelected_$LI$().addCharacter(c);
+                    CWSYSTEM.Environment.inputBoxSelected$().addCharacter(c);
                 }
             } else if (CWSYSTEM.CWTextArea.textAreaSelected() != null) {
                 if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(c) !== '\uffff'.charCodeAt(0)) {
@@ -91,18 +109,22 @@ var dsector;
             }
         }
 
+        /**
+         * Processes keyboard key press actions.
+         * @param {number} keyCode - The code of the key pressed.
+         */
         processKeyboardPress(keyCode) {
             dsector.DSReference.dsecGame.keyPressed(keyCode);
-            if (CWSYSTEM.Environment.inputBoxSelected_$LI$() != null) {
+            if (CWSYSTEM.Environment.inputBoxSelected$() != null) {
                 if (keyCode !== 46 && keyCode !== 8) {
                     if (keyCode === 13) { // 13 is Enter
                         dsector.DSReference.interfaceProcesses.processInputBox(
-                            CWSYSTEM.Environment.inputBoxSelected_$LI$());
+                            CWSYSTEM.Environment.inputBoxSelected$());
                     } else if (keyCode === 27) {
                         CWSYSTEM.Environment.inputBoxSelected = null;
                     }
                 } else {
-                    CWSYSTEM.Environment.inputBoxSelected_$LI$().deleteCharacter();
+                    CWSYSTEM.Environment.inputBoxSelected$().deleteCharacter();
                 }
             } else if (CWSYSTEM.CWTextArea.textAreaSelected() != null) {
                 switch (keyCode) {
@@ -149,46 +171,20 @@ var dsector;
             }
         }
 
+        /**
+         * Processes keyboard key release actions.
+         * @param {number} keyCode - The code of the key released.
+         */
         processKeyboardRelease(keyCode) {
             switch (dsector.Keyboard.focus) {
-                case dsector.Keyboard.JCAD_DEFAULT:
-                    CWSYSTEM.Environment.screenHasChanged = true;
-                    switch (keyCode) {
-                        case 37:
-                            CWSYSTEM.Environment.moveCameraLeft = false;
-                            return;
-                        case 38:
-                            CWSYSTEM.Environment.moveCameraUp = false;
-                            return;
-                        case 39:
-                            CWSYSTEM.Environment.moveCameraRight = false;
-                            return;
-                        case 40:
-                            CWSYSTEM.Environment.moveCameraDown = false;
-                            return;
-                        case 44:
-                        case 45:
-                            CWSYSTEM.Environment.moveCameraBackwards = false;
-                            return;
-                        case 46:
-                        case 61:
-                        case 521:
-                            CWSYSTEM.Environment.moveCameraForwards = false;
-                            return;
-                        case 59:
-                            CWSYSTEM.Environment.moveCameraLeftPivot = false;
-                            return;
-                        case 222:
-                            CWSYSTEM.Environment.moveCameraRightPivot = false;
-                            return;
-                        default:
-                            return;
-                    }
                 case dsector.Keyboard.DSECTOR:
                     dsector.DSReference.dsecGame.keyReleased(keyCode);
             }
         }
 
+        /**
+         * Processes mouse release actions.
+         */
         processMouseRelease() {
             CWSYSTEM.Environment.windowScrollUp = false;
             CWSYSTEM.Environment.windowScrollDown = false;

@@ -1,8 +1,24 @@
-/* Re-written from Java */
-
-var CWSYSTEM;
 (function (CWSYSTEM) {
+    /**
+     * Class representing CWGraphics with methods to handle image processing.
+     *
+     * @property {number} IMAGE_WIDTH - The width of the image.
+     * @property {number} IMAGE_HEIGHT - The height of the image.
+     *
+     * @since    1.0.0
+     * @access   public
+     * @class
+     *
+     * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
+     */
     class CWGraphics {
+        /**
+         * Constructs a new CWGraphics instance.
+         */
         constructor() {
             if (this.IMAGE_WIDTH === undefined) {
                 this.IMAGE_WIDTH = 0;
@@ -12,19 +28,12 @@ var CWSYSTEM;
             }
         }
 
-        /** Function that can process PNG picture data in to usable graphics data for the renderer.
-         * Function is actually empty.
-         * @param {Image} bufferedImage
-         * @return {Image}
-         * @deprecated
+        /**
+         * Convert [ScreenData]{@link CWSYSTEM.ScreenData} in to {@link ImageData}.
+         *
+         * @param {CWSYSTEM.ScreenData} sd the CWSYSTEM.ScreenData object.
+         * @returns {ImageData} New ImageData object.
          */
-        static processPNG(bufferedImage) {
-            return bufferedImage;
-        }
-
-        /** Convert {@link ScreenData} in to {@link ImageData}.
-         * @param {ScreenData} sd CWSYSTEM.ScreenData object.
-         * @return {ImageData} New ImageData object. */
         static convertScreenDataToBufferedImage(sd) {
             let canvas = new OffscreenCanvas(
                 CWSYSTEM.Global.screenResolutionX_$LI$(), CWSYSTEM.Global.screenResolutionY_$LI$());
@@ -46,18 +55,57 @@ var CWSYSTEM;
             return imgData;
         }
 
+        /**
+         * Sets the display mode for all devices. This method is deprecated since it is not needed in a web browser.
+         *
+         * @todo possible electron implementation
+         * @deprecated Not used with web browsers
+         * @param window The window object.
+         * @param width The width of the display mode.
+         * @param height The height of the display mode.
+         * @param bitDepth The bit depth of the display mode.
+         * @param refreshRate The refresh rate of the display mode.
+         * @returns {boolean} True if the display mode was set successfully, false otherwise.
+         */
         static setDisplayModeForAllDevices(window, width, height, bitDepth, refreshRate) {
             return true;
         }
 
+        /**
+         * This method is deprecated since it is not needed in a web browser.
+         *
+         * @todo possible electron implementation
+         * @deprecated Not used with web browsers
+         * @param window The window object.
+         * @param width The width of the display mode.
+         * @param height The height of the display mode.
+         * @param bitDepth The bit depth of the display mode.
+         * @param refreshRate The refresh rate of the display mode.
+         * @returns {string} An empty string as it's currently deprecated.
+         */
         static setDisplayModeForDefaultDevice(window, width, height, bitDepth, refreshRate) {
             return "";
         }
 
+        /**
+         * This method is deprecated since it is not needed in a web browser.
+         *
+         * @todo possible electron implementation
+         * @deprecated Not used with web browsers
+         * @returns {string} An empty string as it's currently deprecated.
+         */
         static defaultDisplayMode() {
             return "";
         }
 
+        /**
+         * Renders an image on the screen.
+         *
+         * @param {CWSYSTEM.ScreenData} screenData The screen data.
+         * @param {string} filename The filename of the image to render.
+         * @param {number} w The width of the image.
+         * @param {number} h The height of the image.
+         */
         renderImage(screenData, filename, w, h) {
             CWSYSTEM.Debug.println("Loading image '" + filename + "'");
             let bufferedImage = null;
@@ -130,6 +178,12 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Reads a JPG file and converts it to base64.
+         *
+         * @param {string} url The URL of the JPG file.
+         * @returns {Promise<string>} A promise that resolves with the base64 encoded string of the image.
+         */
         readJpgFileToBase64(url) {
             return new Promise((resolve, reject) => {
                 fetch(url)
@@ -144,9 +198,12 @@ var CWSYSTEM;
             });
         }
 
-        /** Returns the specified Image from the preloaded images as ScreenData object
-         * @param {string} fileName
-         * @requires CWSYSTEM.ScreenData */
+        /**
+         * Returns the specified Image from the preloaded images as ScreenData object.
+         *
+         * @param {string} fileName The name of the file to get.
+         * @returns {CWSYSTEM.ScreenData} The ScreenData representation of the image.
+         */
         getJPG(fileName) { // change to JS image preload in loader.js
             let o; // ScreenData
             let bufferedImage = preImages.get(fileName); // preloaded images
@@ -176,7 +233,7 @@ var CWSYSTEM;
 
                 let imageData = ([]);
                 for (let i = 0; i < intArray.length; i += 4) {
-                    imageData.push(CWSYSTEM.FastColorUtilities.color$r$g$b$a(
+                    imageData.push(CWSYSTEM.FastColorUtilities.colorRGBA(
                         intArray[i + 0], intArray[i + 1], intArray[i + 2], intArray[i + 3]));
                 }
                 for (let i = 0; i < imageHeight; ++i) {
@@ -188,6 +245,12 @@ var CWSYSTEM;
             return o;
         }
 
+        /**
+         * Returns the size of a JPG image.
+         *
+         * @param {string} fileName The name of the JPG file.
+         * @returns {Map<string, string>} A map containing the width and height of the image.
+         */
         JPGSize(fileName) {
             const screenData = dsector.DSReference.graphics.getJPG(fileName);
             if (screenData != null) {
@@ -199,12 +262,34 @@ var CWSYSTEM;
             return null;
         }
 
+        /**
+         * Saves the screen data as a JPG file.
+         *
+         * @todo implement with Electron
+         * @param {CWSYSTEM.ScreenData} screenData The screen data to save.
+         * @param {string} filePath The file path to save the image to.
+         * @param {string} type The file type of the image.
+         */
         saveScreenDataAsJPG(screenData, filePath, type) {
         }
 
+        /**
+         * Saves the buffered image as a JPG file.
+         *
+         * @todo implement with Electron
+         * @param {Image} bufferedImage The image to save.
+         * @param {string} filename The filename to save the image as.
+         * @param {string} type The file type of the image.
+         */
         saveImageAsJPG(bufferedImage, filename, type) {
         }
 
+        /**
+         * Creates an anti-aliased screen data from the given screen data.
+         *
+         * @param {CWSYSTEM.ScreenData} screenData The screen data to create an anti-aliased version of.
+         * @returns {CWSYSTEM.ScreenData}
+         */
         createAntialiasedScreenData(screenData) {
             const sdBuffer = new CWSYSTEM.ScreenData((screenData.width / 2 | 0), (screenData.height / 2 | 0),
                 screenData.description + " (anti-aliased)");

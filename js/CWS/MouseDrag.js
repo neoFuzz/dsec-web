@@ -1,264 +1,118 @@
-var CWSYSTEM;
 (function (CWSYSTEM) {
+    /**
+     * Class representing the mouse drag functionality.
+     *
+     * @property {number} mode - The current mode of the mouse drag operation.
+     * @property {number} windowCornerBeingDragged - The corner of the window being dragged (if any).
+     * @property {boolean} draging - Indicates whether a drag operation is in progress.
+     * @property {number} windowDragged - The window being dragged (if any).
+     * @property {number} windowResized - The window being resized (if any).
+     * @property {CWSYSTEM.ScreenPosition} mouseDraggedStartPosition - The starting position of the mouse drag.
+     * @property {CWSYSTEM.ScreenPosition} windowDraggedStartPosition - The starting position of the window drag.
+     * @property {CWSYSTEM.ScreenPosition} windowResizedStartSize - The starting size of the window resize.
+     * @property {number} xAnchor - The x-anchor value for the mouse drag operation.
+     * @property {number} yAnchor - The y-anchor value for the mouse drag operation.
+     * @property {CWSYSTEM.CWWindow} window - The window being manipulated.
+     * @property {number} positionPercentStart - The starting position percentage for the mouse drag operation.
+     * @property {number} guidelineAssignedToAxis - The guideline assigned to the axis for the mouse drag operation.
+     * @property {number[]} locatorAxisToMove - The axis to move for the locator.
+     * @property {CWSYSTEM.Vertex} copyOfSelectedVertex - The copy of the selected vertex for the mouse drag operation.
+     *
+     * @since    1.0.0
+     * @access   public
+     * @class
+     *
+     * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
+     */
     class MouseDrag {
+        /**
+         * Constructs a new instance of the MouseDrag class, initializing the necessary data structures and properties.
+         */
         constructor() {
             this.mode = MouseDrag.NOTHING_BEING_DRAGGED;
-            if (this.windowCornerBeingDragged === undefined) {
-                this.windowCornerBeingDragged = 0;
-            }
+            this.windowCornerBeingDragged = 0;
             this.draging = false;
             this.windowDragged = -1;
             this.windowResized = -1;
             this.mouseDraggedStartPosition = new dsector.ScreenPosition();
             this.windowDraggedStartPosition = new dsector.ScreenPosition();
             this.windowResizedStartSize = new dsector.ScreenPosition();
-            if (this.xAnchor === undefined) {
-                this.xAnchor = 0;
-            }
-            if (this.yAnchor === undefined) {
-                this.yAnchor = 0;
-            }
-            if (this.window === undefined) {
-                this.window = null;
-            }
-            if (this.positionPercentStart === undefined) {
-                this.positionPercentStart = 0;
-            }
-            if (this.guidelineAssignedToAxis === undefined) {
-                this.guidelineAssignedToAxis = 0;
-            }
+            this.xAnchor = 0;
+            this.yAnchor = 0;
+            this.window = null;
+            this.positionPercentStart = 0;
+            this.guidelineAssignedToAxis = 0;
             this.locatorAxisToMove = [0, 0];
-            if (this.copyOfSelectedVertex === undefined) {
-                this.copyOfSelectedVertex = null;
-            }
+            this.copyOfSelectedVertex = null;
         }
 
+        /**
+         * Processes the mouse drag based on the current mode and the provided mouse coordinates.
+         *
+         * @param {number} mouseX - The x-coordinate of the mouse.
+         * @param {number} mouseY - The y-coordinate of the mouse.
+         */
         process(mouseX, mouseY) {
             CWSYSTEM.Environment.mouseX = mouseX;
             CWSYSTEM.Environment.mouseY = mouseY;
             switch (this.mode) {
-                case 0 /* NOTHING_BEING_DRAGGED */
-                :
+                case 0: /* NOTHING_BEING_DRAGGED */
                     return;
-                case 1 /* WINDOW_MOVE */
-                :
+                case 1: /* WINDOW_MOVE */
                     this.processWindowMoved(mouseX, mouseY);
                     return;
-                case 2 /* WINDOW_RESIZE */
-                :
+                case 2: /* WINDOW_RESIZE */
                     this.processWindowResized(mouseX, mouseY);
                     return;
-                case 3 /* PAD_VERTEX_XY */
-                :
-                    this.processSelectedVertexesPositionPad(2, mouseX, mouseY);
-                    return;
-                case 4 /* PAD_VERTEX_XZ */
-                :
-                    this.processSelectedVertexesPositionPad(1, mouseX, mouseY);
-                    return;
-                case 5 /* PAD_VERTEX_YZ */
-                :
-                    this.processSelectedVertexesPositionPad(0, mouseX, mouseY);
-                    return;
-                case 6 /* PAD_TRANSPOSED_REPR_XY */
-                :
-                    this.processTransposedRepresentationPositionPad(2, mouseX, mouseY);
-                    return;
-                case 7 /* PAD_TRANSPOSED_REPR_XZ */
-                :
-                    this.processTransposedRepresentationPositionPad(1, mouseX, mouseY);
-                    return;
-                case 8 /* PAD_TRANSPOSED_REPR_YZ */
-                :
-                    this.processTransposedRepresentationPositionPad(0, mouseX, mouseY);
-                    return;
-                case 9 /* DRAW_RECTANGLE_SELECT */
-                :
-                    this.processRectangleSelect(mouseX, mouseY);
-                    return;
-                case 10 /* RED_PAD */
-                :
-                    this.processColorPad(mouseX, mouseY, 0);
-                    return;
-                case 11 /* GREEN_PAD */
-                :
-                    this.processColorPad(mouseX, mouseY, 1);
-                    return;
-                case 12 /* BLUE_PAD */
-                :
-                    this.processColorPad(mouseX, mouseY, 2);
-                    return;
-                case 13 /* ALPHA_PAD */
-                :
-                    this.processColorPad(mouseX, mouseY, 3);
-                    return;
-                case 14 /* REFLECTION_PAD */
-                :
-                    this.processReflectionPad(mouseX, mouseY);
-                    return;
-                case 15 /* REFLECTED_SHININESS_PAD */
-                :
-                    this.processReflectedShininessPad(mouseX, mouseY);
-                    return;
-                case 16 /* DISPERSED_SHININESS_PAD */
-                :
-                    this.processDispersedShininessPad(mouseX, mouseY);
-                    return;
-                case 17 /* GUIDELINE_MOVE */
-                :
-                    this.processGuidelineMove(mouseX, mouseY);
-                    return;
-                case 18 /* LOCATOR_MOVE */
-                :
-                    this.processLocatorMove(mouseX, mouseY);
-                    return;
-                case 19 /* XY_ROTATION */
-                :
-                case 20 /* XZ_ROTATION */
-                :
-                case 21 /* YZ_ROTATION */
-                :
+                case 19: /* XY_ROTATION */
+                case 20: /* XZ_ROTATION */
+                case 21: /* YZ_ROTATION */
                     this.processRotation(mouseX, mouseY);
                     return;
-                case 22 /* XY_OFFSET_PAD */
-                :
-                case 23 /* XZ_OFFSET_PAD */
-                :
-                case 24 /* YZ_OFFSET_PAD */
-                :
-                    this.processOffsetPad(mouseX, mouseY);
-                    return;
-                case 25 /* CAMERA_ROTATION */
-                :
+                case 25: /* CAMERA_ROTATION */
                     this.processCameraRotation(mouseX, mouseY);
                     return;
-                case 26 /* CAMERA_DIRECTION */
-                :
+                case 26: /* CAMERA_DIRECTION */
                     this.processCameraDirection(mouseX, mouseY);
                     return;
-                case 27 /* CAMERA_POSITION */
-                :
+                case 27: /* CAMERA_POSITION */
                     this.processCameraPosition(mouseX, mouseY);
                     return;
-                case 28 /* SLIDING_BAR */
-                :
+                case 28: /* SLIDING_BAR */
                     this.processSlidingBarMove(mouseX, mouseY);
                     return;
                 default:
             }
         }
 
+        /**
+         * Releases the mouse drag operation and performs any necessary cleanup.
+         *
+         * @param {number} x - The x-coordinate of the mouse release.
+         * @param {number} y - The y-coordinate of the mouse release.
+         */
         release(x, y) {
             if (this.mode === 9) {
                 this.releaseRectangleSelect(x, y);
             }
-            if (this.mode === 17) {
-                this.releaseGuidelineMove();
-            }
             if (this.mode === MouseDrag.WINDOW_RESIZE) {
-                const window1 = dsector.DSReference.gui.getWindow$int(this.windowResized);
+                const window1 = CWSYSTEM.CWSReference.gui.getWindow$int(this.windowResized);
                 CWSYSTEM.Debug.println("Tried using " + window1.nameID);
             }
             this.mode = MouseDrag.NOTHING_BEING_DRAGGED;
         }
 
-        /** @private */
-        processColorPad(x, y, pad) {
-            const padY = y - this.mouseDraggedStartPosition.getY();
-            this.mouseDraggedStartPosition.setPosition(x, y);
-        }
-
-        /** @private */
-        processReflectionPad(x, y) {
-            const dragStartY = y - this.mouseDraggedStartPosition.getY();
-            this.mouseDraggedStartPosition.setPosition(x, y);
-        }
-
-        /** @private */
-        processDispersedShininessPad(x, y) {
-            const dragY = y - this.mouseDraggedStartPosition.getY();
-            this.mouseDraggedStartPosition.setPosition(x, y);
-        }
-
-        /** @private */
-        processReflectedShininessPad(x, y) {
-            const dragY = y - this.mouseDraggedStartPosition.getY();
-            this.mouseDraggedStartPosition.setPosition(x, y);
-        }
-
-        /** @private */
-        processSelectedVertexesPositionPad(mode, x, y) {
-            const xDrag = x - this.mouseDraggedStartPosition.getX();
-            const yDrag = y - this.mouseDraggedStartPosition.getY();
-            const axisID = 0;
-            const xAAScale = Math.fround((xDrag / dsector.Renderer.scale[axisID]) * this.window.antiAliasedLevel);
-            const yAAScale = Math.fround((yDrag / dsector.Renderer.scale[axisID]) * this.window.antiAliasedLevel);
-
-            for (let i = 0; i < this.copyOfSelectedVertex.length; ++i) {
-                const selectedVertex = this.copyOfSelectedVertex[i];
-                const vertex = new dsector.Vertex(0.0, 0.0, 0.0);
-                switch ((axisID)) {
-                    case 0:
-                        vertex.y = Math.fround(selectedVertex.y + (xAAScale * CWSYSTEM.Environment.yAxisFlippedYZView_$LI$()));
-                        vertex.z = Math.fround(selectedVertex.z + (yAAScale * CWSYSTEM.Environment.zAxisFlippedYZView_$LI$()));
-                        break;
-                    case 1:
-                        vertex.x = Math.fround(selectedVertex.x + (xAAScale * CWSYSTEM.Environment.xAxisFlippedXZView_$LI$()));
-                        vertex.z = Math.fround(selectedVertex.z + (yAAScale * CWSYSTEM.Environment.zAxisFlippedXZView_$LI$()));
-                        break;
-                    case 2:
-                        vertex.x = Math.fround(selectedVertex.x + (xAAScale * CWSYSTEM.Environment.xAxisFlippedXYView_$LI$()));
-                        vertex.y = Math.fround(selectedVertex.y + (yAAScale * CWSYSTEM.Environment.yAxisFlippedXYView_$LI$()));
-                }
-                const aaScale = Math.fround((4.0 / dsector.Renderer.scale[axisID]) * this.window.antiAliasedLevel);
-            }
-            CWSYSTEM.Environment.viewWindowsRequestedForUpdateNextCycle();
-        }
-
-        /** @private */
-        processTransposedRepresentationPositionPad(pad, x, y) {
-            const xDrag = x - this.mouseDraggedStartPosition.getX();
-            const yDrag = y - this.mouseDraggedStartPosition.getY();
-            const axisID = 0;
-            const xAAScale = Math.fround((xDrag / dsector.Renderer.scale[axisID]) * this.window.antiAliasedLevel);
-            const yAAScale = Math.fround((yDrag / dsector.Renderer.scale[axisID]) * this.window.antiAliasedLevel);
-            let matrix4f = null;
-            const polygonIterator = new dsector.PolygonIterator(dsector.DSReference.model3DMatrix, dsector.PolygonIterator.ALL_POLYGON_GROUPS);
-
-            while (true) {
-                const polygonGroup = polygonIterator.nextPolygonGroup();
-                if (polygonGroup == null) {
-                    this.mouseDraggedStartPosition.setPosition(x, y);
-                    CWSYSTEM.Environment.viewWindowsRequestedForUpdateNextCycle();
-                    return;
-                }
-                for (let i = 0; i < polygonGroup.transposedRepresentations.length; ++i) {
-                    const pgr = polygonGroup.transposedRepresentations[i];
-                    if (pgr.active) {
-                        switch (axisID) {
-                            case 0:
-                                matrix4f = dsector.Matrix4f.translationMatrix(0.0,
-                                    Math.fround(xAAScale * CWSYSTEM.Environment.xAxisFlippedXYView_$LI$()),
-                                    Math.fround(yAAScale * CWSYSTEM.Environment.yAxisFlippedXYView_$LI$()));
-                                break;
-                            case 1:
-                                matrix4f = dsector.Matrix4f.translationMatrix(
-                                    Math.fround(xAAScale * CWSYSTEM.Environment.xAxisFlippedXYView_$LI$()),
-                                    0.0, Math.fround(yAAScale * CWSYSTEM.Environment.yAxisFlippedXYView_$LI$()));
-                                break;
-                            case 2:
-                                matrix4f = dsector.Matrix4f.translationMatrix(
-                                    Math.fround(xAAScale * CWSYSTEM.Environment.xAxisFlippedXYView_$LI$()),
-                                    Math.fround(yAAScale * CWSYSTEM.Environment.yAxisFlippedXYView_$LI$()), 0.0);
-                        }
-                        pgr.transformationMatrix.preMultiply(matrix4f);
-                    }
-                }
-
-            }
-        }
-
-        /** @private */
+        /**
+         * Processes the camera position based on the provided mouse coordinates.
+         *
+         * @param {number} x - The x-coordinate of the mouse.
+         * @param {number} y - The y-coordinate of the mouse.
+         * @private
+         */
         processCameraPosition(x, y) {
             const xDrag = x - this.mouseDraggedStartPosition.getX();
             const yDrag = y - this.mouseDraggedStartPosition.getY();
@@ -271,7 +125,13 @@ var CWSYSTEM;
             dsector.DSReference.renderer.panCameraDirectly(xDragFlt);
         }
 
-        /** @private */
+        /**
+         * Processes the camera direction based on the provided mouse coordinates.
+         *
+         * @param {number} x - The x-coordinate of the mouse.
+         * @param {number} y - The y-coordinate of the mouse.
+         * @private
+         */
         processCameraDirection(x, y) {
             const xDrag = x - this.mouseDraggedStartPosition.getX();
             const yDrag = y - this.mouseDraggedStartPosition.getY();
@@ -284,7 +144,13 @@ var CWSYSTEM;
             dsector.DSReference.renderer.moveCameraPivotDirectly(xDragFlt);
         }
 
-        /** @private */
+        /**
+         * Processes the camera rotation based on the provided mouse coordinates.
+         *
+         * @param {number} x - The x-coordinate of the mouse.
+         * @param {number} y - The y-coordinate of the mouse.
+         * @private
+         */
         processCameraRotation(x, y) {
             const xDrag = x - this.mouseDraggedStartPosition.getX();
             const yDrag = y - this.mouseDraggedStartPosition.getY();
@@ -294,36 +160,13 @@ var CWSYSTEM;
             dsector.DSReference.renderer.changeCameraHueDirectly(xDragFlt);
         }
 
-        engageOffsetPad(x, y, window) {
-            this.window = window;
-            const axisID = 0;
-            switch ((axisID)) {
-                case 0:
-                    this.mode = 24;
-                    break;
-                case 1:
-                    this.mode = 23;
-                    break;
-                case 2:
-                    this.mode = 22;
-            }
-            this.mouseDraggedStartPosition.setPosition(x, y);
-        }
-
-        /** @private */
-        processOffsetPad(x, y) {
-            const xDrag = x - this.mouseDraggedStartPosition.getX();
-            const yDrag = y - this.mouseDraggedStartPosition.getY();
-            this.mouseDraggedStartPosition.setPosition(x, y);
-            const axisID = 0;
-            const axisScale = dsector.Renderer.scale[axisID];
-            let offset = dsector.Renderer.offsetX;
-            offset[axisID] += Math.fround(5.0 * xDrag / axisScale);
-            offset = dsector.Renderer.offsetY;
-            offset[axisID] += Math.fround(5.0 * yDrag / axisScale);
-        }
-
-        /** @private */
+        /**
+         * Processes the rotation based on the provided mouse coordinates.
+         *
+         * @param {number} x - The x-coordinate of the mouse.
+         * @param {number} y - The y-coordinate of the mouse.
+         * @private
+         */
         processRotation(x, y) {
             const xDrag = x - this.mouseDraggedStartPosition.getX();
             const yDrag = y - this.mouseDraggedStartPosition.getY();
@@ -338,75 +181,13 @@ var CWSYSTEM;
             }
         }
 
-        engageLocatorMove(window, x, y, axisToMove) {
-            this.window = window;
-            this.mode = 18;
-            this.mouseDraggedStartPosition.setPosition(x, y);
-            this.locatorAxisToMove = axisToMove;
-        }
-
-        /** @private */
-        processLocatorMove(x, y) {
-            const axisMove1 = this.locatorAxisToMove[0];
-            const axisMove2 = this.locatorAxisToMove[1];
-            if (axisMove1 !== -1) {
-                switch ((axisMove1)) {
-                    case 0:
-                    case 1:
-                        break;
-                    case 2:
-                }
-            }
-            if (axisMove2 !== -1) {
-                switch ((axisMove2)) {
-                    case 0:
-                    case 1:
-                        break;
-                    case 2:
-                }
-            }
-            CWSYSTEM.Environment.viewWindowsRequestedForUpdateNextCycle();
-        }
-
-        /** @private */
-        processGuidelineMove(x, y) {
-            let dragPos;
-            if (this.guidelineAssignedToAxis === 0) {
-                dragPos = x - this.mouseDraggedStartPosition.getX();
-            } else {
-                dragPos = y - this.mouseDraggedStartPosition.getY();
-            }
-            const axisID = 0;
-            const dragAALevel = Math.fround(dragPos / dsector.Renderer.scale[axisID] * this.window.antiAliasedLevel);
-            this.mouseDraggedStartPosition.setPosition(x, y);
-            const axisCheck = 0;
-            let xFlipYZ = 0;
-            let yFlipYZ = 0;
-            let zFlipYZ = 0;
-            switch ((axisID)) {
-                case 0:
-                    xFlipYZ = CWSYSTEM.Environment.xAxisFlippedYZView_$LI$();
-                    yFlipYZ = CWSYSTEM.Environment.yAxisFlippedYZView_$LI$();
-                    zFlipYZ = CWSYSTEM.Environment.zAxisFlippedYZView_$LI$();
-                    break;
-                case 1:
-                    xFlipYZ = CWSYSTEM.Environment.xAxisFlippedXZView_$LI$();
-                    yFlipYZ = CWSYSTEM.Environment.yAxisFlippedXZView_$LI$();
-                    zFlipYZ = CWSYSTEM.Environment.zAxisFlippedXZView_$LI$();
-                    break;
-                case 2:
-                    xFlipYZ = CWSYSTEM.Environment.xAxisFlippedXYView_$LI$();
-                    yFlipYZ = CWSYSTEM.Environment.yAxisFlippedXYView_$LI$();
-                    zFlipYZ = CWSYSTEM.Environment.zAxisFlippedXYView_$LI$();
-            }
-            CWSYSTEM.Environment.projectiveViewWindowsRequestedForUpdateNextCycle();
-        }
-
-        /** @private */
-        releaseGuidelineMove() {
-            const axisStr = ["x", "y", "z"];
-        }
-
+        /**
+         * Engages the sliding bar move mode for the specified window and mouse coordinates.
+         *
+         * @param {CWSYSTEM.CWWindow} window - The window being manipulated.
+         * @param {number} x - The x-coordinate of the mouse.
+         * @param {number} y - The y-coordinate of the mouse.
+         */
         engageSlidingBarMove(window, x, y) {
             this.xAnchor = x;
             this.yAnchor = y;
@@ -415,7 +196,13 @@ var CWSYSTEM;
             this.mode = MouseDrag.SLIDING_BAR;
         }
 
-        /** @private */
+        /**
+         * Processes the sliding bar move based on the provided mouse coordinates.
+         *
+         * @param {number} x - The x-coordinate of the mouse.
+         * @param {number} y - The y-coordinate of the mouse.
+         * @private
+         */
         processSlidingBarMove(x, y) {
             const scrollbar = this.window.scrollbar;
             const newY = y - this.yAnchor;
@@ -432,17 +219,13 @@ var CWSYSTEM;
             this.window.updated = false;
         }
 
-        /** @private */
-        engageRectangleSelect(window, x, y) {
-            this.xAnchor = x;
-            this.yAnchor = y;
-            this.window = window;
-            if (dsector.PolygonGroupRepresentation.activeRepresentationsHaveAtLeastOneDirectRepresentation()) {
-                this.mode = 9;
-            }
-        }
-
-        /** @private */
+        /**
+         * Process the retangle select process.
+         *
+         * @param {number} x - The x-coordinate of the mouse.
+         * @param {number} y - The y-coordinate of the mouse.
+         * @private
+         */
         processRectangleSelect(x, y) {
             const vs = dsector.DSReference.virtualScreen;
             this.window.drawWindow();
@@ -473,7 +256,7 @@ var CWSYSTEM;
             if (yWidth > this.window.h + this.window.borderWidth + this.window.__titleHeight) {
                 yWidth = this.window.h + this.window.borderWidth + this.window.__titleHeight;
             }
-            let color = null;
+            let color;
             if (CWSYSTEM.Environment.altKeyPressed) {
                 color = new CWSYSTEM.CWColor(255, 75, 0, 30);
             } else {
@@ -483,13 +266,28 @@ var CWSYSTEM;
             this.window.renderingRequired = true;
         }
 
-        /** @private */
+        /**
+         * Releases the rectangle select operation and performs any necessary cleanup.
+         *
+         * @param {number} offsetX - The x-coordinate offset of the mouse release.
+         * @param {number} offsetY - The y-coordinate offset of the mouse release.
+         * @deprecated This method is deprecated and should not be used.
+         * @private
+         */
         releaseRectangleSelect(offsetX, offsetY) {
             //const virtualScreen = dsector.DSReference.virtualScreen;
             this.window.drawWindow();
             this.window.renderingRequired = true;
         }
 
+        /**
+         * Engages the window resize mode for the specified window, corner, and mouse coordinates.
+         *
+         * @param {number} windowResized - The index of the window being resized.
+         * @param {number} windowCornerBeingDragged - The corner of the window being resized.
+         * @param {number} x - The x-coordinate of the mouse.
+         * @param {number} y - The y-coordinate of the mouse.
+         */
         engageWindowResize(windowResized, windowCornerBeingDragged, x, y) {
             this.mode = CWSYSTEM.MouseDrag.WINDOW_RESIZE;//2;
             this.windowCornerBeingDragged = windowCornerBeingDragged;
@@ -501,6 +299,13 @@ var CWSYSTEM;
                 dsector.DSReference.gui.getWindow$int(windowResized).yPosition);
         }
 
+        /**
+         * Engages the window move mode for the specified window and mouse coordinates.
+         *
+         * @param {number} windowDragged - The index of the window being moved.
+         * @param {number} x - The x-coordinate of the mouse.
+         * @param {number} y - The y-coordinate of the mouse.
+         */
         engageWindowMove(windowDragged, x, y) {
             this.mode = CWSYSTEM.MouseDrag.WINDOW_MOVE;//1;
             this.windowDragged = windowDragged;
@@ -508,7 +313,13 @@ var CWSYSTEM;
             this.windowDraggedStartPosition.setPosition(dsector.DSReference.gui.getWindow$int(windowDragged).xPosition, dsector.DSReference.gui.getWindow$int(windowDragged).yPosition);
         }
 
-        /** @private */
+        /**
+         * Processes the window resize based on the provided mouse coordinates.
+         *
+         * @param {number} x - The x-coordinate of the mouse.
+         * @param {number} y - The y-coordinate of the mouse.
+         * @private
+         */
         processWindowMoved(x, y) {
             const screenResolutionX = CWSYSTEM.Global.screenResolutionX_$LI$();
             const screenResolutionY = CWSYSTEM.Global.screenResolutionY_$LI$();
@@ -539,7 +350,13 @@ var CWSYSTEM;
             window1.renderingRequired = true;
         }
 
-        /** @private */
+        /**
+         * Processes the window resize based on the provided mouse coordinates.
+         *
+         * @param {number} x - The x-coordinate of the mouse.
+         * @param {number} y - The y-coordinate of the mouse.
+         * @private
+         */
         processWindowResized(x, y) {
             const screenResolutionX = CWSYSTEM.Global.screenResolutionX_$LI$();
             const screenResolutionY = CWSYSTEM.Global.screenResolutionY_$LI$();
@@ -678,34 +495,63 @@ var CWSYSTEM;
         }
     }
 
+    /** No dragging operation is currently active */
     MouseDrag.NOTHING_BEING_DRAGGED = 0;
+    /** Dragging to move a window */
     MouseDrag.WINDOW_MOVE = 1;
+    /** Dragging to resize a window */
     MouseDrag.WINDOW_RESIZE = 2;
+    /** Dragging a vertex in the XY plane */
     MouseDrag.PAD_VERTEX_XY = 3;
+    /** Dragging a vertex in the XZ plane */
     MouseDrag.PAD_VERTEX_XZ = 4;
+    /** Dragging a vertex in the YZ plane */
     MouseDrag.PAD_VERTEX_YZ = 5;
+    /** Dragging a transposed representation in the XY plane */
     MouseDrag.PAD_TRANSPOSED_REPR_XY = 6;
+    /** Dragging a transposed representation in the XZ plane */
     MouseDrag.PAD_TRANSPOSED_REPR_XZ = 7;
+    /** Dragging a transposed representation in the YZ plane */
     MouseDrag.PAD_TRANSPOSED_REPR_YZ = 8;
+    /** Drawing a rectangle for selection */
     MouseDrag.DRAW_RECTANGLE_SELECT = 9;
+    /** Adjusting the red component in a color picker */
     MouseDrag.RED_PAD = 10;
+    /** Adjusting the green component in a color picker */
     MouseDrag.GREEN_PAD = 11;
+    /** Adjusting the blue component in a color picker */
     MouseDrag.BLUE_PAD = 12;
+    /** Adjusting the alpha (transparency) component in a color picker */
     MouseDrag.ALPHA_PAD = 13;
+    /** Adjusting reflection properties */
     MouseDrag.REFLECTION_PAD = 14;
+    /** Adjusting reflected shininess properties */
     MouseDrag.REFLECTED_SHININESS_PAD = 15;
+    /** Adjusting dispersed shininess properties */
     MouseDrag.DISPERSED_SHININESS_PAD = 16;
+    /** Moving a guideline */
     MouseDrag.GUIDELINE_MOVE = 17;
+    /** Moving a locator */
     MouseDrag.LOCATOR_MOVE = 18;
+    /** Rotating in the XY plane */
     MouseDrag.XY_ROTATION = 19;
+    /** Rotating in the XZ plane */
     MouseDrag.XZ_ROTATION = 20;
+    /** Rotating in the YZ plane */
     MouseDrag.YZ_ROTATION = 21;
+    /** Adjusting offset in the XY plane */
     MouseDrag.XY_OFFSET_PAD = 22;
+    /** Adjusting offset in the XZ plane */
     MouseDrag.XZ_OFFSET_PAD = 23;
+    /** Adjusting offset in the YZ plane */
     MouseDrag.YZ_OFFSET_PAD = 24;
+    /** Rotating the camera */
     MouseDrag.CAMERA_ROTATION = 25;
+    /** Adjusting the camera direction */
     MouseDrag.CAMERA_DIRECTION = 26;
+    /** Moving the camera position */
     MouseDrag.CAMERA_POSITION = 27;
+    /** Dragging a sliding bar */
     MouseDrag.SLIDING_BAR = 28;
     CWSYSTEM.MouseDrag = MouseDrag;
     MouseDrag["__class"] = "CWSYSTEM.MouseDrag";

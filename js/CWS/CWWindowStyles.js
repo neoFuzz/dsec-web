@@ -1,8 +1,18 @@
-/* Re-written from Java */
-var CWSYSTEM;
 (function (CWSYSTEM) {
-    /** Static class containing all the available Window Styles for {@link CWWindow}
-     * @static */
+    /**
+     * Static class containing all the available Window Styles for [CWWindow]{@link CWSYSTEM.CWWindow}.
+     *
+     * @static
+     * @since    1.0.0
+     * @access   public
+     * @class
+     *
+     * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
+     */
     class CWWindowStyles {
         static borderBitmapStyle0_$LI$() {
             if (CWWindowStyles.borderBitmapStyle0 == null) {
@@ -12,6 +22,12 @@ var CWSYSTEM;
             return CWWindowStyles.borderBitmapStyle0;
         }
 
+        /**
+         * Returns the bitmap for corner style 0.
+         *
+         * @static
+         * @returns {number[][][]} The bitmap for corner style 0.
+         */
         static cornerBitmapStyle0_$LI$() {
             if (CWWindowStyles.cornerBitmapStyle0 == null) {
                 CWWindowStyles.cornerBitmapStyle0 = [
@@ -24,6 +40,12 @@ var CWSYSTEM;
             return CWWindowStyles.cornerBitmapStyle0;
         }
 
+        /**
+         * Returns the bitmap for border style 1.
+         *
+         * @static
+         * @returns {*|number[][][]} The bitmap for border style 1.
+         */
         static borderBitmapStyle1_$LI$() {
             if (CWWindowStyles.borderBitmapStyle1 == null) {
                 CWWindowStyles.borderBitmapStyle1 = [
@@ -33,6 +55,12 @@ var CWSYSTEM;
             return CWWindowStyles.borderBitmapStyle1;
         }
 
+        /**
+         * Returns the bitmap for corner style 1.
+         *
+         * @static
+         * @returns {*|number[][][]} The bitmap for corner style 1.
+         */
         static cornerBitmapStyle1_$LI$() {
             if (CWWindowStyles.cornerBitmapStyle1 == null) {
                 CWWindowStyles.cornerBitmapStyle1 = [
@@ -46,6 +74,12 @@ var CWSYSTEM;
             return CWWindowStyles.cornerBitmapStyle1;
         }
 
+        /**
+         * Returns the border bitmap style for the given window style.
+         *
+         * @static
+         * @returns {[number[][]]} The bitmap for Border style 2.
+         */
         static borderBitmapStyle2_$LI$() {
             if (CWWindowStyles.borderBitmapStyle2 == null) {
                 CWWindowStyles.borderBitmapStyle2 = [[[0, 0, 0, 0], [255, 255, 255, 45], [0, 0, 0, 255], [170, 170, 170, 255], [0, 0, 0, 255]]];
@@ -53,6 +87,12 @@ var CWSYSTEM;
             return CWWindowStyles.borderBitmapStyle2;
         }
 
+        /**
+         * Returns the corner bitmap style for the given window style.
+         *
+         * @static
+         * @returns {number[][][]} The bitmap for Border style 2.
+         */
         static cornerBitmapStyle2_$LI$() {
             if (CWWindowStyles.cornerBitmapStyle2 == null) {
                 CWWindowStyles.cornerBitmapStyle2 = [
@@ -65,6 +105,12 @@ var CWSYSTEM;
             return CWWindowStyles.cornerBitmapStyle2;
         }
 
+        /**
+         * Returns the border bitmap style for the given window style.
+         *
+         * @static
+         * @returns {[number[][]]} The bitmap for Border style 3.
+         */
         static borderBitmapStyle3_$LI$() {
             if (CWWindowStyles.borderBitmapStyle3 == null) {
                 CWWindowStyles.borderBitmapStyle3 = [[[170, 170, 170, 50], [170, 170, 220, 255], [170, 170, 170, 50], [0, 0, 0, 0]]];
@@ -72,6 +118,12 @@ var CWSYSTEM;
             return CWWindowStyles.borderBitmapStyle3;
         }
 
+        /**
+         * Returns the corner bitmap style for the given window style.
+         *
+         * @static
+         * @returns {number[][][]} The corner bitmap style.
+         */
         static cornerBitmapStyle3_$LI$() {
             if (CWWindowStyles.cornerBitmapStyle3 == null) {
                 CWWindowStyles.cornerBitmapStyle3 = [[[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], [[0, 0, 0, 0], [0, 0, 0, 0], [170, 170, 170, 80], [170, 170, 220, 155]], [[0, 0, 0, 0], [170, 170, 170, 80], [170, 170, 220, 155], [170, 170, 220, 200]], [[0, 0, 0, 0], [170, 170, 220, 155], [170, 170, 220, 200], [0, 0, 0, 0]]];
@@ -79,6 +131,12 @@ var CWSYSTEM;
             return CWWindowStyles.cornerBitmapStyle3;
         }
 
+        /**
+         * Returns the border bitmap style for the given window style.
+         *
+         * @static
+         * @returns {[number[][]]} The border bitmap style.
+         */
         static borderBitmapStyle4_$LI$() {
             if (CWWindowStyles.borderBitmapStyle4 == null) {
                 CWWindowStyles.borderBitmapStyle4 = [[[0, 0, 0, 0], [170, 170, 170, 50], [170, 170, 220, 255], [170, 170, 170, 50], [0, 0, 0, 0]]];
@@ -86,6 +144,12 @@ var CWSYSTEM;
             return CWWindowStyles.borderBitmapStyle4;
         }
 
+        /**
+         * Returns the corner bitmap style for the given window style.
+         *
+         * @static
+         * @returns {number[][][]} The corner bitmap style.
+         */
         static cornerBitmapStyle4_$LI$() {
             if (CWWindowStyles.cornerBitmapStyle4 == null) {
                 CWWindowStyles.cornerBitmapStyle4 = [
@@ -98,6 +162,13 @@ var CWSYSTEM;
             return CWWindowStyles.cornerBitmapStyle4;
         }
 
+        /**
+         * Returns the border width for the given window style.
+         *
+         * @static
+         * @param {number} mode The window style.
+         * @returns {number} The border width.
+         */
         static getBorderWidth(mode) {
             switch (mode) {
                 case 0:
@@ -113,6 +184,13 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Returns the border pattern thickness for the given window style.
+         *
+         * @static
+         * @param {number} mode The window style.
+         * @returns {number} The border pattern thickness.
+         */
         static getBorderPatternThickness(mode) {
             switch (mode) {
                 case 0:
@@ -126,6 +204,13 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Returns the title height for the given window style.
+         *
+         * @static
+         * @param {number} mode The window style.
+         * @returns {number} The title height.
+         */
         static getTitleHeight(mode) {
             switch (mode) {
                 case 0:
@@ -139,6 +224,13 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Returns the border bitmap for the given window style.
+         *
+         * @static
+         * @param {number} mode The window style.
+         * @returns {null|CWSYSTEM.CWWindowStyles.borderBitmapStyle3|[number[][]]|CWSYSTEM.CWWindowStyles.borderBitmapStyle1|CWSYSTEM.CWWindowStyles.borderBitmapStyle0|CWSYSTEM.CWWindowStyles.borderBitmapStyle4|CWSYSTEM.CWWindowStyles.borderBitmapStyle2}
+         */
         static getBorderBitmap(mode) {
             switch (mode) {
                 case 0:
@@ -156,6 +248,13 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Returns the corner bitmap for the given window style.
+         *
+         * @static
+         * @param {number} mode The window style.
+         * @returns {CWSYSTEM.CWWindowStyles.cornerBitmapStyle4|number[][][]|CWSYSTEM.CWWindowStyles.cornerBitmapStyle1|CWSYSTEM.CWWindowStyles.cornerBitmapStyle3|CWSYSTEM.CWWindowStyles.cornerBitmapStyle0|CWSYSTEM.CWWindowStyles.cornerBitmapStyle2|null}
+         */
         static getCornerBitmap(mode) {
             switch (mode) {
                 case 0:
@@ -173,6 +272,13 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Returns the background color for the given window style.
+         *
+         * @static
+         * @param {number} mode The window style.
+         * @returns {CWSYSTEM.CWColor} The background color.
+         */
         static getBackgroundColor(mode) {
             switch (mode) {
                 case 0:
@@ -185,14 +291,42 @@ var CWSYSTEM;
                 case 4:
                     return new CWSYSTEM.CWColor(90, 90, 120, 190);
                 default:
-                    return CWSYSTEM.CWColor.black_$LI$();
+                    return CWSYSTEM.CWColor.__black();
             }
         }
     }
 
+    /**
+     * Window style with square corners and resize border.
+     *
+     * @static
+     * @constant
+     * @type {number}
+     */
     CWWindowStyles.SQUARE_RESIZE = 1;
+    /**
+     * Window style with rounded corners and no resize border.
+     *
+     * @static
+     * @constant
+     * @type {number}
+     */
     CWWindowStyles.SQUARE = 2;
+    /**
+     * Window style with rounded corners and no resize border.
+     *
+     * @static
+     * @constant
+     * @type {number}
+     */
     CWWindowStyles.ROUNDED = 3;
+    /**
+     * Window style with rounded corners and resize border.
+     *
+     * @static
+     * @constant
+     * @type {number}
+     */
     CWWindowStyles.ROUNDED_RESIZE = 4;
     CWSYSTEM.CWWindowStyles = CWWindowStyles;
     CWWindowStyles["__class"] = "CWSYSTEM.CWWindowStyles";

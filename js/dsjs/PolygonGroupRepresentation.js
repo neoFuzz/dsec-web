@@ -1,6 +1,34 @@
-var dsector;
+/**/
 (function (dsector) {
+    /**
+     * Represents a polygon group in a 3D space
+     * @class
+     * @memberof dsector
+     */
     class PolygonGroupRepresentation {
+        /**
+         * Creates an instance of PolygonGroupRepresentation
+         * @constructor
+         * @param {PolygonGroup} polygonGroup - The parent polygon group
+         * @param {string} name - The name of the representation
+         * @param {boolean} visible - The visibility of the representation
+         * @param {number} e00 - Element of the transformation matrix
+         * @param {number} e10 - Element of the transformation matrix
+         * @param {number} e20 - Element of the transformation matrix
+         * @param {number} e30 - Element of the transformation matrix
+         * @param {number} e01 - Element of the transformation matrix
+         * @param {number} e11 - Element of the transformation matrix
+         * @param {number} e21 - Element of the transformation matrix
+         * @param {number} e31 - Element of the transformation matrix
+         * @param {number} e02 - Element of the transformation matrix
+         * @param {number} e12 - Element of the transformation matrix
+         * @param {number} e22 - Element of the transformation matrix
+         * @param {number} e32 - Element of the transformation matrix
+         * @param {number} e03 - Element of the transformation matrix
+         * @param {number} e13 - Element of the transformation matrix
+         * @param {number} e23 - Element of the transformation matrix
+         * @param {number} e33 - Element of the transformation matrix
+         */
         constructor(polygonGroup, name, visible, e00, e10, e20, e30, e01,
                     e11, e21, e31, e02, e12, e22, e32, e03, e13, e23, e33) {
             if (this.parentPolygonGroup === undefined) {
@@ -30,6 +58,12 @@ var dsector;
             this.active = false;
         }
 
+        /**
+         * Retrieves all polygon group representations from a given matrix
+         * @static
+         * @param {Model3DMatrix} matrix - The matrix to search for polygon groups
+         * @returns {Array} An array of all polygon group representations
+         */
         static allPolygonGroupRepresentations(matrix) {
             const arrayList = ([]);
             const polygonIterator = new dsector.PolygonIterator(
@@ -51,6 +85,11 @@ var dsector;
             }
         }
 
+        /**
+         * Checks if active representations have at least one direct representation
+         * @static
+         * @returns {boolean} True if there's at least one active direct representation, false otherwise
+         */
         static activeRepresentationsHaveAtLeastOneDirectRepresentation() {
             const arrayList =
                 PolygonGroupRepresentation.allPolygonGroupRepresentations(dsector.DSReference.model3DMatrix);
@@ -66,14 +105,25 @@ var dsector;
             return false;
         }
 
+        /**
+         * Checks if this representation is a direct representation
+         * @returns {boolean} True if it's a direct representation, false otherwise
+         */
         isDirectRepresentation() {
             return this.parentPolygonGroup.directRepresentation === this;
         }
 
+        /**
+         * Checks if this representation is visible
+         * @returns {boolean} True if the representation is visible, false otherwise
+         */
         visible() {
             return this.parentPolygonGroup.visible() && this.visibility;
         }
 
+        /**
+         * Sets this representation as active
+         */
         setActive() {
             if (!CWSYSTEM.Environment.shiftKeyPressed) {
                 const arrayList =

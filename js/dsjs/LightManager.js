@@ -1,7 +1,15 @@
 /* re-written from Java */
-var dsector;
 (function (dsector) {
+    /**
+     * Manages lighting for a 3D scene.
+     * @class
+     * @memberof dsector
+     */
     class LightManager {
+        /**
+         * Creates a new LightManager instance.
+         * @param {Object} scene - The 3D scene to manage lighting for.
+         */
         constructor(scene) {
             this.scene = scene;
             this.ambientRed = 1.5;
@@ -16,8 +24,12 @@ var dsector;
             this.numberOfLightsInRenderingScene = 0;
         }
 
+        /**
+         * Prepares lights for rendering in the scene.
+         * This method calculates the positions and colors of lights in camera space.
+         */
         prepareLightsForRendering() {
-            const maxLights = 60; // Set the maximum number of lights to render
+            const maxLights = 50; // Set the maximum number of lights to render
             const arrayList = [];
             const inverse = this.scene.cameraRotation.inverse();
             const vertex = new dsector.Vertex(0.0, 0.0, 0.0);
@@ -36,9 +48,9 @@ var dsector;
 
                     for (let j = 0; j < modelFolder.inbuiltLights.length; ++j) {
                         const inbuiltLight = modelFolder.inbuiltLights[j];
-                        if (inbuiltLight.on$()) {
+                        if (inbuiltLight.on()) {
                             const vertex1 = new dsector.Vertex(
-                                inbuiltLight.x$(), inbuiltLight.y$(), inbuiltLight.z$());
+                                inbuiltLight.x(), inbuiltLight.y(), inbuiltLight.z());
                             vertex1.transform(positionedModel.rotation);
                             vertex.x = Math.fround((positionedModel.x - this.scene.cameraX));
                             vertex.y = Math.fround((positionedModel.y - this.scene.cameraY));
@@ -50,7 +62,7 @@ var dsector;
 
                             arrayList.push(new dsector.InbuiltLight(null, null, true,
                                 vertex1.x, vertex1.y, vertex1.z,
-                                inbuiltLight.red$(), inbuiltLight.green$(), inbuiltLight.blue$()
+                                inbuiltLight.red(), inbuiltLight.green(), inbuiltLight.blue()
                             ));
                         }
                     }
@@ -67,12 +79,12 @@ var dsector;
 
             for (i = 0; i < this.numberOfLightsInRenderingScene; ++i) {
                 const inbuiltLight = arrayList[i];
-                this.lightCameraSpaceX[i] = inbuiltLight.x$();
-                this.lightCameraSpaceY[i] = inbuiltLight.y$();
-                this.lightCameraSpaceZ[i] = inbuiltLight.z$();
-                this.lightRed[i] = inbuiltLight.red$();
-                this.lightGreen[i] = inbuiltLight.green$();
-                this.lightBlue[i] = inbuiltLight.blue$();
+                this.lightCameraSpaceX[i] = inbuiltLight.x();
+                this.lightCameraSpaceY[i] = inbuiltLight.y();
+                this.lightCameraSpaceZ[i] = inbuiltLight.z();
+                this.lightRed[i] = inbuiltLight.red();
+                this.lightGreen[i] = inbuiltLight.green();
+                this.lightBlue[i] = inbuiltLight.blue();
             }
         }
     }

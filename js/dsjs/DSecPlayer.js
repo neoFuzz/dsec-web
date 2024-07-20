@@ -1,5 +1,9 @@
-var dsector;
+/**/
 (function (dsector) {
+    /**
+     * @class
+     * @memberof dsector
+     */
     class DSecPlayer {
         constructor(robotFileName, name) {
             this.brain = new dsector.DSecBrain(this);
@@ -124,15 +128,15 @@ var dsector;
             this.robotSpecification = new dsector.RobotSpecification(robotFileName);
             this.name = name;
             this.prepareForStartOfGame();
-            if (dsector.DSecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
+            if (dsector.DSReference.dsecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
                 try {
-                    let clip = new Audio("assets/sounds/forwardMovement.wav");
+                    let clip = new Audio("forwardMovement.wav");
                     clip.loop = false;
                     this.forwardMovementSound = clip;
-                    clip = new Audio("assets/sounds/angleMovement.wav");
+                    clip = new Audio("angleMovement.wav");
                     clip.loop = false;
                     this.angleMovementSound = clip;
-                    clip = new Audio("assets/sounds/shieldActive.wav");
+                    clip = new Audio("shieldActive.wav");
                     clip.loop = false;
                     this.shieldSound = clip;
                 } catch (e) {
@@ -185,7 +189,7 @@ var dsector;
         }
 
         /** Returns the player's current score
-         * @return {number} */
+         * @returns {number} */
         score() {
             return this.__score;
         }
@@ -207,7 +211,7 @@ var dsector;
         prepareForStartOfGame() {
             this.tankSpecification = new dsector.TankSpecification(dsector.TankSpecification.STANDARD_TANK);
             this.__score = 0.0;//this.credits = 600;
-            switch (dsector.DSecSetupWindow.startingCredits) {
+            switch (dsector.DSReference.dsecSetupWindow.startingCredits) {
                 default:
                 case 0:
                     this.credits = 600;
@@ -486,6 +490,7 @@ var dsector;
         }
 
         fireWeapon() {
+            const sm = dsector.DSReference.dsecSetupWindow.soundMode;
             let selectedWeapon = this.selectedWeapon();
             if (selectedWeapon == null) {
                 this.changeWeapon();
@@ -497,9 +502,9 @@ var dsector;
                     dsector.DSReference.dsecGame.dsecRound.atLeastOnePlayerHasFired()) {
                     if (!selectedWeapon.alreadyFired(this)) {
                         if (Math.fround(this.weaponEnergy - selectedWeapon.fuelUse) < 0.0 &&
-                            dsector.DSecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
+                            sm !== dsector.DSecSetupWindow.NO_SOUND) {
                             if (this.robotSpecification.type !== dsector.RobotSpecification.ROBOT) {
-                                dsector.DSReference.cwSound.playSound("assets/sounds/missileFailed.wav",
+                                dsector.DSReference.cwSound.playSound("missileFailed.wav",
                                     (Math.random() * 20.0));
                             }
                             return;
@@ -536,6 +541,7 @@ var dsector;
         }
 
         acceptInstruction(state) {
+            const sm = dsector.DSReference.dsecSetupWindow.soundMode;
             if (this.aliveState !== DSecPlayer.DESTROYED) {
                 if (this.instructionSuppression != null) {
                     const changeState = state;
@@ -569,7 +575,7 @@ var dsector;
                             this.__angleMovement = 1;
                             this.lastMovementInstruction = DSecPlayer.TURN_CLOCKWISE;
                             if (this.__angleMovement === 0 && this.angleMovementSound != null &&
-                                dsector.DSecSetupWindow.soundMode === dsector.DSecSetupWindow.NORMAL_SOUND) {
+                                sm === dsector.DSecSetupWindow.NORMAL_SOUND) {
                                 this.angleMovementSound.loop = false;
                                 this.angleMovementSound.play();
                             }
@@ -580,7 +586,7 @@ var dsector;
                             this.__angleMovement = -1;
                             this.lastMovementInstruction = DSecPlayer.TURN_ANTICLOCKWISE;
                             if (this.__angleMovement === 0 && this.angleMovementSound != null &&
-                                dsector.DSecSetupWindow.soundMode === dsector.DSecSetupWindow.NORMAL_SOUND) {
+                                sm === dsector.DSecSetupWindow.NORMAL_SOUND) {
                                 this.angleMovementSound.loop = false;
                                 this.angleMovementSound.play();
                             }
@@ -588,7 +594,7 @@ var dsector;
                         break;
                     case 5: /* STOP_TURNING */
                         if (this.angleMovementSound != null &&
-                            dsector.DSecSetupWindow.soundMode === dsector.DSecSetupWindow.NORMAL_SOUND) {
+                            sm === dsector.DSecSetupWindow.NORMAL_SOUND) {
                             this.angleMovementSound.pause();
                         }
                         this.lastMovementInstruction = DSecPlayer.STOP_TURNING;
@@ -775,59 +781,60 @@ var dsector;
         }
 
         takeDamage(missile) {
+            const sm = dsector.DSReference.dsecSetupWindow.soundMode;
             if (this.__shieldActive) {
-                if (dsector.DSecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
+                if (sm !== dsector.DSecSetupWindow.NO_SOUND) {
                     dsector.DSReference.cwSound.playSound(
-                        "assets/sounds/shieldDeflection.wav", (Math.random() * 20.0));
+                        "shieldDeflection.wav", (Math.random() * 20.0));
                 }
             } else {
-                const owner = missile.owner;
+                const mo = missile.owner;
                 let reduction = Math.fround(missile.getDamage() / this.tankSpecification.armour());
-                if (owner != null) {
-                    reduction *= owner.tankSpecification.weaponFuelQuality();
+                if (mo != null) {
+                    reduction *= mo.tankSpecification.weaponFuelQuality();
                 }
-                reduction *= Math.fround(owner.robotSpecification.weaponFuelRatio / 100.0);
+                reduction *= Math.fround(mo.robotSpecification.weaponFuelRatio / 100.0);
                 if (reduction > this.shields) {
                     reduction = this.shields;
                 }
                 this.shields -= reduction;
-                if (owner != null && this.playerIsEnemy(owner)) {
-                    owner.__score += reduction;
-                    owner.totalDamageInflicted += reduction;
-                    owner.credits += Math.ceil(reduction * 7.0);
+                if (mo != null && this.playerIsEnemy(mo)) {
+                    mo.__score += reduction;
+                    mo.totalDamageInflicted += reduction;
+                    mo.credits += Math.ceil(reduction * 7.0);
                     let dmgInflicted = 0.0;
-                    if (owner.__damageInflictedTowardsPlayer.get(this) != null) {
-                        dmgInflicted = owner.__damageInflictedTowardsPlayer.get(this);
+                    if (mo.__damageInflictedTowardsPlayer.get(this) != null) {
+                        dmgInflicted = mo.__damageInflictedTowardsPlayer.get(this);
                     }
-                    owner.__damageInflictedTowardsPlayer.set(this, dmgInflicted + reduction);
-                    let weaponDmg = owner.damageInflictedByWeaponSpecification.get(
+                    mo.__damageInflictedTowardsPlayer.set(this, dmgInflicted + reduction);
+                    let weaponDmg = mo.damageInflictedByWeaponSpecification.get(
                         missile.weaponSpecification.specificationID);
                     let inflicted = 0.0;
                     if (weaponDmg != null) {
                         inflicted = weaponDmg;
                     }
 
-                    owner.damageInflictedByWeaponSpecification.set(missile.weaponSpecification.specificationID,
+                    mo.damageInflictedByWeaponSpecification.set(missile.weaponSpecification.specificationID,
                         inflicted + reduction);
-                    this.brain.setTankLastTakenHitFrom(owner);
+                    this.brain.setTankLastTakenHitFrom(mo);
                 }
                 if (this.shields <= 0.0) {
-                    if (dsector.DSecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
+                    if (sm !== dsector.DSecSetupWindow.NO_SOUND) {
                         if (this.__hasLargerDeath) {
                             dsector.DSReference.cwSound.playSound(
-                                "assets/sounds/mediumExplosion.wav", (Math.random() * 10.0));
+                                "mediumExplosion.wav", (Math.random() * 10.0));
                             dsector.DSReference.cwSound.playSound(
-                                "assets/sounds/mediumExplosion.wav", (Math.random() * 10.0));
+                                "mediumExplosion.wav", (Math.random() * 10.0));
                         } else {
                             dsector.DSReference.cwSound.playSound(
-                                "assets/sounds/mediumExplosion.wav", (Math.random() * 10.0));
+                                "mediumExplosion.wav", (Math.random() * 10.0));
                         }
                     }
                     this.shields = 0.0;
                     this.weaponEnergy = 0.0;
                     this.finishForEndOfRound();
                     this.aliveState = DSecPlayer.DESTROYED;
-                    ++owner.__numberOfKills;
+                    ++mo.__numberOfKills;
                     ++this.__numberOfDeaths;
                     for (let i = 0; i < 4; ++i) {
                         let v = 2.0;
@@ -942,13 +949,13 @@ var dsector;
 
         turnShieldOn(weaponSpec) {
             if (!this.__shieldActive) {
-                if (dsector.DSecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
+                const c = dsector.DSReference.dsecSetupWindow.soundMode;
+                if (c !== dsector.DSecSetupWindow.NO_SOUND) {
                     dsector.DSReference.cwSound.playSound(
-                        "assets/sounds/shieldSwitchOn.wav", (Math.random() * 5.0));
+                        "shieldSwitchOn.wav", (Math.random() * 5.0));
                 }
-                if (dsector.DSecSetupWindow.soundMode === dsector.DSecSetupWindow.NORMAL_SOUND &&
-                    this.shieldSound != null) {
-                    //this.shieldSound.loop(3);
+                if (c === dsector.DSecSetupWindow.NORMAL_SOUND && this.shieldSound != null) {
+                    //this.shieldSound.loop(3); // TODO: shield sound loop?
                 }
             }
             this.shieldSpecificationTurnedOn = weaponSpec;
@@ -966,7 +973,7 @@ var dsector;
                 this.__shieldActive = false;
                 if (dsector.DSecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
                     dsector.DSReference.cwSound.playSound(
-                        "assets/sounds/shieldSwitchOff.wav", (Math.random() * 5.0));
+                        "shieldSwitchOff.wav", (Math.random() * 5.0));
                 }
             }
         }
@@ -1039,7 +1046,7 @@ var dsector;
 
         teleport() {
             if (!this.teleportInProcess && dsector.DSecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
-                dsector.DSReference.cwSound.playSound("assets/sounds/teleport.wav", (Math.random() * 10.0));
+                dsector.DSReference.cwSound.playSound("teleport.wav", (Math.random() * 10.0));
             }
             this.teleportInProcess = true;
             this.teleportStartedAt = CWSYSTEM.Environment.currentTime();

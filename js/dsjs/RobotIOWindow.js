@@ -1,7 +1,15 @@
 /* Re-written from Java */
-var dsector;
 (function (dsector) {
+    /**
+     * Class for the Robot IO window
+     * @class
+     * @memberof dsector
+     */
     class RobotIOWindow {
+        /**
+         * Constructor for the RobotIOWindow class
+         * @constructor
+         */
         constructor() {
             if (this.window === undefined) {
                 this.window = null;
@@ -15,21 +23,37 @@ var dsector;
             this.savedX = -1;
             this.savedY = -1;
         }
+
+        /**
+         * Checks if the window is created.
+         * @returns {boolean}
+         */
         isCreated() {
             return this.window != null;
         }
+
+        /**
+         * Toggles the created state of the window.
+         */
         toggleCreated() {
             if (this.isCreated()) {
                 this.destroy();
-            }
-            else {
+            } else {
                 this.create();
             }
         }
+
+        /**
+         * Creates the window.
+         */
         create() {
             this.drawWindow();
             this.window.centerWithinDesktop();
         }
+
+        /**
+         * Destroys the window.
+         */
         destroy() {
             if (this.window != null) {
                 this.savedX = this.window.xPosition;
@@ -38,12 +62,20 @@ var dsector;
                 this.window = null;
             }
         }
+
+        /**
+         * Updates the window.
+         */
         update() {
             if (this.isCreated()) {
                 this.drawWindow();
             }
         }
-        /** @private */ restorePosition() {
+
+        /**
+         * Restores the position of the window.
+         *  @private
+         */ restorePosition() {
             if (this.savedX !== -1) {
                 this.window.xPosition = this.savedX;
             }
@@ -51,6 +83,11 @@ var dsector;
                 this.window.yPosition = this.savedY;
             }
         }
+
+        /**
+         * Draws the window.
+         * @private
+         */
         drawWindow() {
             let x = 25;
             let y = 25;
@@ -65,7 +102,7 @@ var dsector;
             const arrayList = ([]);
             let i;
             for (i = 1; i <= 10; ++i) {
-                    arrayList.push(new dsector.StringPair("Sensor " + i, "Sensor " + i));
+                arrayList.push(new dsector.StringPair("Sensor " + i, "Sensor " + i));
 
             }
             for (i = 1; i <= RobotIOWindow.CLOCK1; ++i) {
@@ -83,6 +120,11 @@ var dsector;
                 CWSYSTEM.Debug.println("RIOW: " + unused);
             }
         }
+
+        /**
+         * Handles the submission of text area content.
+         * @param {Object} textArea - The text area that was submitted.
+         */
         textAreaSubmitted(textArea) {
             if (textArea.name === ("name")) {
                 dsector.DSReference.dsecRobotChooserWindow.robotSpecification.name = textArea.getText();
@@ -92,11 +134,18 @@ var dsector;
             }
             dsector.DSReference.dsecRobotChooserWindow.robotSpecification.outputAsFile();
         }
+
+        /**
+         * Handles the pressing of the done button.
+         * @private
+         * @param {Object} button - The button that was pressed.
+         */
         doneButtonPressed(button) {
             dsector.DSReference.robotSensorsIllustrationWindow.destroy();
             this.destroy();
         }
     }
+
     RobotIOWindow.SENSOR1 = 0;
     RobotIOWindow.SENSOR2 = 1;
     RobotIOWindow.SENSOR3 = 2;

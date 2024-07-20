@@ -1,7 +1,16 @@
-var CWSYSTEM;
+/* info header */
 (function (CWSYSTEM) {
-    /** Global Class that stores a variety of variables. Re-written from Java */
+    /**
+     * Global Class that stores a variety of variables. Re-written from Java.
+     * @class
+     * @memberof CWSYSTEM
+     */
     class Global {
+        /**
+         * Initializes static properties if not already initialized.
+         * @private
+         * @static
+         */
         static __static_initialize() {
             if (!Global.__static_initialized) {
                 Global.__static_initialized = true;
@@ -9,36 +18,66 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * @returns {number} The horizontal screen resolution.
+         * @static
+         */
         static screenResolutionX_$LI$() {
             Global.__static_initialize();
             return Global.screenResolutionX;
         }
 
+        /**
+         * @returns {number} The vertical screen resolution.
+         * @static
+         */
         static screenResolutionY_$LI$() {
             Global.__static_initialize();
             return Global.screenResolutionY;
         }
 
+        /**
+         * @returns {number} The environment background color.
+         * @static
+         */
         static environmentBackgroundColor_$LI$() {
             Global.__static_initialize();
             return Global.environmentBackgroundColor;
         }
 
+        /**
+         * @returns {number} The guideline select region width.
+         * @static
+         */
         static guidelineSelectRegionWidth_$LI$() {
             Global.__static_initialize();
             return Global.guidelineSelectRegionWidth;
         }
 
+        /**
+         * @returns {number} The maximum view window width.
+         * @static
+         */
         static viewWindowMaxWidth_$LI$() {
             Global.__static_initialize();
             return Global.viewWindowMaxWidth;
         }
 
+        /**
+         * @returns {number} The maximum view window height.
+         * @static
+         */
         static viewWindowMaxHeight_$LI$() {
             Global.__static_initialize();
             return Global.viewWindowMaxHeight;
         }
 
+        /**
+         * Initializes the global settings, including screen resolution and memory calculations.
+         * @static
+         * @async
+         * @returns {Promise<void>}
+         */
         static async initialize() {
             Global.screenResolutionX = 800; // TODO: pull dynamically from page
             Global.screenResolutionY = 600;
@@ -89,30 +128,107 @@ var CWSYSTEM;
             }
         }
 
+        /**
+         * Initializes static properties.
+         * @private
+         * @static
+         */
         static __static_initializer_0() {
-            //let newColor = new CWSYSTEM.CWColor(55, 55, 55, 255).color;
             Global.environmentBackgroundColor = new CWSYSTEM.CWColor(55, 55, 55, 255).color;
             Global.guidelineSelectRegionWidth = 8;
         }
 
+        /**
+         * @returns {string} The current operating system, always returns "Web".
+         * @static
+         */
         static getOperatingSystem() {
             return "Web";
         }
     }
 
+    /**
+     * @static
+     * @type {boolean}
+     */
     Global.__static_initialized = false;
+
+    /**
+     * @static
+     * @type {number}
+     */
     Global.JAVA = 0;
+
+    /**
+     * @static
+     * @type {number}
+     */
     Global.MAC_OSX = 1;
+
+    /**
+     * @static
+     * @type {string}
+     */
     Global.versionNumber = "";
+
+    /**
+     * @static
+     * @type {string}
+     */
     Global.applicationName = "";
+
+    /**
+     * @static
+     * @type {number}
+     */
     Global.viewWindowsAntiAliasSetting = 2;
+
+    /**
+     * @static
+     * @type {number}
+     */
     Global.subFrames = 1;
+
+    /**
+     * @static
+     * @type {boolean}
+     */
     Global.noWindowPositionLoad = false;
+
+    /**
+     * @static
+     * @type {boolean}
+     */
     Global.windowsCanOnlyBeMovedByClickingTitleArea = true;
+
+    /**
+     * @static
+     * @type {boolean}
+     */
     Global.shortWindowTitleBars = true;
+
+    /**
+     * @static
+     * @type {boolean}
+     */
     Global.runState = true;
+
+    /**
+     * @static
+     * @type {number}
+     */
     Global.maximumNumberOfWindows = 40;
+
+    /**
+     * @static
+     * @type {number}
+     */
     Global.maximumDoubleClickTime = 500;
+
+    /**
+     * @static
+     * @type {boolean}
+     */
     Global.graphicsInitialized = false;
     CWSYSTEM.Global = Global;
     Global["__class"] = "CWSYSTEM.Global";

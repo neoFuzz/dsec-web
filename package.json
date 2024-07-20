@@ -1,6 +1,15 @@
 {
   "dependencies": {
-    "three": "^0.153.0",
-    "uglify-js": "^3.17.4"
+    "three": "^0.153.0"
+  },
+  "devDependencies": {
+    "clean-jsdoc-theme": "^4.3.0",
+    "docdash": "^2.0.2",
+    "jsdoc": "^4.0.3",
+    "uglify-js": "^3.18.0"
+  },
+  "scripts": {
+    "generate-docs": "jsdoc --configure jsdoc.json --verbose",
+    "minify-js": "uglifyjs -c -m reserved=['userIOBuffer','preloadImages','dsector','DSMain','addKeyReleasedEvent','addKeyPressedEvent'] --source-map -o .\\js\\ds.js -- ./js/loader-min.js ./js/CWS/Debug.js ./js/dsjs/NumberTools.js ./js/dsjs/ObjectPair.js ./js/dsjs/FastColorUtilities.js ./js/dsjs/FloatPair.js ./js/dsjs/StringPair.js ./js/CWS/CWStringTools.js ./js/CWS/IntegerArray.js ./js/CWS/CWHashtable.js ./js/CWS/CWReflect.js ./js/CWS/CWFileTools.js ./js/CWS/CWColor.js ./js/CWS/CWFontTools.js ./js/CWS/WindowColors.js ./js/dsjs/LightManager.js ./js/dsjs/ModelLoader.js ./js/dsjs/ModelFolder.js ./js/dsjs/Matrix4f.js ./js/dsjs/Model3DMatrix.js ./js/dsjs/Navigation.js ./js/dsjs/Polygon.js ./js/dsjs/PolygonGroup.js ./js/dsjs/PolygonGroupRepresentation.js ./js/dsjs/PolygonIntersection.js ./js/dsjs/PolygonIterator.js ./js/dsjs/ColourlessPolygon.js ./js/dsjs/PositionedModel.js ./js/dsjs/ScreenPosition.js ./js/dsjs/SpecialPoint.js ./js/dsjs/VectorInR3.js ./js/dsjs/Vertex.js ./js/dsjs/Vertex2D.js ./js/dsjs/TimedInstruction.js ./js/CWS/UserIOBuffer.js ./js/dsjs/Global.js ./js/CWS/CWSReference.js ./js/dsjs/DSReference.js ./js/dsjs/Environment.js ./js/dsjs/Scene.js ./js/CWS/ScreenData.js ./js/CWS/AlertManager.js ./js/dsjs/DSecKeyboardLayout.js ./js/dsjs/Joystick.js ./js/dsjs/GamePadUtils.js ./js/dsjs/InbuiltLight.js ./js/CWS/IOInstruction.js ./js/CWS/CWInterfaceProcesses.js ./js/dsjs/Keyboard.js ./js/CWS/MouseDrag.js ./js/dsjs/MP3.js ./js/CWS/CWUtils.js ./js/dsjs/DSecBackgroundConfiguration.js ./js/dsjs/DSecBrain.js ./js/dsjs/DSecJewel.js ./js/dsjs/DSecPlayer.js ./js/dsjs/DSecGame.js ./js/dsjs/DSecTeam.js ./js/dsjs/DSecFadingLight.js ./js/dsjs/DSecMissile.js ./js/dsjs/DSecMissileManager.js ./js/dsjs/DSecRound.js ./js/dsjs/DSecSpecialEffect.js ./js/dsjs/IntersectingDSecObject.js ./js/dsjs/WeaponPort.js ./js/dsjs/WeaponSpecification.js ./js/dsjs/PreBuiltWeaponSpecifications.js ./js/dsjs/RobotSpecification.js ./js/dsjs/TankSpecification.js ./js/CWS/Starfield.js ./js/dsjs/Renderer.js ./js/CWS/VirtualScreen.js ./js/CWS/AlertWindow.js ./js/dsjs/DSecTitlePage.js ./js/dsjs/DSecLoadGameWindow.js ./js/dsjs/DSecMainSetupWindow.js ./js/dsjs/DSecPlayWindow.js ./js/dsjs/DSecRobotChooserWindow.js ./js/dsjs/DSecSaveGameWindow.js ./js/dsjs/DSecScoreboard.js ./js/dsjs/DSecSetupWindow.js ./js/dsjs/DSecShoppingScreen.js ./js/dsjs/DSecItemDescriptionWindow.js ./js/CWS/FormWindow.js ./js/CWS/FormWindowItem.js ./js/CWS/CWButton.js ./js/CWS/CWCharacter.js ./js/CWS/CWCheckBox.js ./js/CWS/CWFont.js ./js/CWS/CWGraphics.js ./js/CWS/CWImage.js ./js/CWS/CWImageElement.js ./js/CWS/CWInputBox.js ./js/CWS/CWMenu.js ./js/CWS/CWPopupMenu.js ./js/CWS/CWPopupMenuItem.js ./js/CWS/CWPulldown.js ./js/CWS/CWScrollbar.js ./js/CWS/CWSound.js ./js/CWS/CWStoredLine.js ./js/CWS/CWTextArea.js ./js/CWS/CWTextBlock.js ./js/CWS/CWTextElement.js ./js/CWS/CWWindow.js ./js/CWS/CWWindowCollection.js ./js/CWS/CWWindowStyles.js ./js/dsjs/PlayersStatusWindow.js ./js/dsjs/RobotIOWindow.js ./js/dsjs/RobotSensorsIllustrationWindow.js ./js/dsjs/RobotSummaryWindow.js ./js/dsjs/DSInterfaceProcesses.js ./js/dsjs/DSMain.js"
   }
 }

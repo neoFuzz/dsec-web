@@ -1,73 +1,47 @@
-var CWSYSTEM;
 (function (CWSYSTEM) {
     /**
      * Class representing a Canvas Window text area.
+     * This class encapsulates the properties and behavior of a text area within a GUI Window.
+     *
+     * @property {boolean} returnKeyCausesSubmit - Indicates whether a return key press causes a submit.
+     * @property {boolean} deselectionCausesSubmit - Indicates whether deselection causes a submit.
+     * @property {Object} generalPurposeObject - A general-purpose object associated with the text area.
+     * @property {string} endMark - The end mark for the text area.
+     * @property {boolean} passwordMode - Indicates whether the text area is in password mode.
+     * @property {number} cursorPixelPositionX - The x-coordinate of the cursor position in pixels.
+     * @property {number} cursorPixelPositionY - The y-coordinate of the cursor position in pixels.
+     * @property {Function} objectContainingTextAreaChangedMethod - The method to be called when the text area changes.
+     * @property {Function} objectContainingTextAreaSubmittedMethod - The method to be called when the text area is submitted.
+     * @property {number} border - The border size of the text area.
+     * @property {number} cursorPositionInText - The position of the cursor in the text area's content.
+     *
+     * @since    1.0.0
+     * @access   public
+     * @class
+     *
+     * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class CWTextArea {
         /**
          * Create a text area.
-         * @param {Object} parent - The parent object.
+         *
+         * @param {CWSYSTEM.CWWindow} parent - The parent object.
          * @param {number} index - The index of the text area.
          * @param {string} name - The name of the text area.
          * @param {number} x - The x coordinate of the text area.
          * @param {number} y - The y coordinate of the text area.
          * @param {number} width - The width of the text area.
          * @param {number} numOfLines - The number of lines in the text area.
-         * @param {Object} font - The font used in the text area.
+         * @param {CWSYSTEM.CWFont} font - The font used in the text area.
          * @param {string} text - The initial text of the text area.
          */
-        constructor(parent, index, name, x, y, width, numOfLines, font, text) {
-            if (this.parent === undefined) {
-                this.parent = null;
-            }
-            if (this.x === undefined) {
-                this.x = 0;
-            }
-            if (this.y === undefined) {
-                this.y = 0;
-            }
-            if (this.name === undefined) {
-                this.name = null;
-            }
-            if (this.text === undefined) {
-                this.text = null;
-            }
-            if (this.numberOfLines === undefined) {
-                this.numberOfLines = 1;
-            }
-            if (this.font === undefined) {
-                this.font = null;
-            }
-            this.returnKeyCausesSubmit = false;
-            this.deselectionCausesSubmit = false;
-            if (this.generalPurposeObject === undefined) {
-                this.generalPurposeObject = null;
-            }
-            this.endMark = "";
-            this.passwordMode = false;
-            if (this.cursorPixelPositionX === undefined) {
-                this.cursorPixelPositionX = 0;
-            }
-            if (this.cursorPixelPositionY === undefined) {
-                this.cursorPixelPositionY = 0;
-            }
-            if (this.objectContainingTextAreaChangedMethod === undefined) {
-                this.objectContainingTextAreaChangedMethod = null;
-            }
-            if (this.objectContainingTextAreaSubmittedMethod === undefined) {
-                this.objectContainingTextAreaSubmittedMethod = null;
-            }
-            if (this.index === undefined) {
-                this.index = 0;
-            }
-            if (this.width === undefined) {
-                this.width = 0;
-            }
-            this.border = 3;
-            if (this.cursorPositionInText === undefined) {
-                this.cursorPositionInText = 0;
-            }
+        constructor(parent = null, index = 0, name = null, x = 0, y = 0, width = 0, numOfLines = 1, font = null, text = null) {
             this.parent = parent;
+            this.index = index;
             this.name = name;
             this.x = x;
             this.y = y;
@@ -75,7 +49,18 @@ var CWSYSTEM;
             this.numberOfLines = numOfLines;
             this.font = font;
             this.text = text;
-            this.index = index;
+
+            // Default values for other properties
+            this.returnKeyCausesSubmit = false;
+            this.deselectionCausesSubmit = false;
+            this.generalPurposeObject = null;
+            this.endMark = "";
+            this.passwordMode = false;
+            this.cursorPixelPositionX = 0;
+            this.cursorPixelPositionY = 0;
+            this.objectContainingTextAreaChangedMethod = null;
+            this.objectContainingTextAreaSubmittedMethod = null;
+            this.border = 3;
             this.cursorPositionInText = 0;
         }
 
@@ -88,6 +73,7 @@ var CWSYSTEM;
 
         /**
          * Selects a given text area.
+         *
          * @param {CWTextArea} textArea - The text area to select.
          */
         static selectTextArea(textArea) {
@@ -96,6 +82,7 @@ var CWSYSTEM;
 
         /**
          * Gets the currently selected text area.
+         *
          * @returns {CWTextArea} The currently selected text area.
          */
         static textAreaSelected() {
@@ -104,6 +91,7 @@ var CWSYSTEM;
 
         /**
          * Gets the height of the font in pixels.
+         *
          * @private
          * @returns {number} The height of the font in pixels.
          */
@@ -122,6 +110,7 @@ var CWSYSTEM;
 
         /**
          * Gets the text in the text area.
+         *
          * @returns {string} The text in the text area.
          */
         getText() {
@@ -130,6 +119,7 @@ var CWSYSTEM;
 
         /**
          * Sets the text in the text area.
+         *
          * @param {string} text - The text to set.
          */
         setText(text) {
@@ -140,6 +130,7 @@ var CWSYSTEM;
 
         /**
          * Gets the height of the text area.
+         *
          * @returns {number} The height of the text area.
          */
         height() {
@@ -148,8 +139,10 @@ var CWSYSTEM;
 
         /**
          * Renders a test string in the text area.
+         *
          * @private
          * @param {string} text - The text to render.
+         * @method
          */
         testRender(text) {
             CWSYSTEM.CWFontTools.renderText(null, text, this.parent.borderWidth + this.x + this.border,
@@ -159,6 +152,7 @@ var CWSYSTEM;
 
         /**
          * Selects the text area at a given position.
+         *
          * @param {number} x - The x coordinate.
          * @param {number} y - The y coordinate.
          */
@@ -191,11 +185,11 @@ var CWSYSTEM;
 
         /**
          * Informs the supplied object about the new value of the text area.
+         *
          * @private
          */
         informSuppliedObjectAboutNewTextAreaValue() {
             if (this.objectContainingTextAreaChangedMethod != null) {
-                const classes = [("").constructor, ("").constructor];
                 try {
                     const method = ((c, p) => {
                         if (c.prototype.hasOwnProperty(p) && typeof c.prototype[p] == 'function')
@@ -214,6 +208,7 @@ var CWSYSTEM;
 
         /**
          * Adds a character to the text area.
+         *
          * @param {string} character - The character to add.
          */
         addCharacter(character) {
@@ -262,7 +257,6 @@ var CWSYSTEM;
          */
         submit() {
             CWTextArea.__textAreaSelected = null;
-            const classes = [this.constructor];
             const objects = [this];
             if (this.objectContainingTextAreaSubmittedMethod != null) {
                 try {
@@ -294,6 +288,7 @@ var CWSYSTEM;
 
         /**
          * Adds the cursor and end mark to the text.
+         *
          * @param {string} text - The text to add the cursor and end mark to.
          * @param {number} mark - The position of the mark.
          * @returns {string} The text with the cursor and end mark added.
@@ -413,7 +408,7 @@ var CWSYSTEM;
                 this.parent.borderWidth + this.parent.__titleHeight + this.y, this.width, this.height());
             vs.CWDrawFilledRectangleWithGradient(this.parent.window, this.parent.borderWidth + this.x + 1,
                 this.parent.borderWidth + this.parent.__titleHeight + this.y + 1, this.width - 2,
-                this.height() - 2, CWSYSTEM.CWColor.white_$LI$(), CWSYSTEM.CWColor.lightGrey_$LI$());
+                this.height() - 2, CWSYSTEM.CWColor.__white(), CWSYSTEM.CWColor.__lightGrey());
             CWSYSTEM.CWFontTools.CURSOR_POSITION_IN_TEXT = this.cursorPositionInText;
             vs.setColor$intCWColor(this.parent.titleTextColor);
             let text1 = this.text;
