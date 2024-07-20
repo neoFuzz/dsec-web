@@ -78,11 +78,13 @@
          * Returns the border bitmap style for the given window style.
          *
          * @static
-         * @returns {[number[][]]} The bitmap for Border style 2.
+         * @returns {number[][][]} - An array representing the border bitmap.
          */
         static borderBitmapStyle2_$LI$() {
             if (CWWindowStyles.borderBitmapStyle2 == null) {
-                CWWindowStyles.borderBitmapStyle2 = [[[0, 0, 0, 0], [255, 255, 255, 45], [0, 0, 0, 255], [170, 170, 170, 255], [0, 0, 0, 255]]];
+                CWWindowStyles.borderBitmapStyle2 = [[
+                    [0, 0, 0, 0], [255, 255, 255, 45], [0, 0, 0, 255], [170, 170, 170, 255], [0, 0, 0, 255]
+                ]];
             }
             return CWWindowStyles.borderBitmapStyle2;
         }
@@ -109,11 +111,13 @@
          * Returns the border bitmap style for the given window style.
          *
          * @static
-         * @returns {[number[][]]} The bitmap for Border style 3.
+         * @returns {number[][][]} The bitmap for Border style 3.
          */
         static borderBitmapStyle3_$LI$() {
             if (CWWindowStyles.borderBitmapStyle3 == null) {
-                CWWindowStyles.borderBitmapStyle3 = [[[170, 170, 170, 50], [170, 170, 220, 255], [170, 170, 170, 50], [0, 0, 0, 0]]];
+                CWWindowStyles.borderBitmapStyle3 = [[
+                    [170, 170, 170, 50], [170, 170, 220, 255], [170, 170, 170, 50], [0, 0, 0, 0]
+                ]];
             }
             return CWWindowStyles.borderBitmapStyle3;
         }
@@ -126,7 +130,12 @@
          */
         static cornerBitmapStyle3_$LI$() {
             if (CWWindowStyles.cornerBitmapStyle3 == null) {
-                CWWindowStyles.cornerBitmapStyle3 = [[[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], [[0, 0, 0, 0], [0, 0, 0, 0], [170, 170, 170, 80], [170, 170, 220, 155]], [[0, 0, 0, 0], [170, 170, 170, 80], [170, 170, 220, 155], [170, 170, 220, 200]], [[0, 0, 0, 0], [170, 170, 220, 155], [170, 170, 220, 200], [0, 0, 0, 0]]];
+                CWWindowStyles.cornerBitmapStyle3 = [
+                    [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
+                    [[0, 0, 0, 0], [0, 0, 0, 0], [170, 170, 170, 80], [170, 170, 220, 155]],
+                    [[0, 0, 0, 0], [170, 170, 170, 80], [170, 170, 220, 155], [170, 170, 220, 200]],
+                    [[0, 0, 0, 0], [170, 170, 220, 155], [170, 170, 220, 200], [0, 0, 0, 0]]
+                ];
             }
             return CWWindowStyles.cornerBitmapStyle3;
         }
@@ -135,11 +144,13 @@
          * Returns the border bitmap style for the given window style.
          *
          * @static
-         * @returns {[number[][]]} The border bitmap style.
+         * @returns {number[][][]} The border bitmap style.
          */
         static borderBitmapStyle4_$LI$() {
             if (CWWindowStyles.borderBitmapStyle4 == null) {
-                CWWindowStyles.borderBitmapStyle4 = [[[0, 0, 0, 0], [170, 170, 170, 50], [170, 170, 220, 255], [170, 170, 170, 50], [0, 0, 0, 0]]];
+                CWWindowStyles.borderBitmapStyle4 = [
+                    [[0, 0, 0, 0], [170, 170, 170, 50], [170, 170, 220, 255], [170, 170, 170, 50], [0, 0, 0, 0]]
+                ];
             }
             return CWWindowStyles.borderBitmapStyle4;
         }
@@ -229,7 +240,7 @@
          *
          * @static
          * @param {number} mode The window style.
-         * @returns {null|CWSYSTEM.CWWindowStyles.borderBitmapStyle3|[number[][]]|CWSYSTEM.CWWindowStyles.borderBitmapStyle1|CWSYSTEM.CWWindowStyles.borderBitmapStyle0|CWSYSTEM.CWWindowStyles.borderBitmapStyle4|CWSYSTEM.CWWindowStyles.borderBitmapStyle2}
+         * @returns {null|CWSYSTEM.CWWindowStyles.borderBitmapStyle3|number[][][]|CWSYSTEM.CWWindowStyles.borderBitmapStyle1|CWSYSTEM.CWWindowStyles.borderBitmapStyle0|CWSYSTEM.CWWindowStyles.borderBitmapStyle4|CWSYSTEM.CWWindowStyles.borderBitmapStyle2}
          */
         static getBorderBitmap(mode) {
             switch (mode) {
