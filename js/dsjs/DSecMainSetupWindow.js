@@ -164,7 +164,7 @@
             }
             const font = dsector.DSReference.virtualScreen.serif8_font;
             this.window = dsector.DSReference.gui.addWindow$name$style$title$x$y$w$h$v("DZM", 3,
-                "Setup", x, y, 390, 100 + 20 * this.numberOfPlayers(), true);
+                "Main Menu", x, y, 390, 100 + 20 * this.numberOfPlayers(), true);
             this.window.changeBackgroundColor$CWColor(new CWSYSTEM.CWColor(0, 0, 0, 50));
             let cwButton = null;
             cwButton = this.window.addButton("ENTER_DSECTOR", 10, 12, 80, 15,
