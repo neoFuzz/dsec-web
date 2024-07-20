@@ -22,7 +22,7 @@ jobs:
       - name: Install npm dependencies
         run: npm install
       - run: npm ci
-      - run: npm test
+#      - run: npm test # no test to run
       - run: npm install --save-dev uglify-js
 # shrink the JS files down. ends up halving the size
       - name: Minify JS files for web
