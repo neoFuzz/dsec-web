@@ -47,7 +47,8 @@ jobs:
         run: |
           npm install jsdoc
           npm install --save-dev clean-jsdoc-theme
-          mkdir out/jsdoc
+          mkdir out
+          mkdir out/jsdoc/
           npm run generate-docs
 
       - name: Upload artifact
