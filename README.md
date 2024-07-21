@@ -12,7 +12,7 @@ It is a port from the Java-based version of a similar game.
 
 ## Play
 
-You can play the game [here](https://fuzzserv01.fuzzserver.org/dsector/game.html).
+You can play the game [here](https://fuzzserv01.fuzzserver.org/dsector/).
 
 ## Controls
 
