@@ -1,5 +1,5 @@
 name = R3 Seeker
-description = Seeks malee combat with the closest tank
+description = Seeks melee combat with the closest tank and aims for quick kills at short range
 clock1Probability = 50
 clock2Probability = 50
 clock3Probability = 100

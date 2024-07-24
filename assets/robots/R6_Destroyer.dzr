@@ -1,5 +1,5 @@
 name = R6 Destroyer
-description = Destroys the closest tank
+description = Destroys the closest tank. Will save money for score bribes.
 clock1Probability = 50
 clock2Probability = 50
 clock3Probability = 100
