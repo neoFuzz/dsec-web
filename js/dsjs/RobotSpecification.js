@@ -3,3264 +3,509 @@
     /**
      * This class represents a specification for a robot in the game.
      * It contains various properties and methods to define and manage the robot's characteristics.
+     *
+     * @property {number} __type - The type of the robot specification.
+     * @property {string} __filename - The file name of the robot specification.
+     * @property {string} __name - The name of the robot.
+     * @property {string} __description - The description of the robot.
+     * @property {number} __viewSensors - The view sensors value of the robot.
+     * @property {number} __clock1Probability - The probability of clock 1 of the robot.
+     * @property {number} __clock2Probability - The probability of clock 2 of the robot.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class RobotSpecification {
         /**
          * Constructs a new RobotSpecification instance with the specified file name.
-         * @param fileName
+         *
+         * @param {string} fileName URL path or filepath with the file.
          */
         constructor(fileName) {
-            if (((typeof fileName === 'string') || fileName === null)) {
-                this.type = 0;
-                this.filename = null;
-                this.name = null;
-                this.description = null;
-                this.viewSensors = 0;
-                this.clock1Probability = 0;
-                this.clock2Probability = 0;
-                this.clock3Probability = 0;
-                this.clock4Probability = 0;
-                this.clock5Probability = 0;
-                this.clock6Probability = 0;
-                this.clock7Probability = 0;
-                this.clock8Probability = 0;
-                this.clock9Probability = 0;
-                this.clock10Probability = 0;
-                this.clock1Period = 0;
-                this.clock2Period = 0;
-                this.clock3Period = 0;
-                this.clock4Period = 0;
-                this.clock5Period = 0;
-                this.clock6Period = 0;
-                this.clock7Period = 0;
-                if (this.clock8Period === undefined) {
-                    this.clock8Period = 0;
-                }
-                if (this.clock9Period === undefined) {
-                    this.clock9Period = 0;
-                }
-                if (this.clock10Period === undefined) {
-                    this.clock10Period = 0;
-                }
-                if (this.clock1Requirement1 === undefined) {
-                    this.clock1Requirement1 = 0;
-                }
-                if (this.clock1Requirement2 === undefined) {
-                    this.clock1Requirement2 = 0;
-                }
-                if (this.clock2Requirement1 === undefined) {
-                    this.clock2Requirement1 = 0;
-                }
-                if (this.clock2Requirement2 === undefined) {
-                    this.clock2Requirement2 = 0;
-                }
-                if (this.clock3Requirement1 === undefined) {
-                    this.clock3Requirement1 = 0;
-                }
-                if (this.clock3Requirement2 === undefined) {
-                    this.clock3Requirement2 = 0;
-                }
-                if (this.clock4Requirement1 === undefined) {
-                    this.clock4Requirement1 = 0;
-                }
-                if (this.clock4Requirement2 === undefined) {
-                    this.clock4Requirement2 = 0;
-                }
-                if (this.clock5Requirement1 === undefined) {
-                    this.clock5Requirement1 = 0;
-                }
-                if (this.clock5Requirement2 === undefined) {
-                    this.clock5Requirement2 = 0;
-                }
-                if (this.clock6Requirement1 === undefined) {
-                    this.clock6Requirement1 = 0;
-                }
-                if (this.clock6Requirement2 === undefined) {
-                    this.clock6Requirement2 = 0;
-                }
-                if (this.clock7Requirement1 === undefined) {
-                    this.clock7Requirement1 = 0;
-                }
-                if (this.clock7Requirement2 === undefined) {
-                    this.clock7Requirement2 = 0;
-                }
-                if (this.clock8Requirement1 === undefined) {
-                    this.clock8Requirement1 = 0;
-                }
-                if (this.clock8Requirement2 === undefined) {
-                    this.clock8Requirement2 = 0;
-                }
-                if (this.clock9Requirement1 === undefined) {
-                    this.clock9Requirement1 = 0;
-                }
-                if (this.clock9Requirement2 === undefined) {
-                    this.clock9Requirement2 = 0;
-                }
-                if (this.clock10Requirement1 === undefined) {
-                    this.clock10Requirement1 = 0;
-                }
-                if (this.clock10Requirement2 === undefined) {
-                    this.clock10Requirement2 = 0;
-                }
-                if (this.clock1Response1 === undefined) {
-                    this.clock1Response1 = 0;
-                }
-                if (this.clock1Response2 === undefined) {
-                    this.clock1Response2 = 0;
-                }
-                if (this.clock1Response3 === undefined) {
-                    this.clock1Response3 = 0;
-                }
-                if (this.clock2Response1 === undefined) {
-                    this.clock2Response1 = 0;
-                }
-                if (this.clock2Response2 === undefined) {
-                    this.clock2Response2 = 0;
-                }
-                if (this.clock2Response3 === undefined) {
-                    this.clock2Response3 = 0;
-                }
-                if (this.clock3Response1 === undefined) {
-                    this.clock3Response1 = 0;
-                }
-                if (this.clock3Response2 === undefined) {
-                    this.clock3Response2 = 0;
-                }
-                if (this.clock3Response3 === undefined) {
-                    this.clock3Response3 = 0;
-                }
-                if (this.clock4Response1 === undefined) {
-                    this.clock4Response1 = 0;
-                }
-                if (this.clock4Response2 === undefined) {
-                    this.clock4Response2 = 0;
-                }
-                if (this.clock4Response3 === undefined) {
-                    this.clock4Response3 = 0;
-                }
-                if (this.clock5Response1 === undefined) {
-                    this.clock5Response1 = 0;
-                }
-                if (this.clock5Response2 === undefined) {
-                    this.clock5Response2 = 0;
-                }
-                if (this.clock5Response3 === undefined) {
-                    this.clock5Response3 = 0;
-                }
-                if (this.clock6Response1 === undefined) {
-                    this.clock6Response1 = 0;
-                }
-                if (this.clock6Response2 === undefined) {
-                    this.clock6Response2 = 0;
-                }
-                if (this.clock6Response3 === undefined) {
-                    this.clock6Response3 = 0;
-                }
-                if (this.clock7Response1 === undefined) {
-                    this.clock7Response1 = 0;
-                }
-                if (this.clock7Response2 === undefined) {
-                    this.clock7Response2 = 0;
-                }
-                if (this.clock7Response3 === undefined) {
-                    this.clock7Response3 = 0;
-                }
-                if (this.clock8Response1 === undefined) {
-                    this.clock8Response1 = 0;
-                }
-                if (this.clock8Response2 === undefined) {
-                    this.clock8Response2 = 0;
-                }
-                if (this.clock8Response3 === undefined) {
-                    this.clock8Response3 = 0;
-                }
-                if (this.clock9Response1 === undefined) {
-                    this.clock9Response1 = 0;
-                }
-                if (this.clock9Response2 === undefined) {
-                    this.clock9Response2 = 0;
-                }
-                if (this.clock9Response3 === undefined) {
-                    this.clock9Response3 = 0;
-                }
-                if (this.clock10Response1 === undefined) {
-                    this.clock10Response1 = 0;
-                }
-                if (this.clock10Response2 === undefined) {
-                    this.clock10Response2 = 0;
-                }
-                if (this.clock10Response3 === undefined) {
-                    this.clock10Response3 = 0;
-                }
-                if (this.sensor1Angle === undefined) {
-                    this.sensor1Angle = 0;
-                }
-                if (this.sensor2Angle === undefined) {
-                    this.sensor2Angle = 0;
-                }
-                if (this.sensor3Angle === undefined) {
-                    this.sensor3Angle = 0;
-                }
-                if (this.sensor4Angle === undefined) {
-                    this.sensor4Angle = 0;
-                }
-                if (this.sensor5Angle === undefined) {
-                    this.sensor5Angle = 0;
-                }
-                if (this.sensor6Angle === undefined) {
-                    this.sensor6Angle = 0;
-                }
-                if (this.sensor7Angle === undefined) {
-                    this.sensor7Angle = 0;
-                }
-                if (this.sensor8Angle === undefined) {
-                    this.sensor8Angle = 0;
-                }
-                if (this.sensor9Angle === undefined) {
-                    this.sensor9Angle = 0;
-                }
-                if (this.sensor10Angle === undefined) {
-                    this.sensor10Angle = 0;
-                }
-                if (this.sensor11Angle === undefined) {
-                    this.sensor11Angle = 0;
-                }
-                if (this.sensor12Angle === undefined) {
-                    this.sensor12Angle = 0;
-                }
-                if (this.sensor13Angle === undefined) {
-                    this.sensor13Angle = 0;
-                }
-                if (this.sensor14Angle === undefined) {
-                    this.sensor14Angle = 0;
-                }
-                if (this.sensor15Angle === undefined) {
-                    this.sensor15Angle = 0;
-                }
-                if (this.sensor16Angle === undefined) {
-                    this.sensor16Angle = 0;
-                }
-                if (this.sensor1Length === undefined) {
-                    this.sensor1Length = 0;
-                }
-                if (this.sensor2Length === undefined) {
-                    this.sensor2Length = 0;
-                }
-                if (this.sensor3Length === undefined) {
-                    this.sensor3Length = 0;
-                }
-                if (this.sensor4Length === undefined) {
-                    this.sensor4Length = 0;
-                }
-                if (this.sensor5Length === undefined) {
-                    this.sensor5Length = 0;
-                }
-                if (this.sensor6Length === undefined) {
-                    this.sensor6Length = 0;
-                }
-                if (this.sensor7Length === undefined) {
-                    this.sensor7Length = 0;
-                }
-                if (this.sensor8Length === undefined) {
-                    this.sensor8Length = 0;
-                }
-                if (this.sensor9Length === undefined) {
-                    this.sensor9Length = 0;
-                }
-                if (this.sensor10Length === undefined) {
-                    this.sensor10Length = 0;
-                }
-                if (this.sensor11Length === undefined) {
-                    this.sensor11Length = 0;
-                }
-                if (this.sensor12Length === undefined) {
-                    this.sensor12Length = 0;
-                }
-                if (this.sensor13Length === undefined) {
-                    this.sensor13Length = 0;
-                }
-                if (this.sensor14Length === undefined) {
-                    this.sensor14Length = 0;
-                }
-                if (this.sensor15Length === undefined) {
-                    this.sensor15Length = 0;
-                }
-                if (this.sensor16Length === undefined) {
-                    this.sensor16Length = 0;
-                }
-                if (this.sensor1Width === undefined) {
-                    this.sensor1Width = 0;
-                }
-                if (this.sensor2Width === undefined) {
-                    this.sensor2Width = 0;
-                }
-                if (this.sensor3Width === undefined) {
-                    this.sensor3Width = 0;
-                }
-                if (this.sensor4Width === undefined) {
-                    this.sensor4Width = 0;
-                }
-                if (this.sensor5Width === undefined) {
-                    this.sensor5Width = 0;
-                }
-                if (this.sensor6Width === undefined) {
-                    this.sensor6Width = 0;
-                }
-                if (this.sensor7Width === undefined) {
-                    this.sensor7Width = 0;
-                }
-                if (this.sensor8Width === undefined) {
-                    this.sensor8Width = 0;
-                }
-                if (this.sensor9Width === undefined) {
-                    this.sensor9Width = 0;
-                }
-                if (this.sensor10Width === undefined) {
-                    this.sensor10Width = 0;
-                }
-                if (this.sensor11Width === undefined) {
-                    this.sensor11Width = 0;
-                }
-                if (this.sensor12Width === undefined) {
-                    this.sensor12Width = 0;
-                }
-                if (this.sensor13Width === undefined) {
-                    this.sensor13Width = 0;
-                }
-                if (this.sensor14Width === undefined) {
-                    this.sensor14Width = 0;
-                }
-                if (this.sensor15Width === undefined) {
-                    this.sensor15Width = 0;
-                }
-                if (this.sensor16Width === undefined) {
-                    this.sensor16Width = 0;
-                }
-                if (this.sensor1Probability === undefined) {
-                    this.sensor1Probability = 0;
-                }
-                if (this.sensor2Probability === undefined) {
-                    this.sensor2Probability = 0;
-                }
-                if (this.sensor3Probability === undefined) {
-                    this.sensor3Probability = 0;
-                }
-                if (this.sensor4Probability === undefined) {
-                    this.sensor4Probability = 0;
-                }
-                if (this.sensor5Probability === undefined) {
-                    this.sensor5Probability = 0;
-                }
-                if (this.sensor6Probability === undefined) {
-                    this.sensor6Probability = 0;
-                }
-                if (this.sensor7Probability === undefined) {
-                    this.sensor7Probability = 0;
-                }
-                if (this.sensor8Probability === undefined) {
-                    this.sensor8Probability = 0;
-                }
-                if (this.sensor9Probability === undefined) {
-                    this.sensor9Probability = 0;
-                }
-                if (this.sensor10Probability === undefined) {
-                    this.sensor10Probability = 0;
-                }
-                if (this.sensor11Probability === undefined) {
-                    this.sensor11Probability = 0;
-                }
-                if (this.sensor12Probability === undefined) {
-                    this.sensor12Probability = 0;
-                }
-                if (this.sensor13Probability === undefined) {
-                    this.sensor13Probability = 0;
-                }
-                if (this.sensor14Probability === undefined) {
-                    this.sensor14Probability = 0;
-                }
-                if (this.sensor15Probability === undefined) {
-                    this.sensor15Probability = 0;
-                }
-                if (this.sensor16Probability === undefined) {
-                    this.sensor16Probability = 0;
-                }
-                if (this.sensor1Period === undefined) {
-                    this.sensor1Period = 0;
-                }
-                if (this.sensor2Period === undefined) {
-                    this.sensor2Period = 0;
-                }
-                if (this.sensor3Period === undefined) {
-                    this.sensor3Period = 0;
-                }
-                if (this.sensor4Period === undefined) {
-                    this.sensor4Period = 0;
-                }
-                if (this.sensor5Period === undefined) {
-                    this.sensor5Period = 0;
-                }
-                if (this.sensor6Period === undefined) {
-                    this.sensor6Period = 0;
-                }
-                if (this.sensor7Period === undefined) {
-                    this.sensor7Period = 0;
-                }
-                if (this.sensor8Period === undefined) {
-                    this.sensor8Period = 0;
-                }
-                if (this.sensor9Period === undefined) {
-                    this.sensor9Period = 0;
-                }
-                if (this.sensor10Period === undefined) {
-                    this.sensor10Period = 0;
-                }
-                if (this.sensor11Period === undefined) {
-                    this.sensor11Period = 0;
-                }
-                if (this.sensor12Period === undefined) {
-                    this.sensor12Period = 0;
-                }
-                if (this.sensor13Period === undefined) {
-                    this.sensor13Period = 0;
-                }
-                if (this.sensor14Period === undefined) {
-                    this.sensor14Period = 0;
-                }
-                if (this.sensor15Period === undefined) {
-                    this.sensor15Period = 0;
-                }
-                if (this.sensor16Period === undefined) {
-                    this.sensor16Period = 0;
-                }
-                if (this.sensor1ParallelOffset === undefined) {
-                    this.sensor1ParallelOffset = 0;
-                }
-                if (this.sensor2ParallelOffset === undefined) {
-                    this.sensor2ParallelOffset = 0;
-                }
-                if (this.sensor3ParallelOffset === undefined) {
-                    this.sensor3ParallelOffset = 0;
-                }
-                if (this.sensor4ParallelOffset === undefined) {
-                    this.sensor4ParallelOffset = 0;
-                }
-                if (this.sensor5ParallelOffset === undefined) {
-                    this.sensor5ParallelOffset = 0;
-                }
-                if (this.sensor6ParallelOffset === undefined) {
-                    this.sensor6ParallelOffset = 0;
-                }
-                if (this.sensor7ParallelOffset === undefined) {
-                    this.sensor7ParallelOffset = 0;
-                }
-                if (this.sensor8ParallelOffset === undefined) {
-                    this.sensor8ParallelOffset = 0;
-                }
-                if (this.sensor9ParallelOffset === undefined) {
-                    this.sensor9ParallelOffset = 0;
-                }
-                if (this.sensor10ParallelOffset === undefined) {
-                    this.sensor10ParallelOffset = 0;
-                }
-                if (this.sensor11ParallelOffset === undefined) {
-                    this.sensor11ParallelOffset = 0;
-                }
-                if (this.sensor12ParallelOffset === undefined) {
-                    this.sensor12ParallelOffset = 0;
-                }
-                if (this.sensor13ParallelOffset === undefined) {
-                    this.sensor13ParallelOffset = 0;
-                }
-                if (this.sensor14ParallelOffset === undefined) {
-                    this.sensor14ParallelOffset = 0;
-                }
-                if (this.sensor15ParallelOffset === undefined) {
-                    this.sensor15ParallelOffset = 0;
-                }
-                if (this.sensor16ParallelOffset === undefined) {
-                    this.sensor16ParallelOffset = 0;
-                }
-                if (this.sensor1PerpendicularOffset === undefined) {
-                    this.sensor1PerpendicularOffset = 0;
-                }
-                if (this.sensor2PerpendicularOffset === undefined) {
-                    this.sensor2PerpendicularOffset = 0;
-                }
-                if (this.sensor3PerpendicularOffset === undefined) {
-                    this.sensor3PerpendicularOffset = 0;
-                }
-                if (this.sensor4PerpendicularOffset === undefined) {
-                    this.sensor4PerpendicularOffset = 0;
-                }
-                if (this.sensor5PerpendicularOffset === undefined) {
-                    this.sensor5PerpendicularOffset = 0;
-                }
-                if (this.sensor6PerpendicularOffset === undefined) {
-                    this.sensor6PerpendicularOffset = 0;
-                }
-                if (this.sensor7PerpendicularOffset === undefined) {
-                    this.sensor7PerpendicularOffset = 0;
-                }
-                if (this.sensor8PerpendicularOffset === undefined) {
-                    this.sensor8PerpendicularOffset = 0;
-                }
-                if (this.sensor9PerpendicularOffset === undefined) {
-                    this.sensor9PerpendicularOffset = 0;
-                }
-                if (this.sensor10PerpendicularOffset === undefined) {
-                    this.sensor10PerpendicularOffset = 0;
-                }
-                if (this.sensor11PerpendicularOffset === undefined) {
-                    this.sensor11PerpendicularOffset = 0;
-                }
-                if (this.sensor12PerpendicularOffset === undefined) {
-                    this.sensor12PerpendicularOffset = 0;
-                }
-                if (this.sensor13PerpendicularOffset === undefined) {
-                    this.sensor13PerpendicularOffset = 0;
-                }
-                if (this.sensor14PerpendicularOffset === undefined) {
-                    this.sensor14PerpendicularOffset = 0;
-                }
-                if (this.sensor15PerpendicularOffset === undefined) {
-                    this.sensor15PerpendicularOffset = 0;
-                }
-                if (this.sensor16PerpendicularOffset === undefined) {
-                    this.sensor16PerpendicularOffset = 0;
-                }
-                if (this.sensor1Condition1 === undefined) {
-                    this.sensor1Condition1 = 0;
-                }
-                if (this.sensor1Condition2 === undefined) {
-                    this.sensor1Condition2 = 0;
-                }
-                if (this.sensor1Condition3 === undefined) {
-                    this.sensor1Condition3 = 0;
-                }
-                if (this.sensor2Condition1 === undefined) {
-                    this.sensor2Condition1 = 0;
-                }
-                if (this.sensor2Condition2 === undefined) {
-                    this.sensor2Condition2 = 0;
-                }
-                if (this.sensor2Condition3 === undefined) {
-                    this.sensor2Condition3 = 0;
-                }
-                if (this.sensor3Condition1 === undefined) {
-                    this.sensor3Condition1 = 0;
-                }
-                if (this.sensor3Condition2 === undefined) {
-                    this.sensor3Condition2 = 0;
-                }
-                if (this.sensor3Condition3 === undefined) {
-                    this.sensor3Condition3 = 0;
-                }
-                if (this.sensor4Condition1 === undefined) {
-                    this.sensor4Condition1 = 0;
-                }
-                if (this.sensor4Condition2 === undefined) {
-                    this.sensor4Condition2 = 0;
-                }
-                if (this.sensor4Condition3 === undefined) {
-                    this.sensor4Condition3 = 0;
-                }
-                if (this.sensor5Condition1 === undefined) {
-                    this.sensor5Condition1 = 0;
-                }
-                if (this.sensor5Condition2 === undefined) {
-                    this.sensor5Condition2 = 0;
-                }
-                if (this.sensor5Condition3 === undefined) {
-                    this.sensor5Condition3 = 0;
-                }
-                if (this.sensor6Condition1 === undefined) {
-                    this.sensor6Condition1 = 0;
-                }
-                if (this.sensor6Condition2 === undefined) {
-                    this.sensor6Condition2 = 0;
-                }
-                if (this.sensor6Condition3 === undefined) {
-                    this.sensor6Condition3 = 0;
-                }
-                if (this.sensor7Condition1 === undefined) {
-                    this.sensor7Condition1 = 0;
-                }
-                if (this.sensor7Condition2 === undefined) {
-                    this.sensor7Condition2 = 0;
-                }
-                if (this.sensor7Condition3 === undefined) {
-                    this.sensor7Condition3 = 0;
-                }
-                if (this.sensor8Condition1 === undefined) {
-                    this.sensor8Condition1 = 0;
-                }
-                if (this.sensor8Condition2 === undefined) {
-                    this.sensor8Condition2 = 0;
-                }
-                if (this.sensor8Condition3 === undefined) {
-                    this.sensor8Condition3 = 0;
-                }
-                if (this.sensor9Condition1 === undefined) {
-                    this.sensor9Condition1 = 0;
-                }
-                if (this.sensor9Condition2 === undefined) {
-                    this.sensor9Condition2 = 0;
-                }
-                if (this.sensor9Condition3 === undefined) {
-                    this.sensor9Condition3 = 0;
-                }
-                if (this.sensor10Condition1 === undefined) {
-                    this.sensor10Condition1 = 0;
-                }
-                if (this.sensor10Condition2 === undefined) {
-                    this.sensor10Condition2 = 0;
-                }
-                if (this.sensor10Condition3 === undefined) {
-                    this.sensor10Condition3 = 0;
-                }
-                if (this.sensor11Condition1 === undefined) {
-                    this.sensor11Condition1 = 0;
-                }
-                if (this.sensor11Condition2 === undefined) {
-                    this.sensor11Condition2 = 0;
-                }
-                if (this.sensor11Condition3 === undefined) {
-                    this.sensor11Condition3 = 0;
-                }
-                if (this.sensor12Condition1 === undefined) {
-                    this.sensor12Condition1 = 0;
-                }
-                if (this.sensor12Condition2 === undefined) {
-                    this.sensor12Condition2 = 0;
-                }
-                if (this.sensor12Condition3 === undefined) {
-                    this.sensor12Condition3 = 0;
-                }
-                if (this.sensor13Condition1 === undefined) {
-                    this.sensor13Condition1 = 0;
-                }
-                if (this.sensor13Condition2 === undefined) {
-                    this.sensor13Condition2 = 0;
-                }
-                if (this.sensor13Condition3 === undefined) {
-                    this.sensor13Condition3 = 0;
-                }
-                if (this.sensor14Condition1 === undefined) {
-                    this.sensor14Condition1 = 0;
-                }
-                if (this.sensor14Condition2 === undefined) {
-                    this.sensor14Condition2 = 0;
-                }
-                if (this.sensor14Condition3 === undefined) {
-                    this.sensor14Condition3 = 0;
-                }
-                if (this.sensor15Condition1 === undefined) {
-                    this.sensor15Condition1 = 0;
-                }
-                if (this.sensor15Condition2 === undefined) {
-                    this.sensor15Condition2 = 0;
-                }
-                if (this.sensor15Condition3 === undefined) {
-                    this.sensor15Condition3 = 0;
-                }
-                if (this.sensor16Condition1 === undefined) {
-                    this.sensor16Condition1 = 0;
-                }
-                if (this.sensor16Condition2 === undefined) {
-                    this.sensor16Condition2 = 0;
-                }
-                if (this.sensor16Condition3 === undefined) {
-                    this.sensor16Condition3 = 0;
-                }
-                if (this.sensor1ResponseToWall1 === undefined) {
-                    this.sensor1ResponseToWall1 = 0;
-                }
-                if (this.sensor1ResponseToWall2 === undefined) {
-                    this.sensor1ResponseToWall2 = 0;
-                }
-                if (this.sensor1ResponseToWall3 === undefined) {
-                    this.sensor1ResponseToWall3 = 0;
-                }
-                if (this.sensor1ResponseToTank1 === undefined) {
-                    this.sensor1ResponseToTank1 = 0;
-                }
-                if (this.sensor1ResponseToTank2 === undefined) {
-                    this.sensor1ResponseToTank2 = 0;
-                }
-                if (this.sensor1ResponseToTank3 === undefined) {
-                    this.sensor1ResponseToTank3 = 0;
-                }
-                if (this.sensor1ResponseToMissile1 === undefined) {
-                    this.sensor1ResponseToMissile1 = 0;
-                }
-                if (this.sensor1ResponseToMissile2 === undefined) {
-                    this.sensor1ResponseToMissile2 = 0;
-                }
-                if (this.sensor1ResponseToMissile3 === undefined) {
-                    this.sensor1ResponseToMissile3 = 0;
-                }
-                if (this.sensor2ResponseToWall1 === undefined) {
-                    this.sensor2ResponseToWall1 = 0;
-                }
-                if (this.sensor2ResponseToWall2 === undefined) {
-                    this.sensor2ResponseToWall2 = 0;
-                }
-                if (this.sensor2ResponseToWall3 === undefined) {
-                    this.sensor2ResponseToWall3 = 0;
-                }
-                if (this.sensor2ResponseToTank1 === undefined) {
-                    this.sensor2ResponseToTank1 = 0;
-                }
-                if (this.sensor2ResponseToTank2 === undefined) {
-                    this.sensor2ResponseToTank2 = 0;
-                }
-                if (this.sensor2ResponseToTank3 === undefined) {
-                    this.sensor2ResponseToTank3 = 0;
-                }
-                if (this.sensor2ResponseToMissile1 === undefined) {
-                    this.sensor2ResponseToMissile1 = 0;
-                }
-                if (this.sensor2ResponseToMissile2 === undefined) {
-                    this.sensor2ResponseToMissile2 = 0;
-                }
-                if (this.sensor2ResponseToMissile3 === undefined) {
-                    this.sensor2ResponseToMissile3 = 0;
-                }
-                if (this.sensor3ResponseToWall1 === undefined) {
-                    this.sensor3ResponseToWall1 = 0;
-                }
-                if (this.sensor3ResponseToWall2 === undefined) {
-                    this.sensor3ResponseToWall2 = 0;
-                }
-                if (this.sensor3ResponseToWall3 === undefined) {
-                    this.sensor3ResponseToWall3 = 0;
-                }
-                if (this.sensor3ResponseToTank1 === undefined) {
-                    this.sensor3ResponseToTank1 = 0;
-                }
-                if (this.sensor3ResponseToTank2 === undefined) {
-                    this.sensor3ResponseToTank2 = 0;
-                }
-                if (this.sensor3ResponseToTank3 === undefined) {
-                    this.sensor3ResponseToTank3 = 0;
-                }
-                if (this.sensor3ResponseToMissile1 === undefined) {
-                    this.sensor3ResponseToMissile1 = 0;
-                }
-                if (this.sensor3ResponseToMissile2 === undefined) {
-                    this.sensor3ResponseToMissile2 = 0;
-                }
-                if (this.sensor3ResponseToMissile3 === undefined) {
-                    this.sensor3ResponseToMissile3 = 0;
-                }
-                if (this.sensor4ResponseToWall1 === undefined) {
-                    this.sensor4ResponseToWall1 = 0;
-                }
-                if (this.sensor4ResponseToWall2 === undefined) {
-                    this.sensor4ResponseToWall2 = 0;
-                }
-                if (this.sensor4ResponseToWall3 === undefined) {
-                    this.sensor4ResponseToWall3 = 0;
-                }
-                if (this.sensor4ResponseToTank1 === undefined) {
-                    this.sensor4ResponseToTank1 = 0;
-                }
-                if (this.sensor4ResponseToTank2 === undefined) {
-                    this.sensor4ResponseToTank2 = 0;
-                }
-                if (this.sensor4ResponseToTank3 === undefined) {
-                    this.sensor4ResponseToTank3 = 0;
-                }
-                if (this.sensor4ResponseToMissile1 === undefined) {
-                    this.sensor4ResponseToMissile1 = 0;
-                }
-                if (this.sensor4ResponseToMissile2 === undefined) {
-                    this.sensor4ResponseToMissile2 = 0;
-                }
-                if (this.sensor4ResponseToMissile3 === undefined) {
-                    this.sensor4ResponseToMissile3 = 0;
-                }
-                if (this.sensor5ResponseToWall1 === undefined) {
-                    this.sensor5ResponseToWall1 = 0;
-                }
-                if (this.sensor5ResponseToWall2 === undefined) {
-                    this.sensor5ResponseToWall2 = 0;
-                }
-                if (this.sensor5ResponseToWall3 === undefined) {
-                    this.sensor5ResponseToWall3 = 0;
-                }
-                if (this.sensor5ResponseToTank1 === undefined) {
-                    this.sensor5ResponseToTank1 = 0;
-                }
-                if (this.sensor5ResponseToTank2 === undefined) {
-                    this.sensor5ResponseToTank2 = 0;
-                }
-                if (this.sensor5ResponseToTank3 === undefined) {
-                    this.sensor5ResponseToTank3 = 0;
-                }
-                if (this.sensor5ResponseToMissile1 === undefined) {
-                    this.sensor5ResponseToMissile1 = 0;
-                }
-                if (this.sensor5ResponseToMissile2 === undefined) {
-                    this.sensor5ResponseToMissile2 = 0;
-                }
-                if (this.sensor5ResponseToMissile3 === undefined) {
-                    this.sensor5ResponseToMissile3 = 0;
-                }
-                if (this.sensor6ResponseToWall1 === undefined) {
-                    this.sensor6ResponseToWall1 = 0;
-                }
-                if (this.sensor6ResponseToWall2 === undefined) {
-                    this.sensor6ResponseToWall2 = 0;
-                }
-                if (this.sensor6ResponseToWall3 === undefined) {
-                    this.sensor6ResponseToWall3 = 0;
-                }
-                if (this.sensor6ResponseToTank1 === undefined) {
-                    this.sensor6ResponseToTank1 = 0;
-                }
-                if (this.sensor6ResponseToTank2 === undefined) {
-                    this.sensor6ResponseToTank2 = 0;
-                }
-                if (this.sensor6ResponseToTank3 === undefined) {
-                    this.sensor6ResponseToTank3 = 0;
-                }
-                if (this.sensor6ResponseToMissile1 === undefined) {
-                    this.sensor6ResponseToMissile1 = 0;
-                }
-                if (this.sensor6ResponseToMissile2 === undefined) {
-                    this.sensor6ResponseToMissile2 = 0;
-                }
-                if (this.sensor6ResponseToMissile3 === undefined) {
-                    this.sensor6ResponseToMissile3 = 0;
-                }
-                if (this.sensor7ResponseToWall1 === undefined) {
-                    this.sensor7ResponseToWall1 = 0;
-                }
-                if (this.sensor7ResponseToWall2 === undefined) {
-                    this.sensor7ResponseToWall2 = 0;
-                }
-                if (this.sensor7ResponseToWall3 === undefined) {
-                    this.sensor7ResponseToWall3 = 0;
-                }
-                if (this.sensor7ResponseToTank1 === undefined) {
-                    this.sensor7ResponseToTank1 = 0;
-                }
-                if (this.sensor7ResponseToTank2 === undefined) {
-                    this.sensor7ResponseToTank2 = 0;
-                }
-                if (this.sensor7ResponseToTank3 === undefined) {
-                    this.sensor7ResponseToTank3 = 0;
-                }
-                if (this.sensor7ResponseToMissile1 === undefined) {
-                    this.sensor7ResponseToMissile1 = 0;
-                }
-                if (this.sensor7ResponseToMissile2 === undefined) {
-                    this.sensor7ResponseToMissile2 = 0;
-                }
-                if (this.sensor7ResponseToMissile3 === undefined) {
-                    this.sensor7ResponseToMissile3 = 0;
-                }
-                if (this.sensor8ResponseToWall1 === undefined) {
-                    this.sensor8ResponseToWall1 = 0;
-                }
-                if (this.sensor8ResponseToWall2 === undefined) {
-                    this.sensor8ResponseToWall2 = 0;
-                }
-                if (this.sensor8ResponseToWall3 === undefined) {
-                    this.sensor8ResponseToWall3 = 0;
-                }
-                if (this.sensor8ResponseToTank1 === undefined) {
-                    this.sensor8ResponseToTank1 = 0;
-                }
-                if (this.sensor8ResponseToTank2 === undefined) {
-                    this.sensor8ResponseToTank2 = 0;
-                }
-                if (this.sensor8ResponseToTank3 === undefined) {
-                    this.sensor8ResponseToTank3 = 0;
-                }
-                if (this.sensor8ResponseToMissile1 === undefined) {
-                    this.sensor8ResponseToMissile1 = 0;
-                }
-                if (this.sensor8ResponseToMissile2 === undefined) {
-                    this.sensor8ResponseToMissile2 = 0;
-                }
-                if (this.sensor8ResponseToMissile3 === undefined) {
-                    this.sensor8ResponseToMissile3 = 0;
-                }
-                if (this.sensor9ResponseToWall1 === undefined) {
-                    this.sensor9ResponseToWall1 = 0;
-                }
-                if (this.sensor9ResponseToWall2 === undefined) {
-                    this.sensor9ResponseToWall2 = 0;
-                }
-                if (this.sensor9ResponseToWall3 === undefined) {
-                    this.sensor9ResponseToWall3 = 0;
-                }
-                if (this.sensor9ResponseToTank1 === undefined) {
-                    this.sensor9ResponseToTank1 = 0;
-                }
-                if (this.sensor9ResponseToTank2 === undefined) {
-                    this.sensor9ResponseToTank2 = 0;
-                }
-                if (this.sensor9ResponseToTank3 === undefined) {
-                    this.sensor9ResponseToTank3 = 0;
-                }
-                if (this.sensor9ResponseToMissile1 === undefined) {
-                    this.sensor9ResponseToMissile1 = 0;
-                }
-                if (this.sensor9ResponseToMissile2 === undefined) {
-                    this.sensor9ResponseToMissile2 = 0;
-                }
-                if (this.sensor9ResponseToMissile3 === undefined) {
-                    this.sensor9ResponseToMissile3 = 0;
-                }
-                if (this.sensor10ResponseToWall1 === undefined) {
-                    this.sensor10ResponseToWall1 = 0;
-                }
-                if (this.sensor10ResponseToWall2 === undefined) {
-                    this.sensor10ResponseToWall2 = 0;
-                }
-                if (this.sensor10ResponseToWall3 === undefined) {
-                    this.sensor10ResponseToWall3 = 0;
-                }
-                if (this.sensor10ResponseToTank1 === undefined) {
-                    this.sensor10ResponseToTank1 = 0;
-                }
-                if (this.sensor10ResponseToTank2 === undefined) {
-                    this.sensor10ResponseToTank2 = 0;
-                }
-                if (this.sensor10ResponseToTank3 === undefined) {
-                    this.sensor10ResponseToTank3 = 0;
-                }
-                if (this.sensor10ResponseToMissile1 === undefined) {
-                    this.sensor10ResponseToMissile1 = 0;
-                }
-                if (this.sensor10ResponseToMissile2 === undefined) {
-                    this.sensor10ResponseToMissile2 = 0;
-                }
-                if (this.sensor10ResponseToMissile3 === undefined) {
-                    this.sensor10ResponseToMissile3 = 0;
-                }
-                if (this.sensor11ResponseToWall1 === undefined) {
-                    this.sensor11ResponseToWall1 = 0;
-                }
-                if (this.sensor11ResponseToWall2 === undefined) {
-                    this.sensor11ResponseToWall2 = 0;
-                }
-                if (this.sensor11ResponseToWall3 === undefined) {
-                    this.sensor11ResponseToWall3 = 0;
-                }
-                if (this.sensor11ResponseToTank1 === undefined) {
-                    this.sensor11ResponseToTank1 = 0;
-                }
-                if (this.sensor11ResponseToTank2 === undefined) {
-                    this.sensor11ResponseToTank2 = 0;
-                }
-                if (this.sensor11ResponseToTank3 === undefined) {
-                    this.sensor11ResponseToTank3 = 0;
-                }
-                if (this.sensor11ResponseToMissile1 === undefined) {
-                    this.sensor11ResponseToMissile1 = 0;
-                }
-                if (this.sensor11ResponseToMissile2 === undefined) {
-                    this.sensor11ResponseToMissile2 = 0;
-                }
-                if (this.sensor11ResponseToMissile3 === undefined) {
-                    this.sensor11ResponseToMissile3 = 0;
-                }
-                if (this.sensor12ResponseToWall1 === undefined) {
-                    this.sensor12ResponseToWall1 = 0;
-                }
-                if (this.sensor12ResponseToWall2 === undefined) {
-                    this.sensor12ResponseToWall2 = 0;
-                }
-                if (this.sensor12ResponseToWall3 === undefined) {
-                    this.sensor12ResponseToWall3 = 0;
-                }
-                if (this.sensor12ResponseToTank1 === undefined) {
-                    this.sensor12ResponseToTank1 = 0;
-                }
-                if (this.sensor12ResponseToTank2 === undefined) {
-                    this.sensor12ResponseToTank2 = 0;
-                }
-                if (this.sensor12ResponseToTank3 === undefined) {
-                    this.sensor12ResponseToTank3 = 0;
-                }
-                if (this.sensor12ResponseToMissile1 === undefined) {
-                    this.sensor12ResponseToMissile1 = 0;
-                }
-                if (this.sensor12ResponseToMissile2 === undefined) {
-                    this.sensor12ResponseToMissile2 = 0;
-                }
-                if (this.sensor12ResponseToMissile3 === undefined) {
-                    this.sensor12ResponseToMissile3 = 0;
-                }
-                if (this.sensor13ResponseToWall1 === undefined) {
-                    this.sensor13ResponseToWall1 = 0;
-                }
-                if (this.sensor13ResponseToWall2 === undefined) {
-                    this.sensor13ResponseToWall2 = 0;
-                }
-                if (this.sensor13ResponseToWall3 === undefined) {
-                    this.sensor13ResponseToWall3 = 0;
-                }
-                if (this.sensor13ResponseToTank1 === undefined) {
-                    this.sensor13ResponseToTank1 = 0;
-                }
-                if (this.sensor13ResponseToTank2 === undefined) {
-                    this.sensor13ResponseToTank2 = 0;
-                }
-                if (this.sensor13ResponseToTank3 === undefined) {
-                    this.sensor13ResponseToTank3 = 0;
-                }
-                if (this.sensor13ResponseToMissile1 === undefined) {
-                    this.sensor13ResponseToMissile1 = 0;
-                }
-                if (this.sensor13ResponseToMissile2 === undefined) {
-                    this.sensor13ResponseToMissile2 = 0;
-                }
-                if (this.sensor13ResponseToMissile3 === undefined) {
-                    this.sensor13ResponseToMissile3 = 0;
-                }
-                if (this.sensor14ResponseToWall1 === undefined) {
-                    this.sensor14ResponseToWall1 = 0;
-                }
-                if (this.sensor14ResponseToWall2 === undefined) {
-                    this.sensor14ResponseToWall2 = 0;
-                }
-                if (this.sensor14ResponseToWall3 === undefined) {
-                    this.sensor14ResponseToWall3 = 0;
-                }
-                if (this.sensor14ResponseToTank1 === undefined) {
-                    this.sensor14ResponseToTank1 = 0;
-                }
-                if (this.sensor14ResponseToTank2 === undefined) {
-                    this.sensor14ResponseToTank2 = 0;
-                }
-                if (this.sensor14ResponseToTank3 === undefined) {
-                    this.sensor14ResponseToTank3 = 0;
-                }
-                if (this.sensor14ResponseToMissile1 === undefined) {
-                    this.sensor14ResponseToMissile1 = 0;
-                }
-                if (this.sensor14ResponseToMissile2 === undefined) {
-                    this.sensor14ResponseToMissile2 = 0;
-                }
-                if (this.sensor14ResponseToMissile3 === undefined) {
-                    this.sensor14ResponseToMissile3 = 0;
-                }
-                if (this.sensor15ResponseToWall1 === undefined) {
-                    this.sensor15ResponseToWall1 = 0;
-                }
-                if (this.sensor15ResponseToWall2 === undefined) {
-                    this.sensor15ResponseToWall2 = 0;
-                }
-                if (this.sensor15ResponseToWall3 === undefined) {
-                    this.sensor15ResponseToWall3 = 0;
-                }
-                if (this.sensor15ResponseToTank1 === undefined) {
-                    this.sensor15ResponseToTank1 = 0;
-                }
-                if (this.sensor15ResponseToTank2 === undefined) {
-                    this.sensor15ResponseToTank2 = 0;
-                }
-                if (this.sensor15ResponseToTank3 === undefined) {
-                    this.sensor15ResponseToTank3 = 0;
-                }
-                if (this.sensor15ResponseToMissile1 === undefined) {
-                    this.sensor15ResponseToMissile1 = 0;
-                }
-                if (this.sensor15ResponseToMissile2 === undefined) {
-                    this.sensor15ResponseToMissile2 = 0;
-                }
-                if (this.sensor15ResponseToMissile3 === undefined) {
-                    this.sensor15ResponseToMissile3 = 0;
-                }
-                if (this.sensor16ResponseToWall1 === undefined) {
-                    this.sensor16ResponseToWall1 = 0;
-                }
-                if (this.sensor16ResponseToWall2 === undefined) {
-                    this.sensor16ResponseToWall2 = 0;
-                }
-                if (this.sensor16ResponseToWall3 === undefined) {
-                    this.sensor16ResponseToWall3 = 0;
-                }
-                if (this.sensor16ResponseToTank1 === undefined) {
-                    this.sensor16ResponseToTank1 = 0;
-                }
-                if (this.sensor16ResponseToTank2 === undefined) {
-                    this.sensor16ResponseToTank2 = 0;
-                }
-                if (this.sensor16ResponseToTank3 === undefined) {
-                    this.sensor16ResponseToTank3 = 0;
-                }
-                if (this.sensor16ResponseToMissile1 === undefined) {
-                    this.sensor16ResponseToMissile1 = 0;
-                }
-                if (this.sensor16ResponseToMissile2 === undefined) {
-                    this.sensor16ResponseToMissile2 = 0;
-                }
-                if (this.sensor16ResponseToMissile3 === undefined) {
-                    this.sensor16ResponseToMissile3 = 0;
-                }
-                if (this.responseToMissileHit1 === undefined) {
-                    this.responseToMissileHit1 = 0;
-                }
-                if (this.responseToMissileHit2 === undefined) {
-                    this.responseToMissileHit2 = 0;
-                }
-                if (this.responseToMissileHit3 === undefined) {
-                    this.responseToMissileHit3 = 0;
-                }
-                if (this.responseToFacingTarget1 === undefined) {
-                    this.responseToFacingTarget1 = 0;
-                }
-                if (this.responseToFacingTarget2 === undefined) {
-                    this.responseToFacingTarget2 = 0;
-                }
-                if (this.responseToFacingTarget3 === undefined) {
-                    this.responseToFacingTarget3 = 0;
-                }
-                if (this.weaponStrategyFavourite1 === undefined) {
-                    this.weaponStrategyFavourite1 = 0;
-                }
-                if (this.weaponStrategySecondFavourite1 === undefined) {
-                    this.weaponStrategySecondFavourite1 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite1 === undefined) {
-                    this.weaponStrategyThirdFavourite1 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite1 === undefined) {
-                    this.weaponStrategyFourthFavourite1 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite1 === undefined) {
-                    this.weaponStrategyFifthFavourite1 = 0;
-                }
-                if (this.weaponStrategyFavourite2 === undefined) {
-                    this.weaponStrategyFavourite2 = 0;
-                }
-                if (this.weaponStrategySecondFavourite2 === undefined) {
-                    this.weaponStrategySecondFavourite2 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite2 === undefined) {
-                    this.weaponStrategyThirdFavourite2 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite2 === undefined) {
-                    this.weaponStrategyFourthFavourite2 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite2 === undefined) {
-                    this.weaponStrategyFifthFavourite2 = 0;
-                }
-                if (this.weaponStrategyFavourite3 === undefined) {
-                    this.weaponStrategyFavourite3 = 0;
-                }
-                if (this.weaponStrategySecondFavourite3 === undefined) {
-                    this.weaponStrategySecondFavourite3 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite3 === undefined) {
-                    this.weaponStrategyThirdFavourite3 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite3 === undefined) {
-                    this.weaponStrategyFourthFavourite3 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite3 === undefined) {
-                    this.weaponStrategyFifthFavourite3 = 0;
-                }
-                if (this.weaponStrategyFavourite4 === undefined) {
-                    this.weaponStrategyFavourite4 = 0;
-                }
-                if (this.weaponStrategySecondFavourite4 === undefined) {
-                    this.weaponStrategySecondFavourite4 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite4 === undefined) {
-                    this.weaponStrategyThirdFavourite4 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite4 === undefined) {
-                    this.weaponStrategyFourthFavourite4 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite4 === undefined) {
-                    this.weaponStrategyFifthFavourite4 = 0;
-                }
-                if (this.weaponStrategyFavourite5 === undefined) {
-                    this.weaponStrategyFavourite5 = 0;
-                }
-                if (this.weaponStrategySecondFavourite5 === undefined) {
-                    this.weaponStrategySecondFavourite5 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite5 === undefined) {
-                    this.weaponStrategyThirdFavourite5 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite5 === undefined) {
-                    this.weaponStrategyFourthFavourite5 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite5 === undefined) {
-                    this.weaponStrategyFifthFavourite5 = 0;
-                }
-                if (this.weaponStrategyFavourite6 === undefined) {
-                    this.weaponStrategyFavourite6 = 0;
-                }
-                if (this.weaponStrategySecondFavourite6 === undefined) {
-                    this.weaponStrategySecondFavourite6 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite6 === undefined) {
-                    this.weaponStrategyThirdFavourite6 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite6 === undefined) {
-                    this.weaponStrategyFourthFavourite6 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite6 === undefined) {
-                    this.weaponStrategyFifthFavourite6 = 0;
-                }
-                if (this.weaponStrategyFavourite7 === undefined) {
-                    this.weaponStrategyFavourite7 = 0;
-                }
-                if (this.weaponStrategySecondFavourite7 === undefined) {
-                    this.weaponStrategySecondFavourite7 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite7 === undefined) {
-                    this.weaponStrategyThirdFavourite7 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite7 === undefined) {
-                    this.weaponStrategyFourthFavourite7 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite7 === undefined) {
-                    this.weaponStrategyFifthFavourite7 = 0;
-                }
-                if (this.weaponStrategyFavourite8 === undefined) {
-                    this.weaponStrategyFavourite8 = 0;
-                }
-                if (this.weaponStrategySecondFavourite8 === undefined) {
-                    this.weaponStrategySecondFavourite8 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite8 === undefined) {
-                    this.weaponStrategyThirdFavourite8 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite8 === undefined) {
-                    this.weaponStrategyFourthFavourite8 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite8 === undefined) {
-                    this.weaponStrategyFifthFavourite8 = 0;
-                }
-                if (this.weaponFuelRatio === undefined) {
-                    this.weaponFuelRatio = 0;
-                }
-                if (this.shoppingStrategyAction1 === undefined) {
-                    this.shoppingStrategyAction1 = 0;
-                }
-                if (this.shoppingStrategyCondition1 === undefined) {
-                    this.shoppingStrategyCondition1 = 0;
-                }
-                if (this.shoppingStrategyAction2 === undefined) {
-                    this.shoppingStrategyAction2 = 0;
-                }
-                if (this.shoppingStrategyCondition2 === undefined) {
-                    this.shoppingStrategyCondition2 = 0;
-                }
-                if (this.shoppingStrategyAction3 === undefined) {
-                    this.shoppingStrategyAction3 = 0;
-                }
-                if (this.shoppingStrategyCondition3 === undefined) {
-                    this.shoppingStrategyCondition3 = 0;
-                }
-                if (this.shoppingStrategyAction4 === undefined) {
-                    this.shoppingStrategyAction4 = 0;
-                }
-                if (this.shoppingStrategyCondition4 === undefined) {
-                    this.shoppingStrategyCondition4 = 0;
-                }
-                if (this.shoppingStrategyAction5 === undefined) {
-                    this.shoppingStrategyAction5 = 0;
-                }
-                if (this.shoppingStrategyCondition5 === undefined) {
-                    this.shoppingStrategyCondition5 = 0;
-                }
-                if (this.shoppingStrategyAction6 === undefined) {
-                    this.shoppingStrategyAction6 = 0;
-                }
-                if (this.shoppingStrategyCondition6 === undefined) {
-                    this.shoppingStrategyCondition6 = 0;
-                }
-                if (this.shoppingStrategyAction7 === undefined) {
-                    this.shoppingStrategyAction7 = 0;
-                }
-                if (this.shoppingStrategyCondition7 === undefined) {
-                    this.shoppingStrategyCondition7 = 0;
-                }
-                if (this.shoppingStrategyAction8 === undefined) {
-                    this.shoppingStrategyAction8 = 0;
-                }
-                if (this.shoppingStrategyCondition8 === undefined) {
-                    this.shoppingStrategyCondition8 = 0;
-                }
-                if (this.shoppingStrategyAction9 === undefined) {
-                    this.shoppingStrategyAction9 = 0;
-                }
-                if (this.shoppingStrategyCondition9 === undefined) {
-                    this.shoppingStrategyCondition9 = 0;
-                }
-                if (this.shoppingStrategyAction10 === undefined) {
-                    this.shoppingStrategyAction10 = 0;
-                }
-                if (this.shoppingStrategyCondition10 === undefined) {
-                    this.shoppingStrategyCondition10 = 0;
-                }
-                if (this.shoppingStrategyMaximumFireUnitExpenseWhenWeaponBeingReplaced === undefined) {
-                    this.shoppingStrategyMaximumFireUnitExpenseWhenWeaponBeingReplaced = 0;
-                }
-                if (this.shoppingStrategyMaximumFireUnitsThatBePurchased === undefined) {
-                    this.shoppingStrategyMaximumFireUnitsThatBePurchased = 0;
-                }
-                if (this.timeOfLastClock1Tick === undefined) {
-                    this.timeOfLastClock1Tick = 0;
-                }
-                if (this.timeOfLastClock2Tick === undefined) {
-                    this.timeOfLastClock2Tick = 0;
-                }
-                if (this.timeOfLastClock3Tick === undefined) {
-                    this.timeOfLastClock3Tick = 0;
-                }
-                if (this.timeOfLastClock4Tick === undefined) {
-                    this.timeOfLastClock4Tick = 0;
-                }
-                if (this.timeOfLastClock5Tick === undefined) {
-                    this.timeOfLastClock5Tick = 0;
-                }
-                if (this.timeOfLastClock6Tick === undefined) {
-                    this.timeOfLastClock6Tick = 0;
-                }
-                if (this.timeOfLastClock7Tick === undefined) {
-                    this.timeOfLastClock7Tick = 0;
-                }
-                if (this.timeOfLastClock8Tick === undefined) {
-                    this.timeOfLastClock8Tick = 0;
-                }
-                if (this.timeOfLastClock9Tick === undefined) {
-                    this.timeOfLastClock9Tick = 0;
-                }
-                if (this.timeOfLastClock10Tick === undefined) {
-                    this.timeOfLastClock10Tick = 0;
-                }
-                if (this.timeOfLastSensor1Tick === undefined) {
-                    this.timeOfLastSensor1Tick = 0;
-                }
-                if (this.timeOfLastSensor2Tick === undefined) {
-                    this.timeOfLastSensor2Tick = 0;
-                }
-                if (this.timeOfLastSensor3Tick === undefined) {
-                    this.timeOfLastSensor3Tick = 0;
-                }
-                if (this.timeOfLastSensor4Tick === undefined) {
-                    this.timeOfLastSensor4Tick = 0;
-                }
-                if (this.timeOfLastSensor5Tick === undefined) {
-                    this.timeOfLastSensor5Tick = 0;
-                }
-                if (this.timeOfLastSensor6Tick === undefined) {
-                    this.timeOfLastSensor6Tick = 0;
-                }
-                if (this.timeOfLastSensor7Tick === undefined) {
-                    this.timeOfLastSensor7Tick = 0;
-                }
-                if (this.timeOfLastSensor8Tick === undefined) {
-                    this.timeOfLastSensor8Tick = 0;
-                }
-                if (this.timeOfLastSensor9Tick === undefined) {
-                    this.timeOfLastSensor9Tick = 0;
-                }
-                if (this.timeOfLastSensor10Tick === undefined) {
-                    this.timeOfLastSensor10Tick = 0;
-                }
-                if (this.timeOfLastSensor11Tick === undefined) {
-                    this.timeOfLastSensor11Tick = 0;
-                }
-                if (this.timeOfLastSensor12Tick === undefined) {
-                    this.timeOfLastSensor12Tick = 0;
-                }
-                if (this.timeOfLastSensor13Tick === undefined) {
-                    this.timeOfLastSensor13Tick = 0;
-                }
-                if (this.timeOfLastSensor14Tick === undefined) {
-                    this.timeOfLastSensor14Tick = 0;
-                }
-                if (this.timeOfLastSensor15Tick === undefined) {
-                    this.timeOfLastSensor15Tick = 0;
-                }
-                if (this.timeOfLastSensor16Tick === undefined) {
-                    this.timeOfLastSensor16Tick = 0;
-                }
-                this.clock1Probability = 0;
-                this.clock2Probability = 0;
-                this.clock3Probability = 0;
-                this.clock4Probability = 0;
-                this.clock5Probability = 0;
-                this.clock6Probability = 0;
-                this.clock7Probability = 0;
-                this.clock8Probability = 0;
-                this.clock9Probability = 0;
-                this.clock10Probability = 0;
-                this.clock1Period = 0;
-                this.clock2Period = 0;
-                this.clock3Period = 0;
-                this.clock4Period = 0;
-                this.clock5Period = 0;
-                this.clock6Period = 0;
-                this.clock7Period = 0;
-                this.clock8Period = 0;
-                this.clock9Period = 0;
-                this.clock10Period = 0;
-                this.clock1Requirement1 = 167;
-                this.clock1Requirement2 = 167;
-                this.clock2Requirement1 = 167;
-                this.clock2Requirement2 = 167;
-                this.clock3Requirement1 = 167;
-                this.clock3Requirement2 = 167;
-                this.clock4Requirement1 = 167;
-                this.clock4Requirement2 = 167;
-                this.clock5Requirement1 = 167;
-                this.clock5Requirement2 = 167;
-                this.clock6Requirement1 = 167;
-                this.clock6Requirement2 = 167;
-                this.clock7Requirement1 = 167;
-                this.clock7Requirement2 = 167;
-                this.clock8Requirement1 = 167;
-                this.clock8Requirement2 = 167;
-                this.clock9Requirement1 = 167;
-                this.clock9Requirement2 = 167;
-                this.clock10Requirement1 = 167;
-                this.clock10Requirement2 = 167;
-                this.clock1Response1 = RobotSpecification.NO_ACTION;
-                this.clock1Response2 = 100;
-                this.clock1Response3 = 100;
-                this.clock2Response1 = 100;
-                this.clock2Response2 = 100;
-                this.clock2Response3 = 100;
-                this.clock3Response1 = 100;
-                this.clock3Response2 = 100;
-                this.clock3Response3 = 100;
-                this.clock4Response1 = 100;
-                this.clock4Response2 = 100;
-                this.clock4Response3 = 100;
-                this.clock5Response1 = 100;
-                this.clock5Response2 = 100;
-                this.clock5Response3 = 100;
-                this.clock6Response1 = 100;
-                this.clock6Response2 = 100;
-                this.clock6Response3 = 100;
-                this.clock7Response1 = 100;
-                this.clock7Response2 = 100;
-                this.clock7Response3 = 100;
-                this.clock8Response1 = 100;
-                this.clock8Response2 = 100;
-                this.clock8Response3 = 100;
-                this.clock9Response1 = 100;
-                this.clock9Response2 = 100;
-                this.clock9Response3 = 100;
-                this.clock10Response1 = 100;
-                this.clock10Response2 = 100;
-                this.clock10Response3 = 100;
-                this.sensor1Angle = 0;
-                this.sensor2Angle = 180;
-                this.sensor3Angle = 20;
-                this.sensor4Angle = -20;
-                this.sensor5Angle = 180;
-                this.sensor6Angle = 40;
-                this.sensor7Angle = -40;
-                this.sensor8Angle = 0;
-                this.sensor9Angle = 0;
-                this.sensor10Angle = 0;
-                this.sensor11Angle = 0;
-                this.sensor12Angle = 0;
-                this.sensor13Angle = 0;
-                this.sensor14Angle = 0;
-                this.sensor15Angle = 0;
-                this.sensor16Angle = 0;
-                this.sensor1Length = 900;
-                this.sensor2Length = 900;
-                this.sensor3Length = 300;
-                this.sensor4Length = 300;
-                this.sensor5Length = 80;
-                this.sensor6Length = 80;
-                this.sensor7Length = 80;
-                this.sensor8Length = 0;
-                this.sensor9Length = 0;
-                this.sensor10Length = 0;
-                this.sensor11Length = 0;
-                this.sensor12Length = 0;
-                this.sensor13Length = 0;
-                this.sensor14Length = 0;
-                this.sensor15Length = 0;
-                this.sensor16Length = 0;
-                this.sensor1Width = 0;
-                this.sensor2Width = 0;
-                this.sensor3Width = 5;
-                this.sensor4Width = 5;
-                this.sensor5Width = 0;
-                this.sensor6Width = 80;
-                this.sensor7Width = 80;
-                this.sensor8Width = 0;
-                this.sensor9Width = 0;
-                this.sensor10Width = 0;
-                this.sensor11Width = 0;
-                this.sensor12Width = 0;
-                this.sensor13Width = 0;
-                this.sensor14Width = 0;
-                this.sensor15Width = 0;
-                this.sensor16Width = 0;
-                this.sensor1Probability = RobotSpecification.NO_ACTION;
-                this.sensor2Probability = 100;
-                this.sensor3Probability = 100;
-                this.sensor4Probability = 100;
-                this.sensor5Probability = 100;
-                this.sensor6Probability = 100;
-                this.sensor7Probability = 100;
-                this.sensor8Probability = 100;
-                this.sensor9Probability = 100;
-                this.sensor10Probability = 100;
-                this.sensor11Probability = 100;
-                this.sensor12Probability = 100;
-                this.sensor13Probability = 100;
-                this.sensor14Probability = 100;
-                this.sensor15Probability = 100;
-                this.sensor16Probability = 100;
-                this.sensor1Period = 1000;
-                this.sensor2Period = 1000;
-                this.sensor3Period = 200;
-                this.sensor4Period = 200;
-                this.sensor5Period = 200;
-                this.sensor6Period = 200;
-                this.sensor7Period = 200;
-                this.sensor8Period = 0;
-                this.sensor9Period = 0;
-                this.sensor10Period = 0;
-                this.sensor11Period = 0;
-                this.sensor12Period = 0;
-                this.sensor13Period = 0;
-                this.sensor14Period = 0;
-                this.sensor15Period = 0;
-                this.sensor16Period = 0;
-                this.sensor1ParallelOffset = 0;
-                this.sensor2ParallelOffset = 0;
-                this.sensor3ParallelOffset = -15;
-                this.sensor4ParallelOffset = -15;
-                this.sensor5ParallelOffset = 0;
-                this.sensor6ParallelOffset = 0;
-                this.sensor7ParallelOffset = 0;
-                this.sensor8ParallelOffset = 0;
-                this.sensor9ParallelOffset = 0;
-                this.sensor10ParallelOffset = 0;
-                this.sensor11ParallelOffset = 0;
-                this.sensor12ParallelOffset = 0;
-                this.sensor13ParallelOffset = 0;
-                this.sensor14ParallelOffset = 0;
-                this.sensor15ParallelOffset = 0;
-                this.sensor16ParallelOffset = 0;
-                this.sensor1PerpendicularOffset = 0;
-                this.sensor2PerpendicularOffset = 0;
-                this.sensor3PerpendicularOffset = 15;
-                this.sensor4PerpendicularOffset = -15;
-                this.sensor5PerpendicularOffset = 0;
-                this.sensor6PerpendicularOffset = 0;
-                this.sensor7PerpendicularOffset = 0;
-                this.sensor8PerpendicularOffset = 0;
-                this.sensor9PerpendicularOffset = 0;
-                this.sensor10PerpendicularOffset = 0;
-                this.sensor11PerpendicularOffset = 0;
-                this.sensor12PerpendicularOffset = 0;
-                this.sensor13PerpendicularOffset = 0;
-                this.sensor14PerpendicularOffset = 0;
-                this.sensor15PerpendicularOffset = 0;
-                this.sensor16PerpendicularOffset = 0;
-                this.sensor1Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor1Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor1Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor2Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor2Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor2Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor3Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor3Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor3Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor4Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor4Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor4Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor5Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor5Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor5Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor6Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor6Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor6Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor7Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor7Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor7Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor8Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor8Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor8Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor9Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor9Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor9Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor10Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor10Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor10Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor11Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor11Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor11Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor12Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor12Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor12Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor13Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor13Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor13Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor14Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor14Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor14Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor15Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor15Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor15Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor16Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor16Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor16Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor1ResponseToWall1 = RobotSpecification.NO_ACTION;
-                this.sensor1ResponseToWall2 = 100;
-                this.sensor1ResponseToWall3 = 100;
-                this.sensor1ResponseToTank1 = RobotSpecification.NO_ACTION;
-                this.sensor1ResponseToTank2 = 100;
-                this.sensor1ResponseToTank3 = 100;
-                this.sensor1ResponseToMissile1 = RobotSpecification.NO_ACTION;
-                this.sensor1ResponseToMissile2 = 100;
-                this.sensor1ResponseToMissile3 = 100;
-                this.sensor2ResponseToWall1 = RobotSpecification.NO_ACTION;
-                this.sensor2ResponseToWall2 = 100;
-                this.sensor2ResponseToWall3 = 100;
-                this.sensor2ResponseToTank1 = RobotSpecification.NO_ACTION;
-                this.sensor2ResponseToTank2 = 100;
-                this.sensor2ResponseToTank3 = 100;
-                this.sensor2ResponseToMissile1 = RobotSpecification.NO_ACTION;
-                this.sensor2ResponseToMissile2 = 100;
-                this.sensor2ResponseToMissile3 = 100;
-                this.sensor3ResponseToWall1 = RobotSpecification.NO_ACTION;
-                this.sensor3ResponseToWall2 = 100;
-                this.sensor3ResponseToWall3 = 100;
-                this.sensor3ResponseToTank1 = RobotSpecification.NO_ACTION;
-                this.sensor3ResponseToTank2 = 100;
-                this.sensor3ResponseToTank3 = 100;
-                this.sensor3ResponseToMissile1 = RobotSpecification.NO_ACTION;
-                this.sensor3ResponseToMissile2 = 100;
-                this.sensor3ResponseToMissile3 = 100;
-                this.sensor4ResponseToWall1 = RobotSpecification.NO_ACTION;
-                this.sensor4ResponseToWall2 = 100;
-                this.sensor4ResponseToWall3 = 100;
-                this.sensor4ResponseToTank1 = RobotSpecification.NO_ACTION;
-                this.sensor4ResponseToTank2 = 100;
-                this.sensor4ResponseToTank3 = 100;
-                this.sensor4ResponseToMissile1 = RobotSpecification.NO_ACTION;
-                this.sensor4ResponseToMissile2 = 100;
-                this.sensor4ResponseToMissile3 = 100;
-                this.sensor5ResponseToWall1 = RobotSpecification.NO_ACTION;
-                this.sensor5ResponseToWall2 = 100;
-                this.sensor5ResponseToWall3 = 100;
-                this.sensor5ResponseToTank1 = RobotSpecification.NO_ACTION;
-                this.sensor5ResponseToTank2 = 100;
-                this.sensor5ResponseToTank3 = 100;
-                this.sensor5ResponseToMissile1 = RobotSpecification.NO_ACTION;
-                this.sensor5ResponseToMissile2 = 100;
-                this.sensor5ResponseToMissile3 = 100;
-                this.sensor6ResponseToWall1 = RobotSpecification.NO_ACTION;
-                this.sensor6ResponseToWall2 = 100;
-                this.sensor6ResponseToWall3 = 100;
-                this.sensor6ResponseToTank1 = RobotSpecification.NO_ACTION;
-                this.sensor6ResponseToTank2 = 100;
-                this.sensor6ResponseToTank3 = 100;
-                this.sensor6ResponseToMissile1 = RobotSpecification.NO_ACTION;
-                this.sensor6ResponseToMissile2 = 100;
-                this.sensor6ResponseToMissile3 = 100;
-                this.sensor7ResponseToWall1 = RobotSpecification.NO_ACTION;
-                this.sensor7ResponseToWall2 = 100;
-                this.sensor7ResponseToWall3 = 100;
-                this.sensor7ResponseToTank1 = RobotSpecification.NO_ACTION;
-                this.sensor7ResponseToTank2 = 100;
-                this.sensor7ResponseToTank3 = 100;
-                this.sensor7ResponseToMissile1 = RobotSpecification.NO_ACTION;
-                this.sensor7ResponseToMissile2 = 100;
-                this.sensor7ResponseToMissile3 = 100;
-                this.sensor8ResponseToWall1 = RobotSpecification.NO_ACTION;
-                this.sensor8ResponseToWall2 = 100;
-                this.sensor8ResponseToWall3 = 100;
-                this.sensor8ResponseToTank1 = RobotSpecification.NO_ACTION;
-                this.sensor8ResponseToTank2 = 100;
-                this.sensor8ResponseToTank3 = 100;
-                this.sensor8ResponseToMissile1 = RobotSpecification.NO_ACTION;
-                this.sensor8ResponseToMissile2 = 100;
-                this.sensor8ResponseToMissile3 = 100;
-                this.sensor9ResponseToWall1 = RobotSpecification.NO_ACTION;
-                this.sensor9ResponseToWall2 = 100;
-                this.sensor9ResponseToWall3 = 100;
-                this.sensor9ResponseToTank1 = RobotSpecification.NO_ACTION;
-                this.sensor9ResponseToTank2 = 100;
-                this.sensor9ResponseToTank3 = 100;
-                this.sensor9ResponseToMissile1 = RobotSpecification.NO_ACTION;
-                this.sensor9ResponseToMissile2 = 100;
-                this.sensor9ResponseToMissile3 = 100;
-                this.sensor10ResponseToWall1 = 100;
-                this.sensor10ResponseToWall2 = 100;
-                this.sensor10ResponseToWall3 = 100;
-                this.sensor10ResponseToTank1 = 100;
-                this.sensor10ResponseToTank2 = 100;
-                this.sensor10ResponseToTank3 = 100;
-                this.sensor10ResponseToMissile1 = 100;
-                this.sensor10ResponseToMissile2 = 100;
-                this.sensor10ResponseToMissile3 = 100;
-                this.sensor11ResponseToWall1 = 100;
-                this.sensor11ResponseToWall2 = 100;
-                this.sensor11ResponseToWall3 = 100;
-                this.sensor11ResponseToTank1 = 100;
-                this.sensor11ResponseToTank2 = 100;
-                this.sensor11ResponseToTank3 = 100;
-                this.sensor11ResponseToMissile1 = 100;
-                this.sensor11ResponseToMissile2 = 100;
-                this.sensor11ResponseToMissile3 = 100;
-                this.sensor12ResponseToWall1 = 100;
-                this.sensor12ResponseToWall2 = 100;
-                this.sensor12ResponseToWall3 = 100;
-                this.sensor12ResponseToTank1 = 100;
-                this.sensor12ResponseToTank2 = 100;
-                this.sensor12ResponseToTank3 = 100;
-                this.sensor12ResponseToMissile1 = 100;
-                this.sensor12ResponseToMissile2 = 100;
-                this.sensor12ResponseToMissile3 = 100;
-                this.sensor13ResponseToWall1 = 100;
-                this.sensor13ResponseToWall2 = 100;
-                this.sensor13ResponseToWall3 = 100;
-                this.sensor13ResponseToTank1 = 100;
-                this.sensor13ResponseToTank2 = 100;
-                this.sensor13ResponseToTank3 = 100;
-                this.sensor13ResponseToMissile1 = 100;
-                this.sensor13ResponseToMissile2 = 100;
-                this.sensor13ResponseToMissile3 = 100;
-                this.sensor14ResponseToWall1 = 100;
-                this.sensor14ResponseToWall2 = 100;
-                this.sensor14ResponseToWall3 = 100;
-                this.sensor14ResponseToTank1 = 100;
-                this.sensor14ResponseToTank2 = 100;
-                this.sensor14ResponseToTank3 = 100;
-                this.sensor14ResponseToMissile1 = 100;
-                this.sensor14ResponseToMissile2 = 100;
-                this.sensor14ResponseToMissile3 = 100;
-                this.sensor15ResponseToWall1 = 100;
-                this.sensor15ResponseToWall2 = 100;
-                this.sensor15ResponseToWall3 = 100;
-                this.sensor15ResponseToTank1 = 100;
-                this.sensor15ResponseToTank2 = 100;
-                this.sensor15ResponseToTank3 = 100;
-                this.sensor15ResponseToMissile1 = 100;
-                this.sensor15ResponseToMissile2 = 100;
-                this.sensor15ResponseToMissile3 = 100;
-                this.sensor16ResponseToWall1 = 100;
-                this.sensor16ResponseToWall2 = 100;
-                this.sensor16ResponseToWall3 = 100;
-                this.sensor16ResponseToTank1 = 100;
-                this.sensor16ResponseToTank2 = 100;
-                this.sensor16ResponseToTank3 = 100;
-                this.sensor16ResponseToMissile1 = RobotSpecification.NO_ACTION;
-                this.sensor16ResponseToMissile2 = RobotSpecification.NO_ACTION;
-                this.sensor16ResponseToMissile3 = RobotSpecification.NO_ACTION;
-                this.responseToMissileHit1 = RobotSpecification.NO_ACTION;
-                this.responseToMissileHit2 = RobotSpecification.NO_ACTION;
-                this.responseToMissileHit3 = RobotSpecification.NO_ACTION;
-                this.responseToFacingTarget1 = RobotSpecification.NO_ACTION;
-                this.responseToFacingTarget2 = RobotSpecification.NO_ACTION;
-                this.responseToFacingTarget3 = RobotSpecification.NO_ACTION;
-                this.weaponStrategyFavourite1 = dsector.PreBuiltWeaponSpecifications.TRI_STRIKER;
-                this.weaponStrategySecondFavourite1 = dsector.PreBuiltWeaponSpecifications.POWER_LASER;
-                this.weaponStrategyThirdFavourite1 = dsector.PreBuiltWeaponSpecifications.BEAM_LASER;
-                this.weaponStrategyFourthFavourite1 = dsector.PreBuiltWeaponSpecifications.DOUBLE_MISSILE;
-                this.weaponStrategyFifthFavourite1 = dsector.PreBuiltWeaponSpecifications.STANDARD_MISSILE;
-                this.weaponStrategyFavourite2 = dsector.PreBuiltWeaponSpecifications.TRI_BREAKER;
-                this.weaponStrategySecondFavourite2 = dsector.PreBuiltWeaponSpecifications.QUINT_BREAKER;
-                this.weaponStrategyThirdFavourite2 = dsector.PreBuiltWeaponSpecifications.OCTO_BREAKER;
-                this.weaponStrategyFourthFavourite2 = dsector.PreBuiltWeaponSpecifications.NONE;
-                this.weaponStrategyFifthFavourite2 = dsector.PreBuiltWeaponSpecifications.NONE;
-                this.weaponStrategyFavourite3 = dsector.PreBuiltWeaponSpecifications.REAR_TRIPLE;
-                this.weaponStrategySecondFavourite3 = dsector.PreBuiltWeaponSpecifications.REAR_GUIDERS;
-                this.weaponStrategyThirdFavourite3 = dsector.PreBuiltWeaponSpecifications.REAR_DOUBLE;
-                this.weaponStrategyFourthFavourite3 = dsector.PreBuiltWeaponSpecifications.NONE;
-                this.weaponStrategyFifthFavourite3 = 500;
-                this.weaponStrategyFavourite4 = 500;
-                this.weaponStrategySecondFavourite4 = 500;
-                this.weaponStrategyThirdFavourite4 = 500;
-                this.weaponStrategyFourthFavourite4 = 500;
-                this.weaponStrategyFifthFavourite4 = 500;
-                this.weaponStrategyFavourite5 = 500;
-                this.weaponStrategySecondFavourite5 = 500;
-                this.weaponStrategyThirdFavourite5 = 500;
-                this.weaponStrategyFourthFavourite5 = 500;
-                this.weaponStrategyFifthFavourite5 = 500;
-                this.weaponStrategyFavourite6 = 500;
-                this.weaponStrategySecondFavourite6 = 500;
-                this.weaponStrategyThirdFavourite6 = 500;
-                this.weaponStrategyFourthFavourite6 = 500;
-                this.weaponStrategyFifthFavourite6 = 500;
-                this.weaponStrategyFavourite7 = 500;
-                this.weaponStrategySecondFavourite7 = 500;
-                this.weaponStrategyThirdFavourite7 = 500;
-                this.weaponStrategyFourthFavourite7 = 500;
-                this.weaponStrategyFifthFavourite7 = 500;
-                this.weaponStrategyFavourite8 = 500;
-                this.weaponStrategySecondFavourite8 = 500;
-                this.weaponStrategyThirdFavourite8 = 500;
-                this.weaponStrategyFourthFavourite8 = 500;
-                this.weaponStrategyFifthFavourite8 = 500;
-                this.shoppingStrategyAction1 = RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_1;
-                this.shoppingStrategyCondition1 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
-                this.shoppingStrategyAction2 = RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_RANDOM_WEAPON_STRATEGY;
-                this.shoppingStrategyCondition2 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
-                this.shoppingStrategyAction3 = RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_RANDOM_WEAPON_STRATEGY;
-                this.shoppingStrategyCondition3 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
-                this.shoppingStrategyAction4 = RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_RANDOM_WEAPON_STRATEGY;
-                this.shoppingStrategyCondition4 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
-                this.shoppingStrategyAction5 = RobotSpecification.NO_ACTION;
-                this.shoppingStrategyCondition5 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
-                this.shoppingStrategyAction6 = RobotSpecification.NO_ACTION;
-                this.shoppingStrategyCondition6 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
-                this.shoppingStrategyAction7 = RobotSpecification.NO_ACTION;
-                this.shoppingStrategyCondition7 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
-                this.shoppingStrategyAction8 = RobotSpecification.NO_ACTION;
-                this.shoppingStrategyCondition8 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
-                this.shoppingStrategyAction9 = RobotSpecification.SHOPPING_CONDITION_50_PERCENT;
-                this.shoppingStrategyCondition9 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
-                this.shoppingStrategyAction10 = RobotSpecification.NO_ACTION;
-                this.shoppingStrategyCondition10 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
-                this.shoppingStrategyMaximumFireUnitExpenseWhenWeaponBeingReplaced = 200;
-                this.shoppingStrategyMaximumFireUnitsThatBePurchased = 200;
-                this.filename = "[keyboard1]";
-                this.name = "No name";
-                this.description = "";
-                this.viewSensors = RobotSpecification.FALSE;
-                this.weaponFuelRatio = 100;
+            this.type = RobotSpecification.KEYBOARD1;
+            this.filename = "[keyboard1]";
+            this.name = "No name";
+            this.description = "";
+            this.viewSensors = RobotSpecification.FALSE;
 
-                if (this.type === undefined) {
-                    this.type = 0;
-                }
-                if (this.filename === undefined) {
-                    this.filename = null;
-                }
-                if (this.name === undefined) {
-                    this.name = null;
-                }
-                if (this.description === undefined) {
-                    this.description = null;
-                }
-                if (this.viewSensors === undefined) {
-                    this.viewSensors = 0;
-                }
-                if (this.clock1Probability === undefined) {
-                    this.clock1Probability = 0;
-                }
-                if (this.clock2Probability === undefined) {
-                    this.clock2Probability = 0;
-                }
-                if (this.clock3Probability === undefined) {
-                    this.clock3Probability = 0;
-                }
-                if (this.clock4Probability === undefined) {
-                    this.clock4Probability = 0;
-                }
-                if (this.clock5Probability === undefined) {
-                    this.clock5Probability = 0;
-                }
-                if (this.clock6Probability === undefined) {
-                    this.clock6Probability = 0;
-                }
-                if (this.clock7Probability === undefined) {
-                    this.clock7Probability = 0;
-                }
-                if (this.clock8Probability === undefined) {
-                    this.clock8Probability = 0;
-                }
-                if (this.clock9Probability === undefined) {
-                    this.clock9Probability = 0;
-                }
-                if (this.clock10Probability === undefined) {
-                    this.clock10Probability = 0;
-                }
-                if (this.clock1Period === undefined) {
-                    this.clock1Period = 0;
-                }
-                if (this.clock2Period === undefined) {
-                    this.clock2Period = 0;
-                }
-                if (this.clock3Period === undefined) {
-                    this.clock3Period = 0;
-                }
-                if (this.clock4Period === undefined) {
-                    this.clock4Period = 0;
-                }
-                if (this.clock5Period === undefined) {
-                    this.clock5Period = 0;
-                }
-                if (this.clock6Period === undefined) {
-                    this.clock6Period = 0;
-                }
-                if (this.clock7Period === undefined) {
-                    this.clock7Period = 0;
-                }
-                if (this.clock8Period === undefined) {
-                    this.clock8Period = 0;
-                }
-                if (this.clock9Period === undefined) {
-                    this.clock9Period = 0;
-                }
-                if (this.clock10Period === undefined) {
-                    this.clock10Period = 0;
-                }
-                if (this.clock1Requirement1 === undefined) {
-                    this.clock1Requirement1 = 0;
-                }
-                if (this.clock1Requirement2 === undefined) {
-                    this.clock1Requirement2 = 0;
-                }
-                if (this.clock2Requirement1 === undefined) {
-                    this.clock2Requirement1 = 0;
-                }
-                if (this.clock2Requirement2 === undefined) {
-                    this.clock2Requirement2 = 0;
-                }
-                if (this.clock3Requirement1 === undefined) {
-                    this.clock3Requirement1 = 0;
-                }
-                if (this.clock3Requirement2 === undefined) {
-                    this.clock3Requirement2 = 0;
-                }
-                if (this.clock4Requirement1 === undefined) {
-                    this.clock4Requirement1 = 0;
-                }
-                if (this.clock4Requirement2 === undefined) {
-                    this.clock4Requirement2 = 0;
-                }
-                if (this.clock5Requirement1 === undefined) {
-                    this.clock5Requirement1 = 0;
-                }
-                if (this.clock5Requirement2 === undefined) {
-                    this.clock5Requirement2 = 0;
-                }
-                if (this.clock6Requirement1 === undefined) {
-                    this.clock6Requirement1 = 0;
-                }
-                if (this.clock6Requirement2 === undefined) {
-                    this.clock6Requirement2 = 0;
-                }
-                if (this.clock7Requirement1 === undefined) {
-                    this.clock7Requirement1 = 0;
-                }
-                if (this.clock7Requirement2 === undefined) {
-                    this.clock7Requirement2 = 0;
-                }
-                if (this.clock8Requirement1 === undefined) {
-                    this.clock8Requirement1 = 0;
-                }
-                if (this.clock8Requirement2 === undefined) {
-                    this.clock8Requirement2 = 0;
-                }
-                if (this.clock9Requirement1 === undefined) {
-                    this.clock9Requirement1 = 0;
-                }
-                if (this.clock9Requirement2 === undefined) {
-                    this.clock9Requirement2 = 0;
-                }
-                if (this.clock10Requirement1 === undefined) {
-                    this.clock10Requirement1 = 0;
-                }
-                if (this.clock10Requirement2 === undefined) {
-                    this.clock10Requirement2 = 0;
-                }
-                if (this.clock1Response1 === undefined) {
-                    this.clock1Response1 = 0;
-                }
-                if (this.clock1Response2 === undefined) {
-                    this.clock1Response2 = 0;
-                }
-                if (this.clock1Response3 === undefined) {
-                    this.clock1Response3 = 0;
-                }
-                if (this.clock2Response1 === undefined) {
-                    this.clock2Response1 = 0;
-                }
-                if (this.clock2Response2 === undefined) {
-                    this.clock2Response2 = 0;
-                }
-                if (this.clock2Response3 === undefined) {
-                    this.clock2Response3 = 0;
-                }
-                if (this.clock3Response1 === undefined) {
-                    this.clock3Response1 = 0;
-                }
-                if (this.clock3Response2 === undefined) {
-                    this.clock3Response2 = 0;
-                }
-                if (this.clock3Response3 === undefined) {
-                    this.clock3Response3 = 0;
-                }
-                if (this.clock4Response1 === undefined) {
-                    this.clock4Response1 = 0;
-                }
-                if (this.clock4Response2 === undefined) {
-                    this.clock4Response2 = 0;
-                }
-                if (this.clock4Response3 === undefined) {
-                    this.clock4Response3 = 0;
-                }
-                if (this.clock5Response1 === undefined) {
-                    this.clock5Response1 = 0;
-                }
-                if (this.clock5Response2 === undefined) {
-                    this.clock5Response2 = 0;
-                }
-                if (this.clock5Response3 === undefined) {
-                    this.clock5Response3 = 0;
-                }
-                if (this.clock6Response1 === undefined) {
-                    this.clock6Response1 = 0;
-                }
-                if (this.clock6Response2 === undefined) {
-                    this.clock6Response2 = 0;
-                }
-                if (this.clock6Response3 === undefined) {
-                    this.clock6Response3 = 0;
-                }
-                if (this.clock7Response1 === undefined) {
-                    this.clock7Response1 = 0;
-                }
-                if (this.clock7Response2 === undefined) {
-                    this.clock7Response2 = 0;
-                }
-                if (this.clock7Response3 === undefined) {
-                    this.clock7Response3 = 0;
-                }
-                if (this.clock8Response1 === undefined) {
-                    this.clock8Response1 = 0;
-                }
-                if (this.clock8Response2 === undefined) {
-                    this.clock8Response2 = 0;
-                }
-                if (this.clock8Response3 === undefined) {
-                    this.clock8Response3 = 0;
-                }
-                if (this.clock9Response1 === undefined) {
-                    this.clock9Response1 = 0;
-                }
-                if (this.clock9Response2 === undefined) {
-                    this.clock9Response2 = 0;
-                }
-                if (this.clock9Response3 === undefined) {
-                    this.clock9Response3 = 0;
-                }
-                if (this.clock10Response1 === undefined) {
-                    this.clock10Response1 = 0;
-                }
-                if (this.clock10Response2 === undefined) {
-                    this.clock10Response2 = 0;
-                }
-                if (this.clock10Response3 === undefined) {
-                    this.clock10Response3 = 0;
-                }
-                if (this.sensor1Angle === undefined) {
-                    this.sensor1Angle = 0;
-                }
-                if (this.sensor2Angle === undefined) {
-                    this.sensor2Angle = 0;
-                }
-                if (this.sensor3Angle === undefined) {
-                    this.sensor3Angle = 0;
-                }
-                if (this.sensor4Angle === undefined) {
-                    this.sensor4Angle = 0;
-                }
-                if (this.sensor5Angle === undefined) {
-                    this.sensor5Angle = 0;
-                }
-                if (this.sensor6Angle === undefined) {
-                    this.sensor6Angle = 0;
-                }
-                if (this.sensor7Angle === undefined) {
-                    this.sensor7Angle = 0;
-                }
-                if (this.sensor8Angle === undefined) {
-                    this.sensor8Angle = 0;
-                }
-                if (this.sensor9Angle === undefined) {
-                    this.sensor9Angle = 0;
-                }
-                if (this.sensor10Angle === undefined) {
-                    this.sensor10Angle = 0;
-                }
-                if (this.sensor11Angle === undefined) {
-                    this.sensor11Angle = 0;
-                }
-                if (this.sensor12Angle === undefined) {
-                    this.sensor12Angle = 0;
-                }
-                if (this.sensor13Angle === undefined) {
-                    this.sensor13Angle = 0;
-                }
-                if (this.sensor14Angle === undefined) {
-                    this.sensor14Angle = 0;
-                }
-                if (this.sensor15Angle === undefined) {
-                    this.sensor15Angle = 0;
-                }
-                if (this.sensor16Angle === undefined) {
-                    this.sensor16Angle = 0;
-                }
-                if (this.sensor1Length === undefined) {
-                    this.sensor1Length = 0;
-                }
-                if (this.sensor2Length === undefined) {
-                    this.sensor2Length = 0;
-                }
-                if (this.sensor3Length === undefined) {
-                    this.sensor3Length = 0;
-                }
-                if (this.sensor4Length === undefined) {
-                    this.sensor4Length = 0;
-                }
-                if (this.sensor5Length === undefined) {
-                    this.sensor5Length = 0;
-                }
-                if (this.sensor6Length === undefined) {
-                    this.sensor6Length = 0;
-                }
-                if (this.sensor7Length === undefined) {
-                    this.sensor7Length = 0;
-                }
-                if (this.sensor8Length === undefined) {
-                    this.sensor8Length = 0;
-                }
-                if (this.sensor9Length === undefined) {
-                    this.sensor9Length = 0;
-                }
-                if (this.sensor10Length === undefined) {
-                    this.sensor10Length = 0;
-                }
-                if (this.sensor11Length === undefined) {
-                    this.sensor11Length = 0;
-                }
-                if (this.sensor12Length === undefined) {
-                    this.sensor12Length = 0;
-                }
-                if (this.sensor13Length === undefined) {
-                    this.sensor13Length = 0;
-                }
-                if (this.sensor14Length === undefined) {
-                    this.sensor14Length = 0;
-                }
-                if (this.sensor15Length === undefined) {
-                    this.sensor15Length = 0;
-                }
-                if (this.sensor16Length === undefined) {
-                    this.sensor16Length = 0;
-                }
-                if (this.sensor1Width === undefined) {
-                    this.sensor1Width = 0;
-                }
-                if (this.sensor2Width === undefined) {
-                    this.sensor2Width = 0;
-                }
-                if (this.sensor3Width === undefined) {
-                    this.sensor3Width = 0;
-                }
-                if (this.sensor4Width === undefined) {
-                    this.sensor4Width = 0;
-                }
-                if (this.sensor5Width === undefined) {
-                    this.sensor5Width = 0;
-                }
-                if (this.sensor6Width === undefined) {
-                    this.sensor6Width = 0;
-                }
-                if (this.sensor7Width === undefined) {
-                    this.sensor7Width = 0;
-                }
-                if (this.sensor8Width === undefined) {
-                    this.sensor8Width = 0;
-                }
-                if (this.sensor9Width === undefined) {
-                    this.sensor9Width = 0;
-                }
-                if (this.sensor10Width === undefined) {
-                    this.sensor10Width = 0;
-                }
-                if (this.sensor11Width === undefined) {
-                    this.sensor11Width = 0;
-                }
-                if (this.sensor12Width === undefined) {
-                    this.sensor12Width = 0;
-                }
-                if (this.sensor13Width === undefined) {
-                    this.sensor13Width = 0;
-                }
-                if (this.sensor14Width === undefined) {
-                    this.sensor14Width = 0;
-                }
-                if (this.sensor15Width === undefined) {
-                    this.sensor15Width = 0;
-                }
-                if (this.sensor16Width === undefined) {
-                    this.sensor16Width = 0;
-                }
-                if (this.sensor1Probability === undefined) {
-                    this.sensor1Probability = 0;
-                }
-                if (this.sensor2Probability === undefined) {
-                    this.sensor2Probability = 0;
-                }
-                if (this.sensor3Probability === undefined) {
-                    this.sensor3Probability = 0;
-                }
-                if (this.sensor4Probability === undefined) {
-                    this.sensor4Probability = 0;
-                }
-                if (this.sensor5Probability === undefined) {
-                    this.sensor5Probability = 0;
-                }
-                if (this.sensor6Probability === undefined) {
-                    this.sensor6Probability = 0;
-                }
-                if (this.sensor7Probability === undefined) {
-                    this.sensor7Probability = 0;
-                }
-                if (this.sensor8Probability === undefined) {
-                    this.sensor8Probability = 0;
-                }
-                if (this.sensor9Probability === undefined) {
-                    this.sensor9Probability = 0;
-                }
-                if (this.sensor10Probability === undefined) {
-                    this.sensor10Probability = 0;
-                }
-                if (this.sensor11Probability === undefined) {
-                    this.sensor11Probability = 0;
-                }
-                if (this.sensor12Probability === undefined) {
-                    this.sensor12Probability = 0;
-                }
-                if (this.sensor13Probability === undefined) {
-                    this.sensor13Probability = 0;
-                }
-                if (this.sensor14Probability === undefined) {
-                    this.sensor14Probability = 0;
-                }
-                if (this.sensor15Probability === undefined) {
-                    this.sensor15Probability = 0;
-                }
-                if (this.sensor16Probability === undefined) {
-                    this.sensor16Probability = 0;
-                }
-                if (this.sensor1Period === undefined) {
-                    this.sensor1Period = 0;
-                }
-                if (this.sensor2Period === undefined) {
-                    this.sensor2Period = 0;
-                }
-                if (this.sensor3Period === undefined) {
-                    this.sensor3Period = 0;
-                }
-                if (this.sensor4Period === undefined) {
-                    this.sensor4Period = 0;
-                }
-                if (this.sensor5Period === undefined) {
-                    this.sensor5Period = 0;
-                }
-                if (this.sensor6Period === undefined) {
-                    this.sensor6Period = 0;
-                }
-                if (this.sensor7Period === undefined) {
-                    this.sensor7Period = 0;
-                }
-                if (this.sensor8Period === undefined) {
-                    this.sensor8Period = 0;
-                }
-                if (this.sensor9Period === undefined) {
-                    this.sensor9Period = 0;
-                }
-                if (this.sensor10Period === undefined) {
-                    this.sensor10Period = 0;
-                }
-                if (this.sensor11Period === undefined) {
-                    this.sensor11Period = 0;
-                }
-                if (this.sensor12Period === undefined) {
-                    this.sensor12Period = 0;
-                }
-                if (this.sensor13Period === undefined) {
-                    this.sensor13Period = 0;
-                }
-                if (this.sensor14Period === undefined) {
-                    this.sensor14Period = 0;
-                }
-                if (this.sensor15Period === undefined) {
-                    this.sensor15Period = 0;
-                }
-                if (this.sensor16Period === undefined) {
-                    this.sensor16Period = 0;
-                }
-                if (this.sensor1ParallelOffset === undefined) {
-                    this.sensor1ParallelOffset = 0;
-                }
-                if (this.sensor2ParallelOffset === undefined) {
-                    this.sensor2ParallelOffset = 0;
-                }
-                if (this.sensor3ParallelOffset === undefined) {
-                    this.sensor3ParallelOffset = 0;
-                }
-                if (this.sensor4ParallelOffset === undefined) {
-                    this.sensor4ParallelOffset = 0;
-                }
-                if (this.sensor5ParallelOffset === undefined) {
-                    this.sensor5ParallelOffset = 0;
-                }
-                if (this.sensor6ParallelOffset === undefined) {
-                    this.sensor6ParallelOffset = 0;
-                }
-                if (this.sensor7ParallelOffset === undefined) {
-                    this.sensor7ParallelOffset = 0;
-                }
-                if (this.sensor8ParallelOffset === undefined) {
-                    this.sensor8ParallelOffset = 0;
-                }
-                if (this.sensor9ParallelOffset === undefined) {
-                    this.sensor9ParallelOffset = 0;
-                }
-                if (this.sensor10ParallelOffset === undefined) {
-                    this.sensor10ParallelOffset = 0;
-                }
-                if (this.sensor11ParallelOffset === undefined) {
-                    this.sensor11ParallelOffset = 0;
-                }
-                if (this.sensor12ParallelOffset === undefined) {
-                    this.sensor12ParallelOffset = 0;
-                }
-                if (this.sensor13ParallelOffset === undefined) {
-                    this.sensor13ParallelOffset = 0;
-                }
-                if (this.sensor14ParallelOffset === undefined) {
-                    this.sensor14ParallelOffset = 0;
-                }
-                if (this.sensor15ParallelOffset === undefined) {
-                    this.sensor15ParallelOffset = 0;
-                }
-                if (this.sensor16ParallelOffset === undefined) {
-                    this.sensor16ParallelOffset = 0;
-                }
-                if (this.sensor1PerpendicularOffset === undefined) {
-                    this.sensor1PerpendicularOffset = 0;
-                }
-                if (this.sensor2PerpendicularOffset === undefined) {
-                    this.sensor2PerpendicularOffset = 0;
-                }
-                if (this.sensor3PerpendicularOffset === undefined) {
-                    this.sensor3PerpendicularOffset = 0;
-                }
-                if (this.sensor4PerpendicularOffset === undefined) {
-                    this.sensor4PerpendicularOffset = 0;
-                }
-                if (this.sensor5PerpendicularOffset === undefined) {
-                    this.sensor5PerpendicularOffset = 0;
-                }
-                if (this.sensor6PerpendicularOffset === undefined) {
-                    this.sensor6PerpendicularOffset = 0;
-                }
-                if (this.sensor7PerpendicularOffset === undefined) {
-                    this.sensor7PerpendicularOffset = 0;
-                }
-                if (this.sensor8PerpendicularOffset === undefined) {
-                    this.sensor8PerpendicularOffset = 0;
-                }
-                if (this.sensor9PerpendicularOffset === undefined) {
-                    this.sensor9PerpendicularOffset = 0;
-                }
-                if (this.sensor10PerpendicularOffset === undefined) {
-                    this.sensor10PerpendicularOffset = 0;
-                }
-                if (this.sensor11PerpendicularOffset === undefined) {
-                    this.sensor11PerpendicularOffset = 0;
-                }
-                if (this.sensor12PerpendicularOffset === undefined) {
-                    this.sensor12PerpendicularOffset = 0;
-                }
-                if (this.sensor13PerpendicularOffset === undefined) {
-                    this.sensor13PerpendicularOffset = 0;
-                }
-                if (this.sensor14PerpendicularOffset === undefined) {
-                    this.sensor14PerpendicularOffset = 0;
-                }
-                if (this.sensor15PerpendicularOffset === undefined) {
-                    this.sensor15PerpendicularOffset = 0;
-                }
-                if (this.sensor16PerpendicularOffset === undefined) {
-                    this.sensor16PerpendicularOffset = 0;
-                }
-                if (this.sensor1Condition1 === undefined) {
-                    this.sensor1Condition1 = 0;
-                }
-                if (this.sensor1Condition2 === undefined) {
-                    this.sensor1Condition2 = 0;
-                }
-                if (this.sensor1Condition3 === undefined) {
-                    this.sensor1Condition3 = 0;
-                }
-                if (this.sensor2Condition1 === undefined) {
-                    this.sensor2Condition1 = 0;
-                }
-                if (this.sensor2Condition2 === undefined) {
-                    this.sensor2Condition2 = 0;
-                }
-                if (this.sensor2Condition3 === undefined) {
-                    this.sensor2Condition3 = 0;
-                }
-                if (this.sensor3Condition1 === undefined) {
-                    this.sensor3Condition1 = 0;
-                }
-                if (this.sensor3Condition2 === undefined) {
-                    this.sensor3Condition2 = 0;
-                }
-                if (this.sensor3Condition3 === undefined) {
-                    this.sensor3Condition3 = 0;
-                }
-                if (this.sensor4Condition1 === undefined) {
-                    this.sensor4Condition1 = 0;
-                }
-                if (this.sensor4Condition2 === undefined) {
-                    this.sensor4Condition2 = 0;
-                }
-                if (this.sensor4Condition3 === undefined) {
-                    this.sensor4Condition3 = 0;
-                }
-                if (this.sensor5Condition1 === undefined) {
-                    this.sensor5Condition1 = 0;
-                }
-                if (this.sensor5Condition2 === undefined) {
-                    this.sensor5Condition2 = 0;
-                }
-                if (this.sensor5Condition3 === undefined) {
-                    this.sensor5Condition3 = 0;
-                }
-                if (this.sensor6Condition1 === undefined) {
-                    this.sensor6Condition1 = 0;
-                }
-                if (this.sensor6Condition2 === undefined) {
-                    this.sensor6Condition2 = 0;
-                }
-                if (this.sensor6Condition3 === undefined) {
-                    this.sensor6Condition3 = 0;
-                }
-                if (this.sensor7Condition1 === undefined) {
-                    this.sensor7Condition1 = 0;
-                }
-                if (this.sensor7Condition2 === undefined) {
-                    this.sensor7Condition2 = 0;
-                }
-                if (this.sensor7Condition3 === undefined) {
-                    this.sensor7Condition3 = 0;
-                }
-                if (this.sensor8Condition1 === undefined) {
-                    this.sensor8Condition1 = 0;
-                }
-                if (this.sensor8Condition2 === undefined) {
-                    this.sensor8Condition2 = 0;
-                }
-                if (this.sensor8Condition3 === undefined) {
-                    this.sensor8Condition3 = 0;
-                }
-                if (this.sensor9Condition1 === undefined) {
-                    this.sensor9Condition1 = 0;
-                }
-                if (this.sensor9Condition2 === undefined) {
-                    this.sensor9Condition2 = 0;
-                }
-                if (this.sensor9Condition3 === undefined) {
-                    this.sensor9Condition3 = 0;
-                }
-                if (this.sensor10Condition1 === undefined) {
-                    this.sensor10Condition1 = 0;
-                }
-                if (this.sensor10Condition2 === undefined) {
-                    this.sensor10Condition2 = 0;
-                }
-                if (this.sensor10Condition3 === undefined) {
-                    this.sensor10Condition3 = 0;
-                }
-                if (this.sensor11Condition1 === undefined) {
-                    this.sensor11Condition1 = 0;
-                }
-                if (this.sensor11Condition2 === undefined) {
-                    this.sensor11Condition2 = 0;
-                }
-                if (this.sensor11Condition3 === undefined) {
-                    this.sensor11Condition3 = 0;
-                }
-                if (this.sensor12Condition1 === undefined) {
-                    this.sensor12Condition1 = 0;
-                }
-                if (this.sensor12Condition2 === undefined) {
-                    this.sensor12Condition2 = 0;
-                }
-                if (this.sensor12Condition3 === undefined) {
-                    this.sensor12Condition3 = 0;
-                }
-                if (this.sensor13Condition1 === undefined) {
-                    this.sensor13Condition1 = 0;
-                }
-                if (this.sensor13Condition2 === undefined) {
-                    this.sensor13Condition2 = 0;
-                }
-                if (this.sensor13Condition3 === undefined) {
-                    this.sensor13Condition3 = 0;
-                }
-                if (this.sensor14Condition1 === undefined) {
-                    this.sensor14Condition1 = 0;
-                }
-                if (this.sensor14Condition2 === undefined) {
-                    this.sensor14Condition2 = 0;
-                }
-                if (this.sensor14Condition3 === undefined) {
-                    this.sensor14Condition3 = 0;
-                }
-                if (this.sensor15Condition1 === undefined) {
-                    this.sensor15Condition1 = 0;
-                }
-                if (this.sensor15Condition2 === undefined) {
-                    this.sensor15Condition2 = 0;
-                }
-                if (this.sensor15Condition3 === undefined) {
-                    this.sensor15Condition3 = 0;
-                }
-                if (this.sensor16Condition1 === undefined) {
-                    this.sensor16Condition1 = 0;
-                }
-                if (this.sensor16Condition2 === undefined) {
-                    this.sensor16Condition2 = 0;
-                }
-                if (this.sensor16Condition3 === undefined) {
-                    this.sensor16Condition3 = 0;
-                }
-                if (this.sensor1ResponseToWall1 === undefined) {
-                    this.sensor1ResponseToWall1 = 0;
-                }
-                if (this.sensor1ResponseToWall2 === undefined) {
-                    this.sensor1ResponseToWall2 = 0;
-                }
-                if (this.sensor1ResponseToWall3 === undefined) {
-                    this.sensor1ResponseToWall3 = 0;
-                }
-                if (this.sensor1ResponseToTank1 === undefined) {
-                    this.sensor1ResponseToTank1 = 0;
-                }
-                if (this.sensor1ResponseToTank2 === undefined) {
-                    this.sensor1ResponseToTank2 = 0;
-                }
-                if (this.sensor1ResponseToTank3 === undefined) {
-                    this.sensor1ResponseToTank3 = 0;
-                }
-                if (this.sensor1ResponseToMissile1 === undefined) {
-                    this.sensor1ResponseToMissile1 = 0;
-                }
-                if (this.sensor1ResponseToMissile2 === undefined) {
-                    this.sensor1ResponseToMissile2 = 0;
-                }
-                if (this.sensor1ResponseToMissile3 === undefined) {
-                    this.sensor1ResponseToMissile3 = 0;
-                }
-                if (this.sensor2ResponseToWall1 === undefined) {
-                    this.sensor2ResponseToWall1 = 0;
-                }
-                if (this.sensor2ResponseToWall2 === undefined) {
-                    this.sensor2ResponseToWall2 = 0;
-                }
-                if (this.sensor2ResponseToWall3 === undefined) {
-                    this.sensor2ResponseToWall3 = 0;
-                }
-                if (this.sensor2ResponseToTank1 === undefined) {
-                    this.sensor2ResponseToTank1 = 0;
-                }
-                if (this.sensor2ResponseToTank2 === undefined) {
-                    this.sensor2ResponseToTank2 = 0;
-                }
-                if (this.sensor2ResponseToTank3 === undefined) {
-                    this.sensor2ResponseToTank3 = 0;
-                }
-                if (this.sensor2ResponseToMissile1 === undefined) {
-                    this.sensor2ResponseToMissile1 = 0;
-                }
-                if (this.sensor2ResponseToMissile2 === undefined) {
-                    this.sensor2ResponseToMissile2 = 0;
-                }
-                if (this.sensor2ResponseToMissile3 === undefined) {
-                    this.sensor2ResponseToMissile3 = 0;
-                }
-                if (this.sensor3ResponseToWall1 === undefined) {
-                    this.sensor3ResponseToWall1 = 0;
-                }
-                if (this.sensor3ResponseToWall2 === undefined) {
-                    this.sensor3ResponseToWall2 = 0;
-                }
-                if (this.sensor3ResponseToWall3 === undefined) {
-                    this.sensor3ResponseToWall3 = 0;
-                }
-                if (this.sensor3ResponseToTank1 === undefined) {
-                    this.sensor3ResponseToTank1 = 0;
-                }
-                if (this.sensor3ResponseToTank2 === undefined) {
-                    this.sensor3ResponseToTank2 = 0;
-                }
-                if (this.sensor3ResponseToTank3 === undefined) {
-                    this.sensor3ResponseToTank3 = 0;
-                }
-                if (this.sensor3ResponseToMissile1 === undefined) {
-                    this.sensor3ResponseToMissile1 = 0;
-                }
-                if (this.sensor3ResponseToMissile2 === undefined) {
-                    this.sensor3ResponseToMissile2 = 0;
-                }
-                if (this.sensor3ResponseToMissile3 === undefined) {
-                    this.sensor3ResponseToMissile3 = 0;
-                }
-                if (this.sensor4ResponseToWall1 === undefined) {
-                    this.sensor4ResponseToWall1 = 0;
-                }
-                if (this.sensor4ResponseToWall2 === undefined) {
-                    this.sensor4ResponseToWall2 = 0;
-                }
-                if (this.sensor4ResponseToWall3 === undefined) {
-                    this.sensor4ResponseToWall3 = 0;
-                }
-                if (this.sensor4ResponseToTank1 === undefined) {
-                    this.sensor4ResponseToTank1 = 0;
-                }
-                if (this.sensor4ResponseToTank2 === undefined) {
-                    this.sensor4ResponseToTank2 = 0;
-                }
-                if (this.sensor4ResponseToTank3 === undefined) {
-                    this.sensor4ResponseToTank3 = 0;
-                }
-                if (this.sensor4ResponseToMissile1 === undefined) {
-                    this.sensor4ResponseToMissile1 = 0;
-                }
-                if (this.sensor4ResponseToMissile2 === undefined) {
-                    this.sensor4ResponseToMissile2 = 0;
-                }
-                if (this.sensor4ResponseToMissile3 === undefined) {
-                    this.sensor4ResponseToMissile3 = 0;
-                }
-                if (this.sensor5ResponseToWall1 === undefined) {
-                    this.sensor5ResponseToWall1 = 0;
-                }
-                if (this.sensor5ResponseToWall2 === undefined) {
-                    this.sensor5ResponseToWall2 = 0;
-                }
-                if (this.sensor5ResponseToWall3 === undefined) {
-                    this.sensor5ResponseToWall3 = 0;
-                }
-                if (this.sensor5ResponseToTank1 === undefined) {
-                    this.sensor5ResponseToTank1 = 0;
-                }
-                if (this.sensor5ResponseToTank2 === undefined) {
-                    this.sensor5ResponseToTank2 = 0;
-                }
-                if (this.sensor5ResponseToTank3 === undefined) {
-                    this.sensor5ResponseToTank3 = 0;
-                }
-                if (this.sensor5ResponseToMissile1 === undefined) {
-                    this.sensor5ResponseToMissile1 = 0;
-                }
-                if (this.sensor5ResponseToMissile2 === undefined) {
-                    this.sensor5ResponseToMissile2 = 0;
-                }
-                if (this.sensor5ResponseToMissile3 === undefined) {
-                    this.sensor5ResponseToMissile3 = 0;
-                }
-                if (this.sensor6ResponseToWall1 === undefined) {
-                    this.sensor6ResponseToWall1 = 0;
-                }
-                if (this.sensor6ResponseToWall2 === undefined) {
-                    this.sensor6ResponseToWall2 = 0;
-                }
-                if (this.sensor6ResponseToWall3 === undefined) {
-                    this.sensor6ResponseToWall3 = 0;
-                }
-                if (this.sensor6ResponseToTank1 === undefined) {
-                    this.sensor6ResponseToTank1 = 0;
-                }
-                if (this.sensor6ResponseToTank2 === undefined) {
-                    this.sensor6ResponseToTank2 = 0;
-                }
-                if (this.sensor6ResponseToTank3 === undefined) {
-                    this.sensor6ResponseToTank3 = 0;
-                }
-                if (this.sensor6ResponseToMissile1 === undefined) {
-                    this.sensor6ResponseToMissile1 = 0;
-                }
-                if (this.sensor6ResponseToMissile2 === undefined) {
-                    this.sensor6ResponseToMissile2 = 0;
-                }
-                if (this.sensor6ResponseToMissile3 === undefined) {
-                    this.sensor6ResponseToMissile3 = 0;
-                }
-                if (this.sensor7ResponseToWall1 === undefined) {
-                    this.sensor7ResponseToWall1 = 0;
-                }
-                if (this.sensor7ResponseToWall2 === undefined) {
-                    this.sensor7ResponseToWall2 = 0;
-                }
-                if (this.sensor7ResponseToWall3 === undefined) {
-                    this.sensor7ResponseToWall3 = 0;
-                }
-                if (this.sensor7ResponseToTank1 === undefined) {
-                    this.sensor7ResponseToTank1 = 0;
-                }
-                if (this.sensor7ResponseToTank2 === undefined) {
-                    this.sensor7ResponseToTank2 = 0;
-                }
-                if (this.sensor7ResponseToTank3 === undefined) {
-                    this.sensor7ResponseToTank3 = 0;
-                }
-                if (this.sensor7ResponseToMissile1 === undefined) {
-                    this.sensor7ResponseToMissile1 = 0;
-                }
-                if (this.sensor7ResponseToMissile2 === undefined) {
-                    this.sensor7ResponseToMissile2 = 0;
-                }
-                if (this.sensor7ResponseToMissile3 === undefined) {
-                    this.sensor7ResponseToMissile3 = 0;
-                }
-                if (this.sensor8ResponseToWall1 === undefined) {
-                    this.sensor8ResponseToWall1 = 0;
-                }
-                if (this.sensor8ResponseToWall2 === undefined) {
-                    this.sensor8ResponseToWall2 = 0;
-                }
-                if (this.sensor8ResponseToWall3 === undefined) {
-                    this.sensor8ResponseToWall3 = 0;
-                }
-                if (this.sensor8ResponseToTank1 === undefined) {
-                    this.sensor8ResponseToTank1 = 0;
-                }
-                if (this.sensor8ResponseToTank2 === undefined) {
-                    this.sensor8ResponseToTank2 = 0;
-                }
-                if (this.sensor8ResponseToTank3 === undefined) {
-                    this.sensor8ResponseToTank3 = 0;
-                }
-                if (this.sensor8ResponseToMissile1 === undefined) {
-                    this.sensor8ResponseToMissile1 = 0;
-                }
-                if (this.sensor8ResponseToMissile2 === undefined) {
-                    this.sensor8ResponseToMissile2 = 0;
-                }
-                if (this.sensor8ResponseToMissile3 === undefined) {
-                    this.sensor8ResponseToMissile3 = 0;
-                }
-                if (this.sensor9ResponseToWall1 === undefined) {
-                    this.sensor9ResponseToWall1 = 0;
-                }
-                if (this.sensor9ResponseToWall2 === undefined) {
-                    this.sensor9ResponseToWall2 = 0;
-                }
-                if (this.sensor9ResponseToWall3 === undefined) {
-                    this.sensor9ResponseToWall3 = 0;
-                }
-                if (this.sensor9ResponseToTank1 === undefined) {
-                    this.sensor9ResponseToTank1 = 0;
-                }
-                if (this.sensor9ResponseToTank2 === undefined) {
-                    this.sensor9ResponseToTank2 = 0;
-                }
-                if (this.sensor9ResponseToTank3 === undefined) {
-                    this.sensor9ResponseToTank3 = 0;
-                }
-                if (this.sensor9ResponseToMissile1 === undefined) {
-                    this.sensor9ResponseToMissile1 = 0;
-                }
-                if (this.sensor9ResponseToMissile2 === undefined) {
-                    this.sensor9ResponseToMissile2 = 0;
-                }
-                if (this.sensor9ResponseToMissile3 === undefined) {
-                    this.sensor9ResponseToMissile3 = 0;
-                }
-                if (this.sensor10ResponseToWall1 === undefined) {
-                    this.sensor10ResponseToWall1 = 0;
-                }
-                if (this.sensor10ResponseToWall2 === undefined) {
-                    this.sensor10ResponseToWall2 = 0;
-                }
-                if (this.sensor10ResponseToWall3 === undefined) {
-                    this.sensor10ResponseToWall3 = 0;
-                }
-                if (this.sensor10ResponseToTank1 === undefined) {
-                    this.sensor10ResponseToTank1 = 0;
-                }
-                if (this.sensor10ResponseToTank2 === undefined) {
-                    this.sensor10ResponseToTank2 = 0;
-                }
-                if (this.sensor10ResponseToTank3 === undefined) {
-                    this.sensor10ResponseToTank3 = 0;
-                }
-                if (this.sensor10ResponseToMissile1 === undefined) {
-                    this.sensor10ResponseToMissile1 = 0;
-                }
-                if (this.sensor10ResponseToMissile2 === undefined) {
-                    this.sensor10ResponseToMissile2 = 0;
-                }
-                if (this.sensor10ResponseToMissile3 === undefined) {
-                    this.sensor10ResponseToMissile3 = 0;
-                }
-                if (this.sensor11ResponseToWall1 === undefined) {
-                    this.sensor11ResponseToWall1 = 0;
-                }
-                if (this.sensor11ResponseToWall2 === undefined) {
-                    this.sensor11ResponseToWall2 = 0;
-                }
-                if (this.sensor11ResponseToWall3 === undefined) {
-                    this.sensor11ResponseToWall3 = 0;
-                }
-                if (this.sensor11ResponseToTank1 === undefined) {
-                    this.sensor11ResponseToTank1 = 0;
-                }
-                if (this.sensor11ResponseToTank2 === undefined) {
-                    this.sensor11ResponseToTank2 = 0;
-                }
-                if (this.sensor11ResponseToTank3 === undefined) {
-                    this.sensor11ResponseToTank3 = 0;
-                }
-                if (this.sensor11ResponseToMissile1 === undefined) {
-                    this.sensor11ResponseToMissile1 = 0;
-                }
-                if (this.sensor11ResponseToMissile2 === undefined) {
-                    this.sensor11ResponseToMissile2 = 0;
-                }
-                if (this.sensor11ResponseToMissile3 === undefined) {
-                    this.sensor11ResponseToMissile3 = 0;
-                }
-                if (this.sensor12ResponseToWall1 === undefined) {
-                    this.sensor12ResponseToWall1 = 0;
-                }
-                if (this.sensor12ResponseToWall2 === undefined) {
-                    this.sensor12ResponseToWall2 = 0;
-                }
-                if (this.sensor12ResponseToWall3 === undefined) {
-                    this.sensor12ResponseToWall3 = 0;
-                }
-                if (this.sensor12ResponseToTank1 === undefined) {
-                    this.sensor12ResponseToTank1 = 0;
-                }
-                if (this.sensor12ResponseToTank2 === undefined) {
-                    this.sensor12ResponseToTank2 = 0;
-                }
-                if (this.sensor12ResponseToTank3 === undefined) {
-                    this.sensor12ResponseToTank3 = 0;
-                }
-                if (this.sensor12ResponseToMissile1 === undefined) {
-                    this.sensor12ResponseToMissile1 = 0;
-                }
-                if (this.sensor12ResponseToMissile2 === undefined) {
-                    this.sensor12ResponseToMissile2 = 0;
-                }
-                if (this.sensor12ResponseToMissile3 === undefined) {
-                    this.sensor12ResponseToMissile3 = 0;
-                }
-                if (this.sensor13ResponseToWall1 === undefined) {
-                    this.sensor13ResponseToWall1 = 0;
-                }
-                if (this.sensor13ResponseToWall2 === undefined) {
-                    this.sensor13ResponseToWall2 = 0;
-                }
-                if (this.sensor13ResponseToWall3 === undefined) {
-                    this.sensor13ResponseToWall3 = 0;
-                }
-                if (this.sensor13ResponseToTank1 === undefined) {
-                    this.sensor13ResponseToTank1 = 0;
-                }
-                if (this.sensor13ResponseToTank2 === undefined) {
-                    this.sensor13ResponseToTank2 = 0;
-                }
-                if (this.sensor13ResponseToTank3 === undefined) {
-                    this.sensor13ResponseToTank3 = 0;
-                }
-                if (this.sensor13ResponseToMissile1 === undefined) {
-                    this.sensor13ResponseToMissile1 = 0;
-                }
-                if (this.sensor13ResponseToMissile2 === undefined) {
-                    this.sensor13ResponseToMissile2 = 0;
-                }
-                if (this.sensor13ResponseToMissile3 === undefined) {
-                    this.sensor13ResponseToMissile3 = 0;
-                }
-                if (this.sensor14ResponseToWall1 === undefined) {
-                    this.sensor14ResponseToWall1 = 0;
-                }
-                if (this.sensor14ResponseToWall2 === undefined) {
-                    this.sensor14ResponseToWall2 = 0;
-                }
-                if (this.sensor14ResponseToWall3 === undefined) {
-                    this.sensor14ResponseToWall3 = 0;
-                }
-                if (this.sensor14ResponseToTank1 === undefined) {
-                    this.sensor14ResponseToTank1 = 0;
-                }
-                if (this.sensor14ResponseToTank2 === undefined) {
-                    this.sensor14ResponseToTank2 = 0;
-                }
-                if (this.sensor14ResponseToTank3 === undefined) {
-                    this.sensor14ResponseToTank3 = 0;
-                }
-                if (this.sensor14ResponseToMissile1 === undefined) {
-                    this.sensor14ResponseToMissile1 = 0;
-                }
-                if (this.sensor14ResponseToMissile2 === undefined) {
-                    this.sensor14ResponseToMissile2 = 0;
-                }
-                if (this.sensor14ResponseToMissile3 === undefined) {
-                    this.sensor14ResponseToMissile3 = 0;
-                }
-                if (this.sensor15ResponseToWall1 === undefined) {
-                    this.sensor15ResponseToWall1 = 0;
-                }
-                if (this.sensor15ResponseToWall2 === undefined) {
-                    this.sensor15ResponseToWall2 = 0;
-                }
-                if (this.sensor15ResponseToWall3 === undefined) {
-                    this.sensor15ResponseToWall3 = 0;
-                }
-                if (this.sensor15ResponseToTank1 === undefined) {
-                    this.sensor15ResponseToTank1 = 0;
-                }
-                if (this.sensor15ResponseToTank2 === undefined) {
-                    this.sensor15ResponseToTank2 = 0;
-                }
-                if (this.sensor15ResponseToTank3 === undefined) {
-                    this.sensor15ResponseToTank3 = 0;
-                }
-                if (this.sensor15ResponseToMissile1 === undefined) {
-                    this.sensor15ResponseToMissile1 = 0;
-                }
-                if (this.sensor15ResponseToMissile2 === undefined) {
-                    this.sensor15ResponseToMissile2 = 0;
-                }
-                if (this.sensor15ResponseToMissile3 === undefined) {
-                    this.sensor15ResponseToMissile3 = 0;
-                }
-                if (this.sensor16ResponseToWall1 === undefined) {
-                    this.sensor16ResponseToWall1 = 0;
-                }
-                if (this.sensor16ResponseToWall2 === undefined) {
-                    this.sensor16ResponseToWall2 = 0;
-                }
-                if (this.sensor16ResponseToWall3 === undefined) {
-                    this.sensor16ResponseToWall3 = 0;
-                }
-                if (this.sensor16ResponseToTank1 === undefined) {
-                    this.sensor16ResponseToTank1 = 0;
-                }
-                if (this.sensor16ResponseToTank2 === undefined) {
-                    this.sensor16ResponseToTank2 = 0;
-                }
-                if (this.sensor16ResponseToTank3 === undefined) {
-                    this.sensor16ResponseToTank3 = 0;
-                }
-                if (this.sensor16ResponseToMissile1 === undefined) {
-                    this.sensor16ResponseToMissile1 = 0;
-                }
-                if (this.sensor16ResponseToMissile2 === undefined) {
-                    this.sensor16ResponseToMissile2 = 0;
-                }
-                if (this.sensor16ResponseToMissile3 === undefined) {
-                    this.sensor16ResponseToMissile3 = 0;
-                }
-                if (this.responseToMissileHit1 === undefined) {
-                    this.responseToMissileHit1 = 0;
-                }
-                if (this.responseToMissileHit2 === undefined) {
-                    this.responseToMissileHit2 = 0;
-                }
-                if (this.responseToMissileHit3 === undefined) {
-                    this.responseToMissileHit3 = 0;
-                }
-                if (this.responseToFacingTarget1 === undefined) {
-                    this.responseToFacingTarget1 = 0;
-                }
-                if (this.responseToFacingTarget2 === undefined) {
-                    this.responseToFacingTarget2 = 0;
-                }
-                if (this.responseToFacingTarget3 === undefined) {
-                    this.responseToFacingTarget3 = 0;
-                }
-                if (this.weaponStrategyFavourite1 === undefined) {
-                    this.weaponStrategyFavourite1 = 0;
-                }
-                if (this.weaponStrategySecondFavourite1 === undefined) {
-                    this.weaponStrategySecondFavourite1 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite1 === undefined) {
-                    this.weaponStrategyThirdFavourite1 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite1 === undefined) {
-                    this.weaponStrategyFourthFavourite1 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite1 === undefined) {
-                    this.weaponStrategyFifthFavourite1 = 0;
-                }
-                if (this.weaponStrategyFavourite2 === undefined) {
-                    this.weaponStrategyFavourite2 = 0;
-                }
-                if (this.weaponStrategySecondFavourite2 === undefined) {
-                    this.weaponStrategySecondFavourite2 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite2 === undefined) {
-                    this.weaponStrategyThirdFavourite2 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite2 === undefined) {
-                    this.weaponStrategyFourthFavourite2 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite2 === undefined) {
-                    this.weaponStrategyFifthFavourite2 = 0;
-                }
-                if (this.weaponStrategyFavourite3 === undefined) {
-                    this.weaponStrategyFavourite3 = 0;
-                }
-                if (this.weaponStrategySecondFavourite3 === undefined) {
-                    this.weaponStrategySecondFavourite3 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite3 === undefined) {
-                    this.weaponStrategyThirdFavourite3 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite3 === undefined) {
-                    this.weaponStrategyFourthFavourite3 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite3 === undefined) {
-                    this.weaponStrategyFifthFavourite3 = 0;
-                }
-                if (this.weaponStrategyFavourite4 === undefined) {
-                    this.weaponStrategyFavourite4 = 0;
-                }
-                if (this.weaponStrategySecondFavourite4 === undefined) {
-                    this.weaponStrategySecondFavourite4 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite4 === undefined) {
-                    this.weaponStrategyThirdFavourite4 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite4 === undefined) {
-                    this.weaponStrategyFourthFavourite4 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite4 === undefined) {
-                    this.weaponStrategyFifthFavourite4 = 0;
-                }
-                if (this.weaponStrategyFavourite5 === undefined) {
-                    this.weaponStrategyFavourite5 = 0;
-                }
-                if (this.weaponStrategySecondFavourite5 === undefined) {
-                    this.weaponStrategySecondFavourite5 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite5 === undefined) {
-                    this.weaponStrategyThirdFavourite5 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite5 === undefined) {
-                    this.weaponStrategyFourthFavourite5 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite5 === undefined) {
-                    this.weaponStrategyFifthFavourite5 = 0;
-                }
-                if (this.weaponStrategyFavourite6 === undefined) {
-                    this.weaponStrategyFavourite6 = 0;
-                }
-                if (this.weaponStrategySecondFavourite6 === undefined) {
-                    this.weaponStrategySecondFavourite6 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite6 === undefined) {
-                    this.weaponStrategyThirdFavourite6 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite6 === undefined) {
-                    this.weaponStrategyFourthFavourite6 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite6 === undefined) {
-                    this.weaponStrategyFifthFavourite6 = 0;
-                }
-                if (this.weaponStrategyFavourite7 === undefined) {
-                    this.weaponStrategyFavourite7 = 0;
-                }
-                if (this.weaponStrategySecondFavourite7 === undefined) {
-                    this.weaponStrategySecondFavourite7 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite7 === undefined) {
-                    this.weaponStrategyThirdFavourite7 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite7 === undefined) {
-                    this.weaponStrategyFourthFavourite7 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite7 === undefined) {
-                    this.weaponStrategyFifthFavourite7 = 0;
-                }
-                if (this.weaponStrategyFavourite8 === undefined) {
-                    this.weaponStrategyFavourite8 = 0;
-                }
-                if (this.weaponStrategySecondFavourite8 === undefined) {
-                    this.weaponStrategySecondFavourite8 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite8 === undefined) {
-                    this.weaponStrategyThirdFavourite8 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite8 === undefined) {
-                    this.weaponStrategyFourthFavourite8 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite8 === undefined) {
-                    this.weaponStrategyFifthFavourite8 = 0;
-                }
-                if (this.weaponFuelRatio === undefined) {
-                    this.weaponFuelRatio = 0;
-                }
-                if (this.shoppingStrategyAction1 === undefined) {
-                    this.shoppingStrategyAction1 = 0;
-                }
-                if (this.shoppingStrategyCondition1 === undefined) {
-                    this.shoppingStrategyCondition1 = 0;
-                }
-                if (this.shoppingStrategyAction2 === undefined) {
-                    this.shoppingStrategyAction2 = 0;
-                }
-                if (this.shoppingStrategyCondition2 === undefined) {
-                    this.shoppingStrategyCondition2 = 0;
-                }
-                if (this.shoppingStrategyAction3 === undefined) {
-                    this.shoppingStrategyAction3 = 0;
-                }
-                if (this.shoppingStrategyCondition3 === undefined) {
-                    this.shoppingStrategyCondition3 = 0;
-                }
-                if (this.shoppingStrategyAction4 === undefined) {
-                    this.shoppingStrategyAction4 = 0;
-                }
-                if (this.shoppingStrategyCondition4 === undefined) {
-                    this.shoppingStrategyCondition4 = 0;
-                }
-                if (this.shoppingStrategyAction5 === undefined) {
-                    this.shoppingStrategyAction5 = 0;
-                }
-                if (this.shoppingStrategyCondition5 === undefined) {
-                    this.shoppingStrategyCondition5 = 0;
-                }
-                if (this.shoppingStrategyAction6 === undefined) {
-                    this.shoppingStrategyAction6 = 0;
-                }
-                if (this.shoppingStrategyCondition6 === undefined) {
-                    this.shoppingStrategyCondition6 = 0;
-                }
-                if (this.shoppingStrategyAction7 === undefined) {
-                    this.shoppingStrategyAction7 = 0;
-                }
-                if (this.shoppingStrategyCondition7 === undefined) {
-                    this.shoppingStrategyCondition7 = 0;
-                }
-                if (this.shoppingStrategyAction8 === undefined) {
-                    this.shoppingStrategyAction8 = 0;
-                }
-                if (this.shoppingStrategyCondition8 === undefined) {
-                    this.shoppingStrategyCondition8 = 0;
-                }
-                if (this.shoppingStrategyAction9 === undefined) {
-                    this.shoppingStrategyAction9 = 0;
-                }
-                if (this.shoppingStrategyCondition9 === undefined) {
-                    this.shoppingStrategyCondition9 = 0;
-                }
-                if (this.shoppingStrategyAction10 === undefined) {
-                    this.shoppingStrategyAction10 = 0;
-                }
-                if (this.shoppingStrategyCondition10 === undefined) {
-                    this.shoppingStrategyCondition10 = 0;
-                }
-                if (this.shoppingStrategyMaximumFireUnitExpenseWhenWeaponBeingReplaced === undefined) {
-                    this.shoppingStrategyMaximumFireUnitExpenseWhenWeaponBeingReplaced = 0;
-                }
-                if (this.shoppingStrategyMaximumFireUnitsThatBePurchased === undefined) {
-                    this.shoppingStrategyMaximumFireUnitsThatBePurchased = 0;
-                }
-                if (this.timeOfLastClock1Tick === undefined) {
-                    this.timeOfLastClock1Tick = 0;
-                }
-                if (this.timeOfLastClock2Tick === undefined) {
-                    this.timeOfLastClock2Tick = 0;
-                }
-                if (this.timeOfLastClock3Tick === undefined) {
-                    this.timeOfLastClock3Tick = 0;
-                }
-                if (this.timeOfLastClock4Tick === undefined) {
-                    this.timeOfLastClock4Tick = 0;
-                }
-                if (this.timeOfLastClock5Tick === undefined) {
-                    this.timeOfLastClock5Tick = 0;
-                }
-                if (this.timeOfLastClock6Tick === undefined) {
-                    this.timeOfLastClock6Tick = 0;
-                }
-                if (this.timeOfLastClock7Tick === undefined) {
-                    this.timeOfLastClock7Tick = 0;
-                }
-                if (this.timeOfLastClock8Tick === undefined) {
-                    this.timeOfLastClock8Tick = 0;
-                }
-                if (this.timeOfLastClock9Tick === undefined) {
-                    this.timeOfLastClock9Tick = 0;
-                }
-                if (this.timeOfLastClock10Tick === undefined) {
-                    this.timeOfLastClock10Tick = 0;
-                }
-                if (this.timeOfLastSensor1Tick === undefined) {
-                    this.timeOfLastSensor1Tick = 0;
-                }
-                if (this.timeOfLastSensor2Tick === undefined) {
-                    this.timeOfLastSensor2Tick = 0;
-                }
-                if (this.timeOfLastSensor3Tick === undefined) {
-                    this.timeOfLastSensor3Tick = 0;
-                }
-                if (this.timeOfLastSensor4Tick === undefined) {
-                    this.timeOfLastSensor4Tick = 0;
-                }
-                if (this.timeOfLastSensor5Tick === undefined) {
-                    this.timeOfLastSensor5Tick = 0;
-                }
-                if (this.timeOfLastSensor6Tick === undefined) {
-                    this.timeOfLastSensor6Tick = 0;
-                }
-                if (this.timeOfLastSensor7Tick === undefined) {
-                    this.timeOfLastSensor7Tick = 0;
-                }
-                if (this.timeOfLastSensor8Tick === undefined) {
-                    this.timeOfLastSensor8Tick = 0;
-                }
-                if (this.timeOfLastSensor9Tick === undefined) {
-                    this.timeOfLastSensor9Tick = 0;
-                }
-                if (this.timeOfLastSensor10Tick === undefined) {
-                    this.timeOfLastSensor10Tick = 0;
-                }
-                if (this.timeOfLastSensor11Tick === undefined) {
-                    this.timeOfLastSensor11Tick = 0;
-                }
-                if (this.timeOfLastSensor12Tick === undefined) {
-                    this.timeOfLastSensor12Tick = 0;
-                }
-                if (this.timeOfLastSensor13Tick === undefined) {
-                    this.timeOfLastSensor13Tick = 0;
-                }
-                if (this.timeOfLastSensor14Tick === undefined) {
-                    this.timeOfLastSensor14Tick = 0;
-                }
-                if (this.timeOfLastSensor15Tick === undefined) {
-                    this.timeOfLastSensor15Tick = 0;
-                }
-                if (this.timeOfLastSensor16Tick === undefined) {
-                    this.timeOfLastSensor16Tick = 0;
-                }
+            this.clock1Probability = 0;
+            this.clock2Probability = 0;
+            this.clock3Probability = 0;
+            this.clock4Probability = 0;
+            this.clock5Probability = 0;
+            this.clock6Probability = 0;
+            this.clock7Probability = 0;
+            this.clock8Probability = 0;
+            this.clock9Probability = 0;
+            this.clock10Probability = 0;
+            this.clock1Period = 0;
+            this.clock2Period = 0;
+            this.clock3Period = 0;
+            this.clock4Period = 0;
+            this.clock5Period = 0;
+            this.clock6Period = 0;
+            this.clock7Period = 0;
+            this.clock8Period = 0;
+            this.clock9Period = 0;
+            this.clock10Period = 0;
+            this.clock1Requirement1 = RobotSpecification.ANY_CONDITION;
+            this.clock1Requirement2 = RobotSpecification.ANY_CONDITION;
+            this.clock2Requirement1 = RobotSpecification.ANY_CONDITION;
+            this.clock2Requirement2 = RobotSpecification.ANY_CONDITION;
+            this.clock3Requirement1 = RobotSpecification.ANY_CONDITION;
+            this.clock3Requirement2 = RobotSpecification.ANY_CONDITION;
+            this.clock4Requirement1 = RobotSpecification.ANY_CONDITION;
+            this.clock4Requirement2 = RobotSpecification.ANY_CONDITION;
+            this.clock5Requirement1 = RobotSpecification.ANY_CONDITION;
+            this.clock5Requirement2 = RobotSpecification.ANY_CONDITION;
+            this.clock6Requirement1 = RobotSpecification.ANY_CONDITION;
+            this.clock6Requirement2 = RobotSpecification.ANY_CONDITION;
+            this.clock7Requirement1 = RobotSpecification.ANY_CONDITION;
+            this.clock7Requirement2 = RobotSpecification.ANY_CONDITION;
+            this.clock8Requirement1 = RobotSpecification.ANY_CONDITION;
+            this.clock8Requirement2 = RobotSpecification.ANY_CONDITION;
+            this.clock9Requirement1 = RobotSpecification.ANY_CONDITION;
+            this.clock9Requirement2 = RobotSpecification.ANY_CONDITION;
+            this.clock10Requirement1 = RobotSpecification.ANY_CONDITION;
+            this.clock10Requirement2 = RobotSpecification.ANY_CONDITION;
+            this.clock1Response1 = RobotSpecification.NO_ACTION;
+            this.clock1Response2 = RobotSpecification.NO_ACTION;
+            this.clock1Response3 = RobotSpecification.NO_ACTION;
+            this.clock2Response1 = RobotSpecification.NO_ACTION;
+            this.clock2Response2 = RobotSpecification.NO_ACTION;
+            this.clock2Response3 = RobotSpecification.NO_ACTION;
+            this.clock3Response1 = RobotSpecification.NO_ACTION;
+            this.clock3Response2 = RobotSpecification.NO_ACTION;
+            this.clock3Response3 = RobotSpecification.NO_ACTION;
+            this.clock4Response1 = RobotSpecification.NO_ACTION;
+            this.clock4Response2 = RobotSpecification.NO_ACTION;
+            this.clock4Response3 = RobotSpecification.NO_ACTION;
+            this.clock5Response1 = RobotSpecification.NO_ACTION;
+            this.clock5Response2 = RobotSpecification.NO_ACTION;
+            this.clock5Response3 = RobotSpecification.NO_ACTION;
+            this.clock6Response1 = RobotSpecification.NO_ACTION;
+            this.clock6Response2 = RobotSpecification.NO_ACTION;
+            this.clock6Response3 = RobotSpecification.NO_ACTION;
+            this.clock7Response1 = RobotSpecification.NO_ACTION;
+            this.clock7Response2 = RobotSpecification.NO_ACTION;
+            this.clock7Response3 = RobotSpecification.NO_ACTION;
+            this.clock8Response1 = RobotSpecification.NO_ACTION;
+            this.clock8Response2 = RobotSpecification.NO_ACTION;
+            this.clock8Response3 = RobotSpecification.NO_ACTION;
+            this.clock9Response1 = RobotSpecification.NO_ACTION;
+            this.clock9Response2 = RobotSpecification.NO_ACTION;
+            this.clock9Response3 = RobotSpecification.NO_ACTION;
+            this.clock10Response1 = RobotSpecification.NO_ACTION;
+            this.clock10Response2 = RobotSpecification.NO_ACTION;
+            this.clock10Response3 = RobotSpecification.NO_ACTION;
+            this.sensor1Angle = 0;
+            this.sensor2Angle = 180;
+            this.sensor3Angle = 20;
+            this.sensor4Angle = -20;
+            this.sensor5Angle = 180;
+            this.sensor6Angle = 40;
+            this.sensor7Angle = -40;
+            this.sensor8Angle = 0;
+            this.sensor9Angle = 0;
+            this.sensor10Angle = 0;
+            this.sensor11Angle = 0;
+            this.sensor12Angle = 0;
+            this.sensor13Angle = 0;
+            this.sensor14Angle = 0;
+            this.sensor15Angle = 0;
+            this.sensor16Angle = 0;
+            this.sensor1Length = 900;
+            this.sensor2Length = 900;
+            this.sensor3Length = 300;
+            this.sensor4Length = 300;
+            this.sensor5Length = 80;
+            this.sensor6Length = 80;
+            this.sensor7Length = 80;
+            this.sensor8Length = 0;
+            this.sensor9Length = 0;
+            this.sensor10Length = 0;
+            this.sensor11Length = 0;
+            this.sensor12Length = 0;
+            this.sensor13Length = 0;
+            this.sensor14Length = 0;
+            this.sensor15Length = 0;
+            this.sensor16Length = 0;
+            this.sensor1Width = 0;
+            this.sensor2Width = 0;
+            this.sensor3Width = 5;
+            this.sensor4Width = 5;
+            this.sensor5Width = 0;
+            this.sensor6Width = 80;
+            this.sensor7Width = 80;
+            this.sensor8Width = 0;
+            this.sensor9Width = 0;
+            this.sensor10Width = 0;
+            this.sensor11Width = 0;
+            this.sensor12Width = 0;
+            this.sensor13Width = 0;
+            this.sensor14Width = 0;
+            this.sensor15Width = 0;
+            this.sensor16Width = 0;
+            this.sensor1Probability = RobotSpecification.NO_ACTION;
+            this.sensor2Probability = RobotSpecification.NO_ACTION;
+            this.sensor3Probability = RobotSpecification.NO_ACTION;
+            this.sensor4Probability = RobotSpecification.NO_ACTION;
+            this.sensor5Probability = RobotSpecification.NO_ACTION;
+            this.sensor6Probability = RobotSpecification.NO_ACTION;
+            this.sensor7Probability = RobotSpecification.NO_ACTION;
+            this.sensor8Probability = RobotSpecification.NO_ACTION;
+            this.sensor9Probability = RobotSpecification.NO_ACTION;
+            this.sensor10Probability = RobotSpecification.NO_ACTION;
+            this.sensor11Probability = RobotSpecification.NO_ACTION;
+            this.sensor12Probability = RobotSpecification.NO_ACTION;
+            this.sensor13Probability = RobotSpecification.NO_ACTION;
+            this.sensor14Probability = RobotSpecification.NO_ACTION;
+            this.sensor15Probability = RobotSpecification.NO_ACTION;
+            this.sensor16Probability = RobotSpecification.NO_ACTION;
+            this.sensor1Period = 1000;
+            this.sensor2Period = 1000;
+            this.sensor3Period = 200;
+            this.sensor4Period = 200;
+            this.sensor5Period = 200;
+            this.sensor6Period = 200;
+            this.sensor7Period = 200;
+            this.sensor8Period = 0;
+            this.sensor9Period = 0;
+            this.sensor10Period = 0;
+            this.sensor11Period = 0;
+            this.sensor12Period = 0;
+            this.sensor13Period = 0;
+            this.sensor14Period = 0;
+            this.sensor15Period = 0;
+            this.sensor16Period = 0;
+            this.sensor1ParallelOffset = 0;
+            this.sensor2ParallelOffset = 0;
+            this.sensor3ParallelOffset = -15;
+            this.sensor4ParallelOffset = -15;
+            this.sensor5ParallelOffset = 0;
+            this.sensor6ParallelOffset = 0;
+            this.sensor7ParallelOffset = 0;
+            this.sensor8ParallelOffset = 0;
+            this.sensor9ParallelOffset = 0;
+            this.sensor10ParallelOffset = 0;
+            this.sensor11ParallelOffset = 0;
+            this.sensor12ParallelOffset = 0;
+            this.sensor13ParallelOffset = 0;
+            this.sensor14ParallelOffset = 0;
+            this.sensor15ParallelOffset = 0;
+            this.sensor16ParallelOffset = 0;
+            this.sensor1PerpendicularOffset = 0;
+            this.sensor2PerpendicularOffset = 0;
+            this.sensor3PerpendicularOffset = 15;
+            this.sensor4PerpendicularOffset = -15;
+            this.sensor5PerpendicularOffset = 0;
+            this.sensor6PerpendicularOffset = 0;
+            this.sensor7PerpendicularOffset = 0;
+            this.sensor8PerpendicularOffset = 0;
+            this.sensor9PerpendicularOffset = 0;
+            this.sensor10PerpendicularOffset = 0;
+            this.sensor11PerpendicularOffset = 0;
+            this.sensor12PerpendicularOffset = 0;
+            this.sensor13PerpendicularOffset = 0;
+            this.sensor14PerpendicularOffset = 0;
+            this.sensor15PerpendicularOffset = 0;
+            this.sensor16PerpendicularOffset = 0;
+            this.sensor1Condition1 = RobotSpecification.ANY_CONDITION;
+            this.sensor1Condition2 = RobotSpecification.ANY_CONDITION;
+            this.sensor1Condition3 = RobotSpecification.ANY_CONDITION;
+            this.sensor2Condition1 = RobotSpecification.ANY_CONDITION;
+            this.sensor2Condition2 = RobotSpecification.ANY_CONDITION;
+            this.sensor2Condition3 = RobotSpecification.ANY_CONDITION;
+            this.sensor3Condition1 = RobotSpecification.ANY_CONDITION;
+            this.sensor3Condition2 = RobotSpecification.ANY_CONDITION;
+            this.sensor3Condition3 = RobotSpecification.ANY_CONDITION;
+            this.sensor4Condition1 = RobotSpecification.ANY_CONDITION;
+            this.sensor4Condition2 = RobotSpecification.ANY_CONDITION;
+            this.sensor4Condition3 = RobotSpecification.ANY_CONDITION;
+            this.sensor5Condition1 = RobotSpecification.ANY_CONDITION;
+            this.sensor5Condition2 = RobotSpecification.ANY_CONDITION;
+            this.sensor5Condition3 = RobotSpecification.ANY_CONDITION;
+            this.sensor6Condition1 = RobotSpecification.ANY_CONDITION;
+            this.sensor6Condition2 = RobotSpecification.ANY_CONDITION;
+            this.sensor6Condition3 = RobotSpecification.ANY_CONDITION;
+            this.sensor7Condition1 = RobotSpecification.ANY_CONDITION;
+            this.sensor7Condition2 = RobotSpecification.ANY_CONDITION;
+            this.sensor7Condition3 = RobotSpecification.ANY_CONDITION;
+            this.sensor8Condition1 = RobotSpecification.ANY_CONDITION;
+            this.sensor8Condition2 = RobotSpecification.ANY_CONDITION;
+            this.sensor8Condition3 = RobotSpecification.ANY_CONDITION;
+            this.sensor9Condition1 = RobotSpecification.ANY_CONDITION;
+            this.sensor9Condition2 = RobotSpecification.ANY_CONDITION;
+            this.sensor9Condition3 = RobotSpecification.ANY_CONDITION;
+            this.sensor10Condition1 = RobotSpecification.ANY_CONDITION;
+            this.sensor10Condition2 = RobotSpecification.ANY_CONDITION;
+            this.sensor10Condition3 = RobotSpecification.ANY_CONDITION;
+            this.sensor11Condition1 = RobotSpecification.ANY_CONDITION;
+            this.sensor11Condition2 = RobotSpecification.ANY_CONDITION;
+            this.sensor11Condition3 = RobotSpecification.ANY_CONDITION;
+            this.sensor12Condition1 = RobotSpecification.ANY_CONDITION;
+            this.sensor12Condition2 = RobotSpecification.ANY_CONDITION;
+            this.sensor12Condition3 = RobotSpecification.ANY_CONDITION;
+            this.sensor13Condition1 = RobotSpecification.ANY_CONDITION;
+            this.sensor13Condition2 = RobotSpecification.ANY_CONDITION;
+            this.sensor13Condition3 = RobotSpecification.ANY_CONDITION;
+            this.sensor14Condition1 = RobotSpecification.ANY_CONDITION;
+            this.sensor14Condition2 = RobotSpecification.ANY_CONDITION;
+            this.sensor14Condition3 = RobotSpecification.ANY_CONDITION;
+            this.sensor15Condition1 = RobotSpecification.ANY_CONDITION;
+            this.sensor15Condition2 = RobotSpecification.ANY_CONDITION;
+            this.sensor15Condition3 = RobotSpecification.ANY_CONDITION;
+            this.sensor16Condition1 = RobotSpecification.ANY_CONDITION;
+            this.sensor16Condition2 = RobotSpecification.ANY_CONDITION;
+            this.sensor16Condition3 = RobotSpecification.ANY_CONDITION;
+            this.sensor1ResponseToWall1 = RobotSpecification.NO_ACTION;
+            this.sensor1ResponseToWall2 = RobotSpecification.NO_ACTION;
+            this.sensor1ResponseToWall3 = RobotSpecification.NO_ACTION;
+            this.sensor1ResponseToTank1 = RobotSpecification.NO_ACTION;
+            this.sensor1ResponseToTank2 = RobotSpecification.NO_ACTION;
+            this.sensor1ResponseToTank3 = RobotSpecification.NO_ACTION;
+            this.sensor1ResponseToMissile1 = RobotSpecification.NO_ACTION;
+            this.sensor1ResponseToMissile2 = RobotSpecification.NO_ACTION;
+            this.sensor1ResponseToMissile3 = RobotSpecification.NO_ACTION;
+            this.sensor2ResponseToWall1 = RobotSpecification.NO_ACTION;
+            this.sensor2ResponseToWall2 = RobotSpecification.NO_ACTION;
+            this.sensor2ResponseToWall3 = RobotSpecification.NO_ACTION;
+            this.sensor2ResponseToTank1 = RobotSpecification.NO_ACTION;
+            this.sensor2ResponseToTank2 = RobotSpecification.NO_ACTION;
+            this.sensor2ResponseToTank3 = RobotSpecification.NO_ACTION;
+            this.sensor2ResponseToMissile1 = RobotSpecification.NO_ACTION;
+            this.sensor2ResponseToMissile2 = RobotSpecification.NO_ACTION;
+            this.sensor2ResponseToMissile3 = RobotSpecification.NO_ACTION;
+            this.sensor3ResponseToWall1 = RobotSpecification.NO_ACTION;
+            this.sensor3ResponseToWall2 = RobotSpecification.NO_ACTION;
+            this.sensor3ResponseToWall3 = RobotSpecification.NO_ACTION;
+            this.sensor3ResponseToTank1 = RobotSpecification.NO_ACTION;
+            this.sensor3ResponseToTank2 = RobotSpecification.NO_ACTION;
+            this.sensor3ResponseToTank3 = RobotSpecification.NO_ACTION;
+            this.sensor3ResponseToMissile1 = RobotSpecification.NO_ACTION;
+            this.sensor3ResponseToMissile2 = RobotSpecification.NO_ACTION;
+            this.sensor3ResponseToMissile3 = RobotSpecification.NO_ACTION;
+            this.sensor4ResponseToWall1 = RobotSpecification.NO_ACTION;
+            this.sensor4ResponseToWall2 = RobotSpecification.NO_ACTION;
+            this.sensor4ResponseToWall3 = RobotSpecification.NO_ACTION;
+            this.sensor4ResponseToTank1 = RobotSpecification.NO_ACTION;
+            this.sensor4ResponseToTank2 = RobotSpecification.NO_ACTION;
+            this.sensor4ResponseToTank3 = RobotSpecification.NO_ACTION;
+            this.sensor4ResponseToMissile1 = RobotSpecification.NO_ACTION;
+            this.sensor4ResponseToMissile2 = RobotSpecification.NO_ACTION;
+            this.sensor4ResponseToMissile3 = RobotSpecification.NO_ACTION;
+            this.sensor5ResponseToWall1 = RobotSpecification.NO_ACTION;
+            this.sensor5ResponseToWall2 = RobotSpecification.NO_ACTION;
+            this.sensor5ResponseToWall3 = RobotSpecification.NO_ACTION;
+            this.sensor5ResponseToTank1 = RobotSpecification.NO_ACTION;
+            this.sensor5ResponseToTank2 = RobotSpecification.NO_ACTION;
+            this.sensor5ResponseToTank3 = RobotSpecification.NO_ACTION;
+            this.sensor5ResponseToMissile1 = RobotSpecification.NO_ACTION;
+            this.sensor5ResponseToMissile2 = RobotSpecification.NO_ACTION;
+            this.sensor5ResponseToMissile3 = RobotSpecification.NO_ACTION;
+            this.sensor6ResponseToWall1 = RobotSpecification.NO_ACTION;
+            this.sensor6ResponseToWall2 = RobotSpecification.NO_ACTION;
+            this.sensor6ResponseToWall3 = RobotSpecification.NO_ACTION;
+            this.sensor6ResponseToTank1 = RobotSpecification.NO_ACTION;
+            this.sensor6ResponseToTank2 = RobotSpecification.NO_ACTION;
+            this.sensor6ResponseToTank3 = RobotSpecification.NO_ACTION;
+            this.sensor6ResponseToMissile1 = RobotSpecification.NO_ACTION;
+            this.sensor6ResponseToMissile2 = RobotSpecification.NO_ACTION;
+            this.sensor6ResponseToMissile3 = RobotSpecification.NO_ACTION;
+            this.sensor7ResponseToWall1 = RobotSpecification.NO_ACTION;
+            this.sensor7ResponseToWall2 = RobotSpecification.NO_ACTION;
+            this.sensor7ResponseToWall3 = RobotSpecification.NO_ACTION;
+            this.sensor7ResponseToTank1 = RobotSpecification.NO_ACTION;
+            this.sensor7ResponseToTank2 = RobotSpecification.NO_ACTION;
+            this.sensor7ResponseToTank3 = RobotSpecification.NO_ACTION;
+            this.sensor7ResponseToMissile1 = RobotSpecification.NO_ACTION;
+            this.sensor7ResponseToMissile2 = RobotSpecification.NO_ACTION;
+            this.sensor7ResponseToMissile3 = RobotSpecification.NO_ACTION;
+            this.sensor8ResponseToWall1 = RobotSpecification.NO_ACTION;
+            this.sensor8ResponseToWall2 = RobotSpecification.NO_ACTION;
+            this.sensor8ResponseToWall3 = RobotSpecification.NO_ACTION;
+            this.sensor8ResponseToTank1 = RobotSpecification.NO_ACTION;
+            this.sensor8ResponseToTank2 = RobotSpecification.NO_ACTION;
+            this.sensor8ResponseToTank3 = RobotSpecification.NO_ACTION;
+            this.sensor8ResponseToMissile1 = RobotSpecification.NO_ACTION;
+            this.sensor8ResponseToMissile2 = RobotSpecification.NO_ACTION;
+            this.sensor8ResponseToMissile3 = RobotSpecification.NO_ACTION;
+            this.sensor9ResponseToWall1 = RobotSpecification.NO_ACTION;
+            this.sensor9ResponseToWall2 = RobotSpecification.NO_ACTION;
+            this.sensor9ResponseToWall3 = RobotSpecification.NO_ACTION;
+            this.sensor9ResponseToTank1 = RobotSpecification.NO_ACTION;
+            this.sensor9ResponseToTank2 = RobotSpecification.NO_ACTION;
+            this.sensor9ResponseToTank3 = RobotSpecification.NO_ACTION;
+            this.sensor9ResponseToMissile1 = RobotSpecification.NO_ACTION;
+            this.sensor9ResponseToMissile2 = RobotSpecification.NO_ACTION;
+            this.sensor9ResponseToMissile3 = RobotSpecification.NO_ACTION;
+            this.sensor10ResponseToWall1 = RobotSpecification.NO_ACTION;
+            this.sensor10ResponseToWall2 = RobotSpecification.NO_ACTION;
+            this.sensor10ResponseToWall3 = RobotSpecification.NO_ACTION;
+            this.sensor10ResponseToTank1 = RobotSpecification.NO_ACTION;
+            this.sensor10ResponseToTank2 = RobotSpecification.NO_ACTION;
+            this.sensor10ResponseToTank3 = RobotSpecification.NO_ACTION;
+            this.sensor10ResponseToMissile1 = RobotSpecification.NO_ACTION;
+            this.sensor10ResponseToMissile2 = RobotSpecification.NO_ACTION;
+            this.sensor10ResponseToMissile3 = RobotSpecification.NO_ACTION;
+            this.sensor11ResponseToWall1 = RobotSpecification.NO_ACTION;
+            this.sensor11ResponseToWall2 = RobotSpecification.NO_ACTION;
+            this.sensor11ResponseToWall3 = RobotSpecification.NO_ACTION;
+            this.sensor11ResponseToTank1 = RobotSpecification.NO_ACTION;
+            this.sensor11ResponseToTank2 = RobotSpecification.NO_ACTION;
+            this.sensor11ResponseToTank3 = RobotSpecification.NO_ACTION;
+            this.sensor11ResponseToMissile1 = RobotSpecification.NO_ACTION;
+            this.sensor11ResponseToMissile2 = RobotSpecification.NO_ACTION;
+            this.sensor11ResponseToMissile3 = RobotSpecification.NO_ACTION;
+            this.sensor12ResponseToWall1 = RobotSpecification.NO_ACTION;
+            this.sensor12ResponseToWall2 = RobotSpecification.NO_ACTION;
+            this.sensor12ResponseToWall3 = RobotSpecification.NO_ACTION;
+            this.sensor12ResponseToTank1 = RobotSpecification.NO_ACTION;
+            this.sensor12ResponseToTank2 = RobotSpecification.NO_ACTION;
+            this.sensor12ResponseToTank3 = RobotSpecification.NO_ACTION;
+            this.sensor12ResponseToMissile1 = RobotSpecification.NO_ACTION;
+            this.sensor12ResponseToMissile2 = RobotSpecification.NO_ACTION;
+            this.sensor12ResponseToMissile3 = RobotSpecification.NO_ACTION;
+            this.sensor13ResponseToWall1 = RobotSpecification.NO_ACTION;
+            this.sensor13ResponseToWall2 = RobotSpecification.NO_ACTION;
+            this.sensor13ResponseToWall3 = RobotSpecification.NO_ACTION;
+            this.sensor13ResponseToTank1 = RobotSpecification.NO_ACTION;
+            this.sensor13ResponseToTank2 = RobotSpecification.NO_ACTION;
+            this.sensor13ResponseToTank3 = RobotSpecification.NO_ACTION;
+            this.sensor13ResponseToMissile1 = RobotSpecification.NO_ACTION;
+            this.sensor13ResponseToMissile2 = RobotSpecification.NO_ACTION;
+            this.sensor13ResponseToMissile3 = RobotSpecification.NO_ACTION;
+            this.sensor14ResponseToWall1 = RobotSpecification.NO_ACTION;
+            this.sensor14ResponseToWall2 = RobotSpecification.NO_ACTION;
+            this.sensor14ResponseToWall3 = RobotSpecification.NO_ACTION;
+            this.sensor14ResponseToTank1 = RobotSpecification.NO_ACTION;
+            this.sensor14ResponseToTank2 = RobotSpecification.NO_ACTION;
+            this.sensor14ResponseToTank3 = RobotSpecification.NO_ACTION;
+            this.sensor14ResponseToMissile1 = RobotSpecification.NO_ACTION;
+            this.sensor14ResponseToMissile2 = RobotSpecification.NO_ACTION;
+            this.sensor14ResponseToMissile3 = RobotSpecification.NO_ACTION;
+            this.sensor15ResponseToWall1 = RobotSpecification.NO_ACTION;
+            this.sensor15ResponseToWall2 = RobotSpecification.NO_ACTION;
+            this.sensor15ResponseToWall3 = RobotSpecification.NO_ACTION;
+            this.sensor15ResponseToTank1 = RobotSpecification.NO_ACTION;
+            this.sensor15ResponseToTank2 = RobotSpecification.NO_ACTION;
+            this.sensor15ResponseToTank3 = RobotSpecification.NO_ACTION;
+            this.sensor15ResponseToMissile1 = RobotSpecification.NO_ACTION;
+            this.sensor15ResponseToMissile2 = RobotSpecification.NO_ACTION;
+            this.sensor15ResponseToMissile3 = RobotSpecification.NO_ACTION;
+            this.sensor16ResponseToWall1 = RobotSpecification.NO_ACTION;
+            this.sensor16ResponseToWall2 = RobotSpecification.NO_ACTION;
+            this.sensor16ResponseToWall3 = RobotSpecification.NO_ACTION;
+            this.sensor16ResponseToTank1 = RobotSpecification.NO_ACTION;
+            this.sensor16ResponseToTank2 = RobotSpecification.NO_ACTION;
+            this.sensor16ResponseToTank3 = RobotSpecification.NO_ACTION;
+            this.sensor16ResponseToMissile1 = RobotSpecification.NO_ACTION;
+            this.sensor16ResponseToMissile2 = RobotSpecification.NO_ACTION;
+            this.sensor16ResponseToMissile3 = RobotSpecification.NO_ACTION;
+            this.responseToMissileHit1 = RobotSpecification.NO_ACTION;
+            this.responseToMissileHit2 = RobotSpecification.NO_ACTION;
+            this.responseToMissileHit3 = RobotSpecification.NO_ACTION;
+            this.responseToFacingTarget1 = RobotSpecification.NO_ACTION;
+            this.responseToFacingTarget2 = RobotSpecification.NO_ACTION;
+            this.responseToFacingTarget3 = RobotSpecification.NO_ACTION;
+            this.weaponStrategyFavourite1 = dsector.PreBuiltWeaponSpecifications.TRI_STRIKER;
+            this.weaponStrategySecondFavourite1 = dsector.PreBuiltWeaponSpecifications.POWER_LASER;
+            this.weaponStrategyThirdFavourite1 = dsector.PreBuiltWeaponSpecifications.BEAM_LASER;
+            this.weaponStrategyFourthFavourite1 = dsector.PreBuiltWeaponSpecifications.DOUBLE_MISSILE;
+            this.weaponStrategyFifthFavourite1 = dsector.PreBuiltWeaponSpecifications.STANDARD_MISSILE;
+            this.weaponStrategyFavourite2 = dsector.PreBuiltWeaponSpecifications.TRI_BREAKER;
+            this.weaponStrategySecondFavourite2 = dsector.PreBuiltWeaponSpecifications.QUINT_BREAKER;
+            this.weaponStrategyThirdFavourite2 = dsector.PreBuiltWeaponSpecifications.OCTO_BREAKER;
+            this.weaponStrategyFourthFavourite2 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategyFifthFavourite2 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategyFavourite3 = dsector.PreBuiltWeaponSpecifications.REAR_TRIPLE;
+            this.weaponStrategySecondFavourite3 = dsector.PreBuiltWeaponSpecifications.REAR_GUIDERS;
+            this.weaponStrategyThirdFavourite3 = dsector.PreBuiltWeaponSpecifications.REAR_DOUBLE;
+            this.weaponStrategyFourthFavourite3 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategyFifthFavourite3 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategyFavourite4 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategySecondFavourite4 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategyThirdFavourite4 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategyFourthFavourite4 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategyFifthFavourite4 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategyFavourite5 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategySecondFavourite5 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategyThirdFavourite5 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategyFourthFavourite5 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategyFifthFavourite5 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategyFavourite6 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategySecondFavourite6 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategyThirdFavourite6 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategyFourthFavourite6 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategyFifthFavourite6 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategyFavourite7 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategySecondFavourite7 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategyThirdFavourite7 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategyFourthFavourite7 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategyFifthFavourite7 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategyFavourite8 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategySecondFavourite8 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategyThirdFavourite8 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategyFourthFavourite8 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.weaponStrategyFifthFavourite8 = dsector.PreBuiltWeaponSpecifications.NONE;
+            this.shoppingStrategyAction1 = RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_1;
+            this.shoppingStrategyCondition1 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
+            this.shoppingStrategyAction2 = RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_RANDOM_WEAPON_STRATEGY;
+            this.shoppingStrategyCondition2 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
+            this.shoppingStrategyAction3 = RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_RANDOM_WEAPON_STRATEGY;
+            this.shoppingStrategyCondition3 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
+            this.shoppingStrategyAction4 = RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_RANDOM_WEAPON_STRATEGY;
+            this.shoppingStrategyCondition4 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
+            this.shoppingStrategyAction5 = RobotSpecification.NO_ACTION;
+            this.shoppingStrategyCondition5 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
+            this.shoppingStrategyAction6 = RobotSpecification.NO_ACTION;
+            this.shoppingStrategyCondition6 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
+            this.shoppingStrategyAction7 = RobotSpecification.NO_ACTION;
+            this.shoppingStrategyCondition7 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
+            this.shoppingStrategyAction8 = RobotSpecification.NO_ACTION;
+            this.shoppingStrategyCondition8 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
+            this.shoppingStrategyAction9 = RobotSpecification.SHOPPING_CONDITION_50_PERCENT;
+            this.shoppingStrategyCondition9 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
+            this.shoppingStrategyAction10 = RobotSpecification.NO_ACTION;
+            this.shoppingStrategyCondition10 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
+            this.shoppingStrategyMaximumFireUnitExpenseWhenWeaponBeingReplaced = 200;
+            this.shoppingStrategyMaximumFireUnitsThatBePurchased = 200;
+            this.timeOfLastClock1Tick = 0;
+            this.timeOfLastClock2Tick = 0;
+            this.timeOfLastClock3Tick = 0;
+            this.timeOfLastClock4Tick = 0;
+            this.timeOfLastClock5Tick = 0;
+            this.timeOfLastClock6Tick = 0;
+            this.timeOfLastClock7Tick = 0;
+            this.timeOfLastClock8Tick = 0;
+            this.timeOfLastClock9Tick = 0;
+            this.timeOfLastClock10Tick = 0;
+            this.timeOfLastSensor1Tick = 0;
+            this.timeOfLastSensor2Tick = 0;
+            this.timeOfLastSensor3Tick = 0;
+            this.timeOfLastSensor4Tick = 0;
+            this.timeOfLastSensor5Tick = 0;
+            this.timeOfLastSensor6Tick = 0;
+            this.timeOfLastSensor7Tick = 0;
+            this.timeOfLastSensor8Tick = 0;
+            this.timeOfLastSensor9Tick = 0;
+            this.timeOfLastSensor10Tick = 0;
+            this.timeOfLastSensor11Tick = 0;
+            this.timeOfLastSensor12Tick = 0;
+            this.timeOfLastSensor13Tick = 0;
+            this.timeOfLastSensor14Tick = 0;
+            this.timeOfLastSensor15Tick = 0;
+            this.timeOfLastSensor16Tick = 0;
+            this.weaponFuelRatio = 100;
+
+            if (((typeof fileName === 'string') || fileName === null)) {
                 (() => {
                     this.filename = fileName;
                     switch (fileName) {
@@ -3294,1875 +539,12 @@
                     }
                 })();
             } else if (fileName === undefined) {
-                if (this.type === undefined) {
-                    this.type = 0;
-                }
-                if (this.filename === undefined) {
-                    this.filename = null;
-                }
-                if (this.name === undefined) {
-                    this.name = null;
-                }
-                if (this.description === undefined) {
-                    this.description = null;
-                }
-                if (this.viewSensors === undefined) {
-                    this.viewSensors = 0;
-                }
-                if (this.clock1Probability === undefined) {
-                    this.clock1Probability = 0;
-                }
-                if (this.clock2Probability === undefined) {
-                    this.clock2Probability = 0;
-                }
-                if (this.clock3Probability === undefined) {
-                    this.clock3Probability = 0;
-                }
-                if (this.clock4Probability === undefined) {
-                    this.clock4Probability = 0;
-                }
-                if (this.clock5Probability === undefined) {
-                    this.clock5Probability = 0;
-                }
-                if (this.clock6Probability === undefined) {
-                    this.clock6Probability = 0;
-                }
-                if (this.clock7Probability === undefined) {
-                    this.clock7Probability = 0;
-                }
-                if (this.clock8Probability === undefined) {
-                    this.clock8Probability = 0;
-                }
-                if (this.clock9Probability === undefined) {
-                    this.clock9Probability = 0;
-                }
-                if (this.clock10Probability === undefined) {
-                    this.clock10Probability = 0;
-                }
-                if (this.clock1Period === undefined) {
-                    this.clock1Period = 0;
-                }
-                if (this.clock2Period === undefined) {
-                    this.clock2Period = 0;
-                }
-                if (this.clock3Period === undefined) {
-                    this.clock3Period = 0;
-                }
-                if (this.clock4Period === undefined) {
-                    this.clock4Period = 0;
-                }
-                if (this.clock5Period === undefined) {
-                    this.clock5Period = 0;
-                }
-                if (this.clock6Period === undefined) {
-                    this.clock6Period = 0;
-                }
-                if (this.clock7Period === undefined) {
-                    this.clock7Period = 0;
-                }
-                if (this.clock8Period === undefined) {
-                    this.clock8Period = 0;
-                }
-                if (this.clock9Period === undefined) {
-                    this.clock9Period = 0;
-                }
-                if (this.clock10Period === undefined) {
-                    this.clock10Period = 0;
-                }
-                if (this.clock1Requirement1 === undefined) {
-                    this.clock1Requirement1 = 0;
-                }
-                if (this.clock1Requirement2 === undefined) {
-                    this.clock1Requirement2 = 0;
-                }
-                if (this.clock2Requirement1 === undefined) {
-                    this.clock2Requirement1 = 0;
-                }
-                if (this.clock2Requirement2 === undefined) {
-                    this.clock2Requirement2 = 0;
-                }
-                if (this.clock3Requirement1 === undefined) {
-                    this.clock3Requirement1 = 0;
-                }
-                if (this.clock3Requirement2 === undefined) {
-                    this.clock3Requirement2 = 0;
-                }
-                if (this.clock4Requirement1 === undefined) {
-                    this.clock4Requirement1 = 0;
-                }
-                if (this.clock4Requirement2 === undefined) {
-                    this.clock4Requirement2 = 0;
-                }
-                if (this.clock5Requirement1 === undefined) {
-                    this.clock5Requirement1 = 0;
-                }
-                if (this.clock5Requirement2 === undefined) {
-                    this.clock5Requirement2 = 0;
-                }
-                if (this.clock6Requirement1 === undefined) {
-                    this.clock6Requirement1 = 0;
-                }
-                if (this.clock6Requirement2 === undefined) {
-                    this.clock6Requirement2 = 0;
-                }
-                if (this.clock7Requirement1 === undefined) {
-                    this.clock7Requirement1 = 0;
-                }
-                if (this.clock7Requirement2 === undefined) {
-                    this.clock7Requirement2 = 0;
-                }
-                if (this.clock8Requirement1 === undefined) {
-                    this.clock8Requirement1 = 0;
-                }
-                if (this.clock8Requirement2 === undefined) {
-                    this.clock8Requirement2 = 0;
-                }
-                if (this.clock9Requirement1 === undefined) {
-                    this.clock9Requirement1 = 0;
-                }
-                if (this.clock9Requirement2 === undefined) {
-                    this.clock9Requirement2 = 0;
-                }
-                if (this.clock10Requirement1 === undefined) {
-                    this.clock10Requirement1 = 0;
-                }
-                if (this.clock10Requirement2 === undefined) {
-                    this.clock10Requirement2 = 0;
-                }
-                if (this.clock1Response1 === undefined) {
-                    this.clock1Response1 = 0;
-                }
-                if (this.clock1Response2 === undefined) {
-                    this.clock1Response2 = 0;
-                }
-                if (this.clock1Response3 === undefined) {
-                    this.clock1Response3 = 0;
-                }
-                if (this.clock2Response1 === undefined) {
-                    this.clock2Response1 = 0;
-                }
-                if (this.clock2Response2 === undefined) {
-                    this.clock2Response2 = 0;
-                }
-                if (this.clock2Response3 === undefined) {
-                    this.clock2Response3 = 0;
-                }
-                if (this.clock3Response1 === undefined) {
-                    this.clock3Response1 = 0;
-                }
-                if (this.clock3Response2 === undefined) {
-                    this.clock3Response2 = 0;
-                }
-                if (this.clock3Response3 === undefined) {
-                    this.clock3Response3 = 0;
-                }
-                if (this.clock4Response1 === undefined) {
-                    this.clock4Response1 = 0;
-                }
-                if (this.clock4Response2 === undefined) {
-                    this.clock4Response2 = 0;
-                }
-                if (this.clock4Response3 === undefined) {
-                    this.clock4Response3 = 0;
-                }
-                if (this.clock5Response1 === undefined) {
-                    this.clock5Response1 = 0;
-                }
-                if (this.clock5Response2 === undefined) {
-                    this.clock5Response2 = 0;
-                }
-                if (this.clock5Response3 === undefined) {
-                    this.clock5Response3 = 0;
-                }
-                if (this.clock6Response1 === undefined) {
-                    this.clock6Response1 = 0;
-                }
-                if (this.clock6Response2 === undefined) {
-                    this.clock6Response2 = 0;
-                }
-                if (this.clock6Response3 === undefined) {
-                    this.clock6Response3 = 0;
-                }
-                if (this.clock7Response1 === undefined) {
-                    this.clock7Response1 = 0;
-                }
-                if (this.clock7Response2 === undefined) {
-                    this.clock7Response2 = 0;
-                }
-                if (this.clock7Response3 === undefined) {
-                    this.clock7Response3 = 0;
-                }
-                if (this.clock8Response1 === undefined) {
-                    this.clock8Response1 = 0;
-                }
-                if (this.clock8Response2 === undefined) {
-                    this.clock8Response2 = 0;
-                }
-                if (this.clock8Response3 === undefined) {
-                    this.clock8Response3 = 0;
-                }
-                if (this.clock9Response1 === undefined) {
-                    this.clock9Response1 = 0;
-                }
-                if (this.clock9Response2 === undefined) {
-                    this.clock9Response2 = 0;
-                }
-                if (this.clock9Response3 === undefined) {
-                    this.clock9Response3 = 0;
-                }
-                if (this.clock10Response1 === undefined) {
-                    this.clock10Response1 = 0;
-                }
-                if (this.clock10Response2 === undefined) {
-                    this.clock10Response2 = 0;
-                }
-                if (this.clock10Response3 === undefined) {
-                    this.clock10Response3 = 0;
-                }
-                if (this.sensor1Angle === undefined) {
-                    this.sensor1Angle = 0;
-                }
-                if (this.sensor2Angle === undefined) {
-                    this.sensor2Angle = 0;
-                }
-                if (this.sensor3Angle === undefined) {
-                    this.sensor3Angle = 0;
-                }
-                if (this.sensor4Angle === undefined) {
-                    this.sensor4Angle = 0;
-                }
-                if (this.sensor5Angle === undefined) {
-                    this.sensor5Angle = 0;
-                }
-                if (this.sensor6Angle === undefined) {
-                    this.sensor6Angle = 0;
-                }
-                if (this.sensor7Angle === undefined) {
-                    this.sensor7Angle = 0;
-                }
-                if (this.sensor8Angle === undefined) {
-                    this.sensor8Angle = 0;
-                }
-                if (this.sensor9Angle === undefined) {
-                    this.sensor9Angle = 0;
-                }
-                if (this.sensor10Angle === undefined) {
-                    this.sensor10Angle = 0;
-                }
-                if (this.sensor11Angle === undefined) {
-                    this.sensor11Angle = 0;
-                }
-                if (this.sensor12Angle === undefined) {
-                    this.sensor12Angle = 0;
-                }
-                if (this.sensor13Angle === undefined) {
-                    this.sensor13Angle = 0;
-                }
-                if (this.sensor14Angle === undefined) {
-                    this.sensor14Angle = 0;
-                }
-                if (this.sensor15Angle === undefined) {
-                    this.sensor15Angle = 0;
-                }
-                if (this.sensor16Angle === undefined) {
-                    this.sensor16Angle = 0;
-                }
-                if (this.sensor1Length === undefined) {
-                    this.sensor1Length = 0;
-                }
-                if (this.sensor2Length === undefined) {
-                    this.sensor2Length = 0;
-                }
-                if (this.sensor3Length === undefined) {
-                    this.sensor3Length = 0;
-                }
-                if (this.sensor4Length === undefined) {
-                    this.sensor4Length = 0;
-                }
-                if (this.sensor5Length === undefined) {
-                    this.sensor5Length = 0;
-                }
-                if (this.sensor6Length === undefined) {
-                    this.sensor6Length = 0;
-                }
-                if (this.sensor7Length === undefined) {
-                    this.sensor7Length = 0;
-                }
-                if (this.sensor8Length === undefined) {
-                    this.sensor8Length = 0;
-                }
-                if (this.sensor9Length === undefined) {
-                    this.sensor9Length = 0;
-                }
-                if (this.sensor10Length === undefined) {
-                    this.sensor10Length = 0;
-                }
-                if (this.sensor11Length === undefined) {
-                    this.sensor11Length = 0;
-                }
-                if (this.sensor12Length === undefined) {
-                    this.sensor12Length = 0;
-                }
-                if (this.sensor13Length === undefined) {
-                    this.sensor13Length = 0;
-                }
-                if (this.sensor14Length === undefined) {
-                    this.sensor14Length = 0;
-                }
-                if (this.sensor15Length === undefined) {
-                    this.sensor15Length = 0;
-                }
-                if (this.sensor16Length === undefined) {
-                    this.sensor16Length = 0;
-                }
-                if (this.sensor1Width === undefined) {
-                    this.sensor1Width = 0;
-                }
-                if (this.sensor2Width === undefined) {
-                    this.sensor2Width = 0;
-                }
-                if (this.sensor3Width === undefined) {
-                    this.sensor3Width = 0;
-                }
-                if (this.sensor4Width === undefined) {
-                    this.sensor4Width = 0;
-                }
-                if (this.sensor5Width === undefined) {
-                    this.sensor5Width = 0;
-                }
-                if (this.sensor6Width === undefined) {
-                    this.sensor6Width = 0;
-                }
-                if (this.sensor7Width === undefined) {
-                    this.sensor7Width = 0;
-                }
-                if (this.sensor8Width === undefined) {
-                    this.sensor8Width = 0;
-                }
-                if (this.sensor9Width === undefined) {
-                    this.sensor9Width = 0;
-                }
-                if (this.sensor10Width === undefined) {
-                    this.sensor10Width = 0;
-                }
-                if (this.sensor11Width === undefined) {
-                    this.sensor11Width = 0;
-                }
-                if (this.sensor12Width === undefined) {
-                    this.sensor12Width = 0;
-                }
-                if (this.sensor13Width === undefined) {
-                    this.sensor13Width = 0;
-                }
-                if (this.sensor14Width === undefined) {
-                    this.sensor14Width = 0;
-                }
-                if (this.sensor15Width === undefined) {
-                    this.sensor15Width = 0;
-                }
-                if (this.sensor16Width === undefined) {
-                    this.sensor16Width = 0;
-                }
-                if (this.sensor1Probability === undefined) {
-                    this.sensor1Probability = 0;
-                }
-                if (this.sensor2Probability === undefined) {
-                    this.sensor2Probability = 0;
-                }
-                if (this.sensor3Probability === undefined) {
-                    this.sensor3Probability = 0;
-                }
-                if (this.sensor4Probability === undefined) {
-                    this.sensor4Probability = 0;
-                }
-                if (this.sensor5Probability === undefined) {
-                    this.sensor5Probability = 0;
-                }
-                if (this.sensor6Probability === undefined) {
-                    this.sensor6Probability = 0;
-                }
-                if (this.sensor7Probability === undefined) {
-                    this.sensor7Probability = 0;
-                }
-                if (this.sensor8Probability === undefined) {
-                    this.sensor8Probability = 0;
-                }
-                if (this.sensor9Probability === undefined) {
-                    this.sensor9Probability = 0;
-                }
-                if (this.sensor10Probability === undefined) {
-                    this.sensor10Probability = 0;
-                }
-                if (this.sensor11Probability === undefined) {
-                    this.sensor11Probability = 0;
-                }
-                if (this.sensor12Probability === undefined) {
-                    this.sensor12Probability = 0;
-                }
-                if (this.sensor13Probability === undefined) {
-                    this.sensor13Probability = 0;
-                }
-                if (this.sensor14Probability === undefined) {
-                    this.sensor14Probability = 0;
-                }
-                if (this.sensor15Probability === undefined) {
-                    this.sensor15Probability = 0;
-                }
-                if (this.sensor16Probability === undefined) {
-                    this.sensor16Probability = 0;
-                }
-                if (this.sensor1Period === undefined) {
-                    this.sensor1Period = 0;
-                }
-                if (this.sensor2Period === undefined) {
-                    this.sensor2Period = 0;
-                }
-                if (this.sensor3Period === undefined) {
-                    this.sensor3Period = 0;
-                }
-                if (this.sensor4Period === undefined) {
-                    this.sensor4Period = 0;
-                }
-                if (this.sensor5Period === undefined) {
-                    this.sensor5Period = 0;
-                }
-                if (this.sensor6Period === undefined) {
-                    this.sensor6Period = 0;
-                }
-                if (this.sensor7Period === undefined) {
-                    this.sensor7Period = 0;
-                }
-                if (this.sensor8Period === undefined) {
-                    this.sensor8Period = 0;
-                }
-                if (this.sensor9Period === undefined) {
-                    this.sensor9Period = 0;
-                }
-                if (this.sensor10Period === undefined) {
-                    this.sensor10Period = 0;
-                }
-                if (this.sensor11Period === undefined) {
-                    this.sensor11Period = 0;
-                }
-                if (this.sensor12Period === undefined) {
-                    this.sensor12Period = 0;
-                }
-                if (this.sensor13Period === undefined) {
-                    this.sensor13Period = 0;
-                }
-                if (this.sensor14Period === undefined) {
-                    this.sensor14Period = 0;
-                }
-                if (this.sensor15Period === undefined) {
-                    this.sensor15Period = 0;
-                }
-                if (this.sensor16Period === undefined) {
-                    this.sensor16Period = 0;
-                }
-                if (this.sensor1ParallelOffset === undefined) {
-                    this.sensor1ParallelOffset = 0;
-                }
-                if (this.sensor2ParallelOffset === undefined) {
-                    this.sensor2ParallelOffset = 0;
-                }
-                if (this.sensor3ParallelOffset === undefined) {
-                    this.sensor3ParallelOffset = 0;
-                }
-                if (this.sensor4ParallelOffset === undefined) {
-                    this.sensor4ParallelOffset = 0;
-                }
-                if (this.sensor5ParallelOffset === undefined) {
-                    this.sensor5ParallelOffset = 0;
-                }
-                if (this.sensor6ParallelOffset === undefined) {
-                    this.sensor6ParallelOffset = 0;
-                }
-                if (this.sensor7ParallelOffset === undefined) {
-                    this.sensor7ParallelOffset = 0;
-                }
-                if (this.sensor8ParallelOffset === undefined) {
-                    this.sensor8ParallelOffset = 0;
-                }
-                if (this.sensor9ParallelOffset === undefined) {
-                    this.sensor9ParallelOffset = 0;
-                }
-                if (this.sensor10ParallelOffset === undefined) {
-                    this.sensor10ParallelOffset = 0;
-                }
-                if (this.sensor11ParallelOffset === undefined) {
-                    this.sensor11ParallelOffset = 0;
-                }
-                if (this.sensor12ParallelOffset === undefined) {
-                    this.sensor12ParallelOffset = 0;
-                }
-                if (this.sensor13ParallelOffset === undefined) {
-                    this.sensor13ParallelOffset = 0;
-                }
-                if (this.sensor14ParallelOffset === undefined) {
-                    this.sensor14ParallelOffset = 0;
-                }
-                if (this.sensor15ParallelOffset === undefined) {
-                    this.sensor15ParallelOffset = 0;
-                }
-                if (this.sensor16ParallelOffset === undefined) {
-                    this.sensor16ParallelOffset = 0;
-                }
-                if (this.sensor1PerpendicularOffset === undefined) {
-                    this.sensor1PerpendicularOffset = 0;
-                }
-                if (this.sensor2PerpendicularOffset === undefined) {
-                    this.sensor2PerpendicularOffset = 0;
-                }
-                if (this.sensor3PerpendicularOffset === undefined) {
-                    this.sensor3PerpendicularOffset = 0;
-                }
-                if (this.sensor4PerpendicularOffset === undefined) {
-                    this.sensor4PerpendicularOffset = 0;
-                }
-                if (this.sensor5PerpendicularOffset === undefined) {
-                    this.sensor5PerpendicularOffset = 0;
-                }
-                if (this.sensor6PerpendicularOffset === undefined) {
-                    this.sensor6PerpendicularOffset = 0;
-                }
-                if (this.sensor7PerpendicularOffset === undefined) {
-                    this.sensor7PerpendicularOffset = 0;
-                }
-                if (this.sensor8PerpendicularOffset === undefined) {
-                    this.sensor8PerpendicularOffset = 0;
-                }
-                if (this.sensor9PerpendicularOffset === undefined) {
-                    this.sensor9PerpendicularOffset = 0;
-                }
-                if (this.sensor10PerpendicularOffset === undefined) {
-                    this.sensor10PerpendicularOffset = 0;
-                }
-                if (this.sensor11PerpendicularOffset === undefined) {
-                    this.sensor11PerpendicularOffset = 0;
-                }
-                if (this.sensor12PerpendicularOffset === undefined) {
-                    this.sensor12PerpendicularOffset = 0;
-                }
-                if (this.sensor13PerpendicularOffset === undefined) {
-                    this.sensor13PerpendicularOffset = 0;
-                }
-                if (this.sensor14PerpendicularOffset === undefined) {
-                    this.sensor14PerpendicularOffset = 0;
-                }
-                if (this.sensor15PerpendicularOffset === undefined) {
-                    this.sensor15PerpendicularOffset = 0;
-                }
-                if (this.sensor16PerpendicularOffset === undefined) {
-                    this.sensor16PerpendicularOffset = 0;
-                }
-                if (this.sensor1Condition1 === undefined) {
-                    this.sensor1Condition1 = 0;
-                }
-                if (this.sensor1Condition2 === undefined) {
-                    this.sensor1Condition2 = 0;
-                }
-                if (this.sensor1Condition3 === undefined) {
-                    this.sensor1Condition3 = 0;
-                }
-                if (this.sensor2Condition1 === undefined) {
-                    this.sensor2Condition1 = 0;
-                }
-                if (this.sensor2Condition2 === undefined) {
-                    this.sensor2Condition2 = 0;
-                }
-                if (this.sensor2Condition3 === undefined) {
-                    this.sensor2Condition3 = 0;
-                }
-                if (this.sensor3Condition1 === undefined) {
-                    this.sensor3Condition1 = 0;
-                }
-                if (this.sensor3Condition2 === undefined) {
-                    this.sensor3Condition2 = 0;
-                }
-                if (this.sensor3Condition3 === undefined) {
-                    this.sensor3Condition3 = 0;
-                }
-                if (this.sensor4Condition1 === undefined) {
-                    this.sensor4Condition1 = 0;
-                }
-                if (this.sensor4Condition2 === undefined) {
-                    this.sensor4Condition2 = 0;
-                }
-                if (this.sensor4Condition3 === undefined) {
-                    this.sensor4Condition3 = 0;
-                }
-                if (this.sensor5Condition1 === undefined) {
-                    this.sensor5Condition1 = 0;
-                }
-                if (this.sensor5Condition2 === undefined) {
-                    this.sensor5Condition2 = 0;
-                }
-                if (this.sensor5Condition3 === undefined) {
-                    this.sensor5Condition3 = 0;
-                }
-                if (this.sensor6Condition1 === undefined) {
-                    this.sensor6Condition1 = 0;
-                }
-                if (this.sensor6Condition2 === undefined) {
-                    this.sensor6Condition2 = 0;
-                }
-                if (this.sensor6Condition3 === undefined) {
-                    this.sensor6Condition3 = 0;
-                }
-                if (this.sensor7Condition1 === undefined) {
-                    this.sensor7Condition1 = 0;
-                }
-                if (this.sensor7Condition2 === undefined) {
-                    this.sensor7Condition2 = 0;
-                }
-                if (this.sensor7Condition3 === undefined) {
-                    this.sensor7Condition3 = 0;
-                }
-                if (this.sensor8Condition1 === undefined) {
-                    this.sensor8Condition1 = 0;
-                }
-                if (this.sensor8Condition2 === undefined) {
-                    this.sensor8Condition2 = 0;
-                }
-                if (this.sensor8Condition3 === undefined) {
-                    this.sensor8Condition3 = 0;
-                }
-                if (this.sensor9Condition1 === undefined) {
-                    this.sensor9Condition1 = 0;
-                }
-                if (this.sensor9Condition2 === undefined) {
-                    this.sensor9Condition2 = 0;
-                }
-                if (this.sensor9Condition3 === undefined) {
-                    this.sensor9Condition3 = 0;
-                }
-                if (this.sensor10Condition1 === undefined) {
-                    this.sensor10Condition1 = 0;
-                }
-                if (this.sensor10Condition2 === undefined) {
-                    this.sensor10Condition2 = 0;
-                }
-                if (this.sensor10Condition3 === undefined) {
-                    this.sensor10Condition3 = 0;
-                }
-                if (this.sensor11Condition1 === undefined) {
-                    this.sensor11Condition1 = 0;
-                }
-                if (this.sensor11Condition2 === undefined) {
-                    this.sensor11Condition2 = 0;
-                }
-                if (this.sensor11Condition3 === undefined) {
-                    this.sensor11Condition3 = 0;
-                }
-                if (this.sensor12Condition1 === undefined) {
-                    this.sensor12Condition1 = 0;
-                }
-                if (this.sensor12Condition2 === undefined) {
-                    this.sensor12Condition2 = 0;
-                }
-                if (this.sensor12Condition3 === undefined) {
-                    this.sensor12Condition3 = 0;
-                }
-                if (this.sensor13Condition1 === undefined) {
-                    this.sensor13Condition1 = 0;
-                }
-                if (this.sensor13Condition2 === undefined) {
-                    this.sensor13Condition2 = 0;
-                }
-                if (this.sensor13Condition3 === undefined) {
-                    this.sensor13Condition3 = 0;
-                }
-                if (this.sensor14Condition1 === undefined) {
-                    this.sensor14Condition1 = 0;
-                }
-                if (this.sensor14Condition2 === undefined) {
-                    this.sensor14Condition2 = 0;
-                }
-                if (this.sensor14Condition3 === undefined) {
-                    this.sensor14Condition3 = 0;
-                }
-                if (this.sensor15Condition1 === undefined) {
-                    this.sensor15Condition1 = 0;
-                }
-                if (this.sensor15Condition2 === undefined) {
-                    this.sensor15Condition2 = 0;
-                }
-                if (this.sensor15Condition3 === undefined) {
-                    this.sensor15Condition3 = 0;
-                }
-                if (this.sensor16Condition1 === undefined) {
-                    this.sensor16Condition1 = 0;
-                }
-                if (this.sensor16Condition2 === undefined) {
-                    this.sensor16Condition2 = 0;
-                }
-                if (this.sensor16Condition3 === undefined) {
-                    this.sensor16Condition3 = 0;
-                }
-                if (this.sensor1ResponseToWall1 === undefined) {
-                    this.sensor1ResponseToWall1 = 0;
-                }
-                if (this.sensor1ResponseToWall2 === undefined) {
-                    this.sensor1ResponseToWall2 = 0;
-                }
-                if (this.sensor1ResponseToWall3 === undefined) {
-                    this.sensor1ResponseToWall3 = 0;
-                }
-                if (this.sensor1ResponseToTank1 === undefined) {
-                    this.sensor1ResponseToTank1 = 0;
-                }
-                if (this.sensor1ResponseToTank2 === undefined) {
-                    this.sensor1ResponseToTank2 = 0;
-                }
-                if (this.sensor1ResponseToTank3 === undefined) {
-                    this.sensor1ResponseToTank3 = 0;
-                }
-                if (this.sensor1ResponseToMissile1 === undefined) {
-                    this.sensor1ResponseToMissile1 = 0;
-                }
-                if (this.sensor1ResponseToMissile2 === undefined) {
-                    this.sensor1ResponseToMissile2 = 0;
-                }
-                if (this.sensor1ResponseToMissile3 === undefined) {
-                    this.sensor1ResponseToMissile3 = 0;
-                }
-                if (this.sensor2ResponseToWall1 === undefined) {
-                    this.sensor2ResponseToWall1 = 0;
-                }
-                if (this.sensor2ResponseToWall2 === undefined) {
-                    this.sensor2ResponseToWall2 = 0;
-                }
-                if (this.sensor2ResponseToWall3 === undefined) {
-                    this.sensor2ResponseToWall3 = 0;
-                }
-                if (this.sensor2ResponseToTank1 === undefined) {
-                    this.sensor2ResponseToTank1 = 0;
-                }
-                if (this.sensor2ResponseToTank2 === undefined) {
-                    this.sensor2ResponseToTank2 = 0;
-                }
-                if (this.sensor2ResponseToTank3 === undefined) {
-                    this.sensor2ResponseToTank3 = 0;
-                }
-                if (this.sensor2ResponseToMissile1 === undefined) {
-                    this.sensor2ResponseToMissile1 = 0;
-                }
-                if (this.sensor2ResponseToMissile2 === undefined) {
-                    this.sensor2ResponseToMissile2 = 0;
-                }
-                if (this.sensor2ResponseToMissile3 === undefined) {
-                    this.sensor2ResponseToMissile3 = 0;
-                }
-                if (this.sensor3ResponseToWall1 === undefined) {
-                    this.sensor3ResponseToWall1 = 0;
-                }
-                if (this.sensor3ResponseToWall2 === undefined) {
-                    this.sensor3ResponseToWall2 = 0;
-                }
-                if (this.sensor3ResponseToWall3 === undefined) {
-                    this.sensor3ResponseToWall3 = 0;
-                }
-                if (this.sensor3ResponseToTank1 === undefined) {
-                    this.sensor3ResponseToTank1 = 0;
-                }
-                if (this.sensor3ResponseToTank2 === undefined) {
-                    this.sensor3ResponseToTank2 = 0;
-                }
-                if (this.sensor3ResponseToTank3 === undefined) {
-                    this.sensor3ResponseToTank3 = 0;
-                }
-                if (this.sensor3ResponseToMissile1 === undefined) {
-                    this.sensor3ResponseToMissile1 = 0;
-                }
-                if (this.sensor3ResponseToMissile2 === undefined) {
-                    this.sensor3ResponseToMissile2 = 0;
-                }
-                if (this.sensor3ResponseToMissile3 === undefined) {
-                    this.sensor3ResponseToMissile3 = 0;
-                }
-                if (this.sensor4ResponseToWall1 === undefined) {
-                    this.sensor4ResponseToWall1 = 0;
-                }
-                if (this.sensor4ResponseToWall2 === undefined) {
-                    this.sensor4ResponseToWall2 = 0;
-                }
-                if (this.sensor4ResponseToWall3 === undefined) {
-                    this.sensor4ResponseToWall3 = 0;
-                }
-                if (this.sensor4ResponseToTank1 === undefined) {
-                    this.sensor4ResponseToTank1 = 0;
-                }
-                if (this.sensor4ResponseToTank2 === undefined) {
-                    this.sensor4ResponseToTank2 = 0;
-                }
-                if (this.sensor4ResponseToTank3 === undefined) {
-                    this.sensor4ResponseToTank3 = 0;
-                }
-                if (this.sensor4ResponseToMissile1 === undefined) {
-                    this.sensor4ResponseToMissile1 = 0;
-                }
-                if (this.sensor4ResponseToMissile2 === undefined) {
-                    this.sensor4ResponseToMissile2 = 0;
-                }
-                if (this.sensor4ResponseToMissile3 === undefined) {
-                    this.sensor4ResponseToMissile3 = 0;
-                }
-                if (this.sensor5ResponseToWall1 === undefined) {
-                    this.sensor5ResponseToWall1 = 0;
-                }
-                if (this.sensor5ResponseToWall2 === undefined) {
-                    this.sensor5ResponseToWall2 = 0;
-                }
-                if (this.sensor5ResponseToWall3 === undefined) {
-                    this.sensor5ResponseToWall3 = 0;
-                }
-                if (this.sensor5ResponseToTank1 === undefined) {
-                    this.sensor5ResponseToTank1 = 0;
-                }
-                if (this.sensor5ResponseToTank2 === undefined) {
-                    this.sensor5ResponseToTank2 = 0;
-                }
-                if (this.sensor5ResponseToTank3 === undefined) {
-                    this.sensor5ResponseToTank3 = 0;
-                }
-                if (this.sensor5ResponseToMissile1 === undefined) {
-                    this.sensor5ResponseToMissile1 = 0;
-                }
-                if (this.sensor5ResponseToMissile2 === undefined) {
-                    this.sensor5ResponseToMissile2 = 0;
-                }
-                if (this.sensor5ResponseToMissile3 === undefined) {
-                    this.sensor5ResponseToMissile3 = 0;
-                }
-                if (this.sensor6ResponseToWall1 === undefined) {
-                    this.sensor6ResponseToWall1 = 0;
-                }
-                if (this.sensor6ResponseToWall2 === undefined) {
-                    this.sensor6ResponseToWall2 = 0;
-                }
-                if (this.sensor6ResponseToWall3 === undefined) {
-                    this.sensor6ResponseToWall3 = 0;
-                }
-                if (this.sensor6ResponseToTank1 === undefined) {
-                    this.sensor6ResponseToTank1 = 0;
-                }
-                if (this.sensor6ResponseToTank2 === undefined) {
-                    this.sensor6ResponseToTank2 = 0;
-                }
-                if (this.sensor6ResponseToTank3 === undefined) {
-                    this.sensor6ResponseToTank3 = 0;
-                }
-                if (this.sensor6ResponseToMissile1 === undefined) {
-                    this.sensor6ResponseToMissile1 = 0;
-                }
-                if (this.sensor6ResponseToMissile2 === undefined) {
-                    this.sensor6ResponseToMissile2 = 0;
-                }
-                if (this.sensor6ResponseToMissile3 === undefined) {
-                    this.sensor6ResponseToMissile3 = 0;
-                }
-                if (this.sensor7ResponseToWall1 === undefined) {
-                    this.sensor7ResponseToWall1 = 0;
-                }
-                if (this.sensor7ResponseToWall2 === undefined) {
-                    this.sensor7ResponseToWall2 = 0;
-                }
-                if (this.sensor7ResponseToWall3 === undefined) {
-                    this.sensor7ResponseToWall3 = 0;
-                }
-                if (this.sensor7ResponseToTank1 === undefined) {
-                    this.sensor7ResponseToTank1 = 0;
-                }
-                if (this.sensor7ResponseToTank2 === undefined) {
-                    this.sensor7ResponseToTank2 = 0;
-                }
-                if (this.sensor7ResponseToTank3 === undefined) {
-                    this.sensor7ResponseToTank3 = 0;
-                }
-                if (this.sensor7ResponseToMissile1 === undefined) {
-                    this.sensor7ResponseToMissile1 = 0;
-                }
-                if (this.sensor7ResponseToMissile2 === undefined) {
-                    this.sensor7ResponseToMissile2 = 0;
-                }
-                if (this.sensor7ResponseToMissile3 === undefined) {
-                    this.sensor7ResponseToMissile3 = 0;
-                }
-                if (this.sensor8ResponseToWall1 === undefined) {
-                    this.sensor8ResponseToWall1 = 0;
-                }
-                if (this.sensor8ResponseToWall2 === undefined) {
-                    this.sensor8ResponseToWall2 = 0;
-                }
-                if (this.sensor8ResponseToWall3 === undefined) {
-                    this.sensor8ResponseToWall3 = 0;
-                }
-                if (this.sensor8ResponseToTank1 === undefined) {
-                    this.sensor8ResponseToTank1 = 0;
-                }
-                if (this.sensor8ResponseToTank2 === undefined) {
-                    this.sensor8ResponseToTank2 = 0;
-                }
-                if (this.sensor8ResponseToTank3 === undefined) {
-                    this.sensor8ResponseToTank3 = 0;
-                }
-                if (this.sensor8ResponseToMissile1 === undefined) {
-                    this.sensor8ResponseToMissile1 = 0;
-                }
-                if (this.sensor8ResponseToMissile2 === undefined) {
-                    this.sensor8ResponseToMissile2 = 0;
-                }
-                if (this.sensor8ResponseToMissile3 === undefined) {
-                    this.sensor8ResponseToMissile3 = 0;
-                }
-                if (this.sensor9ResponseToWall1 === undefined) {
-                    this.sensor9ResponseToWall1 = 0;
-                }
-                if (this.sensor9ResponseToWall2 === undefined) {
-                    this.sensor9ResponseToWall2 = 0;
-                }
-                if (this.sensor9ResponseToWall3 === undefined) {
-                    this.sensor9ResponseToWall3 = 0;
-                }
-                if (this.sensor9ResponseToTank1 === undefined) {
-                    this.sensor9ResponseToTank1 = 0;
-                }
-                if (this.sensor9ResponseToTank2 === undefined) {
-                    this.sensor9ResponseToTank2 = 0;
-                }
-                if (this.sensor9ResponseToTank3 === undefined) {
-                    this.sensor9ResponseToTank3 = 0;
-                }
-                if (this.sensor9ResponseToMissile1 === undefined) {
-                    this.sensor9ResponseToMissile1 = 0;
-                }
-                if (this.sensor9ResponseToMissile2 === undefined) {
-                    this.sensor9ResponseToMissile2 = 0;
-                }
-                if (this.sensor9ResponseToMissile3 === undefined) {
-                    this.sensor9ResponseToMissile3 = 0;
-                }
-                if (this.sensor10ResponseToWall1 === undefined) {
-                    this.sensor10ResponseToWall1 = 0;
-                }
-                if (this.sensor10ResponseToWall2 === undefined) {
-                    this.sensor10ResponseToWall2 = 0;
-                }
-                if (this.sensor10ResponseToWall3 === undefined) {
-                    this.sensor10ResponseToWall3 = 0;
-                }
-                if (this.sensor10ResponseToTank1 === undefined) {
-                    this.sensor10ResponseToTank1 = 0;
-                }
-                if (this.sensor10ResponseToTank2 === undefined) {
-                    this.sensor10ResponseToTank2 = 0;
-                }
-                if (this.sensor10ResponseToTank3 === undefined) {
-                    this.sensor10ResponseToTank3 = 0;
-                }
-                if (this.sensor10ResponseToMissile1 === undefined) {
-                    this.sensor10ResponseToMissile1 = 0;
-                }
-                if (this.sensor10ResponseToMissile2 === undefined) {
-                    this.sensor10ResponseToMissile2 = 0;
-                }
-                if (this.sensor10ResponseToMissile3 === undefined) {
-                    this.sensor10ResponseToMissile3 = 0;
-                }
-                if (this.sensor11ResponseToWall1 === undefined) {
-                    this.sensor11ResponseToWall1 = 0;
-                }
-                if (this.sensor11ResponseToWall2 === undefined) {
-                    this.sensor11ResponseToWall2 = 0;
-                }
-                if (this.sensor11ResponseToWall3 === undefined) {
-                    this.sensor11ResponseToWall3 = 0;
-                }
-                if (this.sensor11ResponseToTank1 === undefined) {
-                    this.sensor11ResponseToTank1 = 0;
-                }
-                if (this.sensor11ResponseToTank2 === undefined) {
-                    this.sensor11ResponseToTank2 = 0;
-                }
-                if (this.sensor11ResponseToTank3 === undefined) {
-                    this.sensor11ResponseToTank3 = 0;
-                }
-                if (this.sensor11ResponseToMissile1 === undefined) {
-                    this.sensor11ResponseToMissile1 = 0;
-                }
-                if (this.sensor11ResponseToMissile2 === undefined) {
-                    this.sensor11ResponseToMissile2 = 0;
-                }
-                if (this.sensor11ResponseToMissile3 === undefined) {
-                    this.sensor11ResponseToMissile3 = 0;
-                }
-                if (this.sensor12ResponseToWall1 === undefined) {
-                    this.sensor12ResponseToWall1 = 0;
-                }
-                if (this.sensor12ResponseToWall2 === undefined) {
-                    this.sensor12ResponseToWall2 = 0;
-                }
-                if (this.sensor12ResponseToWall3 === undefined) {
-                    this.sensor12ResponseToWall3 = 0;
-                }
-                if (this.sensor12ResponseToTank1 === undefined) {
-                    this.sensor12ResponseToTank1 = 0;
-                }
-                if (this.sensor12ResponseToTank2 === undefined) {
-                    this.sensor12ResponseToTank2 = 0;
-                }
-                if (this.sensor12ResponseToTank3 === undefined) {
-                    this.sensor12ResponseToTank3 = 0;
-                }
-                if (this.sensor12ResponseToMissile1 === undefined) {
-                    this.sensor12ResponseToMissile1 = 0;
-                }
-                if (this.sensor12ResponseToMissile2 === undefined) {
-                    this.sensor12ResponseToMissile2 = 0;
-                }
-                if (this.sensor12ResponseToMissile3 === undefined) {
-                    this.sensor12ResponseToMissile3 = 0;
-                }
-                if (this.sensor13ResponseToWall1 === undefined) {
-                    this.sensor13ResponseToWall1 = 0;
-                }
-                if (this.sensor13ResponseToWall2 === undefined) {
-                    this.sensor13ResponseToWall2 = 0;
-                }
-                if (this.sensor13ResponseToWall3 === undefined) {
-                    this.sensor13ResponseToWall3 = 0;
-                }
-                if (this.sensor13ResponseToTank1 === undefined) {
-                    this.sensor13ResponseToTank1 = 0;
-                }
-                if (this.sensor13ResponseToTank2 === undefined) {
-                    this.sensor13ResponseToTank2 = 0;
-                }
-                if (this.sensor13ResponseToTank3 === undefined) {
-                    this.sensor13ResponseToTank3 = 0;
-                }
-                if (this.sensor13ResponseToMissile1 === undefined) {
-                    this.sensor13ResponseToMissile1 = 0;
-                }
-                if (this.sensor13ResponseToMissile2 === undefined) {
-                    this.sensor13ResponseToMissile2 = 0;
-                }
-                if (this.sensor13ResponseToMissile3 === undefined) {
-                    this.sensor13ResponseToMissile3 = 0;
-                }
-                if (this.sensor14ResponseToWall1 === undefined) {
-                    this.sensor14ResponseToWall1 = 0;
-                }
-                if (this.sensor14ResponseToWall2 === undefined) {
-                    this.sensor14ResponseToWall2 = 0;
-                }
-                if (this.sensor14ResponseToWall3 === undefined) {
-                    this.sensor14ResponseToWall3 = 0;
-                }
-                if (this.sensor14ResponseToTank1 === undefined) {
-                    this.sensor14ResponseToTank1 = 0;
-                }
-                if (this.sensor14ResponseToTank2 === undefined) {
-                    this.sensor14ResponseToTank2 = 0;
-                }
-                if (this.sensor14ResponseToTank3 === undefined) {
-                    this.sensor14ResponseToTank3 = 0;
-                }
-                if (this.sensor14ResponseToMissile1 === undefined) {
-                    this.sensor14ResponseToMissile1 = 0;
-                }
-                if (this.sensor14ResponseToMissile2 === undefined) {
-                    this.sensor14ResponseToMissile2 = 0;
-                }
-                if (this.sensor14ResponseToMissile3 === undefined) {
-                    this.sensor14ResponseToMissile3 = 0;
-                }
-                if (this.sensor15ResponseToWall1 === undefined) {
-                    this.sensor15ResponseToWall1 = 0;
-                }
-                if (this.sensor15ResponseToWall2 === undefined) {
-                    this.sensor15ResponseToWall2 = 0;
-                }
-                if (this.sensor15ResponseToWall3 === undefined) {
-                    this.sensor15ResponseToWall3 = 0;
-                }
-                if (this.sensor15ResponseToTank1 === undefined) {
-                    this.sensor15ResponseToTank1 = 0;
-                }
-                if (this.sensor15ResponseToTank2 === undefined) {
-                    this.sensor15ResponseToTank2 = 0;
-                }
-                if (this.sensor15ResponseToTank3 === undefined) {
-                    this.sensor15ResponseToTank3 = 0;
-                }
-                if (this.sensor15ResponseToMissile1 === undefined) {
-                    this.sensor15ResponseToMissile1 = 0;
-                }
-                if (this.sensor15ResponseToMissile2 === undefined) {
-                    this.sensor15ResponseToMissile2 = 0;
-                }
-                if (this.sensor15ResponseToMissile3 === undefined) {
-                    this.sensor15ResponseToMissile3 = 0;
-                }
-                if (this.sensor16ResponseToWall1 === undefined) {
-                    this.sensor16ResponseToWall1 = 0;
-                }
-                if (this.sensor16ResponseToWall2 === undefined) {
-                    this.sensor16ResponseToWall2 = 0;
-                }
-                if (this.sensor16ResponseToWall3 === undefined) {
-                    this.sensor16ResponseToWall3 = 0;
-                }
-                if (this.sensor16ResponseToTank1 === undefined) {
-                    this.sensor16ResponseToTank1 = 0;
-                }
-                if (this.sensor16ResponseToTank2 === undefined) {
-                    this.sensor16ResponseToTank2 = 0;
-                }
-                if (this.sensor16ResponseToTank3 === undefined) {
-                    this.sensor16ResponseToTank3 = 0;
-                }
-                if (this.sensor16ResponseToMissile1 === undefined) {
-                    this.sensor16ResponseToMissile1 = 0;
-                }
-                if (this.sensor16ResponseToMissile2 === undefined) {
-                    this.sensor16ResponseToMissile2 = 0;
-                }
-                if (this.sensor16ResponseToMissile3 === undefined) {
-                    this.sensor16ResponseToMissile3 = 0;
-                }
-                if (this.responseToMissileHit1 === undefined) {
-                    this.responseToMissileHit1 = 0;
-                }
-                if (this.responseToMissileHit2 === undefined) {
-                    this.responseToMissileHit2 = 0;
-                }
-                if (this.responseToMissileHit3 === undefined) {
-                    this.responseToMissileHit3 = 0;
-                }
-                if (this.responseToFacingTarget1 === undefined) {
-                    this.responseToFacingTarget1 = 0;
-                }
-                if (this.responseToFacingTarget2 === undefined) {
-                    this.responseToFacingTarget2 = 0;
-                }
-                if (this.responseToFacingTarget3 === undefined) {
-                    this.responseToFacingTarget3 = 0;
-                }
-                if (this.weaponStrategyFavourite1 === undefined) {
-                    this.weaponStrategyFavourite1 = 0;
-                }
-                if (this.weaponStrategySecondFavourite1 === undefined) {
-                    this.weaponStrategySecondFavourite1 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite1 === undefined) {
-                    this.weaponStrategyThirdFavourite1 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite1 === undefined) {
-                    this.weaponStrategyFourthFavourite1 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite1 === undefined) {
-                    this.weaponStrategyFifthFavourite1 = 0;
-                }
-                if (this.weaponStrategyFavourite2 === undefined) {
-                    this.weaponStrategyFavourite2 = 0;
-                }
-                if (this.weaponStrategySecondFavourite2 === undefined) {
-                    this.weaponStrategySecondFavourite2 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite2 === undefined) {
-                    this.weaponStrategyThirdFavourite2 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite2 === undefined) {
-                    this.weaponStrategyFourthFavourite2 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite2 === undefined) {
-                    this.weaponStrategyFifthFavourite2 = 0;
-                }
-                if (this.weaponStrategyFavourite3 === undefined) {
-                    this.weaponStrategyFavourite3 = 0;
-                }
-                if (this.weaponStrategySecondFavourite3 === undefined) {
-                    this.weaponStrategySecondFavourite3 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite3 === undefined) {
-                    this.weaponStrategyThirdFavourite3 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite3 === undefined) {
-                    this.weaponStrategyFourthFavourite3 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite3 === undefined) {
-                    this.weaponStrategyFifthFavourite3 = 0;
-                }
-                if (this.weaponStrategyFavourite4 === undefined) {
-                    this.weaponStrategyFavourite4 = 0;
-                }
-                if (this.weaponStrategySecondFavourite4 === undefined) {
-                    this.weaponStrategySecondFavourite4 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite4 === undefined) {
-                    this.weaponStrategyThirdFavourite4 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite4 === undefined) {
-                    this.weaponStrategyFourthFavourite4 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite4 === undefined) {
-                    this.weaponStrategyFifthFavourite4 = 0;
-                }
-                if (this.weaponStrategyFavourite5 === undefined) {
-                    this.weaponStrategyFavourite5 = 0;
-                }
-                if (this.weaponStrategySecondFavourite5 === undefined) {
-                    this.weaponStrategySecondFavourite5 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite5 === undefined) {
-                    this.weaponStrategyThirdFavourite5 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite5 === undefined) {
-                    this.weaponStrategyFourthFavourite5 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite5 === undefined) {
-                    this.weaponStrategyFifthFavourite5 = 0;
-                }
-                if (this.weaponStrategyFavourite6 === undefined) {
-                    this.weaponStrategyFavourite6 = 0;
-                }
-                if (this.weaponStrategySecondFavourite6 === undefined) {
-                    this.weaponStrategySecondFavourite6 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite6 === undefined) {
-                    this.weaponStrategyThirdFavourite6 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite6 === undefined) {
-                    this.weaponStrategyFourthFavourite6 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite6 === undefined) {
-                    this.weaponStrategyFifthFavourite6 = 0;
-                }
-                if (this.weaponStrategyFavourite7 === undefined) {
-                    this.weaponStrategyFavourite7 = 0;
-                }
-                if (this.weaponStrategySecondFavourite7 === undefined) {
-                    this.weaponStrategySecondFavourite7 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite7 === undefined) {
-                    this.weaponStrategyThirdFavourite7 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite7 === undefined) {
-                    this.weaponStrategyFourthFavourite7 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite7 === undefined) {
-                    this.weaponStrategyFifthFavourite7 = 0;
-                }
-                if (this.weaponStrategyFavourite8 === undefined) {
-                    this.weaponStrategyFavourite8 = 0;
-                }
-                if (this.weaponStrategySecondFavourite8 === undefined) {
-                    this.weaponStrategySecondFavourite8 = 0;
-                }
-                if (this.weaponStrategyThirdFavourite8 === undefined) {
-                    this.weaponStrategyThirdFavourite8 = 0;
-                }
-                if (this.weaponStrategyFourthFavourite8 === undefined) {
-                    this.weaponStrategyFourthFavourite8 = 0;
-                }
-                if (this.weaponStrategyFifthFavourite8 === undefined) {
-                    this.weaponStrategyFifthFavourite8 = 0;
-                }
-                if (this.weaponFuelRatio === undefined) {
-                    this.weaponFuelRatio = 0;
-                }
-                if (this.shoppingStrategyAction1 === undefined) {
-                    this.shoppingStrategyAction1 = 0;
-                }
-                if (this.shoppingStrategyCondition1 === undefined) {
-                    this.shoppingStrategyCondition1 = 0;
-                }
-                if (this.shoppingStrategyAction2 === undefined) {
-                    this.shoppingStrategyAction2 = 0;
-                }
-                if (this.shoppingStrategyCondition2 === undefined) {
-                    this.shoppingStrategyCondition2 = 0;
-                }
-                if (this.shoppingStrategyAction3 === undefined) {
-                    this.shoppingStrategyAction3 = 0;
-                }
-                if (this.shoppingStrategyCondition3 === undefined) {
-                    this.shoppingStrategyCondition3 = 0;
-                }
-                if (this.shoppingStrategyAction4 === undefined) {
-                    this.shoppingStrategyAction4 = 0;
-                }
-                if (this.shoppingStrategyCondition4 === undefined) {
-                    this.shoppingStrategyCondition4 = 0;
-                }
-                if (this.shoppingStrategyAction5 === undefined) {
-                    this.shoppingStrategyAction5 = 0;
-                }
-                if (this.shoppingStrategyCondition5 === undefined) {
-                    this.shoppingStrategyCondition5 = 0;
-                }
-                if (this.shoppingStrategyAction6 === undefined) {
-                    this.shoppingStrategyAction6 = 0;
-                }
-                if (this.shoppingStrategyCondition6 === undefined) {
-                    this.shoppingStrategyCondition6 = 0;
-                }
-                if (this.shoppingStrategyAction7 === undefined) {
-                    this.shoppingStrategyAction7 = 0;
-                }
-                if (this.shoppingStrategyCondition7 === undefined) {
-                    this.shoppingStrategyCondition7 = 0;
-                }
-                if (this.shoppingStrategyAction8 === undefined) {
-                    this.shoppingStrategyAction8 = 0;
-                }
-                if (this.shoppingStrategyCondition8 === undefined) {
-                    this.shoppingStrategyCondition8 = 0;
-                }
-                if (this.shoppingStrategyAction9 === undefined) {
-                    this.shoppingStrategyAction9 = 0;
-                }
-                if (this.shoppingStrategyCondition9 === undefined) {
-                    this.shoppingStrategyCondition9 = 0;
-                }
-                if (this.shoppingStrategyAction10 === undefined) {
-                    this.shoppingStrategyAction10 = 0;
-                }
-                if (this.shoppingStrategyCondition10 === undefined) {
-                    this.shoppingStrategyCondition10 = 0;
-                }
-                if (this.shoppingStrategyMaximumFireUnitExpenseWhenWeaponBeingReplaced === undefined) {
-                    this.shoppingStrategyMaximumFireUnitExpenseWhenWeaponBeingReplaced = 0;
-                }
-                if (this.shoppingStrategyMaximumFireUnitsThatBePurchased === undefined) {
-                    this.shoppingStrategyMaximumFireUnitsThatBePurchased = 0;
-                }
-                if (this.timeOfLastClock1Tick === undefined) {
-                    this.timeOfLastClock1Tick = 0;
-                }
-                if (this.timeOfLastClock2Tick === undefined) {
-                    this.timeOfLastClock2Tick = 0;
-                }
-                if (this.timeOfLastClock3Tick === undefined) {
-                    this.timeOfLastClock3Tick = 0;
-                }
-                if (this.timeOfLastClock4Tick === undefined) {
-                    this.timeOfLastClock4Tick = 0;
-                }
-                if (this.timeOfLastClock5Tick === undefined) {
-                    this.timeOfLastClock5Tick = 0;
-                }
-                if (this.timeOfLastClock6Tick === undefined) {
-                    this.timeOfLastClock6Tick = 0;
-                }
-                if (this.timeOfLastClock7Tick === undefined) {
-                    this.timeOfLastClock7Tick = 0;
-                }
-                if (this.timeOfLastClock8Tick === undefined) {
-                    this.timeOfLastClock8Tick = 0;
-                }
-                if (this.timeOfLastClock9Tick === undefined) {
-                    this.timeOfLastClock9Tick = 0;
-                }
-                if (this.timeOfLastClock10Tick === undefined) {
-                    this.timeOfLastClock10Tick = 0;
-                }
-                if (this.timeOfLastSensor1Tick === undefined) {
-                    this.timeOfLastSensor1Tick = 0;
-                }
-                if (this.timeOfLastSensor2Tick === undefined) {
-                    this.timeOfLastSensor2Tick = 0;
-                }
-                if (this.timeOfLastSensor3Tick === undefined) {
-                    this.timeOfLastSensor3Tick = 0;
-                }
-                if (this.timeOfLastSensor4Tick === undefined) {
-                    this.timeOfLastSensor4Tick = 0;
-                }
-                if (this.timeOfLastSensor5Tick === undefined) {
-                    this.timeOfLastSensor5Tick = 0;
-                }
-                if (this.timeOfLastSensor6Tick === undefined) {
-                    this.timeOfLastSensor6Tick = 0;
-                }
-                if (this.timeOfLastSensor7Tick === undefined) {
-                    this.timeOfLastSensor7Tick = 0;
-                }
-                if (this.timeOfLastSensor8Tick === undefined) {
-                    this.timeOfLastSensor8Tick = 0;
-                }
-                if (this.timeOfLastSensor9Tick === undefined) {
-                    this.timeOfLastSensor9Tick = 0;
-                }
-                if (this.timeOfLastSensor10Tick === undefined) {
-                    this.timeOfLastSensor10Tick = 0;
-                }
-                if (this.timeOfLastSensor11Tick === undefined) {
-                    this.timeOfLastSensor11Tick = 0;
-                }
-                if (this.timeOfLastSensor12Tick === undefined) {
-                    this.timeOfLastSensor12Tick = 0;
-                }
-                if (this.timeOfLastSensor13Tick === undefined) {
-                    this.timeOfLastSensor13Tick = 0;
-                }
-                if (this.timeOfLastSensor14Tick === undefined) {
-                    this.timeOfLastSensor14Tick = 0;
-                }
-                if (this.timeOfLastSensor15Tick === undefined) {
-                    this.timeOfLastSensor15Tick = 0;
-                }
-                if (this.timeOfLastSensor16Tick === undefined) {
-                    this.timeOfLastSensor16Tick = 0;
-                }
-                this.clock1Probability = 0;
-                this.clock2Probability = 0;
-                this.clock3Probability = 0;
-                this.clock4Probability = 0;
-                this.clock5Probability = 0;
-                this.clock6Probability = 0;
-                this.clock7Probability = 0;
-                this.clock8Probability = 0;
-                this.clock9Probability = 0;
-                this.clock10Probability = 0;
-                this.clock1Period = 0;
-                this.clock2Period = 0;
-                this.clock3Period = 0;
-                this.clock4Period = 0;
-                this.clock5Period = 0;
-                this.clock6Period = 0;
-                this.clock7Period = 0;
-                this.clock8Period = 0;
-                this.clock9Period = 0;
-                this.clock10Period = 0;
-                this.clock1Requirement1 = 167;
-                this.clock1Requirement2 = 167;
-                this.clock2Requirement1 = 167;
-                this.clock2Requirement2 = 167;
-                this.clock3Requirement1 = 167;
-                this.clock3Requirement2 = 167;
-                this.clock4Requirement1 = 167;
-                this.clock4Requirement2 = 167;
-                this.clock5Requirement1 = 167;
-                this.clock5Requirement2 = 167;
-                this.clock6Requirement1 = 167;
-                this.clock6Requirement2 = 167;
-                this.clock7Requirement1 = 167;
-                this.clock7Requirement2 = 167;
-                this.clock8Requirement1 = 167;
-                this.clock8Requirement2 = 167;
-                this.clock9Requirement1 = 167;
-                this.clock9Requirement2 = 167;
-                this.clock10Requirement1 = 167;
-                this.clock10Requirement2 = 167;
-                this.clock1Response1 = RobotSpecification.NO_ACTION;
-                this.clock1Response2 = 100;
-                this.clock1Response3 = 100;
-                this.clock2Response1 = 100;
-                this.clock2Response2 = 100;
-                this.clock2Response3 = 100;
-                this.clock3Response1 = 100;
-                this.clock3Response2 = 100;
-                this.clock3Response3 = 100;
-                this.clock4Response1 = 100;
-                this.clock4Response2 = 100;
-                this.clock4Response3 = 100;
-                this.clock5Response1 = 100;
-                this.clock5Response2 = 100;
-                this.clock5Response3 = 100;
-                this.clock6Response1 = 100;
-                this.clock6Response2 = 100;
-                this.clock6Response3 = 100;
-                this.clock7Response1 = 100;
-                this.clock7Response2 = 100;
-                this.clock7Response3 = 100;
-                this.clock8Response1 = 100;
-                this.clock8Response2 = 100;
-                this.clock8Response3 = 100;
-                this.clock9Response1 = 100;
-                this.clock9Response2 = 100;
-                this.clock9Response3 = 100;
-                this.clock10Response1 = 100;
-                this.clock10Response2 = 100;
-                this.clock10Response3 = 100;
-                this.sensor1Angle = 0;
-                this.sensor2Angle = 180;
-                this.sensor3Angle = 20;
-                this.sensor4Angle = -20;
-                this.sensor5Angle = 180;
-                this.sensor6Angle = 40;
-                this.sensor7Angle = -40;
-                this.sensor8Angle = 0;
-                this.sensor9Angle = 0;
-                this.sensor10Angle = 0;
-                this.sensor11Angle = 0;
-                this.sensor12Angle = 0;
-                this.sensor13Angle = 0;
-                this.sensor14Angle = 0;
-                this.sensor15Angle = 0;
-                this.sensor16Angle = 0;
-                this.sensor1Length = 900;
-                this.sensor2Length = 900;
-                this.sensor3Length = 300;
-                this.sensor4Length = 300;
-                this.sensor5Length = 80;
-                this.sensor6Length = 80;
-                this.sensor7Length = 80;
-                this.sensor8Length = 0;
-                this.sensor9Length = 0;
-                this.sensor10Length = 0;
-                this.sensor11Length = 0;
-                this.sensor12Length = 0;
-                this.sensor13Length = 0;
-                this.sensor14Length = 0;
-                this.sensor15Length = 0;
-                this.sensor16Length = 0;
-                this.sensor1Width = 0;
-                this.sensor2Width = 0;
-                this.sensor3Width = 5;
-                this.sensor4Width = 5;
-                this.sensor5Width = 0;
-                this.sensor6Width = 80;
-                this.sensor7Width = 80;
-                this.sensor8Width = 0;
-                this.sensor9Width = 0;
-                this.sensor10Width = 0;
-                this.sensor11Width = 0;
-                this.sensor12Width = 0;
-                this.sensor13Width = 0;
-                this.sensor14Width = 0;
-                this.sensor15Width = 0;
-                this.sensor16Width = 0;
-                this.sensor1Probability = RobotSpecification.NO_ACTION;
-                this.sensor2Probability = 100;
-                this.sensor3Probability = 100;
-                this.sensor4Probability = 100;
-                this.sensor5Probability = 100;
-                this.sensor6Probability = 100;
-                this.sensor7Probability = 100;
-                this.sensor8Probability = 100;
-                this.sensor9Probability = 100;
-                this.sensor10Probability = 100;
-                this.sensor11Probability = 100;
-                this.sensor12Probability = 100;
-                this.sensor13Probability = 100;
-                this.sensor14Probability = 100;
-                this.sensor15Probability = 100;
-                this.sensor16Probability = 100;
-                this.sensor1Period = 1000;
-                this.sensor2Period = 1000;
-                this.sensor3Period = 200;
-                this.sensor4Period = 200;
-                this.sensor5Period = 200;
-                this.sensor6Period = 200;
-                this.sensor7Period = 200;
-                this.sensor8Period = 0;
-                this.sensor9Period = 0;
-                this.sensor10Period = 0;
-                this.sensor11Period = 0;
-                this.sensor12Period = 0;
-                this.sensor13Period = 0;
-                this.sensor14Period = 0;
-                this.sensor15Period = 0;
-                this.sensor16Period = 0;
-                this.sensor1ParallelOffset = 0;
-                this.sensor2ParallelOffset = 0;
-                this.sensor3ParallelOffset = -15;
-                this.sensor4ParallelOffset = -15;
-                this.sensor5ParallelOffset = 0;
-                this.sensor6ParallelOffset = 0;
-                this.sensor7ParallelOffset = 0;
-                this.sensor8ParallelOffset = 0;
-                this.sensor9ParallelOffset = 0;
-                this.sensor10ParallelOffset = 0;
-                this.sensor11ParallelOffset = 0;
-                this.sensor12ParallelOffset = 0;
-                this.sensor13ParallelOffset = 0;
-                this.sensor14ParallelOffset = 0;
-                this.sensor15ParallelOffset = 0;
-                this.sensor16ParallelOffset = 0;
-                this.sensor1PerpendicularOffset = 0;
-                this.sensor2PerpendicularOffset = 0;
-                this.sensor3PerpendicularOffset = 15;
-                this.sensor4PerpendicularOffset = -15;
-                this.sensor5PerpendicularOffset = 0;
-                this.sensor6PerpendicularOffset = 0;
-                this.sensor7PerpendicularOffset = 0;
-                this.sensor8PerpendicularOffset = 0;
-                this.sensor9PerpendicularOffset = 0;
-                this.sensor10PerpendicularOffset = 0;
-                this.sensor11PerpendicularOffset = 0;
-                this.sensor12PerpendicularOffset = 0;
-                this.sensor13PerpendicularOffset = 0;
-                this.sensor14PerpendicularOffset = 0;
-                this.sensor15PerpendicularOffset = 0;
-                this.sensor16PerpendicularOffset = 0;
-                this.sensor1Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor1Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor1Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor2Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor2Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor2Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor3Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor3Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor3Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor4Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor4Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor4Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor5Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor5Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor5Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor6Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor6Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor6Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor7Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor7Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor7Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor8Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor8Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor8Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor9Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor9Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor9Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor10Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor10Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor10Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor11Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor11Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor11Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor12Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor12Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor12Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor13Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor13Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor13Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor14Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor14Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor14Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor15Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor15Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor15Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor16Condition1 = RobotSpecification.ANY_CONDITION;
-                this.sensor16Condition2 = RobotSpecification.ANY_CONDITION;
-                this.sensor16Condition3 = RobotSpecification.ANY_CONDITION;
-                this.sensor1ResponseToWall1 = RobotSpecification.NO_ACTION;
-                this.sensor1ResponseToWall2 = 100;
-                this.sensor1ResponseToWall3 = 100;
-                this.sensor1ResponseToTank1 = RobotSpecification.NO_ACTION;
-                this.sensor1ResponseToTank2 = 100;
-                this.sensor1ResponseToTank3 = 100;
-                this.sensor1ResponseToMissile1 = RobotSpecification.NO_ACTION;
-                this.sensor1ResponseToMissile2 = 100;
-                this.sensor1ResponseToMissile3 = 100;
-                this.sensor2ResponseToWall1 = RobotSpecification.NO_ACTION;
-                this.sensor2ResponseToWall2 = 100;
-                this.sensor2ResponseToWall3 = 100;
-                this.sensor2ResponseToTank1 = RobotSpecification.NO_ACTION;
-                this.sensor2ResponseToTank2 = 100;
-                this.sensor2ResponseToTank3 = 100;
-                this.sensor2ResponseToMissile1 = RobotSpecification.NO_ACTION;
-                this.sensor2ResponseToMissile2 = 100;
-                this.sensor2ResponseToMissile3 = 100;
-                this.sensor3ResponseToWall1 = RobotSpecification.NO_ACTION;
-                this.sensor3ResponseToWall2 = 100;
-                this.sensor3ResponseToWall3 = 100;
-                this.sensor3ResponseToTank1 = RobotSpecification.NO_ACTION;
-                this.sensor3ResponseToTank2 = 100;
-                this.sensor3ResponseToTank3 = 100;
-                this.sensor3ResponseToMissile1 = RobotSpecification.NO_ACTION;
-                this.sensor3ResponseToMissile2 = 100;
-                this.sensor3ResponseToMissile3 = 100;
-                this.sensor4ResponseToWall1 = RobotSpecification.NO_ACTION;
-                this.sensor4ResponseToWall2 = 100;
-                this.sensor4ResponseToWall3 = 100;
-                this.sensor4ResponseToTank1 = RobotSpecification.NO_ACTION;
-                this.sensor4ResponseToTank2 = 100;
-                this.sensor4ResponseToTank3 = 100;
-                this.sensor4ResponseToMissile1 = RobotSpecification.NO_ACTION;
-                this.sensor4ResponseToMissile2 = 100;
-                this.sensor4ResponseToMissile3 = 100;
-                this.sensor5ResponseToWall1 = RobotSpecification.NO_ACTION;
-                this.sensor5ResponseToWall2 = 100;
-                this.sensor5ResponseToWall3 = 100;
-                this.sensor5ResponseToTank1 = RobotSpecification.NO_ACTION;
-                this.sensor5ResponseToTank2 = 100;
-                this.sensor5ResponseToTank3 = 100;
-                this.sensor5ResponseToMissile1 = RobotSpecification.NO_ACTION;
-                this.sensor5ResponseToMissile2 = 100;
-                this.sensor5ResponseToMissile3 = 100;
-                this.sensor6ResponseToWall1 = RobotSpecification.NO_ACTION;
-                this.sensor6ResponseToWall2 = 100;
-                this.sensor6ResponseToWall3 = 100;
-                this.sensor6ResponseToTank1 = RobotSpecification.NO_ACTION;
-                this.sensor6ResponseToTank2 = 100;
-                this.sensor6ResponseToTank3 = 100;
-                this.sensor6ResponseToMissile1 = RobotSpecification.NO_ACTION;
-                this.sensor6ResponseToMissile2 = 100;
-                this.sensor6ResponseToMissile3 = 100;
-                this.sensor7ResponseToWall1 = RobotSpecification.NO_ACTION;
-                this.sensor7ResponseToWall2 = 100;
-                this.sensor7ResponseToWall3 = 100;
-                this.sensor7ResponseToTank1 = RobotSpecification.NO_ACTION;
-                this.sensor7ResponseToTank2 = 100;
-                this.sensor7ResponseToTank3 = 100;
-                this.sensor7ResponseToMissile1 = RobotSpecification.NO_ACTION;
-                this.sensor7ResponseToMissile2 = 100;
-                this.sensor7ResponseToMissile3 = 100;
-                this.sensor8ResponseToWall1 = RobotSpecification.NO_ACTION;
-                this.sensor8ResponseToWall2 = 100;
-                this.sensor8ResponseToWall3 = 100;
-                this.sensor8ResponseToTank1 = RobotSpecification.NO_ACTION;
-                this.sensor8ResponseToTank2 = 100;
-                this.sensor8ResponseToTank3 = 100;
-                this.sensor8ResponseToMissile1 = RobotSpecification.NO_ACTION;
-                this.sensor8ResponseToMissile2 = 100;
-                this.sensor8ResponseToMissile3 = 100;
-                this.sensor9ResponseToWall1 = RobotSpecification.NO_ACTION;
-                this.sensor9ResponseToWall2 = 100;
-                this.sensor9ResponseToWall3 = 100;
-                this.sensor9ResponseToTank1 = RobotSpecification.NO_ACTION;
-                this.sensor9ResponseToTank2 = 100;
-                this.sensor9ResponseToTank3 = 100;
-                this.sensor9ResponseToMissile1 = RobotSpecification.NO_ACTION;
-                this.sensor9ResponseToMissile2 = 100;
-                this.sensor9ResponseToMissile3 = 100;
-                this.sensor10ResponseToWall1 = 100;
-                this.sensor10ResponseToWall2 = 100;
-                this.sensor10ResponseToWall3 = 100;
-                this.sensor10ResponseToTank1 = 100;
-                this.sensor10ResponseToTank2 = 100;
-                this.sensor10ResponseToTank3 = 100;
-                this.sensor10ResponseToMissile1 = 100;
-                this.sensor10ResponseToMissile2 = 100;
-                this.sensor10ResponseToMissile3 = 100;
-                this.sensor11ResponseToWall1 = 100;
-                this.sensor11ResponseToWall2 = 100;
-                this.sensor11ResponseToWall3 = 100;
-                this.sensor11ResponseToTank1 = 100;
-                this.sensor11ResponseToTank2 = 100;
-                this.sensor11ResponseToTank3 = 100;
-                this.sensor11ResponseToMissile1 = 100;
-                this.sensor11ResponseToMissile2 = 100;
-                this.sensor11ResponseToMissile3 = 100;
-                this.sensor12ResponseToWall1 = 100;
-                this.sensor12ResponseToWall2 = 100;
-                this.sensor12ResponseToWall3 = 100;
-                this.sensor12ResponseToTank1 = 100;
-                this.sensor12ResponseToTank2 = 100;
-                this.sensor12ResponseToTank3 = 100;
-                this.sensor12ResponseToMissile1 = 100;
-                this.sensor12ResponseToMissile2 = 100;
-                this.sensor12ResponseToMissile3 = 100;
-                this.sensor13ResponseToWall1 = 100;
-                this.sensor13ResponseToWall2 = 100;
-                this.sensor13ResponseToWall3 = 100;
-                this.sensor13ResponseToTank1 = 100;
-                this.sensor13ResponseToTank2 = 100;
-                this.sensor13ResponseToTank3 = 100;
-                this.sensor13ResponseToMissile1 = 100;
-                this.sensor13ResponseToMissile2 = 100;
-                this.sensor13ResponseToMissile3 = 100;
-                this.sensor14ResponseToWall1 = 100;
-                this.sensor14ResponseToWall2 = 100;
-                this.sensor14ResponseToWall3 = 100;
-                this.sensor14ResponseToTank1 = 100;
-                this.sensor14ResponseToTank2 = 100;
-                this.sensor14ResponseToTank3 = 100;
-                this.sensor14ResponseToMissile1 = 100;
-                this.sensor14ResponseToMissile2 = 100;
-                this.sensor14ResponseToMissile3 = 100;
-                this.sensor15ResponseToWall1 = 100;
-                this.sensor15ResponseToWall2 = 100;
-                this.sensor15ResponseToWall3 = 100;
-                this.sensor15ResponseToTank1 = 100;
-                this.sensor15ResponseToTank2 = 100;
-                this.sensor15ResponseToTank3 = 100;
-                this.sensor15ResponseToMissile1 = 100;
-                this.sensor15ResponseToMissile2 = 100;
-                this.sensor15ResponseToMissile3 = 100;
-                this.sensor16ResponseToWall1 = 100;
-                this.sensor16ResponseToWall2 = 100;
-                this.sensor16ResponseToWall3 = 100;
-                this.sensor16ResponseToTank1 = 100;
-                this.sensor16ResponseToTank2 = 100;
-                this.sensor16ResponseToTank3 = 100;
-                this.sensor16ResponseToMissile1 = RobotSpecification.NO_ACTION;
-                this.sensor16ResponseToMissile2 = RobotSpecification.NO_ACTION;
-                this.sensor16ResponseToMissile3 = RobotSpecification.NO_ACTION;
-                this.responseToMissileHit1 = RobotSpecification.NO_ACTION;
-                this.responseToMissileHit2 = RobotSpecification.NO_ACTION;
-                this.responseToMissileHit3 = RobotSpecification.NO_ACTION;
-                this.responseToFacingTarget1 = RobotSpecification.NO_ACTION;
-                this.responseToFacingTarget2 = RobotSpecification.NO_ACTION;
-                this.responseToFacingTarget3 = RobotSpecification.NO_ACTION;
-                this.weaponStrategyFavourite1 = dsector.PreBuiltWeaponSpecifications.TRI_STRIKER;
-                this.weaponStrategySecondFavourite1 = dsector.PreBuiltWeaponSpecifications.POWER_LASER;
-                this.weaponStrategyThirdFavourite1 = dsector.PreBuiltWeaponSpecifications.BEAM_LASER;
-                this.weaponStrategyFourthFavourite1 = dsector.PreBuiltWeaponSpecifications.DOUBLE_MISSILE;
-                this.weaponStrategyFifthFavourite1 = dsector.PreBuiltWeaponSpecifications.STANDARD_MISSILE;
-                this.weaponStrategyFavourite2 = dsector.PreBuiltWeaponSpecifications.TRI_BREAKER;
-                this.weaponStrategySecondFavourite2 = dsector.PreBuiltWeaponSpecifications.QUINT_BREAKER;
-                this.weaponStrategyThirdFavourite2 = dsector.PreBuiltWeaponSpecifications.OCTO_BREAKER;
-                this.weaponStrategyFourthFavourite2 = dsector.PreBuiltWeaponSpecifications.NONE;
-                this.weaponStrategyFifthFavourite2 = dsector.PreBuiltWeaponSpecifications.NONE;
-                this.weaponStrategyFavourite3 = dsector.PreBuiltWeaponSpecifications.REAR_TRIPLE;
-                this.weaponStrategySecondFavourite3 = dsector.PreBuiltWeaponSpecifications.REAR_GUIDERS;
-                this.weaponStrategyThirdFavourite3 = dsector.PreBuiltWeaponSpecifications.REAR_DOUBLE;
-                this.weaponStrategyFourthFavourite3 = dsector.PreBuiltWeaponSpecifications.NONE;
-                this.weaponStrategyFifthFavourite3 = 500;
-                this.weaponStrategyFavourite4 = 500;
-                this.weaponStrategySecondFavourite4 = 500;
-                this.weaponStrategyThirdFavourite4 = 500;
-                this.weaponStrategyFourthFavourite4 = 500;
-                this.weaponStrategyFifthFavourite4 = 500;
-                this.weaponStrategyFavourite5 = 500;
-                this.weaponStrategySecondFavourite5 = 500;
-                this.weaponStrategyThirdFavourite5 = 500;
-                this.weaponStrategyFourthFavourite5 = 500;
-                this.weaponStrategyFifthFavourite5 = 500;
-                this.weaponStrategyFavourite6 = 500;
-                this.weaponStrategySecondFavourite6 = 500;
-                this.weaponStrategyThirdFavourite6 = 500;
-                this.weaponStrategyFourthFavourite6 = 500;
-                this.weaponStrategyFifthFavourite6 = 500;
-                this.weaponStrategyFavourite7 = 500;
-                this.weaponStrategySecondFavourite7 = 500;
-                this.weaponStrategyThirdFavourite7 = 500;
-                this.weaponStrategyFourthFavourite7 = 500;
-                this.weaponStrategyFifthFavourite7 = 500;
-                this.weaponStrategyFavourite8 = 500;
-                this.weaponStrategySecondFavourite8 = 500;
-                this.weaponStrategyThirdFavourite8 = 500;
-                this.weaponStrategyFourthFavourite8 = 500;
-                this.weaponStrategyFifthFavourite8 = 500;
-                this.shoppingStrategyAction1 = RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_WEAPON_STRATEGY_1;
-                this.shoppingStrategyCondition1 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
-                this.shoppingStrategyAction2 = RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_RANDOM_WEAPON_STRATEGY;
-                this.shoppingStrategyCondition2 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
-                this.shoppingStrategyAction3 = RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_RANDOM_WEAPON_STRATEGY;
-                this.shoppingStrategyCondition3 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
-                this.shoppingStrategyAction4 = RobotSpecification.MOST_FAVORED_WEAPON_AFFORDABLE_FROM_RANDOM_WEAPON_STRATEGY;
-                this.shoppingStrategyCondition4 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
-                this.shoppingStrategyAction5 = RobotSpecification.NO_ACTION;
-                this.shoppingStrategyCondition5 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
-                this.shoppingStrategyAction6 = RobotSpecification.NO_ACTION;
-                this.shoppingStrategyCondition6 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
-                this.shoppingStrategyAction7 = RobotSpecification.NO_ACTION;
-                this.shoppingStrategyCondition7 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
-                this.shoppingStrategyAction8 = RobotSpecification.NO_ACTION;
-                this.shoppingStrategyCondition8 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
-                this.shoppingStrategyAction9 = RobotSpecification.SHOPPING_CONDITION_50_PERCENT;
-                this.shoppingStrategyCondition9 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
-                this.shoppingStrategyAction10 = RobotSpecification.NO_ACTION;
-                this.shoppingStrategyCondition10 = RobotSpecification.SHOPPING_CONDITION_ALWAYS;
-                this.shoppingStrategyMaximumFireUnitExpenseWhenWeaponBeingReplaced = 200;
-                this.shoppingStrategyMaximumFireUnitsThatBePurchased = 200;
                 this.filename = "[keyboard1]";
                 this.name = "No name";
                 this.description = "";
                 this.viewSensors = RobotSpecification.FALSE;
                 this.weaponFuelRatio = 100;
+
             } else
                 throw new Error('invalid overload');
         }
@@ -5381,453 +763,454 @@
         }
 
         outputAsFile() {
-            let fOutput = "";
-            fOutput = fOutput + "name = " + this.name + "\n";
-            fOutput = fOutput + "description = " + this.description + "\n";
-            fOutput = fOutput + "viewSensors=FALSE\n";
-            fOutput = fOutput + "clock1Probability = " + this.clock1Probability + "\n";
-            fOutput = fOutput + "clock2Probability = " + this.clock2Probability + "\n";
-            fOutput = fOutput + "clock3Probability = " + this.clock3Probability + "\n";
-            fOutput = fOutput + "clock4Probability = " + this.clock4Probability + "\n";
-            fOutput = fOutput + "clock5Probability = " + this.clock5Probability + "\n";
-            fOutput = fOutput + "clock6Probability = " + this.clock6Probability + "\n";
-            fOutput = fOutput + "clock7Probability = " + this.clock7Probability + "\n";
-            fOutput = fOutput + "clock8Probability = " + this.clock8Probability + "\n";
-            fOutput = fOutput + "clock9Probability = " + this.clock9Probability + "\n";
-            fOutput = fOutput + "clock10Probability = " + this.clock10Probability + "\n";
-            fOutput = fOutput + "clock1Period = " + this.clock1Period + "\n";
-            fOutput = fOutput + "clock2Period = " + this.clock2Period + "\n";
-            fOutput = fOutput + "clock3Period = " + this.clock3Period + "\n";
-            fOutput = fOutput + "clock4Period = " + this.clock4Period + "\n";
-            fOutput = fOutput + "clock5Period = " + this.clock5Period + "\n";
-            fOutput = fOutput + "clock6Period = " + this.clock6Period + "\n";
-            fOutput = fOutput + "clock7Period = " + this.clock7Period + "\n";
-            fOutput = fOutput + "clock8Period = " + this.clock8Period + "\n";
-            fOutput = fOutput + "clock9Period = " + this.clock9Period + "\n";
-            fOutput = fOutput + "clock10Period = " + this.clock10Period + "\n";
-            fOutput = fOutput + "clock1Requirement1 = " + this.stringRepresentation(this.clock1Requirement1) + "\n";
-            fOutput = fOutput + "clock1Requirement2 = " + this.stringRepresentation(this.clock1Requirement2) + "\n";
-            fOutput = fOutput + "clock2Requirement1 = " + this.stringRepresentation(this.clock2Requirement1) + "\n";
-            fOutput = fOutput + "clock2Requirement2 = " + this.stringRepresentation(this.clock2Requirement2) + "\n";
-            fOutput = fOutput + "clock3Requirement1 = " + this.stringRepresentation(this.clock3Requirement1) + "\n";
-            fOutput = fOutput + "clock3Requirement2 = " + this.stringRepresentation(this.clock3Requirement2) + "\n";
-            fOutput = fOutput + "clock4Requirement1 = " + this.stringRepresentation(this.clock4Requirement1) + "\n";
-            fOutput = fOutput + "clock4Requirement2 = " + this.stringRepresentation(this.clock4Requirement2) + "\n";
-            fOutput = fOutput + "clock5Requirement1 = " + this.stringRepresentation(this.clock5Requirement1) + "\n";
-            fOutput = fOutput + "clock5Requirement2 = " + this.stringRepresentation(this.clock5Requirement2) + "\n";
-            fOutput = fOutput + "clock6Requirement1 = " + this.stringRepresentation(this.clock6Requirement1) + "\n";
-            fOutput = fOutput + "clock6Requirement2 = " + this.stringRepresentation(this.clock6Requirement2) + "\n";
-            fOutput = fOutput + "clock7Requirement1 = " + this.stringRepresentation(this.clock7Requirement1) + "\n";
-            fOutput = fOutput + "clock7Requirement2 = " + this.stringRepresentation(this.clock7Requirement2) + "\n";
-            fOutput = fOutput + "clock8Requirement1 = " + this.stringRepresentation(this.clock8Requirement1) + "\n";
-            fOutput = fOutput + "clock8Requirement2 = " + this.stringRepresentation(this.clock8Requirement2) + "\n";
-            fOutput = fOutput + "clock9Requirement1 = " + this.stringRepresentation(this.clock9Requirement1) + "\n";
-            fOutput = fOutput + "clock9Requirement2 = " + this.stringRepresentation(this.clock9Requirement2) + "\n";
-            fOutput = fOutput + "clock10Requirement1 = " + this.stringRepresentation(this.clock10Requirement1) + "\n";
-            fOutput = fOutput + "clock10Requirement2 = " + this.stringRepresentation(this.clock10Requirement2) + "\n";
-            fOutput = fOutput + "clock1Response1 = " + this.stringRepresentation(this.clock1Response1) + "\n";
-            fOutput = fOutput + "clock1Response2 = " + this.stringRepresentation(this.clock1Response2) + "\n";
-            fOutput = fOutput + "clock1Response3 = " + this.stringRepresentation(this.clock1Response3) + "\n";
-            fOutput = fOutput + "clock2Response1 = " + this.stringRepresentation(this.clock2Response1) + "\n";
-            fOutput = fOutput + "clock2Response2 = " + this.stringRepresentation(this.clock2Response2) + "\n";
-            fOutput = fOutput + "clock2Response3 = " + this.stringRepresentation(this.clock2Response3) + "\n";
-            fOutput = fOutput + "clock3Response1 = " + this.stringRepresentation(this.clock3Response1) + "\n";
-            fOutput = fOutput + "clock3Response2 = " + this.stringRepresentation(this.clock3Response2) + "\n";
-            fOutput = fOutput + "clock3Response3 = " + this.stringRepresentation(this.clock3Response3) + "\n";
-            fOutput = fOutput + "clock4Response1 = " + this.stringRepresentation(this.clock4Response1) + "\n";
-            fOutput = fOutput + "clock4Response2 = " + this.stringRepresentation(this.clock4Response2) + "\n";
-            fOutput = fOutput + "clock4Response3 = " + this.stringRepresentation(this.clock4Response3) + "\n";
-            fOutput = fOutput + "clock5Response1 = " + this.stringRepresentation(this.clock5Response1) + "\n";
-            fOutput = fOutput + "clock5Response2 = " + this.stringRepresentation(this.clock5Response2) + "\n";
-            fOutput = fOutput + "clock5Response3 = " + this.stringRepresentation(this.clock5Response3) + "\n";
-            fOutput = fOutput + "clock6Response1 = " + this.stringRepresentation(this.clock6Response1) + "\n";
-            fOutput = fOutput + "clock6Response2 = " + this.stringRepresentation(this.clock6Response2) + "\n";
-            fOutput = fOutput + "clock6Response3 = " + this.stringRepresentation(this.clock6Response3) + "\n";
-            fOutput = fOutput + "clock7Response1 = " + this.stringRepresentation(this.clock7Response1) + "\n";
-            fOutput = fOutput + "clock7Response2 = " + this.stringRepresentation(this.clock7Response2) + "\n";
-            fOutput = fOutput + "clock7Response3 = " + this.stringRepresentation(this.clock7Response3) + "\n";
-            fOutput = fOutput + "clock8Response1 = " + this.stringRepresentation(this.clock8Response1) + "\n";
-            fOutput = fOutput + "clock8Response2 = " + this.stringRepresentation(this.clock8Response2) + "\n";
-            fOutput = fOutput + "clock8Response3 = " + this.stringRepresentation(this.clock8Response3) + "\n";
-            fOutput = fOutput + "clock9Response1 = " + this.stringRepresentation(this.clock9Response1) + "\n";
-            fOutput = fOutput + "clock9Response2 = " + this.stringRepresentation(this.clock9Response2) + "\n";
-            fOutput = fOutput + "clock9Response3 = " + this.stringRepresentation(this.clock9Response1) + "\n";
-            fOutput = fOutput + "clock10Response1 = " + this.stringRepresentation(this.clock10Response1) + "\n";
-            fOutput = fOutput + "clock10Response2 = " + this.stringRepresentation(this.clock10Response2) + "\n";
-            fOutput = fOutput + "clock10Response3 = " + this.stringRepresentation(this.clock10Response3) + "\n";
-            fOutput = fOutput + "sensor1Angle = " + this.sensor1Angle + "\n";
-            fOutput = fOutput + "sensor2Angle = " + this.sensor2Angle + "\n";
-            fOutput = fOutput + "sensor3Angle = " + this.sensor3Angle + "\n";
-            fOutput = fOutput + "sensor4Angle = " + this.sensor4Angle + "\n";
-            fOutput = fOutput + "sensor5Angle = " + this.sensor5Angle + "\n";
-            fOutput = fOutput + "sensor6Angle = " + this.sensor6Angle + "\n";
-            fOutput = fOutput + "sensor7Angle = " + this.sensor7Angle + "\n";
-            fOutput = fOutput + "sensor8Angle = " + this.sensor8Angle + "\n";
-            fOutput = fOutput + "sensor9Angle = " + this.sensor9Angle + "\n";
-            fOutput = fOutput + "sensor10Angle = " + this.sensor10Angle + "\n";
-            fOutput = fOutput + "sensor11Angle = " + this.sensor11Angle + "\n";
-            fOutput = fOutput + "sensor12Angle = " + this.sensor12Angle + "\n";
-            fOutput = fOutput + "sensor13Angle = " + this.sensor13Angle + "\n";
-            fOutput = fOutput + "sensor14Angle = " + this.sensor14Angle + "\n";
-            fOutput = fOutput + "sensor15Angle = " + this.sensor15Angle + "\n";
-            fOutput = fOutput + "sensor16Angle = " + this.sensor16Angle + "\n";
-            fOutput = fOutput + "sensor1Length = " + this.sensor1Length + "\n";
-            fOutput = fOutput + "sensor2Length = " + this.sensor2Length + "\n";
-            fOutput = fOutput + "sensor3Length = " + this.sensor3Length + "\n";
-            fOutput = fOutput + "sensor4Length = " + this.sensor4Length + "\n";
-            fOutput = fOutput + "sensor5Length = " + this.sensor5Length + "\n";
-            fOutput = fOutput + "sensor6Length = " + this.sensor6Length + "\n";
-            fOutput = fOutput + "sensor7Length = " + this.sensor7Length + "\n";
-            fOutput = fOutput + "sensor8Length = " + this.sensor8Length + "\n";
-            fOutput = fOutput + "sensor9Length = " + this.sensor9Length + "\n";
-            fOutput = fOutput + "sensor10Length = " + this.sensor10Length + "\n";
-            fOutput = fOutput + "sensor11Length = " + this.sensor11Length + "\n";
-            fOutput = fOutput + "sensor12Length = " + this.sensor12Length + "\n";
-            fOutput = fOutput + "sensor13Length = " + this.sensor13Length + "\n";
-            fOutput = fOutput + "sensor14Length = " + this.sensor14Length + "\n";
-            fOutput = fOutput + "sensor15Length = " + this.sensor15Length + "\n";
-            fOutput = fOutput + "sensor16Length = " + this.sensor16Length + "\n";
-            fOutput = fOutput + "sensor1Width = " + this.sensor1Width + "\n";
-            fOutput = fOutput + "sensor2Width = " + this.sensor2Width + "\n";
-            fOutput = fOutput + "sensor3Width = " + this.sensor3Width + "\n";
-            fOutput = fOutput + "sensor4Width = " + this.sensor4Width + "\n";
-            fOutput = fOutput + "sensor5Width = " + this.sensor5Width + "\n";
-            fOutput = fOutput + "sensor6Width = " + this.sensor6Width + "\n";
-            fOutput = fOutput + "sensor7Width = " + this.sensor7Width + "\n";
-            fOutput = fOutput + "sensor8Width = " + this.sensor8Width + "\n";
-            fOutput = fOutput + "sensor9Width = " + this.sensor9Width + "\n";
-            fOutput = fOutput + "sensor10Width = " + this.sensor10Width + "\n";
-            fOutput = fOutput + "sensor11Width = " + this.sensor11Width + "\n";
-            fOutput = fOutput + "sensor12Width = " + this.sensor12Width + "\n";
-            fOutput = fOutput + "sensor13Width = " + this.sensor13Width + "\n";
-            fOutput = fOutput + "sensor14Width = " + this.sensor14Width + "\n";
-            fOutput = fOutput + "sensor15Width = " + this.sensor15Width + "\n";
-            fOutput = fOutput + "sensor16Width = " + this.sensor16Width + "\n";
-            fOutput = fOutput + "sensor1Probability = " + this.sensor1Probability + "\n";
-            fOutput = fOutput + "sensor2Probability = " + this.sensor2Probability + "\n";
-            fOutput = fOutput + "sensor3Probability = " + this.sensor3Probability + "\n";
-            fOutput = fOutput + "sensor4Probability = " + this.sensor4Probability + "\n";
-            fOutput = fOutput + "sensor5Probability = " + this.sensor5Probability + "\n";
-            fOutput = fOutput + "sensor6Probability = " + this.sensor6Probability + "\n";
-            fOutput = fOutput + "sensor7Probability = " + this.sensor7Probability + "\n";
-            fOutput = fOutput + "sensor8Probability = " + this.sensor8Probability + "\n";
-            fOutput = fOutput + "sensor9Probability = " + this.sensor9Probability + "\n";
-            fOutput = fOutput + "sensor10Probability = " + this.sensor10Probability + "\n";
-            fOutput = fOutput + "sensor11Probability = " + this.sensor11Probability + "\n";
-            fOutput = fOutput + "sensor12Probability = " + this.sensor12Probability + "\n";
-            fOutput = fOutput + "sensor13Probability = " + this.sensor13Probability + "\n";
-            fOutput = fOutput + "sensor14Probability = " + this.sensor14Probability + "\n";
-            fOutput = fOutput + "sensor15Probability = " + this.sensor15Probability + "\n";
-            fOutput = fOutput + "sensor16Probability = " + this.sensor16Probability + "\n";
-            fOutput = fOutput + "sensor1Period = " + this.sensor1Period + "\n";
-            fOutput = fOutput + "sensor2Period = " + this.sensor2Period + "\n";
-            fOutput = fOutput + "sensor3Period = " + this.sensor3Period + "\n";
-            fOutput = fOutput + "sensor4Period = " + this.sensor4Period + "\n";
-            fOutput = fOutput + "sensor5Period = " + this.sensor5Period + "\n";
-            fOutput = fOutput + "sensor6Period = " + this.sensor6Period + "\n";
-            fOutput = fOutput + "sensor7Period = " + this.sensor7Period + "\n";
-            fOutput = fOutput + "sensor8Period = " + this.sensor8Period + "\n";
-            fOutput = fOutput + "sensor9Period = " + this.sensor9Period + "\n";
-            fOutput = fOutput + "sensor10Period = " + this.sensor10Period + "\n";
-            fOutput = fOutput + "sensor11Period = " + this.sensor11Period + "\n";
-            fOutput = fOutput + "sensor12Period = " + this.sensor12Period + "\n";
-            fOutput = fOutput + "sensor13Period = " + this.sensor13Period + "\n";
-            fOutput = fOutput + "sensor14Period = " + this.sensor14Period + "\n";
-            fOutput = fOutput + "sensor15Period = " + this.sensor15Period + "\n";
-            fOutput = fOutput + "sensor16Period = " + this.sensor16Period + "\n";
-            fOutput = fOutput + "sensor1ParallelOffset = " + this.sensor1ParallelOffset + "\n";
-            fOutput = fOutput + "sensor2ParallelOffset = " + this.sensor2ParallelOffset + "\n";
-            fOutput = fOutput + "sensor3ParallelOffset = " + this.sensor3ParallelOffset + "\n";
-            fOutput = fOutput + "sensor4ParallelOffset = " + this.sensor4ParallelOffset + "\n";
-            fOutput = fOutput + "sensor5ParallelOffset = " + this.sensor5ParallelOffset + "\n";
-            fOutput = fOutput + "sensor6ParallelOffset = " + this.sensor6ParallelOffset + "\n";
-            fOutput = fOutput + "sensor7ParallelOffset = " + this.sensor7ParallelOffset + "\n";
-            fOutput = fOutput + "sensor8ParallelOffset = " + this.sensor8ParallelOffset + "\n";
-            fOutput = fOutput + "sensor9ParallelOffset = " + this.sensor9ParallelOffset + "\n";
-            fOutput = fOutput + "sensor10ParallelOffset = " + this.sensor10ParallelOffset + "\n";
-            fOutput = fOutput + "sensor11ParallelOffset = " + this.sensor11ParallelOffset + "\n";
-            fOutput = fOutput + "sensor12ParallelOffset = " + this.sensor12ParallelOffset + "\n";
-            fOutput = fOutput + "sensor13ParallelOffset = " + this.sensor13ParallelOffset + "\n";
-            fOutput = fOutput + "sensor14ParallelOffset = " + this.sensor14ParallelOffset + "\n";
-            fOutput = fOutput + "sensor15ParallelOffset = " + this.sensor15ParallelOffset + "\n";
-            fOutput = fOutput + "sensor16ParallelOffset = " + this.sensor16ParallelOffset + "\n";
-            fOutput = fOutput + "sensor1PerpendicularOffset = " + this.sensor1PerpendicularOffset + "\n";
-            fOutput = fOutput + "sensor2PerpendicularOffset = " + this.sensor2PerpendicularOffset + "\n";
-            fOutput = fOutput + "sensor3PerpendicularOffset = " + this.sensor3PerpendicularOffset + "\n";
-            fOutput = fOutput + "sensor4PerpendicularOffset = " + this.sensor4PerpendicularOffset + "\n";
-            fOutput = fOutput + "sensor5PerpendicularOffset = " + this.sensor5PerpendicularOffset + "\n";
-            fOutput = fOutput + "sensor6PerpendicularOffset = " + this.sensor6PerpendicularOffset + "\n";
-            fOutput = fOutput + "sensor7PerpendicularOffset = " + this.sensor7PerpendicularOffset + "\n";
-            fOutput = fOutput + "sensor8PerpendicularOffset = " + this.sensor8PerpendicularOffset + "\n";
-            fOutput = fOutput + "sensor9PerpendicularOffset = " + this.sensor9PerpendicularOffset + "\n";
-            fOutput = fOutput + "sensor10PerpendicularOffset = " + this.sensor10PerpendicularOffset + "\n";
-            fOutput = fOutput + "sensor11PerpendicularOffset = " + this.sensor11PerpendicularOffset + "\n";
-            fOutput = fOutput + "sensor12PerpendicularOffset = " + this.sensor12PerpendicularOffset + "\n";
-            fOutput = fOutput + "sensor13PerpendicularOffset = " + this.sensor13PerpendicularOffset + "\n";
-            fOutput = fOutput + "sensor14PerpendicularOffset = " + this.sensor14PerpendicularOffset + "\n";
-            fOutput = fOutput + "sensor15PerpendicularOffset = " + this.sensor15PerpendicularOffset + "\n";
-            fOutput = fOutput + "sensor16PerpendicularOffset = " + this.sensor16PerpendicularOffset + "\n";
-            fOutput = fOutput + "sensor1Condition1 = " + this.stringRepresentation(this.sensor1Condition1) + "\n";
-            fOutput = fOutput + "sensor1Condition2 = " + this.stringRepresentation(this.sensor1Condition2) + "\n";
-            fOutput = fOutput + "sensor1Condition3 = " + this.stringRepresentation(this.sensor1Condition3) + "\n";
-            fOutput = fOutput + "sensor2Condition1 = " + this.stringRepresentation(this.sensor2Condition1) + "\n";
-            fOutput = fOutput + "sensor2Condition2 = " + this.stringRepresentation(this.sensor2Condition2) + "\n";
-            fOutput = fOutput + "sensor2Condition3 = " + this.stringRepresentation(this.sensor2Condition3) + "\n";
-            fOutput = fOutput + "sensor3Condition1 = " + this.stringRepresentation(this.sensor3Condition1) + "\n";
-            fOutput = fOutput + "sensor3Condition2 = " + this.stringRepresentation(this.sensor3Condition2) + "\n";
-            fOutput = fOutput + "sensor3Condition3 = " + this.stringRepresentation(this.sensor3Condition3) + "\n";
-            fOutput = fOutput + "sensor4Condition1 = " + this.stringRepresentation(this.sensor4Condition1) + "\n";
-            fOutput = fOutput + "sensor4Condition2 = " + this.stringRepresentation(this.sensor4Condition2) + "\n";
-            fOutput = fOutput + "sensor4Condition3 = " + this.stringRepresentation(this.sensor4Condition3) + "\n";
-            fOutput = fOutput + "sensor5Condition1 = " + this.stringRepresentation(this.sensor5Condition1) + "\n";
-            fOutput = fOutput + "sensor5Condition2 = " + this.stringRepresentation(this.sensor5Condition2) + "\n";
-            fOutput = fOutput + "sensor5Condition3 = " + this.stringRepresentation(this.sensor5Condition3) + "\n";
-            fOutput = fOutput + "sensor6Condition1 = " + this.stringRepresentation(this.sensor6Condition1) + "\n";
-            fOutput = fOutput + "sensor6Condition2 = " + this.stringRepresentation(this.sensor6Condition2) + "\n";
-            fOutput = fOutput + "sensor6Condition3 = " + this.stringRepresentation(this.sensor6Condition3) + "\n";
-            fOutput = fOutput + "sensor7Condition1 = " + this.stringRepresentation(this.sensor7Condition1) + "\n";
-            fOutput = fOutput + "sensor7Condition2 = " + this.stringRepresentation(this.sensor7Condition2) + "\n";
-            fOutput = fOutput + "sensor7Condition3 = " + this.stringRepresentation(this.sensor7Condition3) + "\n";
-            fOutput = fOutput + "sensor8Condition1 = " + this.stringRepresentation(this.sensor8Condition1) + "\n";
-            fOutput = fOutput + "sensor8Condition2 = " + this.stringRepresentation(this.sensor8Condition2) + "\n";
-            fOutput = fOutput + "sensor8Condition3 = " + this.stringRepresentation(this.sensor8Condition3) + "\n";
-            fOutput = fOutput + "sensor9Condition1 = " + this.stringRepresentation(this.sensor9Condition1) + "\n";
-            fOutput = fOutput + "sensor9Condition2 = " + this.stringRepresentation(this.sensor9Condition2) + "\n";
-            fOutput = fOutput + "sensor9Condition3 = " + this.stringRepresentation(this.sensor9Condition3) + "\n";
-            fOutput = fOutput + "sensor10Condition1 = " + this.stringRepresentation(this.sensor10Condition1) + "\n";
-            fOutput = fOutput + "sensor10Condition2 = " + this.stringRepresentation(this.sensor10Condition2) + "\n";
-            fOutput = fOutput + "sensor10Condition3 = " + this.stringRepresentation(this.sensor10Condition3) + "\n";
-            fOutput = fOutput + "sensor11Condition1 = " + this.stringRepresentation(this.sensor11Condition1) + "\n";
-            fOutput = fOutput + "sensor11Condition2 = " + this.stringRepresentation(this.sensor11Condition2) + "\n";
-            fOutput = fOutput + "sensor11Condition3 = " + this.stringRepresentation(this.sensor11Condition3) + "\n";
-            fOutput = fOutput + "sensor12Condition1 = " + this.stringRepresentation(this.sensor12Condition1) + "\n";
-            fOutput = fOutput + "sensor12Condition2 = " + this.stringRepresentation(this.sensor12Condition2) + "\n";
-            fOutput = fOutput + "sensor12Condition3 = " + this.stringRepresentation(this.sensor12Condition3) + "\n";
-            fOutput = fOutput + "sensor13Condition1 = " + this.stringRepresentation(this.sensor13Condition1) + "\n";
-            fOutput = fOutput + "sensor13Condition2 = " + this.stringRepresentation(this.sensor13Condition2) + "\n";
-            fOutput = fOutput + "sensor13Condition3 = " + this.stringRepresentation(this.sensor13Condition3) + "\n";
-            fOutput = fOutput + "sensor14Condition1 = " + this.stringRepresentation(this.sensor14Condition1) + "\n";
-            fOutput = fOutput + "sensor14Condition2 = " + this.stringRepresentation(this.sensor14Condition2) + "\n";
-            fOutput = fOutput + "sensor14Condition3 = " + this.stringRepresentation(this.sensor14Condition3) + "\n";
-            fOutput = fOutput + "sensor15Condition1 = " + this.stringRepresentation(this.sensor15Condition1) + "\n";
-            fOutput = fOutput + "sensor15Condition2 = " + this.stringRepresentation(this.sensor15Condition2) + "\n";
-            fOutput = fOutput + "sensor15Condition3 = " + this.stringRepresentation(this.sensor15Condition3) + "\n";
-            fOutput = fOutput + "sensor16Condition1 = " + this.stringRepresentation(this.sensor16Condition1) + "\n";
-            fOutput = fOutput + "sensor16Condition2 = " + this.stringRepresentation(this.sensor16Condition2) + "\n";
-            fOutput = fOutput + "sensor16Condition3 = " + this.stringRepresentation(this.sensor16Condition3) + "\n";
-            fOutput = fOutput + "sensor1ResponseToWall1 = " + this.stringRepresentation(this.sensor1ResponseToWall1) + "\n";
-            fOutput = fOutput + "sensor1ResponseToWall2 = " + this.stringRepresentation(this.sensor1ResponseToWall2) + "\n";
-            fOutput = fOutput + "sensor1ResponseToWall3 = " + this.stringRepresentation(this.sensor1ResponseToWall3) + "\n";
-            fOutput = fOutput + "sensor1ResponseToTank1 = " + this.stringRepresentation(this.sensor1ResponseToTank1) + "\n";
-            fOutput = fOutput + "sensor1ResponseToTank2 = " + this.stringRepresentation(this.sensor1ResponseToTank2) + "\n";
-            fOutput = fOutput + "sensor1ResponseToTank3 = " + this.stringRepresentation(this.sensor1ResponseToTank3) + "\n";
-            fOutput = fOutput + "sensor1ResponseToMissile1 = " + this.stringRepresentation(this.sensor1ResponseToMissile1) + "\n";
-            fOutput = fOutput + "sensor1ResponseToMissile2 = " + this.stringRepresentation(this.sensor1ResponseToMissile2) + "\n";
-            fOutput = fOutput + "sensor1ResponseToMissile3 = " + this.stringRepresentation(this.sensor1ResponseToMissile3) + "\n";
-            fOutput = fOutput + "sensor2ResponseToWall1 = " + this.stringRepresentation(this.sensor2ResponseToWall1) + "\n";
-            fOutput = fOutput + "sensor2ResponseToWall2 = " + this.stringRepresentation(this.sensor2ResponseToWall2) + "\n";
-            fOutput = fOutput + "sensor2ResponseToWall3 = " + this.stringRepresentation(this.sensor2ResponseToWall3) + "\n";
-            fOutput = fOutput + "sensor2ResponseToTank1 = " + this.stringRepresentation(this.sensor2ResponseToTank1) + "\n";
-            fOutput = fOutput + "sensor2ResponseToTank2 = " + this.stringRepresentation(this.sensor2ResponseToTank2) + "\n";
-            fOutput = fOutput + "sensor2ResponseToTank3 = " + this.stringRepresentation(this.sensor2ResponseToTank3) + "\n";
-            fOutput = fOutput + "sensor2ResponseToMissile1 = " + this.stringRepresentation(this.sensor2ResponseToMissile1) + "\n";
-            fOutput = fOutput + "sensor2ResponseToMissile2 = " + this.stringRepresentation(this.sensor2ResponseToMissile2) + "\n";
-            fOutput = fOutput + "sensor2ResponseToMissile3 = " + this.stringRepresentation(this.sensor2ResponseToMissile3) + "\n";
-            fOutput = fOutput + "sensor3ResponseToWall1 = " + this.stringRepresentation(this.sensor3ResponseToWall1) + "\n";
-            fOutput = fOutput + "sensor3ResponseToWall2 = " + this.stringRepresentation(this.sensor3ResponseToWall2) + "\n";
-            fOutput = fOutput + "sensor3ResponseToWall3 = " + this.stringRepresentation(this.sensor3ResponseToWall3) + "\n";
-            fOutput = fOutput + "sensor3ResponseToTank1 = " + this.stringRepresentation(this.sensor3ResponseToTank1) + "\n";
-            fOutput = fOutput + "sensor3ResponseToTank2 = " + this.stringRepresentation(this.sensor3ResponseToTank2) + "\n";
-            fOutput = fOutput + "sensor3ResponseToTank3 = " + this.stringRepresentation(this.sensor3ResponseToTank3) + "\n";
-            fOutput = fOutput + "sensor3ResponseToMissile1 = " + this.stringRepresentation(this.sensor3ResponseToMissile1) + "\n";
-            fOutput = fOutput + "sensor3ResponseToMissile2 = " + this.stringRepresentation(this.sensor3ResponseToMissile2) + "\n";
-            fOutput = fOutput + "sensor3ResponseToMissile3 = " + this.stringRepresentation(this.sensor3ResponseToMissile3) + "\n";
-            fOutput = fOutput + "sensor4ResponseToWall1 = " + this.stringRepresentation(this.sensor4ResponseToWall1) + "\n";
-            fOutput = fOutput + "sensor4ResponseToWall2 = " + this.stringRepresentation(this.sensor4ResponseToWall2) + "\n";
-            fOutput = fOutput + "sensor4ResponseToWall3 = " + this.stringRepresentation(this.sensor4ResponseToWall3) + "\n";
-            fOutput = fOutput + "sensor4ResponseToTank1 = " + this.stringRepresentation(this.sensor4ResponseToTank1) + "\n";
-            fOutput = fOutput + "sensor4ResponseToTank2 = " + this.stringRepresentation(this.sensor4ResponseToTank2) + "\n";
-            fOutput = fOutput + "sensor4ResponseToTank3 = " + this.stringRepresentation(this.sensor4ResponseToTank3) + "\n";
-            fOutput = fOutput + "sensor4ResponseToMissile1 = " + this.stringRepresentation(this.sensor4ResponseToMissile1) + "\n";
-            fOutput = fOutput + "sensor4ResponseToMissile2 = " + this.stringRepresentation(this.sensor4ResponseToMissile2) + "\n";
-            fOutput = fOutput + "sensor4ResponseToMissile3 = " + this.stringRepresentation(this.sensor4ResponseToMissile3) + "\n";
-            fOutput = fOutput + "sensor5ResponseToWall1 = " + this.stringRepresentation(this.sensor5ResponseToWall1) + "\n";
-            fOutput = fOutput + "sensor5ResponseToWall2 = " + this.stringRepresentation(this.sensor5ResponseToWall2) + "\n";
-            fOutput = fOutput + "sensor5ResponseToWall3 = " + this.stringRepresentation(this.sensor5ResponseToWall3) + "\n";
-            fOutput = fOutput + "sensor5ResponseToTank1 = " + this.stringRepresentation(this.sensor5ResponseToTank1) + "\n";
-            fOutput = fOutput + "sensor5ResponseToTank2 = " + this.stringRepresentation(this.sensor5ResponseToTank2) + "\n";
-            fOutput = fOutput + "sensor5ResponseToTank3 = " + this.stringRepresentation(this.sensor5ResponseToTank3) + "\n";
-            fOutput = fOutput + "sensor5ResponseToMissile1 = " + this.stringRepresentation(this.sensor5ResponseToMissile1) + "\n";
-            fOutput = fOutput + "sensor5ResponseToMissile2 = " + this.stringRepresentation(this.sensor5ResponseToMissile2) + "\n";
-            fOutput = fOutput + "sensor5ResponseToMissile3 = " + this.stringRepresentation(this.sensor5ResponseToMissile3) + "\n";
-            fOutput = fOutput + "sensor6ResponseToWall1 = " + this.stringRepresentation(this.sensor6ResponseToWall1) + "\n";
-            fOutput = fOutput + "sensor6ResponseToWall2 = " + this.stringRepresentation(this.sensor6ResponseToWall2) + "\n";
-            fOutput = fOutput + "sensor6ResponseToWall3 = " + this.stringRepresentation(this.sensor6ResponseToWall3) + "\n";
-            fOutput = fOutput + "sensor6ResponseToTank1 = " + this.stringRepresentation(this.sensor6ResponseToTank1) + "\n";
-            fOutput = fOutput + "sensor6ResponseToTank2 = " + this.stringRepresentation(this.sensor6ResponseToTank2) + "\n";
-            fOutput = fOutput + "sensor6ResponseToTank3 = " + this.stringRepresentation(this.sensor6ResponseToTank3) + "\n";
-            fOutput = fOutput + "sensor6ResponseToMissile1 = " + this.stringRepresentation(this.sensor6ResponseToMissile1) + "\n";
-            fOutput = fOutput + "sensor6ResponseToMissile2 = " + this.stringRepresentation(this.sensor6ResponseToMissile2) + "\n";
-            fOutput = fOutput + "sensor6ResponseToMissile3 = " + this.stringRepresentation(this.sensor6ResponseToMissile3) + "\n";
-            fOutput = fOutput + "sensor7ResponseToWall1 = " + this.stringRepresentation(this.sensor7ResponseToWall1) + "\n";
-            fOutput = fOutput + "sensor7ResponseToWall2 = " + this.stringRepresentation(this.sensor7ResponseToWall2) + "\n";
-            fOutput = fOutput + "sensor7ResponseToWall3 = " + this.stringRepresentation(this.sensor7ResponseToWall3) + "\n";
-            fOutput = fOutput + "sensor7ResponseToTank1 = " + this.stringRepresentation(this.sensor7ResponseToTank1) + "\n";
-            fOutput = fOutput + "sensor7ResponseToTank2 = " + this.stringRepresentation(this.sensor7ResponseToTank2) + "\n";
-            fOutput = fOutput + "sensor7ResponseToTank3 = " + this.stringRepresentation(this.sensor7ResponseToTank3) + "\n";
-            fOutput = fOutput + "sensor7ResponseToMissile1 = " + this.stringRepresentation(this.sensor7ResponseToMissile1) + "\n";
-            fOutput = fOutput + "sensor7ResponseToMissile2 = " + this.stringRepresentation(this.sensor7ResponseToMissile2) + "\n";
-            fOutput = fOutput + "sensor7ResponseToMissile3 = " + this.stringRepresentation(this.sensor7ResponseToMissile3) + "\n";
-            fOutput = fOutput + "sensor8ResponseToWall1 = " + this.stringRepresentation(this.sensor8ResponseToWall1) + "\n";
-            fOutput = fOutput + "sensor8ResponseToWall2 = " + this.stringRepresentation(this.sensor8ResponseToWall2) + "\n";
-            fOutput = fOutput + "sensor8ResponseToWall3 = " + this.stringRepresentation(this.sensor8ResponseToWall3) + "\n";
-            fOutput = fOutput + "sensor8ResponseToTank1 = " + this.stringRepresentation(this.sensor8ResponseToTank1) + "\n";
-            fOutput = fOutput + "sensor8ResponseToTank2 = " + this.stringRepresentation(this.sensor8ResponseToTank2) + "\n";
-            fOutput = fOutput + "sensor8ResponseToTank3 = " + this.stringRepresentation(this.sensor8ResponseToTank3) + "\n";
-            fOutput = fOutput + "sensor8ResponseToMissile1 = " + this.stringRepresentation(this.sensor8ResponseToMissile1) + "\n";
-            fOutput = fOutput + "sensor8ResponseToMissile2 = " + this.stringRepresentation(this.sensor8ResponseToMissile2) + "\n";
-            fOutput = fOutput + "sensor8ResponseToMissile3 = " + this.stringRepresentation(this.sensor8ResponseToMissile3) + "\n";
-            fOutput = fOutput + "sensor9ResponseToWall1 = " + this.stringRepresentation(this.sensor9ResponseToWall1) + "\n";
-            fOutput = fOutput + "sensor9ResponseToWall2 = " + this.stringRepresentation(this.sensor9ResponseToWall2) + "\n";
-            fOutput = fOutput + "sensor9ResponseToWall3 = " + this.stringRepresentation(this.sensor9ResponseToWall3) + "\n";
-            fOutput = fOutput + "sensor9ResponseToTank1 = " + this.stringRepresentation(this.sensor9ResponseToTank1) + "\n";
-            fOutput = fOutput + "sensor9ResponseToTank2 = " + this.stringRepresentation(this.sensor9ResponseToTank2) + "\n";
-            fOutput = fOutput + "sensor9ResponseToTank3 = " + this.stringRepresentation(this.sensor9ResponseToTank3) + "\n";
-            fOutput = fOutput + "sensor9ResponseToMissile1 = " + this.stringRepresentation(this.sensor9ResponseToMissile1) + "\n";
-            fOutput = fOutput + "sensor9ResponseToMissile2 = " + this.stringRepresentation(this.sensor9ResponseToMissile2) + "\n";
-            fOutput = fOutput + "sensor9ResponseToMissile3 = " + this.stringRepresentation(this.sensor9ResponseToMissile3) + "\n";
-            fOutput = fOutput + "sensor10ResponseToWall1 = " + this.stringRepresentation(this.sensor10ResponseToWall1) + "\n";
-            fOutput = fOutput + "sensor10ResponseToWall2 = " + this.stringRepresentation(this.sensor10ResponseToWall2) + "\n";
-            fOutput = fOutput + "sensor10ResponseToWall3 = " + this.stringRepresentation(this.sensor10ResponseToWall3) + "\n";
-            fOutput = fOutput + "sensor10ResponseToTank1 = " + this.stringRepresentation(this.sensor10ResponseToTank1) + "\n";
-            fOutput = fOutput + "sensor10ResponseToTank2 = " + this.stringRepresentation(this.sensor10ResponseToTank2) + "\n";
-            fOutput = fOutput + "sensor10ResponseToTank3 = " + this.stringRepresentation(this.sensor10ResponseToTank3) + "\n";
-            fOutput = fOutput + "sensor10ResponseToMissile1 = " + this.stringRepresentation(this.sensor10ResponseToMissile1) + "\n";
-            fOutput = fOutput + "sensor10ResponseToMissile2 = " + this.stringRepresentation(this.sensor10ResponseToMissile2) + "\n";
-            fOutput = fOutput + "sensor10ResponseToMissile3 = " + this.stringRepresentation(this.sensor10ResponseToMissile3) + "\n";
-            fOutput = fOutput + "sensor11ResponseToWall1 = " + this.stringRepresentation(this.sensor11ResponseToWall1) + "\n";
-            fOutput = fOutput + "sensor11ResponseToWall2 = " + this.stringRepresentation(this.sensor11ResponseToWall2) + "\n";
-            fOutput = fOutput + "sensor11ResponseToWall3 = " + this.stringRepresentation(this.sensor11ResponseToWall3) + "\n";
-            fOutput = fOutput + "sensor11ResponseToTank1 = " + this.stringRepresentation(this.sensor11ResponseToTank1) + "\n";
-            fOutput = fOutput + "sensor11ResponseToTank2 = " + this.stringRepresentation(this.sensor11ResponseToTank2) + "\n";
-            fOutput = fOutput + "sensor11ResponseToTank3 = " + this.stringRepresentation(this.sensor11ResponseToTank3) + "\n";
-            fOutput = fOutput + "sensor11ResponseToMissile1 = " + this.stringRepresentation(this.sensor11ResponseToMissile1) + "\n";
-            fOutput = fOutput + "sensor11ResponseToMissile2 = " + this.stringRepresentation(this.sensor11ResponseToMissile2) + "\n";
-            fOutput = fOutput + "sensor11ResponseToMissile3 = " + this.stringRepresentation(this.sensor11ResponseToMissile3) + "\n";
-            fOutput = fOutput + "sensor12ResponseToWall1 = " + this.stringRepresentation(this.sensor12ResponseToWall1) + "\n";
-            fOutput = fOutput + "sensor12ResponseToWall2 = " + this.stringRepresentation(this.sensor12ResponseToWall2) + "\n";
-            fOutput = fOutput + "sensor12ResponseToWall3 = " + this.stringRepresentation(this.sensor12ResponseToWall3) + "\n";
-            fOutput = fOutput + "sensor12ResponseToTank1 = " + this.stringRepresentation(this.sensor12ResponseToTank1) + "\n";
-            fOutput = fOutput + "sensor12ResponseToTank2 = " + this.stringRepresentation(this.sensor12ResponseToTank2) + "\n";
-            fOutput = fOutput + "sensor12ResponseToTank3 = " + this.stringRepresentation(this.sensor12ResponseToTank3) + "\n";
-            fOutput = fOutput + "sensor12ResponseToMissile1 = " + this.stringRepresentation(this.sensor12ResponseToMissile1) + "\n";
-            fOutput = fOutput + "sensor12ResponseToMissile2 = " + this.stringRepresentation(this.sensor12ResponseToMissile2) + "\n";
-            fOutput = fOutput + "sensor12ResponseToMissile3 = " + this.stringRepresentation(this.sensor12ResponseToMissile3) + "\n";
-            fOutput = fOutput + "sensor13ResponseToWall1 = " + this.stringRepresentation(this.sensor13ResponseToWall1) + "\n";
-            fOutput = fOutput + "sensor13ResponseToWall2 = " + this.stringRepresentation(this.sensor13ResponseToWall2) + "\n";
-            fOutput = fOutput + "sensor13ResponseToWall3 = " + this.stringRepresentation(this.sensor13ResponseToWall3) + "\n";
-            fOutput = fOutput + "sensor13ResponseToTank1 = " + this.stringRepresentation(this.sensor13ResponseToTank1) + "\n";
-            fOutput = fOutput + "sensor13ResponseToTank2 = " + this.stringRepresentation(this.sensor13ResponseToTank2) + "\n";
-            fOutput = fOutput + "sensor13ResponseToTank3 = " + this.stringRepresentation(this.sensor13ResponseToTank3) + "\n";
-            fOutput = fOutput + "sensor13ResponseToMissile1 = " + this.stringRepresentation(this.sensor13ResponseToMissile1) + "\n";
-            fOutput = fOutput + "sensor13ResponseToMissile2 = " + this.stringRepresentation(this.sensor13ResponseToMissile2) + "\n";
-            fOutput = fOutput + "sensor13ResponseToMissile3 = " + this.stringRepresentation(this.sensor13ResponseToMissile3) + "\n";
-            fOutput = fOutput + "sensor14ResponseToWall1 = " + this.stringRepresentation(this.sensor14ResponseToWall1) + "\n";
-            fOutput = fOutput + "sensor14ResponseToWall2 = " + this.stringRepresentation(this.sensor14ResponseToWall2) + "\n";
-            fOutput = fOutput + "sensor14ResponseToWall3 = " + this.stringRepresentation(this.sensor14ResponseToWall3) + "\n";
-            fOutput = fOutput + "sensor14ResponseToTank1 = " + this.stringRepresentation(this.sensor14ResponseToTank1) + "\n";
-            fOutput = fOutput + "sensor14ResponseToTank2 = " + this.stringRepresentation(this.sensor14ResponseToTank2) + "\n";
-            fOutput = fOutput + "sensor14ResponseToTank3 = " + this.stringRepresentation(this.sensor14ResponseToTank3) + "\n";
-            fOutput = fOutput + "sensor14ResponseToMissile1 = " + this.stringRepresentation(this.sensor14ResponseToMissile1) + "\n";
-            fOutput = fOutput + "sensor14ResponseToMissile2 = " + this.stringRepresentation(this.sensor14ResponseToMissile2) + "\n";
-            fOutput = fOutput + "sensor14ResponseToMissile3 = " + this.stringRepresentation(this.sensor14ResponseToMissile3) + "\n";
-            fOutput = fOutput + "sensor15ResponseToWall1 = " + this.stringRepresentation(this.sensor15ResponseToWall1) + "\n";
-            fOutput = fOutput + "sensor15ResponseToWall2 = " + this.stringRepresentation(this.sensor15ResponseToWall2) + "\n";
-            fOutput = fOutput + "sensor15ResponseToWall3 = " + this.stringRepresentation(this.sensor15ResponseToWall3) + "\n";
-            fOutput = fOutput + "sensor15ResponseToTank1 = " + this.stringRepresentation(this.sensor15ResponseToTank1) + "\n";
-            fOutput = fOutput + "sensor15ResponseToTank2 = " + this.stringRepresentation(this.sensor15ResponseToTank2) + "\n";
-            fOutput = fOutput + "sensor15ResponseToTank3 = " + this.stringRepresentation(this.sensor15ResponseToTank3) + "\n";
-            fOutput = fOutput + "sensor15ResponseToMissile1 = " + this.stringRepresentation(this.sensor15ResponseToMissile1) + "\n";
-            fOutput = fOutput + "sensor15ResponseToMissile2 = " + this.stringRepresentation(this.sensor15ResponseToMissile2) + "\n";
-            fOutput = fOutput + "sensor15ResponseToMissile3 = " + this.stringRepresentation(this.sensor15ResponseToMissile3) + "\n";
-            fOutput = fOutput + "sensor16ResponseToWall1 = " + this.stringRepresentation(this.sensor16ResponseToWall1) + "\n";
-            fOutput = fOutput + "sensor16ResponseToWall2 = " + this.stringRepresentation(this.sensor16ResponseToWall2) + "\n";
-            fOutput = fOutput + "sensor16ResponseToWall3 = " + this.stringRepresentation(this.sensor16ResponseToWall3) + "\n";
-            fOutput = fOutput + "sensor16ResponseToTank1 = " + this.stringRepresentation(this.sensor16ResponseToTank1) + "\n";
-            fOutput = fOutput + "sensor16ResponseToTank2 = " + this.stringRepresentation(this.sensor16ResponseToTank2) + "\n";
-            fOutput = fOutput + "sensor16ResponseToTank3 = " + this.stringRepresentation(this.sensor16ResponseToTank3) + "\n";
-            fOutput = fOutput + "sensor16ResponseToMissile1 = " + this.stringRepresentation(this.sensor16ResponseToMissile1) + "\n";
-            fOutput = fOutput + "sensor16ResponseToMissile2 = " + this.stringRepresentation(this.sensor16ResponseToMissile2) + "\n";
-            fOutput = fOutput + "sensor16ResponseToMissile3 = " + this.stringRepresentation(this.sensor16ResponseToMissile3) + "\n";
-            fOutput = fOutput + "responseToMissileHit1 = " + this.stringRepresentation(this.responseToMissileHit1) + "\n";
-            fOutput = fOutput + "responseToMissileHit2 = " + this.stringRepresentation(this.responseToMissileHit2) + "\n";
-            fOutput = fOutput + "responseToMissileHit3 = " + this.stringRepresentation(this.responseToMissileHit3) + "\n";
-            fOutput = fOutput + "responseToFacingTarget1 = " + this.stringRepresentation(this.responseToFacingTarget1) + "\n";
-            fOutput = fOutput + "responseToFacingTarget2 = " + this.stringRepresentation(this.responseToFacingTarget2) + "\n";
-            fOutput = fOutput + "responseToFacingTarget3 = " + this.stringRepresentation(this.responseToFacingTarget3) + "\n";
-            fOutput = fOutput + "weaponStrategyFavourite1 = " + this.stringRepresentation(this.weaponStrategyFavourite1) + "\n";
-            fOutput = fOutput + "weaponStrategySecondFavourite1 = " + this.stringRepresentation(this.weaponStrategySecondFavourite1) + "\n";
-            fOutput = fOutput + "weaponStrategyThirdFavourite1 = " + this.stringRepresentation(this.weaponStrategyThirdFavourite1) + "\n";
-            fOutput = fOutput + "weaponStrategyFourthFavourite1 = " + this.stringRepresentation(this.weaponStrategyFourthFavourite1) + "\n";
-            fOutput = fOutput + "weaponStrategyFifthFavourite1 = " + this.stringRepresentation(this.weaponStrategyFifthFavourite1) + "\n";
-            fOutput = fOutput + "weaponStrategyFavourite2 = " + this.stringRepresentation(this.weaponStrategyFavourite2) + "\n";
-            fOutput = fOutput + "weaponStrategySecondFavourite2 = " + this.stringRepresentation(this.weaponStrategySecondFavourite2) + "\n";
-            fOutput = fOutput + "weaponStrategyThirdFavourite2 = " + this.stringRepresentation(this.weaponStrategyThirdFavourite2) + "\n";
-            fOutput = fOutput + "weaponStrategyFourthFavourite2 = " + this.stringRepresentation(this.weaponStrategyFourthFavourite2) + "\n";
-            fOutput = fOutput + "weaponStrategyFifthFavourite2 = " + this.stringRepresentation(this.weaponStrategyFifthFavourite2) + "\n";
-            fOutput = fOutput + "weaponStrategyFavourite3 = " + this.stringRepresentation(this.weaponStrategyFavourite3) + "\n";
-            fOutput = fOutput + "weaponStrategySecondFavourite3 = " + this.stringRepresentation(this.weaponStrategySecondFavourite3) + "\n";
-            fOutput = fOutput + "weaponStrategyThirdFavourite3 = " + this.stringRepresentation(this.weaponStrategyThirdFavourite3) + "\n";
-            fOutput = fOutput + "weaponStrategyFourthFavourite3 = " + this.stringRepresentation(this.weaponStrategyFourthFavourite3) + "\n";
-            fOutput = fOutput + "weaponStrategyFifthFavourite3 = " + this.stringRepresentation(this.weaponStrategyFifthFavourite3) + "\n";
-            fOutput = fOutput + "weaponStrategyFavourite4 = " + this.stringRepresentation(this.weaponStrategyFavourite4) + "\n";
-            fOutput = fOutput + "weaponStrategySecondFavourite4 = " + this.stringRepresentation(this.weaponStrategySecondFavourite4) + "\n";
-            fOutput = fOutput + "weaponStrategyThirdFavourite4 = " + this.stringRepresentation(this.weaponStrategyThirdFavourite4) + "\n";
-            fOutput = fOutput + "weaponStrategyFourthFavourite4 = " + this.stringRepresentation(this.weaponStrategyFourthFavourite4) + "\n";
-            fOutput = fOutput + "weaponStrategyFifthFavourite4 = " + this.stringRepresentation(this.weaponStrategyFifthFavourite4) + "\n";
-            fOutput = fOutput + "weaponStrategyFavourite5 = " + this.stringRepresentation(this.weaponStrategyFavourite5) + "\n";
-            fOutput = fOutput + "weaponStrategySecondFavourite5 = " + this.stringRepresentation(this.weaponStrategySecondFavourite5) + "\n";
-            fOutput = fOutput + "weaponStrategyThirdFavourite5 = " + this.stringRepresentation(this.weaponStrategyThirdFavourite5) + "\n";
-            fOutput = fOutput + "weaponStrategyFourthFavourite5 = " + this.stringRepresentation(this.weaponStrategyFourthFavourite5) + "\n";
-            fOutput = fOutput + "weaponStrategyFifthFavourite5 = " + this.stringRepresentation(this.weaponStrategyFifthFavourite5) + "\n";
-            fOutput = fOutput + "weaponStrategyFavourite6 = " + this.stringRepresentation(this.weaponStrategyFavourite6) + "\n";
-            fOutput = fOutput + "weaponStrategySecondFavourite6 = " + this.stringRepresentation(this.weaponStrategySecondFavourite6) + "\n";
-            fOutput = fOutput + "weaponStrategyThirdFavourite6 = " + this.stringRepresentation(this.weaponStrategyThirdFavourite6) + "\n";
-            fOutput = fOutput + "weaponStrategyFourthFavourite6 = " + this.stringRepresentation(this.weaponStrategyFourthFavourite6) + "\n";
-            fOutput = fOutput + "weaponStrategyFifthFavourite6 = " + this.stringRepresentation(this.weaponStrategyFifthFavourite6) + "\n";
-            fOutput = fOutput + "weaponStrategyFavourite7 = " + this.stringRepresentation(this.weaponStrategyFavourite7) + "\n";
-            fOutput = fOutput + "weaponStrategySecondFavourite7 = " + this.stringRepresentation(this.weaponStrategySecondFavourite7) + "\n";
-            fOutput = fOutput + "weaponStrategyThirdFavourite7 = " + this.stringRepresentation(this.weaponStrategyThirdFavourite7) + "\n";
-            fOutput = fOutput + "weaponStrategyFourthFavourite7 = " + this.stringRepresentation(this.weaponStrategyFourthFavourite7) + "\n";
-            fOutput = fOutput + "weaponStrategyFifthFavourite7 = " + this.stringRepresentation(this.weaponStrategyFifthFavourite7) + "\n";
-            fOutput = fOutput + "weaponStrategyFavourite8 = " + this.stringRepresentation(this.weaponStrategyFavourite8) + "\n";
-            fOutput = fOutput + "weaponStrategySecondFavourite8 = " + this.stringRepresentation(this.weaponStrategySecondFavourite8) + "\n";
-            fOutput = fOutput + "weaponStrategyThirdFavourite8 = " + this.stringRepresentation(this.weaponStrategyThirdFavourite8) + "\n";
-            fOutput = fOutput + "weaponStrategyFourthFavourite8 = " + this.stringRepresentation(this.weaponStrategyFourthFavourite8) + "\n";
-            fOutput = fOutput + "weaponStrategyFifthFavourite8 = " + this.stringRepresentation(this.weaponStrategyFifthFavourite8) + "\n";
-            fOutput = fOutput + "weaponFuelRatio = " + this.weaponFuelRatio + "\n";
-            fOutput = fOutput + "shoppingStrategyAction1 = " + this.stringRepresentation(this.shoppingStrategyAction1) + "\n";
-            fOutput = fOutput + "shoppingStrategyCondition1 = " + this.stringRepresentation(this.shoppingStrategyCondition1) + "\n";
-            fOutput = fOutput + "shoppingStrategyAction2 = " + this.stringRepresentation(this.shoppingStrategyAction2) + "\n";
-            fOutput = fOutput + "shoppingStrategyCondition2 = " + this.stringRepresentation(this.shoppingStrategyCondition2) + "\n";
-            fOutput = fOutput + "shoppingStrategyAction3 = " + this.stringRepresentation(this.shoppingStrategyAction3) + "\n";
-            fOutput = fOutput + "shoppingStrategyCondition3 = " + this.stringRepresentation(this.shoppingStrategyCondition3) + "\n";
-            fOutput = fOutput + "shoppingStrategyAction4 = " + this.stringRepresentation(this.shoppingStrategyAction4) + "\n";
-            fOutput = fOutput + "shoppingStrategyCondition4 = " + this.stringRepresentation(this.shoppingStrategyCondition4) + "\n";
-            fOutput = fOutput + "shoppingStrategyAction5 = " + this.stringRepresentation(this.shoppingStrategyAction5) + "\n";
-            fOutput = fOutput + "shoppingStrategyCondition5 = " + this.stringRepresentation(this.shoppingStrategyCondition5) + "\n";
-            fOutput = fOutput + "shoppingStrategyAction6 = " + this.stringRepresentation(this.shoppingStrategyAction6) + "\n";
-            fOutput = fOutput + "shoppingStrategyCondition6 = " + this.stringRepresentation(this.shoppingStrategyCondition6) + "\n";
-            fOutput = fOutput + "shoppingStrategyAction7 = " + this.stringRepresentation(this.shoppingStrategyAction7) + "\n";
-            fOutput = fOutput + "shoppingStrategyCondition7 = " + this.stringRepresentation(this.shoppingStrategyCondition7) + "\n";
-            fOutput = fOutput + "shoppingStrategyAction8 = " + this.stringRepresentation(this.shoppingStrategyAction8) + "\n";
-            fOutput = fOutput + "shoppingStrategyCondition8 = " + this.stringRepresentation(this.shoppingStrategyCondition8) + "\n";
-            fOutput = fOutput + "shoppingStrategyAction9 = " + this.stringRepresentation(this.shoppingStrategyAction9) + "\n";
-            fOutput = fOutput + "shoppingStrategyCondition9 = " + this.stringRepresentation(this.shoppingStrategyCondition9) + "\n";
-            fOutput = fOutput + "shoppingStrategyAction10 = " + this.stringRepresentation(this.shoppingStrategyAction10) + "\n";
-            fOutput = fOutput + "shoppingStrategyCondition10 = " + this.stringRepresentation(this.shoppingStrategyCondition10) + "\n";
-            fOutput = fOutput + "shoppingStrategyMaximumFireUnitExpenseWhenWeaponBeingReplaced = " + this.shoppingStrategyMaximumFireUnitExpenseWhenWeaponBeingReplaced + "\n";
-            fOutput = fOutput + "shoppingStrategyMaximumFireUnitsThatBePurchased = " + this.shoppingStrategyMaximumFireUnitsThatBePurchased + "\n";
+            let fOutput = "name = " + this.name + "\n";
+            fOutput += "description = " + this.description + "\n";
+            fOutput += "viewSensors=FALSE\n";
+            fOutput += "clock1Probability = " + this.clock1Probability + "\n";
+            fOutput += "clock2Probability = " + this.clock2Probability + "\n";
+            fOutput += "clock3Probability = " + this.clock3Probability + "\n";
+            fOutput += "clock4Probability = " + this.clock4Probability + "\n";
+            fOutput += "clock5Probability = " + this.clock5Probability + "\n";
+            fOutput += "clock6Probability = " + this.clock6Probability + "\n";
+            fOutput += "clock7Probability = " + this.clock7Probability + "\n";
+            fOutput += "clock8Probability = " + this.clock8Probability + "\n";
+            fOutput += "clock9Probability = " + this.clock9Probability + "\n";
+            fOutput += "clock10Probability = " + this.clock10Probability + "\n";
+            fOutput += "clock1Period = " + this.clock1Period + "\n";
+            fOutput += "clock2Period = " + this.clock2Period + "\n";
+            fOutput += "clock3Period = " + this.clock3Period + "\n";
+            fOutput += "clock4Period = " + this.clock4Period + "\n";
+            fOutput += "clock5Period = " + this.clock5Period + "\n";
+            fOutput += "clock6Period = " + this.clock6Period + "\n";
+            fOutput += "clock7Period = " + this.clock7Period + "\n";
+            fOutput += "clock8Period = " + this.clock8Period + "\n";
+            fOutput += "clock9Period = " + this.clock9Period + "\n";
+            fOutput += "clock10Period = " + this.clock10Period + "\n";
+            fOutput += "clock1Requirement1 = " + this.stringRepresentation(this.clock1Requirement1) + "\n";
+            fOutput += "clock1Requirement2 = " + this.stringRepresentation(this.clock1Requirement2) + "\n";
+            fOutput += "clock2Requirement1 = " + this.stringRepresentation(this.clock2Requirement1) + "\n";
+            fOutput += "clock2Requirement2 = " + this.stringRepresentation(this.clock2Requirement2) + "\n";
+            fOutput += "clock3Requirement1 = " + this.stringRepresentation(this.clock3Requirement1) + "\n";
+            fOutput += "clock3Requirement2 = " + this.stringRepresentation(this.clock3Requirement2) + "\n";
+            fOutput += "clock4Requirement1 = " + this.stringRepresentation(this.clock4Requirement1) + "\n";
+            fOutput += "clock4Requirement2 = " + this.stringRepresentation(this.clock4Requirement2) + "\n";
+            fOutput += "clock5Requirement1 = " + this.stringRepresentation(this.clock5Requirement1) + "\n";
+            fOutput += "clock5Requirement2 = " + this.stringRepresentation(this.clock5Requirement2) + "\n";
+            fOutput += "clock6Requirement1 = " + this.stringRepresentation(this.clock6Requirement1) + "\n";
+            fOutput += "clock6Requirement2 = " + this.stringRepresentation(this.clock6Requirement2) + "\n";
+            fOutput += "clock7Requirement1 = " + this.stringRepresentation(this.clock7Requirement1) + "\n";
+            fOutput += "clock7Requirement2 = " + this.stringRepresentation(this.clock7Requirement2) + "\n";
+            fOutput += "clock8Requirement1 = " + this.stringRepresentation(this.clock8Requirement1) + "\n";
+            fOutput += "clock8Requirement2 = " + this.stringRepresentation(this.clock8Requirement2) + "\n";
+            fOutput += "clock9Requirement1 = " + this.stringRepresentation(this.clock9Requirement1) + "\n";
+            fOutput += "clock9Requirement2 = " + this.stringRepresentation(this.clock9Requirement2) + "\n";
+            fOutput += "clock10Requirement1 = " + this.stringRepresentation(this.clock10Requirement1) + "\n";
+            fOutput += "clock10Requirement2 = " + this.stringRepresentation(this.clock10Requirement2) + "\n";
+            fOutput += "clock1Response1 = " + this.stringRepresentation(this.clock1Response1) + "\n";
+            fOutput += "clock1Response2 = " + this.stringRepresentation(this.clock1Response2) + "\n";
+            fOutput += "clock1Response3 = " + this.stringRepresentation(this.clock1Response3) + "\n";
+            fOutput += "clock2Response1 = " + this.stringRepresentation(this.clock2Response1) + "\n";
+            fOutput += "clock2Response2 = " + this.stringRepresentation(this.clock2Response2) + "\n";
+            fOutput += "clock2Response3 = " + this.stringRepresentation(this.clock2Response3) + "\n";
+            fOutput += "clock3Response1 = " + this.stringRepresentation(this.clock3Response1) + "\n";
+            fOutput += "clock3Response2 = " + this.stringRepresentation(this.clock3Response2) + "\n";
+            fOutput += "clock3Response3 = " + this.stringRepresentation(this.clock3Response3) + "\n";
+            fOutput += "clock4Response1 = " + this.stringRepresentation(this.clock4Response1) + "\n";
+            fOutput += "clock4Response2 = " + this.stringRepresentation(this.clock4Response2) + "\n";
+            fOutput += "clock4Response3 = " + this.stringRepresentation(this.clock4Response3) + "\n";
+            fOutput += "clock5Response1 = " + this.stringRepresentation(this.clock5Response1) + "\n";
+            fOutput += "clock5Response2 = " + this.stringRepresentation(this.clock5Response2) + "\n";
+            fOutput += "clock5Response3 = " + this.stringRepresentation(this.clock5Response3) + "\n";
+            fOutput += "clock6Response1 = " + this.stringRepresentation(this.clock6Response1) + "\n";
+            fOutput += "clock6Response2 = " + this.stringRepresentation(this.clock6Response2) + "\n";
+            fOutput += "clock6Response3 = " + this.stringRepresentation(this.clock6Response3) + "\n";
+            fOutput += "clock7Response1 = " + this.stringRepresentation(this.clock7Response1) + "\n";
+            fOutput += "clock7Response2 = " + this.stringRepresentation(this.clock7Response2) + "\n";
+            fOutput += "clock7Response3 = " + this.stringRepresentation(this.clock7Response3) + "\n";
+            fOutput += "clock8Response1 = " + this.stringRepresentation(this.clock8Response1) + "\n";
+            fOutput += "clock8Response2 = " + this.stringRepresentation(this.clock8Response2) + "\n";
+            fOutput += "clock8Response3 = " + this.stringRepresentation(this.clock8Response3) + "\n";
+            fOutput += "clock9Response1 = " + this.stringRepresentation(this.clock9Response1) + "\n";
+            fOutput += "clock9Response2 = " + this.stringRepresentation(this.clock9Response2) + "\n";
+            fOutput += "clock9Response3 = " + this.stringRepresentation(this.clock9Response1) + "\n";
+            fOutput += "clock10Response1 = " + this.stringRepresentation(this.clock10Response1) + "\n";
+            fOutput += "clock10Response2 = " + this.stringRepresentation(this.clock10Response2) + "\n";
+            fOutput += "clock10Response3 = " + this.stringRepresentation(this.clock10Response3) + "\n";
+            fOutput += "sensor1Angle = " + this.sensor1Angle + "\n";
+            fOutput += "sensor2Angle = " + this.sensor2Angle + "\n";
+            fOutput += "sensor3Angle = " + this.sensor3Angle + "\n";
+            fOutput += "sensor4Angle = " + this.sensor4Angle + "\n";
+            fOutput += "sensor5Angle = " + this.sensor5Angle + "\n";
+            fOutput += "sensor6Angle = " + this.sensor6Angle + "\n";
+            fOutput += "sensor7Angle = " + this.sensor7Angle + "\n";
+            fOutput += "sensor8Angle = " + this.sensor8Angle + "\n";
+            fOutput += "sensor9Angle = " + this.sensor9Angle + "\n";
+            fOutput += "sensor10Angle = " + this.sensor10Angle + "\n";
+            fOutput += "sensor11Angle = " + this.sensor11Angle + "\n";
+            fOutput += "sensor12Angle = " + this.sensor12Angle + "\n";
+            fOutput += "sensor13Angle = " + this.sensor13Angle + "\n";
+            fOutput += "sensor14Angle = " + this.sensor14Angle + "\n";
+            fOutput += "sensor15Angle = " + this.sensor15Angle + "\n";
+            fOutput += "sensor16Angle = " + this.sensor16Angle + "\n";
+            fOutput += "sensor1Length = " + this.sensor1Length + "\n";
+            fOutput += "sensor2Length = " + this.sensor2Length + "\n";
+            fOutput += "sensor3Length = " + this.sensor3Length + "\n";
+            fOutput += "sensor4Length = " + this.sensor4Length + "\n";
+            fOutput += "sensor5Length = " + this.sensor5Length + "\n";
+            fOutput += "sensor6Length = " + this.sensor6Length + "\n";
+            fOutput += "sensor7Length = " + this.sensor7Length + "\n";
+            fOutput += "sensor8Length = " + this.sensor8Length + "\n";
+            fOutput += "sensor9Length = " + this.sensor9Length + "\n";
+            fOutput += "sensor10Length = " + this.sensor10Length + "\n";
+            fOutput += "sensor11Length = " + this.sensor11Length + "\n";
+            fOutput += "sensor12Length = " + this.sensor12Length + "\n";
+            fOutput += "sensor13Length = " + this.sensor13Length + "\n";
+            fOutput += "sensor14Length = " + this.sensor14Length + "\n";
+            fOutput += "sensor15Length = " + this.sensor15Length + "\n";
+            fOutput += "sensor16Length = " + this.sensor16Length + "\n";
+            fOutput += "sensor1Width = " + this.sensor1Width + "\n";
+            fOutput += "sensor2Width = " + this.sensor2Width + "\n";
+            fOutput += "sensor3Width = " + this.sensor3Width + "\n";
+            fOutput += "sensor4Width = " + this.sensor4Width + "\n";
+            fOutput += "sensor5Width = " + this.sensor5Width + "\n";
+            fOutput += "sensor6Width = " + this.sensor6Width + "\n";
+            fOutput += "sensor7Width = " + this.sensor7Width + "\n";
+            fOutput += "sensor8Width = " + this.sensor8Width + "\n";
+            fOutput += "sensor9Width = " + this.sensor9Width + "\n";
+            fOutput += "sensor10Width = " + this.sensor10Width + "\n";
+            fOutput += "sensor11Width = " + this.sensor11Width + "\n";
+            fOutput += "sensor12Width = " + this.sensor12Width + "\n";
+            fOutput += "sensor13Width = " + this.sensor13Width + "\n";
+            fOutput += "sensor14Width = " + this.sensor14Width + "\n";
+            fOutput += "sensor15Width = " + this.sensor15Width + "\n";
+            fOutput += "sensor16Width = " + this.sensor16Width + "\n";
+            fOutput += "sensor1Probability = " + this.sensor1Probability + "\n";
+            fOutput += "sensor2Probability = " + this.sensor2Probability + "\n";
+            fOutput += "sensor3Probability = " + this.sensor3Probability + "\n";
+            fOutput += "sensor4Probability = " + this.sensor4Probability + "\n";
+            fOutput += "sensor5Probability = " + this.sensor5Probability + "\n";
+            fOutput += "sensor6Probability = " + this.sensor6Probability + "\n";
+            fOutput += "sensor7Probability = " + this.sensor7Probability + "\n";
+            fOutput += "sensor8Probability = " + this.sensor8Probability + "\n";
+            fOutput += "sensor9Probability = " + this.sensor9Probability + "\n";
+            fOutput += "sensor10Probability = " + this.sensor10Probability + "\n";
+            fOutput += "sensor11Probability = " + this.sensor11Probability + "\n";
+            fOutput += "sensor12Probability = " + this.sensor12Probability + "\n";
+            fOutput += "sensor13Probability = " + this.sensor13Probability + "\n";
+            fOutput += "sensor14Probability = " + this.sensor14Probability + "\n";
+            fOutput += "sensor15Probability = " + this.sensor15Probability + "\n";
+            fOutput += "sensor16Probability = " + this.sensor16Probability + "\n";
+            fOutput += "sensor1Period = " + this.sensor1Period + "\n";
+            fOutput += "sensor2Period = " + this.sensor2Period + "\n";
+            fOutput += "sensor3Period = " + this.sensor3Period + "\n";
+            fOutput += "sensor4Period = " + this.sensor4Period + "\n";
+            fOutput += "sensor5Period = " + this.sensor5Period + "\n";
+            fOutput += "sensor6Period = " + this.sensor6Period + "\n";
+            fOutput += "sensor7Period = " + this.sensor7Period + "\n";
+            fOutput += "sensor8Period = " + this.sensor8Period + "\n";
+            fOutput += "sensor9Period = " + this.sensor9Period + "\n";
+            fOutput += "sensor10Period = " + this.sensor10Period + "\n";
+            fOutput += "sensor11Period = " + this.sensor11Period + "\n";
+            fOutput += "sensor12Period = " + this.sensor12Period + "\n";
+            fOutput += "sensor13Period = " + this.sensor13Period + "\n";
+            fOutput += "sensor14Period = " + this.sensor14Period + "\n";
+            fOutput += "sensor15Period = " + this.sensor15Period + "\n";
+            fOutput += "sensor16Period = " + this.sensor16Period + "\n";
+            fOutput += "sensor1ParallelOffset = " + this.sensor1ParallelOffset + "\n";
+            fOutput += "sensor2ParallelOffset = " + this.sensor2ParallelOffset + "\n";
+            fOutput += "sensor3ParallelOffset = " + this.sensor3ParallelOffset + "\n";
+            fOutput += "sensor4ParallelOffset = " + this.sensor4ParallelOffset + "\n";
+            fOutput += "sensor5ParallelOffset = " + this.sensor5ParallelOffset + "\n";
+            fOutput += "sensor6ParallelOffset = " + this.sensor6ParallelOffset + "\n";
+            fOutput += "sensor7ParallelOffset = " + this.sensor7ParallelOffset + "\n";
+            fOutput += "sensor8ParallelOffset = " + this.sensor8ParallelOffset + "\n";
+            fOutput += "sensor9ParallelOffset = " + this.sensor9ParallelOffset + "\n";
+            fOutput += "sensor10ParallelOffset = " + this.sensor10ParallelOffset + "\n";
+            fOutput += "sensor11ParallelOffset = " + this.sensor11ParallelOffset + "\n";
+            fOutput += "sensor12ParallelOffset = " + this.sensor12ParallelOffset + "\n";
+            fOutput += "sensor13ParallelOffset = " + this.sensor13ParallelOffset + "\n";
+            fOutput += "sensor14ParallelOffset = " + this.sensor14ParallelOffset + "\n";
+            fOutput += "sensor15ParallelOffset = " + this.sensor15ParallelOffset + "\n";
+            fOutput += "sensor16ParallelOffset = " + this.sensor16ParallelOffset + "\n";
+            fOutput += "sensor1PerpendicularOffset = " + this.sensor1PerpendicularOffset + "\n";
+            fOutput += "sensor2PerpendicularOffset = " + this.sensor2PerpendicularOffset + "\n";
+            fOutput += "sensor3PerpendicularOffset = " + this.sensor3PerpendicularOffset + "\n";
+            fOutput += "sensor4PerpendicularOffset = " + this.sensor4PerpendicularOffset + "\n";
+            fOutput += "sensor5PerpendicularOffset = " + this.sensor5PerpendicularOffset + "\n";
+            fOutput += "sensor6PerpendicularOffset = " + this.sensor6PerpendicularOffset + "\n";
+            fOutput += "sensor7PerpendicularOffset = " + this.sensor7PerpendicularOffset + "\n";
+            fOutput += "sensor8PerpendicularOffset = " + this.sensor8PerpendicularOffset + "\n";
+            fOutput += "sensor9PerpendicularOffset = " + this.sensor9PerpendicularOffset + "\n";
+            fOutput += "sensor10PerpendicularOffset = " + this.sensor10PerpendicularOffset + "\n";
+            fOutput += "sensor11PerpendicularOffset = " + this.sensor11PerpendicularOffset + "\n";
+            fOutput += "sensor12PerpendicularOffset = " + this.sensor12PerpendicularOffset + "\n";
+            fOutput += "sensor13PerpendicularOffset = " + this.sensor13PerpendicularOffset + "\n";
+            fOutput += "sensor14PerpendicularOffset = " + this.sensor14PerpendicularOffset + "\n";
+            fOutput += "sensor15PerpendicularOffset = " + this.sensor15PerpendicularOffset + "\n";
+            fOutput += "sensor16PerpendicularOffset = " + this.sensor16PerpendicularOffset + "\n";
+            fOutput += "sensor1Condition1 = " + this.stringRepresentation(this.sensor1Condition1) + "\n";
+            fOutput += "sensor1Condition2 = " + this.stringRepresentation(this.sensor1Condition2) + "\n";
+            fOutput += "sensor1Condition3 = " + this.stringRepresentation(this.sensor1Condition3) + "\n";
+            fOutput += "sensor2Condition1 = " + this.stringRepresentation(this.sensor2Condition1) + "\n";
+            fOutput += "sensor2Condition2 = " + this.stringRepresentation(this.sensor2Condition2) + "\n";
+            fOutput += "sensor2Condition3 = " + this.stringRepresentation(this.sensor2Condition3) + "\n";
+            fOutput += "sensor3Condition1 = " + this.stringRepresentation(this.sensor3Condition1) + "\n";
+            fOutput += "sensor3Condition2 = " + this.stringRepresentation(this.sensor3Condition2) + "\n";
+            fOutput += "sensor3Condition3 = " + this.stringRepresentation(this.sensor3Condition3) + "\n";
+            fOutput += "sensor4Condition1 = " + this.stringRepresentation(this.sensor4Condition1) + "\n";
+            fOutput += "sensor4Condition2 = " + this.stringRepresentation(this.sensor4Condition2) + "\n";
+            fOutput += "sensor4Condition3 = " + this.stringRepresentation(this.sensor4Condition3) + "\n";
+            fOutput += "sensor5Condition1 = " + this.stringRepresentation(this.sensor5Condition1) + "\n";
+            fOutput += "sensor5Condition2 = " + this.stringRepresentation(this.sensor5Condition2) + "\n";
+            fOutput += "sensor5Condition3 = " + this.stringRepresentation(this.sensor5Condition3) + "\n";
+            fOutput += "sensor6Condition1 = " + this.stringRepresentation(this.sensor6Condition1) + "\n";
+            fOutput += "sensor6Condition2 = " + this.stringRepresentation(this.sensor6Condition2) + "\n";
+            fOutput += "sensor6Condition3 = " + this.stringRepresentation(this.sensor6Condition3) + "\n";
+            fOutput += "sensor7Condition1 = " + this.stringRepresentation(this.sensor7Condition1) + "\n";
+            fOutput += "sensor7Condition2 = " + this.stringRepresentation(this.sensor7Condition2) + "\n";
+            fOutput += "sensor7Condition3 = " + this.stringRepresentation(this.sensor7Condition3) + "\n";
+            fOutput += "sensor8Condition1 = " + this.stringRepresentation(this.sensor8Condition1) + "\n";
+            fOutput += "sensor8Condition2 = " + this.stringRepresentation(this.sensor8Condition2) + "\n";
+            fOutput += "sensor8Condition3 = " + this.stringRepresentation(this.sensor8Condition3) + "\n";
+            fOutput += "sensor9Condition1 = " + this.stringRepresentation(this.sensor9Condition1) + "\n";
+            fOutput += "sensor9Condition2 = " + this.stringRepresentation(this.sensor9Condition2) + "\n";
+            fOutput += "sensor9Condition3 = " + this.stringRepresentation(this.sensor9Condition3) + "\n";
+            fOutput += "sensor10Condition1 = " + this.stringRepresentation(this.sensor10Condition1) + "\n";
+            fOutput += "sensor10Condition2 = " + this.stringRepresentation(this.sensor10Condition2) + "\n";
+            fOutput += "sensor10Condition3 = " + this.stringRepresentation(this.sensor10Condition3) + "\n";
+            fOutput += "sensor11Condition1 = " + this.stringRepresentation(this.sensor11Condition1) + "\n";
+            fOutput += "sensor11Condition2 = " + this.stringRepresentation(this.sensor11Condition2) + "\n";
+            fOutput += "sensor11Condition3 = " + this.stringRepresentation(this.sensor11Condition3) + "\n";
+            fOutput += "sensor12Condition1 = " + this.stringRepresentation(this.sensor12Condition1) + "\n";
+            fOutput += "sensor12Condition2 = " + this.stringRepresentation(this.sensor12Condition2) + "\n";
+            fOutput += "sensor12Condition3 = " + this.stringRepresentation(this.sensor12Condition3) + "\n";
+            fOutput += "sensor13Condition1 = " + this.stringRepresentation(this.sensor13Condition1) + "\n";
+            fOutput += "sensor13Condition2 = " + this.stringRepresentation(this.sensor13Condition2) + "\n";
+            fOutput += "sensor13Condition3 = " + this.stringRepresentation(this.sensor13Condition3) + "\n";
+            fOutput += "sensor14Condition1 = " + this.stringRepresentation(this.sensor14Condition1) + "\n";
+            fOutput += "sensor14Condition2 = " + this.stringRepresentation(this.sensor14Condition2) + "\n";
+            fOutput += "sensor14Condition3 = " + this.stringRepresentation(this.sensor14Condition3) + "\n";
+            fOutput += "sensor15Condition1 = " + this.stringRepresentation(this.sensor15Condition1) + "\n";
+            fOutput += "sensor15Condition2 = " + this.stringRepresentation(this.sensor15Condition2) + "\n";
+            fOutput += "sensor15Condition3 = " + this.stringRepresentation(this.sensor15Condition3) + "\n";
+            fOutput += "sensor16Condition1 = " + this.stringRepresentation(this.sensor16Condition1) + "\n";
+            fOutput += "sensor16Condition2 = " + this.stringRepresentation(this.sensor16Condition2) + "\n";
+            fOutput += "sensor16Condition3 = " + this.stringRepresentation(this.sensor16Condition3) + "\n";
+            fOutput += "sensor1ResponseToWall1 = " + this.stringRepresentation(this.sensor1ResponseToWall1) + "\n";
+            fOutput += "sensor1ResponseToWall2 = " + this.stringRepresentation(this.sensor1ResponseToWall2) + "\n";
+            fOutput += "sensor1ResponseToWall3 = " + this.stringRepresentation(this.sensor1ResponseToWall3) + "\n";
+            fOutput += "sensor1ResponseToTank1 = " + this.stringRepresentation(this.sensor1ResponseToTank1) + "\n";
+            fOutput += "sensor1ResponseToTank2 = " + this.stringRepresentation(this.sensor1ResponseToTank2) + "\n";
+            fOutput += "sensor1ResponseToTank3 = " + this.stringRepresentation(this.sensor1ResponseToTank3) + "\n";
+            fOutput += "sensor1ResponseToMissile1 = " + this.stringRepresentation(this.sensor1ResponseToMissile1) + "\n";
+            fOutput += "sensor1ResponseToMissile2 = " + this.stringRepresentation(this.sensor1ResponseToMissile2) + "\n";
+            fOutput += "sensor1ResponseToMissile3 = " + this.stringRepresentation(this.sensor1ResponseToMissile3) + "\n";
+            fOutput += "sensor2ResponseToWall1 = " + this.stringRepresentation(this.sensor2ResponseToWall1) + "\n";
+            fOutput += "sensor2ResponseToWall2 = " + this.stringRepresentation(this.sensor2ResponseToWall2) + "\n";
+            fOutput += "sensor2ResponseToWall3 = " + this.stringRepresentation(this.sensor2ResponseToWall3) + "\n";
+            fOutput += "sensor2ResponseToTank1 = " + this.stringRepresentation(this.sensor2ResponseToTank1) + "\n";
+            fOutput += "sensor2ResponseToTank2 = " + this.stringRepresentation(this.sensor2ResponseToTank2) + "\n";
+            fOutput += "sensor2ResponseToTank3 = " + this.stringRepresentation(this.sensor2ResponseToTank3) + "\n";
+            fOutput += "sensor2ResponseToMissile1 = " + this.stringRepresentation(this.sensor2ResponseToMissile1) + "\n";
+            fOutput += "sensor2ResponseToMissile2 = " + this.stringRepresentation(this.sensor2ResponseToMissile2) + "\n";
+            fOutput += "sensor2ResponseToMissile3 = " + this.stringRepresentation(this.sensor2ResponseToMissile3) + "\n";
+            fOutput += "sensor3ResponseToWall1 = " + this.stringRepresentation(this.sensor3ResponseToWall1) + "\n";
+            fOutput += "sensor3ResponseToWall2 = " + this.stringRepresentation(this.sensor3ResponseToWall2) + "\n";
+            fOutput += "sensor3ResponseToWall3 = " + this.stringRepresentation(this.sensor3ResponseToWall3) + "\n";
+            fOutput += "sensor3ResponseToTank1 = " + this.stringRepresentation(this.sensor3ResponseToTank1) + "\n";
+            fOutput += "sensor3ResponseToTank2 = " + this.stringRepresentation(this.sensor3ResponseToTank2) + "\n";
+            fOutput += "sensor3ResponseToTank3 = " + this.stringRepresentation(this.sensor3ResponseToTank3) + "\n";
+            fOutput += "sensor3ResponseToMissile1 = " + this.stringRepresentation(this.sensor3ResponseToMissile1) + "\n";
+            fOutput += "sensor3ResponseToMissile2 = " + this.stringRepresentation(this.sensor3ResponseToMissile2) + "\n";
+            fOutput += "sensor3ResponseToMissile3 = " + this.stringRepresentation(this.sensor3ResponseToMissile3) + "\n";
+            fOutput += "sensor4ResponseToWall1 = " + this.stringRepresentation(this.sensor4ResponseToWall1) + "\n";
+            fOutput += "sensor4ResponseToWall2 = " + this.stringRepresentation(this.sensor4ResponseToWall2) + "\n";
+            fOutput += "sensor4ResponseToWall3 = " + this.stringRepresentation(this.sensor4ResponseToWall3) + "\n";
+            fOutput += "sensor4ResponseToTank1 = " + this.stringRepresentation(this.sensor4ResponseToTank1) + "\n";
+            fOutput += "sensor4ResponseToTank2 = " + this.stringRepresentation(this.sensor4ResponseToTank2) + "\n";
+            fOutput += "sensor4ResponseToTank3 = " + this.stringRepresentation(this.sensor4ResponseToTank3) + "\n";
+            fOutput += "sensor4ResponseToMissile1 = " + this.stringRepresentation(this.sensor4ResponseToMissile1) + "\n";
+            fOutput += "sensor4ResponseToMissile2 = " + this.stringRepresentation(this.sensor4ResponseToMissile2) + "\n";
+            fOutput += "sensor4ResponseToMissile3 = " + this.stringRepresentation(this.sensor4ResponseToMissile3) + "\n";
+            fOutput += "sensor5ResponseToWall1 = " + this.stringRepresentation(this.sensor5ResponseToWall1) + "\n";
+            fOutput += "sensor5ResponseToWall2 = " + this.stringRepresentation(this.sensor5ResponseToWall2) + "\n";
+            fOutput += "sensor5ResponseToWall3 = " + this.stringRepresentation(this.sensor5ResponseToWall3) + "\n";
+            fOutput += "sensor5ResponseToTank1 = " + this.stringRepresentation(this.sensor5ResponseToTank1) + "\n";
+            fOutput += "sensor5ResponseToTank2 = " + this.stringRepresentation(this.sensor5ResponseToTank2) + "\n";
+            fOutput += "sensor5ResponseToTank3 = " + this.stringRepresentation(this.sensor5ResponseToTank3) + "\n";
+            fOutput += "sensor5ResponseToMissile1 = " + this.stringRepresentation(this.sensor5ResponseToMissile1) + "\n";
+            fOutput += "sensor5ResponseToMissile2 = " + this.stringRepresentation(this.sensor5ResponseToMissile2) + "\n";
+            fOutput += "sensor5ResponseToMissile3 = " + this.stringRepresentation(this.sensor5ResponseToMissile3) + "\n";
+            fOutput += "sensor6ResponseToWall1 = " + this.stringRepresentation(this.sensor6ResponseToWall1) + "\n";
+            fOutput += "sensor6ResponseToWall2 = " + this.stringRepresentation(this.sensor6ResponseToWall2) + "\n";
+            fOutput += "sensor6ResponseToWall3 = " + this.stringRepresentation(this.sensor6ResponseToWall3) + "\n";
+            fOutput += "sensor6ResponseToTank1 = " + this.stringRepresentation(this.sensor6ResponseToTank1) + "\n";
+            fOutput += "sensor6ResponseToTank2 = " + this.stringRepresentation(this.sensor6ResponseToTank2) + "\n";
+            fOutput += "sensor6ResponseToTank3 = " + this.stringRepresentation(this.sensor6ResponseToTank3) + "\n";
+            fOutput += "sensor6ResponseToMissile1 = " + this.stringRepresentation(this.sensor6ResponseToMissile1) + "\n";
+            fOutput += "sensor6ResponseToMissile2 = " + this.stringRepresentation(this.sensor6ResponseToMissile2) + "\n";
+            fOutput += "sensor6ResponseToMissile3 = " + this.stringRepresentation(this.sensor6ResponseToMissile3) + "\n";
+            fOutput += "sensor7ResponseToWall1 = " + this.stringRepresentation(this.sensor7ResponseToWall1) + "\n";
+            fOutput += "sensor7ResponseToWall2 = " + this.stringRepresentation(this.sensor7ResponseToWall2) + "\n";
+            fOutput += "sensor7ResponseToWall3 = " + this.stringRepresentation(this.sensor7ResponseToWall3) + "\n";
+            fOutput += "sensor7ResponseToTank1 = " + this.stringRepresentation(this.sensor7ResponseToTank1) + "\n";
+            fOutput += "sensor7ResponseToTank2 = " + this.stringRepresentation(this.sensor7ResponseToTank2) + "\n";
+            fOutput += "sensor7ResponseToTank3 = " + this.stringRepresentation(this.sensor7ResponseToTank3) + "\n";
+            fOutput += "sensor7ResponseToMissile1 = " + this.stringRepresentation(this.sensor7ResponseToMissile1) + "\n";
+            fOutput += "sensor7ResponseToMissile2 = " + this.stringRepresentation(this.sensor7ResponseToMissile2) + "\n";
+            fOutput += "sensor7ResponseToMissile3 = " + this.stringRepresentation(this.sensor7ResponseToMissile3) + "\n";
+            fOutput += "sensor8ResponseToWall1 = " + this.stringRepresentation(this.sensor8ResponseToWall1) + "\n";
+            fOutput += "sensor8ResponseToWall2 = " + this.stringRepresentation(this.sensor8ResponseToWall2) + "\n";
+            fOutput += "sensor8ResponseToWall3 = " + this.stringRepresentation(this.sensor8ResponseToWall3) + "\n";
+            fOutput += "sensor8ResponseToTank1 = " + this.stringRepresentation(this.sensor8ResponseToTank1) + "\n";
+            fOutput += "sensor8ResponseToTank2 = " + this.stringRepresentation(this.sensor8ResponseToTank2) + "\n";
+            fOutput += "sensor8ResponseToTank3 = " + this.stringRepresentation(this.sensor8ResponseToTank3) + "\n";
+            fOutput += "sensor8ResponseToMissile1 = " + this.stringRepresentation(this.sensor8ResponseToMissile1) + "\n";
+            fOutput += "sensor8ResponseToMissile2 = " + this.stringRepresentation(this.sensor8ResponseToMissile2) + "\n";
+            fOutput += "sensor8ResponseToMissile3 = " + this.stringRepresentation(this.sensor8ResponseToMissile3) + "\n";
+            fOutput += "sensor9ResponseToWall1 = " + this.stringRepresentation(this.sensor9ResponseToWall1) + "\n";
+            fOutput += "sensor9ResponseToWall2 = " + this.stringRepresentation(this.sensor9ResponseToWall2) + "\n";
+            fOutput += "sensor9ResponseToWall3 = " + this.stringRepresentation(this.sensor9ResponseToWall3) + "\n";
+            fOutput += "sensor9ResponseToTank1 = " + this.stringRepresentation(this.sensor9ResponseToTank1) + "\n";
+            fOutput += "sensor9ResponseToTank2 = " + this.stringRepresentation(this.sensor9ResponseToTank2) + "\n";
+            fOutput += "sensor9ResponseToTank3 = " + this.stringRepresentation(this.sensor9ResponseToTank3) + "\n";
+            fOutput += "sensor9ResponseToMissile1 = " + this.stringRepresentation(this.sensor9ResponseToMissile1) + "\n";
+            fOutput += "sensor9ResponseToMissile2 = " + this.stringRepresentation(this.sensor9ResponseToMissile2) + "\n";
+            fOutput += "sensor9ResponseToMissile3 = " + this.stringRepresentation(this.sensor9ResponseToMissile3) + "\n";
+            fOutput += "sensor10ResponseToWall1 = " + this.stringRepresentation(this.sensor10ResponseToWall1) + "\n";
+            fOutput += "sensor10ResponseToWall2 = " + this.stringRepresentation(this.sensor10ResponseToWall2) + "\n";
+            fOutput += "sensor10ResponseToWall3 = " + this.stringRepresentation(this.sensor10ResponseToWall3) + "\n";
+            fOutput += "sensor10ResponseToTank1 = " + this.stringRepresentation(this.sensor10ResponseToTank1) + "\n";
+            fOutput += "sensor10ResponseToTank2 = " + this.stringRepresentation(this.sensor10ResponseToTank2) + "\n";
+            fOutput += "sensor10ResponseToTank3 = " + this.stringRepresentation(this.sensor10ResponseToTank3) + "\n";
+            fOutput += "sensor10ResponseToMissile1 = " + this.stringRepresentation(this.sensor10ResponseToMissile1) + "\n";
+            fOutput += "sensor10ResponseToMissile2 = " + this.stringRepresentation(this.sensor10ResponseToMissile2) + "\n";
+            fOutput += "sensor10ResponseToMissile3 = " + this.stringRepresentation(this.sensor10ResponseToMissile3) + "\n";
+            fOutput += "sensor11ResponseToWall1 = " + this.stringRepresentation(this.sensor11ResponseToWall1) + "\n";
+            fOutput += "sensor11ResponseToWall2 = " + this.stringRepresentation(this.sensor11ResponseToWall2) + "\n";
+            fOutput += "sensor11ResponseToWall3 = " + this.stringRepresentation(this.sensor11ResponseToWall3) + "\n";
+            fOutput += "sensor11ResponseToTank1 = " + this.stringRepresentation(this.sensor11ResponseToTank1) + "\n";
+            fOutput += "sensor11ResponseToTank2 = " + this.stringRepresentation(this.sensor11ResponseToTank2) + "\n";
+            fOutput += "sensor11ResponseToTank3 = " + this.stringRepresentation(this.sensor11ResponseToTank3) + "\n";
+            fOutput += "sensor11ResponseToMissile1 = " + this.stringRepresentation(this.sensor11ResponseToMissile1) + "\n";
+            fOutput += "sensor11ResponseToMissile2 = " + this.stringRepresentation(this.sensor11ResponseToMissile2) + "\n";
+            fOutput += "sensor11ResponseToMissile3 = " + this.stringRepresentation(this.sensor11ResponseToMissile3) + "\n";
+            fOutput += "sensor12ResponseToWall1 = " + this.stringRepresentation(this.sensor12ResponseToWall1) + "\n";
+            fOutput += "sensor12ResponseToWall2 = " + this.stringRepresentation(this.sensor12ResponseToWall2) + "\n";
+            fOutput += "sensor12ResponseToWall3 = " + this.stringRepresentation(this.sensor12ResponseToWall3) + "\n";
+            fOutput += "sensor12ResponseToTank1 = " + this.stringRepresentation(this.sensor12ResponseToTank1) + "\n";
+            fOutput += "sensor12ResponseToTank2 = " + this.stringRepresentation(this.sensor12ResponseToTank2) + "\n";
+            fOutput += "sensor12ResponseToTank3 = " + this.stringRepresentation(this.sensor12ResponseToTank3) + "\n";
+            fOutput += "sensor12ResponseToMissile1 = " + this.stringRepresentation(this.sensor12ResponseToMissile1) + "\n";
+            fOutput += "sensor12ResponseToMissile2 = " + this.stringRepresentation(this.sensor12ResponseToMissile2) + "\n";
+            fOutput += "sensor12ResponseToMissile3 = " + this.stringRepresentation(this.sensor12ResponseToMissile3) + "\n";
+            fOutput += "sensor13ResponseToWall1 = " + this.stringRepresentation(this.sensor13ResponseToWall1) + "\n";
+            fOutput += "sensor13ResponseToWall2 = " + this.stringRepresentation(this.sensor13ResponseToWall2) + "\n";
+            fOutput += "sensor13ResponseToWall3 = " + this.stringRepresentation(this.sensor13ResponseToWall3) + "\n";
+            fOutput += "sensor13ResponseToTank1 = " + this.stringRepresentation(this.sensor13ResponseToTank1) + "\n";
+            fOutput += "sensor13ResponseToTank2 = " + this.stringRepresentation(this.sensor13ResponseToTank2) + "\n";
+            fOutput += "sensor13ResponseToTank3 = " + this.stringRepresentation(this.sensor13ResponseToTank3) + "\n";
+            fOutput += "sensor13ResponseToMissile1 = " + this.stringRepresentation(this.sensor13ResponseToMissile1) + "\n";
+            fOutput += "sensor13ResponseToMissile2 = " + this.stringRepresentation(this.sensor13ResponseToMissile2) + "\n";
+            fOutput += "sensor13ResponseToMissile3 = " + this.stringRepresentation(this.sensor13ResponseToMissile3) + "\n";
+            fOutput += "sensor14ResponseToWall1 = " + this.stringRepresentation(this.sensor14ResponseToWall1) + "\n";
+            fOutput += "sensor14ResponseToWall2 = " + this.stringRepresentation(this.sensor14ResponseToWall2) + "\n";
+            fOutput += "sensor14ResponseToWall3 = " + this.stringRepresentation(this.sensor14ResponseToWall3) + "\n";
+            fOutput += "sensor14ResponseToTank1 = " + this.stringRepresentation(this.sensor14ResponseToTank1) + "\n";
+            fOutput += "sensor14ResponseToTank2 = " + this.stringRepresentation(this.sensor14ResponseToTank2) + "\n";
+            fOutput += "sensor14ResponseToTank3 = " + this.stringRepresentation(this.sensor14ResponseToTank3) + "\n";
+            fOutput += "sensor14ResponseToMissile1 = " + this.stringRepresentation(this.sensor14ResponseToMissile1) + "\n";
+            fOutput += "sensor14ResponseToMissile2 = " + this.stringRepresentation(this.sensor14ResponseToMissile2) + "\n";
+            fOutput += "sensor14ResponseToMissile3 = " + this.stringRepresentation(this.sensor14ResponseToMissile3) + "\n";
+            fOutput += "sensor15ResponseToWall1 = " + this.stringRepresentation(this.sensor15ResponseToWall1) + "\n";
+            fOutput += "sensor15ResponseToWall2 = " + this.stringRepresentation(this.sensor15ResponseToWall2) + "\n";
+            fOutput += "sensor15ResponseToWall3 = " + this.stringRepresentation(this.sensor15ResponseToWall3) + "\n";
+            fOutput += "sensor15ResponseToTank1 = " + this.stringRepresentation(this.sensor15ResponseToTank1) + "\n";
+            fOutput += "sensor15ResponseToTank2 = " + this.stringRepresentation(this.sensor15ResponseToTank2) + "\n";
+            fOutput += "sensor15ResponseToTank3 = " + this.stringRepresentation(this.sensor15ResponseToTank3) + "\n";
+            fOutput += "sensor15ResponseToMissile1 = " + this.stringRepresentation(this.sensor15ResponseToMissile1) + "\n";
+            fOutput += "sensor15ResponseToMissile2 = " + this.stringRepresentation(this.sensor15ResponseToMissile2) + "\n";
+            fOutput += "sensor15ResponseToMissile3 = " + this.stringRepresentation(this.sensor15ResponseToMissile3) + "\n";
+            fOutput += "sensor16ResponseToWall1 = " + this.stringRepresentation(this.sensor16ResponseToWall1) + "\n";
+            fOutput += "sensor16ResponseToWall2 = " + this.stringRepresentation(this.sensor16ResponseToWall2) + "\n";
+            fOutput += "sensor16ResponseToWall3 = " + this.stringRepresentation(this.sensor16ResponseToWall3) + "\n";
+            fOutput += "sensor16ResponseToTank1 = " + this.stringRepresentation(this.sensor16ResponseToTank1) + "\n";
+            fOutput += "sensor16ResponseToTank2 = " + this.stringRepresentation(this.sensor16ResponseToTank2) + "\n";
+            fOutput += "sensor16ResponseToTank3 = " + this.stringRepresentation(this.sensor16ResponseToTank3) + "\n";
+            fOutput += "sensor16ResponseToMissile1 = " + this.stringRepresentation(this.sensor16ResponseToMissile1) + "\n";
+            fOutput += "sensor16ResponseToMissile2 = " + this.stringRepresentation(this.sensor16ResponseToMissile2) + "\n";
+            fOutput += "sensor16ResponseToMissile3 = " + this.stringRepresentation(this.sensor16ResponseToMissile3) + "\n";
+            fOutput += "responseToMissileHit1 = " + this.stringRepresentation(this.responseToMissileHit1) + "\n";
+            fOutput += "responseToMissileHit2 = " + this.stringRepresentation(this.responseToMissileHit2) + "\n";
+            fOutput += "responseToMissileHit3 = " + this.stringRepresentation(this.responseToMissileHit3) + "\n";
+            fOutput += "responseToFacingTarget1 = " + this.stringRepresentation(this.responseToFacingTarget1) + "\n";
+            fOutput += "responseToFacingTarget2 = " + this.stringRepresentation(this.responseToFacingTarget2) + "\n";
+            fOutput += "responseToFacingTarget3 = " + this.stringRepresentation(this.responseToFacingTarget3) + "\n";
+            fOutput += "weaponStrategyFavourite1 = " + this.stringRepresentation(this.weaponStrategyFavourite1) + "\n";
+            fOutput += "weaponStrategySecondFavourite1 = " + this.stringRepresentation(this.weaponStrategySecondFavourite1) + "\n";
+            fOutput += "weaponStrategyThirdFavourite1 = " + this.stringRepresentation(this.weaponStrategyThirdFavourite1) + "\n";
+            fOutput += "weaponStrategyFourthFavourite1 = " + this.stringRepresentation(this.weaponStrategyFourthFavourite1) + "\n";
+            fOutput += "weaponStrategyFifthFavourite1 = " + this.stringRepresentation(this.weaponStrategyFifthFavourite1) + "\n";
+            fOutput += "weaponStrategyFavourite2 = " + this.stringRepresentation(this.weaponStrategyFavourite2) + "\n";
+            fOutput += "weaponStrategySecondFavourite2 = " + this.stringRepresentation(this.weaponStrategySecondFavourite2) + "\n";
+            fOutput += "weaponStrategyThirdFavourite2 = " + this.stringRepresentation(this.weaponStrategyThirdFavourite2) + "\n";
+            fOutput += "weaponStrategyFourthFavourite2 = " + this.stringRepresentation(this.weaponStrategyFourthFavourite2) + "\n";
+            fOutput += "weaponStrategyFifthFavourite2 = " + this.stringRepresentation(this.weaponStrategyFifthFavourite2) + "\n";
+            fOutput += "weaponStrategyFavourite3 = " + this.stringRepresentation(this.weaponStrategyFavourite3) + "\n";
+            fOutput += "weaponStrategySecondFavourite3 = " + this.stringRepresentation(this.weaponStrategySecondFavourite3) + "\n";
+            fOutput += "weaponStrategyThirdFavourite3 = " + this.stringRepresentation(this.weaponStrategyThirdFavourite3) + "\n";
+            fOutput += "weaponStrategyFourthFavourite3 = " + this.stringRepresentation(this.weaponStrategyFourthFavourite3) + "\n";
+            fOutput += "weaponStrategyFifthFavourite3 = " + this.stringRepresentation(this.weaponStrategyFifthFavourite3) + "\n";
+            fOutput += "weaponStrategyFavourite4 = " + this.stringRepresentation(this.weaponStrategyFavourite4) + "\n";
+            fOutput += "weaponStrategySecondFavourite4 = " + this.stringRepresentation(this.weaponStrategySecondFavourite4) + "\n";
+            fOutput += "weaponStrategyThirdFavourite4 = " + this.stringRepresentation(this.weaponStrategyThirdFavourite4) + "\n";
+            fOutput += "weaponStrategyFourthFavourite4 = " + this.stringRepresentation(this.weaponStrategyFourthFavourite4) + "\n";
+            fOutput += "weaponStrategyFifthFavourite4 = " + this.stringRepresentation(this.weaponStrategyFifthFavourite4) + "\n";
+            fOutput += "weaponStrategyFavourite5 = " + this.stringRepresentation(this.weaponStrategyFavourite5) + "\n";
+            fOutput += "weaponStrategySecondFavourite5 = " + this.stringRepresentation(this.weaponStrategySecondFavourite5) + "\n";
+            fOutput += "weaponStrategyThirdFavourite5 = " + this.stringRepresentation(this.weaponStrategyThirdFavourite5) + "\n";
+            fOutput += "weaponStrategyFourthFavourite5 = " + this.stringRepresentation(this.weaponStrategyFourthFavourite5) + "\n";
+            fOutput += "weaponStrategyFifthFavourite5 = " + this.stringRepresentation(this.weaponStrategyFifthFavourite5) + "\n";
+            fOutput += "weaponStrategyFavourite6 = " + this.stringRepresentation(this.weaponStrategyFavourite6) + "\n";
+            fOutput += "weaponStrategySecondFavourite6 = " + this.stringRepresentation(this.weaponStrategySecondFavourite6) + "\n";
+            fOutput += "weaponStrategyThirdFavourite6 = " + this.stringRepresentation(this.weaponStrategyThirdFavourite6) + "\n";
+            fOutput += "weaponStrategyFourthFavourite6 = " + this.stringRepresentation(this.weaponStrategyFourthFavourite6) + "\n";
+            fOutput += "weaponStrategyFifthFavourite6 = " + this.stringRepresentation(this.weaponStrategyFifthFavourite6) + "\n";
+            fOutput += "weaponStrategyFavourite7 = " + this.stringRepresentation(this.weaponStrategyFavourite7) + "\n";
+            fOutput += "weaponStrategySecondFavourite7 = " + this.stringRepresentation(this.weaponStrategySecondFavourite7) + "\n";
+            fOutput += "weaponStrategyThirdFavourite7 = " + this.stringRepresentation(this.weaponStrategyThirdFavourite7) + "\n";
+            fOutput += "weaponStrategyFourthFavourite7 = " + this.stringRepresentation(this.weaponStrategyFourthFavourite7) + "\n";
+            fOutput += "weaponStrategyFifthFavourite7 = " + this.stringRepresentation(this.weaponStrategyFifthFavourite7) + "\n";
+            fOutput += "weaponStrategyFavourite8 = " + this.stringRepresentation(this.weaponStrategyFavourite8) + "\n";
+            fOutput += "weaponStrategySecondFavourite8 = " + this.stringRepresentation(this.weaponStrategySecondFavourite8) + "\n";
+            fOutput += "weaponStrategyThirdFavourite8 = " + this.stringRepresentation(this.weaponStrategyThirdFavourite8) + "\n";
+            fOutput += "weaponStrategyFourthFavourite8 = " + this.stringRepresentation(this.weaponStrategyFourthFavourite8) + "\n";
+            fOutput += "weaponStrategyFifthFavourite8 = " + this.stringRepresentation(this.weaponStrategyFifthFavourite8) + "\n";
+            fOutput += "weaponFuelRatio = " + this.weaponFuelRatio + "\n";
+            fOutput += "shoppingStrategyAction1 = " + this.stringRepresentation(this.shoppingStrategyAction1) + "\n";
+            fOutput += "shoppingStrategyCondition1 = " + this.stringRepresentation(this.shoppingStrategyCondition1) + "\n";
+            fOutput += "shoppingStrategyAction2 = " + this.stringRepresentation(this.shoppingStrategyAction2) + "\n";
+            fOutput += "shoppingStrategyCondition2 = " + this.stringRepresentation(this.shoppingStrategyCondition2) + "\n";
+            fOutput += "shoppingStrategyAction3 = " + this.stringRepresentation(this.shoppingStrategyAction3) + "\n";
+            fOutput += "shoppingStrategyCondition3 = " + this.stringRepresentation(this.shoppingStrategyCondition3) + "\n";
+            fOutput += "shoppingStrategyAction4 = " + this.stringRepresentation(this.shoppingStrategyAction4) + "\n";
+            fOutput += "shoppingStrategyCondition4 = " + this.stringRepresentation(this.shoppingStrategyCondition4) + "\n";
+            fOutput += "shoppingStrategyAction5 = " + this.stringRepresentation(this.shoppingStrategyAction5) + "\n";
+            fOutput += "shoppingStrategyCondition5 = " + this.stringRepresentation(this.shoppingStrategyCondition5) + "\n";
+            fOutput += "shoppingStrategyAction6 = " + this.stringRepresentation(this.shoppingStrategyAction6) + "\n";
+            fOutput += "shoppingStrategyCondition6 = " + this.stringRepresentation(this.shoppingStrategyCondition6) + "\n";
+            fOutput += "shoppingStrategyAction7 = " + this.stringRepresentation(this.shoppingStrategyAction7) + "\n";
+            fOutput += "shoppingStrategyCondition7 = " + this.stringRepresentation(this.shoppingStrategyCondition7) + "\n";
+            fOutput += "shoppingStrategyAction8 = " + this.stringRepresentation(this.shoppingStrategyAction8) + "\n";
+            fOutput += "shoppingStrategyCondition8 = " + this.stringRepresentation(this.shoppingStrategyCondition8) + "\n";
+            fOutput += "shoppingStrategyAction9 = " + this.stringRepresentation(this.shoppingStrategyAction9) + "\n";
+            fOutput += "shoppingStrategyCondition9 = " + this.stringRepresentation(this.shoppingStrategyCondition9) + "\n";
+            fOutput += "shoppingStrategyAction10 = " + this.stringRepresentation(this.shoppingStrategyAction10) + "\n";
+            fOutput += "shoppingStrategyCondition10 = " + this.stringRepresentation(this.shoppingStrategyCondition10) + "\n";
+            fOutput += "shoppingStrategyMaximumFireUnitExpenseWhenWeaponBeingReplaced = " +
+                this.shoppingStrategyMaximumFireUnitExpenseWhenWeaponBeingReplaced + "\n";
+            fOutput = fOutput + "shoppingStrategyMaximumFireUnitsThatBePurchased = " +
+                this.shoppingStrategyMaximumFireUnitsThatBePurchased + "\n";
             CWSYSTEM.CWFileTools.outputFile("assets/robots/" + this.filename, fOutput);
         }
 
@@ -6280,11 +1663,21 @@
             this.shoppingStrategyCondition9 = this.getCodeParameterValueFromFile(hashTable, "shoppingStrategyCondition9");
             this.shoppingStrategyAction10 = this.getCodeParameterValueFromFile(hashTable, "shoppingStrategyAction10");
             this.shoppingStrategyCondition10 = this.getCodeParameterValueFromFile(hashTable, "shoppingStrategyCondition10");
-            this.shoppingStrategyMaximumFireUnitExpenseWhenWeaponBeingReplaced = this.getIntegerParameterValueFromFile(hashTable, "shoppingStrategyMaximumFireUnitExpenseWhenWeaponBeingReplaced");
-            this.shoppingStrategyMaximumFireUnitsThatBePurchased = this.getIntegerParameterValueFromFile(hashTable, "shoppingStrategyMaximumFireUnitsThatBePurchased");
+            this.shoppingStrategyMaximumFireUnitExpenseWhenWeaponBeingReplaced =
+                this.getIntegerParameterValueFromFile(hashTable, "shoppingStrategyMaximumFireUnitExpenseWhenWeaponBeingReplaced");
+            this.shoppingStrategyMaximumFireUnitsThatBePurchased =
+                this.getIntegerParameterValueFromFile(hashTable, "shoppingStrategyMaximumFireUnitsThatBePurchased");
         }
 
-        /** @private */ getStringParameterValueFromFile(hashtable, parameter) {
+        /**
+         * Gets a string parameter value from a hashtable. If the parameter is not found, it returns "UNDEFINED".
+         *
+         * @private
+         * @param {Map} hashtable the hashtable to get the parameter from
+         * @param {string} parameter the parameter to get
+         * @return {string} the value of the parameter
+         */
+        getStringParameterValueFromFile(hashtable, parameter) {
             let param = hashtable.get(parameter);
             if (param == null) {
                 param = "UNDEFINED";
@@ -6292,12 +1685,28 @@
             return param;
         }
 
-        /** @private */ getCodeParameterValueFromFile(hashMap, value) {
+        /**
+         * Gets a code parameter value from a hashtable. If the parameter is not found, it returns UNDEFINED.
+         *
+         * @private
+         * @param {Map} hashMap the hashtable to get the code for
+         * @param {string} value the value to get the code for
+         * @return {number} the code value of the parameter
+         */
+        getCodeParameterValueFromFile(hashMap, value) {
             const param = hashMap.get(value);
             return param == null ? RobotSpecification.UNDEFINED : this.getCodeFromStringRepresentation(param);
         }
 
-        /** @private */ getIntegerParameterValueFromFile(hashtable, name) {
+        /**
+         * Gets an integer parameter value from a hashtable. If the parameter is not found, it returns UNDEFINED.
+         *
+         * @private
+         * @param {Map} hashtable the hashtable to get the integer for
+         * @param {string} name the name of the parameter
+         * @return {number} the integer value of the parameter
+         */
+        getIntegerParameterValueFromFile(hashtable, name) {
             const name1 = hashtable.get(name);
             let io = RobotSpecification.UNDEFINED;
             if (name1 != null && !((o1, o2) => o1.toUpperCase() ===
@@ -6311,12 +1720,26 @@
             return io;
         }
 
+        /**
+         * Gets a string representation of a parameter. If the parameter is not found, it returns "UNDEFINED".
+         *
+         * @private
+         * @param {number} iDNumber
+         * @return {string} the string representation of the parameter
+         */
         stringRepresentation(iDNumber) {
             RobotSpecification.initializeVariableStringRepresentations();
             let io = RobotSpecification.variablestringRepresentations.get(iDNumber);
             return io == null ? "UNDEFINED" : io;
         }
 
+        /**
+         * Gets the code from a string representation.
+         *
+         * @private
+         * @param {string} string the string to get the code for
+         * @returns {*|number} the code value
+         */
         getCodeFromStringRepresentation(string) {
             RobotSpecification.initializeVariableStringRepresentations();
             const df = RobotSpecification.variablestringRepresentations.keys();
@@ -6333,6 +1756,12 @@
             return i;
         }
 
+        /**
+         * Performs the AI for the player.
+         *
+         * @private
+         * @param {dsector.DSecPlayer} player the player to perform the AI for
+         */
         performAI(player) {
             this.respondToClocks(player);
             this.respondToSensors(player);
@@ -6340,13 +1769,18 @@
         }
 
         /**
-         *  @private
+         * Responds to clocks for the player.
+         *
+         * @private
+         * @param {dsector.DSecPlayer} player the player to respond to clocks for
          */
         respondToClocks(player) {
             const time = CWSYSTEM.Environment.currentTime();
             if (time - this.timeOfLastClock1Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.clock1Period)) {
                 this.timeOfLastClock1Tick = time;
-                if (this.acceptProbability(this.clock1Probability) && this.passRequirement(player, this.clock1Requirement1) && this.passRequirement(player, this.clock1Requirement2)) {
+                if (this.acceptProbability(this.clock1Probability) &&
+                    this.passRequirement(player, this.clock1Requirement1) &&
+                    this.passRequirement(player, this.clock1Requirement2)) {
                     this.performAction(player, this.clock1Response1);
                     this.performAction(player, this.clock1Response2);
                     this.performAction(player, this.clock1Response3);
@@ -6354,7 +1788,9 @@
             }
             if (time - this.timeOfLastClock2Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.clock2Period)) {
                 this.timeOfLastClock2Tick = time;
-                if (this.acceptProbability(this.clock2Probability) && this.passRequirement(player, this.clock2Requirement1) && this.passRequirement(player, this.clock2Requirement2)) {
+                if (this.acceptProbability(this.clock2Probability) &&
+                    this.passRequirement(player, this.clock2Requirement1) &&
+                    this.passRequirement(player, this.clock2Requirement2)) {
                     this.performAction(player, this.clock2Response1);
                     this.performAction(player, this.clock2Response2);
                     this.performAction(player, this.clock2Response3);
@@ -6362,7 +1798,9 @@
             }
             if (time - this.timeOfLastClock3Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.clock3Period)) {
                 this.timeOfLastClock3Tick = time;
-                if (this.acceptProbability(this.clock3Probability) && this.passRequirement(player, this.clock3Requirement1) && this.passRequirement(player, this.clock3Requirement2)) {
+                if (this.acceptProbability(this.clock3Probability) &&
+                    this.passRequirement(player, this.clock3Requirement1) &&
+                    this.passRequirement(player, this.clock3Requirement2)) {
                     this.performAction(player, this.clock3Response1);
                     this.performAction(player, this.clock3Response2);
                     this.performAction(player, this.clock3Response3);
@@ -6370,7 +1808,9 @@
             }
             if (time - this.timeOfLastClock4Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.clock4Period)) {
                 this.timeOfLastClock4Tick = time;
-                if (this.acceptProbability(this.clock4Probability) && this.passRequirement(player, this.clock4Requirement1) && this.passRequirement(player, this.clock4Requirement2)) {
+                if (this.acceptProbability(this.clock4Probability) &&
+                    this.passRequirement(player, this.clock4Requirement1) &&
+                    this.passRequirement(player, this.clock4Requirement2)) {
                     this.performAction(player, this.clock4Response1);
                     this.performAction(player, this.clock4Response2);
                     this.performAction(player, this.clock4Response3);
@@ -6378,7 +1818,9 @@
             }
             if (time - this.timeOfLastClock5Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.clock5Period)) {
                 this.timeOfLastClock5Tick = time;
-                if (this.acceptProbability(this.clock5Probability) && this.passRequirement(player, this.clock5Requirement1) && this.passRequirement(player, this.clock5Requirement2)) {
+                if (this.acceptProbability(this.clock5Probability) &&
+                    this.passRequirement(player, this.clock5Requirement1) &&
+                    this.passRequirement(player, this.clock5Requirement2)) {
                     this.performAction(player, this.clock5Response1);
                     this.performAction(player, this.clock5Response2);
                     this.performAction(player, this.clock5Response3);
@@ -6386,7 +1828,9 @@
             }
             if (time - this.timeOfLastClock6Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.clock6Period)) {
                 this.timeOfLastClock6Tick = time;
-                if (this.acceptProbability(this.clock6Probability) && this.passRequirement(player, this.clock6Requirement1) && this.passRequirement(player, this.clock6Requirement2)) {
+                if (this.acceptProbability(this.clock6Probability) &&
+                    this.passRequirement(player, this.clock6Requirement1) &&
+                    this.passRequirement(player, this.clock6Requirement2)) {
                     this.performAction(player, this.clock6Response1);
                     this.performAction(player, this.clock6Response2);
                     this.performAction(player, this.clock6Response3);
@@ -6394,7 +1838,9 @@
             }
             if (time - this.timeOfLastClock7Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.clock7Period)) {
                 this.timeOfLastClock7Tick = time;
-                if (this.acceptProbability(this.clock7Probability) && this.passRequirement(player, this.clock7Requirement1) && this.passRequirement(player, this.clock7Requirement2)) {
+                if (this.acceptProbability(this.clock7Probability) &&
+                    this.passRequirement(player, this.clock7Requirement1) &&
+                    this.passRequirement(player, this.clock7Requirement2)) {
                     this.performAction(player, this.clock7Response1);
                     this.performAction(player, this.clock7Response2);
                     this.performAction(player, this.clock7Response3);
@@ -6402,7 +1848,9 @@
             }
             if (time - this.timeOfLastClock8Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.clock8Period)) {
                 this.timeOfLastClock8Tick = time;
-                if (this.acceptProbability(this.clock8Probability) && this.passRequirement(player, this.clock8Requirement1) && this.passRequirement(player, this.clock8Requirement2)) {
+                if (this.acceptProbability(this.clock8Probability) &&
+                    this.passRequirement(player, this.clock8Requirement1) &&
+                    this.passRequirement(player, this.clock8Requirement2)) {
                     this.performAction(player, this.clock8Response1);
                     this.performAction(player, this.clock8Response2);
                     this.performAction(player, this.clock8Response3);
@@ -6410,7 +1858,9 @@
             }
             if (time - this.timeOfLastClock9Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.clock9Period)) {
                 this.timeOfLastClock9Tick = time;
-                if (this.acceptProbability(this.clock9Probability) && this.passRequirement(player, this.clock9Requirement1) && this.passRequirement(player, this.clock9Requirement2)) {
+                if (this.acceptProbability(this.clock9Probability) &&
+                    this.passRequirement(player, this.clock9Requirement1) &&
+                    this.passRequirement(player, this.clock9Requirement2)) {
                     this.performAction(player, this.clock9Response1);
                     this.performAction(player, this.clock9Response2);
                     this.performAction(player, this.clock9Response3);
@@ -6418,7 +1868,9 @@
             }
             if (time - this.timeOfLastClock10Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.clock10Period)) {
                 this.timeOfLastClock10Tick = time;
-                if (this.acceptProbability(this.clock10Probability) && this.passRequirement(player, this.clock10Requirement1) && this.passRequirement(player, this.clock10Requirement2)) {
+                if (this.acceptProbability(this.clock10Probability) &&
+                    this.passRequirement(player, this.clock10Requirement1) &&
+                    this.passRequirement(player, this.clock10Requirement2)) {
                     this.performAction(player, this.clock10Response1);
                     this.performAction(player, this.clock10Response2);
                     this.performAction(player, this.clock10Response3);
@@ -6427,15 +1879,20 @@
         }
 
         /**
-         *  Responds to the sensors of the input player.
-         *  @private
+         * Responds to the sensors of the input player.
+         *
+         * @private
+         * @param {dsector.DSecPlayer} player the player to respond to sensors for
          */
         respondToSensors(player) {
             const time = CWSYSTEM.Environment.currentTime();
             let value;
             if (time - this.timeOfLastSensor1Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.sensor1Period)) {
                 this.timeOfLastSensor1Tick = time;
-                if (this.acceptProbability(this.sensor1Probability) && this.passRequirement(player, this.sensor1Condition1) && this.passRequirement(player, this.sensor1Condition2) && this.passRequirement(player, this.sensor1Condition3)) {
+                if (this.acceptProbability(this.sensor1Probability) &&
+                    this.passRequirement(player, this.sensor1Condition1) &&
+                    this.passRequirement(player, this.sensor1Condition2) &&
+                    this.passRequirement(player, this.sensor1Condition3)) {
                     value = player.brain.sensorResponse(1);
                     if (value !== dsector.DSecBrain.TANK && value !== dsector.DSecBrain.JEWEL) {
                         if (value === dsector.DSecBrain.WALL) {
@@ -6456,7 +1913,10 @@
             }
             if (time - this.timeOfLastSensor2Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.sensor2Period)) {
                 this.timeOfLastSensor2Tick = time;
-                if (this.acceptProbability(this.sensor2Probability) && this.passRequirement(player, this.sensor2Condition1) && this.passRequirement(player, this.sensor2Condition2) && this.passRequirement(player, this.sensor2Condition3)) {
+                if (this.acceptProbability(this.sensor2Probability) &&
+                    this.passRequirement(player, this.sensor2Condition1) &&
+                    this.passRequirement(player, this.sensor2Condition2) &&
+                    this.passRequirement(player, this.sensor2Condition3)) {
                     value = player.brain.sensorResponse(2);
                     if (value !== dsector.DSecBrain.TANK && value !== dsector.DSecBrain.JEWEL) {
                         if (value === dsector.DSecBrain.WALL) {
@@ -6477,7 +1937,10 @@
             }
             if (time - this.timeOfLastSensor3Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.sensor3Period)) {
                 this.timeOfLastSensor3Tick = time;
-                if (this.acceptProbability(this.sensor3Probability) && this.passRequirement(player, this.sensor3Condition1) && this.passRequirement(player, this.sensor3Condition2) && this.passRequirement(player, this.sensor3Condition3)) {
+                if (this.acceptProbability(this.sensor3Probability) &&
+                    this.passRequirement(player, this.sensor3Condition1) &&
+                    this.passRequirement(player, this.sensor3Condition2) &&
+                    this.passRequirement(player, this.sensor3Condition3)) {
                     value = player.brain.sensorResponse(3);
                     if (value !== dsector.DSecBrain.TANK && value !== dsector.DSecBrain.JEWEL) {
                         if (value === dsector.DSecBrain.WALL) {
@@ -6498,7 +1961,10 @@
             }
             if (time - this.timeOfLastSensor4Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.sensor4Period)) {
                 this.timeOfLastSensor4Tick = time;
-                if (this.acceptProbability(this.sensor4Probability) && this.passRequirement(player, this.sensor4Condition1) && this.passRequirement(player, this.sensor4Condition2) && this.passRequirement(player, this.sensor4Condition3)) {
+                if (this.acceptProbability(this.sensor4Probability) &&
+                    this.passRequirement(player, this.sensor4Condition1) &&
+                    this.passRequirement(player, this.sensor4Condition2) &&
+                    this.passRequirement(player, this.sensor4Condition3)) {
                     value = player.brain.sensorResponse(4);
                     if (value !== dsector.DSecBrain.TANK && value !== dsector.DSecBrain.JEWEL) {
                         if (value === dsector.DSecBrain.WALL) {
@@ -6519,7 +1985,10 @@
             }
             if (time - this.timeOfLastSensor5Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.sensor5Period)) {
                 this.timeOfLastSensor5Tick = time;
-                if (this.acceptProbability(this.sensor5Probability) && this.passRequirement(player, this.sensor5Condition1) && this.passRequirement(player, this.sensor5Condition2) && this.passRequirement(player, this.sensor5Condition3)) {
+                if (this.acceptProbability(this.sensor5Probability) &&
+                    this.passRequirement(player, this.sensor5Condition1) &&
+                    this.passRequirement(player, this.sensor5Condition2) &&
+                    this.passRequirement(player, this.sensor5Condition3)) {
                     value = player.brain.sensorResponse(5);
                     if (value !== dsector.DSecBrain.TANK && value !== dsector.DSecBrain.JEWEL) {
                         if (value === dsector.DSecBrain.WALL) {
@@ -6540,7 +2009,10 @@
             }
             if (time - this.timeOfLastSensor6Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.sensor6Period)) {
                 this.timeOfLastSensor6Tick = time;
-                if (this.acceptProbability(this.sensor6Probability) && this.passRequirement(player, this.sensor6Condition1) && this.passRequirement(player, this.sensor6Condition2) && this.passRequirement(player, this.sensor6Condition3)) {
+                if (this.acceptProbability(this.sensor6Probability) &&
+                    this.passRequirement(player, this.sensor6Condition1) &&
+                    this.passRequirement(player, this.sensor6Condition2) &&
+                    this.passRequirement(player, this.sensor6Condition3)) {
                     value = player.brain.sensorResponse(6);
                     if (value !== dsector.DSecBrain.TANK && value !== dsector.DSecBrain.JEWEL) {
                         if (value === dsector.DSecBrain.WALL) {
@@ -6561,7 +2033,10 @@
             }
             if (time - this.timeOfLastSensor7Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.sensor7Period)) {
                 this.timeOfLastSensor7Tick = time;
-                if (this.acceptProbability(this.sensor7Probability) && this.passRequirement(player, this.sensor7Condition1) && this.passRequirement(player, this.sensor7Condition2) && this.passRequirement(player, this.sensor7Condition3)) {
+                if (this.acceptProbability(this.sensor7Probability) &&
+                    this.passRequirement(player, this.sensor7Condition1) &&
+                    this.passRequirement(player, this.sensor7Condition2) &&
+                    this.passRequirement(player, this.sensor7Condition3)) {
                     value = player.brain.sensorResponse(7);
                     if (value !== dsector.DSecBrain.TANK && value !== dsector.DSecBrain.JEWEL) {
                         if (value === dsector.DSecBrain.WALL) {
@@ -6582,7 +2057,10 @@
             }
             if (time - this.timeOfLastSensor8Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.sensor8Period)) {
                 this.timeOfLastSensor8Tick = time;
-                if (this.acceptProbability(this.sensor8Probability) && this.passRequirement(player, this.sensor8Condition1) && this.passRequirement(player, this.sensor8Condition2) && this.passRequirement(player, this.sensor8Condition3)) {
+                if (this.acceptProbability(this.sensor8Probability) &&
+                    this.passRequirement(player, this.sensor8Condition1) &&
+                    this.passRequirement(player, this.sensor8Condition2) &&
+                    this.passRequirement(player, this.sensor8Condition3)) {
                     value = player.brain.sensorResponse(8);
                     if (value !== dsector.DSecBrain.TANK && value !== dsector.DSecBrain.JEWEL) {
                         if (value === dsector.DSecBrain.WALL) {
@@ -6603,7 +2081,10 @@
             }
             if (time - this.timeOfLastSensor9Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.sensor9Period)) {
                 this.timeOfLastSensor9Tick = time;
-                if (this.acceptProbability(this.sensor9Probability) && this.passRequirement(player, this.sensor9Condition1) && this.passRequirement(player, this.sensor9Condition2) && this.passRequirement(player, this.sensor9Condition3)) {
+                if (this.acceptProbability(this.sensor9Probability) &&
+                    this.passRequirement(player, this.sensor9Condition1) &&
+                    this.passRequirement(player, this.sensor9Condition2) &&
+                    this.passRequirement(player, this.sensor9Condition3)) {
                     value = player.brain.sensorResponse(9);
                     if (value !== dsector.DSecBrain.TANK && value !== dsector.DSecBrain.JEWEL) {
                         if (value === dsector.DSecBrain.WALL) {
@@ -6624,7 +2105,10 @@
             }
             if (time - this.timeOfLastSensor10Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.sensor10Period)) {
                 this.timeOfLastSensor10Tick = time;
-                if (this.acceptProbability(this.sensor10Probability) && this.passRequirement(player, this.sensor10Condition1) && this.passRequirement(player, this.sensor10Condition2) && this.passRequirement(player, this.sensor10Condition3)) {
+                if (this.acceptProbability(this.sensor10Probability) &&
+                    this.passRequirement(player, this.sensor10Condition1) &&
+                    this.passRequirement(player, this.sensor10Condition2) &&
+                    this.passRequirement(player, this.sensor10Condition3)) {
                     value = player.brain.sensorResponse(10);
                     if (value !== dsector.DSecBrain.TANK && value !== dsector.DSecBrain.JEWEL) {
                         if (value === dsector.DSecBrain.WALL) {
@@ -6645,7 +2129,10 @@
             }
             if (time - this.timeOfLastSensor11Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.sensor11Period)) {
                 this.timeOfLastSensor11Tick = time;
-                if (this.acceptProbability(this.sensor11Probability) && this.passRequirement(player, this.sensor11Condition1) && this.passRequirement(player, this.sensor11Condition2) && this.passRequirement(player, this.sensor11Condition3)) {
+                if (this.acceptProbability(this.sensor11Probability) &&
+                    this.passRequirement(player, this.sensor11Condition1) &&
+                    this.passRequirement(player, this.sensor11Condition2) &&
+                    this.passRequirement(player, this.sensor11Condition3)) {
                     value = player.brain.sensorResponse(11);
                     if (value !== dsector.DSecBrain.TANK && value !== dsector.DSecBrain.JEWEL) {
                         if (value === dsector.DSecBrain.WALL) {
@@ -6666,7 +2153,10 @@
             }
             if (time - this.timeOfLastSensor12Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.sensor12Period)) {
                 this.timeOfLastSensor12Tick = time;
-                if (this.acceptProbability(this.sensor12Probability) && this.passRequirement(player, this.sensor12Condition1) && this.passRequirement(player, this.sensor12Condition2) && this.passRequirement(player, this.sensor12Condition3)) {
+                if (this.acceptProbability(this.sensor12Probability) &&
+                    this.passRequirement(player, this.sensor12Condition1) &&
+                    this.passRequirement(player, this.sensor12Condition2) &&
+                    this.passRequirement(player, this.sensor12Condition3)) {
                     value = player.brain.sensorResponse(12);
                     if (value !== dsector.DSecBrain.TANK && value !== dsector.DSecBrain.JEWEL) {
                         if (value === dsector.DSecBrain.WALL) {
@@ -6687,7 +2177,10 @@
             }
             if (time - this.timeOfLastSensor13Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.sensor13Period)) {
                 this.timeOfLastSensor13Tick = time;
-                if (this.acceptProbability(this.sensor13Probability) && this.passRequirement(player, this.sensor13Condition1) && this.passRequirement(player, this.sensor13Condition2) && this.passRequirement(player, this.sensor13Condition3)) {
+                if (this.acceptProbability(this.sensor13Probability) &&
+                    this.passRequirement(player, this.sensor13Condition1) &&
+                    this.passRequirement(player, this.sensor13Condition2) &&
+                    this.passRequirement(player, this.sensor13Condition3)) {
                     value = player.brain.sensorResponse(13);
                     if (value !== dsector.DSecBrain.TANK && value !== dsector.DSecBrain.JEWEL) {
                         if (value === dsector.DSecBrain.WALL) {
@@ -6708,7 +2201,10 @@
             }
             if (time - this.timeOfLastSensor14Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.sensor14Period)) {
                 this.timeOfLastSensor14Tick = time;
-                if (this.acceptProbability(this.sensor14Probability) && this.passRequirement(player, this.sensor14Condition1) && this.passRequirement(player, this.sensor14Condition2) && this.passRequirement(player, this.sensor14Condition3)) {
+                if (this.acceptProbability(this.sensor14Probability) &&
+                    this.passRequirement(player, this.sensor14Condition1) &&
+                    this.passRequirement(player, this.sensor14Condition2) &&
+                    this.passRequirement(player, this.sensor14Condition3)) {
                     value = player.brain.sensorResponse(14);
                     if (value !== dsector.DSecBrain.TANK && value !== dsector.DSecBrain.JEWEL) {
                         if (value === dsector.DSecBrain.WALL) {
@@ -6729,7 +2225,10 @@
             }
             if (time - this.timeOfLastSensor15Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.sensor15Period)) {
                 this.timeOfLastSensor15Tick = time;
-                if (this.acceptProbability(this.sensor15Probability) && this.passRequirement(player, this.sensor15Condition1) && this.passRequirement(player, this.sensor15Condition2) && this.passRequirement(player, this.sensor15Condition3)) {
+                if (this.acceptProbability(this.sensor15Probability) &&
+                    this.passRequirement(player, this.sensor15Condition1) &&
+                    this.passRequirement(player, this.sensor15Condition2) &&
+                    this.passRequirement(player, this.sensor15Condition3)) {
                     value = player.brain.sensorResponse(15);
                     if (value !== dsector.DSecBrain.TANK && value !== dsector.DSecBrain.JEWEL) {
                         if (value === dsector.DSecBrain.WALL) {
@@ -6750,7 +2249,10 @@
             }
             if (time - this.timeOfLastSensor16Tick >= (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.sensor16Period)) {
                 this.timeOfLastSensor16Tick = time;
-                if (this.acceptProbability(this.sensor16Probability) && this.passRequirement(player, this.sensor16Condition1) && this.passRequirement(player, this.sensor16Condition2) && this.passRequirement(player, this.sensor16Condition3)) {
+                if (this.acceptProbability(this.sensor16Probability) &&
+                    this.passRequirement(player, this.sensor16Condition1) &&
+                    this.passRequirement(player, this.sensor16Condition2) &&
+                    this.passRequirement(player, this.sensor16Condition3)) {
                     value = player.brain.sensorResponse(16);
                     if (value !== dsector.DSecBrain.TANK && value !== dsector.DSecBrain.JEWEL) {
                         if (value === dsector.DSecBrain.WALL) {
@@ -6773,8 +2275,9 @@
 
         /**
          * Returns true if the given probability is accepted.
-         * @param number
-         * @returns {boolean}
+         *
+         * @param {number} number - The probability to check (0-100).
+         * @returns {boolean} - True if the probability is accepted.
          */
         acceptProbability(number) {
             return ((Math.random() * 100.0) | 0) < number;
@@ -6782,6 +2285,7 @@
 
         /**
          * Checks if the player meets the specified requirement for the given mode.
+         *
          * @param player {DSecPlayer} The player to check.
          * @param mode {number} The mode to check.
          * @private
@@ -6920,8 +2424,9 @@
 
         /**
          * Perform the action specified by the state.
-         * @param {DSecPlayer} player
-         * @param {number} state
+         *
+         * @param {dsector.DSecPlayer} player - The player firing the weapon.
+         * @param {number} state - The state to perform the action for.
          * @private
          */
         performAction(player, state) {
@@ -7081,7 +2586,8 @@
 
         /**
          * Fires the weapon according to the first favourite strategy.
-         * @param player
+         *
+         * @param {dsector.DSecPlayer} player - The player firing the weapon.
          */
         fireWeaponStrategy1(player) {
             let strat = RobotSpecification.UNDEFINED;
@@ -7113,7 +2619,8 @@
 
         /**
          * Fires the weapon according to the second favourite strategy.
-         * @param player
+         *
+         * @param {dsector.DSecPlayer} player - The player firing the weapon.
          */
         fireWeaponStrategy2(player) {
             let strat = RobotSpecification.UNDEFINED;
@@ -7145,7 +2652,8 @@
 
         /**
          * Fires the weapon according to the third favourite strategy.
-         * @param player
+         *
+         * @param {dsector.DSecPlayer} player - The player firing the weapon.
          */
         fireWeaponStrategy3(player) {
             let strategy = RobotSpecification.UNDEFINED;
@@ -7177,7 +2685,8 @@
 
         /**
          * Fires the weapon according to the fourth favourite strategy.
-         * @param player
+         *
+         * @param {dsector.DSecPlayer} player - The player firing the weapon.
          */
         fireWeaponStrategy4(player) {
             let strategy = RobotSpecification.UNDEFINED;
@@ -7209,7 +2718,8 @@
 
         /**
          * Fires the weapon according to the fifth favourite strategy.
-         * @param player
+         *
+         * @param {dsector.DSecPlayer} player - The player firing the weapon.
          */
         fireWeaponStrategy5(player) {
             let strategy = RobotSpecification.UNDEFINED;
@@ -7241,7 +2751,8 @@
 
         /**
          * Fires the weapon according to the sixth favourite strategy.
-         * @param player
+         *
+         * @param {dsector.DSecPlayer} player - The player firing the weapon.
          */
         fireWeaponStrategy6(player) {
             let s = RobotSpecification.UNDEFINED;
@@ -7273,7 +2784,7 @@
 
         /**
          * Fires the weapon according to the seventh favourite strategy.
-         * @param player
+         * @param {dsector.DSecPlayer} player - The player firing the weapon.
          */
         fireWeaponStrategy7(player) {
             let s = RobotSpecification.UNDEFINED;
@@ -7305,7 +2816,8 @@
 
         /**
          * Fires the weapon according to the eighth favourite strategy.
-         * @param player
+         *
+         * @param {dsector.DSecPlayer} player - The player firing the weapon.
          */
         fireWeaponStrategy8(player) {
             let s = RobotSpecification.UNDEFINED;

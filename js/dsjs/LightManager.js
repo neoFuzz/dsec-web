@@ -1,14 +1,34 @@
-/* re-written from Java */
 (function (dsector) {
     /**
      * Manages lighting for a 3D scene.
+     *
+     * @property {dsector.Scene} scene - The 3D scene to manage lighting for.
+     * @property {number} ambientRed - The red component of the ambient light.
+     * @property {number} ambientGreen - The green component of the ambient light.
+     * @property {number} ambientBlue - The blue component of the ambient light.
+     * @property {Float32Array} lightCameraSpaceX - The x-coordinate of the light in camera space.
+     * @property {Float32Array} lightCameraSpaceY - The y-coordinate of the light in camera space.
+     * @property {Float32Array} lightCameraSpaceZ - The z-coordinate of the light in camera space.
+     * @property {Float32Array} lightRed - The red component of the light.
+     * @property {Float32Array} lightGreen - The green component of the light.
+     * @property {Float32Array} lightBlue - The blue component of the light.
+     * @property {number} numberOfLightsInRenderingScene - The number of lights in the rendering scene.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class LightManager {
         /**
-         * Creates a new LightManager instance.
-         * @param {Object} scene - The 3D scene to manage lighting for.
+         * Creates a new LightManager instance and initializes the lighting properties for the scene.
+         *
+         * @param {dsector.Scene} scene - The 3D scene to manage lighting for.
          */
         constructor(scene) {
             this.scene = scene;
@@ -29,13 +49,16 @@
          * This method calculates the positions and colors of lights in camera space.
          */
         prepareLightsForRendering() {
-            const maxLights = 50; // Set the maximum number of lights to render
-            const arrayList = [];
+            const maxLights = 50;
+            const lights = [];
             const inverse = this.scene.cameraRotation.inverse();
-            const vertex = new dsector.Vertex(0.0, 0.0, 0.0);
+            const cameraPos = {
+                x: this.scene.cameraX,
+                y: this.scene.cameraY,
+                z: this.scene.cameraZ
+            };
 
-            let i;
-            for (i = 0; i < this.scene.__positionedModels.size; ++i) {
+            for (let i = 0; i < this.scene.__positionedModels.size; ++i) {
                 const positionedModel = this.scene.positionedModels()[i];
                 const polygonIterator = new dsector.PolygonIterator(positionedModel.model3DMatrix,
                     dsector.PolygonIterator.ALL_POLYGON_GROUPS);
@@ -49,43 +72,57 @@
                     for (let j = 0; j < modelFolder.inbuiltLights.length; ++j) {
                         const inbuiltLight = modelFolder.inbuiltLights[j];
                         if (inbuiltLight.on()) {
-                            const vertex1 = new dsector.Vertex(
-                                inbuiltLight.x(), inbuiltLight.y(), inbuiltLight.z());
-                            vertex1.transform(positionedModel.rotation);
-                            vertex.x = Math.fround((positionedModel.x - this.scene.cameraX));
-                            vertex.y = Math.fround((positionedModel.y - this.scene.cameraY));
-                            vertex.z = Math.fround((positionedModel.z - this.scene.cameraZ));
-                            vertex1.x += vertex.x;
-                            vertex1.y += vertex.y;
-                            vertex1.z += vertex.z;
-                            vertex1.transform(inverse);
-
-                            arrayList.push(new dsector.InbuiltLight(null, null, true,
-                                vertex1.x, vertex1.y, vertex1.z,
+                            const lightPos = this.transformLightPosition(inbuiltLight, positionedModel, cameraPos, inverse);
+                            lights.push(new dsector.InbuiltLight(null, null, true,
+                                lightPos.x, lightPos.y, lightPos.z,
                                 inbuiltLight.red(), inbuiltLight.green(), inbuiltLight.blue()
                             ));
+
+                            if (lights.length >= maxLights) {
+                                break;
+                            }
                         }
                     }
+
+                    if (lights.length >= maxLights) {
+                        break;
+                    }
+                }
+
+                if (lights.length >= maxLights) {
+                    break;
                 }
             }
 
-            this.numberOfLightsInRenderingScene = Math.min(arrayList.length, maxLights);
-            this.lightCameraSpaceX = new Array(this.numberOfLightsInRenderingScene).fill(0);
-            this.lightCameraSpaceY = new Array(this.numberOfLightsInRenderingScene).fill(0);
-            this.lightCameraSpaceZ = new Array(this.numberOfLightsInRenderingScene).fill(0);
-            this.lightRed = new Array(this.numberOfLightsInRenderingScene).fill(0);
-            this.lightGreen = new Array(this.numberOfLightsInRenderingScene).fill(0);
-            this.lightBlue = new Array(this.numberOfLightsInRenderingScene).fill(0);
+            this.numberOfLightsInRenderingScene = lights.length;
+            this.lightCameraSpaceX = new Float32Array(this.numberOfLightsInRenderingScene);
+            this.lightCameraSpaceY = new Float32Array(this.numberOfLightsInRenderingScene);
+            this.lightCameraSpaceZ = new Float32Array(this.numberOfLightsInRenderingScene);
+            this.lightRed = new Float32Array(this.numberOfLightsInRenderingScene);
+            this.lightGreen = new Float32Array(this.numberOfLightsInRenderingScene);
+            this.lightBlue = new Float32Array(this.numberOfLightsInRenderingScene);
 
-            for (i = 0; i < this.numberOfLightsInRenderingScene; ++i) {
-                const inbuiltLight = arrayList[i];
-                this.lightCameraSpaceX[i] = inbuiltLight.x();
-                this.lightCameraSpaceY[i] = inbuiltLight.y();
-                this.lightCameraSpaceZ[i] = inbuiltLight.z();
-                this.lightRed[i] = inbuiltLight.red();
-                this.lightGreen[i] = inbuiltLight.green();
-                this.lightBlue[i] = inbuiltLight.blue();
+            for (let i = 0; i < this.numberOfLightsInRenderingScene; i++) {
+                const light = lights[i];
+                this.lightCameraSpaceX[i] = light.x();
+                this.lightCameraSpaceY[i] = light.y();
+                this.lightCameraSpaceZ[i] = light.z();
+                this.lightRed[i] = light.red();
+                this.lightGreen[i] = light.green();
+                this.lightBlue[i] = light.blue();
             }
+        }
+
+        transformLightPosition(inbuiltLight, positionedModel, cameraPos, inverse) {
+            const vertex = new dsector.Vertex(
+                inbuiltLight.x(), inbuiltLight.y(), inbuiltLight.z()
+            );
+            vertex.transform(positionedModel.rotation);
+            vertex.x += Math.fround(positionedModel.x - cameraPos.x);
+            vertex.y += Math.fround(positionedModel.y - cameraPos.y);
+            vertex.z += Math.fround(positionedModel.z - cameraPos.z);
+            vertex.transform(inverse);
+            return vertex;
         }
     }
 

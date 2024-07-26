@@ -1,14 +1,35 @@
-/* Re-written from java */
 (function (dsector) {
     /**
      * Renderer class responsible for rendering graphical elements.
+     *
+     * @property {number} __renderingMode - The rendering mode of the renderer.
+     * @property {boolean} detailSensitiveRendering - Indicates whether detail-sensitive rendering is enabled or not.
+     * @property {CWWindowCollection} mainGUI - The main graphical user interface.
+     * @property {CWGraphics} starfield - The starfield graphic.
+     * @property {number} numberOfStars - The number of stars in the starfield.
+     * @property {number[]} zBuffer - The z-buffer for depth sorting.
+     * @property {number[]} scale - The scale factors for rendering.
+     * @property {number[]} offsetX - The offset values for the x-axis.
+     * @property {number[]} offsetY - The offset values for the y-axis.
+     * @property {CWGraphics} __tinyLensFlare - The tiny lens flare graphic.
+     * @property {CWGraphics} __smallLensFlare - The small lens flare graphic.
+     * @property {CWGraphics} __mediumLensFlare - The medium lens flare graphic.
+     * @property {CWGraphics} __largeLensFlare - The large lens flare graphic.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class Renderer {
         /**
          * Constructor for the Renderer class.
-         * @constructor
+         *
          * @param {CWWindowCollection} mainGUI - The main graphical user interface.
          */
         constructor(mainGUI) {

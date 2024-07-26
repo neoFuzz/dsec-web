@@ -1,89 +1,146 @@
-/**/
 (function (dsector) {
     /**
+     * Represents a missile fired by a player in the game.
+     *
+     * @property {DSecPlayer} owner the player who launched the missile
+     * @property {WeaponSpecification} weaponSpecification the specification of the weapon used to launch the missile
+     * @property {number} x the x-coordinate of the missile
+     * @property {number} y the y-coordinate of the missile
+     * @property {number} angle the angle of the missile
+     * @property {number} fixedTurnRate the fixed turn rate of the missile
+     * @property {number} damage the damage of the missile
+     * @property {number} timeAtLaunchInMilliseconds the time at which the missile was launched in milliseconds
+     * @property {Sound} missileSound the sound of the missile
+     *
+     * @see      DSecPlayer
+     * @see      WeaponSpecification
+     *
+     * @example
+     * const player = new DSecPlayer();
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class DSecMissile {
         /**
-         * @param {DSecPlayer} player
-         * @param {WeaponSpecification} specification
+         * Constructor for DSecMissile.
+         *
+         * @param {DSecPlayer} player the player who launched the missile
+         * @param {WeaponSpecification} specification the specification of the weapon used to launch the missile
          */
         constructor(player, specification) {
-            if (this.owner === undefined) {
-                this.owner = null;
-            }
-            if (this.weaponSpecification === undefined) {
-                this.weaponSpecification = null;
-            }
-            if (this.x === undefined) {
-                this.x = 0;
-            }
-            if (this.y === undefined) {
-                this.y = 0;
-            }
-            if (this.angle === undefined) {
-                this.angle = 0;
-            }
-            if (this.fixedTurnRate === undefined) {
-                this.fixedTurnRate = 0;
-            }
-            if (this.damage === undefined) {
-                this.damage = 0;
-            }
-            if (this.timeAtLaunchInMilliseconds === undefined) {
-                this.timeAtLaunchInMilliseconds = 0;
-            }
-            if (this.missileSound === undefined) {
-                this.missileSound = null;
-            }
-            this.weaponSpecification = specification;
             this.owner = player;
-            this.timeAtLaunchInMilliseconds = CWSYSTEM.Environment.currentTime();
+            this.weaponSpecification = specification;
             this.x = player.getX();
             this.y = player.getY();
+            this.timeAtLaunchInMilliseconds = CWSYSTEM.Environment.currentTime();
+
+            // Default values for other properties
+            this.angle = 0;
+            this.fixedTurnRate = 0;
+            this.damage = 0;
+            this.missileSound = null;
         }
 
+        /**
+         * Gets the x-coordinate of the missile.
+         * @return {number} the x-coordinate of the missile
+         */
         getX() {
             return this.x;
         }
 
+        /**
+         * Sets the x-coordinate of the missile.
+         *
+         * @param {number} x the x-coordinate of the missile
+         */
         setX(x) {
             this.x = x;
         }
 
+        /**
+         * Gets the y-coordinate of the missile.
+         *
+         * @return {number} the y-coordinate of the missile
+         */
         getY() {
             return this.y;
         }
 
+        /**
+         * Sets the y-coordinate of the missile.
+         *
+         * @param {number} y the y-coordinate of the missile
+         */
         setY(y) {
             this.y = y;
         }
 
+        /**
+         * Gets the damage of the missile.
+         *
+         * @return {number} the damage of the missile
+         */
         getDamage() {
             return this.damage;
         }
 
+        /**
+         * Sets the damage of the missile.
+         *
+         * @param {number} damage the damage of the missile
+         */
         setDamage(damage) {
             this.damage = damage;
         }
 
+        /**
+         * Gets the angle of the missile.
+         * @return {number} the angle of the missile
+         */
         getAngle() {
             return this.angle;
         }
 
+        /**
+         * Sets the angle of the missile.
+         *
+         * @param {number} angle the angle of the missile
+         */
         setAngle(angle) {
             this.angle = angle;
         }
 
+        /**
+         * Gets the fixed turn rate of the missile.
+         * @return {number} the fixed turn rate of the missile
+         */
         getFixedTurnRate() {
             return this.fixedTurnRate;
         }
 
+        /**
+         * Sets the fixed turn rate of the missile.
+         *
+         * @param {number} turnRate the fixed turn rate of the missile
+         */
         setFixedTurnRate(turnRate) {
             this.fixedTurnRate = turnRate;
         }
 
+        /**
+         * Destroys the missile without creating a small blast effect.
+         *
+         * @return {boolean} true if the missile was successfully destroyed, false otherwise
+         */
         destroyWithoutExplosion() {
             (a => {
                 let index = a.indexOf(this);
@@ -96,6 +153,12 @@
             })(dsector.DSReference.dsecMissileManager.missiles);
         }
 
+        /**
+         * Destroys the missile and creates a small blast effect.
+         *
+         * @see DSecFadingLight
+         * @see PreBuiltWeaponSpecifications
+         */
         destroy() {
             const sm = dsector.DSReference.dsecSetupWindow.soundMode;
             if (this.missileSound != null) {
@@ -145,6 +208,11 @@
             }
         }
 
+        /**
+         * Checks if the missile is striking an object.
+         *
+         * @return {boolean} true if the missile is striking an object, false otherwise
+         */
         isStrikingAnObject() {
             const positionedModel = this.constructPositionedModel();
             let positionedModel1;
@@ -178,27 +246,53 @@
             return false;
         }
 
+        /**
+         * Strikes the given player with the missile.
+         *
+         * @param {DSecPlayer} player the player to strike
+         */
         strikePlayer(player) {
             player.takeDamage(this);
         }
 
+        /**
+         * Constructs a positioned model for the missile.
+         *
+         * @return {dsector.PositionedModel} the positioned model for the missile
+         */
         constructPositionedModel() {
             return new dsector.PositionedModel(null, dsector.DSReference.modelLoader.getModel(
                 this.weaponSpecification.modelName), this.orientationAsMatrix(), this.x, this.y, 0.0);
         }
 
+        /**
+         * Returns the orientation of the missile as a matrix.
+         *
+         * @return {dsector.Matrix4f} the orientation of the missile as a matrix
+         * @private
+         */
         orientationAsMatrix() {
             const matrix4f = new dsector.Matrix4f();
             matrix4f.rotateZ(-this.angle);
             return matrix4f;
         }
 
+        /**
+         * Checks if the missile has timed out.
+         *
+         * @return {boolean} true if the missile has timed out, false otherwise
+         * @private
+         */
         timedOut() {
             const launchTime = CWSYSTEM.Environment.currentTime() - this.timeAtLaunchInMilliseconds;
             return launchTime > (n => n < 0 ? Math.ceil(n) : Math.floor(n))(this.weaponSpecification.lifeSpanInMilliseconds);
         }
 
-        /** @private */
+        /**
+         * Checks if the missile is far from the camera.
+         *
+         * @private
+         */
         missileFarFromCamera() {
             const distance = Math.sqrt(Math.pow(this.x - dsector.DSReference.scene.cameraX, 2.0) +
                 Math.pow(this.y - dsector.DSReference.scene.cameraY, 2.0));

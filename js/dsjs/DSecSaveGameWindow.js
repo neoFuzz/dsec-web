@@ -1,19 +1,42 @@
-/* Re-written from Java */
 (function (dsector) {
     /**
+     * This class represents the save game window
+     *
+     * @property {string} selectedFilename - The selected filename
+     * @property {number} savedX - The saved x coordinate
+     * @property {number} savedY - The saved y coordinate
+     * @property {Window} window - The window
+     *
+     *
+     * @example
+     * let saveGameWindow = new dsector.DSecSaveGameWindow();
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     * @requires CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class DSecSaveGameWindow {
+        /**
+         * Constructor for DSecSaveGameWindow.
+         */
         constructor() {
-            if (this.window === undefined) {
-                this.window = null;
-            }
+            this.window = null;
             this.selectedFilename = null;
             this.savedX = -1;
             this.savedY = -1;
         }
 
+        /**
+         * Save the game.
+         * @param {string} filename - The filename to save the game as.
+         */
         static saveGame(filename) {
             if (dsector.DSReference.dsecGame != null) {
                 let content = "";
@@ -86,10 +109,18 @@
             }
         }
 
+        /**
+         *  Checks if the window is created.
+         * @public
+         * @returns {boolean} Returns true if the window is created.
+         */
         isCreated() {
             return this.window != null;
         }
 
+        /**
+         * Toggles the created state of the window.
+         */
         toggleCreated() {
             if (this.isCreated()) {
                 this.destroy();
@@ -98,12 +129,18 @@
             }
         }
 
+        /**
+         * Creates the window.
+         */
         create() {
             dsector.DSReference.dsecLoadGameWindow.destroy();
             this.drawWindow();
             this.restorePosition();
         }
 
+        /**
+         * Destroys the window.
+         */
         destroy() {
             if (this.window != null) {
                 this.savedX = this.window.xPosition;
@@ -113,6 +150,9 @@
             }
         }
 
+        /**
+         * Updates the window.
+         */
         update() {
             if (this.isCreated()) {
                 this.drawWindow();
@@ -122,8 +162,11 @@
             }
         }
 
-        /** Restores the window to its saved postion
-         *  @private */
+        /**
+         * Restores the window to its saved position.
+         *
+         * @private
+         */
         restorePosition() {
             if (this.savedX !== -1) {
                 this.window.xPosition = this.savedX;
@@ -133,6 +176,9 @@
             }
         }
 
+        /**
+         * Draws the window.
+         */
         drawWindow() {
             let x = 25;
             let y = 25;
@@ -157,10 +203,18 @@
             button.buttonPressedMethodName = "cancelButtonPressed";
         }
 
+        /**
+         * Cancel button pressed.
+         *
+         * @param {CWSYSTEM.CWButton} button - The button.
+         */
         cancelButtonPressed(button) {
             this.destroy();
         }
 
+        /**
+         * Save button pressed action.
+         */
         saveButtonPressed() {
             let filename = this.window.getTextArea("filename").getText();
             filename = filename.trim();

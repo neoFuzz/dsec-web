@@ -1,15 +1,29 @@
-/**/
 (function (dsector) {
     /**
      * Represents a polygon group in a 3D space
+     *
+     * @property {number} id - The unique identifier of the polygon group
+     * @property {dsector.Matrix4f} transformationMatrix - The transformation matrix of the polygon group
+     * @property {dsector.PolygonGroup} parentPolygonGroup - The parent polygon group
+     * @property {string} name - The name of the representation
+     * @property {boolean} visiblity - The visibility of the representation
+     * @property {boolean} active - The activity state of the representation
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class PolygonGroupRepresentation {
         /**
          * Creates an instance of PolygonGroupRepresentation
          * @constructor
-         * @param {PolygonGroup} polygonGroup - The parent polygon group
+         * @param {dsector.PolygonGroup} polygonGroup - The parent polygon group
          * @param {string} name - The name of the representation
          * @param {boolean} visible - The visibility of the representation
          * @param {number} e00 - Element of the transformation matrix
@@ -31,27 +45,9 @@
          */
         constructor(polygonGroup, name, visible, e00, e10, e20, e30, e01,
                     e11, e21, e31, e02, e12, e22, e32, e03, e13, e23, e33) {
-            if (this.parentPolygonGroup === undefined) {
-                this.parentPolygonGroup = null;
-            }
-            if (this.name === undefined) {
-                this.name = null;
-            }
-            if (this.id === undefined) {
-                this.id = 0;
-            }
-            if (this.visibility === undefined) {
-                this.visibility = false;
-            }
-            if (this.transformationMatrix === undefined) {
-                this.transformationMatrix = null;
-            }
-            if (this.active === undefined) {
-                this.active = false;
-            }
-            this.parentPolygonGroup = polygonGroup;
+            this.parentPolygonGroup = polygonGroup || null;
             this.id = dsector.NumberTools.randomLong();
-            this.name = name;
+            this.name = name || null;
             this.visibility = visible;
             this.transformationMatrix = new dsector.Matrix4f(e00, e10, e20, e30, e01, e11,
                 e21, e31, e02, e12, e22, e32, e03, e13, e23, e33);
@@ -60,8 +56,9 @@
 
         /**
          * Retrieves all polygon group representations from a given matrix
+         *
          * @static
-         * @param {Model3DMatrix} matrix - The matrix to search for polygon groups
+         * @param {dsector.Model3DMatrix} matrix - The matrix to search for polygon groups
          * @returns {Array} An array of all polygon group representations
          */
         static allPolygonGroupRepresentations(matrix) {
@@ -87,6 +84,7 @@
 
         /**
          * Checks if active representations have at least one direct representation
+         *
          * @static
          * @returns {boolean} True if there's at least one active direct representation, false otherwise
          */
@@ -107,6 +105,7 @@
 
         /**
          * Checks if this representation is a direct representation
+         *
          * @returns {boolean} True if it's a direct representation, false otherwise
          */
         isDirectRepresentation() {
@@ -115,6 +114,7 @@
 
         /**
          * Checks if this representation is visible
+         *
          * @returns {boolean} True if the representation is visible, false otherwise
          */
         visible() {

@@ -1,9 +1,20 @@
-/**/
 (function (dsector) {
     /**
      * Main class for the D-Sector application. Initializes the game, sets up event listeners, and contains the main game loop.
+     *
+     * @property {UserIOBuffer} userIOBuffer - Handles user input and output.
+     * @property {number} interval - The ID of the main loop interval.
+     * @property {boolean} discordEnabled - Indicates whether Discord integration is enabled.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class DSMain {
         /**
@@ -66,7 +77,9 @@
             }
         }
 
-        /** Main function from desktop app. Used to run the game and must be set up on the hosting HTML page */
+        /**
+         * Main function from desktop app. Used to run the game and must be set up on the hosting HTML page
+         */
         main() {
             dsMain.begin();
             dsMain.interval = setInterval(dsMain.loop, 33);// timeout controls the max framerate

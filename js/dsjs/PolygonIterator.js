@@ -1,13 +1,39 @@
-/**/
 (function (dsector) {
     /**
-     * @classdesc Iterates over polygons, polygon groups, and model folders in a 3D model matrix.
+     * Iterates over polygons, polygon groups, and model folders in a 3D model matrix.
+     *
+     * @property {Model3DMatrix} model3DMatrix - The 3D model matrix to iterate over.
+     * @property {number} selectionCriteria - The selection criteria for polygon groups.
+     * @property {number} __numberOfPolygons - The total number of polygons in the model.
+     * @property {Array} modelFolders - The linear list of model folders to iterate over.
+     * @property {number} modelFolderIterator - The iterator for the current model folder.
+     * @property {number} polygonGroupIterator - The iterator for the current polygon group.
+     * @property {number} polygonIterator - The iterator for the current polygon.
+     * @property {number} vertexIterator - The iterator for the current vertex.
+     * @property {boolean} finished - Indicates if all polygons have been iterated over.
+     * @property {ModelFolder} __lastFetchedModelFolder - The last fetched model folder.
+     * @property {PolygonGroup} __lastFetchedPolygonGroup - The last fetched polygon group.
+     * @property {Polygon} __lastFetchedPolygon - The last fetched polygon.
+     * @property {Vertex} __lastFetchedVertex - The last fetched vertex.
+     *
+     * @constant {number} ACTIVE_POLYGON_GROUPS - Selects only active polygon groups.
+     * @constant {number} VISIBLE_POLYGON_GROUPS - Selects only visible polygon groups.
+     * @constant {number} ALL_POLYGON_GROUPS - Selects all polygon groups.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class PolygonIterator {
         /**
-         * @constructor
+         * Constructs a new PolygonIterator instance with the specified 3D model matrix and selection criteria.
+         *
          * @param {Model3DMatrix} m3dm - The 3D model matrix to iterate over.
          * @param {number} sel - The selection criteria for polygon groups.
          */
@@ -46,8 +72,9 @@
         }
 
         /**
+         * Checks if a polygon group matches the selection criteria.
+         *
          * @private
-         * @method polygonGroupMatchesCriteria
          * @param {PolygonGroup} pg - The polygon group to check.
          * @returns {boolean} True if the polygon group matches the selection criteria, false otherwise.
          */
@@ -60,10 +87,9 @@
         }
 
         /**
-         * @private
-         * @method addModelFoldersFromParentFolder
-         * @param {ModelFolder} folder - The parent folder to add model folders from.
          * @description Recursively adds model folders from the parent folder to the linear list.
+         * @private
+         * @param {ModelFolder} folder - The parent folder to add model folders from.
          */
         addModelFoldersFromParentFolder(folder) {
             let i;
@@ -81,9 +107,8 @@
         }
 
         /**
-         * @method nextVertex
-         * @returns {Vertex|null} The next vertex in the iteration, or null if finished.
          * @description Moves to the next vertex in the iteration.
+         * @returns {Vertex|null} The next vertex in the iteration, or null if finished.
          */
         nextVertex() {
             if (this.finished) {
@@ -140,9 +165,8 @@
         }
 
         /**
-         * @method nextPolygon
-         * @returns {Polygon|null} The next polygon in the iteration, or null if finished.
          * @description Moves to the next polygon in the iteration.
+         * @returns {Polygon|null} The next polygon in the iteration, or null if finished.
          */
         nextPolygon() {
             if (this.finished) {
@@ -182,9 +206,8 @@
         }
 
         /**
-         * @method nextPolygonGroup
-         * @returns {PolygonGroup|null} The next polygon group in the iteration, or null if finished.
          * @description Moves to the next polygon group in the iteration.
+         * @returns {PolygonGroup|null} The next polygon group in the iteration, or null if finished.
          */
         nextPolygonGroup() {
             if (this.finished) {
@@ -213,9 +236,8 @@
         }
 
         /**
-         * @method nextModelFolder
-         * @returns {ModelFolder|null} The next model folder in the iteration, or null if finished.
          * @description Moves to the next model folder in the iteration.
+         * @returns {ModelFolder|null} The next model folder in the iteration, or null if finished
          */
         nextModelFolder() {
             if (this.finished) {
@@ -234,7 +256,7 @@
         }
 
         /**
-         * @method lastFetchedModelFolder
+         * @description Returns the last fetched model folder.
          * @returns {ModelFolder} The last fetched model folder.
          */
         lastFetchedModelFolder() {
@@ -242,7 +264,7 @@
         }
 
         /**
-         * @method lastFetchedPolygonGroup
+         * @description  Returns the last fetched polygon group.
          * @returns {PolygonGroup} The last fetched polygon group.
          */
         lastFetchedPolygonGroup() {
@@ -250,7 +272,7 @@
         }
 
         /**
-         * @method lastFetchedPolygon
+         * @description  Returns the last fetched polygon.
          * @returns {Polygon} The last fetched polygon.
          */
         lastFetchedPolygon() {
@@ -258,7 +280,7 @@
         }
 
         /**
-         * @method lastFetchedVertex
+         * @description  Returns the last fetched vertex.
          * @returns {Vertex} The last fetched vertex.
          */
         lastFetchedVertex() {
@@ -266,7 +288,7 @@
         }
 
         /**
-         * @method numberOfPolygons
+         * @description Returns the total number of polygons in the iteration.
          * @returns {number} The total number of polygons in the iteration.
          */
         numberOfPolygons() {

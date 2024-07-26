@@ -1,8 +1,23 @@
-/* Re-written from Java */
 (function (dsector) {
     /**
+     * Class for the shopping screen.
+     *
+     * @property {CWSYSTEM.CWWindow} window
+     * @property {dsector.DSecPlayer} currentShopper
+     * @property {dsector.MP3} controlRoomSound
+     * @property {boolean} controlRoomSoundPlaying
+     * @property {number} savedX
+     * @property {number} savedY
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class DSecShoppingScreen {
         constructor() {
@@ -18,7 +33,12 @@
             this.savedY = -1;
         }
 
-        static portDescription_$LI$() {
+        /**
+         * Build a list of port descriptions.
+         *
+         * @private
+         */
+        static __portDescription() {
             if (DSecShoppingScreen.portDescription == null) {
                 DSecShoppingScreen.portDescription = ["Missile fire", "Laser Fire", "Alternative Fire",
                     "Advanced Weaponry", "Aggressive Defense", "Defense"];
@@ -26,6 +46,9 @@
             return DSecShoppingScreen.portDescription;
         }
 
+        /**
+         * Start the shopping sequence.
+         */
         startShoppingSequence() {
             this.calculateSpecials();
             this.shopForRobots();
@@ -41,11 +64,22 @@
             }
         }
 
+        /**
+         * Get the first human player.
+         *
+         * @returns {dsector.DSecPlayer} The first human player, or null if none found.
+         */
         getFirstHumanPlayer() {
             return this.getNextPlayerAfterIndex(-1);
         }
 
-        /** @private */
+        /**
+         * Get the next player after the given index.
+         *
+         * @private
+         * @param {number} index - The index to start searching from.
+         * @returns {dsector.DSecPlayer|null} The next human player, or null if none found.
+         */
         getNextPlayerAfterIndex(index) {
             for (let i = index + 1; i < dsector.DSReference.dsecGame.numberOfPlayers(); ++i) {
                 const player = dsector.DSReference.dsecGame.getPlayer(i + 1);
@@ -56,6 +90,11 @@
             return null;
         }
 
+        /**
+         * Get the next player after the current shopper.
+         *
+         * @returns {dsector.DSecPlayer|null} The next human player, or null if none found.
+         */
         getNextPlayer() {
             if (this.currentShopper != null) {
                 for (let i = 0; i < dsector.DSReference.dsecGame.numberOfPlayers(); ++i) {
@@ -68,6 +107,9 @@
             return null;
         }
 
+        /**
+         * Shop for robots.
+         */
         shopForRobots() {
             for (let i = 0; i < dsector.DSReference.dsecGame.numberOfPlayers(); ++i) {
                 const player = dsector.DSReference.dsecGame.getPlayer(i + 1);
@@ -77,10 +119,19 @@
             }
         }
 
+        /**
+         * Check if the shopping screen is created.
+         *
+         * @public
+         * @returns {boolean} True if the shopping screen is created, false otherwise.
+         */
         isCreated() {
             return this.window != null;
         }
 
+        /**
+         * Toggle the shopping screen.
+         */
         toggleCreated() {
             if (this.isCreated()) {
                 this.destroy();
@@ -89,6 +140,9 @@
             }
         }
 
+        /**
+         * Create the shopping screen.
+         */
         create() {
             dsector.DSReference.virtualScreen.setBackgroundImage("assets/images/shopping.jpg");
             dsector.DSReference.dsecMainSetupWindow.destroy();
@@ -101,6 +155,9 @@
             }
         }
 
+        /**
+         * Destroy the shopping screen.
+         */
         destroy() {
             if (this.window != null) {
                 this.savedX = this.window.xPosition;
@@ -112,13 +169,20 @@
             this.controlRoomSoundPlaying = false;
         }
 
+        /**
+         * Update the shopping screen.
+         */
         update() {
             if (this.isCreated()) {
                 this.drawWindow();
             }
         }
 
-        /** @private */
+        /**
+         * Restore the position of the shopping screen window.
+         *
+         * @private
+         */
         restorePosition() {
             if (this.savedX !== -1) {
                 this.window.xPosition = this.savedX;
@@ -128,6 +192,11 @@
             }
         }
 
+        /**
+         * Draw the shopping screen window.
+         *
+         * @private
+         */
         drawWindow() {
             if (this.currentShopper != null) {
                 let x = 25;
@@ -194,7 +263,7 @@
                                 wName1 = wSpec.fullName + ", " + this.currentShopper.getFireUnitsFromPortNumber(j) + " units";
                             }
                             this.window.addTextBlock("", "Port " + j + ", " +
-                                DSecShoppingScreen.portDescription_$LI$()[j - 1] + " : " + wName1,
+                                DSecShoppingScreen.__portDescription()[j - 1] + " : " + wName1,
                                 5 + margin, 25 + baseline, font, CWSYSTEM.CWColor.__white(), 999);
                         } else {
                             this.window.addTextBlock("", "Items", 5 + margin, 25 + baseline, font,
@@ -252,6 +321,11 @@
             }
         }
 
+        /**
+         * Handle the item purchase button press event.
+         *
+         * @param {CWSYSTEM.CWButton} button the button pressed
+         */
         itemPurchaseButtonPressed(button) {
             button = button[0];
             const specification = button.generalPurposeObject;
@@ -261,12 +335,22 @@
             this.create();
         }
 
+        /**
+         * Handle the item info button press event.
+         *
+         * @param {CWSYSTEM.CWButton} button the button pressed
+         */
         itemInfoButtonPressed(button) {
             button = button[0];
             dsector.DSReference.dsecItemDescriptionWindow.weaponSpecification = button.generalPurposeObject;
             dsector.DSReference.dsecItemDescriptionWindow.create();
         }
 
+        /**
+         * Handle the done button press event.
+         *
+         * @param {CWSYSTEM.CWButton} button the button pressed
+         */
         doneButtonPressed(button) {
             this.currentShopper = this.getNextPlayer();
             if (this.currentShopper != null) {
@@ -281,7 +365,13 @@
             }
         }
 
-        /** @private */
+        /**
+         * Check if the item is available for purchase.
+         *
+         * @private
+         * @param {dsector.PreBuiltWeaponSpecification} specification the specification to check
+         * @return {boolean} true if the item is available, false otherwise
+         */
         itemAvailable(specification) {
             switch (specification.specificationID) {
                 case dsector.PreBuiltWeaponSpecifications.LARGER_DEATH:
@@ -345,20 +435,40 @@
             return true;
         }
 
+        /**
+         * Abort the game.
+         *
+         * @param {CWSYSTEM.CWButton} button the button that was pressed
+         */
         abortGame(button) {
             this.destroy();
             dsector.DSReference.dsecMainSetupWindow.create();
         }
 
+        /**
+         * Load the game.
+         *
+         * @param {CWSYSTEM.CWButton} button the button that was pressed
+         */
         loadGame(button) {
             dsector.DSReference.dsecLoadGameWindow.create();
         }
 
+        /**
+         * Save the game.
+         *
+         * @param {CWSYSTEM.CWButton} button the button that was pressed
+         */
         saveGame(button) {
             dsector.DSReference.dsecSaveGameWindow.create();
         }
 
-        /** @private */
+        /**
+         * Calculate specials for this round of shopping.
+         *
+         * @return {dsector.DSecPlayer} the next player to shop
+         * @private
+         */
         calculateSpecials() {
             DSecShoppingScreen.itemsOnSpecial = ([]);
             if (Math.random() < 0.35) {
@@ -403,6 +513,10 @@
         }
     }
 
+    /**
+     * Array containing the items on special, if any.
+     * @type {Array}
+     */
     DSecShoppingScreen.itemsOnSpecial = null;
     dsector.DSecShoppingScreen = DSecShoppingScreen;
     DSecShoppingScreen["__class"] = "dsector.DSecShoppingScreen";

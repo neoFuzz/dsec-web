@@ -1,18 +1,35 @@
-/**/
 (function (dsector) {
     /**
-     * Represents a polygon group.
+     * A polygon group is a collection of polygons that belong to a parent folder and have various properties.
      *
-     * @classdesc A polygon group is a collection of polygons that belong to a parent folder and have various properties.
+     * @property {number} id - The unique identifier of the polygon group.
+     * @property {string} name - The name of the polygon group.
+     * @property {dsector.ModelLoader} __parentFolder - The name of the parent folder.
+     * @property {boolean} visibility - Indicates whether the polygon group is visible.
+     * @property {boolean} expanded - Indicates whether the polygon group is expanded.
+     * @property {Array<dsector.Polygon>} polygons - The list of polygons in the polygon group.
+     * @property {number} reflection - The type of reflection for the polygon group.
+     * @property {number} reflectedLightDirectionSensitivity - The sensitivity of the reflected light direction.
+     * @property {number} dispersedLightDirectionSensitivity - The sensitivity of the dispersed light direction.
+     * @property {dsector.PolygonGroupRepresentation} directRepresentation - The direct representation of the polygon group.
+     * @property {Array} transposedRepresentations - The list of transposed representations of the polygon group.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class PolygonGroup {
         /**
          * Creates an instance of a polygon group.
          *
          * @param {string} name - The name of the polygon group.
-         * @param {string} parentFolder - The name of the parent folder.
+         * @param {dsector.ModelFolder} parentFolder - The name of the parent folder.
          * @param {boolean} visible - Indicates whether the polygon group is visible.
          * @param {string} pgrName - The name of the polygon group representation.
          * @param {boolean} pgrVisible - Indicates whether the polygon group representation is visible.
@@ -114,7 +131,7 @@
         /**
          * Gets an array of active polygon groups.
          *
-         * @returns {Array} An array containing active polygon group objects.
+         * @returns {Array<dsector.PolygonGroup>} An array containing active polygon group objects.
          */
         static getActivePolygonGroups() {
             const polygonIterator = new dsector.PolygonIterator(dsector.DSReference.model3DMatrix,
@@ -130,8 +147,26 @@
         }
     }
 
+    /**
+     * The default reflection value for polygon groups.
+     * @static
+     * @type {number}
+     * @default 5
+     */
     PolygonGroup.defaultReflection = 5;
+    /**
+     * The default reflected light direction sensitivity for polygon groups.
+     * @static
+     * @type {number}
+     * @default 30
+     */
     PolygonGroup.defaultReflectedLightDirectionSensitivity = 30;
+    /**
+     * The default dispersed light direction sensitivity for polygon groups.
+     * @static
+     * @type {number}
+     * @default 10
+     */
     PolygonGroup.defaultDispersedLightDirectionSensitivity = 10;
     dsector.PolygonGroup = PolygonGroup;
     PolygonGroup["__class"] = "dsector.PolygonGroup";

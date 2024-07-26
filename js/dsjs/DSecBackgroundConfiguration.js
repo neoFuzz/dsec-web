@@ -91,7 +91,6 @@
                 case 6:
                 case 7: /* LONG_LINE_45_SHORT_LINE1 */
                 case 8: /* LONG_LINE_45_SHORT_LINE2 */
-                default:
                     return null;
                 case 9: /* SQUARE_LOOP1 */
                     return "assets/models/squareLoop1";
@@ -101,6 +100,8 @@
                     return "assets/models/squareLoop3";
                 case 12: /* LARGE_SPHERE */
                     return "assets/models/largeSphere";
+                default:
+                    return null;
             }
         }
 
@@ -162,9 +163,6 @@
          */
         usePresetConfiguration(mode) {
             switch (mode) {
-                case 0:
-                default:
-                    break;
                 case 1:
                     this.setNumberOfObjects(1, 100);
                     this.allow90DegreeRotations();
@@ -200,6 +198,10 @@
                 case 7:
                     this.setNumberOfObjects(12, 100);
                     this.allow90DegreeRotations();
+                    break;
+                case 0:
+                default:
+                    break;
             }
         }
 

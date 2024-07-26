@@ -174,19 +174,17 @@
             if (dsector.DSReference.dsecMainSetupWindow.playMode() !== dsector.DSecMainSetupWindow.HOSTILE) {
                 if (this.player.allEnemyTanksDestroyed()) {
                     this.setTargetAsEnemyJewel();
-                } else {
-                    if (this.targetType === DSecBrain.TANK) {
-                        const target = this.target;
-                        const targetJewel = this.player.distanceToEnemyJewel();
-                        const distToPlayer = this.player.distanceToPlayer(target);
-                        if (targetJewel < distToPlayer && (
-                            this.player.allEnemyTanksDestroyed() ||
-                            this.player.teamOfPlayer().totalTankStrengthOfTeam() < this.player.enemyTeamOfPlayer().totalTankStrengthOfTeam() ||
-                            this.player.isWeakestInTeamAndAtLeastOneOtherPlayerOfSameTeamAlive() ||
-                            this.enemyJewelCanProbablyBeDestroyedQuickly()
-                        )) {
-                            this.setTargetAsEnemyJewel();
-                        }
+                } else if (this.targetType === DSecBrain.TANK) {
+                    const target = this.target;
+                    const targetJewel = this.player.distanceToEnemyJewel();
+                    const distToPlayer = this.player.distanceToPlayer(target);
+                    if (targetJewel < distToPlayer && (
+                        this.player.allEnemyTanksDestroyed() ||
+                        this.player.teamOfPlayer().totalTankStrengthOfTeam() < this.player.enemyTeamOfPlayer().totalTankStrengthOfTeam() ||
+                        this.player.isWeakestInTeamAndAtLeastOneOtherPlayerOfSameTeamAlive() ||
+                        this.enemyJewelCanProbablyBeDestroyedQuickly()
+                    )) {
+                        this.setTargetAsEnemyJewel();
                     }
                 }
             }
@@ -300,12 +298,10 @@
             if (angle < 0.031415926535897934) {
                 this.resetAmountTurned();
                 this.player.acceptInstruction(dsector.DSecPlayer.STOP_TURNING);
+            } else if (amount === 1) {
+                this.turnRightForGivenRadians(angle);
             } else {
-                if (amount === 1) {
-                    this.turnRightForGivenRadians(angle);
-                } else {
-                    this.turnLeftForGivenRadians(angle);
-                }
+                this.turnLeftForGivenRadians(angle);
             }
         }
 
@@ -389,7 +385,7 @@
             }
             let polyCenter;
             if (dsector.DSReference.dsecMainSetupWindow.playMode() === dsector.DSecMainSetupWindow.TEAMS) {
-                round = dsector.DSReference.dsecGame.dsecRound;
+                //round = dsector.DSReference.dsecGame.dsecRound;
                 let model = this.player.enemyJewel().constructPositionedModel();
                 if (sensor.intersectsWith(model)) {
                     polyCenter = this.distanceBetweenPointAndPolygonCenter(this.player.getX(), this.player.getY(),
@@ -410,8 +406,7 @@
             } else {
                 let intersectingObject = null;
                 polyCenter = 3.4028235E38;
-                for (let j = 0; j < array1.length; ++j) {
-                    const intersObject = array1[j];
+                for (const intersObject of array1) {
                     if (intersObject.distance < polyCenter) {
                         intersectingObject = intersObject;
                         polyCenter = intersObject.distance;
@@ -623,7 +618,7 @@
                 const jewel = this.player.enemyJewel();
                 const dist1 = Math.sqrt(Math.pow(this.player.getX() - jewel.x, 2.0) +
                     Math.pow(this.player.getY() - jewel.y, 2.0));
-                return !(dist1 > range);
+                return dist1 <= range;
             }
             return true;
         }
@@ -714,12 +709,11 @@
          * @returns {boolean} True if an enemy missile is within the specified distance and damage threshold, false otherwise.
          */
         enemyMissileWithin(v, dmg) {
-            for (let i = 0; i < dsector.DSReference.dsecMissileManager.missiles.length; ++i) {
-                const missile = dsector.DSReference.dsecMissileManager.missiles[i];
+            for (const missile of dsector.DSReference.dsecMissileManager.missiles) {
                 if (missile.owner !== this.player &&
                     (dsector.DSReference.dsecMainSetupWindow.playMode() !== dsector.DSecMainSetupWindow.TEAMS ||
                         missile.owner == null || missile.owner.teamOfPlayer() !== this.player.teamOfPlayer()) &&
-                    !(missile.getDamage() < dmg)) {
+                    missile.getDamage() >= dmg) {
                     const ret = Math.sqrt(Math.pow(missile.getX() - this.player.getX(), 2.0) +
                         Math.pow(missile.getY() - this.player.getY(), 2.0));
                     if (ret < v) {
@@ -838,7 +832,6 @@
                 case 62:
                     return remainingRounds === 9;
                 case 63:
-                default:
                     return false;
                 case 64:
                     return remainingRounds === 15;
@@ -868,6 +861,8 @@
                     return this.player.getFireUnitsFromPortNumber(5) <= 100;
                 case 77:
                     return this.player.getFireUnitsFromPortNumber(6) <= 100;
+                default:
+                    return false;
             }
         }
 
@@ -905,72 +900,12 @@
                     break;
                 case 18:
                     this.attemptToPurchaseMostAffordableWeaponFromGivenWeaponStrategy(8);
+                    break;
                 case 19:
                 case 20:
-                default:
                     break;
                 case 21:
-                    if (this.player.tankSpecification.type() === 4 || this.player.tankSpecification.type() === 3 &&
-                        this.player.tankSpecification.weaponFuelUpgradeLevel() > 0 ||
-                        this.player.tankSpecification.type() === 2 &&
-                        this.player.tankSpecification.weaponFuelUpgradeLevel() === 2 ||
-                        this.player.tankSpecification.type() === 1 &&
-                        this.player.tankSpecification.weaponFuelUpgradeLevel() === 2) {
-                        switch ((((Math.random() * 5.0) | 0))) {
-                            case 0:
-                                this.attemptToExecuteShoppingAction(22);
-                                return;
-                            case 1:
-                            case 2:
-                                this.attemptToExecuteShoppingAction(23);
-                                return;
-                            case 3:
-                                this.attemptToExecuteShoppingAction(24);
-                                return;
-                            case 4:
-                                this.attemptToExecuteShoppingAction(22);
-                        }
-                    } else {
-                        switch (this.player.tankSpecification.type()) {
-                            case 0:
-                                if (this.attemptToPurchaseGivenItem(404)) {
-                                    return;
-                                }
-                                if (this.attemptToPurchaseGivenItem(403)) {
-                                    return;
-                                }
-                                if (this.attemptToPurchaseGivenItem(402)) {
-                                    return;
-                                }
-                                if (this.attemptToPurchaseGivenItem(401)) {
-                                    return;
-                                }
-                                return;
-                            case 1:
-                                if (this.attemptToPurchaseGivenItem(404)) {
-                                    return;
-                                }
-                                if (this.attemptToPurchaseGivenItem(403)) {
-                                    return;
-                                }
-                                if (this.attemptToPurchaseGivenItem(402)) {
-                                    return;
-                                }
-                                return;
-                            case 2:
-                                if (this.attemptToPurchaseGivenItem(404)) {
-                                    return;
-                                }
-                                if (this.attemptToPurchaseGivenItem(403)) {
-                                    return;
-                                }
-                                return;
-                            case 3:
-                                if (this.attemptToPurchaseGivenItem(404)) {
-                                    return;
-                                }
-                        }
-                    }
+                    this.case21();
                     break;
                 case 22:
                     if (this.player.tankSpecification.weaponFuelUpgradeLevel() === 0 &&
@@ -1024,14 +959,18 @@
                         this.attemptToPurchaseGivenItem(405);
                     }
                     break;
-                case 27:
-                    let check;
-                    for (check = false; this.attemptToPurchaseGivenItem(407); check = true) {
+                case 27: {
+                    let bc;
+                    for (bc = false; this.attemptToPurchaseGivenItem(407); bc = true) {
                         // ???
                     }
-                    if (check) {
+                    if (bc) {
                         this.shoppingLog("Bribed the shop");
                     }
+                    break;
+                }
+                default:
+                    break;
             }
         }
 
@@ -1173,6 +1112,74 @@
          */
         shoppingLog(message) {
             CWSYSTEM.Debug.println(message);
+        }
+
+        case21() {
+            if (this.player.tankSpecification.type() === 4 || this.player.tankSpecification.type() === 3 &&
+                this.player.tankSpecification.weaponFuelUpgradeLevel() > 0 ||
+                this.player.tankSpecification.type() === 2 &&
+                this.player.tankSpecification.weaponFuelUpgradeLevel() === 2 ||
+                this.player.tankSpecification.type() === 1 &&
+                this.player.tankSpecification.weaponFuelUpgradeLevel() === 2) {
+                switch (((Math.random() * 5.0) | 0)) {
+                    case 0:
+                        this.attemptToExecuteShoppingAction(22);
+                        return;
+                    case 1:
+                    case 2:
+                        this.attemptToExecuteShoppingAction(23);
+                        return;
+                    case 3:
+                        this.attemptToExecuteShoppingAction(24);
+                        return;
+                    case 4:
+                        this.attemptToExecuteShoppingAction(22);
+                }
+            } else {
+                this.case21else();
+            }
+        }
+
+        case21else() {
+            switch (this.player.tankSpecification.type()) {
+                case 0:
+                    if (this.attemptToPurchaseGivenItem(dsector.PreBuiltWeaponSpecifications.OPEC_2)) {
+                        return;
+                    }
+                    if (this.attemptToPurchaseGivenItem(dsector.PreBuiltWeaponSpecifications.OPEC_1)) {
+                        return;
+                    }
+                    if (this.attemptToPurchaseGivenItem(dsector.PreBuiltWeaponSpecifications.ROTRA_2)) {
+                        return;
+                    }
+                    if (this.attemptToPurchaseGivenItem(dsector.PreBuiltWeaponSpecifications.ROTRA_1)) {
+                        return;
+                    }
+                    return;
+                case 1:
+                    if (this.attemptToPurchaseGivenItem(dsector.PreBuiltWeaponSpecifications.OPEC_2)) {
+                        return;
+                    }
+                    if (this.attemptToPurchaseGivenItem(dsector.PreBuiltWeaponSpecifications.OPEC_1)) {
+                        return;
+                    }
+                    if (this.attemptToPurchaseGivenItem(dsector.PreBuiltWeaponSpecifications.ROTRA_2)) {
+                        return;
+                    }
+                    return;
+                case 2:
+                    if (this.attemptToPurchaseGivenItem(dsector.PreBuiltWeaponSpecifications.OPEC_2)) {
+                        return;
+                    }
+                    if (this.attemptToPurchaseGivenItem(dsector.PreBuiltWeaponSpecifications.OPEC_1)) {
+                        return;
+                    }
+                    return;
+                case 3:
+                    if (this.attemptToPurchaseGivenItem(dsector.PreBuiltWeaponSpecifications.OPEC_2)) {
+                        return;
+                    }
+            }
         }
     }
 

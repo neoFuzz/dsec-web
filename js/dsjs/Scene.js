@@ -1,31 +1,37 @@
-/**/
 (function (dsector) {
     /**
      * Class representing a Scene.
+     *
+     * @property {Map<string, dsector.PositionedModel>} __positionedModels - The positioned models in the scene.
+     * @property {number} cameraX - The x-coordinate of the camera.
+     * @property {number} cameraY - The y-coordinate of the camera.
+     * @property {number} cameraZ - The z-coordinate of the camera.
+     * @property {dsector.Matrix4f|null} cameraRotation - The camera rotation matrix.
+     * @property {dsector.LightManager|null} lightManager - The light manager.
+     *
+     * @example
+     * let scene = new dsector.Scene();
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class Scene {
         /**
          * Creates an instance of Scene.
          */
         constructor() {
-            /** @type {Map<string, dsector.PositionedModel>} */
             this.__positionedModels = null;
-
-            /** @type {number} */
             this.cameraX = 0.0;
-
-            /** @type {number} */
             this.cameraY = 0.0;
-
-            /** @type {number} */
             this.cameraZ = 0.0;
-
-            /** @type {dsector.Matrix4f|null} */
             this.cameraRotation = null;
-
-            /** @type {dsector.LightManager|null} */
             this.lightManager = null;
 
             this.clearScene();
@@ -50,6 +56,7 @@
 
         /**
          * Adds a positioned model to the scene.
+         *
          * @param {dsector.PositionedModel} positionedModel - The positioned model to add.
          */
         addPositionedModel(positionedModel) {
@@ -58,6 +65,7 @@
 
         /**
          * Adds a static light to the "staticLights" positioned model.
+         *
          * @param {number} x - The x-coordinate of the light.
          * @param {number} y - The y-coordinate of the light.
          * @param {number} z - The z-coordinate of the light.
@@ -79,6 +87,7 @@
 
         /**
          * Removes a positioned model from the scene by its name.
+         *
          * @param {string} modelName - The name of the model to remove.
          */
         removePositionedModel(modelName) {
@@ -87,6 +96,7 @@
 
         /**
          * Gets a positioned model by its name.
+         *
          * @param {string} model - The name of the model.
          * @returns {dsector.PositionedModel|undefined} The positioned model, or undefined if not found.
          */
@@ -96,6 +106,7 @@
 
         /**
          * Gets all positioned models in the scene.
+         *
          * @returns {Array<dsector.PositionedModel>} An array of all positioned models.
          */
         positionedModels() {

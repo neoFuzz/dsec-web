@@ -1,10 +1,27 @@
-/**/
 (function (dsector) {
     /**
+     * DSecLoadGameWindow class for managing the load game window in the DSec application.
+     *
+     * @property {CWSYSTEM.CWWindow} window The CWWindow GUI object for display.
+     * @property {string} selectedFilename The selected filename.
+     * @property {number} savedX The saved X position.
+     * @property {number} savedY The saved Y position.
+     * @property {string[]} savedGamesList The list of saved game filenames.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class DSecLoadGameWindow {
+        /**
+         * Constructor for DSecLoadGameWindow.
+         */
         constructor() {
             if (this.window === undefined) {
                 this.window = null;
@@ -15,11 +32,22 @@
             this.savedGamesList = ([]);
         }
 
+        /**
+         * Checks if the window is created.
+         *
+         * @returns {boolean} True if the window is created.
+         * @public
+         */
         isCreated() {
             let i = this.getSavedGameFilenames();
             return this.window != null;
         }
 
+        /**
+         * Toggles the created state of the window.
+         *
+         * @public
+         */
         toggleCreated() {
             if (this.isCreated()) {
                 this.destroy();
@@ -28,6 +56,12 @@
             }
         }
 
+        /**
+         * Creates the window and populates the saved game list.
+         *
+         * @public
+         * @async
+         */
         async create() {
             dsector.DSReference.dsecSaveGameWindow.destroy();
             this.savedGamesList = ([]);
@@ -36,6 +70,11 @@
             this.restorePosition();
         }
 
+        /**
+         * Destroys the window.
+         *
+         * @public
+         */
         destroy() {
             if (this.window != null) {
                 this.savedX = this.window.xPosition;
@@ -45,6 +84,11 @@
             }
         }
 
+        /**
+         * Updates the window.
+         *
+         * @public
+         */
         update() {
             if (this.isCreated()) {
                 this.drawWindow();
@@ -54,7 +98,11 @@
             }
         }
 
-        /** @private */
+        /**
+         * Restores the position of the window.
+         *
+         * @private
+         */
         restorePosition() {
             if (this.savedX !== -1) {
                 this.window.xPosition = this.savedX;
@@ -64,6 +112,11 @@
             }
         }
 
+        /**
+         * Draws the window.
+         *
+         * @private
+         */
         drawWindow() {
             let x = 25;
             let y = 25;
@@ -111,6 +164,13 @@
             this.selectedFilename = pulldown.selectedValue();
         }
 
+        /**
+         * Gets the list of saved game filenames.
+         *
+         * @returns {Promise<string[]>} The list of saved game filenames.
+         * @public
+         * @async
+         */
         async getSavedGameFilenames() {
             let list = ([]);
             let url = null;
@@ -141,15 +201,34 @@
             return list;
         }
 
+        /**
+         * Action for when the Cancel button is pressed.
+         *
+         * @public
+         * @param {CWSYSTEM.CWButton} button The button pressed.
+         */
         cancelButtonPressed(button) {
             this.destroy();
         }
 
+        /**
+         * Action for when the Delete button is pressed.
+         *
+         * @public
+         * @param {CWSYSTEM.CWButton} button The button pressed.
+         */
         deleteButtonPressed(button) {
             CWSYSTEM.CWFileTools.delete(this.selectedFilename);
             this.update();
         }
 
+        /**
+         * Loads the selected game file.
+         *
+         * @public
+         * @async
+         * @returns {Promise<void>} A promise representing the asynchronous operation.
+         */
         async loadGameFileSelected() {
             if (this.selectedFilename != null) {
                 const fd = new CWSYSTEM.CWHashtable(this.selectedFilename);

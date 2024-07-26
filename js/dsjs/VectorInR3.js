@@ -1,14 +1,33 @@
-/**/
 (function (dsector) {
     /**
+     * Represents a vector in 3D space.
+     *
+     * @property {number} x The x-axis value.
+     * @property {number} y The y-axis value.
+     * @property {number} z The z-axis value.
+     *
+     * @example
+     * var v1 = new dsector.VectorInR3(1, 2, 3);
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class VectorInR3 {
         /**
-         * @param {number | VectorInR3} x
-         * @param {number} [y]
-         * @param {number} [z]
+         * Creates a new vector.
+         *
+         * @param {number | VectorInR3} x The x value or another vector to copy from.
+         * @param {number} [y] The y value.
+         * @param {number} [z] The z value.
+         *
+         * @throws {Error} If the arguments are invalid.
          */
         constructor(x = 0, y = 0, z = 0) {
             if (typeof x === 'number') {
@@ -25,8 +44,9 @@
         }
 
         /**
-         * adds on to existing values
-         * @param {VectorInR3} v
+         * Adds the vector on to existing values.
+         *
+         * @param {VectorInR3} v vector to add
          */
         addVector(v) {
             this.x += v.x;
@@ -36,9 +56,10 @@
 
         /**
          * Adds the specified values to this vector.
-         * @param {number} x
-         * @param {number} y
-         * @param {number} z
+         *
+         * @param {number} x Number to add to the X axis.
+         * @param {number} y Number to add to the Y axis.
+         * @param {number} z Number to add to the Z axis.
          */
         add(x, y, z) {
             this.x += x;
@@ -48,6 +69,7 @@
 
         /**
          * Subtracts the specified values from this vector.
+         *
          * @param {number} x Number to subtract from the X axis.
          * @param {number} y Number to subtract from the Y axis.
          * @param {number} z Number to subtract from the Z axis.
@@ -60,7 +82,8 @@
 
         /**
          * Multiplies this vector by a scalar value.
-         * @param {number} scalar
+         *
+         * @param {number} scalar The value to multiply by.
          */
         multiply(scalar) {
             this.x *= scalar;
@@ -70,6 +93,7 @@
 
         /**
          * Calculates the length of this vector.
+         *
          * @returns {number} the calculated length.
          */
         length() {
@@ -78,8 +102,9 @@
 
         /**
          * Calculates the dot product with another vector.
-         * @param {VectorInR3} v
-         * @returns {number}
+         *
+         * @param {dsector.VectorInR3} v The vector to calculate the dot product with.
+         * @returns {number} the calculated dot product.
          */
         dotProduct(v) {
             return this.x * v.x + this.y * v.y + this.z * v.z;
@@ -87,7 +112,8 @@
 
         /**
          * Calculates the cross product with another vector and updates this vector.
-         * @param {VectorInR3} v
+         *
+         * @param {dsector.VectorInR3} v The vector to calculate the cross product with.
          */
         crossProduct(v) {
             const x1 = this.x;
@@ -103,8 +129,9 @@
 
         /**
          * Rotates this vector around the specified axis by the given angle.
-         * @param {number} axis
-         * @param {number} angle
+         *
+         * @param {number} axis - The axis around which the rotation will occur.
+         * @param {number} angle - The angle (in radians) by which the vector should be rotated around the axis.
          */
         rotateAroundAxis(axis, angle) {
             const cos = Math.cos(angle);
@@ -113,10 +140,13 @@
         }
 
         /**
-         * Rotates this vector around the specified axis by given cosine and sine of the angle.
-         * @param {number} axis
-         * @param {number} cos
-         * @param {number} sin
+         * Rotates the point around a specified axis by given cosine and sine values.
+         *
+         * The rotation is applied in a 3D space, where the rotation is around one of the three principal axes (x, y, or z).
+         *
+         * @param {number} axis - The axis around which to rotate. Must be 0 for x-axis, 1 for y-axis, or 2 for z-axis.
+         * @param {number} cos - The cosine of the angle by which to rotate.
+         * @param {number} sin - The sine of the angle by which to rotate.
          */
         rotateAroundAxisWithCosSin(axis, cos, sin) {
             const x1 = this.x;
@@ -140,9 +170,14 @@
         /**
          * Rotates this vector around the specified axis.
          * If only angle is provided, computes cosine and sine internally.
-         * @param {number} axis
-         * @param {number} angle
-         * @param {number} [sin]
+         *
+         * @param {number} axis axis for rotation.
+         * @param {number} angle Angle in radians.
+         * @param {number} [sin] Sine of the angle. If provided, cosine is computed from it.
+         *
+         * @see dsector.VectorInR3#rotateAroundAxisWithCosSin
+         * @see Math#cos
+         * @see Math#sin
          */
         rotateAroundAxisSin(axis, angle, sin) {
             if (typeof sin === 'undefined') {
@@ -156,7 +191,11 @@
 
         /**
          * Transforms this vector by a 4x4 matrix.
-         * @param {object} m4f
+         *
+         * @param {dsector.Matrix4f} m4f The matrix to transform by.
+         *
+         * @see dsector.Matrix4f
+         * @see dsector.Matrix4f#element
          */
         transform(m4f) {
             const element = m4f.element;

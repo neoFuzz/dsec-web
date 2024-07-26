@@ -1,31 +1,38 @@
-/* Re-written from Java */
 (function (dsector) {
     /**
      * Class for the Robot IO window
+     *
+     * @property {CWSYSTEM.CWWindow} window - The window object
+     * @property {string} selectedRobotFilename - The selected robot filename
+     * @property {number} selectedInputDevice - The selected input device
+     * @property {number} savedX - The saved x position of the window
+     * @property {number} savedY - The saved y position of the window
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class RobotIOWindow {
         /**
          * Constructor for the RobotIOWindow class
-         * @constructor
          */
         constructor() {
-            if (this.window === undefined) {
-                this.window = null;
-            }
-            if (this.selectedRobotFilename === undefined) {
-                this.selectedRobotFilename = null;
-            }
-            if (this.selectedInputDevice === undefined) {
-                this.selectedInputDevice = 0;
-            }
+            this.window = null;
+            this.selectedRobotFilename = null;
+            this.selectedInputDevice = 0;
             this.savedX = -1;
             this.savedY = -1;
         }
 
         /**
          * Checks if the window is created.
+         *
          * @returns {boolean}
          */
         isCreated() {
@@ -74,8 +81,10 @@
 
         /**
          * Restores the position of the window.
-         *  @private
-         */ restorePosition() {
+         *
+         * @private
+         */
+        restorePosition() {
             if (this.savedX !== -1) {
                 this.window.xPosition = this.savedX;
             }
@@ -86,6 +95,7 @@
 
         /**
          * Draws the window.
+         *
          * @private
          */
         drawWindow() {
@@ -123,6 +133,7 @@
 
         /**
          * Handles the submission of text area content.
+         *
          * @param {Object} textArea - The text area that was submitted.
          */
         textAreaSubmitted(textArea) {
@@ -137,6 +148,7 @@
 
         /**
          * Handles the pressing of the done button.
+         *
          * @private
          * @param {Object} button - The button that was pressed.
          */

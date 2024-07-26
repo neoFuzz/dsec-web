@@ -1,13 +1,31 @@
-/**/
 (function (dsector) {
     /**
      * Represents a folder for organizing 3D models and related elements.
+     *
+     * @property {string} name - The name of the folder.
+     * @property {dsector.ModelFolder|null} __parentFolder - The parent folder, if any.
+     * @property {number} id - The unique identifier of the folder.
+     * @property {boolean} __visible - Indicates whether the folder is visible.
+     * @property {boolean} expanded - Indicates whether the folder is expanded.
+     * @property {Array<dsector.ModelFolder>} modelFolders - The list of subfolders.
+     * @property {Array<dsector.PolygonGroup>} polygonGroups - The list of polygon groups.
+     * @property {Array<dsector.InbuiltLight>} inbuiltLights - The list of inbuilt lights.
+     * @property {Array<dsector.SpecialPoint>} specialPoints - The list of special points.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class ModelFolder {
         /**
          * Creates a new ModelFolder instance.
+         *
          * @param {string} name - The name of the folder.
          * @param {ModelFolder|null} parent - The parent folder, if any.
          */
@@ -25,6 +43,7 @@
 
         /**
          * Checks if the folder is visible, considering parent visibility.
+         *
          * @returns {boolean} True if the folder is visible, false otherwise.
          */
         visible() {
@@ -33,6 +52,7 @@
 
         /**
          * Checks if the folder itself is set to visible.
+         *
          * @returns {boolean} True if the folder is set to visible, false otherwise.
          */
         isVisible() {
@@ -41,6 +61,7 @@
 
         /**
          * Checks if the folder is hidden.
+         *
          * @returns {boolean} True if the folder is hidden, false otherwise.
          */
         isHidden() {
@@ -49,6 +70,7 @@
 
         /**
          * Sets the visibility of the folder.
+         *
          * @param {boolean} [mode=true] - The visibility mode to set.
          */
         setVisible(mode = true) {

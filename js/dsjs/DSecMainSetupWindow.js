@@ -1,26 +1,37 @@
-/* Re-written from java */
 (function (dsector) {
     /**
+     * DSecMainSetupWindow class represents the main setup window for the DSec game.
+     *
+     * @property {dsector.DSecPlayer[]} dsecPlayers Array with the players setup in the game
+     * @property {CWSYSTEM.CWWindow} window GUI windows to display the configuration
+     * @property {number} __numberOfRounds Number of rounds to play
+     * @property {number} __playMode The play mode, teams or hostile.
+     * @property {dsector.RobotSpecification[]} robotSpecifications array with the Robot Specifications.
+     * @property {number} savedX saved X position of the window.
+     * @property {number} savedY saved Y position of the window.
+     * @property {CWHashtable} hmPlayers Hashmap with the player objects.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     * @requires CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class DSecMainSetupWindow {
+        /**
+         * Constructor for DSecMainSetupWindow.
+         */
         constructor() {
-            if (this.dsecPlayers === undefined) {
-                this.dsecPlayers = null;
-            }
-            if (this.window === undefined) {
-                this.window = null;
-            }
-            if (this.__numberOfRounds === undefined) {
-                this.__numberOfRounds = 15;
-            }
-            if (this.__playMode === undefined) {
-                this.__playMode = 0;
-            }
-            if (this.robotSpecifications === undefined) {
-                this.robotSpecifications = null;
-            }
+            this.dsecPlayers = null;
+            this.window = null;
+            this.__numberOfRounds = 15;
+            this.__playMode = 0;
+            this.robotSpecifications = null;
             this.savedX = -1;
             this.savedY = -1;
             this.hmPlayers = new CWSYSTEM.CWHashtable("players.cfg");
@@ -29,44 +40,88 @@
             CWSYSTEM.AlertManager.textColor = CWSYSTEM.CWColor.__white();
         }
 
+        /**
+         * Returns the number of players the game has set up.
+         *
+         * @returns {number} The number of players in the game.
+         */
         numberOfPlayers() {
             return this.dsecPlayers.length;
         }
 
+        /**
+         * Set the number of rounds to play.
+         *
+         * @param {number} rounds rounds to play through.
+         */
         setNumberOfRounds(rounds) {
             this.__numberOfRounds = rounds;
         }
 
+        /**
+         * Get the game mode.
+         */
         playMode() {
             return this.__playMode;
         }
 
+        /**
+         * Set the game mode.
+         *
+         * @param {number} mode game mode to set.
+         */
         setPlayMode(mode) {
             this.__playMode = mode;
         }
 
+        /**
+         * Get the player object.
+         *
+         * @param {number} playerId player ID to get.
+         * @returns {dsector.DSecPlayer|null} player object, or {@code null} if the player ID is invalid.
+         */
         getPlayer(playerId) {
             return playerId <= this.numberOfPlayers() && playerId >= 1 ? this.dsecPlayers[playerId - 1] : null;
         }
 
+        /**
+         *
+         * @param {number} iD
+         * @param {string} name
+         */
         addPlayer(iD, name) {
             const player = new dsector.DSecPlayer(iD, name);
             this.dsecPlayers.push(player); // > 0)
         }
 
+        /**
+         * Get the default player object.
+         *
+         * @param {number} playerID player ID to add.
+         * @returns {dsector.DSecPlayer} default player object.
+         */
         addDefaultPlayer(playerID) {
             const player = this.getDefaultPlayer(playerID);
             this.dsecPlayers.push(player); // > 0)
         }
 
+        /**
+         *
+         */
         numberOfRounds() {
             return isNaN(this.__numberOfRounds) ? 15 : this.__numberOfRounds;
         }
 
+        /**
+         *
+         */
         isCreated() {
             return this.window != null;
         }
 
+        /**
+         *
+         */
         toggleCreated() {
             if (this.isCreated()) {
                 this.destroy();
@@ -75,6 +130,9 @@
             }
         }
 
+        /**
+         *
+         */
         create() {
             let i;
             if (this.dsecPlayers == null) {
@@ -129,6 +187,9 @@
             dsector.DSMain.setActivity("At main menu", "Setting up", "city", 0, 0, 2);
         }
 
+        /**
+         *
+         */
         destroy() {
             if (this.window != null) {
                 this.savedX = this.window.xPosition;
@@ -138,13 +199,19 @@
             }
         }
 
+        /**
+         *
+         */
         update() {
             if (this.isCreated()) {
                 this.drawWindow();
             }
         }
 
-        /** @private */
+        /**
+         *
+         * @private
+         */
         restorePosition() {
             if (this.savedX !== -1) {
                 this.window.xPosition = this.savedX;
@@ -154,6 +221,9 @@
             }
         }
 
+        /**
+         *
+         */
         drawWindow() {
             let x = 25;
             let y = 25;
@@ -263,6 +333,10 @@
                 null, this, CWSYSTEM.CWReflect.getMethod$obj$string(this, "exitDSector"), null);
         }
 
+        /**
+         *
+         * @param {CWSYSTEM.CWPulldown} pulldown the pulldown firing the action.
+         */
         pulldownChanged(pulldown) {
             pulldown = pulldown[0];
             let selectedVal;
@@ -318,6 +392,10 @@
             }
         }
 
+        /**
+         *
+         * @param {CWSYSTEM.CWTextArea} textArea
+         */
         textAreaSubmitted(textArea) {
             textArea = textArea[0];
             const player = textArea.generalPurposeObject;
@@ -325,40 +403,65 @@
             this.saveDefaultPlayers();
         }
 
+        /**
+         * Exit the game button action.
+         */
         exitDSector() {
             CWSYSTEM.Global.runState = false;
+            // requires more for Electron
         }
 
+        /**
+         *
+         * @param button
+         */
         enterDSecButtonPressed(button) {
             dsector.DSReference.dsecGame.startGame();
         }
 
+        /**
+         * Button action to go to the game options.
+         *
+         * @param button
+         */
         setupButtonPressed(button) {
             dsector.DSReference.dsecSetupWindow.create();
         }
 
+        /**
+         *
+         * @param button
+         */
         loadGameButtonPressed(button) {
             dsector.DSReference.dsecLoadGameWindow.create();
         }
 
+        /**
+         *
+         * @param button
+         */
         exitDSectorButtonPressed(button) {
             dsector.DSReference.dsecMainSetupWindow.exitDSector();
         }
 
+        /**
+         * Create a list of the Robot file names and sort them.
+         */
         getRobotFilenames() {// TODO: change robot loading to be compatible with Electron, current setup is web only
             let arrayList = ([]);
             let files = (["R1_Prototype.dzr", "R2_Prototype.dzr", "R3_Seeker.dzr",
                 "R4_Hunter.dzr", "R5_Defender.dzr", "R6_Destroyer.dzr"]);
-            for (let i = 0; i < files.length; ++i) {
-                let file1 = files[i];
-                let fileName = file1;
+            files.forEach(fileName => {
                 if (CWSYSTEM.CWStringTools.findIgnoreCase(fileName, ".dzr") !== -1) {
                     arrayList.push("assets/robots/" + fileName);
                 }
-            }
+            });
             return CWSYSTEM.CWStringTools.sorted(arrayList);
         }
 
+        /**
+         * Save the players to a file.
+         */
         saveDefaultPlayers() {
             let message = "";
             let val = this.numberOfPlayers();
@@ -385,6 +488,9 @@
                 .catch(error => console.error(error));
         }
 
+        /**
+         *
+         */
         getDefaultNumberOfPlayers() {
             let playerCount = 4;
             let hashmap = this.hmPlayers;
@@ -396,6 +502,9 @@
             return playerCount;
         }
 
+        /**
+        *
+         */
         getDefaultPlayMode() {
             let mode = DSecMainSetupWindow.HOSTILE;
             let hashMap = this.hmPlayers;
@@ -407,6 +516,9 @@
             return mode;
         }
 
+        /**
+        *
+         */
         getDefaultNumberOfRounds() {
             let rounds = 15;
             let hashtable = this.hmPlayers;
@@ -418,6 +530,12 @@
             return rounds;
         }
 
+        /**
+         *
+         * @private
+         * @param {number} playerId
+         * @return {dsector.DSecPlayer}
+         */
         getDefaultPlayer(playerId) {
             let playerName = null;
             let type = null;
@@ -459,7 +577,17 @@
         }
     }
 
+    /**
+     * @static
+     * @constant
+     * @type {number}
+     */
     DSecMainSetupWindow.HOSTILE = 0;
+    /**
+     * @static
+     * @constant
+     * @type {number}
+     */
     DSecMainSetupWindow.TEAMS = 1;
     dsector.DSecMainSetupWindow = DSecMainSetupWindow;
     DSecMainSetupWindow["__class"] = "dsector.DSecMainSetupWindow";

@@ -1,9 +1,16 @@
-/* info header */
 (function (CWSYSTEM) {
     /**
      * Global Class that stores a variety of variables. Re-written from Java.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class Global {
         /**

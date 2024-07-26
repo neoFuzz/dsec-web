@@ -811,9 +811,9 @@
          * @param {string} nameId - The name of the text block.
          * @param {string} text - The text to be displayed.
          * @param {number} leftMargin - The left margin of the text block.
-         * @param {number} baseLine - The base line of the text block.
-         * @param {string} font - The font of the text block.
-         * @param {string} color - The color of the text block.
+         * @param {number} baseLine - The baseline of the text block.
+         * @param {CWSYSTEM.CWFont} font - The font of the text block.
+         * @param {CWSYSTEM.CWColor} color - The color of the text block.
          * @param {number} width - The width of the text block.
          * @returns {CWSYSTEM.CWTextBlock|null} The newly created text block, or null if the maximum number of text blocks has been reached.
          */
@@ -1177,53 +1177,62 @@
                     this.v.CWDrawFilledRectangle(this.window, borderWidth1 + this.w - 7, borderWidth1 +
                         this.__titleHeight, selectRegionWidth, this.h, color);
                 }
-                let i;
-                for (i = 0; i < this.numberOfTextElements; ++i) {
-                    this.drawTextElement(i);
-                }
-                for (i = 0; i < this.numberOfTextBlocks; ++i) {
-                    this.textBlock[i].draw();
-                }
-                for (i = 0; i < this.numberOfImages; ++i) {
-                    this.image[i].draw();
-                }
-                for (i = 0; i < this.numberOfImageElements; ++i) {
-                    this.drawImageElement(i);
-                }
-                for (i = 0; i < this.numberOfButtons; ++i) {
-                    this.button[i].draw();
-                }
-                for (i = 0; i < this.numberOfInputBoxes; ++i) {
-                    this.drawInputBox(i);
-                }
-                for (i = 0; i < this.numberOfTextAreas; ++i) {
-                    this.textArea[i].draw();
-                }
-                for (i = 0; i < this.numberOfCheckBoxes; ++i) {
-                    this.checkBox[i].draw();
-                }
-                for (i = 0; i < this.numberOfPulldowns; ++i) {
-                    this.pulldown[i].draw();
-                }
-                for (i = 0; i < this.numberOfStoredLines; ++i) {
-                    this.storedLine[i].draw();
-                }
-                this.xPrevPosition = this.xPosition;
-                this.yPrevPosition = this.yPosition;
-                if (this.hasScrollbar()) {
-                    this.scrollbar.renderScrollablePage();
-                }
-                if (this.hasScrollbar()) {
-                    this.scrollbar.draw();
-                }
+                this.prepareElements();
                 try {
                     this.drawBorder();
                     return true;
                 } catch (e) {
-                    dsector.DSReference.alertManager.messageQueued("Error drawing border of window \'" +
-                        this.nameID + "\'. The window size may have been reduced because of lack of memory.");
+                    dsector.DSReference.alertManager.messageQueued("Error drawing border of window '" +
+                        this.nameID + "'. The window size may have been reduced because of lack of memory.");
                     return false;
                 }
+            }
+        }
+
+        /**
+         * Prepares the elements of the window for drawing.
+         *
+         * @private
+         */
+        prepareElements() {
+            let i;
+            for (i = 0; i < this.numberOfTextElements; ++i) {
+                this.drawTextElement(i);
+            }
+            for (i = 0; i < this.numberOfTextBlocks; ++i) {
+                this.textBlock[i].draw();
+            }
+            for (i = 0; i < this.numberOfImages; ++i) {
+                this.image[i].draw();
+            }
+            for (i = 0; i < this.numberOfImageElements; ++i) {
+                this.drawImageElement(i);
+            }
+            for (i = 0; i < this.numberOfButtons; ++i) {
+                this.button[i].draw();
+            }
+            for (i = 0; i < this.numberOfInputBoxes; ++i) {
+                this.drawInputBox(i);
+            }
+            for (i = 0; i < this.numberOfTextAreas; ++i) {
+                this.textArea[i].draw();
+            }
+            for (i = 0; i < this.numberOfCheckBoxes; ++i) {
+                this.checkBox[i].draw();
+            }
+            for (i = 0; i < this.numberOfPulldowns; ++i) {
+                this.pulldown[i].draw();
+            }
+            for (i = 0; i < this.numberOfStoredLines; ++i) {
+                this.storedLine[i].draw();
+            }
+            this.xPrevPosition = this.xPosition;
+            this.yPrevPosition = this.yPosition;
+            if (this.hasScrollbar()) {
+                this.scrollbar.renderScrollablePage();
+            }
+            if (this.hasScrollbar()) {
+                this.scrollbar.draw();
             }
         }
 
@@ -1319,8 +1328,7 @@
          */
         applySpecialEffects(effectArr, x, y) {
             if (this.dSecSpecialEffects != null) {
-                for (let i = 0; i < this.dSecSpecialEffects.length; ++i) {
-                    const specialEffect = this.dSecSpecialEffects[i];
+                for (const specialEffect of this.dSecSpecialEffects) {
                     if (specialEffect.type === dsector.DSecSpecialEffect.IMAGE_COMPOSITE) {
                         CWSYSTEM.CWImage.drawUsingBrightnessOverlayWithCropping(
                             specialEffect.image, effectArr, x + specialEffect.x, y + specialEffect.y,

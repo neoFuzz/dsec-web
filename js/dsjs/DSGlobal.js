@@ -5,8 +5,16 @@
 (function (dsector) {
     /**
      * Global Class that stores a variety of variables for setting up D-Sector.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class DSGlobal {
         /**
@@ -21,6 +29,8 @@
         }
 
         /**
+         * Static initializer helper.
+         *
          * @static
          * @private
          */

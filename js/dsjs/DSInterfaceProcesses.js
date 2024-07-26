@@ -1,15 +1,24 @@
-/* Re-written from Java */
 (function (dsector) {
     /**
-     * Manages interface processes such as button clicks, input box processing, and keyboard interactions within the D-Sector application.
+     * Manages interface processes such as button clicks, input box processing, and keyboard interactions within the D-Sector application.r
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     * @requires CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
-    class DSInterfaceProcesses {
+    class DSInterfaceProcesses extends CWSYSTEM.CWInterfaceProcesses {
         /**
          * Initializes the main GUI reference.
          */
         constructor() {
+            super();
             if (this.mainGUI === undefined) {
                 this.mainGUI = null;
             }
@@ -18,7 +27,8 @@
 
         /**
          * Processes actions based on button clicks.
-         * @param {Object} button - The button that was clicked.
+         *
+         * @param {CWSYSTEM.CWButton} button - The button that was clicked.
          * @param {number} x - The x coordinate of the click.
          * @param {number} y - The y coordinate of the click.
          */
@@ -51,7 +61,8 @@
 
         /**
          * Overloaded method to process button clicks with default coordinates.
-         * @param {Object} button - The button that was clicked.
+         *
+         * @param {CWSYSTEM.CWButton} button - The button that was clicked.
          */
         processButton$button(button) {
             this.processButton$btn$x$y(button, 0, 0);
@@ -59,7 +70,8 @@
 
         /**
          * Processes input box interactions.
-         * @param {Object} inputBox - The input box being interacted with.
+         *
+         * @param {CWSYSTEM.CWInputBox} inputBox - The input box being interacted with.
          */
         processInputBox(inputBox) {
             CWSYSTEM.Environment.inputBoxSelected = null;
@@ -85,7 +97,8 @@
 
         /**
          * Processes checkbox interactions.
-         * @param {Object} checkBox - The checkbox being interacted with.
+         *
+         * @param {CWSYSTEM.CWCheckBox} checkBox - The checkbox being interacted with.
          */
         processCheckBox(checkBox) {
             this.mainGUI.moveWindowToTopByName(checkBox.parentWindow.nameID);
@@ -93,7 +106,8 @@
 
         /**
          * Processes character inputs from the keyboard.
-         * @param {string} c - The character input.
+         *
+         * @param {Object} c - The character input.
          */
         processKeyboardChar(c) {
             if (CWSYSTEM.Environment.inputBoxSelected$() != null) {
@@ -105,12 +119,13 @@
                     CWSYSTEM.CWTextArea.textAreaSelected().addCharacter(c);
                 }
             } else if (!CWSYSTEM.Environment.ctrlKeyPressed) {
-                CWSYSTEM.Debug.println("!Environment.ctrlKeyPressed");
+                /* unsure what this is for */ //CWSYSTEM.Debug.println("!Environment.ctrlKeyPressed");
             }
         }
 
         /**
          * Processes keyboard key press actions.
+         *
          * @param {number} keyCode - The code of the key pressed.
          */
         processKeyboardPress(keyCode) {
@@ -127,52 +142,13 @@
                     CWSYSTEM.Environment.inputBoxSelected$().deleteCharacter();
                 }
             } else if (CWSYSTEM.CWTextArea.textAreaSelected() != null) {
-                switch (keyCode) {
-                    case 46:
-                        CWSYSTEM.CWTextArea.textAreaSelected().deleteTyped();
-                        break;
-                    case 8:
-                        CWSYSTEM.CWTextArea.textAreaSelected().backSpaceTyped();
-                        break;
-                    case 13:
-                        CWSYSTEM.CWTextArea.textAreaSelected().returnTyped();
-                        break;
-                    case 39:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorRight();
-                        break;
-                    case 37:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorLeft();
-                        break;
-                    case 38:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorUp();
-                        break;
-                    case 40:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorDown();
-                        break;
-                    case 36:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorHome();
-                        break;
-                    case 35:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorEnd();
-                        break;
-                    case 33:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorPageUp();
-                        break;
-                    case 34:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorPageDown();
-                        break;
-                    case 9:
-                        CWSYSTEM.CWTextArea.textAreaSelected().tabTyped();
-                        break;
-                    case 18:
-                        CWSYSTEM.CWTextArea.textAreaSelected().tabTyped();
-                        break;
-                }
+                super.textAreaKeyPressed(keyCode);
             }
         }
 
         /**
          * Processes keyboard key release actions.
+         *
          * @param {number} keyCode - The code of the key released.
          */
         processKeyboardRelease(keyCode) {
