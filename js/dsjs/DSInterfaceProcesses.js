@@ -98,6 +98,7 @@
         /**
          * Processes checkbox interactions.
          *
+         * @override
          * @param {CWSYSTEM.CWCheckBox} checkBox - The checkbox being interacted with.
          */
         processCheckBox(checkBox) {
@@ -107,6 +108,7 @@
         /**
          * Processes character inputs from the keyboard.
          *
+         * @override
          * @param {Object} c - The character input.
          */
         processKeyboardChar(c) {
@@ -126,6 +128,7 @@
         /**
          * Processes keyboard key press actions.
          *
+         * @override
          * @param {number} keyCode - The code of the key pressed.
          */
         processKeyboardPress(keyCode) {

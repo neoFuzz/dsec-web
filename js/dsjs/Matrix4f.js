@@ -169,37 +169,37 @@
             const resultMatrix = Array.from(
                 {length: 4}, () => Array.from({length: 4}, () => 0)
             );
-            resultMatrix[0][0] = Math.fround((((matrixA[0][0] * matrixB[0][0]) + (matrixA[0][1] * matrixB[1][0])) +
+            resultMatrix[0][0] = ((((matrixA[0][0] * matrixB[0][0]) + (matrixA[0][1] * matrixB[1][0])) +
                 (matrixA[0][2] * matrixB[2][0])) + (matrixA[0][3] * matrixB[3][0]));
-            resultMatrix[0][1] = Math.fround((((matrixA[0][0] * matrixB[0][1]) + (matrixA[0][1] * matrixB[1][1])) +
+            resultMatrix[0][1] = ((((matrixA[0][0] * matrixB[0][1]) + (matrixA[0][1] * matrixB[1][1])) +
                 (matrixA[0][2] * matrixB[2][1])) + (matrixA[0][3] * matrixB[3][1]));
-            resultMatrix[0][2] = Math.fround((((matrixA[0][0] * matrixB[0][2]) + (matrixA[0][1] * matrixB[1][2])) +
+            resultMatrix[0][2] = ((((matrixA[0][0] * matrixB[0][2]) + (matrixA[0][1] * matrixB[1][2])) +
                 (matrixA[0][2] * matrixB[2][2])) + (matrixA[0][3] * matrixB[3][2]));
-            resultMatrix[0][3] = Math.fround((((matrixA[0][0] * matrixB[0][3]) + (matrixA[0][1] * matrixB[1][3])) +
+            resultMatrix[0][3] = ((((matrixA[0][0] * matrixB[0][3]) + (matrixA[0][1] * matrixB[1][3])) +
                 (matrixA[0][2] * matrixB[2][3])) + (matrixA[0][3] * matrixB[3][3]));
-            resultMatrix[1][0] = Math.fround((((matrixA[1][0] * matrixB[0][0]) + (matrixA[1][1] * matrixB[1][0])) +
+            resultMatrix[1][0] = ((((matrixA[1][0] * matrixB[0][0]) + (matrixA[1][1] * matrixB[1][0])) +
                 (matrixA[1][2] * matrixB[2][0])) + (matrixA[1][3] * matrixB[3][0]));
-            resultMatrix[1][1] = Math.fround((((matrixA[1][0] * matrixB[0][1]) + (matrixA[1][1] * matrixB[1][1])) +
+            resultMatrix[1][1] = ((((matrixA[1][0] * matrixB[0][1]) + (matrixA[1][1] * matrixB[1][1])) +
                 (matrixA[1][2] * matrixB[2][1])) + (matrixA[1][3] * matrixB[3][1]));
-            resultMatrix[1][2] = Math.fround((((matrixA[1][0] * matrixB[0][2]) + (matrixA[1][1] * matrixB[1][2])) +
+            resultMatrix[1][2] = ((((matrixA[1][0] * matrixB[0][2]) + (matrixA[1][1] * matrixB[1][2])) +
                 (matrixA[1][2] * matrixB[2][2])) + (matrixA[1][3] * matrixB[3][2]));
-            resultMatrix[1][3] = Math.fround((((matrixA[1][0] * matrixB[0][3]) + (matrixA[1][1] * matrixB[1][3])) +
+            resultMatrix[1][3] = ((((matrixA[1][0] * matrixB[0][3]) + (matrixA[1][1] * matrixB[1][3])) +
                 (matrixA[1][2] * matrixB[2][3])) + (matrixA[1][3] * matrixB[3][3]));
-            resultMatrix[2][0] = Math.fround((((matrixA[2][0] * matrixB[0][0]) + (matrixA[2][1] * matrixB[1][0])) +
+            resultMatrix[2][0] = ((((matrixA[2][0] * matrixB[0][0]) + (matrixA[2][1] * matrixB[1][0])) +
                 (matrixA[2][2] * matrixB[2][0])) + (matrixA[2][3] * matrixB[3][0]));
-            resultMatrix[2][1] = Math.fround((((matrixA[2][0] * matrixB[0][1]) + (matrixA[2][1] * matrixB[1][1])) +
+            resultMatrix[2][1] = ((((matrixA[2][0] * matrixB[0][1]) + (matrixA[2][1] * matrixB[1][1])) +
                 (matrixA[2][2] * matrixB[2][1])) + (matrixA[2][3] * matrixB[3][1]));
-            resultMatrix[2][2] = Math.fround((((matrixA[2][0] * matrixB[0][2]) + (matrixA[2][1] * matrixB[1][2])) +
+            resultMatrix[2][2] = ((((matrixA[2][0] * matrixB[0][2]) + (matrixA[2][1] * matrixB[1][2])) +
                 (matrixA[2][2] * matrixB[2][2])) + (matrixA[2][3] * matrixB[3][2]));
-            resultMatrix[2][3] = Math.fround((((matrixA[2][0] * matrixB[0][3]) + (matrixA[2][1] * matrixB[1][3])) +
+            resultMatrix[2][3] = ((((matrixA[2][0] * matrixB[0][3]) + (matrixA[2][1] * matrixB[1][3])) +
                 (matrixA[2][2] * matrixB[2][3])) + (matrixA[2][3] * matrixB[3][3]));
-            resultMatrix[3][0] = Math.fround((((matrixA[3][0] * matrixB[0][0]) + (matrixA[3][1] * matrixB[1][0])) +
+            resultMatrix[3][0] = ((((matrixA[3][0] * matrixB[0][0]) + (matrixA[3][1] * matrixB[1][0])) +
                 (matrixA[3][2] * matrixB[2][0])) + (matrixA[3][3] * matrixB[3][0]));
-            resultMatrix[3][1] = Math.fround((((matrixA[3][0] * matrixB[0][1]) + (matrixA[3][1] * matrixB[1][1])) +
+            resultMatrix[3][1] = ((((matrixA[3][0] * matrixB[0][1]) + (matrixA[3][1] * matrixB[1][1])) +
                 (matrixA[3][2] * matrixB[2][1])) + (matrixA[3][3] * matrixB[3][1]));
-            resultMatrix[3][2] = Math.fround((((matrixA[3][0] * matrixB[0][2]) + (matrixA[3][1] * matrixB[1][2])) +
+            resultMatrix[3][2] = ((((matrixA[3][0] * matrixB[0][2]) + (matrixA[3][1] * matrixB[1][2])) +
                 (matrixA[3][2] * matrixB[2][2])) + (matrixA[3][3] * matrixB[3][2]));
-            resultMatrix[3][3] = Math.fround((((matrixA[3][0] * matrixB[0][3]) + (matrixA[3][1] * matrixB[1][3])) +
+            resultMatrix[3][3] = ((((matrixA[3][0] * matrixB[0][3]) + (matrixA[3][1] * matrixB[1][3])) +
                 (matrixA[3][2] * matrixB[2][3])) + (matrixA[3][3] * matrixB[3][3]));
 
             for (let i = 0; i < 4; ++i) {

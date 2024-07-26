@@ -146,7 +146,8 @@
          * @param {number} maxX - The maximum x-coordinate.
          * @param {number} maxY - The maximum y-coordinate.
          */
-        static drawUsingBrightnessOverlayWithCropping(sd, points, x, y, multiplier, minX, minY, maxX, maxY) {
+        static drawUsingBrightnessOverlayWithCropping(sd, points, x, y,
+                                                      multiplier, minX, minY, maxX, maxY) {
             if (sd != null) {
                 const color1 = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__transparentBlack());
                 const color2 = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__transparentBlack());
@@ -189,83 +190,35 @@
          * @param {number} multiplier - The multiplier.
          */
         static overlayColorsWithAestheticSaturation(color1, color2, color3, multiplier) {
-            let calcColor1 = (color1.red() + (multiplier * color2.red()));
-            let calcColor2 = (color1.green() + (multiplier * color2.green()));
-            let calcColor3 = (color1.blue() + (multiplier * color2.blue()));
-            let calculated;
-            if (calcColor1 > 255.0) {
-                if (calcColor3 > 255.0) {
-                    if (calcColor2 > 255.0) {
-                        calcColor1 = 255.0;
-                        calcColor2 = 255.0;
-                        calcColor3 = 255.0;
-                    } else {
-                        calculated = (((1.0 + (((calcColor3 / 256.0) * calcColor1) / 256.0))) / 2.0);
-                        calcColor3 = 255.0;
-                        calcColor1 = 255.0;
-                        calcColor2 *= calculated;
-                        if (calcColor2 > 255.0) {
-                            calcColor2 = 255.0;
-                        }
-                    }
-                } else {
-                    calculated = (((1.0 + (calcColor1 / 256.0))) / 2.0);
-                    calcColor1 = 255.0;
-                    calcColor2 *= calculated;
-                    if (calcColor2 > 255.0) {
-                        calcColor2 = 255.0;
-                    }
-                    calcColor3 *= calculated;
-                    if (calcColor3 > 255.0) {
-                        calcColor3 = 255.0;
-                    }
-                }
-                if (calcColor2 > 255.0) {
-                    calculated = (((1.0 + (((calcColor2 / 256.0) * calcColor1) / 256.0))) / 2.0);
-                    calcColor2 = 255.0;
-                    calcColor1 = 255.0;
-                    calcColor3 *= calculated;
-                    if (calcColor3 > 255.0) {
-                        calcColor3 = 255.0;
-                    }
-                }
-            } else if (calcColor2 > 255.0) {
-                if (calcColor3 > 255.0) {
-                    calculated = (((1.0 + (((calcColor2 / 256.0) * calcColor3) / 256.0))) / 2.0);
-                    calcColor2 = 255.0;
-                    calcColor3 = 255.0;
-                    calcColor1 *= calculated;
-                    if (calcColor1 > 255.0) {
-                        calcColor1 = 255.0;
-                    }
-                } else {
-                    calculated = (((1.0 + (calcColor2 / 256.0))) / 2.0);
-                    calcColor2 = 255.0;
-                    calcColor1 *= calculated;
-                    if (calcColor1 > 255.0) {
-                        calcColor1 = 255.0;
-                    }
-                    calcColor3 *= calculated;
-                    if (calcColor3 > 255.0) {
-                        calcColor3 = 255.0;
-                    }
-                }
-            } else if (calcColor3 > 255.0) {
-                calculated = (((1.0 + (calcColor3 / 256.0))) / 2.0);
-                calcColor3 = 255.0;
-                calcColor1 *= calculated;
-                if (calcColor1 > 255.0) {
-                    calcColor1 = 255.0;
-                }
-                calcColor2 *= calculated;
-                if (calcColor2 > 255.0) {
-                    calcColor2 = 255.0;
-                }
+            let red = color1.red() + (multiplier * color2.red());
+            let green = color1.green() + (multiplier * color2.green());
+            let blue = color1.blue() + (multiplier * color2.blue());
+
+            if (red > CWSYSTEM.Global.MAX_COLOR_VALUE || green > CWSYSTEM.Global.MAX_COLOR_VALUE ||
+                blue > CWSYSTEM.Global.MAX_COLOR_VALUE) {
+                const maxOverflow = Math.max(red, green, blue) / CWSYSTEM.Global.COLOR_NORMALIZATION;
+                const adjustment = (1 + maxOverflow) / 2;
+
+                red = Math.min(red, CWSYSTEM.Global.MAX_COLOR_VALUE);
+                green = Math.min(green, CWSYSTEM.Global.MAX_COLOR_VALUE);
+                blue = Math.min(blue, CWSYSTEM.Global.MAX_COLOR_VALUE);
+
+                if (red < CWSYSTEM.Global.MAX_COLOR_VALUE) red *= adjustment;
+                if (green < CWSYSTEM.Global.MAX_COLOR_VALUE) green *= adjustment;
+                if (blue < CWSYSTEM.Global.MAX_COLOR_VALUE) blue *= adjustment;
             }
-            if (calcColor1 > 255.0 || calcColor2 > 255.0 || calcColor3 > 255.0) {
-                CWSYSTEM.CWSReference.alertManager.message("Error with calculating color in rendering.");
-            }
-            color3.setColor$rgba((calcColor1 | 0), (calcColor2 | 0), (calcColor3 | 0), 255);
+
+            // Cap all values to MAX_COLOR_VALUE
+            red = Math.min(red, CWSYSTEM.Global.MAX_COLOR_VALUE);
+            green = Math.min(green, CWSYSTEM.Global.MAX_COLOR_VALUE);
+            blue = Math.min(blue, CWSYSTEM.Global.MAX_COLOR_VALUE);
+
+            color3.setColor$rgba(
+                Math.round(red),
+                Math.round(green),
+                Math.round(blue),
+                CWSYSTEM.Global.MAX_COLOR_VALUE
+            );
         }
 
         /**

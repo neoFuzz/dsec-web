@@ -237,6 +237,8 @@
      * @type {boolean}
      */
     Global.graphicsInitialized = false;
+    Global.MAX_COLOR_VALUE = 255;
+    Global.COLOR_NORMALIZATION = 256;
     CWSYSTEM.Global = Global;
     Global["__class"] = "CWSYSTEM.Global";
 })(CWSYSTEM || (CWSYSTEM = {}));

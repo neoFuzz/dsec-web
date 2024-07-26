@@ -154,7 +154,7 @@
                     CWSYSTEM.CWTextArea.textAreaSelected().addCharacter(c);
                 }
             } else if (!CWSYSTEM.Environment.ctrlKeyPressed) {
-                //CWSYSTEM.Debug.println("!Environment.ctrlKeyPressed");
+                // unused branch
             }
         }
 
@@ -234,10 +234,7 @@
          * @methodOf CWSYSTEM.CWInterfaceProcesses
          */
         processKeyboardRelease(keyCode) {
-            switch (CWSYSTEM.Keyboard.focus) {
-                case CWSYSTEM.Keyboard.DSECTOR:
-                //dsector.DSReference.dsecGame.keyReleased(keyCode);
-            }
+            // adapter shell
         }
 
         /**
@@ -255,9 +252,6 @@
             CWSYSTEM.Environment.windowPageUp = false;
             CWSYSTEM.Environment.windowPageDown = false;
             CWSYSTEM.Environment.scrollbarHeld = null;
-            if (CWSYSTEM.CWGUIManager.windowHeld != null) {
-                CWSYSTEM.CWGUIManager.windowHeld.holdHeader(x, y);
-            }
         }
 
         /**
