@@ -26,8 +26,9 @@ jobs:
         run: npm install
       - run: npm ci
 #      - run: npm test # no test to run
+
+      # shrink the JS files down. ends up halving the size
       - run: npm install --save-dev uglify-js
-# shrink the JS files down. ends up halving the size
       - name: Minify JS files for web
         run: npm run minify-js
 

@@ -1,15 +1,23 @@
-/* info heading */
 (function (dsector) {
     /**
      * Utility class for handling game pad functionality.
+     *
+     * @property {Map<number, dsector.Joystick>} joysticksActive - A map of active joysticks, keyed by internal ID.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class GamePadUtils {
         /**
          * Creates an instance of GamePadUtils.
          * Initializes active joysticks and sets up gamepad connections.
-         * @constructor
          */
         constructor() {
             if (this.joysticksActive === undefined) {
@@ -37,6 +45,7 @@
 
         /**
          * Checks if a joystick is connected and updates the active joysticks list.
+         *
          * @param {dsector.Joystick} joystick - The joystick to check.
          * @returns {boolean} True if the joystick is connected, false otherwise.
          */

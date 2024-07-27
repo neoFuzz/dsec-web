@@ -4,8 +4,22 @@
      * Represents a pair of objects. The purpose of this class is to store and manage a pair of objects together.
      * It can be used in various scenarios where two related objects need to be grouped and processed together.
      * If either of the provided objects is `undefined`, it sets the corresponding property to `null`.
+     *
+     * @property {any} object1 - The first object of the pair.
+     * @property {any} object2 - The second object of the pair.
+     *
+     * @example
+     * const pair = new dsector.ObjectPair(object1, object2);
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class ObjectPair {
         /**
@@ -29,6 +43,7 @@
             this.object2 = object2;
         }
     }
+
     dsector.ObjectPair = ObjectPair;
     ObjectPair["__class"] = "dsector.ObjectPair";
 })(dsector || (dsector = {}));

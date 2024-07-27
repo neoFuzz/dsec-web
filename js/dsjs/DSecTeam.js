@@ -1,40 +1,63 @@
-/* Re-written from Java */
 (function (dsector) {
     /**
+     * Class for setting up the Team object.
+     *
+     * @property {string} __color - The color of the team.
+     * @property {number} score - The score of the team.
+     * @property {string} name - The name of the team.
+     * @property {number} scoreAtStartOfRound - The score of the team at the start of the round.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class DSecTeam {
+        /**
+         * Creates an instance of DSecTeam.
+         *
+         * @param {string} colorName - The name of the team color, "blue" or "red".
+         */
         constructor(colorName) {
-            if (this.__color === undefined) {
-                this.__color = 0;
-            }
-            if (this.score === undefined) {
-                this.score = 0;
-            }
-            if (this.name === undefined) {
-                this.name = null;
-            }
-            if (this.scoreAtStartOfRound === undefined) {
-                this.scoreAtStartOfRound = 0;
-            }
+            this.scoreAtStartOfRound = 0;
             this.__color = colorName;
             this.score = 0.0;
             this.name = colorName === DSecTeam.BLUE ? "Blue" : "Red";
         }
 
+        /**
+         * Returns the color of the team.
+         *
+         * @returns {string}
+         */
         color() {
             return this.__color;
         }
 
+        /**
+         * Stores the current score of the team at the start of the round.
+         */
         prepareForStartOfRound() {
             this.scoreAtStartOfRound = this.score;
         }
 
+        /**
+         * Returns the score difference from the start of the round.
+         * @returns {number} The score difference.
+         */
         scoreOverLastRound() {
             return Math.round(this.score - this.scoreAtStartOfRound);
         }
 
+        /**
+         * Returns the total tank strength of the team.
+         * @returns {number} The total tank strength.
+         */
         totalTankStrengthOfTeam() {
             let strength = 0.0;
             for (let i = 0; i < dsector.DSReference.dsecGame.numberOfPlayers(); ++i) {
@@ -46,6 +69,11 @@
             return strength;
         }
 
+        /**
+         * Checks if all players in the team are destroyed.
+         *
+         * @returns {boolean} True if all players are destroyed, false otherwise.
+         */
         allPlayersInTeamDestroyed() {
             for (let i = 0; i < dsector.DSReference.dsecGame.numberOfPlayers(); ++i) {
                 const player = dsector.DSReference.dsecGame.getPlayer(i + 1);
@@ -56,13 +84,28 @@
             return true;
         }
 
+        /**
+         * Returns the first player in the team.
+         *
+         * @returns {dsector.DSecPlayer} The first player in the team.
+         */
         firstPlayerInTeam() {
             return this.__color === DSecTeam.BLUE ? dsector.DSReference.dsecGame.getPlayer(1) :
                 dsector.DSReference.dsecGame.getPlayer((dsector.DSReference.dsecGame.numberOfPlayers() / 2 | 0) + 1);
         }
     }
 
+    /**
+     *  Constant representing the blue team.
+     *
+     * @constant {number}
+     */
     DSecTeam.BLUE = 0;
+    /**
+     *  Constant representing the red team.
+     *
+     * @constant {number}
+     */
     DSecTeam.RED = 1;
     dsector.DSecTeam = DSecTeam;
     DSecTeam["__class"] = "dsector.DSecTeam";

@@ -1,14 +1,43 @@
-/**/
 (function (dsector) {
     /**
-     * @extends CWSYSTEM.CWSReference
-     * @description Represents the main reference class for the DSector game.
-     * @class DSReference
+     * @description Represents the main reference class for the DSector game. Creates the base objects required to run the game.
+     *
+     * @property {dsector.GamePadUtils} jsu - Instance of GamePadUtils class.
+     * @property {dsector.DSMain} dsMain - Main DSector game object.
+     * @property {dsector.DSInterfaceProcesses} interfaceProcesses - Instance of DSInterfaceProcesses class.
+     * @property {dsector.Renderer} renderer - Instance of Renderer class.
+     * @property {dsector.ModelLoader} modelLoader - Instance of ModelLoader class.
+     * @property {dsector.PreBuiltWeaponSpecifications} preBuiltWeaponSpecifications - Instance of PreBuiltWeaponSpecifications class.
+     * @property {dsector.Scene} scene - Instance of Scene class.
+     * @property {dsector.DSecSetupWindow} dsecSetupWindow - Instance of DSecSetupWindow class.
+     * @property {dsector.DSecPlayWindow} dsecPlayWindow - Instance of DSecPlayWindow class.
+     * @property {dsector.DSecMainSetupWindow} dsecMainSetupWindow - Instance of DSecMainSetupWindow class.
+     * @property {dsector.DSecMissileManager} dsecMissileManager - Instance of DSecMissileManager class.
+     * @property {dsector.DSecGame} dsecGame - Instance of DSecGame class.
+     * @property {dsector.PlayersStatusWindow} playersStatusWindow - Instance of PlayersStatusWindow class.
+     * @property {dsector.DSecShoppingScreen} dsecShoppingScreen - Instance of DSecShoppingScreen class.
+     * @property {dsector.DSecScoreboard} dsecScoreboard - Instance of DSecScoreboard class.
+     * @property {dsector.DSecRobotChooserWindow} dsecRobotChooserWindow - Instance of DSecRobotChooserWindow class.
+     * @property {dsector.DSecItemDescriptionWindow} dsecItemDescriptionWindow - Instance of DSecItemDescriptionWindow class.
+     * @property {dsector.RobotSummaryWindow} robotSummaryWindow - Instance of RobotSummaryWindow class.
+     * @property {dsector.RobotIOWindow} robotIOWindow - Instance of RobotIOWindow class.
+     * @property {dsector.RobotSensorsIllustrationWindow} robotSensorsIllustrationWindow - Instance of RobotSensorsIllustrationWindow class.
+     *
+     * @since    1.0.0
+     * @access   public
+     * @class
+     *
      * @memberof dsector
+     * @extends CWSYSTEM.CWSReference
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class DSReference extends CWSYSTEM.CWSReference {
         /**
-         * @constructor
+         * Constructs a new instance of the DSReference class.
+         *
          * @param {Object} w - The main DSector game object.
          */
         constructor(w) {
@@ -43,32 +72,14 @@
 
             // Load sounds
             let url = "assets/sounds/";
-            let sounds = ["angleMovement.wav",
-                "angleMovement2.wav",
-                "beamLaser2.wav",
-                "compressionDoor.wav",
-                "controlRoom.mp3",
-                "controlRoom.wav",
-                "debrisExplosion1.wav",
-                "debrisExplosion2.wav",
-                "forwardMovement.wav",
-                "jewelDestroyed.wav",
-                "largeCompressionDoor.wav",
-                "largeExplosion.wav",
-                "laserMovement.wav",
-                "mediumExplosion.wav",
-                "missileFailed.wav",
-                "powerLaser.wav",
-                "powerLaser2.wav",
-                "returnToZoneWarning.wav",
-                "roundEndWarning.wav",
-                "shieldActive.wav",
-                "shieldDeflection.wav",
-                "shieldSwitchOff.wav",
-                "shieldSwitchOn.wav",
-                "smallExplosion.wav",
-                "teleport.wav",
-                "upgradeSound.wav"];
+            let sounds = [
+                "angleMovement.wav", "angleMovement2.wav", "beamLaser2.wav", "compressionDoor.wav", "controlRoom.mp3",
+                "controlRoom.wav", "debrisExplosion1.wav", "debrisExplosion2.wav", "forwardMovement.wav",
+                "jewelDestroyed.wav", "largeCompressionDoor.wav", "largeExplosion.wav", "laserMovement.wav",
+                "mediumExplosion.wav", "missileFailed.wav", "powerLaser.wav", "powerLaser2.wav",
+                "returnToZoneWarning.wav", "roundEndWarning.wav", "shieldActive.wav", "shieldDeflection.wav",
+                "shieldSwitchOff.wav", "shieldSwitchOn.wav", "smallExplosion.wav", "teleport.wav", "upgradeSound.wav"
+            ];
 
             sounds.forEach(file => {
                 DSReference.cwSound.loadSound(url + file)
@@ -80,7 +91,7 @@
     }
 
     /** The main DSector game object
-     * @type {Object}  */
+     * @type {dsector.DSMain}  */
     DSReference.dsMain = null;
     /** The game scene
      * @type {dsector.Scene} */

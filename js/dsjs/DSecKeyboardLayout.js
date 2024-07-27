@@ -1,9 +1,16 @@
-/* Re-written from Java */
 (function (dsector) {
     /**
      * Represents a keyboard layout for DSector (game) controls.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class DSecKeyboardLayout {
         /**
@@ -24,8 +31,7 @@
                 ((typeof turnLeft === 'number') || turnLeft === null) &&
                 ((typeof turnRight === 'number') || turnRight === null) &&
                 ((typeof changeWeapon === 'number') || changeWeapon === null) &&
-                ((typeof fireWeapon === 'number') || fireWeapon === null))
-            {
+                ((typeof fireWeapon === 'number') || fireWeapon === null)) {
                 this.forwards = forwards || 38; // Defaults to 38 (Arrow Up)
                 this.backwards = backwards || 40; // Defaults to 40 (Arrow Down)
                 this.turnLeft = turnLeft || 37; // Defaults to 37 (Arrow Left)

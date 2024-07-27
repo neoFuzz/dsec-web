@@ -1,13 +1,21 @@
-/**/
 (function (dsector) {
     /**
      * NumberTools class provides utility methods for working with numbers.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class NumberTools {
         /**
          * Returns a large integer value (2147483647).
+         *
          * @returns {number} The large integer value.
          */
         static largeInteger_$LI$() {
@@ -19,6 +27,7 @@
 
         /**
          * Returns a large long value (9223372036854775807).
+         *
          * @returns {number} The large long value.
          */
         static largeLong_$LI$() {
@@ -30,6 +39,7 @@
 
         /**
          * Returns a small positive float value (1.4E-45).
+         *
          * @returns {number} The small positive float value.
          */
         static smallPositiveFloat_$LI$() {
@@ -41,6 +51,7 @@
 
         /**
          * Generates a random integer between 0 and the large integer value.
+         *
          * @returns {number} A random integer.
          */
         static randomInteger() {
@@ -49,6 +60,7 @@
 
         /**
          * Generates a random long between 0 and the large long value.
+         *
          * @returns {number} A random long.
          */
         static randomLong() {

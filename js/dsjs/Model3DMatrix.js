@@ -1,14 +1,22 @@
-/**/
 (function (dsector) {
     /**
      * Imports 3DMatrix XML model files. Re-written from Java.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class Model3DMatrix {
         /**
-         * @constructor
-         * @param {string|null} [file] - The file path to load the model from, or null to create a new model.
+         * Constructor for the Model3DMatrix class.
+         *
+         * @param {string} file - The file path to load the model from, or undefined to create a new model.
          */
         constructor(file) {
             this.totalPolygonAreaWhenModelLoaded = null;
@@ -34,6 +42,7 @@
 
         /**
          * Get child nodes by tag name.
+         *
          * @static
          * @param {Element} element1 - The parent element.
          * @param {string} name - The tag name to search for.
@@ -63,6 +72,7 @@
 
         /**
          * Calculate the area of a polygon.
+         *
          * @static
          * @param {number} x2 - X coordinate of the second vertex.
          * @param {number} y2 - Y coordinate of the second vertex.
@@ -87,6 +97,7 @@
 
         /**
          * Get the Detail Category number from the PolygonGroup's name.
+         *
          * @static
          * @param {string} name - The name of the PolygonGroup.
          * @returns {number} The Detail Category number.
@@ -106,6 +117,7 @@
 
         /**
          * Calculate the average polygon area when the model was loaded.
+         *
          * @param {number} model - The model index.
          * @returns {number} The average polygon area.
          */
@@ -116,6 +128,7 @@
 
         /**
          * Get the maximum distance of a vertex to the center when the model was loaded.
+         *
          * @returns {number} The maximum distance.
          */
         maximumDistanceOfVertexToCenterWhenModelLoaded() {
@@ -124,6 +137,7 @@
 
         /**
          * Reset model load statistics.
+         *
          * @private
          */
         resetModelLoadStatistics() {
@@ -134,6 +148,7 @@
 
         /**
          * Create a model from a file.
+         *
          * @private
          * @param {string} filePath - The path to the model file.
          */
@@ -209,6 +224,7 @@
 
         /**
          * Build a 3D model from an XML document.
+         *
          * @param {Document} xdocument - The XML document.
          * @returns {boolean} True if the model was built successfully, false otherwise.
          */
@@ -243,8 +259,9 @@
 
         /**
          * Build a 3D model from an XML folder element.
+         *
          * @param {Element} element - The XML folder element.
-         * @param {ModelFolder|null} modelFolder - The parent model folder.
+         * @param {dsector.ModelFolder|null} modelFolder - The parent model folder.
          * @returns {boolean} True if the model was built successfully, false otherwise.
          */
         build3DModelFromFolder(element, modelFolder) {
@@ -717,8 +734,9 @@
 
         /**
          * Get a model folder by its ID.
+         *
          * @param {number} folderId - The ID of the folder.
-         * @returns {ModelFolder|null} The model folder, or null if not found.
+         * @returns {dsector.ModelFolder|null} The model folder, or null if not found.
          */
         getModelFolderFromID(folderId) {
             const polygonIterator = new dsector.PolygonIterator(this, dsector.PolygonIterator.ALL_POLYGON_GROUPS);
@@ -736,8 +754,9 @@
 
         /**
          * Get a polygon group by its ID.
+         *
          * @param {number} pgID - The ID of the polygon group.
-         * @returns {PolygonGroup|null} The polygon group, or null if not found.
+         * @returns {dsector.PolygonGroup|null} The polygon group, or null if not found.
          */
         getPolygonGroupFromID(pgID) {
             const polygonIterator = new dsector.PolygonIterator(this, dsector.PolygonIterator.ALL_POLYGON_GROUPS);
@@ -753,8 +772,9 @@
 
         /**
          * Get a polygon group representation by its ID.
+         *
          * @param {number} pgrID - The ID of the polygon group representation.
-         * @returns {PolygonGroupRepresentation|null} The polygon group representation, or null if not found.
+         * @returns {dsector.PolygonGroupRepresentation|null} The polygon group representation, or null if not found.
          */
         getPolygonGroupRepresentationFromID(pgrID) {
             const polygonIterator = new dsector.PolygonIterator(this, dsector.PolygonIterator.ALL_POLYGON_GROUPS);
@@ -781,6 +801,7 @@
 
         /**
          * Get an inbuilt light by its ID.
+         *
          * @param {number} inbuiltLightID - The ID of the inbuilt light.
          * @returns {InbuiltLight|null} The inbuilt light, or null if not found.
          */
@@ -802,8 +823,9 @@
 
         /**
          * Get a special point by its ID.
+         *
          * @param {number} spid - The ID of the special point.
-         * @returns {SpecialPoint|null} The special point, or null if not found
+         * @returns {dsector.SpecialPoint|null} The special point, or null if not found
          */
         getSpecialPointFromID(spid) {
             const polygonIterator = new dsector.PolygonIterator(this, dsector.PolygonIterator.ALL_POLYGON_GROUPS);
@@ -823,6 +845,7 @@
 
         /**
          * Get the total number of polygons in the model.
+         *
          * @returns {number} The total number of polygons.
          */
         numberOfPolygons() {
@@ -839,8 +862,9 @@
 
         /**
          * Add a polygon to a polygon group.
-         * @param {PolygonGroup} pg - The polygon group to add the polygon to.
-         * @param {Polygon} p - The polygon to add.
+         *
+         * @param {dsector.PolygonGroup} pg - The polygon group to add the polygon to.
+         * @param {dsector.Polygon} p - The polygon to add.
          * @param {number} id - The index of the polygon.
          */
         addPolygon(pg, p, id) {
@@ -899,9 +923,19 @@
         }
     }
 
-    /** The maximum detail category value. */
+    /**
+     * The maximum detail category value.
+     * @type {number}
+     * @static
+     * @default 5
+     */
     Model3DMatrix.maximumDetailCategoryValue = 5;
-    /** Constant indicating to create a new model if the file is not found. */
+    /**
+     * Constant indicating to create a new model if the file is not found.
+     * @type {number}
+     * @static
+     * @default 0
+     */
     Model3DMatrix.CREATE_NEW_IF_FILE_NOT_FOUND = 0;
     dsector.Model3DMatrix = Model3DMatrix;
     Model3DMatrix["__class"] = "dsector.Model3DMatrix";

@@ -1,14 +1,25 @@
-/**/
 (function (dsector) {
     /**
      * This class represents a weapon port in the game.
      * It contains information about the weapon specification and the number of fire units.
+     *
+     * @property {WeaponSpecification} weaponSpecification The weapon specification for this weapon port.
+     * @property {number} fireUnits The number of fire units for this weapon port.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class WeaponPort {
         /**
          * Creates an instance of WeaponPort.
+         *
          * @param {WeaponSpecification} [specification=null] - The weapon specification for this weapon port.
          * @param {number} [fireUnits=0] - The number of fire units for this weapon port.
          */

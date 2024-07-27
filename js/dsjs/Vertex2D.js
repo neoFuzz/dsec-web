@@ -1,9 +1,20 @@
-/**/
 (function (dsector) {
     /**
      * Class representing a 2D vertex.
+     *
+     * @property {number} x the x-coordinate of the vertex.
+     * @property {number} y the y-coordinate of the vertex.
+     * @property {number} __class the class name of the object.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class Vertex2D {
         /**

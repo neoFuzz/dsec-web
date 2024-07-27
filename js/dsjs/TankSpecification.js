@@ -1,17 +1,47 @@
-/**/
 (function (dsector) {
     /**
+     * The upgrade multiplier for tank attributes.
+     * @constant
      * @type {number}
+     * @default 1.25
      */
     const UPGRADE_MULTIPLIER = 1.25;
     /**
+     * The sound file for tank upgrades.
+     * @constant
      * @type {string}
+     * @default "upgradeSound.wav"
      */
     const SOUND_FILE = "upgradeSound.wav";
+
     /**
      * Represents the specification of a tank, including its base attributes and upgrade levels.
+     *
+     * @property {number} __type - The type of the tank.
+     * @property {string} __name - The name of the tank.
+     * @property {number} baseVelocity - The base velocity of the tank.
+     * @property {number} baseTurnRate - The base turn rate of the tank.
+     * @property {number} baseArmour - The base armour of the tank.
+     * @property {number} baseWeaponFuelQuality - The base weapon fuel quality of the tank.
+     * @property {dsector.Matrix4f} model3DMatrix - The 3D model matrix of the tank.
+     * @property {dsector.Matrix4f} model3DMatrixForRedDot - The 3D model matrix for the red dot indicator.
+     * @property {number} __armourUpgradeLevel - The current armour upgrade level of the tank.
+     * @property {number} __turnRateUpgradeLevel - The current turn rate upgrade level of the tank.
+     * @property {number} __velocityUpgradeLevel - The current velocity upgrade level of the tank.
+     * @property {number} __weaponFuelUpgradeLevel - The current weapon fuel upgrade level of the tank.
+     *
+     * @example
+     * var tankSpec = new dsector.TankSpecification(dsector.TankSpecification.STANDARD_TANK);
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class TankSpecification {
         static STANDARD_TANK = 0;
@@ -23,6 +53,7 @@
 
         /**
          * Constructs a new TankSpecification instance with the specified type.
+         *
          * @param {number} type - The type of the tank.
          */
         constructor(type) {

@@ -1,14 +1,23 @@
-/**/
 (function (CWSYSTEM) {
     /**
-     * Environment Class that stores a variety of variables.
+     * Environment Class that stores a variety of variables about the running environment.
+     *
+     * @todo Move to the CWSYSTEM namespace
+     *
+     * @since 1.0.0
+     * @access public
      * @class
-     * @memberof dsector
+     *
+     * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class Environment {
         /**
          * Creates an instance of Environment.
-         * @constructor
+         *
          * @private
          */
         constructor() {
@@ -17,6 +26,7 @@
 
         /**
          * Initializes static members of the Environment class.
+         *
          * @static
          * @private
          */
@@ -28,8 +38,10 @@
         }
 
         /**
+         * Returns the current cycle ID.
+         *
          * @static
-         * @returns {number} The current cycle ID
+         * @returns {number} The current cycle ID.
          */
         static cycleID$() {
             Environment.__static_initialize();
@@ -37,8 +49,10 @@
         }
 
         /**
+         * Returns the last frame period.
+         *
          * @static
-         * @returns {number} The last frame period
+         * @returns {number} The last frame period.
          */
         static lastFramePeriod$() {
             Environment.__static_initialize();
@@ -46,8 +60,10 @@
         }
 
         /**
+         * Returns the currently selected input box.
+         *
          * @static
-         * @returns {CWInputBox} The currently selected input box
+         * @returns {CWInputBox} The currently selected input box.
          */
         static inputBoxSelected$() {
             Environment.__static_initialize();
@@ -55,6 +71,8 @@
         }
 
         /**
+         * Returns the X co-ordinate the last time the mouse was clicked.
+         *
          * @static
          * @returns {number} The X co-ordinate the last time the mouse was clicked.
          */
@@ -64,6 +82,8 @@
         }
 
         /**
+         * Returns the Y co-ordinate the last time the mouse was clicked.
+         *
          * @static
          * @returns {number} The Y co-ordinate the last time the mouse was clicked.
          */
@@ -73,6 +93,8 @@
         }
 
         /**
+         * Returns the last button pressed.
+         *
          * @returns {number} The last button pressed.
          * @private
          */
@@ -82,6 +104,8 @@
         }
 
         /**
+         * Returns the last button moved over.
+         *
          * @returns {CWButton} The last button moved over.
          * @private
          */
@@ -91,6 +115,8 @@
         }
 
         /**
+         * Returns the X co-ordinate of the mouse.
+         *
          * @returns {number} The X co-ordinate of the mouse.
          * @private
          */
@@ -100,6 +126,8 @@
         }
 
         /**
+         * Returns the Y co-ordinate of the mouse.
+         *
          * @returns {number} The Y co-ordinate of the mouse.
          * @private
          */
@@ -109,7 +137,9 @@
         }
 
         /**
-         * @returns {CWPulldown} The active pulldown item
+         * Returns the active pulldown menu.
+         *
+         * @returns {CWPulldown} The active pulldown item.
          */
         static activePulldownMenu$() {
             Environment.__static_initialize();
@@ -117,7 +147,9 @@
         }
 
         /**
-         * @returns {number} The perspective state
+         * Returns the perspective flipped X state.
+         *
+         * @returns {number} The perspective state.
          */
         static perspectiveViewFlipX$() {
             Environment.__static_initialize();
@@ -125,6 +157,8 @@
         }
 
         /**
+         * Returns the perspective flipped Y state.
+         *
          * @returns {number} The perspective state.
          */
         static perspectiveViewFlipY$() {
@@ -133,6 +167,8 @@
         }
 
         /**
+         * Returns the window colors.
+         *
          * @returns {CWColor} The assigned color.
          */
         static windowColors$() {
@@ -141,6 +177,8 @@
         }
 
         /**
+         * Move the window content up.
+         *
          * @returns {boolean} Whether or not the window has changed.
          */
         static windowScrollUp$() {
@@ -149,6 +187,8 @@
         }
 
         /**
+         * Move the window content down.
+         *
          * @static
          * @returns {boolean} Whether or not the window has changed.
          */
@@ -157,8 +197,9 @@
             return Environment.windowScrollDown;
         }
 
-        /** Move the window content up
-         * @static
+        /**
+         * Move the window page content up.
+         *
          * @returns {boolean}
          */
         static windowPageUp$() {
@@ -166,7 +207,8 @@
             return Environment.windowPageUp;
         }
 
-        /** Move the window content down
+        /**
+         * Move the window page content down.
          * @returns {boolean}
          */
         static windowPageDown$() {
@@ -175,7 +217,9 @@
         }
 
         /**
-         * @returns {CWScrollbar} The scrollbar being held
+         * Returns the scrollbar being held.
+         *
+         * @returns {CWScrollbar} The scrollbar being held.
          */
         static scrollbarHeld$() {
             Environment.__static_initialize();
@@ -183,6 +227,8 @@
         }
 
         /**
+         * Returns the time (in milliseconds) when the initial mouse button was pressed.
+         *
          * @static
          * @returns {number} The time (in milliseconds) when the initial mouse button was pressed.
          */
@@ -192,6 +238,8 @@
         }
 
         /**
+         * Returns the current time in milliseconds.
+         *
          * @static
          * @returns {number} The current time in milliseconds.
          */
@@ -201,6 +249,7 @@
 
         /**
          * Processes buttons and keys that are being held down.
+         *
          * @static
          */
         static processButtonsAndKeysThatAreHeld() {
@@ -233,6 +282,7 @@
 
         /**
          * Requests an update for perspective view windows in the next cycle.
+         *
          * @static
          */
         static perspectiveViewWindowsRequestedForUpdateNextCycle() {
@@ -242,6 +292,7 @@
 
         /**
          * Requests an update for projective view windows in the next cycle.
+         *
          * @static
          */
         static projectiveViewWindowsRequestedForUpdateNextCycle() {
@@ -253,6 +304,7 @@
 
         /**
          * Requests an update for all view windows in the next cycle.
+         *
          * @static
          */
         static viewWindowsRequestedForUpdateNextCycle() {
@@ -266,8 +318,9 @@
 
         /**
          * Requests an update for a specific projective view window in the next cycle.
+         *
          * @static
-         * @param {number} viewID - The ID of the view to update
+         * @param {number} viewID - The ID of the view to update.
          */
         static oneProjectiveViewWindowRequestedForUpdateNextCycle(viewID) {
             switch (viewID) {
@@ -288,6 +341,7 @@
 
         /**
          * Dummy function for the constructor.
+         *
          * @returns {boolean}
          */
         static applicationExpired() {
@@ -296,6 +350,7 @@
 
         /**
          * Advances the cycle counter
+         *
          * @static
          */
         static advanceCycle() {
@@ -303,7 +358,7 @@
         }
 
         /**
-         * Initializes static properties
+         * Initializes static properties of the Environment class.
          * @static
          * @private
          */
@@ -348,6 +403,10 @@
         }
     }
 
+    /**
+     * @static
+     * @type {boolean}
+     */
     Environment.__static_initialized = false;
     /**
      * @static

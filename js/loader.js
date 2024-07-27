@@ -48,7 +48,7 @@ loadScript('js/dsjs/Vertex2D.js');
 loadScript('js/dsjs/TimedInstruction.js');
 
 /* Game Utility Classes */
-loadScript('js/dsjs/Global.js');
+loadScript('js/CWS/Global.js');
 loadScript('js/dsjs/DSReference.js');
 loadScript('js/dsjs/Environment.js');
 loadScript('js/dsjs/Scene.js');

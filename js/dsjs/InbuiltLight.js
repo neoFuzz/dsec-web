@@ -1,13 +1,31 @@
-/**/
 (function (dsector) {
     /**
      * Represents an inbuilt light in the dsector environment. Re-written from the Java port.
+     *
+     * @property {boolean} on - The state of the light (on/off).
+     * @property {number} x - The x-coordinate of the light.
+     * @property {number} y - The y-coordinate of the light.
+     * @property {number} z - The z-coordinate of the light.
+     * @property {number} red - The red component of the light color (0-1).
+     * @property {number} green - The green component of the light color (0-1).
+     * @property {number} blue - The blue component of the light color (0-1).
+     * @property {number} id - The unique identifier of the light.
+     * @property {Object} parent - The parent object of the light.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class InbuiltLight {
         /**
          * Creates a new InbuiltLight instance.
+         *
          * @param {Object} parent - The parent object of the light.
          * @param {string} name - The name of the light.
          * @param {boolean} on - The initial state of the light (on/off).

@@ -164,8 +164,6 @@
                 const width2 = bufferedImage.width;
                 let imageData = ([]);
                 for (let i = 0; i < data.length; i += 4) {
-                    //let r = data[i + 0];let g = data[i + 1];let b = data[i + 2];let a = data[i + 3];
-                    //let pointColor = new CWSYSTEM.CWColor(r,g,b,a).color;
                     imageData.push(CWSYSTEM.FastColorUtilities.colorRGBA(
                         data[i], data[i + 1], data[i + 2], data[i + 3]));
                 }
@@ -1023,29 +1021,30 @@
                 } else {
                     if ((c => c.charCodeAt === null ? c : c.charCodeAt(0))(c) === '\\'.charCodeAt(0) &&
                         i + 1 < length) {
+                        let ei = false;
                         switch ((charArray[i + 1]).charCodeAt(0)) {
                             case 117: /* 'u' */
                             {
                                 c = '\u0001';
-                                ++i;
+                                ei = true;
                                 break;
                             }
                             case 100: /* 'd' */
                             {
                                 c = '\u0002';
-                                ++i;
+                                ei = true;
                                 break;
                             }
                             case 108: /* 'l' */
                             {
                                 c = '\u0003';
-                                ++i;
+                                ei = true;
                                 break;
                             }
                             case 114: /* 'r' */
                             {
                                 c = '\u0004';
-                                ++i;
+                                ei = true;
                                 break;
                             }
                             case 95: /* '_' */
@@ -1053,9 +1052,12 @@
                                 c = '_';
                                 xx6 -= 6 + selector - 1;
                                 z7 = 1;
-                                ++i;
+                                ei = true;
                                 break;
                             }
+                        }
+                        if (ei) {
+                            ++i;
                         }
                     }
                     let yyy9 = 0;
@@ -1437,7 +1439,7 @@
                 let y22 = vertex.v4 > h0 - 1 ? h0 - 1 : vertex.v4;
 
                 const updateScanLine = (start, end, scanLine, value, condition) => {
-                    for (let i = start; i !== end; i += Math.sign(end - start)) {
+                    for (let i = start; i < end; i += Math.sign(end - start)) {
                         if (condition(scanLine[i])) {
                             break;
                         }
@@ -1587,7 +1589,7 @@
                 this.octant0(screenData, x1, y1, absX, absY, xIncrement, yIncrement);
             }
             if (b) {
-                //CWSYSTEM.Debug.println("line true");
+                // line true
             }
         }
 

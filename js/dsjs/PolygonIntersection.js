@@ -2,12 +2,26 @@
 (function (dsector) {
     /**
      * Class for calculating polygon intersections.
+     *
+     * @property {number} EPSILON - The epsilon value for floating-point comparisons.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class PolygonIntersection {
-        /** Shortcut for Math.abs()
-         * @param {number} abs */
+        /**
+         * Shortcut for Math.abs()
+         *
+         * @param {number} abs - The value to get the absolute value of.
+         * @returns {number} The absolute value of the input value.
+         */
         static FABS(abs) {
             return Math.abs(abs);
         }
@@ -18,7 +32,6 @@
          * @param {Float32Array<number>} targetVertex - The target vertex to store the cross product.
          * @param {Float32Array<number>} vertex1 - The first vector.
          * @param {Float32Array<number>} vertex2 - The second vector.
-         * @returns {void}
          */
         static CROSS(targetVertex, vertex1, vertex2) {
             targetVertex[0] = Math.fround((vertex1[1] * vertex2[2]) - (vertex1[2] * vertex2[1]));
@@ -43,7 +56,6 @@
          * @param {Float32Array<number>} target - The target vertex to store the result of the subtraction.
          * @param {Float32Array<number>} v1 - The first vector.
          * @param {Float32Array<number>} v2 - The second vector.
-         * @returns {void}
          */
         static SUB(target, v1, v2) {
             target[0] = Math.fround(v1[0] - v2[0]);
@@ -57,7 +69,6 @@
          * @param {Array<number>} target - The target vertex to store the result of the addition.
          * @param {Array<number>} v1 - The first vector.
          * @param {Array<number>} v2 - The second vector.
-         * @returns {void}
          */
         static ADD(target, v1, v2) {
             target[0] = Math.fround(v1[0] + v2[0]);
@@ -71,7 +82,6 @@
          * @param {Array<number>} target - The target vertex to store the result of the multiplication.
          * @param {Array<number>} vertex - The vector to be multiplied.
          * @param {number} scalar - The multiplier value.
-         * @returns {void}
          */
         static MULT(target, vertex, scalar) {
             target[0] = Math.fround(scalar * vertex[0]);
@@ -84,7 +94,6 @@
          *
          * @param {Array<number>} target - The target vertex to be set.
          * @param {Array<number>} v - The input vertex to be copied.
-         * @returns {void}
          */
         static SET(target, v) {
             target[0] = v[0];
@@ -94,7 +103,8 @@
 
         /**
          * Swaps the values of f1 and f2 if f1 is greater than f2.
-         * @param fp
+         *
+         * @param {dsector.FloatPair} fp - An object containing f1 and f2 values.
          */
         static SORT(fp) {
             if (fp.f1 > fp.f2) {
@@ -113,7 +123,7 @@
          * @param {number} d - The parameter that determines the position between the starting and ending values.
          * @param {number} e - The starting value of the parameter difference.
          * @param {number} f - The starting value of the y-coordinate difference.
-         * @param {FloatPair} floatPair - An object to store the intersection point.
+         * @param {dsector.FloatPair} floatPair - An object to store the intersection point.
          */
         static ISECT(a, b, c, d, e, f, floatPair) {
             floatPair.set(Math.fround(a + (b - a) * d / (d - e)),
@@ -131,7 +141,7 @@
          * @param {number} axis6 - The z-coordinate of the second vertex.
          * @param {number} product1 - The product value used for interval calculation.
          * @param {number} product2 - The product value used for interval calculation.
-         * @param {FloatPair} fp - An object to store the intersection points.
+         * @param {dsector.FloatPair} fp - An object to store the intersection points.
          * @returns {boolean} Returns true if intervals and intersection points are computed, otherwise returns false.
          */
         static COMPUTE_INTERVALS(axis1, axis2, axis3,
@@ -386,6 +396,8 @@
     /**
      * The epsilon value used for various calculations.
      * @type {number}
+     * @constant
+     * @default 1.0E-6
      */
     PolygonIntersection.EPSILON = 1.0E-6;
     dsector.PolygonIntersection = PolygonIntersection;

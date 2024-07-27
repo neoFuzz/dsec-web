@@ -1,14 +1,22 @@
-/**/
 (function (dsector) {
     /**
      * Class to load and manage 3D models.
+     *
+     * @property {Map<string, dsector.Model3DMatrix>} loadedModels - A cache of loaded models.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class ModelLoader {
         /**
          * Creates an instance of ModelLoader.
-         * @constructor
          */
         constructor() {
             this.loadedModels = new Map();
@@ -16,8 +24,9 @@
 
         /**
          * Retrieves a model from the loaded models cache or loads it if not found.
-         * @param fileName
-         * @returns {Model3DMatrix|null}
+         *
+         * @param {string} fileName - The name of the model file to load.
+         * @returns {dsector.Model3DMatrix|null}
          */
         getModel(fileName) {
             let model3DMatrix = this.loadedModels.get(fileName);
@@ -33,7 +42,8 @@
 
         /**
          * Drops a model from the loaded models cache.
-         * @param name
+         *
+         * @param {string} name - The name of the model to drop.
          */
         dropModel(name) {
             this.loadedModels.remove(name);

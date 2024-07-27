@@ -44,6 +44,7 @@ loadScript('js/dsjs/ScreenPosition.js');
 loadScript('js/CWS/UserIOBuffer.js');
 
 /* Game Utility Classes */
+loadScript('js/CWS/CWInterfaceProcesses.js');
 loadScript('js/CWS/CWSReference.js');
 loadScript('js/dsjs/Scene.js');
 loadScript('js/CWS/ScreenData.js');

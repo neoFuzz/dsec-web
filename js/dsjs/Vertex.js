@@ -1,13 +1,27 @@
-/**/
 (function (dsector) {
     /**
      * Represents a vertex in 3D space.
+     *
+     * @property {number} x - The x-coordinate of the vertex.
+     * @property {number} y - The y-coordinate of the vertex.
+     * @property {number} z - The z-coordinate of the vertex.
+     * @property {boolean} selected - Indicates whether the vertex is selected or not.
+     * @property {boolean} positionChangedSinceKeyframeLoaded - Indicates whether the vertex's position has changed since the keyframe was loaded.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class Vertex {
         /**
          * Creates an instance of Vertex.
+         *
          * @param {number|dsector.Vertex} [x=0] - The x-coordinate or a Vertex instance.
          * @param {number} [y=0] - The y-coordinate.
          * @param {number} [z=0] - The z-coordinate.
@@ -29,6 +43,7 @@
 
         /**
          * Transforms the vertex using a 4x4 matrix.
+         *
          * @param {Matrix4f} m4f - The 4x4 transformation matrix.
          */
         transform(m4f) {
@@ -46,18 +61,24 @@
 
         /**
          * Sets the vertex coordinates to those of another vertex.
+         *
          * @param {dsector.Vertex} v - The vertex to copy coordinates from.
          */
         set(v) {
             ({x: this.x, y: this.y, z: this.z} = v);
         }
 
+        /**
+         * Prints the vertex coordinates to the console.
+         * @public
+         */
         print() {
             console.info(`\n${this.x} ${this.y} ${this.z}`);
         }
 
         /**
          * Calculates the distance to another vertex.
+         *
          * @param {dsector.Vertex} vertex - The vertex to calculate the distance to.
          * @returns {number} The distance to the vertex.
          */

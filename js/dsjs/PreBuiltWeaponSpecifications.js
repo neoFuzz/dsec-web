@@ -2,13 +2,29 @@
 (function (dsector) {
     /**
      * Static class containing all the pre-built weapon specifications
+     * for the game.
+     *
+     * @property {Array} preBuiltSpecifications - An array of pre-built weapon specifications.
+     * @property {string} STANDARD_TANK - The standard tank specification key.
+     * @property {string} ROTRA_1 - The Rotra I specification key.
+     * @property {string} ROTRA_2 - The Rotra II specification key.
+     * @property {string} OPEC_1 - The Opec I specification key.
+     * @property {string} OPEC_2 - The Opec II specification key.
+     * @property {string} OPEC_X - The Opec X specification key.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class PreBuiltWeaponSpecifications {
         /**
          * Initializes the pre-built weapon specifications.
-         * @constructor
          */
         constructor() {
             this.preBuiltSpecifications = ([]);
@@ -126,7 +142,7 @@
             this.preBuiltSpecifications.push(new dsector.WeaponSpecification(PreBuiltWeaponSpecifications.SWARM_MISSILE,
                 true, dsector.WeaponSpecification.PROJECTILE, "Swarm Missile",
                 "Breaks in to many small guided missiles", "Swarm Msl", "SM", "assets/models/standardMissile",
-                4, 2500, 18, 50, 7.0, 7000,
+                4, 3200, 18, 50, 7.0, 7000,
                 dsector.WeaponSpecification.LAUNCH_FRONT_SINGLE, new dsector.VectorInR3(0.0, 0.0, 0.0),
                 dsector.WeaponSpecification.LAUNCH_SWARM_MISSLE, dsector.WeaponSpecification.DESTROY_AS_MEDIUM_BLAST,
                 -1, 0, 8.0));
@@ -166,11 +182,17 @@
                 "Damages any tank in contact", "Dth Tch", "DT",
                 "", 6, 350, 7, 15, 20.0, 10, 1,
                 null, -1, -1, -1, -1, -1.0));
+            this.preBuiltSpecifications.push(new dsector.WeaponSpecification(PreBuiltWeaponSpecifications.NONE,
+                true, dsector.WeaponSpecification.NONE, "None", "No weapon",
+                "None", "NO", "", -1, 0, 0, 0,
+                0.0, 0, 0, null, -1, -1,
+                -1, -1, -1.0));
         }
 
         /**
          * Returns a pre-built weapon specification of a given specification ID.
-         * @param sid
+         *
+         * @param {number} sid The specification ID to search for.
          * @returns {WeaponSpecification|null} A {@link WeaponSpecification} or null if not found.
          */
         getPreBuiltSpecification(sid) {

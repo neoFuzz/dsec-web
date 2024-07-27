@@ -1,59 +1,64 @@
-/**/
 (function (dsector) {
     /**
+     * Class used to manage each round of the game.
+     *
+     * @property {dsector.DSecGame} dsGame the game object.
+     * @property {number} redJewel the red jewel.
+     * @property {number} blueJewel the blue jewel.
+     * @property {Array} backgroundObjects the background objects.
+     * @property {Array} silentBackgroundObjects the silent background objects.
+     * @property {Array} backgroundObjectsForDisplayNextFrame the background objects for display next frame.
+     * @property {number} allPlayersDestroyed the all players destroyed.
+     * @property {number} __timeWhenAllPlayersDestroyed the time when all players destroyed.
+     * @property {number} __timeWhenAllJewelsDestroyed the time when all jewels destroyed.
+     * @property {number} __timeWhenAnyPlayerLastFired the time when any player last fired.
+     * @property {number} __timeWhenRoundStarted the time when round started.
+     * @property {boolean} endOfRoundWarningIssued the end of round warning issued.
+     * @property {boolean} __atLeastOnePlayerHasFired the at least one player has fired.
+     * @property {dsector.DSecPlayer} firstTankMovedOutOfArea the first tank moved out of area.
+     * @property {number} timeWhenLastOutOfAreaWarningStated the time when last out of area warning stated.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     * @requires CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class DSecRound {
-        constructor(player) {
-            if (this.dsGame === undefined) {
-                this.dsGame = null;
-            }
-            if (this.redJewel === undefined) {
-                this.redJewel = null;
-            }
-            if (this.blueJewel === undefined) {
-                this.blueJewel = null;
-            }
-            if (this.backgroundObjects === undefined) {
-                this.backgroundObjects = null;
-            }
-            if (this.silentBackgroundObjects === undefined) {
-                this.silentBackgroundObjects = null;
-            }
-            if (this.backgroundObjectsForDisplayNextFrame === undefined) {
-                this.backgroundObjectsForDisplayNextFrame = null;
-            }
-            if (this.allPlayersDestroyed === undefined) {
-                this.allPlayersDestroyed = 0;
-            }
-            if (this.__timeWhenAllPlayersDestroyed === undefined) {
-                this.__timeWhenAllPlayersDestroyed = 0;
-            }
-            if (this.__timeWhenAllJewelsDestroyed === undefined) {
-                this.__timeWhenAllJewelsDestroyed = 0;
-            }
-            if (this.__timeWhenAnyPlayerLastFired === undefined) {
-                this.__timeWhenAnyPlayerLastFired = 0;
-            }
-            if (this.__timeWhenRoundStarted === undefined) {
-                this.__timeWhenRoundStarted = 0;
-            }
-            if (this.endOfRoundWarningIssued === undefined) {
-                this.endOfRoundWarningIssued = false;
-            }
-            if (this.__atLeastOnePlayerHasFired === undefined) {
-                this.__atLeastOnePlayerHasFired = false;
-            }
-            if (this.firstTankMovedOutOfArea === undefined) {
-                this.firstTankMovedOutOfArea = null;
-            }
+        /**
+         * Constructor for DSecRound.
+         *
+         * @param {dsector.DSecGame} game the game object.
+         */
+        constructor(game) {
+            this.redJewel = null;
+            this.blueJewel = null;
+            this.backgroundObjects = null;
+            this.silentBackgroundObjects = null;
+            this.backgroundObjectsForDisplayNextFrame = null;
+            this.allPlayersDestroyed = 0;
+            this.__timeWhenAllPlayersDestroyed = 0;
+            this.__timeWhenAllJewelsDestroyed = 0;
+            this.__timeWhenAnyPlayerLastFired = 0;
+            this.__timeWhenRoundStarted = 0;
+            this.__atLeastOnePlayerHasFired = false;
+            this.endOfRoundWarningIssued = false;
+            this.firstTankMovedOutOfArea = null;
             this.timeWhenLastOutOfAreaWarningStated = -1;
-            this.dsGame = player;
+            this.dsGame = game;
             this.initializeRound();
         }
 
-        /** @private */
+        /**
+         * Initialize the round.
+         *
+         * @private
+         */
         initializeRound() {
             this.__timeWhenAllPlayersDestroyed = -1;
             this.__timeWhenAllJewelsDestroyed = -1;
@@ -132,14 +137,11 @@
                     zPlayer.setY(Math.fround(Math.sin(calcFlt) * y / 2.0));
                     zPlayer.setAngle(Math.fround(calcFlt + Math.PI));
                     const model = zPlayer.constructPositionedModel();
-                    for (let index = 0; index < this.backgroundObjects.length; index++) {
-                        let backgroundObject = this.backgroundObjects[index];
-                        {
-                            const model1 = backgroundObject;
-                            if (model.intersectsWith(model1)) {
-                                this.initializeRound();
-                                return;
-                            }
+                    for (const backgroundObject of this.backgroundObjects) {
+                        const model1 = backgroundObject;
+                        if (model.intersectsWith(model1)) {
+                            this.initializeRound();
+                            return;
                         }
                     }
                 }
@@ -164,7 +166,13 @@
                 dsector.DSReference.dsecGame.numberOfPlayers();
         }
 
-        /** @private */
+        /**
+         * Create a random background scene.
+         *
+         * @private
+         * @param {Array} scene the scene.
+         * @param {Array} config the configuration.
+         */
         createRandomBackgroundScene(scene, config) {
             const configuration = new dsector.DSecBackgroundConfiguration(config);
             configuration.usePresetConfiguration(((Math.random() *
@@ -173,7 +181,12 @@
             configuration.generateRandomScene(scene);
         }
 
-        /** @private */
+        /**
+         * Create a backdrop.
+         *
+         * @private
+         * @returns {Array} the backdrop.
+         */
         createBackdrop() {
             const arrayList = ([]);
             const rndNum = ((Math.random() * 5.0) | 0) + 1;
@@ -201,9 +214,6 @@
                         for (let y1 = -300.0; y1 <= 300.0; y1 += 200.0) {
                             const randomP = ((Math.random() * 6.0) | 0) + 1;
                             switch (randomP) {
-                                case 1:
-                                default:
-                                    break;
                                 case 2:
                                 case 3:
                                 case 4:
@@ -218,6 +228,10 @@
                                         dsector.DSReference.modelLoader.getModel("assets/models/background4_2"),
                                         dsector.Matrix4f.rotationZMatrix(0.0), x1, y1, -8.0);
                                     arrayList.push(model);
+                                    break;
+                                case 1:
+                                default:
+                                    break;
                             }
                         }
                     }
@@ -225,7 +239,13 @@
             return arrayList;
         }
 
-        /** @private */
+        /**
+         * Place a jewel and surrounding blocks to create a base in a random location over the grid.
+         *
+         * @private
+         * @param {Array} arrayList the array list.
+         * @returns {Array} the array list.
+         */
         placeJewelAndSurroundingBlocksInRandomLocationOverGrid(arrayList) {
             const stand = 350.0;
             let x2 = 0.0;
@@ -252,6 +272,15 @@
             return arrayList1;
         }
 
+        /**
+         * Add blocks surrounding jewel.
+         *
+         * @private
+         * @param {dsector.DSecJewel} jewel the jewel.
+         * @param {Array} list1 the list containing models.
+         * @param {Array} list2 the list to compare against.
+         * @returns {boolean} the boolean.
+         */
         addBlocksSurroundingJewel(jewel, list1, list2) {
             const stand = 20.0;
             const model1 = new dsector.PositionedModel(null,
@@ -266,6 +295,7 @@
             const model4 = new dsector.PositionedModel(null,
                 dsector.DSReference.modelLoader.getModel("assets/models/smallBlock"), new dsector.Matrix4f(),
                 jewel.x, Math.fround(jewel.y - stand), 0.0);
+
             if (this.jewelBlockIsOverGrid(model1, list2) && this.jewelBlockIsOverGrid(model2, list2) &&
                 this.jewelBlockIsOverGrid(model3, list2) && this.jewelBlockIsOverGrid(model4, list2)) {
                 list1.push(model1);
@@ -278,7 +308,13 @@
             }
         }
 
-        /** @private */
+        /**
+         * Check if a jewel block is over the grid.
+         *
+         * @private
+         * @param {dsector.PositionedModel} model the model.
+         * @param {Array} arrayList the array list.
+         */
         jewelBlockIsOverGrid(model, arrayList) {
             model.z = -10.0;
             for (let i = 0; i < arrayList.length; ++i) {
@@ -291,7 +327,12 @@
             return false;
         }
 
-        /** @private */
+        /**
+         * List players in random order.
+         *
+         * @private
+         * @returns {Array} the array list.
+         */
         listPlayersInRandomOrder() {
             const players = Array(dsector.DSReference.dsecGame.numberOfPlayers()).fill(null);
             for (let i = 0; i < this.dsGame.numberOfPlayers(); ++i) {
@@ -305,6 +346,12 @@
             return players;
         }
 
+        /**
+         * Check if all players are destroyed.
+         *
+         * @private
+         * @returns {boolean} the boolean.
+         */
         allPlayersAreDestroyed() {
             if (this.__timeWhenAllPlayersDestroyed > 0) {
                 return true;
@@ -325,6 +372,12 @@
             }
         }
 
+        /**
+         * Check if all jewels are destroyed.
+         *
+         * @private
+         * @returns {boolean} the boolean.
+         */
         allJewelsAreDestroyed() {
             if (this.__timeWhenAllJewelsDestroyed > 0) {
                 return true;
@@ -339,22 +392,52 @@
             }
         }
 
+        /**
+         * Milliseconds since all players were destroyed.
+         *
+         * @private
+         * @returns {number} the long.
+         */
         millisecondsSinceAllPlayersDestroyed() {
             return CWSYSTEM.Environment.currentTime() - this.timeWhenAllPlayersDestroyed();
         }
 
+        /**
+         * Milliseconds since all jewels were destroyed.
+         *
+         * @private
+         * @returns {number} the long.
+         */
         millisecondsSinceAllJewelsDestroyed() {
             return CWSYSTEM.Environment.currentTime() - this.timeWhenAllJewelsDestroyed();
         }
 
+        /**
+         * Time when all players were destroyed.
+         *
+         * @private
+         * @returns {number} the long.
+         */
         timeWhenAllPlayersDestroyed() {
             return this.__timeWhenAllPlayersDestroyed;
         }
 
+        /**
+         * Time when all jewels were destroyed.
+         *
+         * @private
+         * @returns {number} the when the jewels were destroyed.
+         */
         timeWhenAllJewelsDestroyed() {
             return this.__timeWhenAllJewelsDestroyed;
         }
 
+        /**
+         * Suspend shopping card if tank is the first out of area.
+         *
+         * @private
+         * @param {dsector.DSecPlayer} player the player to get discount suspended.
+         */
         suspendShoppingCardIfTankIsTheFirstOutOfArea(player) {
             if (this.firstTankMovedOutOfArea == null) {
                 if ((player.getX() > 600.0 || player.getX() < -600.0 ||
@@ -372,24 +455,50 @@
             }
         }
 
+        /**
+         * Set time when any player last fired.
+         *
+         * @private
+         * @param {number} time the time to set.
+         */
         setTimeWhenAnyPlayerLastFired(time) {
             this.__timeWhenAnyPlayerLastFired = time;
             this.__atLeastOnePlayerHasFired = true;
             this.endOfRoundWarningIssued = false;
         }
 
+        /**
+         * Gets the time when the current round started.
+         *
+         * @returns {number} The timestamp of when the round started.
+         */
         timeWhenRoundStarted() {
             return this.__timeWhenRoundStarted;
         }
 
+        /**
+         * Gets the time when any player last fired a shot.
+         *
+         * @returns {number} The timestamp of the last shot fired by any player.
+         */
         timeWhenAnyPlayerLastFired() {
             return this.__timeWhenAnyPlayerLastFired;
         }
 
+        /**
+         * Checks if at least one player has fired during the current round.
+         *
+         * @returns {boolean} True if at least one player has fired, false otherwise.
+         */
         atLeastOnePlayerHasFired() {
             return this.__atLeastOnePlayerHasFired;
         }
 
+        /**
+         * Check if zero fire period has exceeded.
+         *
+         * @returns {boolean} the boolean.
+         */
         zeroFirePeriodExceeded() {
             const timePeriod = CWSYSTEM.Environment.currentTime() - this.__timeWhenAnyPlayerLastFired;
             if (!this.endOfRoundWarningIssued && timePeriod > 120000 && dsector.DSReference.dsecSetupWindow.soundMode !== 0) {

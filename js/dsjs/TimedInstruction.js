@@ -3,12 +3,25 @@
     /**
      * Represents a timed instruction that will execute a specified method
      * on a parent object after a certain amount of time.
+     *
+     * @property  {number} time - The time after which the method should be executed.
+     * @property {Object} objectToExecuteMethod - The object on which the method should be executed.
+     * @property {string} methodName - The name of the method to be executed.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class TimedInstruction {
         /**
          * Creates an instance of TimedInstruction.
+         *
          * @param {number} time - The time after which the method should be executed.
          * @param {Object} parent - The object on which the method should be executed.
          * @param {string} name - The name of the method to be executed.
@@ -30,6 +43,7 @@
 
         /**
          * Adds a new timed instruction to the list of timed instructions.
+         *
          * @param {number} time - The time after which the method should be executed.
          * @param {Object} parent - The object on which the method should be executed.
          * @param {string} name - The name of the method to be executed.

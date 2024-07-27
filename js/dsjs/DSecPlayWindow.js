@@ -1,40 +1,53 @@
-/* Re-written from Java */
 (function (dsector) {
     /**
      * DSecPlayWindow class for managing the game play window.
+     *
+     * @property {CWSYSTEM.CWWindow} window the game play window.
+     * @property {CWSYSTEM.CWWindow} backgroundMusic the background music window.
+     * @property {number} savedX the saved x coordinate.
+     * @property {number} savedY the saved y coordinate.
+     * @property {number} savedW the saved width.
+     * @property {number} savedH the saved height.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     * @requires CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class DSecPlayWindow {
         /**
          * Constructor for DSecPlayWindow.
          */
         constructor() {
-            if (this.window === undefined) {
-                this.window = null;
-            }
-            if (this.backgroundMusic === undefined) {
-                this.backgroundMusic = null;
-            }
+            this.window = this.window || null;
+            this.backgroundMusic = this.backgroundMusic || null;
             this.savedX = 25;
             this.savedY = 25;
-            if (this.savedW === undefined) {
-                this.savedW = 0;
-            }
-            if (this.savedH === undefined) {
-                this.savedH = 0;
-            }
-            const safeXRes = CWSYSTEM.Global.screenResolutionX_$LI$() < 500 ? 50 : 300;
-            if (CWSYSTEM.Global.screenResolutionY_$LI$() > (CWSYSTEM.Global.screenResolutionX_$LI$() - safeXRes)) {
-                this.savedW = CWSYSTEM.Global.screenResolutionX_$LI$() - safeXRes;
-                this.savedH = Math.round((this.savedW / 4) * 3);
+            this.savedW = this.savedW || 0;
+            this.savedH = this.savedH || 0;
+
+            const screenWidth = CWSYSTEM.Global.screenResolutionX_$LI$();
+            const screenHeight = CWSYSTEM.Global.screenResolutionY_$LI$();
+            const safeXRes = screenWidth < 500 ? 50 : 300;
+
+            if (screenHeight > (screenWidth - safeXRes)) {
+                this.savedW = screenWidth - safeXRes;
+                this.savedH = Math.round(this.savedW * 0.75);
             } else {
-                this.savedH = CWSYSTEM.Global.screenResolutionY_$LI$() - 100;
-                this.savedW = Math.round((this.savedH / 3) * 4);
+                this.savedH = screenHeight - 100;
+                this.savedW = Math.round(this.savedH * 4 / 3);
             }
+
             this.create();
             this.window.centerWithinDesktop();
             this.destroy();
+
             if (dsector.DSReference.dsecSetupWindow.musicMode === dsector.DSecSetupWindow.MUSIC_ON) {
                 this.turnMusicOn();
             }
@@ -325,6 +338,12 @@
         }
     }
 
+    /**
+     * Static variable to determine class initialization.
+     *
+     * @type {boolean}
+     * @private
+     */
     DSecPlayWindow.__static_initialized = false;
     dsector.DSecPlayWindow = DSecPlayWindow;
     DSecPlayWindow["__class"] = "dsector.DSecPlayWindow";

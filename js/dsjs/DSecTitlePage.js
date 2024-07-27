@@ -1,8 +1,19 @@
-/**/
 (function (dsector) {
     /**
+     * Class for setting up the title page.
+     *
+     * @property {boolean} titleScreenOpen
+     * @property {dsector.MP3} controlRoomSound
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class DSecTitlePage {
         constructor() {
@@ -20,6 +31,10 @@
             dsector.Keyboard.focus = dsector.Keyboard.DSECTOR;
             CWSYSTEM.Global.windowsCanOnlyBeMovedByClickingTitleArea = false;
         }
+
+        /**
+         * Responds to the game tick event.
+         */
         respondToGameTick() {
             if (CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed) {
                 this.titleScreenOpen = false;
@@ -31,6 +46,7 @@
             }
         }
     }
+
     dsector.DSecTitlePage = DSecTitlePage;
     DSecTitlePage["__class"] = "dsector.DSecTitlePage";
 })(dsector || (dsector = {}));

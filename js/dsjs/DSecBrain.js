@@ -174,19 +174,17 @@
             if (dsector.DSReference.dsecMainSetupWindow.playMode() !== dsector.DSecMainSetupWindow.HOSTILE) {
                 if (this.player.allEnemyTanksDestroyed()) {
                     this.setTargetAsEnemyJewel();
-                } else {
-                    if (this.targetType === DSecBrain.TANK) {
-                        const target = this.target;
-                        const targetJewel = this.player.distanceToEnemyJewel();
-                        const distToPlayer = this.player.distanceToPlayer(target);
-                        if (targetJewel < distToPlayer && (
-                            this.player.allEnemyTanksDestroyed() ||
-                            this.player.teamOfPlayer().totalTankStrengthOfTeam() < this.player.enemyTeamOfPlayer().totalTankStrengthOfTeam() ||
-                            this.player.isWeakestInTeamAndAtLeastOneOtherPlayerOfSameTeamAlive() ||
-                            this.enemyJewelCanProbablyBeDestroyedQuickly()
-                        )) {
-                            this.setTargetAsEnemyJewel();
-                        }
+                } else if (this.targetType === DSecBrain.TANK) {
+                    const target = this.target;
+                    const targetJewel = this.player.distanceToEnemyJewel();
+                    const distToPlayer = this.player.distanceToPlayer(target);
+                    if (targetJewel < distToPlayer && (
+                        this.player.allEnemyTanksDestroyed() ||
+                        this.player.teamOfPlayer().totalTankStrengthOfTeam() < this.player.enemyTeamOfPlayer().totalTankStrengthOfTeam() ||
+                        this.player.isWeakestInTeamAndAtLeastOneOtherPlayerOfSameTeamAlive() ||
+                        this.enemyJewelCanProbablyBeDestroyedQuickly()
+                    )) {
+                        this.setTargetAsEnemyJewel();
                     }
                 }
             }
@@ -300,12 +298,10 @@
             if (angle < 0.031415926535897934) {
                 this.resetAmountTurned();
                 this.player.acceptInstruction(dsector.DSecPlayer.STOP_TURNING);
+            } else if (amount === 1) {
+                this.turnRightForGivenRadians(angle);
             } else {
-                if (amount === 1) {
-                    this.turnRightForGivenRadians(angle);
-                } else {
-                    this.turnLeftForGivenRadians(angle);
-                }
+                this.turnLeftForGivenRadians(angle);
             }
         }
 
@@ -333,106 +329,96 @@
          */
         closestObjectStrikingSensor(ap, va, vv, m, cSin) {
             const angle = this.player.getAngle();
-            const anglePos = Math.fround(this.player.getAngle() + ap);
-            const vX = (this.player.getX() + m * Math.cos(angle) - cSin * Math.sin(angle));
-            const vY = (this.player.getY() + m * Math.sin(angle) + cSin * Math.cos(angle));
+            const anglePos = Math.fround(angle + ap);
+            const playerX = this.player.getX();
+            const playerY = this.player.getY();
+            const vX = playerX + m * Math.cos(angle) - cSin * Math.sin(angle);
+            const vY = playerY + m * Math.sin(angle) + cSin * Math.cos(angle);
             const angleVX = vX + Math.cos(anglePos) * va;
             const angleVY = vY + Math.sin(anglePos) * va;
-            const polygon = new dsector.Polygon(new dsector.Vertex(vX, vY, 0.0),
-                new dsector.Vertex((angleVX + Math.sin(anglePos) * vv / 2.0),
-                    (angleVY - Math.cos(anglePos) * vv / 2.0), 0.0),
-                new dsector.Vertex((angleVX - Math.sin(anglePos) * vv / 2.0),
-                    (angleVY + Math.cos(anglePos) * vv / 2.0), 0.0),
-                new CWSYSTEM.CWColor(255, 20, 20, 15));
-            const arrayList = ([]);
-            arrayList.push(polygon);
-            const sensor =
-                dsector.PositionedModel.createPositionedModelFromGroupOfPolygons("sensor", arrayList);
+
+            const polygon = new dsector.Polygon(
+                new dsector.Vertex(vX, vY, 0.0),
+                new dsector.Vertex(angleVX + Math.sin(anglePos) * vv / 2.0, angleVY - Math.cos(anglePos) * vv / 2.0, 0.0),
+                new dsector.Vertex(angleVX - Math.sin(anglePos) * vv / 2.0, angleVY + Math.cos(anglePos) * vv / 2.0, 0.0),
+                new CWSYSTEM.CWColor(255, 20, 20, 15)
+            );
+
+            const sensor = dsector.PositionedModel.createPositionedModelFromGroupOfPolygons("sensor", [polygon]);
+
             if (this.sensorsVisible()) {
                 dsector.DSReference.dsecGame.addObjectForDisplayOnlyDuringTheNextFrame(sensor);
             }
-            const array1 = ([]);
-            let round = dsector.DSReference.dsecGame.dsecRound;
-            let i;
-            for (i = 0; i < round.backgroundObjects.length; ++i) {
-                const model = round.backgroundObjects[i];
+
+            const intersectingObjects = [];
+            const round = dsector.DSReference.dsecGame.dsecRound;
+
+            // Check background objects
+            for (const model of round.backgroundObjects) {
                 if (sensor.intersectsWith(model)) {
-                    const polygonCenter = this.distanceBetweenPointAndPolygonCenter(
-                        this.player.getX(), this.player.getY(), 0.0, model.intersectedPolygon);
-                    array1.push(new dsector.IntersectingDSecObject(polygonCenter,
-                        DSecBrain.WALL, null, null, null));
+                    const distance = this.distanceBetweenPointAndPolygonCenter(playerX, playerY, 0.0, model.intersectedPolygon);
+                    intersectingObjects.push(new dsector.IntersectingDSecObject(distance, DSecBrain.WALL, null, null, null));
                 }
             }
-            let v;
-            let positionedModel;
-            for (i = 0; i < dsector.DSReference.dsecGame.numberOfPlayers(); ++i) {
+
+            // Check other players
+            for (let i = 0; i < dsector.DSReference.dsecGame.numberOfPlayers(); i++) {
                 const player1 = dsector.DSReference.dsecGame.getPlayer(i + 1);
                 if (player1 !== this.player && player1.aliveState !== 0) {
-                    positionedModel = player1.constructPositionedModel();
+                    const positionedModel = player1.constructPositionedModel();
                     if (sensor.intersectsWith(positionedModel)) {
-                        v = this.distanceBetweenPointAndPolygonCenter(this.player.getX(), this.player.getY(),
-                            0.0, positionedModel.intersectedPolygon);
-                        array1.push(new dsector.IntersectingDSecObject(v, DSecBrain.TANK, player1, null, null));
+                        const distance = this.distanceBetweenPointAndPolygonCenter(playerX, playerY, 0.0, positionedModel.intersectedPolygon);
+                        intersectingObjects.push(new dsector.IntersectingDSecObject(distance, DSecBrain.TANK, player1, null, null));
                     }
                 }
             }
-            for (i = 0; i < dsector.DSReference.dsecMissileManager.missiles.length; ++i) {
-                const missile = dsector.DSReference.dsecMissileManager.missiles[i];
+
+            // Check missiles
+            for (const missile of dsector.DSReference.dsecMissileManager.missiles) {
                 if (missile.owner !== this.player) {
-                    positionedModel = missile.constructPositionedModel();
+                    const positionedModel = missile.constructPositionedModel();
                     if (sensor.intersectsWith(positionedModel)) {
-                        v = this.distanceBetweenPointAndPolygonCenter(this.player.getX(), this.player.getY(),
-                            0.0, positionedModel.intersectedPolygon);
-                        array1.push(new dsector.IntersectingDSecObject(v, DSecBrain.MISSILE, null, missile, null));
+                        const distance = this.distanceBetweenPointAndPolygonCenter(playerX, playerY, 0.0, positionedModel.intersectedPolygon);
+                        intersectingObjects.push(new dsector.IntersectingDSecObject(distance, DSecBrain.MISSILE, null, missile, null));
                     }
                 }
             }
-            let polyCenter;
+
+            // Check jewels in TEAMS mode
             if (dsector.DSReference.dsecMainSetupWindow.playMode() === dsector.DSecMainSetupWindow.TEAMS) {
-                round = dsector.DSReference.dsecGame.dsecRound;
-                let model = this.player.enemyJewel().constructPositionedModel();
-                if (sensor.intersectsWith(model)) {
-                    polyCenter = this.distanceBetweenPointAndPolygonCenter(this.player.getX(), this.player.getY(),
-                        0.0, model.intersectedPolygon);
-                    array1.push(new dsector.IntersectingDSecObject(polyCenter, DSecBrain.JEWEL, null,
-                        null, this.player.enemyJewel()));
+                const enemyJewelModel = this.player.enemyJewel().constructPositionedModel();
+                if (sensor.intersectsWith(enemyJewelModel)) {
+                    const distance = this.distanceBetweenPointAndPolygonCenter(playerX, playerY, 0.0, enemyJewelModel.intersectedPolygon);
+                    intersectingObjects.push(new dsector.IntersectingDSecObject(distance, DSecBrain.JEWEL, null, null, this.player.enemyJewel()));
                 }
-                model = this.player.ownJewel().constructPositionedModel();
-                if (sensor.intersectsWith(model)) {
-                    polyCenter = this.distanceBetweenPointAndPolygonCenter(this.player.getX(), this.player.getY(),
-                        0.0, model.intersectedPolygon);
-                    array1.push(new dsector.IntersectingDSecObject(polyCenter, DSecBrain.WALL,
-                        null, null, null));
+
+                const ownJewelModel = this.player.ownJewel().constructPositionedModel();
+                if (sensor.intersectsWith(ownJewelModel)) {
+                    const distance = this.distanceBetweenPointAndPolygonCenter(playerX, playerY, 0.0, ownJewelModel.intersectedPolygon);
+                    intersectingObjects.push(new dsector.IntersectingDSecObject(distance, DSecBrain.WALL, null, null, null));
                 }
             }
-            if (array1.length === 0) {
+
+            if (intersectingObjects.length === 0) {
                 return DSecBrain.NONE;
-            } else {
-                let intersectingObject = null;
-                polyCenter = 3.4028235E38;
-                for (let j = 0; j < array1.length; ++j) {
-                    const intersObject = array1[j];
-                    if (intersObject.distance < polyCenter) {
-                        intersectingObject = intersObject;
-                        polyCenter = intersObject.distance;
-                    }
-                }
-                if (intersectingObject.type === DSecBrain.TANK) {
-                    this.__tankLastDetectedBySensor = intersectingObject.playerOwningIntersectingTank;
-                    if (this.__tankLastDetectedBySensor.shieldActive()) {
-                        intersectingObject.type = DSecBrain.WALL;
-                    }
-                    if (!this.player.playerIsEnemy(this.__tankLastDetectedBySensor)) {
-                        intersectingObject.type = DSecBrain.WALL;
-                    }
-                }
-                if (intersectingObject.type === DSecBrain.MISSILE &&
-                    intersectingObject.intersectingMissile.weaponSpecification
-                        .actionWhenFiredAfterAlreadyLaunched === 14 && !this.player.shieldActive()) {
-                    intersectingObject.type = DSecBrain.WALL;
-                }
-                return intersectingObject.type;
             }
+
+            const closestObject = intersectingObjects.reduce((closest, current) =>
+                current.distance < closest.distance ? current : closest
+            );
+
+            if (closestObject.type === DSecBrain.TANK) {
+                this.__tankLastDetectedBySensor = closestObject.playerOwningIntersectingTank;
+                if (this.__tankLastDetectedBySensor.shieldActive() || !this.player.playerIsEnemy(this.__tankLastDetectedBySensor)) {
+                    closestObject.type = DSecBrain.WALL;
+                }
+            } else if (closestObject.type === DSecBrain.MISSILE &&
+                closestObject.intersectingMissile.weaponSpecification.actionWhenFiredAfterAlreadyLaunched === 14 &&
+                !this.player.shieldActive()) {
+                closestObject.type = DSecBrain.WALL;
+            }
+
+            return closestObject.type;
         }
 
         /**
@@ -623,7 +609,7 @@
                 const jewel = this.player.enemyJewel();
                 const dist1 = Math.sqrt(Math.pow(this.player.getX() - jewel.x, 2.0) +
                     Math.pow(this.player.getY() - jewel.y, 2.0));
-                return !(dist1 > range);
+                return dist1 <= range;
             }
             return true;
         }
@@ -714,12 +700,11 @@
          * @returns {boolean} True if an enemy missile is within the specified distance and damage threshold, false otherwise.
          */
         enemyMissileWithin(v, dmg) {
-            for (let i = 0; i < dsector.DSReference.dsecMissileManager.missiles.length; ++i) {
-                const missile = dsector.DSReference.dsecMissileManager.missiles[i];
+            for (const missile of dsector.DSReference.dsecMissileManager.missiles) {
                 if (missile.owner !== this.player &&
                     (dsector.DSReference.dsecMainSetupWindow.playMode() !== dsector.DSecMainSetupWindow.TEAMS ||
                         missile.owner == null || missile.owner.teamOfPlayer() !== this.player.teamOfPlayer()) &&
-                    !(missile.getDamage() < dmg)) {
+                    missile.getDamage() >= dmg) {
                     const ret = Math.sqrt(Math.pow(missile.getX() - this.player.getX(), 2.0) +
                         Math.pow(missile.getY() - this.player.getY(), 2.0));
                     if (ret < v) {
@@ -838,7 +823,6 @@
                 case 62:
                     return remainingRounds === 9;
                 case 63:
-                default:
                     return false;
                 case 64:
                     return remainingRounds === 15;
@@ -868,6 +852,8 @@
                     return this.player.getFireUnitsFromPortNumber(5) <= 100;
                 case 77:
                     return this.player.getFireUnitsFromPortNumber(6) <= 100;
+                default:
+                    return false;
             }
         }
 
@@ -905,72 +891,12 @@
                     break;
                 case 18:
                     this.attemptToPurchaseMostAffordableWeaponFromGivenWeaponStrategy(8);
+                    break;
                 case 19:
                 case 20:
-                default:
                     break;
                 case 21:
-                    if (this.player.tankSpecification.type() === 4 || this.player.tankSpecification.type() === 3 &&
-                        this.player.tankSpecification.weaponFuelUpgradeLevel() > 0 ||
-                        this.player.tankSpecification.type() === 2 &&
-                        this.player.tankSpecification.weaponFuelUpgradeLevel() === 2 ||
-                        this.player.tankSpecification.type() === 1 &&
-                        this.player.tankSpecification.weaponFuelUpgradeLevel() === 2) {
-                        switch ((((Math.random() * 5.0) | 0))) {
-                            case 0:
-                                this.attemptToExecuteShoppingAction(22);
-                                return;
-                            case 1:
-                            case 2:
-                                this.attemptToExecuteShoppingAction(23);
-                                return;
-                            case 3:
-                                this.attemptToExecuteShoppingAction(24);
-                                return;
-                            case 4:
-                                this.attemptToExecuteShoppingAction(22);
-                        }
-                    } else {
-                        switch (this.player.tankSpecification.type()) {
-                            case 0:
-                                if (this.attemptToPurchaseGivenItem(404)) {
-                                    return;
-                                }
-                                if (this.attemptToPurchaseGivenItem(403)) {
-                                    return;
-                                }
-                                if (this.attemptToPurchaseGivenItem(402)) {
-                                    return;
-                                }
-                                if (this.attemptToPurchaseGivenItem(401)) {
-                                    return;
-                                }
-                                return;
-                            case 1:
-                                if (this.attemptToPurchaseGivenItem(404)) {
-                                    return;
-                                }
-                                if (this.attemptToPurchaseGivenItem(403)) {
-                                    return;
-                                }
-                                if (this.attemptToPurchaseGivenItem(402)) {
-                                    return;
-                                }
-                                return;
-                            case 2:
-                                if (this.attemptToPurchaseGivenItem(404)) {
-                                    return;
-                                }
-                                if (this.attemptToPurchaseGivenItem(403)) {
-                                    return;
-                                }
-                                return;
-                            case 3:
-                                if (this.attemptToPurchaseGivenItem(404)) {
-                                    return;
-                                }
-                        }
-                    }
+                    this.case21();
                     break;
                 case 22:
                     if (this.player.tankSpecification.weaponFuelUpgradeLevel() === 0 &&
@@ -1024,14 +950,18 @@
                         this.attemptToPurchaseGivenItem(405);
                     }
                     break;
-                case 27:
-                    let check;
-                    for (check = false; this.attemptToPurchaseGivenItem(407); check = true) {
+                case 27: {
+                    let bc;
+                    for (bc = false; this.attemptToPurchaseGivenItem(407); bc = true) {
                         // ???
                     }
-                    if (check) {
+                    if (bc) {
                         this.shoppingLog("Bribed the shop");
                     }
+                    break;
+                }
+                default:
+                    break;
             }
         }
 
@@ -1173,6 +1103,74 @@
          */
         shoppingLog(message) {
             CWSYSTEM.Debug.println(message);
+        }
+
+        case21() {
+            if (this.player.tankSpecification.type() === 4 || this.player.tankSpecification.type() === 3 &&
+                this.player.tankSpecification.weaponFuelUpgradeLevel() > 0 ||
+                this.player.tankSpecification.type() === 2 &&
+                this.player.tankSpecification.weaponFuelUpgradeLevel() === 2 ||
+                this.player.tankSpecification.type() === 1 &&
+                this.player.tankSpecification.weaponFuelUpgradeLevel() === 2) {
+                switch (((Math.random() * 5.0) | 0)) {
+                    case 0:
+                        this.attemptToExecuteShoppingAction(22);
+                        return;
+                    case 1:
+                    case 2:
+                        this.attemptToExecuteShoppingAction(23);
+                        return;
+                    case 3:
+                        this.attemptToExecuteShoppingAction(24);
+                        return;
+                    case 4:
+                        this.attemptToExecuteShoppingAction(22);
+                }
+            } else {
+                this.case21else();
+            }
+        }
+
+        case21else() {
+            switch (this.player.tankSpecification.type()) {
+                case 0:
+                    if (this.attemptToPurchaseGivenItem(dsector.PreBuiltWeaponSpecifications.OPEC_2)) {
+                        return;
+                    }
+                    if (this.attemptToPurchaseGivenItem(dsector.PreBuiltWeaponSpecifications.OPEC_1)) {
+                        return;
+                    }
+                    if (this.attemptToPurchaseGivenItem(dsector.PreBuiltWeaponSpecifications.ROTRA_2)) {
+                        return;
+                    }
+                    if (this.attemptToPurchaseGivenItem(dsector.PreBuiltWeaponSpecifications.ROTRA_1)) {
+                        return;
+                    }
+                    return;
+                case 1:
+                    if (this.attemptToPurchaseGivenItem(dsector.PreBuiltWeaponSpecifications.OPEC_2)) {
+                        return;
+                    }
+                    if (this.attemptToPurchaseGivenItem(dsector.PreBuiltWeaponSpecifications.OPEC_1)) {
+                        return;
+                    }
+                    if (this.attemptToPurchaseGivenItem(dsector.PreBuiltWeaponSpecifications.ROTRA_2)) {
+                        return;
+                    }
+                    return;
+                case 2:
+                    if (this.attemptToPurchaseGivenItem(dsector.PreBuiltWeaponSpecifications.OPEC_2)) {
+                        return;
+                    }
+                    if (this.attemptToPurchaseGivenItem(dsector.PreBuiltWeaponSpecifications.OPEC_1)) {
+                        return;
+                    }
+                    return;
+                case 3:
+                    if (this.attemptToPurchaseGivenItem(dsector.PreBuiltWeaponSpecifications.OPEC_2)) {
+                        return;
+                    }
+            }
         }
     }
 

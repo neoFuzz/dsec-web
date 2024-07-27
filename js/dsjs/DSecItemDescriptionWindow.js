@@ -1,10 +1,26 @@
-/**/
 (function (dsector) {
     /**
+     * A class used to build the Item description window to explain items when shopping.
+     *
+     * @property {CWSYSTEM.CWWindow} window The GUI window with elements.
+     * @property {dsector.WeaponSpecification} weaponSpecification The weapon specification to display.
+     * @property {number} savedX The last X co-ordinate the window was in. Otherwise, -1 if not saved.
+     * @property {number} savedY The last Y co-ordinate the window was in. Otherwise, -1 if not saved.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class DSecItemDescriptionWindow {
+        /**
+         * Sets up the DSecItemDescriptionWindow class.
+         */
         constructor() {
             if (this.window === undefined) {
                 this.window = null;
@@ -14,10 +30,21 @@
             this.savedY = -1;
         }
 
+        /**
+         * Returns whether the window has been created.
+         *
+         * @public
+         * @returns {boolean}
+         */
         isCreated() {
             return this.window != null;
         }
 
+        /**
+         * Toggles the window's creation state.
+         *
+         * @public
+         */
         toggleCreated() {
             if (this.isCreated()) {
                 this.destroy();
@@ -26,6 +53,11 @@
             }
         }
 
+        /**
+         * Creates the window.
+         *
+         * @public
+         */
         create() {
             if (this.isCreated()) {
                 this.drawWindow();
@@ -35,6 +67,11 @@
             }
         }
 
+        /**
+         * Destroys the window.
+         *
+         * @public
+         */
         destroy() {
             if (this.window != null) {
                 this.savedX = this.window.xPosition;
@@ -44,16 +81,12 @@
             }
         }
 
-        update() {
-            if (this.isCreated()) {
-                this.drawWindow();
-            } else {
-                this.drawWindow();
-                this.restorePosition();
-            }
-        }
-
-        /** @private */ restorePosition() {
+        /**
+         * Restores the window's position.
+         *
+         * @private
+         */
+        restorePosition() {
             if (this.savedX !== -1) {
                 this.window.xPosition = this.savedX;
             }
@@ -62,6 +95,9 @@
             }
         }
 
+        /**
+         * Draws the window.
+         */
         drawWindow() {
             if (this.weaponSpecification != null) {
                 let x = 20;
@@ -95,20 +131,7 @@
                 if (this.weaponSpecification.type === dsector.WeaponSpecification.LASER ||
                     this.weaponSpecification.type === dsector.WeaponSpecification.PROJECTILE ||
                     this.weaponSpecification.type === dsector.WeaponSpecification.TOUCH) {
-                    let defaultDamage = this.weaponSpecification.defaultDamage;
-                    if (this.weaponSpecification.specificationID === dsector.PreBuiltWeaponSpecifications.TRI_BREAKER ||
-                        this.weaponSpecification.specificationID === dsector.PreBuiltWeaponSpecifications.QUINT_BREAKER ||
-                        this.weaponSpecification.specificationID === dsector.PreBuiltWeaponSpecifications.QUINT_GUIDER ||
-                        this.weaponSpecification.specificationID === dsector.PreBuiltWeaponSpecifications.BLASTER ||
-                        this.weaponSpecification.specificationID === dsector.PreBuiltWeaponSpecifications.NUKE_BLASTER ||
-                        this.weaponSpecification.specificationID === dsector.PreBuiltWeaponSpecifications.GUIDE_BLASTER ||
-                        this.weaponSpecification.specificationID === dsector.PreBuiltWeaponSpecifications.BLAST_GUIDER ||
-                        this.weaponSpecification.specificationID === dsector.PreBuiltWeaponSpecifications.BLAST_SWIRLER ||
-                        this.weaponSpecification.specificationID === dsector.PreBuiltWeaponSpecifications.NORMAL_BOMB ||
-                        this.weaponSpecification.specificationID === dsector.PreBuiltWeaponSpecifications.DEATH_BOMB ||
-                        this.weaponSpecification.specificationID === dsector.PreBuiltWeaponSpecifications.OCTO_BREAKER) {
-                        defaultDamage *= 2;
-                    }
+                    let defaultDamage = this.stage1WeaponCheck(this.weaponSpecification);
                     this.window.addTextBlock("", "Weapon fuel use", 10, baseline, font, color, 999);
                     this.window.addTextBlock("", "" + this.weaponSpecification.fuelUse, 160, baseline, font, color, 999);
                     baseline += 18;
@@ -117,41 +140,7 @@
                     baseline += 28;
                 }
                 if (this.weaponSpecification.type === dsector.WeaponSpecification.TANK) {
-                    let b = -1;
-                    switch (this.weaponSpecification.specificationID) {
-                        case dsector.PreBuiltWeaponSpecifications.STANDARD_TANK:
-                            b = 0;
-                            break;
-                        case dsector.PreBuiltWeaponSpecifications.ROTRA_1:
-                            b = 1;
-                            break;
-                        case dsector.PreBuiltWeaponSpecifications.ROTRA_2:
-                            b = 2;
-                            break;
-                        case dsector.PreBuiltWeaponSpecifications.OPEC_1:
-                            b = 3;
-                            break;
-                        case dsector.PreBuiltWeaponSpecifications.OPEC_2:
-                            b = 4;
-                            break;
-                        case dsector.PreBuiltWeaponSpecifications.OPEC_X:
-                            b = 5;
-                    }
-                    if (b !== -1) {
-                        const specification = new dsector.TankSpecification(b);
-                        this.window.addTextBlock("", "Weapon fuel quality", 10, baseline, font, color, 999);
-                        this.window.addTextBlock("", specification.weaponFuelAsPresented(), 160, baseline, font, color, 999);
-                        baseline += 18;
-                        this.window.addTextBlock("", "Armour", 10, baseline, font, color, 999);
-                        this.window.addTextBlock("", specification.armourAsPresented(), 160, baseline, font, color, 999);
-                        baseline += 18;
-                        this.window.addTextBlock("", "Speed", 10, baseline, font, color, 999);
-                        this.window.addTextBlock("", specification.speedAsPresented(), 160, baseline, font, color, 999);
-                        baseline += 18;
-                        this.window.addTextBlock("", "Turn rate", 10, baseline, font, color, 999);
-                        this.window.addTextBlock("", specification.turnRateAsPresented(), 160, baseline, font, color, 999);
-                        baseline += 28;
-                    }
+                    baseline = this.tankCheck(baseline, this.weaponSpecification.specificationID);
                 }
                 baseline -= 25;
                 const button = this.window.addButton("", 101, baseline, 57,
@@ -165,8 +154,84 @@
             }
         }
 
+        /**
+         * Closes the window.
+         *
+         * @param button
+         */
         closeWindow(button) {
             this.destroy();
+        }
+
+        /**
+         * Checks a weapon specification against weapons with 2 stages and gives the calculated damage value.
+         *
+         * @private
+         * @param {dsector.WeaponSpecification} wspec The weapon specification to check.
+         * @returns {number} The calculated damage value.
+         */
+        stage1WeaponCheck(wspec) {
+            if (wspec.specificationID === dsector.PreBuiltWeaponSpecifications.TRI_BREAKER ||
+                wspec.specificationID === dsector.PreBuiltWeaponSpecifications.QUINT_BREAKER ||
+                wspec.specificationID === dsector.PreBuiltWeaponSpecifications.QUINT_GUIDER ||
+                wspec.specificationID === dsector.PreBuiltWeaponSpecifications.BLASTER ||
+                wspec.specificationID === dsector.PreBuiltWeaponSpecifications.NUKE_BLASTER ||
+                wspec.specificationID === dsector.PreBuiltWeaponSpecifications.GUIDE_BLASTER ||
+                wspec.specificationID === dsector.PreBuiltWeaponSpecifications.BLAST_GUIDER ||
+                wspec.specificationID === dsector.PreBuiltWeaponSpecifications.BLAST_SWIRLER ||
+                wspec.specificationID === dsector.PreBuiltWeaponSpecifications.NORMAL_BOMB ||
+                wspec.specificationID === dsector.PreBuiltWeaponSpecifications.DEATH_BOMB ||
+                wspec.specificationID === dsector.PreBuiltWeaponSpecifications.OCTO_BREAKER) {
+                return wspec.defaultDamage * 2;
+            }
+            return wspec.defaultDamage;
+        }
+
+        /**
+         * Checks a tank specification and displays the relevant information.
+         *
+         * @private
+         * @param {number} baseline The baseline to start from for displaying text.
+         * @param {number} specID The weapon specification ID to check.
+         * @returns {number} The new baseline after displaying the information.
+         */
+        tankCheck(baseline, specID) {
+            let b = -1;
+            switch (specID) {
+                case dsector.PreBuiltWeaponSpecifications.STANDARD_TANK:
+                    b = 0;
+                    break;
+                case dsector.PreBuiltWeaponSpecifications.ROTRA_1:
+                    b = 1;
+                    break;
+                case dsector.PreBuiltWeaponSpecifications.ROTRA_2:
+                    b = 2;
+                    break;
+                case dsector.PreBuiltWeaponSpecifications.OPEC_1:
+                    b = 3;
+                    break;
+                case dsector.PreBuiltWeaponSpecifications.OPEC_2:
+                    b = 4;
+                    break;
+                case dsector.PreBuiltWeaponSpecifications.OPEC_X:
+                    b = 5;
+            }
+            if (b !== -1) {
+                const specification = new dsector.TankSpecification(b);
+                this.window.addTextBlock("", "Weapon fuel quality", 10, baseline, font, color, 999);
+                this.window.addTextBlock("", specification.weaponFuelAsPresented(), 160, baseline, font, color, 999);
+                baseline += 18;
+                this.window.addTextBlock("", "Armour", 10, baseline, font, color, 999);
+                this.window.addTextBlock("", specification.armourAsPresented(), 160, baseline, font, color, 999);
+                baseline += 18;
+                this.window.addTextBlock("", "Speed", 10, baseline, font, color, 999);
+                this.window.addTextBlock("", specification.speedAsPresented(), 160, baseline, font, color, 999);
+                baseline += 18;
+                this.window.addTextBlock("", "Turn rate", 10, baseline, font, color, 999);
+                this.window.addTextBlock("", specification.turnRateAsPresented(), 160, baseline, font, color, 999);
+                baseline += 28;
+            }
+            return baseline;
         }
     }
 

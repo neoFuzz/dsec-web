@@ -154,7 +154,7 @@
                     CWSYSTEM.CWTextArea.textAreaSelected().addCharacter(c);
                 }
             } else if (!CWSYSTEM.Environment.ctrlKeyPressed) {
-                //CWSYSTEM.Debug.println("!Environment.ctrlKeyPressed");
+                // unused branch
             }
         }
 
@@ -166,7 +166,6 @@
          * @methodOf CWSYSTEM.CWInterfaceProcesses
          */
         processKeyboardPress(keyCode) {
-            //CWSYSTEM.CWSReference.object.keyPressed(keyCode);
             if (CWSYSTEM.Environment.inputBoxSelected$() != null) {
                 if (keyCode !== 46 && keyCode !== 8) {
                     if (keyCode === 13) { // 13 is Enter
@@ -179,47 +178,51 @@
                     CWSYSTEM.Environment.inputBoxSelected$().deleteCharacter();
                 }
             } else if (CWSYSTEM.CWTextArea.textAreaSelected() != null) {
-                switch (keyCode) {
-                    case 46:
-                        CWSYSTEM.CWTextArea.textAreaSelected().deleteTyped();
-                        break;
-                    case 8:
-                        CWSYSTEM.CWTextArea.textAreaSelected().backSpaceTyped();
-                        break;
-                    case 13:
-                        CWSYSTEM.CWTextArea.textAreaSelected().returnTyped();
-                        break;
-                    case 39:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorRight();
-                        break;
-                    case 37:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorLeft();
-                        break;
-                    case 38:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorUp();
-                        break;
-                    case 40:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorDown();
-                        break;
-                    case 36:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorHome();
-                        break;
-                    case 35:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorEnd();
-                        break;
-                    case 33:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorPageUp();
-                        break;
-                    case 34:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorPageDown();
-                        break;
-                    case 9:
-                        CWSYSTEM.CWTextArea.textAreaSelected().tabTyped();
-                        break;
-                    case 18:
-                        CWSYSTEM.CWTextArea.textAreaSelected().tabTyped();
-                        break;
-                }
+                textAreaKeyPressed(keyCode);
+            }
+        }
+
+        textAreaKeyPressed(keyCode) {
+            switch (keyCode) {
+                case 46:
+                    CWSYSTEM.CWTextArea.textAreaSelected().deleteTyped();
+                    break;
+                case 8:
+                    CWSYSTEM.CWTextArea.textAreaSelected().backSpaceTyped();
+                    break;
+                case 13:
+                    CWSYSTEM.CWTextArea.textAreaSelected().returnTyped();
+                    break;
+                case 39:
+                    CWSYSTEM.CWTextArea.textAreaSelected().cursorRight();
+                    break;
+                case 37:
+                    CWSYSTEM.CWTextArea.textAreaSelected().cursorLeft();
+                    break;
+                case 38:
+                    CWSYSTEM.CWTextArea.textAreaSelected().cursorUp();
+                    break;
+                case 40:
+                    CWSYSTEM.CWTextArea.textAreaSelected().cursorDown();
+                    break;
+                case 36:
+                    CWSYSTEM.CWTextArea.textAreaSelected().cursorHome();
+                    break;
+                case 35:
+                    CWSYSTEM.CWTextArea.textAreaSelected().cursorEnd();
+                    break;
+                case 33:
+                    CWSYSTEM.CWTextArea.textAreaSelected().cursorPageUp();
+                    break;
+                case 34:
+                    CWSYSTEM.CWTextArea.textAreaSelected().cursorPageDown();
+                    break;
+                case 9:
+                    CWSYSTEM.CWTextArea.textAreaSelected().tabTyped();
+                    break;
+                case 18:
+                    CWSYSTEM.CWTextArea.textAreaSelected().tabTyped();
+                    break;
             }
         }
 
@@ -231,10 +234,7 @@
          * @methodOf CWSYSTEM.CWInterfaceProcesses
          */
         processKeyboardRelease(keyCode) {
-            switch (CWSYSTEM.Keyboard.focus) {
-                case CWSYSTEM.Keyboard.DSECTOR:
-                //dsector.DSReference.dsecGame.keyReleased(keyCode);
-            }
+            // adapter shell
         }
 
         /**
@@ -252,9 +252,6 @@
             CWSYSTEM.Environment.windowPageUp = false;
             CWSYSTEM.Environment.windowPageDown = false;
             CWSYSTEM.Environment.scrollbarHeld = null;
-            if (CWSYSTEM.CWGUIManager.windowHeld != null) {
-                CWSYSTEM.CWGUIManager.windowHeld.holdHeader(x, y);
-            }
         }
 
         /**

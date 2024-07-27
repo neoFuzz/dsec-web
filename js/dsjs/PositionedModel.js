@@ -1,9 +1,26 @@
-/* Re-written from Java */
 (function (dsector) {
     /**
      * Represents a 3D model with position and rotation.
+     * This class provides methods to manage and manipulate the model's position, rotation, and intersected polygon.
+     *
+     * @property {string} __name - The name of the model.
+     * @property {dsector.Model3DMatrix} model3DMatrix - The 3D matrix of the model.
+     * @property {dsector.Matrix4f} rotation - The rotation matrix of the model.
+     * @property {number} x - The x-coordinate of the model's position.
+     * @property {number} y - The y-coordinate of the model's position.
+     * @property {number} z - The z-coordinate of the model's position.
+     * @property {Polygon} intersectedPolygon - The intersected polygon.
+     * @property {number} numberOfCopiedPolygons - The number of copied polygons.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class PositionedModel {
         /**
@@ -17,12 +34,7 @@
          */
         constructor(name, m3dMatrix, rot = null,
                     x = 0, y = 0, z = 0) {
-            if (this.__name === undefined) {
-                this.__name = null;
-            }
-            if (this.model3DMatrix === undefined) {
-                this.model3DMatrix = null;
-            }
+            this.model3DMatrix = null; // default
 
             this.__name = name == null ? "" + ((Math.random() * 1.0E9) | 0) : name;
             this.model3DMatrix = m3dMatrix;
@@ -36,6 +48,7 @@
 
         /**
          * Creates a positioned model from a group of polygons.
+         *
          * @param {string} s - The base name for the model.
          * @param {Array<Polygon>} list - The list of polygons.
          * @returns {PositionedModel} The created positioned model.
@@ -77,7 +90,8 @@
         }
 
         /**
-         * Returns the name of the {@link PositionedModel}.
+         * Returns the name of the [PositionedModel]{@link dsector.PositionedModel}.
+         *
          * @returns {string} name of the model
          */
         name() {
@@ -86,7 +100,8 @@
 
         /**
          * Checks if the positioned model intersects with another model.
-         * @param {PositionedModel} positionedModel - The other positioned model to check intersection with.
+         *
+         * @param {dsector.PositionedModel} positionedModel - The other positioned model to check intersection with.
          * @returns {boolean} True if there is an intersection, false otherwise.
          */
         intersectsWith(positionedModel) {
@@ -149,6 +164,7 @@
 
         /**
          * Projects polygons to studio space.
+         *
          * @private
          * @param {number} i - Buffer selector (1 or 2).
          * @param {PositionedModel} positionedModel - The model to project.
@@ -257,7 +273,19 @@
         }
     }
 
+    /**
+     * Static buffer for polygon collision detection.
+     *
+     * @static
+     * @type {Object}
+     */
     PositionedModel.polygonCollisionDetectionBufferA = null;
+    /**
+     * Static buffer for polygon collision detection.
+     *
+     * @static
+     * @type {Object}
+     */
     PositionedModel.polygonCollisionDetectionBufferB = null;
     PositionedModel.xMax = 0;
     PositionedModel.xMin = 0;
@@ -265,6 +293,12 @@
     PositionedModel.yMin = 0;
     PositionedModel.zMax = 0;
     PositionedModel.zMin = 0;
+    /**
+     * Number of projections.
+     *
+     * @static
+     * @type {number}
+     */
     PositionedModel.numberOfProjections = 0;
     dsector.PositionedModel = PositionedModel;
     PositionedModel["__class"] = "dsector.PositionedModel";

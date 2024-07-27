@@ -1,13 +1,25 @@
-/* ported from Java */
 (function (CWSYSTEM) {
     /**
      * Utility class for fast color operations.
+     *
+     * @property {Array<number>} gammaCorrectionLookupTable - Lookup table for gamma correction.
+     * @property {Array<number>} gammaCorrectionLookupTableInverted - Inverted lookup table for gamma correction.
+     *
+     * @todo Move to the CWSYSTEM namespace
+     * @since 1.0.0
+     * @access public
      * @class
+     *
      * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class FastColorUtilities {
         /**
          * Creates a color from RGB values.
+         *
          * @param {number} red - Red component (0-255).
          * @param {number} green - Green component (0-255).
          * @param {number} blue - Blue component (0-255).
@@ -19,6 +31,7 @@
 
         /**
          * Creates a color from RGBA values.
+         *
          * @param {number} red - Red component (0-255).
          * @param {number} green - Green component (0-255).
          * @param {number} blue - Blue component (0-255).
@@ -31,6 +44,7 @@
 
         /**
          * Creates a color from RGB or RGBA values.
+         *
          * @param {number} red - Red component (0-255).
          * @param {number} green - Green component (0-255).
          * @param {number} blue - Blue component (0-255).
@@ -54,6 +68,7 @@
 
         /**
          * Returns a gamma-adjusted color.
+         *
          * @param {number} red - Red component (0-255).
          * @param {number} green - Green component (0-255).
          * @param {number} blue - Blue component (0-255).
@@ -69,6 +84,7 @@
 
         /**
          * Extracts the alpha component from a color.
+         *
          * @param {number} alpha - The color as a 32-bit integer.
          * @returns {number} The alpha component (0-255).
          */
@@ -78,6 +94,7 @@
 
         /**
          * Extracts the red component from a color.
+         *
          * @param {number} color - The color as a 32-bit integer.
          * @returns {number} The red component (0-255).
          */
@@ -87,6 +104,7 @@
 
         /**
          * Extracts the green component from a color.
+         *
          * @param {number} color - The color as a 32-bit integer.
          * @returns {number} The green component (0-255).
          */
@@ -96,6 +114,7 @@
 
         /**
          * Extracts the blue component from a color.
+         *
          * @param {number} color - The color as a 32-bit integer.
          * @returns {number} The blue component (0-255).
          */
@@ -105,6 +124,7 @@
 
         /**
          * Extracts RGB components from a color.
+         *
          * @param {number} color - The color as a 32-bit integer.
          * @returns {{red: number, green: number, blue: number, alpha: number}} An object containing the color components.
          */
@@ -119,6 +139,7 @@
 
         /**
          * Extracts RGBA components from a color.
+         *
          * @param {number} color - The color as a 32-bit integer.
          * @returns {{red: number, green: number, blue: number, alpha: number}} An object containing the color components.
          */
@@ -132,9 +153,33 @@
         }
     }
 
+    /**
+     * Mask for extracting the blue component from a color.
+     *
+     * @static
+     * @type {number}
+     */
     FastColorUtilities.blueMask = 255;
+    /**
+     * Mask for extracting the green component from a color.
+     *
+     * @static
+     * @type {number}
+     */
     FastColorUtilities.greenMask = 65280;
+    /**
+     * Mask for extracting the alpha component from a color.
+     *
+     * @static
+     * @type {number}
+     */
     FastColorUtilities.redMask = 16711680;
+    /**
+     * Mask for extracting the alpha component from a color.
+     *
+     * @static
+     * @type {number}
+     */
     FastColorUtilities.alphaMask = -16777216;
     FastColorUtilities.gammaCorrectionLookupTable = null;
     FastColorUtilities.gammaCorrection = 1.2;

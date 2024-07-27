@@ -1,9 +1,16 @@
-/* info header */
 (function (CWSYSTEM) {
     /**
      * Global Class that stores a variety of variables. Re-written from Java.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class Global {
         /**
@@ -230,6 +237,8 @@
      * @type {boolean}
      */
     Global.graphicsInitialized = false;
+    Global.MAX_COLOR_VALUE = 255;
+    Global.COLOR_NORMALIZATION = 256;
     CWSYSTEM.Global = Global;
     Global["__class"] = "CWSYSTEM.Global";
 })(CWSYSTEM || (CWSYSTEM = {}));

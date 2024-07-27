@@ -2,29 +2,39 @@
 (function (dsector) {
     /**
      * Class representing a Robot Summary Window.
+     *
+     * @property {CWSYSTEM.CWWindow|null} window - The window object.
+     * @property {string|null} selectedRobotFilename - The filename of the selected robot.
+     * @property {number} savedX - The saved x-coordinate of the window.
+     * @property {number} savedY - The saved y-coordinate of the window.
+     *
+     * @example
+     * let robotSummaryWindow = new dsector.RobotSummaryWindow();
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class RobotSummaryWindow {
         /**
          * Creates an instance of RobotSummaryWindow.
          */
         constructor() {
-            /** @type {Object|null} */
             this.window = null;
-
-            /** @type {string|null} */
             this.selectedRobotFilename = null;
-
-            /** @type {number} */
             this.savedX = -1;
-
-            /** @type {number} */
             this.savedY = -1;
         }
 
         /**
          * Checks if the window is created.
+         *
          * @returns {boolean} True if the window is created, otherwise false.
          */
         isCreated() {
@@ -73,6 +83,7 @@
 
         /**
          * Restores the position of the window.
+         *
          * @private
          */
         restorePosition() {

@@ -4,9 +4,9 @@
 
 Destruction Sector is an arcade/strategy science fiction tank war game.
 
-It is a 3D game presented using a top-down style
-view with triangular tanks battling it out in randomly generated arenas. Players can choose from multiple game modes,
-including Hostile and Teams mode, and can upgrade their tanks with various enhancements.
+It is a 3D game presented using a top-down style view with triangular tanks battling it out in randomly generated arenas.
+Players can choose from multiple game modes, including Hostile and Teams mode, and can upgrade their tanks with
+various enhancements.
 
 It is a port from the Java-based version of a similar game.
 
@@ -32,8 +32,8 @@ weapon, and fire.
 
 ## Game Play
 
-The background is generated randomly at the beginning of each round and the Destruction Sector is viewed from above. You
-can use to view the game from different perspectives as well.
+The background is generated randomly at the beginning of each round and the Destruction Sector is viewed from above.
+You can use to view the game from different perspectives as well.
 
 ### Main Option Screen
 

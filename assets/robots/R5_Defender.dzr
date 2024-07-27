@@ -1,5 +1,5 @@
 name = R5 Defender
-description = Aims for the nearest player, very little movement.
+description = Aims for the nearest player, very little movement. Keeps it's distance.
 clock1Probability = 50
 clock2Probability = 15
 clock3Probability = 100

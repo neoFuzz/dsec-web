@@ -1,14 +1,23 @@
-/* Generated from ChatGPT to replace Java code */
 (function (dsector) {
     /**
      * Represents an MP3 player for playing audio files.
+     *
+     * @note     Generated from ChatGPT to replace Java code
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class MP3 {
         /**
          * Creates an instance of the MP3 class. The constructor takes a URL parameter and
          * creates a new Audio object with the provided URL.
+         *
          * @param {string} url - The URL of the MP3 audio file.
          */
         constructor(url) {
@@ -42,6 +51,7 @@
 
         /**
          * Sets the audio to loop continuously.
+         *
          * @param {number} [count=Infinity] - The number of times to loop the audio (default: Infinity for infinite loop).
          */
         loop(count = Infinity) {
@@ -87,6 +97,7 @@
 
         /**
          * Gets the current playing status of the audio.
+         *
          * @returns {boolean} - `true` if the audio is currently playing, otherwise `false`.
          */
         getPlayingStatus() {
@@ -95,6 +106,7 @@
 
         /**
          * Sets the playing status of the audio.
+         *
          * @param {boolean} status - The desired playing status (`true` for play, `false` for stop).
          */
         setPlayingStatus(status) {

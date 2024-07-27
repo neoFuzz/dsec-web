@@ -1,13 +1,23 @@
-/**/
 (function (dsector) {
     /**
      * Class representing a 4x4 matrix.
+     *
+     * @property  {Array<Array<number>>} element - The 4x4 matrix elements.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class Matrix4f {
         /**
          * Create a 4x4 matrix.
+         *
          * @param {...number} elements - The elements of the matrix. If 16 elements are provided, they are used to fill the matrix. If no elements are provided, a 4x4 zero matrix is created.
          * @throws {Error} Will throw an error if the number of elements provided is not 0 or 16.
          */
@@ -29,10 +39,11 @@
 
         /**
          * Create a scale matrix.
+         *
          * @param {number} e00 - The scale factor along the x-axis.
          * @param {number} e11 - The scale factor along the y-axis.
          * @param {number} e22 - The scale factor along the z-axis.
-         * @returns {Matrix4f} A new Matrix4f object representing a scale matrix.
+         * @returns {dsector.Matrix4f} A new [Matrix4f]{@link dscetor.Matrix4f} object representing a scale matrix.
          */
         static scaleMatrix(e00, e11, e22) {
             const matrix4f = new Matrix4f();
@@ -44,10 +55,11 @@
 
         /**
          * Create a translation matrix.
+         *
          * @param {number} e30 - The translation along the x-axis.
          * @param {number} e31 - The translation along the y-axis.
          * @param {number} e32 - The translation along the z-axis.
-         * @returns {Matrix4f} A new Matrix4f object representing a translation matrix.
+         * @returns {dsector.Matrix4f} A new Matrix4f object representing a translation matrix.
          */
         static translationMatrix(e30, e31, e32) {
             const matrix4f = new Matrix4f();
@@ -59,8 +71,9 @@
 
         /**
          * Create a rotation matrix around the x-axis.
+         *
          * @param {number} rotateX - The angle of rotation in radians.
-         * @returns {Matrix4f} A new Matrix4f object representing a rotation matrix.
+         * @returns {dsector.Matrix4f} A new Matrix4f object representing a rotation matrix.
          */
         static rotationXMatrix(rotateX) {
             const matrix4f = new Matrix4f();
@@ -70,8 +83,9 @@
 
         /**
          * Create a rotation matrix around the y-axis.
+         *
          * @param {number} rotateY - The angle of rotation in radians.
-         * @returns {Matrix4f} A new Matrix4f object representing a rotation matrix.
+         * @returns {dsector.Matrix4f} A new Matrix4f object representing a rotation matrix.
          */
         static rotationYMatrix(rotateY) {
             const matrix4f = new Matrix4f();
@@ -81,8 +95,9 @@
 
         /**
          * Create a rotation matrix around the z-axis.
+         *
          * @param {number} rotateZ - The angle of rotation in radians.
-         * @returns {Matrix4f} A new Matrix4f object representing a rotation matrix.
+         * @returns {dsector.Matrix4f} A new Matrix4f object representing a rotation matrix.
          */
         static rotationZMatrix(rotateZ) {
             const matrix4f = new Matrix4f();
@@ -92,7 +107,7 @@
 
         /**
          * Set the elements of this matrix to the elements of another matrix.
-         * @param {Matrix4f} matrix4f - The matrix to copy elements from.
+         * @param {dsector.Matrix4f} matrix4f - The matrix to copy elements from.
          */
         set(matrix4f) {
             for (let i = 0; i < 4; ++i) {
@@ -124,7 +139,7 @@
 
         /**
          * Multiply this matrix by another matrix from the right.
-         * @param {Matrix4f} matrix4f - The matrix to multiply this matrix by.
+         * @param {dsector.Matrix4f} matrix4f - The matrix to multiply this matrix by.
          */
         postMultiply(matrix4f) {
             const matrixA = this.element;
@@ -146,7 +161,7 @@
 
         /**
          * Multiply this matrix by another matrix from the left.
-         * @param {Matrix4f} matrix4f - The matrix to multiply this matrix by.
+         * @param {dsector.Matrix4f} matrix4f - The matrix to multiply this matrix by.
          */
         preMultiply(matrix4f) {
             const matrixA = this.element;
@@ -154,37 +169,37 @@
             const resultMatrix = Array.from(
                 {length: 4}, () => Array.from({length: 4}, () => 0)
             );
-            resultMatrix[0][0] = Math.fround((((matrixA[0][0] * matrixB[0][0]) + (matrixA[0][1] * matrixB[1][0])) +
+            resultMatrix[0][0] = ((((matrixA[0][0] * matrixB[0][0]) + (matrixA[0][1] * matrixB[1][0])) +
                 (matrixA[0][2] * matrixB[2][0])) + (matrixA[0][3] * matrixB[3][0]));
-            resultMatrix[0][1] = Math.fround((((matrixA[0][0] * matrixB[0][1]) + (matrixA[0][1] * matrixB[1][1])) +
+            resultMatrix[0][1] = ((((matrixA[0][0] * matrixB[0][1]) + (matrixA[0][1] * matrixB[1][1])) +
                 (matrixA[0][2] * matrixB[2][1])) + (matrixA[0][3] * matrixB[3][1]));
-            resultMatrix[0][2] = Math.fround((((matrixA[0][0] * matrixB[0][2]) + (matrixA[0][1] * matrixB[1][2])) +
+            resultMatrix[0][2] = ((((matrixA[0][0] * matrixB[0][2]) + (matrixA[0][1] * matrixB[1][2])) +
                 (matrixA[0][2] * matrixB[2][2])) + (matrixA[0][3] * matrixB[3][2]));
-            resultMatrix[0][3] = Math.fround((((matrixA[0][0] * matrixB[0][3]) + (matrixA[0][1] * matrixB[1][3])) +
+            resultMatrix[0][3] = ((((matrixA[0][0] * matrixB[0][3]) + (matrixA[0][1] * matrixB[1][3])) +
                 (matrixA[0][2] * matrixB[2][3])) + (matrixA[0][3] * matrixB[3][3]));
-            resultMatrix[1][0] = Math.fround((((matrixA[1][0] * matrixB[0][0]) + (matrixA[1][1] * matrixB[1][0])) +
+            resultMatrix[1][0] = ((((matrixA[1][0] * matrixB[0][0]) + (matrixA[1][1] * matrixB[1][0])) +
                 (matrixA[1][2] * matrixB[2][0])) + (matrixA[1][3] * matrixB[3][0]));
-            resultMatrix[1][1] = Math.fround((((matrixA[1][0] * matrixB[0][1]) + (matrixA[1][1] * matrixB[1][1])) +
+            resultMatrix[1][1] = ((((matrixA[1][0] * matrixB[0][1]) + (matrixA[1][1] * matrixB[1][1])) +
                 (matrixA[1][2] * matrixB[2][1])) + (matrixA[1][3] * matrixB[3][1]));
-            resultMatrix[1][2] = Math.fround((((matrixA[1][0] * matrixB[0][2]) + (matrixA[1][1] * matrixB[1][2])) +
+            resultMatrix[1][2] = ((((matrixA[1][0] * matrixB[0][2]) + (matrixA[1][1] * matrixB[1][2])) +
                 (matrixA[1][2] * matrixB[2][2])) + (matrixA[1][3] * matrixB[3][2]));
-            resultMatrix[1][3] = Math.fround((((matrixA[1][0] * matrixB[0][3]) + (matrixA[1][1] * matrixB[1][3])) +
+            resultMatrix[1][3] = ((((matrixA[1][0] * matrixB[0][3]) + (matrixA[1][1] * matrixB[1][3])) +
                 (matrixA[1][2] * matrixB[2][3])) + (matrixA[1][3] * matrixB[3][3]));
-            resultMatrix[2][0] = Math.fround((((matrixA[2][0] * matrixB[0][0]) + (matrixA[2][1] * matrixB[1][0])) +
+            resultMatrix[2][0] = ((((matrixA[2][0] * matrixB[0][0]) + (matrixA[2][1] * matrixB[1][0])) +
                 (matrixA[2][2] * matrixB[2][0])) + (matrixA[2][3] * matrixB[3][0]));
-            resultMatrix[2][1] = Math.fround((((matrixA[2][0] * matrixB[0][1]) + (matrixA[2][1] * matrixB[1][1])) +
+            resultMatrix[2][1] = ((((matrixA[2][0] * matrixB[0][1]) + (matrixA[2][1] * matrixB[1][1])) +
                 (matrixA[2][2] * matrixB[2][1])) + (matrixA[2][3] * matrixB[3][1]));
-            resultMatrix[2][2] = Math.fround((((matrixA[2][0] * matrixB[0][2]) + (matrixA[2][1] * matrixB[1][2])) +
+            resultMatrix[2][2] = ((((matrixA[2][0] * matrixB[0][2]) + (matrixA[2][1] * matrixB[1][2])) +
                 (matrixA[2][2] * matrixB[2][2])) + (matrixA[2][3] * matrixB[3][2]));
-            resultMatrix[2][3] = Math.fround((((matrixA[2][0] * matrixB[0][3]) + (matrixA[2][1] * matrixB[1][3])) +
+            resultMatrix[2][3] = ((((matrixA[2][0] * matrixB[0][3]) + (matrixA[2][1] * matrixB[1][3])) +
                 (matrixA[2][2] * matrixB[2][3])) + (matrixA[2][3] * matrixB[3][3]));
-            resultMatrix[3][0] = Math.fround((((matrixA[3][0] * matrixB[0][0]) + (matrixA[3][1] * matrixB[1][0])) +
+            resultMatrix[3][0] = ((((matrixA[3][0] * matrixB[0][0]) + (matrixA[3][1] * matrixB[1][0])) +
                 (matrixA[3][2] * matrixB[2][0])) + (matrixA[3][3] * matrixB[3][0]));
-            resultMatrix[3][1] = Math.fround((((matrixA[3][0] * matrixB[0][1]) + (matrixA[3][1] * matrixB[1][1])) +
+            resultMatrix[3][1] = ((((matrixA[3][0] * matrixB[0][1]) + (matrixA[3][1] * matrixB[1][1])) +
                 (matrixA[3][2] * matrixB[2][1])) + (matrixA[3][3] * matrixB[3][1]));
-            resultMatrix[3][2] = Math.fround((((matrixA[3][0] * matrixB[0][2]) + (matrixA[3][1] * matrixB[1][2])) +
+            resultMatrix[3][2] = ((((matrixA[3][0] * matrixB[0][2]) + (matrixA[3][1] * matrixB[1][2])) +
                 (matrixA[3][2] * matrixB[2][2])) + (matrixA[3][3] * matrixB[3][2]));
-            resultMatrix[3][3] = Math.fround((((matrixA[3][0] * matrixB[0][3]) + (matrixA[3][1] * matrixB[1][3])) +
+            resultMatrix[3][3] = ((((matrixA[3][0] * matrixB[0][3]) + (matrixA[3][1] * matrixB[1][3])) +
                 (matrixA[3][2] * matrixB[2][3])) + (matrixA[3][3] * matrixB[3][3]));
 
             for (let i = 0; i < 4; ++i) {
@@ -196,7 +211,7 @@
          * This function calculates the inverse of a square matrix.
          * If the matrix is not square, the function will return undefined.
          *
-         * @returns {Matrix4f} The inverse of the original matrix. If the original matrix is not square, returns undefined.
+         * @returns {dsector.Matrix4f} The inverse of the original matrix. If the original matrix is not square, returns undefined.
          */
         inverse() {
             let matrixA = this.element;
@@ -273,7 +288,7 @@
          * @param {number} e00 - The scaling factor along the x-axis.
          * @param {number} e11 - The scaling factor along the y-axis.
          * @param {number} e22 - The scaling factor along the z-axis.
-         * @returns {Matrix4f} The current matrix after scaling.
+         * @returns {dsector.Matrix4f} The current matrix after scaling.
          */
         scale(e00, e11, e22) {
             this.preMultiply(Matrix4f.scaleMatrix(e00, e11, e22));
@@ -287,7 +302,7 @@
          * @param {number} e30 - The distance to translate along the x-axis.
          * @param {number} e31 - The distance to translate along the y-axis.
          * @param {number} e32 - The distance to translate along the z-axis.
-         * @returns {Matrix4f} The current matrix after translation.
+         * @returns {dsector.Matrix4f} The current matrix after translation.
          */
         translate(e30, e31, e32) {
             this.preMultiply(Matrix4f.translationMatrix(e30, e31, e32));
@@ -299,7 +314,7 @@
          * It pre-multiplies the current matrix by the rotation matrix and updates the current matrix.
          *
          * @param {number} x - The angle by which to rotate the matrix around the X-axis.
-         * @returns {Matrix4f} The current matrix after rotation.
+         * @returns {dsector.Matrix4f} The current matrix after rotation.
          */
         rotateX(x) {
             const sinV = Math.fround(Math.sin(x));
@@ -313,7 +328,7 @@
          *
          * @param {number} start - The sine of the angle by which to rotate the matrix.
          * @param {number} end - The cosine of the angle by which to rotate the matrix.
-         * @returns {Matrix4f} The current matrix after rotation.
+         * @returns {dsector.Matrix4f} The current matrix after rotation.
          */
         rotateX$ff(start, end) {
             const matrix4f = new Matrix4f();
@@ -330,7 +345,7 @@
          * It pre-multiplies the current matrix by the rotation matrix and updates the current matrix.
          *
          * @param {number} rotateY - The angle by which to rotate the matrix around the Y-axis.
-         * @returns {Matrix4f} The current matrix after rotation.
+         * @returns {dsector.Matrix4f} The current matrix after rotation.
          */
         rotateY(rotateY) {
             const sin = Math.fround(Math.sin(rotateY));
@@ -344,7 +359,7 @@
          *
          * @param {number} start - The sine of the angle by which to rotate the matrix.
          * @param {number} end - The cosine of the angle by which to rotate the matrix.
-         * @returns {Matrix4f} The current matrix after rotation.
+         * @returns {dsector.Matrix4f} The current matrix after rotation.
          */
         rotateY$ff(start, end) {
             const matrix4f = new Matrix4f();
@@ -361,7 +376,7 @@
          * It pre-multiplies the current matrix by the rotation matrix and updates the current matrix.
          *
          * @param {number} rotateZ - The angle by which to rotate the matrix around the Z-axis.
-         * @returns {Matrix4f} The current matrix after rotation.
+         * @returns {dsector.Matrix4f} The current matrix after rotation.
          */
         rotateZ(rotateZ) {
             const sin = Math.fround(Math.sin(rotateZ));
@@ -375,7 +390,7 @@
          *
          * @param {number} start - The sine of the angle by which to rotate the matrix.
          * @param {number} end - The cosine of the angle by which to rotate the matrix.
-         * @returns {Matrix4f} The current matrix after rotation. */
+         * @returns {dsector.Matrix4f} The current matrix after rotation. */
         rotateZ$ff(start, end) {
             const matrix4f = new Matrix4f();
             matrix4f.element[0][0] = end;

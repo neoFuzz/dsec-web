@@ -1,27 +1,47 @@
-/* re-written from Java */
 (function (dsector) {
     /**
+     * Class for displaying the options set up window.
+     *
+     * @property {CWSYSTEM.CWWindow} window - The window object for the setup window.
+     * @property {Array} keyLabels - An array of key labels for the keyboard layout.
+     * @property {number} savedX - The saved x-coordinate of the window.
+     * @property {number} savedY - The saved y-coordinate of the window.
+     * @property {boolean} showBackgrounds - Whether to show backgrounds in the game.
+     * @property {number} antialiasLevel - The antialias level for the game.
+     * @property {number} soundMode - The sound mode for the game.
+     * @property {number} startingCredits - The starting credits for the game.
+     * @property {number} musicMode - The music mode for the game.
+     * @property {Array} dsOptions - An array of options for the game.
+     * @property {Array} dsecKeyboardLayout - An array of keyboard layouts for the game.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     * @requires CWSYSTEM
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class DSecSetupWindow {
+        /**
+         * Constructor for DSecSetupWindow.
+         */
         constructor() {
-            if (this.window === undefined) {
-                this.window = null;
-            }
-            if (this.keyLabels === undefined) {
-                this.keyLabels = null;
-            }
+            this.window = null;
+            this.keyLabels = null;
             this.savedX = -1;
             this.savedY = -1;
-            let dkblCount = 4;
-
             this.showBackgrounds = false;
             this.antialiasLevel = 1;
-            this.soundMode = 1;
+            this.soundMode = DSecSetupWindow.SIMPLIFIED_SOUND;
             this.startingCredits = 0;
-            this.musicMode = 1;
+            this.musicMode = DSecSetupWindow.MUSIC_ON;
             this.dsOptions = null;
+
+            let dkblCount = 4;
 
             /* check for joysticks */
             try {
@@ -114,6 +134,13 @@
             this.keyLabels.push(new dsector.ObjectPair(90, "Z"));
         }
 
+        /**
+         * Static method to get the camera mode.
+         *
+         * @public
+         * @static
+         * @returns {number} The camera mode.
+         */
         static cameraMode_$LI$() {
             if (dsector.DSReference.dsecSetupWindow.cameraMode == null ||
                 isNaN(dsector.DSReference.dsecSetupWindow.cameraMode)) {
@@ -122,6 +149,12 @@
             return dsector.DSReference.dsecSetupWindow.cameraMode;
         }
 
+        /**
+         * Get the camera mode.
+         *
+         * @returns {number} The camera mode.
+         * @private
+         */
         _cameraMode() {
             if (this.cameraMode == null || isNaN(this.cameraMode)) {
                 this.cameraMode = DSecSetupWindow.OVERHEAD;
@@ -129,10 +162,21 @@
             return dsector.DSReference.dsecSetupWindow.cameraMode;
         }
 
+        /**
+         * Check if the window is created.
+         *
+         * @public
+         * @returns {boolean}
+         */
         isCreated() {
             return this.window != null;
         }
 
+        /**
+         * Toggle the created state of the window.
+         *
+         * @public
+         */
         toggleCreated() {
             if (this.isCreated()) {
                 this.destroy();
@@ -141,6 +185,11 @@
             }
         }
 
+        /**
+         * Create the setup window.
+         *
+         * @public
+         */
         create() {
             dsector.DSReference.virtualScreen.fadeInBackgroundFromBlack(4000);
             dsector.DSReference.virtualScreen.setBackgroundImage("assets/images/robotEditing.jpg");
@@ -149,6 +198,11 @@
             this.window.centerWithinDesktop();
         }
 
+        /**
+         * Destroy the setup window.
+         *
+         * @public
+         */
         destroy() {
             if (this.window != null) {
                 this.savedX = this.window.xPosition;
@@ -158,6 +212,11 @@
             }
         }
 
+        /**
+         * Update the setup window.
+         *
+         * @public
+         */
         update() {
             if (this.isCreated()) {
                 this.drawWindow();
@@ -167,7 +226,11 @@
             }
         }
 
-        /** @private */
+        /**
+         * Restore the position of the setup window.
+         *
+         * @private
+         */
         restorePosition() {
             if (this.savedX !== -1) {
                 this.window.xPosition = this.savedX;
@@ -177,6 +240,11 @@
             }
         }
 
+        /**
+         * Draw the setup window.
+         *
+         * @private
+         */
         drawWindow() {
             let initX = 25;
             let initY = 25;
@@ -382,6 +450,12 @@
             button.buttonPressedMethodName = "doneButtonPressed";
         }
 
+        /**
+         * Handle a pulldown changed event.
+         *
+         * @private
+         * @param {CWSYSTEM.CWPulldown} pd the pulldown that changed.
+         */
         pulldownChanged(pd) {
             pd = pd[0];
             if (pd.generalPurposeObject != null) {
@@ -423,16 +497,26 @@
             if (pd.name === ("startingCredits")) {
                 this.startingCredits = parseInt(pd.selectedValue());
             }
-            //this.saveOptions();
             this.update();
         }
 
+        /**
+         * Handle the done button being pressed.
+         *
+         * @private
+         * @param {CWSYSTEM.CWButton} button the button that was pressed.
+         */
         doneButtonPressed(button) {
             this.saveOptions();
             this.destroy();
             dsector.DSReference.dsecMainSetupWindow.create();
         }
 
+        /**
+         * Save the options.
+         *
+         * @public
+         */
         saveOptions() {
             let configString = `
 cameraMode=${this._cameraMode()}
@@ -455,6 +539,11 @@ keyboard${i + 1}ChangeWeapon=${DSecSetupWindow.dsecKeyboardLayout[i].changeWeapo
             CWSYSTEM.CWFileTools.outputFile("dzsetup.cfg", configString.trim());
         }
 
+        /**
+         * Load the options.
+         *
+         * @public
+         */
         loadOptions() {
             let c;
             let ht = this.dsOptions;
@@ -463,7 +552,7 @@ keyboard${i + 1}ChangeWeapon=${DSecSetupWindow.dsecKeyboardLayout[i].changeWeapo
             }
             CWSYSTEM.Debug.println(ht);
             let exceptionList = [];
-            //const x = [String.fromCharCode(10)];
+
             try {
                 c = parseInt(ht.get("cameraMode"));
                 this.cameraMode = isNaN(c) ? DSecSetupWindow.OVERHEAD : c;
@@ -563,10 +652,15 @@ keyboard${i + 1}ChangeWeapon=${DSecSetupWindow.dsecKeyboardLayout[i].changeWeapo
                 CWSYSTEM.Debug.println("KB001: Exceptions thrown:\n" +
                     JSON.stringify(exceptionList, null, 2) + "\nKB001: will use defaults...");
             }
-            //this.saveOptions();
         }
 
-        /** @private */
+        /**
+         * Check if a key is already used.
+         *
+         * @private
+         * @param {number} keyDigit the key to check.
+         * @return {boolean} true if the key is already used.
+         */
         keyAlreadyUsed(keyDigit) {
             for (let i = 0; i < 4; ++i) {
                 if (DSecSetupWindow.dsecKeyboardLayout[i].forwards === keyDigit ||
@@ -582,22 +676,100 @@ keyboard${i + 1}ChangeWeapon=${DSecSetupWindow.dsecKeyboardLayout[i].changeWeapo
         }
     }
 
-    // DSecSetupWindow.showBackgrounds = false;
-    // DSecSetupWindow.antialiasLevel = 1;
-    // DSecSetupWindow.soundMode = 1;
-    // DSecSetupWindow.startingCredits = 0;
-    // DSecSetupWindow.musicMode = 1;
-    // DSecSetupWindow.dsOptions = null;
+    /**
+     * Keyboard layout configuration for DSecSetupWindow.
+     * @type {Object|null}
+     * @static
+     */
     DSecSetupWindow.dsecKeyboardLayout = null;
+
+    /**
+     * Rotations per minute for the setup window.
+     * @type {number}
+     * @default 1.0
+     * @static
+     */
     DSecSetupWindow.rotationsPerMinute = 1.0;
+
+    /**
+     * Constant representing no sound.
+     * @type {number}
+     * @constant
+     * @default 0
+     * @static
+     */
     DSecSetupWindow.NO_SOUND = 0;
+
+    /**
+     * Constant representing simplified sound.
+     * @type {number}
+     * @constant
+     * @default 1
+     * @static
+     */
     DSecSetupWindow.SIMPLIFIED_SOUND = 1;
+
+    /**
+     * Constant representing normal sound.
+     * @type {number}
+     * @constant
+     * @default 2
+     * @static
+     */
     DSecSetupWindow.NORMAL_SOUND = 2;
+
+    /**
+     * Constant representing music off.
+     * @type {number}
+     * @constant
+     * @default 0
+     * @static
+     */
     DSecSetupWindow.MUSIC_OFF = 0;
+
+    /**
+     * Constant representing music on.
+     * @type {number}
+     * @constant
+     * @default 1
+     * @static
+     */
     DSecSetupWindow.MUSIC_ON = 1;
+
+    /**
+     * Constant representing overhead view.
+     * @type {number}
+     * @constant
+     * @default 0
+     * @static
+     */
     DSecSetupWindow.OVERHEAD = 0;
+
+    /**
+     * Constant representing cyclic panning view.
+     * @type {number}
+     * @constant
+     * @default 1
+     * @static
+     */
     DSecSetupWindow.CYCLIC_PANNING = 1;
+
+    /**
+     * Constant representing player 1 perspective view.
+     * @type {number}
+     * @constant
+     * @default 2
+     * @static
+     */
     DSecSetupWindow.PLAYER_1_PERSPECTIVE = 2;
+
+    /**
+     * Constant representing player 2 perspective view.
+     * @type {number}
+     * @constant
+     * @default 3
+     * @static
+     */
     DSecSetupWindow.PLAYER_2_PERSPECTIVE = 3;
     dsector.DSecSetupWindow = DSecSetupWindow;
     DSecSetupWindow["__class"] = "dsector.DSecSetupWindow";

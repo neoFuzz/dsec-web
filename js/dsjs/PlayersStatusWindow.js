@@ -1,9 +1,23 @@
-/**/
 (function (dsector) {
     /**
      * PlayersStatusWindow class responsible for managing the status window of players.
+     *
+     * @property {CWSYSTEM.CWWindow|null} window - The window object for the status window.
+     * @property {boolean} initialized - Indicates if the window is initialized.
+     * @property {number} savedX - The saved x-coordinate of the window.
+     * @property {number} savedY - The saved y-coordinate of the window.
+     *
+     * @since    1.0.0
+     * @access   public
      * @class
+     *
      * @memberof dsector
+     * @requires CWSYSTEM.CWWindow
+     * @requires dsector.Polygon
+     *
+     * @author   neoFuzz
+     * @link     https://github.com/neoFuzz/dsec-web
+     * @license  AGPLv3
      */
     class PlayersStatusWindow {
         /**
@@ -224,9 +238,9 @@
         /**
          * Sets up a glyph for the player status.
          *
-         * @param vs {VirtualScreen} virtual screen to draw on
-         * @param sd {ScreenData} screen data to draw on
-         * @param p {Polygon} polygon to change
+         * @param vs {CWSYSTEM.VirtualScreen} virtual screen to draw on
+         * @param sd {CWSYSTEM.ScreenData} screen data to draw on
+         * @param p {dsector.Polygon} polygon to change
          * @param w {number} width offset
          * @param ref {number} reference to polygon
          */
@@ -248,7 +262,8 @@
 
         /**
          * Multiplies the polygon by a scale amount.
-         * @param {Polygon} pg - The polygon to modify.
+         *
+         * @param {dsector.Polygon} pg - The polygon to modify.
          * @param {number} scalar - The amount to scale the polygon.
          */
         static multiplyPolygon(pg, scalar) {
