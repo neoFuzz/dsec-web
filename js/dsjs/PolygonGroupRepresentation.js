@@ -46,7 +46,7 @@
         constructor(polygonGroup, name, visible, e00, e10, e20, e30, e01,
                     e11, e21, e31, e02, e12, e22, e32, e03, e13, e23, e33) {
             this.parentPolygonGroup = polygonGroup || null;
-            this.id = dsector.NumberTools.randomLong();
+            this.id = CWSYSTEM.NumberTools.randomLong();
             this.name = name || null;
             this.visibility = visible;
             this.transformationMatrix = new dsector.Matrix4f(e00, e10, e20, e30, e01, e11,

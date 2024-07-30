@@ -16,6 +16,7 @@
      * @class
      *
      * @memberof CWSYSTEM
+     *
      * @author   neoFuzz
      * @link     https://github.com/neoFuzz/dsec-web
      * @license  AGPLv3

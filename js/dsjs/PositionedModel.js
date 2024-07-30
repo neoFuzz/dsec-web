@@ -214,19 +214,15 @@
 
                     matrix4f.preMultiply(positionedModel.rotation);
                     matrix4f.preMultiply(dsector.Matrix4f.translationMatrix(
-                        Math.fround(positionedModel.x),
-                        Math.fround(positionedModel.y),
-                        Math.fround(positionedModel.z)
+                        positionedModel.x, positionedModel.y, positionedModel.z
                     ));
 
                     for (let k = 0; k < polygonGroup.polygons.length; ++k) {
                         const polygon = polygonGroup.polygons[k];
                         let len;
-                        let len2;
-                        let buffer =
-                            i === 1
-                                ? PositionedModel.polygonCollisionDetectionBufferA
-                                : PositionedModel.polygonCollisionDetectionBufferB;
+                        let buffer = i === 1
+                            ? PositionedModel.polygonCollisionDetectionBufferA
+                            : PositionedModel.polygonCollisionDetectionBufferB;
 
                         if (buffer == null || buffer.length < this.numberOfCopiedPolygons) {
                             const bufferSize = buffer == null ? 1000 : (buffer.length * 11 / 10) | 0;
