@@ -165,4 +165,4 @@
 
     dsector.DSReference = DSReference;
     DSReference["__class"] = "dsector.DSReference";
-})(dsector || (dsector = {}));
+})(dsector);

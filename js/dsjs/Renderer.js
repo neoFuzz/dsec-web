@@ -938,4 +938,4 @@
     Renderer.__shieldGraphic = null;
     dsector.Renderer = Renderer;
     Renderer["__class"] = "dsector.Renderer";
-})(dsector || (dsector = {}));
+})(dsector);

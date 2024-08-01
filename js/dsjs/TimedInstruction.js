@@ -97,4 +97,4 @@
     TimedInstruction.timedInstructions = null;
     dsector.TimedInstruction = TimedInstruction;
     TimedInstruction["__class"] = "dsector.TimedInstruction";
-})(dsector || (dsector = {}));
+})(dsector);

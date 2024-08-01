@@ -29,10 +29,8 @@
                 let totalWidth = 0;
                 for (let index = 0; index < charArray.length; index++) {
                     let c = charArray[index];
-                    {
-                        const character = font.getCharacter(c);
-                        totalWidth += character.width;
-                    }
+                    const character = font.getCharacter(c);
+                    totalWidth += character.width;
                 }
                 return totalWidth;
             }
@@ -381,4 +379,4 @@
     CWFontTools.LAST_CURSOR_Y = 0;
     CWSYSTEM.CWFontTools = CWFontTools;
     CWFontTools["__class"] = "CWSYSTEM.CWFontTools";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

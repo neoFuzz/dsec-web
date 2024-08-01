@@ -109,4 +109,4 @@
     DSecTeam.RED = 1;
     dsector.DSecTeam = DSecTeam;
     DSecTeam["__class"] = "dsector.DSecTeam";
-})(dsector || (dsector = {}));
+})(dsector);

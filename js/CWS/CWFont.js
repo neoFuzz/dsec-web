@@ -33,6 +33,7 @@
             this.defaultSpacing = 6;
             this.defaultHeight = 10;
             this.badCharacter = "111101111";
+            this.BYTE_SIZE = 32;
             this.loadFont(str);
         }
 
@@ -77,7 +78,6 @@
          * @returns {Promise<void>} A promise that resolves when the font is loaded.
          */
         async loadFont(fileName) {
-            const bytea = 32;
             const chars = (function (dims) {
                 let allocate = function (dims) {
                     if (dims.length === 0) {
@@ -91,7 +91,7 @@
                     }
                 };
                 return allocate(dims);
-            })([bytea, bytea]);
+            })([this.BYTE_SIZE, this.BYTE_SIZE]);
 
             // Location to store font data from file
             let fileData;
@@ -108,10 +108,7 @@
                 return;
             }
 
-            // Line ending processor
-            fileData = CWSYSTEM.CWStringTools.stringReplaceCaseInsensitive(fileData, "\r", "\n");
-            fileData = CWSYSTEM.CWStringTools.stringReplaceCaseInsensitive(fileData, "\n\n", "\n");
-            fileData = fileData.split("\n");
+            fileData = CWFont.preprocessFontData(fileData);
 
             // Process fileData and make the character map
             let iterator = 0;
@@ -122,7 +119,7 @@
                 } catch (e) {
                     return;
                 }
-                if (chrBuffer === null || chrBuffer === undefined) {
+                if (this.notNullUndefined(chrBuffer)) {
                     break;
                 }
                 let hBbuffer;
@@ -131,7 +128,7 @@
                 } catch (e) {
                     return;
                 }
-                if (hBbuffer === null || hBbuffer === undefined) {
+                if (this.notNullUndefined(hBbuffer)) {
                     break;
                 }
                 let intBuffer;
@@ -143,46 +140,74 @@
                     this.characters = null;
                     return;
                 }
-                let i = 0;
                 let r = 0;
                 let s = 0;
-                let m;
-                let n;
-                for (n = 0; n < bytea; ++n) {
-                    let chars1 = ([]);
-                    try {
-                        chars1 = fileData[iterator++];
-                    } catch (e) {
-                        CWSYSTEM.Debug.println("chars1 error");
-                        return;
-                    }
-                    if (n === 0) {
-                        r = chars1.length;
-                    }
-                    if (chars1[0] === '.' || chars1 === "") {
-                        s = i;
-                        break;
-                    }
-                    for (m = 0; m < r; ++m) {
-                        chars[i][m] = chars1[m];
-                    }
-                    ++i;
-                }
-                if (n === bytea) {
-                    CWSYSTEM.Debug.error("Error FA1: loading font " + fileName +
-                        ", symbol '" + chrBuffer + "'. Size exceeds " + bytea + ".");
-                    this.characters = null;
-                    return;
-                }
+                const __ret = this.procIT(fileData, iterator, r, s, chars, fileName, chrBuffer);
+                iterator = __ret.iterator;
+                r = __ret.r;
+                s = __ret.s;
+                if (__ret.state === 1) return;
                 const cwc = new CWSYSTEM.CWCharacter(r, s, intBuffer);
-                const bitmap = cwc.bitmap;
-                for (i = 0; i < s; ++i) {
-                    for (m = 0; m < r; ++m) {
-                        bitmap[s - i - 1][m] = chars[i][m];
-                    }
-                }
+                cwc.bitmap = CWFont.processBitmap(s, r, cwc.bitmap, chars);
                 this.characters.set(chrBuffer, cwc);
             }
+        }
+
+        procIT(fileData, iterator, r, s, chars, fileName, chrBuffer) {
+            let n;
+            let m;
+            let i = 0;
+            let state = 0;
+            for (n = 0; n < this.BYTE_SIZE; ++n) {
+                let chars1 = ([]);
+                try {
+                    chars1 = fileData[iterator++];
+                } catch (e) {
+                    CWSYSTEM.Debug.println("chars1 error");
+                    state = 1;
+                    return {iterator, r, s, state};
+                }
+                if (n === 0) {
+                    r = chars1.length;
+                }
+                if (chars1[0] === '.' || chars1 === "") {
+                    s = i;
+                    break;
+                }
+                for (m = 0; m < r; ++m) {
+                    chars[i][m] = chars1[m];
+                }
+                ++i;
+            }
+            if (n === this.BYTE_SIZE) {
+                CWSYSTEM.Debug.error("Error FA1: loading font " + fileName +
+                    ", symbol '" + chrBuffer + "'. Size exceeds " + this.BYTE_SIZE + ".");
+                this.characters = null;
+                return {iterator, r, s, state};
+            }
+            return {iterator, r, s, state};
+        }
+
+        static processBitmap(s, r, bitmap, chars) {
+            for (let i = 0; i < s; ++i) {
+                for (let m = 0; m < r; ++m) {
+                    bitmap[s - i - 1][m] = chars[i][m];
+                }
+            }
+            return bitmap;
+        }
+
+        notNullUndefined(b) {
+            return (b === null || b === undefined);
+        }
+
+        /**
+         * Line ending processor
+         */
+        static preprocessFontData(fileData) {
+            fileData = CWSYSTEM.CWStringTools.stringReplaceCaseInsensitive(fileData, "\r", "\n");
+            fileData = CWSYSTEM.CWStringTools.stringReplaceCaseInsensitive(fileData, "\n\n", "\n");
+            return fileData.split("\n");
         }
 
         /**
@@ -214,52 +239,67 @@
                         "the notInstalled() method");
                     return 1;
                 } else {
-                    let character = cwFont.getCharacter(element);
-                    if (character == null) {
-                        CWSYSTEM.Debug.println("\nCharacter '" + element + "' not covered in " + args[0]);
-                    } else {
-                        CWSYSTEM.Debug.println("\nBitmap for the letter '" + element +
-                            "', height " + character.lineHeight + ":");
-                        let line = "";
-                        for (let j = character.height - 1; j >= 0; --j) {
-
-                            for (let k = 0; k < character.width; ++k) {
-                                if (character.bitmap[j][k] === '0') {
-                                    line = line + "_";
-                                    imgData.data[m + 0] = 255;
-                                    imgData.data[m + 1] = 255;
-                                    imgData.data[m + 2] = 255;
-                                    imgData.data[m + 3] = 255;
-                                } else {
-                                    line = line + "#";
-                                    imgData.data[m + 0] = 0;
-                                    imgData.data[m + 1] = 0;
-                                    imgData.data[m + 2] = 0;
-                                    imgData.data[m + 3] = 255;
-                                }
-                                // End of width loop process
-                                plot -= 4;
-                                m += 4;
-                            }
-                            // End of height loop processes
-                            line += "\n";
-                            m += plot;
-                            plot = 2560;
-                        }
-                        CWSYSTEM.Debug.println(line);
-                        let outdiv = document.createElement("div");
-                        outdiv.innerText = line;
-                        outdiv.className = "text-monospace";
-                        document.getElementById("font-output").appendChild(outdiv);
-
-                        CWSYSTEM.Debug.println("**** End ****");
-                    }
-                    ctx.putImageData(imgData, 0, 0);
+                    CWFont.performTest(cwFont, element, args, imgData, m, plot, ctx);
                 }
             }
+        }
+
+        /**
+         * Performs the actual testing of characters.
+         *
+         * @param {CWSYSTEM.CWFont} cwFont - The font object.
+         * @param {string} element - The character to test.
+         * @param {string[]} args - An array of characters to test.
+         * @param {ImageData} imgData - The image data for rendering.
+         * @param {number} m - The starting index in the image data.
+         * @param {number} plot - The plot value for rendering.
+         * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+         */
+        static performTest(cwFont, element, args, imgData, m, plot, ctx) {
+            let character = cwFont.getCharacter(element);
+            if (character == null) {
+                CWSYSTEM.Debug.println("\nCharacter '" + element + "' not covered in " + args[0]);
+            } else {
+                CWSYSTEM.Debug.println("\nBitmap for the letter '" + element +
+                    "', height " + character.lineHeight + ":");
+                let line = "";
+                for (let j = character.height - 1; j >= 0; --j) {
+
+                    for (let k = 0; k < character.width; ++k) {
+                        if (character.bitmap[j][k] === '0') {
+                            line = line + "_";
+                            imgData.data[m + 0] = 255;
+                            imgData.data[m + 1] = 255;
+                            imgData.data[m + 2] = 255;
+                            imgData.data[m + 3] = 255;
+                        } else {
+                            line = line + "#";
+                            imgData.data[m + 0] = 0;
+                            imgData.data[m + 1] = 0;
+                            imgData.data[m + 2] = 0;
+                            imgData.data[m + 3] = 255;
+                        }
+                        // End of width loop process
+                        plot -= 4;
+                        m += 4;
+                    }
+                    // End of height loop processes
+                    line += "\n";
+                    m += plot;
+                    plot = 2560;
+                }
+                CWSYSTEM.Debug.println(line);
+                let outdiv = document.createElement("div");
+                outdiv.innerText = line;
+                outdiv.className = "text-monospace";
+                document.getElementById("font-output").appendChild(outdiv);
+
+                CWSYSTEM.Debug.println("**** End ****");
+            }
+            ctx.putImageData(imgData, 0, 0);
         }
     }
 
     CWSYSTEM.CWFont = CWFont;
     CWFont["__class"] = "CWSYSTEM.CWFont";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

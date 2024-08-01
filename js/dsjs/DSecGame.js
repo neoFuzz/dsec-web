@@ -1191,4 +1191,4 @@
     DSecGame.DESIRED_ARRAY_LENGTH = 6;
     dsector.DSecGame = DSecGame;
     DSecGame["__class"] = "dsector.DSecGame";
-})(dsector || (dsector = {}));
+})(dsector);

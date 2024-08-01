@@ -61,4 +61,4 @@
 
     dsector.ScreenPosition = ScreenPosition;
     ScreenPosition["__class"] = "dsector.ScreenPosition";
-})(dsector || (dsector = {}));
+})(dsector);

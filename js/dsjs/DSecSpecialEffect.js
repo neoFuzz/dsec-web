@@ -46,4 +46,4 @@
     DSecSpecialEffect.IMAGE_COMPOSITE = 0;
     dsector.DSecSpecialEffect = DSecSpecialEffect;
     DSecSpecialEffect["__class"] = "dsector.DSecSpecialEffect";
-})(dsector || (dsector = {}));
+})(dsector);

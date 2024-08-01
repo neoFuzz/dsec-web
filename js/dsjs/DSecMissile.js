@@ -302,4 +302,4 @@
 
     dsector.DSecMissile = DSecMissile;
     DSecMissile["__class"] = "dsector.DSecMissile";
-})(dsector || (dsector = {}));
+})(dsector);

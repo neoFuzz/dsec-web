@@ -37,6 +37,7 @@
          */
         static endApplication() {
             if (DSMain.discordEnabled) {
+                // future feature implementation
             }
             clearInterval(dsMain.interval);
             dsector.DSReference.dsecSetupWindow.saveOptions();
@@ -54,22 +55,22 @@
          */
         static setActivity(location, state, assetImageName,
                            partySize, maxPartySize, gameMode) {
-            let gameStr;
+            // let gameStr
             const playerCountMode =
                 dsector.DSReference.dsecMainSetupWindow.playMode() === dsector.DSecMainSetupWindow.TEAMS ?
                     (dsector.DSReference.dsecGame.numberOfPlayers() / 2 | 0) :
                     dsector.DSReference.dsecGame.numberOfPlayers();
             switch (gameMode) {
                 case 1:
-                    gameStr = "Teams";
+                    // gameStr = "Teams"
                     maxPartySize = playerCountMode;
                     break;
                 case 0:
-                    gameStr = "Hostile | Free for All";
+                    // gameStr = "Hostile | Free for All"
                     maxPartySize = playerCountMode;
                     break;
                 default:
-                    gameStr = "Menu";
+                    // gameStr = "Menu"
             }
             const drpCall = `Discord RPC: ${location} : ${state} : ${assetImageName} : ${partySize}/${maxPartySize}`;
             if (DSMain.discordEnabled) {
@@ -98,7 +99,6 @@
          * Initializes the game setup window and updates the virtual screen.
          */
         begin() {
-            //dsector.DSReference.dsecSetupWindow = new dsector.DSecSetupWindow();
             CWSYSTEM.Global.graphicsInitialized = true;
             dsector.DSReference.virtualScreen.update();
             if (DSMain.discordEnabled) {
@@ -183,7 +183,6 @@
                 dsMain.userIOBuffer.addKeyTypedEvent(event.key);/*char*/
             });
             canvas.addEventListener("keydown", (event) => {
-                //event.preventDefault();
                 dsMain.userIOBuffer.addKeyPressedEvent(event.keyCode); /*code*/
             });
             canvas.addEventListener("keyup", (event) => {
@@ -241,7 +240,7 @@
     DSMain.interval = null;
     dsector.DSMain = DSMain;
     DSMain["__class"] = "dsector.DSMain";
-})(dsector || (dsector = {}));
+})(dsector);
 setTimeout(() => {
     loadAI();
 }, 1000);

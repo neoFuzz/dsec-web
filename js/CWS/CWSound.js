@@ -156,4 +156,4 @@
 
     CWSYSTEM.CWSound = CWSound;
     CWSound["__class"] = "CWSYSTEM.CWSound";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

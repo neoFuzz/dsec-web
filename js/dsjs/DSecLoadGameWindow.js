@@ -152,7 +152,7 @@
             button.objectContainingButtonPressedMethod = this;
             button.buttonPressedMethodName = "deleteButtonPressed";
             button = this.window.addButton("LOAD_GAME", 288, 27, 42,
-                15, "Load", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
+                15, "Load", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON,  CWSYSTEM.CWButton.PRESSED);
             button = this.window.addButton("", 342, 27, 52, 15,
                 "Cancel", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
             button.objectContainingButtonPressedMethod = this;
@@ -362,4 +362,4 @@
 
     dsector.DSecLoadGameWindow = DSecLoadGameWindow;
     DSecLoadGameWindow["__class"] = "dsector.DSecLoadGameWindow";
-})(dsector || (dsector = {}));
+})(dsector);

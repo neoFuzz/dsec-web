@@ -79,4 +79,4 @@
 
     CWSYSTEM.NumberTools = NumberTools;
     NumberTools["__class"] = "CWSYSTEM.NumberTools";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

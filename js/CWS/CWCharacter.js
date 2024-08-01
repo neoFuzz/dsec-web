@@ -73,4 +73,4 @@
 
     CWSYSTEM.CWCharacter = CWCharacter;
     CWCharacter["__class"] = "CWSYSTEM.CWCharacter";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

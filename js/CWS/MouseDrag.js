@@ -555,4 +555,4 @@
     MouseDrag.SLIDING_BAR = 28;
     CWSYSTEM.MouseDrag = MouseDrag;
     MouseDrag["__class"] = "CWSYSTEM.MouseDrag";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

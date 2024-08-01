@@ -46,4 +46,4 @@
 
     CWSYSTEM.CWTextElement = CWTextElement;
     CWTextElement["__class"] = "CWSYSTEM.CWTextElement";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

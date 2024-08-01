@@ -38,12 +38,9 @@
          * @param {string} message - The alert message to show to the user
          */
         constructor(message, parent) {
-            if (this.window === undefined) {
-                this.window = null;
-            }
-            if (parent === undefined) {
-                parent = null;
-            }
+            this.window = null;
+            this.parent = null;
+
             if (CWSYSTEM.AlertManager.alertWindow != null) {
                 CWSYSTEM.CWSReference.gui.destroyWindow("ALE");
             }
@@ -80,6 +77,18 @@
             this.window.addTextBlock("", message, AlertWindow.margin, 45,
                 dsector.DSReference.virtualScreen.serif8_font, color, AlertWindow.maximumTextWidth);
         }
+
+        /**
+         * Get the window object associated with this AlertWindow instance.
+         *
+         * @public
+         * @return {CWSYSTEM.CWWindow} The window object associated with this AlertWindow instance.
+         * @note This was made to fix stop SonarLint reporting this as a constructor-only class.
+         * @see CWSYSTEM.CWWindow
+         */
+        getWindow() {
+            return this.window;
+        }
     }
 
     /**
@@ -105,4 +114,4 @@
     AlertWindow.maximumHeight = 600;
     CWSYSTEM.AlertWindow = AlertWindow;
     AlertWindow["__class"] = "CWSYSTEM.AlertWindow";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

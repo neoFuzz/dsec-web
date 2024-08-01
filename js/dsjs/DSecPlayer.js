@@ -1605,4 +1605,4 @@
     DSecPlayer.FIRE_WEAPON = 7;
     dsector.DSecPlayer = DSecPlayer;
     DSecPlayer["__class"] = "dsector.DSecPlayer";
-})(dsector || (dsector = {}));
+})(dsector);

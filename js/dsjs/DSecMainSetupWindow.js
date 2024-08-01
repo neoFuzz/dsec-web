@@ -591,4 +591,4 @@
     DSecMainSetupWindow.TEAMS = 1;
     dsector.DSecMainSetupWindow = DSecMainSetupWindow;
     DSecMainSetupWindow["__class"] = "dsector.DSecMainSetupWindow";
-})(dsector || (dsector = {}));
+})(dsector);

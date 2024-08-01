@@ -174,4 +174,4 @@
     DSecJewel.DESTROYED = 1;
     dsector.DSecJewel = DSecJewel;
     DSecJewel["__class"] = "dsector.DSecJewel";
-})(dsector || (dsector = {}));
+})(dsector);

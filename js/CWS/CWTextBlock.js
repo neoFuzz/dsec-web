@@ -64,4 +64,4 @@
 
     CWSYSTEM.CWTextBlock = CWTextBlock;
     CWTextBlock["__class"] = "CWSYSTEM.CWTextBlock";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

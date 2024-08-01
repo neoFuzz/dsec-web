@@ -428,4 +428,4 @@
     CWTextArea.__textAreaSelected = null;
     CWSYSTEM.CWTextArea = CWTextArea;
     CWTextArea["__class"] = "CWSYSTEM.CWTextArea";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

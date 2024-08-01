@@ -158,4 +158,4 @@
 
     dsector.SpecialPoint = SpecialPoint;
     SpecialPoint["__class"] = "dsector.SpecialPoint";
-})(dsector || (dsector = {}));
+})(dsector);

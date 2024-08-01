@@ -219,4 +219,4 @@
     CWInputBox.inputBoxTextBorder = 2;
     CWSYSTEM.CWInputBox = CWInputBox;
     CWInputBox["__class"] = "CWSYSTEM.CWInputBox";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

@@ -271,4 +271,4 @@
 
     CWSYSTEM.CWInterfaceProcesses = CWInterfaceProcesses;
     CWInterfaceProcesses["__class"] = "CWSYSTEM.CWInterfaceProcesses";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

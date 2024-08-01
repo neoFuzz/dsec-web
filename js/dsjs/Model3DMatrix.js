@@ -939,4 +939,4 @@
     Model3DMatrix.CREATE_NEW_IF_FILE_NOT_FOUND = 0;
     dsector.Model3DMatrix = Model3DMatrix;
     Model3DMatrix["__class"] = "dsector.Model3DMatrix";
-})(dsector || (dsector = {}));
+})(dsector);

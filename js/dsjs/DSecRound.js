@@ -511,4 +511,4 @@
 
     dsector.DSecRound = DSecRound;
     DSecRound["__class"] = "dsector.DSecRound";
-})(dsector || (dsector = {}));
+})(dsector);

@@ -496,4 +496,4 @@
     CWWindowCollection.numberOfWindowsBeforeWarningsAppear = 75;
     CWSYSTEM.CWWindowCollection = CWWindowCollection;
     CWWindowCollection["__class"] = "CWSYSTEM.CWWindowCollection";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

@@ -53,4 +53,4 @@
 
     dsector.DSecKeyboardLayout = DSecKeyboardLayout;
     DSecKeyboardLayout["__class"] = "dsector.DSecKeyboardLayout";
-})(dsector || (dsector = {}));
+})(dsector);

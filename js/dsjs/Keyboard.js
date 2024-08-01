@@ -23,4 +23,4 @@
     Keyboard.DSECTOR = 1;
     dsector.Keyboard = Keyboard;
     Keyboard["__class"] = "dsector.Keyboard";
-})(dsector || (dsector = {}));
+})(dsector);

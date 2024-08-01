@@ -1183,4 +1183,4 @@
     DSecBrain.timeOfLastForwardMovementOfAnyTank = 0;
     dsector.DSecBrain = DSecBrain;
     DSecBrain["__class"] = "dsector.DSecBrain";
-})(dsector || (dsector = {}));
+})(dsector);

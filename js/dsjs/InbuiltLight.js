@@ -182,4 +182,4 @@
 
     dsector.InbuiltLight = InbuiltLight;
     InbuiltLight["__class"] = "dsector.InbuiltLight";
-})(dsector || (dsector = {}));
+})(dsector);

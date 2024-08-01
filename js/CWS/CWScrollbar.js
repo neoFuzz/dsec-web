@@ -538,4 +538,4 @@
     CWScrollbar.scrollbarTransparency = 200;
     CWSYSTEM.CWScrollbar = CWScrollbar;
     CWScrollbar["__class"] = "CWSYSTEM.CWScrollbar";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

@@ -116,4 +116,4 @@
 
     dsector.Scene = Scene;
     Scene["__class"] = "dsector.Scene";
-})(dsector || (dsector = {}));
+})(dsector);

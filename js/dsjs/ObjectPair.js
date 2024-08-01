@@ -46,4 +46,4 @@
 
     dsector.ObjectPair = ObjectPair;
     ObjectPair["__class"] = "dsector.ObjectPair";
-})(dsector || (dsector = {}));
+})(dsector);

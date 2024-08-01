@@ -282,4 +282,4 @@
 
     dsector.PlayersStatusWindow = PlayersStatusWindow;
     PlayersStatusWindow["__class"] = "dsector.PlayersStatusWindow";
-})(dsector || (dsector = {}));
+})(dsector);

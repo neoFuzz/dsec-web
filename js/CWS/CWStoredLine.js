@@ -59,4 +59,4 @@
 
     CWSYSTEM.CWStoredLine = CWStoredLine;
     CWStoredLine["__class"] = "CWSYSTEM.CWStoredLine";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

@@ -145,4 +145,4 @@
 
     CWSYSTEM.IntegerArray = IntegerArray;
     IntegerArray["__class"] = "CWSYSTEM.IntegerArray";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

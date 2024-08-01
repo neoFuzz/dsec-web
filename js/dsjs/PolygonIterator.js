@@ -319,4 +319,4 @@
     PolygonIterator.VISIBLE_POLYGON_GROUPS = 2;
     dsector.PolygonIterator = PolygonIterator;
     PolygonIterator["__class"] = "dsector.PolygonIterator";
-})(dsector || (dsector = {}));
+})(dsector);

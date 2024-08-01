@@ -298,4 +298,4 @@
     PositionedModel.numberOfProjections = 0;
     dsector.PositionedModel = PositionedModel;
     PositionedModel["__class"] = "dsector.PositionedModel";
-})(dsector || (dsector = {}));
+})(dsector);

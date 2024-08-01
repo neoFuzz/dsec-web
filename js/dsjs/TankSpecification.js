@@ -340,4 +340,4 @@
 
     dsector.TankSpecification = TankSpecification;
     TankSpecification["__class"] = "dsector.TankSpecification";
-})(dsector || (dsector = {}));
+})(dsector);

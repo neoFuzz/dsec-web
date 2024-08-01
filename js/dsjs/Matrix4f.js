@@ -404,4 +404,4 @@
 
     dsector.Matrix4f = Matrix4f;
     Matrix4f["__class"] = "dsector.Matrix4f";
-})(dsector || (dsector = {}));
+})(dsector);

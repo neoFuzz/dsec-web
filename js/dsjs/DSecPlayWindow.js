@@ -347,5 +347,5 @@
     DSecPlayWindow.__static_initialized = false;
     dsector.DSecPlayWindow = DSecPlayWindow;
     DSecPlayWindow["__class"] = "dsector.DSecPlayWindow";
-})(dsector || (dsector = {}));
+})(dsector);
 dsector.DSecPlayWindow.__static_initialize();

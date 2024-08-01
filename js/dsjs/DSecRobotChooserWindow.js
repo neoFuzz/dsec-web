@@ -393,4 +393,4 @@
     DSecRobotChooserWindow.ioMessages = null;
     dsector.DSecRobotChooserWindow = DSecRobotChooserWindow;
     DSecRobotChooserWindow["__class"] = "dsector.DSecRobotChooserWindow";
-})(dsector || (dsector = {}));
+})(dsector);

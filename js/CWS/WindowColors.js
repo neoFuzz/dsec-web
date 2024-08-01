@@ -65,4 +65,4 @@
 
     CWSYSTEM.WindowColors = WindowColors;
     WindowColors["__class"] = "CWSYSTEM.WindowColors";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

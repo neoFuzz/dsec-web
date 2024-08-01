@@ -142,4 +142,4 @@
     IOInstruction.keyReleased = 15;
     CWSYSTEM.IOInstruction = IOInstruction;
     IOInstruction["__class"] = "CWSYSTEM.IOInstruction";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

@@ -282,4 +282,4 @@
     DSecMissileManager.missileRelativeSpeedup = 0.55;
     dsector.DSecMissileManager = DSecMissileManager;
     DSecMissileManager["__class"] = "dsector.DSecMissileManager";
-})(dsector || (dsector = {}));
+})(dsector);

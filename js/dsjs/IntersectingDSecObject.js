@@ -39,4 +39,4 @@
 
     dsector.IntersectingDSecObject = IntersectingDSecObject;
     IntersectingDSecObject["__class"] = "dsector.IntersectingDSecObject";
-})(dsector || (dsector = {}));
+})(dsector);

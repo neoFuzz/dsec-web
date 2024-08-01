@@ -1,6 +1,7 @@
 // Declare the variable to hold the CWSYSTEM namespace.
 // It is set here since Debug is the logger required by all other classes.
-let CWSYSTEM;
+let CWSYSTEM = {};
+
 (function (CWSYSTEM) {
     /**
      * This is the logger class for the CWSYSTEM.
@@ -78,4 +79,4 @@ let CWSYSTEM;
     Debug.errorLogging = true;
     CWSYSTEM.Debug = Debug;
     Debug["__class"] = "CWSYSTEM.Debug";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

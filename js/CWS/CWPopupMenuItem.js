@@ -116,4 +116,4 @@
     CWPopupMenuItem.SEPARATOR = 2;
     CWSYSTEM.CWPopupMenuItem = CWPopupMenuItem;
     CWPopupMenuItem["__class"] = "CWSYSTEM.CWPopupMenuItem";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

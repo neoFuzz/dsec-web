@@ -147,9 +147,11 @@
          * Build a basic menu.
          */
         build$() {
-            this.build(
-                this.buildX, this.buildY, 15, CWSYSTEM.CWSReference.virtualScreen.serif8_font,
-                7, 1, 0, 0);
+            const build = {
+                bx: this.buildX,
+                by: this.buildY
+            }
+            this.build(build, 15, CWSYSTEM.CWSReference.virtualScreen.serif8_font, 7, 1, 0, 0);
         }
 
         /**
@@ -164,8 +166,10 @@
          * @param {number} width - The width of the menu.
          * @param {number} y1 - The y-coordinate offset for the build position.
          */
-        build(buildX, buildY, height,
+        build(build, height,
               font, inWidth, maxWidth, width, y1) {
+            let buildX = build.bx;
+            let buildY = build.by;
             const baseW = 0;
             let width1 = baseW + width;
             let height1;
@@ -207,8 +211,7 @@
          * Destroy all open popup menus.
          */
         destroyAllOpenPopupMenus() {
-            for (let i = 0; i < this.popupMenus.length; ++i) {
-                const popupMenu = this.popupMenus[i];
+            for (const popupMenu of this.popupMenus) {
                 if (popupMenu.isPoppedUp()) {
                     popupMenu.destroy();
                 }
@@ -260,4 +263,4 @@
     CWMenu.ACTIVE = 1;
     CWSYSTEM.CWMenu = CWMenu;
     CWMenu["__class"] = "CWSYSTEM.CWMenu";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

@@ -182,4 +182,4 @@
     RobotIOWindow.TURNED_TO_FACE_TARGET = 21;
     dsector.RobotIOWindow = RobotIOWindow;
     RobotIOWindow["__class"] = "dsector.RobotIOWindow";
-})(dsector || (dsector = {}));
+})(dsector);

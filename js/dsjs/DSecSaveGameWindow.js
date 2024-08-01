@@ -231,4 +231,4 @@
 
     dsector.DSecSaveGameWindow = DSecSaveGameWindow;
     DSecSaveGameWindow["__class"] = "dsector.DSecSaveGameWindow";
-})(dsector || (dsector = {}));
+})(dsector);

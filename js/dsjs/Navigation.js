@@ -38,4 +38,4 @@
 
     dsector.Navigation = Navigation;
     Navigation["__class"] = "dsector.Navigation";
-})(dsector || (dsector = {}));
+})(dsector);

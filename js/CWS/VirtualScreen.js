@@ -1747,4 +1747,4 @@
 
     CWSYSTEM.VirtualScreen = VirtualScreen;
     VirtualScreen["__class"] = "CWSYSTEM.VirtualScreen";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

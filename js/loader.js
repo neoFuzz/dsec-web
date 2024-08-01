@@ -48,6 +48,7 @@ loadScript('js/dsjs/InbuiltLight.js');
 loadScript('js/dsjs/DSInterfaceProcesses.js');
 loadScript('js/dsjs/Keyboard.js');
 loadScript('js/dsjs/MP3.js');
+loadScript('js/dsjs/UserIOBuffer.js');
 
 /* Game Element Classes*/
 loadScript('js/dsjs/DSecBackgroundConfiguration.js');

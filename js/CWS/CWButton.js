@@ -18,6 +18,7 @@
      * @property {number} borderThickness - The thickness of the button border.
      * @property {number} responds - The response type of the button.
      * @property {string} name - The name of the button.
+     * @property {string} secondText - The secondary text displayed on the button (if any).
      *
      * @class
      * @since    1.0.0
@@ -37,18 +38,16 @@
          *
          * @param {CWSYSTEM.CWWindow} window - The window instance to which the button belongs.
          * @param {string} name - The name of the button.
-         * @param {number} x - The x-coordinate of the button.
-         * @param {number} y - The y-coordinate of the button.
-         * @param {number} length - The length of the button.
-         * @param {number} height - The height of the button.
+         * @param {Object} dimensions - Object with dimensions
          * @param {string} inText - The text displayed on the button.
          * @param {number} inType - The type of the button.
          * @param {number} responds - The response type of the button.
          * @throws {Error} Will throw an error if any argument is invalid.
          *
          */
-        constructor(window, name, x, y, length, height,
+        constructor(window, name, dimensions,
                     inText, inType, responds) {
+            let {x, y, length, height} = dimensions;
             if (!(window instanceof CWSYSTEM.CWWindow || window === null)) {
                 throw new Error('Invalid window argument');
             }
@@ -70,36 +69,20 @@
             this.textLeftMargin = 5;
             this.fillStyle = CWButton.LINEAR_GRADIENT;
             this.shortcutTextRightMargin = 15;
+            this.secondText = null;
 
-            if (typeof name === 'string' || name === null) {
-                this.name = name;
-            } else {
-                throw new Error('Invalid name argument');
-            }
+            const validateAndAssign = (value, type, propertyName) => {
+                if (value === null || typeof value === type) {
+                    return value;
+                }
+                throw new Error(`Invalid ${propertyName} argument`);
+            };
 
-            if (typeof x === 'number' || x === null) {
-                this.x = x;
-            } else {
-                throw new Error('Invalid x argument');
-            }
-
-            if (typeof y === 'number' || y === null) {
-                this.y = y;
-            } else {
-                throw new Error('Invalid y argument');
-            }
-
-            if (typeof length === 'number' || length === null) {
-                this.length = length;
-            } else {
-                throw new Error('Invalid length argument');
-            }
-
-            if (typeof height === 'number' || height === null) {
-                this.height = height;
-            } else {
-                throw new Error('Invalid height argument');
-            }
+            this.name = validateAndAssign(name, 'string', 'name');
+            this.x = validateAndAssign(x, 'number', 'x');
+            this.y = validateAndAssign(y, 'number', 'y');
+            this.length = validateAndAssign(length, 'number', 'length');
+            this.height = validateAndAssign(height, 'number', 'height');
 
             if (typeof inText === 'string' || inText === null) {
                 this.text = inText;
@@ -109,17 +92,8 @@
                 throw new Error('Invalid inText argument');
             }
 
-            if (typeof inType === 'number' || inType === null) {
-                this.type = inType !== undefined ? inType : this.type;
-            } else if (inType !== undefined) {
-                throw new Error('Invalid inType argument');
-            }
-
-            if (typeof responds === 'number' || responds === null) {
-                this.respondsTo = responds !== undefined ? responds : CWButton.PRESSED;
-            } else if (responds !== undefined) {
-                throw new Error('Invalid responds argument');
-            }
+            this.type = inType !== undefined ? validateAndAssign(inType, 'number', 'inType') : this.type;
+            this.respondsTo = responds !== undefined ? validateAndAssign(responds, 'number', 'responds') : CWButton.PRESSED;
         }
 
         /**
@@ -201,7 +175,7 @@
                     isPressedB = 0;
                 }
                 const cBWidth = this.parent.borderWidth + this.x + isPressedB;
-                const cBWidthnH = this.parent.borderWidth + this.parent.__titleHeight + this.y + isPressedB;
+                const cbWnH = this.parent.borderWidth + this.parent.__titleHeight + this.y + isPressedB;
                 let color1;
                 let color2;
                 let color3;
@@ -217,17 +191,17 @@
                             color3 = this.secondaryBackgroundColor;
                         }
                         vs.setColor$intCWColor(color2);
-                        vs.CWDrawRectangle(this.parent.window, cBWidth, cBWidthnH, this.length, this.height);
+                        vs.CWDrawRectangle(this.parent.window, cBWidth, cbWnH, this.length, this.height);
                         if (this.fillStyle === CWButton.LINEAR_GRADIENT) {
-                            vs.CWDrawFilledRectangleWithGradient(this.parent.window, cBWidth + 1, cBWidthnH + 1, this.length - 2, this.height - 2, color1, color3);
+                            vs.CWDrawFilledRectangleWithGradient(this.parent.window, cBWidth + 1, cbWnH + 1, this.length - 2, this.height - 2, color1, color3);
                         } else {
-                            vs.CWDrawFilledRectangle(this.parent.window, cBWidth + 1, cBWidthnH + 1, this.length - 2, this.height - 2, color1);
+                            vs.CWDrawFilledRectangle(this.parent.window, cBWidth + 1, cbWnH + 1, this.length - 2, this.height - 2, color1);
                         }
                         if (this.text != null) {
                             vs.setColor$intCWColor(color2);
-                            vs.drawString$sd$n$s$n2$n3$b(this.parent.window, this.length, this.text, cBWidth + 4, cBWidthnH + this.height - 3, false);
+                            vs.drawString$sd$n$s$n2$n3$b(this.parent.window, this.length, this.text, cBWidth + 4, cbWnH + this.height - 3, false);
                             if (this.secondText != null) {
-                                vs.drawString$sd$n$s$n2$n3$b(this.parent.window, this.length, this.secondText, cBWidth + 4 + this.secondTextHorizontalOffset, cBWidthnH + this.height - 3, false);
+                                vs.drawString$sd$n$s$n2$n3$b(this.parent.window, this.length, this.secondText, cBWidth + 4 + this.secondTextHorizontalOffset, cbWnH + this.height - 3, false);
                             }
                         }
                         break;
@@ -239,132 +213,11 @@
                     case 6: /* ZOOM_MINUS */
                     case 7: /* WORLD_INFO */
                     case 8: /* OFFSET_PAD */
-                        if (this.mouseIsOver) {
-                            color2 = new CWSYSTEM.CWColor(255, 255, 255, 180);
-                            color1 = new CWSYSTEM.CWColor(90, 90, 0, 120);
-                        } else {
-                            color2 = new CWSYSTEM.CWColor(200, 200, 250, 90);
-                            color1 = new CWSYSTEM.CWColor(20, 20, 0, 120);
-                        }
-                        vs.setColor$intCWColor(color2);
-                        vs.CWDrawRectangle(this.parent.window, this.parent.borderWidth + this.x + 1 + isPressedB, this.parent.borderWidth + this.parent.__titleHeight + this.y + 1 + isPressedB, this.length - 2, this.height - 2);
-                        vs.CWDrawFilledRectangle(this.parent.window, this.parent.borderWidth + this.x + 2 + isPressedB, this.parent.borderWidth + this.parent.__titleHeight + this.y + 2 + isPressedB, this.length - 4, this.height - 4, color1);
-                        vs.setColor$intCWColor(color2);
-                        if (this.type === CWButton.ARROW_LEFT) {
-                            vs.CWDrawPixel(this.parent.window, cBWidth - 1 + (this.length / 2 | 0), cBWidthnH + (this.height / 2 | 0));
-                            vs.CWDrawPixel(this.parent.window, cBWidth + (this.length / 2 | 0), cBWidthnH + 1 + (this.height / 2 | 0));
-                            vs.CWDrawPixel(this.parent.window, cBWidth + (this.length / 2 | 0), cBWidthnH - 1 + (this.height / 2 | 0));
-                            vs.CWDrawPixel(this.parent.window, cBWidth + 1 + (this.length / 2 | 0), cBWidthnH + 2 + (this.height / 2 | 0));
-                            vs.CWDrawPixel(this.parent.window, cBWidth + 1 + (this.length / 2 | 0), cBWidthnH - 2 + (this.height / 2 | 0));
-                        }
-                        if (this.type === CWButton.ARROW_RIGHT) {
-                            vs.CWDrawPixel(this.parent.window, cBWidth + 1 + (this.length / 2 | 0), cBWidthnH + (this.height / 2 | 0));
-                            vs.CWDrawPixel(this.parent.window, cBWidth + (this.length / 2 | 0), cBWidthnH + 1 + (this.height / 2 | 0));
-                            vs.CWDrawPixel(this.parent.window, cBWidth + (this.length / 2 | 0), cBWidthnH - 1 + (this.height / 2 | 0));
-                            vs.CWDrawPixel(this.parent.window, cBWidth - 1 + (this.length / 2 | 0), cBWidthnH + 2 + (this.height / 2 | 0));
-                            vs.CWDrawPixel(this.parent.window, cBWidth - 1 + (this.length / 2 | 0), cBWidthnH - 2 + (this.height / 2 | 0));
-                        }
-                        if (this.type === CWButton.ARROW_UP) {
-                            vs.CWDrawPixel(this.parent.window, cBWidth + (this.length / 2 | 0), cBWidthnH - 1 + (this.height / 2 | 0));
-                            vs.CWDrawPixel(this.parent.window, cBWidth + 1 + (this.length / 2 | 0), cBWidthnH + (this.height / 2 | 0));
-                            vs.CWDrawPixel(this.parent.window, cBWidth - 1 + (this.length / 2 | 0), cBWidthnH + (this.height / 2 | 0));
-                            vs.CWDrawPixel(this.parent.window, cBWidth + 2 + (this.length / 2 | 0), cBWidthnH + 1 + (this.height / 2 | 0));
-                            vs.CWDrawPixel(this.parent.window, cBWidth - 2 + (this.length / 2 | 0), cBWidthnH + 1 + (this.height / 2 | 0));
-                        }
-                        if (this.type === CWButton.ARROW_DOWN) {
-                            vs.CWDrawPixel(this.parent.window, cBWidth + (this.length / 2 | 0), cBWidthnH + 1 + (this.height / 2 | 0));
-                            vs.CWDrawPixel(this.parent.window, cBWidth + 1 + (this.length / 2 | 0), cBWidthnH + (this.height / 2 | 0));
-                            vs.CWDrawPixel(this.parent.window, cBWidth - 1 + (this.length / 2 | 0), cBWidthnH + (this.height / 2 | 0));
-                            vs.CWDrawPixel(this.parent.window, cBWidth + 2 + (this.length / 2 | 0), cBWidthnH - 1 + (this.height / 2 | 0));
-                            vs.CWDrawPixel(this.parent.window, cBWidth - 2 + (this.length / 2 | 0), cBWidthnH - 1 + (this.height / 2 | 0));
-                        }
-                        if (this.type === CWButton.ZOOM_PLUS) {
-                            vs.CWLine(this.parent.window, cBWidth + (this.length / 2 | 0), cBWidthnH + 3, cBWidth + (this.length / 2 | 0), cBWidthnH + this.height - 4, false);
-                            vs.CWLine(this.parent.window, cBWidth + 3, cBWidthnH + (this.height / 2 | 0), cBWidth + this.length - 4, cBWidthnH + (this.height / 2 | 0), false);
-                        }
-                        if (this.type === CWButton.ZOOM_MINUS) {
-                            vs.CWLine(this.parent.window, cBWidth + 3, cBWidthnH + (this.height / 2 | 0), cBWidth + this.length - 4, cBWidthnH + (this.height / 2 | 0), false);
-                        }
-                        if (this.type === CWButton.WORLD_INFO) {
-                            vs.CWLine(this.parent.window, cBWidth + (this.length / 2 | 0), cBWidthnH + 5, cBWidth + (this.length / 2 | 0), cBWidthnH + this.height - 4, false);
-                            vs.CWDrawPixel(this.parent.window, cBWidth + (this.length / 2 | 0), cBWidthnH + 3);
-                        }
-                        if (this.type === CWButton.OFFSET_PAD) {
-                            vs.CWLine(this.parent.window, cBWidth - 2 + (this.length / 2 | 0), cBWidthnH + 3, cBWidth - 2 + (this.length / 2 | 0), cBWidthnH + this.height - 4, false);
-                            vs.CWDrawPixel(this.parent.window, cBWidth - 1 + (this.length / 2 | 0), cBWidthnH + 3);
-                            vs.CWDrawPixel(this.parent.window, cBWidth + (this.length / 2 | 0), cBWidthnH + 3);
-                            vs.CWDrawPixel(this.parent.window, cBWidth + 1 + (this.length / 2 | 0), cBWidthnH + 3);
-                            vs.CWDrawPixel(this.parent.window, cBWidth + 2 + (this.length / 2 | 0), cBWidthnH + 4);
-                            vs.CWDrawPixel(this.parent.window, cBWidth + 2 + (this.length / 2 | 0), cBWidthnH + 5);
-                            vs.CWDrawPixel(this.parent.window, cBWidth + 1 + (this.length / 2 | 0), cBWidthnH + 6);
-                            vs.CWDrawPixel(this.parent.window, cBWidth - 1 + (this.length / 2 | 0), cBWidthnH + 6);
-                            vs.CWDrawPixel(this.parent.window, cBWidth + (this.length / 2 | 0), cBWidthnH + 6);
-                        }
+                        this.doCase8(vs, isPressedB, cBWidth, cbWnH);
                         break;
                     case 9: /* ROUNDED_TEXT_BUTTON */
                     case 10: /* SQUARE_TEXT_BUTTON */
-                        if (this.mouseIsOver) {
-                            color2 = this.textColorHighlighted;
-                            color1 = this.bgColorHighlighted;
-                            color3 = this.secondaryBackgroundColorHighlighted;
-                        } else {
-                            color2 = this.textColor;
-                            color1 = this.bgColor;
-                            color3 = this.secondaryBackgroundColor;
-                        }
-                        vs.setColor$intCWColor(color2);
-                        vs.CWDrawRectangle(this.parent.window, cBWidth, cBWidthnH, this.length + 1, this.height + 1);
-                        if (this.fillStyle === CWButton.LINEAR_GRADIENT) {
-                            vs.CWDrawFilledRectangleWithGradient(this.parent.window, cBWidth + 1, cBWidthnH + 1, this.length - 1, this.height - 1, color1, color3);
-                        } else {
-                            vs.CWDrawFilledRectangle(this.parent.window, cBWidth + 1, cBWidthnH + 1, this.length - 1, this.height - 1, color1);
-                        }
-                        if (this.text != null) {
-                            vs.setColor$intCWColor(color2);
-                            const textHeightInPixels = CWSYSTEM.CWFontTools.textHeightInPixels(this.text, this.font);
-                            const tHeight = this.height;
-                            const lHeight = ((tHeight - textHeightInPixels) / 2 | 0);
-                            CWSYSTEM.CWFontTools.renderText(null, this.text, 0, 0, this.font, color2, 9999);
-                            let width1;
-                            if (this.textAlignment === CWButton.CENTERED) {
-                                width1 = ((this.length - CWSYSTEM.CWFontTools.RENDERED_WIDTH) / 2 | 0);
-                            } else {
-                                width1 = this.textLeftMargin;
-                            }
-                            CWSYSTEM.CWFontTools.renderText(this.parent.window, this.text, cBWidth + width1, cBWidthnH + this.height - lHeight - 1, this.font, color2, 999);
-                            if (this.secondText != null) {
-                                CWSYSTEM.CWFontTools.renderText(this.parent.window, this.secondText, cBWidth + width1 + this.secondTextHorizontalOffset, cBWidthnH + this.height - lHeight - 1, this.font, color2, 999);
-                            }
-                            if (this.shortcutText != null) {
-                                const textLengthInPixels = CWSYSTEM.CWFontTools.textLengthInPixels(this.shortcutText, this.font);
-                                const combined = this.parent.borderWidth + this.x + isPressedB + this.length - textLengthInPixels - this.shortcutTextRightMargin;
-                                vs.setColor$intCWColor(color2);
-                                CWSYSTEM.CWFontTools.renderText(this.parent.window, this.shortcutText, combined, cBWidthnH + this.height - lHeight - 1, this.font, color2, 999);
-                            }
-                            if (this.type === CWButton.ROUNDED_TEXT_BUTTON) {
-                                const colorArray = [[9, 9, 9, 9], [9, 9, 1, 1], [9, 1, 0, 0], [9, 1, 0, 0]];
-                                for (let i = 0; i < colorArray.length; ++i) {
-                                    for (let j = 0; j < colorArray[0].length; ++j) {
-                                        const pickedColor = colorArray[i][j];
-                                        let newColor;
-                                        if (pickedColor === 9) {
-                                            newColor = this.parent.windowBGColor;
-                                        } else if (pickedColor === 1) {
-                                            newColor = color2;
-                                        } else {
-                                            newColor = null;
-                                        }
-                                        if (newColor != null) {
-                                            vs.setColor$intCWColor(newColor);
-                                            vs.CWDrawPixel(this.parent.window, cBWidth + j, cBWidthnH + i);
-                                            vs.CWDrawPixel(this.parent.window, cBWidth + this.length - j, cBWidthnH + i);
-                                            vs.CWDrawPixel(this.parent.window, cBWidth + j, cBWidthnH + this.height - i);
-                                            vs.CWDrawPixel(this.parent.window, cBWidth + this.length - j, cBWidthnH + this.height - i);
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        this.doCase10(vs, isPressedB, cBWidth, cbWnH)
                 }
                 return true;
             } catch (e) {
@@ -372,20 +225,182 @@
                 return false;
             }
         }
+
+        /**
+         * Handles the case when the button type is 9 (ROUNDED_TEXT_BUTTON) or 10 (SQUARE_TEXT_BUTTON).
+         *
+         * @private
+         * @param {CWSYSTEM.VirtualScreen} vs The virtual screen instance.
+         * @param {number} isPressedB The pressed state of the button.
+         * @param {number} cBWidth The width of the button's bounding box.
+         * @param {number} cbWnH The height of the button's bounding box.
+         */
+        doCase10(vs, isPressedB, cBWidth, cbWnH) {
+            const {
+                mouseIsOver, textColorHighlighted, bgColorHighlighted, secondaryBackgroundColorHighlighted,
+                textColor, bgColor, secondaryBackgroundColor
+            } = this;
+
+            const [color1, color2, color3] = mouseIsOver
+                ? [bgColorHighlighted, textColorHighlighted, secondaryBackgroundColorHighlighted]
+                : [bgColor, textColor, secondaryBackgroundColor];
+
+            vs.setColor$intCWColor(color2);
+            vs.CWDrawRectangle(this.parent.window, cBWidth, cbWnH, this.length + 1, this.height + 1);
+            if (this.fillStyle === CWButton.LINEAR_GRADIENT) {
+                vs.CWDrawFilledRectangleWithGradient(this.parent.window, cBWidth + 1, cbWnH + 1,
+                    this.length - 1, this.height - 1, color1, color3);
+            } else {
+                vs.CWDrawFilledRectangle(this.parent.window, cBWidth + 1, cbWnH + 1,
+                    this.length - 1, this.height - 1, color1);
+            }
+            if (this.text != null) {
+                vs.setColor$intCWColor(color2);
+                const textHeightInPixels = CWSYSTEM.CWFontTools.textHeightInPixels(this.text, this.font);
+                const tHeight = this.height;
+                const lHeight = ((tHeight - textHeightInPixels) / 2 | 0);
+                CWSYSTEM.CWFontTools.renderText(null, this.text, 0, 0, this.font, color2, 9999);
+                let width1 = this.textAlignment === CWButton.CENTERED
+                    ? ((this.length - CWSYSTEM.CWFontTools.RENDERED_WIDTH) / 2 | 0)
+                    : this.textLeftMargin;
+                CWSYSTEM.CWFontTools.renderText(this.parent.window, this.text, cBWidth + width1, cbWnH + this.height - lHeight - 1, this.font, color2, 999);
+                if (this.secondText != null) {
+                    CWSYSTEM.CWFontTools.renderText(this.parent.window, this.secondText,
+                        cBWidth + width1 + this.secondTextHorizontalOffset, cbWnH + this.height - lHeight - 1,
+                        this.font, color2, 999);
+                }
+                if (this.shortcutText != null) {
+                    const textLengthInPixels = CWSYSTEM.CWFontTools.textLengthInPixels(this.shortcutText, this.font);
+                    const combined = this.parent.borderWidth + this.x + isPressedB + this.length -
+                        textLengthInPixels - this.shortcutTextRightMargin;
+                    vs.setColor$intCWColor(color2);
+                    CWSYSTEM.CWFontTools.renderText(this.parent.window, this.shortcutText, combined,
+                        cbWnH + this.height - lHeight - 1, this.font, color2, 999);
+                }
+                if (this.type === CWButton.ROUNDED_TEXT_BUTTON) this.doCase10a(color2, vs, cBWidth, cbWnH);
+            }
+        }
+
+        /**
+         * Handles the case when the button type is 9 (ROUNDED_TEXT_BUTTON).
+         *
+         * @private
+         * @param {CWSYSTEM.CWColor} color2 The color for the button text.
+         * @param {CWSYSTEM.VirtualScreen} vs The virtual screen instance.
+         * @param {number} cBWidth The width of the button's bounding box.
+         * @param {number} cbWnH The height of the button's bounding box.
+         */
+        doCase10a(color2, vs, cBWidth, cbWnH) {
+            const colorArray = [[9, 9, 9, 9], [9, 9, 1, 1], [9, 1, 0, 0], [9, 1, 0, 0]];
+            for (let i = 0; i < colorArray.length; ++i) {
+                for (let j = 0; j < colorArray[0].length; ++j) {
+                    const pickedColor = colorArray[i][j];
+                    let newColor = pickedColor === 9
+                        ? this.parent.windowBGColor
+                        : null;
+                    if (pickedColor === 1) {
+                        newColor = color2;
+                    }
+                    if (newColor != null) {
+                        vs.setColor$intCWColor(newColor);
+                        vs.CWDrawPixel(this.parent.window, cBWidth + j, cbWnH + i);
+                        vs.CWDrawPixel(this.parent.window, cBWidth + this.length - j, cbWnH + i);
+                        vs.CWDrawPixel(this.parent.window, cBWidth + j, cbWnH + this.height - i);
+                        vs.CWDrawPixel(this.parent.window, cBWidth + this.length - j, cbWnH + this.height - i);
+                    }
+                }
+            }
+        }
+
+        /**
+         * Handles the case when the button type is 1-8.
+         *
+         * @private
+         * @param {CWSYSTEM.VirtualScreen} vs The virtual screen instance.
+         * @param {number} isPressedB The pressed state of the button.
+         * @param {number} cBWidth The width of the button's bounding box.
+         * @param {number} cbwnh The height of the button's bounding box.
+         */
+        doCase8(vs, isPressedB, cBWidth, cbwnh) {
+            const {mouseIsOver, parent, x, y, length, height, type} = this;
+            const {window, borderWidth, __titleHeight} = parent;
+
+            const color2 = mouseIsOver ?
+                new CWSYSTEM.CWColor(255, 255, 255, 180) :
+                new CWSYSTEM.CWColor(200, 200, 250, 90);
+            const color1 = mouseIsOver ?
+                new CWSYSTEM.CWColor(90, 90, 0, 120) :
+                new CWSYSTEM.CWColor(20, 20, 0, 120);
+
+            const drawX = borderWidth + x + 1 + isPressedB;
+            const drawY = borderWidth + __titleHeight + y + 1 + isPressedB;
+
+            vs.setColor$intCWColor(color2);
+            vs.CWDrawRectangle(window, drawX, drawY, length - 2, height - 2);
+            vs.CWDrawFilledRectangle(window, drawX + 1, drawY + 1, length - 4, height - 4, color1);
+            vs.setColor$intCWColor(color2);
+
+            const centerX = cBWidth + Math.floor(length / 2);
+            const centerY = cbwnh + Math.floor(height / 2);
+
+            const drawArrow = (offsets) => {
+                offsets.forEach(([xOffset, yOffset]) => {
+                    vs.CWDrawPixel(window, centerX + xOffset, centerY + yOffset);
+                });
+            };
+
+            switch (type) {
+                case CWButton.ARROW_LEFT:
+                    drawArrow([[-1, 0], [0, 1], [0, -1], [1, 2], [1, -2]]);
+                    break;
+                case CWButton.ARROW_RIGHT:
+                    drawArrow([[1, 0], [0, 1], [0, -1], [-1, 2], [-1, -2]]);
+                    break;
+                case CWButton.ARROW_UP:
+                    drawArrow([[0, -1], [1, 0], [-1, 0], [2, 1], [-2, 1]]);
+                    break;
+                case CWButton.ARROW_DOWN:
+                    drawArrow([[0, 1], [1, 0], [-1, 0], [2, -1], [-2, -1]]);
+                    break;
+                case CWButton.ZOOM_PLUS:
+                    vs.CWLine(window, centerX, centerY - height / 2 + 3, centerX, centerY + height / 2 - 4, false);
+                    vs.CWLine(window, centerX - length / 2 + 3, centerY, centerX + length / 2 - 4, centerY, false);
+                    break;
+                case CWButton.ZOOM_MINUS:
+                    vs.CWLine(window, centerX - length / 2 + 3, centerY, centerX + length / 2 - 4, centerY, false);
+                    break;
+                case CWButton.WORLD_INFO:
+                    vs.CWLine(window, centerX, centerY - height / 2 + 5, centerX, centerY + height / 2 - 4, false);
+                    vs.CWDrawPixel(window, centerX, centerY - height / 2 + 3);
+                    break;
+                case CWButton.OFFSET_PAD:
+                    vs.CWLine(window, centerX - 2, centerY - height / 2 + 3, centerX - 2, centerY + height / 2 - 4, false);
+                    [[-1, 3], [0, 3], [1, 3], [2, 4], [2, 5], [1, 6], [-1, 6], [0, 6]].forEach(([xOffset, yOffset]) => {
+                        vs.CWDrawPixel(window, centerX + xOffset, centerY - height / 2 + yOffset);
+                    });
+                    break;
+            }
+        }
     }
 
     /**
-     * Constant for the button click state.
+     * Constant for the button click state. This works best with non-named buttons as shown in the example.
+     *
      * @constant
      * @type {number}
      * @default
+     * @example
+     * let button = this.window.addButton("", 342, 27, 52, 15, "Cancel", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
      */
     CWButton.CLICKED = 0;
     /**
-     * Constant for the button pressed state.
+     * Constant for the button pressed state. This works best with a named button as shown in the example.
+     *
      * @constant
      * @type {number}
      * @default
+     * @example
+     * let button = this.window.addButton("LOAD_GAME", 288, 27, 42, 15, "Load", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON,  CWSYSTEM.CWButton.PRESSED);
      */
     CWButton.PRESSED = 1;
     /**
@@ -447,4 +462,4 @@
     CWButton.LINEAR_GRADIENT = 1;
     CWSYSTEM.CWButton = CWButton;
     CWButton["__class"] = "CWSYSTEM.CWButton";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

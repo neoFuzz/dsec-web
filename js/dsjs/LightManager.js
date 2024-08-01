@@ -128,4 +128,4 @@
 
     dsector.LightManager = LightManager;
     LightManager["__class"] = "dsector.LightManager";
-})(dsector || (dsector = {}));
+})(dsector);

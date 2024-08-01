@@ -273,5 +273,5 @@
     CWUtils.__static_initialized = false;
     CWSYSTEM.CWUtils = CWUtils;
     CWUtils["__class"] = "CWSYSTEM.CWUtils";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);
 CWSYSTEM.CWUtils.__static_initialize();

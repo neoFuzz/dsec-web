@@ -91,4 +91,4 @@
 
     CWSYSTEM.CWReflect = CWReflect;
     CWReflect["__class"] = "CWSYSTEM.CWReflect";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

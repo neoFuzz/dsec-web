@@ -101,4 +101,4 @@
     DSecFadingLight.fadingLightsInScene = null;
     dsector.DSecFadingLight = DSecFadingLight;
     DSecFadingLight["__class"] = "dsector.DSecFadingLight";
-})(dsector || (dsector = {}));
+})(dsector);

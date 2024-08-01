@@ -487,5 +487,5 @@
     Environment.lastMouseButtonPressed = null;
     CWSYSTEM.Environment = Environment;
     Environment["__class"] = "CWSYSTEM.Environment";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);
 CWSYSTEM.Environment.__static_initialize();

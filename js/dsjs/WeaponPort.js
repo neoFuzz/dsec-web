@@ -40,4 +40,4 @@
 
     dsector.WeaponPort = WeaponPort;
     WeaponPort["__class"] = "dsector.WeaponPort";
-})(dsector || (dsector = {}));
+})(dsector);

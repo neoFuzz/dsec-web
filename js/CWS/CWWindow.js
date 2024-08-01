@@ -15,6 +15,17 @@
      * @property {number} style - The [CWWindowStyles]{@link CWSYSTEM.CWWindowStyles} defined style of the window.
      * @property {string} title - The title of the window.
      * @property {number} v - The virtual screen associated with the window.
+     * @property {ScreenData} window - The window object.
+     * @property {boolean} resizable - Whether the window is resizable.
+     * @property {boolean} useAntiAliasedContent - Whether to use anti-aliased content.
+     * @property {boolean} hasInterfaceElements - Whether the window has interface elements.
+     * @property {number} antiAliasedLevel - The antialiasing level of the window.
+     * @property {number} subframes - The number of sub-frames in the window.
+     * @property {number} depth - The depth of the window.
+     * @property {boolean} updated - Whether the window has been updated.
+     * @property {boolean} renderingRequired - Whether rendering is required.
+     * @property {boolean} titleVisible - Whether the title is visible.
+     * @property {boolean} windowVisible - Whether the window is visible.
      *
      * @see [CWWindowStyles]{@link CWSYSTEM.CWWindowStyles} for information on window styles.
      *
@@ -440,13 +451,20 @@
          * @param {number} responds - The response value for the button.
          * @returns {CWSYSTEM.CWButton|null} The newly created button, or null if the maximum number of buttons has been reached.
          */
-        addButton(name, x, y, length, height, text, type, responds) {
+        addButton(name, x, y, length, height,
+                  text, type, responds) {
             if (this.numberOfButtons >= CWWindow.maximumNumberOfButtons) {
                 CWSYSTEM.Debug.error("Critical error: Maximum number of buttons exceeded");
                 return null;
             } else {
+                const dimensions = {
+                    x: x,
+                    y: y,
+                    length: length,
+                    height: height
+                };
                 this.button[this.numberOfButtons] =
-                    new CWSYSTEM.CWButton(this, name, x, y, length, height, text, type, responds);
+                    new CWSYSTEM.CWButton(this, name, dimensions, text, type, responds);
                 ++this.numberOfButtons;
                 return this.button[this.numberOfButtons - 1];
             }
@@ -1025,6 +1043,32 @@
                     }
                 }
             }
+            this.doDrawA(i, j, k);
+            this.v.CWDrawFilledRectangle(this.window, 0, 0, this.w + 2 * this.borderWidth,
+                this.__titleHeight, new CWSYSTEM.CWColor(CWSYSTEM.Global.environmentBackgroundColor_$LI$()));
+            if (this.titleVisible) {
+                const titleBarSag = this.titleBarSag();
+                const titleTextWidth = this.titleTextWidth();
+                const titleTxtVertOffset = this.titleTextVerticalOffset();
+                const titleBarHeight = this.titleBarHeight();
+                const titleBarWidth = this.titleBarWidth();
+                this.v.setColor$intCWColor(this.titleTextColor);
+                this.v.CWDrawRectangle(this.window, 1 + this.borderWidth + (this.w / 2 | 0) - (titleBarWidth / 2 | 0),
+                    1 + titleBarSag, titleBarWidth - 2, titleBarHeight);
+                this.v.setColor$intCWColor(this.titleTextColor);
+                this.v.CWDrawRectangle(this.window, this.borderWidth + (this.w / 2 | 0) - (titleBarWidth / 2 | 0),
+                    titleBarSag, titleBarWidth - 2, titleBarHeight);
+                this.v.CWDrawFilledRectangleWithGradient(this.window, 1 + this.borderWidth + (this.w / 2 | 0) -
+                    (titleBarWidth / 2 | 0), 1 + titleBarSag, titleBarWidth - 4, titleBarHeight - 2,
+                    this.titleBGColor, this.titleBGColorSecondary);
+                this.v.setColor$intCWColor(this.titleTextColor);
+                CWSYSTEM.CWFontTools.renderText(this.window, this.title, this.borderWidth +
+                    ((this.w - titleTextWidth) / 2 | 0) - 1, titleBarSag + this.borderWidth + this.__titleHeight +
+                    titleTxtVertOffset, this.v.serif8_font, this.titleTextColor, 9999);
+            }
+        }
+
+        doDrawA(i, j, k) {
             let color1;
             if (this.borderPatternThickness > 1) {
                 for (i = 0; i < (this.w / this.borderPatternThickness | 0); i += this.borderPatternThickness) {
@@ -1059,28 +1103,6 @@
                     this.v.CWDrawPixel(this.window, this.w + 2 * this.borderWidth - k - 1,
                         this.h + 2 * this.borderWidth + this.__titleHeight - j - 1);
                 }
-            }
-            this.v.CWDrawFilledRectangle(this.window, 0, 0, this.w + 2 * this.borderWidth,
-                this.__titleHeight, new CWSYSTEM.CWColor(CWSYSTEM.Global.environmentBackgroundColor_$LI$()));
-            if (this.titleVisible) {
-                const titleBarSag = this.titleBarSag();
-                const titleTextWidth = this.titleTextWidth();
-                const titleTxtVertOffset = this.titleTextVerticalOffset();
-                const titleBarHeight = this.titleBarHeight();
-                const titleBarWidth = this.titleBarWidth();
-                this.v.setColor$intCWColor(this.titleTextColor);
-                this.v.CWDrawRectangle(this.window, 1 + this.borderWidth + (this.w / 2 | 0) - (titleBarWidth / 2 | 0),
-                    1 + titleBarSag, titleBarWidth - 2, titleBarHeight);
-                this.v.setColor$intCWColor(this.titleTextColor);
-                this.v.CWDrawRectangle(this.window, this.borderWidth + (this.w / 2 | 0) - (titleBarWidth / 2 | 0),
-                    titleBarSag, titleBarWidth - 2, titleBarHeight);
-                this.v.CWDrawFilledRectangleWithGradient(this.window, 1 + this.borderWidth + (this.w / 2 | 0) -
-                    (titleBarWidth / 2 | 0), 1 + titleBarSag, titleBarWidth - 4, titleBarHeight - 2,
-                    this.titleBGColor, this.titleBGColorSecondary);
-                this.v.setColor$intCWColor(this.titleTextColor);
-                CWSYSTEM.CWFontTools.renderText(this.window, this.title, this.borderWidth +
-                    ((this.w - titleTextWidth) / 2 | 0) - 1, titleBarSag + this.borderWidth + this.__titleHeight +
-                    titleTxtVertOffset, this.v.serif8_font, this.titleTextColor, 9999);
             }
         }
 
@@ -1363,4 +1385,4 @@
     CWWindow.maximumNumberOfStoredLines = 100;
     CWSYSTEM.CWWindow = CWWindow;
     CWWindow["__class"] = "CWSYSTEM.CWWindow";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

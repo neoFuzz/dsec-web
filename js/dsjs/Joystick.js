@@ -37,4 +37,4 @@
 
     dsector.Joystick = Joystick;
     Joystick["__class"] = "dsector.Joystick";
-})(dsector || (dsector = {}));
+})(dsector);

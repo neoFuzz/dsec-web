@@ -90,4 +90,4 @@
 
     dsector.Starfield = Starfield;
     Starfield["__class"] = "dsector.Starfield";
-})(dsector || (dsector = {}));
+})(dsector);

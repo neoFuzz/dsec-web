@@ -18,7 +18,7 @@
         /**
          * Delete a file from IndexedDB.
          *
-         * @param fileName {string} The name of the file to delete.
+         * @param {string} fileName The name of the file to delete.
          */
         static delete(fileName) {
             indexedDB.deleteDatabase(fileName);
@@ -27,8 +27,8 @@
         /**
          * Copy a file from one location to another.
          *
-         * @param fileName {string} The name of the file to copy.
-         * @param newPath {string} The new path to copy the file to.
+         * @param {string} fileName The name of the file to copy.
+         * @param {string} newPath The new path to copy the file to.
          * @returns {boolean} Whether the copy operation was successful or not.
          */
         static copy(fileName, newPath) {
@@ -39,66 +39,63 @@
         /**
          * Output a 'file' to IndexedDB.
          *
-         * @param name {string} The name of the file to output.
-         * @param data {string} The data to output to the file.
+         * @param {string} name The name of the file to output.
+         * @param {string} data The data to output to the file.
          * @returns {Promise<unknown>} A promise that resolves when the file has been outputted.
          */
-        static outputFile(name, data) {
-            return new Promise((resolve, reject) => {
-                const request = indexedDB.open(name, 1);
-                request.onerror = () => reject(new Error('Failed to open database'));
-                request.onupgradeneeded = () => {
-                    const db = request.result;
-                    const store = db.createObjectStore('data', {keyPath: 'id'});
-                };
-                request.onsuccess = () => {
-                    const db = request.result;
-                    const transaction = db.transaction(['data'], 'readwrite');
-                    const store = transaction.objectStore('data');
-                    const putRequest = store.put({id: 1, content: data});
-                    putRequest.onsuccess = () => {
-                        db.close();
-                        resolve(true);
-                    };
-                    putRequest.onerror = () => {
-                        db.close();
-                        reject(new Error('Failed to write data to database'));
-                    };
-                };
-            });
+        static async outputFile(name, data) {
+            try {
+                const db = await this.openDatabase(name);
+                await this.storeInIndexedDB(db, data);
+                await this.closeDatabase(db);
+                return true;
+            } catch (error) {
+                CWSYSTEM.Debug.error('Error in outputFile: ' + error);
+                return false;
+            }
         }
 
         /**
          * Read a 'file' from IndexedDB.
          *
-         * @param name {string} The name of the file to read.
+         * @param {string} name The name of the file to read.
          * @returns {Promise<unknown>} A promise that resolves with the file data when the file has been read.
          */
-        static readFileIDB(name) {
+        static async readFileIDB(name) {
+            try {
+                const db = await this.openDatabase(name);
+                const content = await this.readFromIndexedDB(db);
+                await this.closeDatabase(db);
+                return content;
+            } catch (error) {
+                CWSYSTEM.Debug.error('Error in readFileIDB: ' + error);
+                throw error; // Re-throw to maintain the original error handling behavior
+            }
+        }
+
+        /**
+         * Read data from IndexedDB.
+         *
+         * @private
+         * @param {IDBDatabase} db The IndexedDB database to read from.
+         * @returns {Promise<unknown>} A promise that resolves with the data when the data has been read.
+         */
+        static readFromIndexedDB(db) {
             return new Promise((resolve, reject) => {
-                const request = indexedDB.open(name, 1);
-                request.onerror = () => reject(new Error('Failed to open database'));
-                request.onupgradeneeded = () => {
-                    const db = request.result;
-                    const store = db.createObjectStore('data', {keyPath: 'id'});
-                };
+                const transaction = db.transaction(['data'], 'readonly');
+                const objectStore = transaction.objectStore('data');
+                const request = objectStore.get(1);
+
                 request.onsuccess = () => {
-                    const db = request.result;
-                    const transaction = db.transaction(['data'], 'readonly');
-                    const store = transaction.objectStore('data');
-                    const getRequest = store.get(1);
-                    getRequest.onsuccess = () => {
-                        db.close();
-                        if (getRequest.result) {
-                            resolve(getRequest.result.content);
-                        } else {
-                            reject(new Error('No data found in database ' + name));
-                        }
-                    };
-                    getRequest.onerror = () => {
-                        db.close();
-                        reject(new Error('Failed to read data from database'));
-                    };
+                    if (request.result) {
+                        resolve(request.result.content);
+                    } else {
+                        reject(new Error('No data found in database'));
+                    }
+                };
+
+                request.onerror = () => {
+                    reject(new Error('Failed to read data from database'));
                 };
             });
         }
@@ -106,56 +103,85 @@
         /**
          * Read a file from IndexedDB, return as a string.
          *
-         * @param path {string} The path to the file to read.
+         * @param {string} path The path to the file to read.
          * @returns {string} The contents of the file.
          */
-        static readFile$str(path) {
-            let data1 = "";
-            // Open a connection to IndexedDB
-            const request = indexedDB.open(path, 1);
+        static async readFile$str(path) {
+            try {
+                const db = await this.openDatabase(path);
+                const fileContent = await this.fetchAndStoreFile(db, path);
+                await this.closeDatabase(db);
+                return fileContent;
+            } catch (error) {
+                CWSYSTEM.Debug.error('Error in readFile: ' + error);
+                return "";
+            }
+        }
 
-            // Define the object store and its properties
-            request.onupgradeneeded = function (event) {
-                const db = event.target.result;
-                const objectStore = db.createObjectStore('data', {
-                    keyPath: 'id', autoIncrement: false
-                });
-            };
+        /**
+         * Open a database.
+         *
+         * @private
+         * @param {string} path The path to the database.
+         * @returns {Promise<unknown>} A promise that resolves with the database when the database has been opened.
+         */
+        static openDatabase(path) {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open(path, 1);
 
-            request.onsuccess = function (event) {
-                const db = event.target.result;
-
-                // Fetch the file from the URL
-                fetch(path)
-                    .then(response => response.text())
-                    .then(data => {
-                        // Store the file contents into IndexedDB
-                        const transaction = db.transaction(['data'], 'readwrite');
-                        const objectStore = transaction.objectStore('data');
-                        const request = objectStore.put({id: 1, content: data});
-
-                        request.onsuccess = function () {
-                            CWSYSTEM.Debug.println('File saved to IndexedDB');
-                        };
-
-                        request.onerror = function (event) {
-                            CWSYSTEM.Debug.error('Error saving file to IndexedDB', event.target.error);
-                        };
-
-                        transaction.oncomplete = function () {
-                            CWSYSTEM.Debug.println('Transaction completed');
-                        };
-                    });
-
-                db.onclose = function () {
-                    CWSYSTEM.Debug.println('Connection to IndexedDB closed');
+                request.onupgradeneeded = (event) => {
+                    const db = event.target.result;
+                    db.createObjectStore('data', {keyPath: 'id', autoIncrement: false});
                 };
-            };
 
-            request.onerror = function (event) {
-                console.error('Error opening database', event.target.error);
-            };
-            return data1;
+                request.onsuccess = (event) => resolve(event.target.result);
+                request.onerror = (event) => reject(new Error('Error opening database: ' + event.target.error));
+            });
+        }
+
+        /**
+         * Fetch a file and store it in IndexedDB.
+         *
+         * @private
+         * @param {IDBDatabase} db The IndexedDB database to store the file in.
+         * @param {string} path The path to the file to fetch.
+         * @returns {Promise<unknown>} A promise that resolves when the file has been fetched and stored.
+         */
+        static async fetchAndStoreFile(db, path) {
+            const response = await fetch(path);
+            const data = await response.text();
+
+            await this.storeInIndexedDB(db, data);
+
+            return data;
+        }
+
+        static storeInIndexedDB(db, data) {
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction(['data'], 'readwrite');
+                const objectStore = transaction.objectStore('data');
+                const request = objectStore.put({id: 1, content: data});
+
+                request.onsuccess = () => {
+                    CWSYSTEM.Debug.println('File saved to IndexedDB');
+                    resolve();
+                };
+
+                request.onerror = (event) => {
+                    CWSYSTEM.Debug.error('Error saving file to IndexedDB ' + event.target.error);
+                    reject(new Error('Error saving file to IndexedDB: ' + event.target.error));
+                };
+
+                transaction.oncomplete = () => CWSYSTEM.Debug.println('Transaction completed');
+            });
+        }
+
+        static closeDatabase(db) {
+            return new Promise((resolve) => {
+                db.close();
+                CWSYSTEM.Debug.println('Connection to IndexedDB closed');
+                resolve();
+            });
         }
 
         /**
@@ -185,4 +211,4 @@
 
     CWSYSTEM.CWFileTools = CWFileTools;
     CWFileTools["__class"] = "CWSYSTEM.CWFileTools";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

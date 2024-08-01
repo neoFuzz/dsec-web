@@ -77,4 +77,4 @@
 
     dsector.Vertex2D = Vertex2D;
     Vertex2D["__class"] = "dsector.Vertex2D";
-})(dsector || (dsector = {}));
+})(dsector);

@@ -39,4 +39,4 @@
 
     CWSYSTEM.CWImageElement = CWImageElement;
     CWImageElement["__class"] = "CWSYSTEM.CWImageElement";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

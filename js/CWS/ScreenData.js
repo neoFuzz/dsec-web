@@ -63,4 +63,4 @@
 
     CWSYSTEM.ScreenData = ScreenData;
     ScreenData["__class"] = "CWSYSTEM.ScreenData";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

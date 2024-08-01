@@ -149,4 +149,4 @@
 
     dsector.PolygonGroupRepresentation = PolygonGroupRepresentation;
     PolygonGroupRepresentation["__class"] = "dsector.PolygonGroupRepresentation";
-})(dsector || (dsector = {}));
+})(dsector);

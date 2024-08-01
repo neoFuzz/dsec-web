@@ -229,4 +229,4 @@
 
     CWSYSTEM.CWColor = CWColor;
     CWColor["__class"] = "CWSYSTEM.CWColor";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

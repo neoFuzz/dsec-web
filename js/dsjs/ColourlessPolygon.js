@@ -39,4 +39,4 @@
 
     dsector.ColourlessPolygon = ColourlessPolygon;
     ColourlessPolygon["__class"] = "dsector.ColourlessPolygon";
-})(dsector || (dsector = {}));
+})(dsector);

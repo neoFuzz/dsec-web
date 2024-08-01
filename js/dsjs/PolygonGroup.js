@@ -170,4 +170,4 @@
     PolygonGroup.defaultDispersedLightDirectionSensitivity = 10;
     dsector.PolygonGroup = PolygonGroup;
     PolygonGroup["__class"] = "dsector.PolygonGroup";
-})(dsector || (dsector = {}));
+})(dsector);

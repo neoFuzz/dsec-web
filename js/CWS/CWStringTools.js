@@ -704,4 +704,4 @@
 
     CWSYSTEM.CWStringTools = CWStringTools;
     CWStringTools["__class"] = "CWSYSTEM.CWStringTools";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

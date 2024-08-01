@@ -232,4 +232,4 @@
 
     CWSYSTEM.CWImage = CWImage;
     CWImage["__class"] = "CWSYSTEM.CWImage";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

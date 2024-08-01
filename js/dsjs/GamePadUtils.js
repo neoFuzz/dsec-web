@@ -79,7 +79,7 @@
     GamePadUtils.JOY_LEFT = 14;
     dsector.GamePadUtils = GamePadUtils;
     GamePadUtils["__class"] = "dsector.GamePadUtils";
-})(dsector || (dsector = {}));
+})(dsector);
 
 // Gamepad functions
 /** @constant {boolean} */

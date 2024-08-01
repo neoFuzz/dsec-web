@@ -32,4 +32,4 @@ function loadScript(url) {
  * @type {Object} dsector
  * @memberof dsector
  */
-let dsector;
+let dsector= {};

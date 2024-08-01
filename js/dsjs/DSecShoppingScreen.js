@@ -315,7 +315,8 @@
                     }
                 }
                 this.window.addButton("SHOPPING_DONE_BUTTON", ((w - 30) / 2 | 0), baseline, 42, 15,
-                    "Done", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
+                    "Done", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON,
+                    CWSYSTEM.CWButton.CLICKED || CWSYSTEM.CWButton.PRESSED);
                 this.window.h = baseline + 22;
                 this.window.centerWithinDesktop();
             }
@@ -356,7 +357,6 @@
             if (this.currentShopper != null) {
                 this.update();
                 if (dsector.DSReference.dsecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
-                    // TODO: fix sound playing with computer buying upgrade
                     dsector.DSReference.cwSound.play("compressionDoor.wav");
                 }
             } else {
@@ -520,4 +520,4 @@
     DSecShoppingScreen.itemsOnSpecial = null;
     dsector.DSecShoppingScreen = DSecShoppingScreen;
     DSecShoppingScreen["__class"] = "dsector.DSecShoppingScreen";
-})(dsector || (dsector = {}));
+})(dsector);

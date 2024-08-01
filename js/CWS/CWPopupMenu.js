@@ -365,4 +365,4 @@
     CWPopupMenu.separatorMargin = 0;
     CWSYSTEM.CWPopupMenu = CWPopupMenu;
     CWPopupMenu["__class"] = "CWSYSTEM.CWPopupMenu";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

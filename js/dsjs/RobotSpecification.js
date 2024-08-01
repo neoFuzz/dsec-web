@@ -3010,4 +3010,4 @@
     RobotSpecification.variablestringRepresentations = null;
     dsector.RobotSpecification = RobotSpecification;
     RobotSpecification["__class"] = "dsector.RobotSpecification";
-})(dsector || (dsector = {}));
+})(dsector);

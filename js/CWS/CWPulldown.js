@@ -238,4 +238,4 @@
 
     CWSYSTEM.CWPulldown = CWPulldown;
     CWPulldown["__class"] = "CWSYSTEM.CWPulldown";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);
