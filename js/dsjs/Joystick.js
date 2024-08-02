@@ -33,8 +33,17 @@
             this.joystickID = 0;
             this.internalID = 5;
         }
+
+        /**
+         * Returns the internal ID of the joystick.
+         *
+         * @returns {number} The internal ID of the joystick.
+         */
+        getInternalID() {
+            return this.internalID;
+        }
     }
 
     dsector.Joystick = Joystick;
     Joystick["__class"] = "dsector.Joystick";
-})(dsector || (dsector = {}));
+})(dsector);

@@ -1,6 +1,5 @@
 (function (CWSYSTEM) {
     /**
-     *
      * This class is used to store and manipulate an array of integers.
      * <br><br>
      * <b>Features:</b>
@@ -145,4 +144,4 @@
 
     CWSYSTEM.IntegerArray = IntegerArray;
     IntegerArray["__class"] = "CWSYSTEM.IntegerArray";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

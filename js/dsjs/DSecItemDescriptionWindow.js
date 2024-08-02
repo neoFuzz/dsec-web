@@ -237,4 +237,4 @@
 
     dsector.DSecItemDescriptionWindow = DSecItemDescriptionWindow;
     DSecItemDescriptionWindow["__class"] = "dsector.DSecItemDescriptionWindow";
-})(dsector || (dsector = {}));
+})(dsector);

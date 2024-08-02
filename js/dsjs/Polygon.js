@@ -48,4 +48,4 @@
 
     dsector.Polygon = Polygon;
     Polygon["__class"] = "dsector.Polygon";
-})(dsector || (dsector = {}));
+})(dsector);

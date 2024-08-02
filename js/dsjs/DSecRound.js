@@ -91,15 +91,13 @@
                         let count;
                         switch (dsector.DSReference.dsecGame.numberOfPlayers()) {
                             // TODO: investigate what cases are meant to do here
-                            case 2:
-                                v = 0.0;
-                                break;
                             case 4:
                                 v = Math.fround(-calcFlt / 2.0);
                                 break;
                             case 6:
                                 v = -calcFlt;
                                 break;
+                            case 2:
                             case 3:
                             case 5:
                             default:
@@ -161,9 +159,6 @@
                 dsector.DSReference.dsecSetupWindow._cameraMode() === 7 && i < 6) {
                 dsector.DSReference.dsecSetupWindow.cameraMode = 0;
             }
-            const playerCountMode = dsector.DSReference.dsecMainSetupWindow.playMode() ===
-            dsector.DSecMainSetupWindow.TEAMS ? (dsector.DSReference.dsecGame.numberOfPlayers() / 2 | 0) :
-                dsector.DSReference.dsecGame.numberOfPlayers();
         }
 
         /**
@@ -383,7 +378,7 @@
                 return true;
             } else {
                 const checked = false;
-                if (!(this.redJewel.energy <= 0.0) && !(this.blueJewel.energy <= 0.0)) {
+                if (this.redJewel.energy > 0.0 && this.blueJewel.energy > 0.0) {
                     return checked;
                 } else {
                     this.__timeWhenAllJewelsDestroyed = CWSYSTEM.Environment.currentTime();
@@ -511,4 +506,4 @@
 
     dsector.DSecRound = DSecRound;
     DSecRound["__class"] = "dsector.DSecRound";
-})(dsector || (dsector = {}));
+})(dsector);

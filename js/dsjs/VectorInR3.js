@@ -220,4 +220,4 @@
 
     dsector.VectorInR3 = VectorInR3;
     VectorInR3["__class"] = "dsector.VectorInR3";
-})(dsector || (dsector = {}));
+})(dsector);

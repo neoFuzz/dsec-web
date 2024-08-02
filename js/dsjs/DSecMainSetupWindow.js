@@ -369,7 +369,7 @@
                 this.__numberOfRounds = parseInt(pulldown.selectedValue());
                 this.update();
                 this.saveDefaultPlayers();
-            } else if (!(pulldown.name === ("mode"))) {
+            } else if (pulldown.name !== "mode") {
                 if (pulldown.name === ("playerType")) {
                     const player = pulldown.generalPurposeObject;
                     const selectedValue = pulldown.selectedValue();
@@ -382,7 +382,7 @@
                     this.__playMode = DSecMainSetupWindow.HOSTILE;
                 } else {
                     this.__playMode = DSecMainSetupWindow.TEAMS;
-                    if (!(this.numberOfPlayers() % 2 === 0)) {
+                    if (this.numberOfPlayers() % 2 !== 0) {
                         selectedVal = this.numberOfPlayers() + 1;
                         this.addDefaultPlayer(selectedVal);
                     }
@@ -503,7 +503,7 @@
         }
 
         /**
-        *
+         *
          */
         getDefaultPlayMode() {
             let mode = DSecMainSetupWindow.HOSTILE;
@@ -517,7 +517,7 @@
         }
 
         /**
-        *
+         *
          */
         getDefaultNumberOfRounds() {
             let rounds = 15;
@@ -591,4 +591,4 @@
     DSecMainSetupWindow.TEAMS = 1;
     dsector.DSecMainSetupWindow = DSecMainSetupWindow;
     DSecMainSetupWindow["__class"] = "dsector.DSecMainSetupWindow";
-})(dsector || (dsector = {}));
+})(dsector);

@@ -1,6 +1,6 @@
 /**
- * loader.js utility script to load the CW System.
- *
+ * CWS-loader.js utility script to load the CW System.
+ * The production version minifies this script in to the single file script `dsjs.js`.
  * Loads all the JS files in the order they are required.
  *
  * @name       "loader.js"
@@ -10,9 +10,9 @@
  *
  * @memberof CWSYSTEM
  *
- * @author Justin Condello
- * @link https://none.yet
- * @license GPLv3
+ * @author   neoFuzz
+ * @link     https://github.com/neoFuzz/dsec-web
+ * @license  AGPLv3
  */
 
 /** Simple function to assist in preloading scripts
@@ -27,7 +27,7 @@ function loadScript(url) {
 
 /* Utility Classes */
 loadScript('js/CWS/Debug.js');
-loadScript('js/dsjs/NumberTools.js');
+loadScript('js/CWS/NumberTools.js');
 loadScript('js/dsjs/ObjectPair.js');
 loadScript('js/dsjs/FastColorUtilities.js');
 loadScript('js/dsjs/FloatPair.js');

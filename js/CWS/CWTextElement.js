@@ -42,8 +42,17 @@
             this.textColor = textColor | null;
             this.shadow = false;
         }
+
+        /**
+         * Returns the name ID of the text element.
+         *
+         * @returns {*|number}
+         */
+        getName() {
+            return this.nameID;
+        }
     }
 
     CWSYSTEM.CWTextElement = CWTextElement;
     CWTextElement["__class"] = "CWSYSTEM.CWTextElement";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

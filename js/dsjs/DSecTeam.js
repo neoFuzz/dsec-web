@@ -21,7 +21,7 @@
         /**
          * Creates an instance of DSecTeam.
          *
-         * @param {string} colorName - The name of the team color, "blue" or "red".
+         * @param {number} colorName - The name of the team color, "blue" or "red".
          */
         constructor(colorName) {
             this.scoreAtStartOfRound = 0;
@@ -33,7 +33,7 @@
         /**
          * Returns the color of the team.
          *
-         * @returns {string}
+         * @returns {number}
          */
         color() {
             return this.__color;
@@ -109,4 +109,4 @@
     DSecTeam.RED = 1;
     dsector.DSecTeam = DSecTeam;
     DSecTeam["__class"] = "dsector.DSecTeam";
-})(dsector || (dsector = {}));
+})(dsector);

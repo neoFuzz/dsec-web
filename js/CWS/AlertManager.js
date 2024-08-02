@@ -69,7 +69,7 @@
          */
         processContinue() {
             CWSYSTEM.CWSReference.gui.destroyWindow("ALE");
-            this.messageQueue.splice(0, 1)[0];
+            this.messageQueue.shift();
             this.displayFirstMessageInQueue();
             if (AlertManager.alertWindow == null) {
                 CWSYSTEM.Debug.println("No more messages.");
@@ -97,4 +97,4 @@
     AlertManager.textColor = null;
     CWSYSTEM.AlertManager = AlertManager;
     AlertManager["__class"] = "CWSYSTEM.AlertManager";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

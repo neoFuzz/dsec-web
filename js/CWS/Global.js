@@ -241,5 +241,5 @@
     Global.COLOR_NORMALIZATION = 256;
     CWSYSTEM.Global = Global;
     Global["__class"] = "CWSYSTEM.Global";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);
 CWSYSTEM.Global.__static_initialize();

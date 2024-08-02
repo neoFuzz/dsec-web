@@ -31,6 +31,7 @@
          * @param {CWSYSTEM.CWButton} button - The button that was clicked.
          * @param {number} x - The x coordinate of the click.
          * @param {number} y - The y coordinate of the click.
+         * @override
          */
         processButton$btn$x$y(button, x, y) {
             const windowName = button.name;
@@ -63,6 +64,7 @@
          * Overloaded method to process button clicks with default coordinates.
          *
          * @param {CWSYSTEM.CWButton} button - The button that was clicked.
+         * @override
          */
         processButton$button(button) {
             this.processButton$btn$x$y(button, 0, 0);
@@ -72,27 +74,12 @@
          * Processes input box interactions.
          *
          * @param {CWSYSTEM.CWInputBox} inputBox - The input box being interacted with.
+         * @override
          */
         processInputBox(inputBox) {
             CWSYSTEM.Environment.inputBoxSelected = null;
             inputBox.parentWindow.updated = false;
             inputBox.returnTyped();
-            const name = inputBox.name;
-            switch (name) {
-                case "CAM_X":
-                    dsector.DSReference.renderer.setCameraPositionX(inputBox.text);
-                    break;
-                case "CAM_Y":
-                    dsector.DSReference.renderer.setCameraPositionY(inputBox.text);
-                    break;
-                case "CAM_Z":
-                    dsector.DSReference.renderer.setCameraPositionZ(inputBox.text);
-                    break;
-                case "VER_X":
-                case "VER_Y":
-                case "VER_Z":
-                    break;
-            }
         }
 
         /**
@@ -175,4 +162,4 @@
 
     dsector.DSInterfaceProcesses = DSInterfaceProcesses;
     DSInterfaceProcesses["__class"] = "dsector.DSInterfaceProcesses";
-})(dsector || (dsector = {}));
+})(dsector);

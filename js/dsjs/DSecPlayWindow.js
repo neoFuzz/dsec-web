@@ -306,7 +306,7 @@
          * Turn music on.
          */
         turnMusicOn() {
-            if (dsector.DSReference.dsecGame != null && dsector.DSReference.dsecGame.dsecRound != null) {
+            if (dsector.DSReference?.dsecGame?.dsecRound) {
                 const musicNumber = Math.floor(Math.random() * (3 - 1)) + 1;
                 this.backgroundMusic = new dsector.MP3("assets/sounds/backgroundMusic" + musicNumber + ".mp3");
                 this.backgroundMusic.play();
@@ -347,5 +347,5 @@
     DSecPlayWindow.__static_initialized = false;
     dsector.DSecPlayWindow = DSecPlayWindow;
     DSecPlayWindow["__class"] = "dsector.DSecPlayWindow";
-})(dsector || (dsector = {}));
+})(dsector);
 dsector.DSecPlayWindow.__static_initialize();

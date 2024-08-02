@@ -356,4 +356,4 @@
     CWCheckBox.MUCH_LARGER_ROUND_STYLE = 3;
     CWSYSTEM.CWCheckBox = CWCheckBox;
     CWCheckBox["__class"] = "CWSYSTEM.CWCheckBox";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

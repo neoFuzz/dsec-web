@@ -44,6 +44,7 @@
             CWSReference.alertManager = new CWSYSTEM.AlertManager();
             CWSReference.cwSound = new CWSYSTEM.CWSound();
             CWSReference.mouseDrag = new CWSYSTEM.MouseDrag();
+            CWSReference.interfaceProcesses = new CWSYSTEM.CWInterfaceProcesses();
         }
     }
 
@@ -89,4 +90,4 @@
     CWSReference.cwSound = null;
     CWSYSTEM.CWSReference = CWSReference;
     CWSReference["__class"] = "CWSYSTEM.CWSReference";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

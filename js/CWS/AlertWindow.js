@@ -38,12 +38,9 @@
          * @param {string} message - The alert message to show to the user
          */
         constructor(message, parent) {
-            if (this.window === undefined) {
-                this.window = null;
-            }
-            if (parent === undefined) {
-                parent = null;
-            }
+            this.window = null;
+            this.parent = null;
+
             if (CWSYSTEM.AlertManager.alertWindow != null) {
                 CWSYSTEM.CWSReference.gui.destroyWindow("ALE");
             }
@@ -58,7 +55,8 @@
                     CWSYSTEM.CWSReference.virtualScreen.serif8_font, CWSYSTEM.CWColor.__black(),
                     AlertWindow.maximumTextWidth);
             }
-            this.window = CWSYSTEM.CWSReference.gui.addWindow$name$style$title$x$y$w$h$v("ALE", 3, "! ALERT !",
+            this.window = CWSYSTEM.CWSReference.gui.addWindow$name$style$title$x$y$w$h$v(
+                "ALE", CWSYSTEM.CWWindowStyles.ROUNDED, "🚨 ALERT !",
                 Math.floor((CWSYSTEM.Global.screenResolutionX_$LI$() - rWidth) / 2),
                 Math.floor((CWSYSTEM.Global.screenResolutionY_$LI$() - rHeight) / 2), rWidth, rHeight, true);
             this.window.ignoreWhenSavingAndRestoringEnvironment = true;
@@ -79,6 +77,18 @@
                 CWSYSTEM.AlertManager.textColor : CWSYSTEM.CWColor.__black();
             this.window.addTextBlock("", message, AlertWindow.margin, 45,
                 dsector.DSReference.virtualScreen.serif8_font, color, AlertWindow.maximumTextWidth);
+        }
+
+        /**
+         * Get the window object associated with this AlertWindow instance.
+         *
+         * @public
+         * @return {CWSYSTEM.CWWindow} The window object associated with this AlertWindow instance.
+         * @note This was made to fix stop SonarLint reporting this as a constructor-only class.
+         * @see CWSYSTEM.CWWindow
+         */
+        getWindow() {
+            return this.window;
         }
     }
 
@@ -105,4 +115,4 @@
     AlertWindow.maximumHeight = 600;
     CWSYSTEM.AlertWindow = AlertWindow;
     AlertWindow["__class"] = "CWSYSTEM.AlertWindow";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

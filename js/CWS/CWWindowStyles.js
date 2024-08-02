@@ -341,4 +341,4 @@
     CWWindowStyles.ROUNDED_RESIZE = 4;
     CWSYSTEM.CWWindowStyles = CWWindowStyles;
     CWWindowStyles["__class"] = "CWSYSTEM.CWWindowStyles";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

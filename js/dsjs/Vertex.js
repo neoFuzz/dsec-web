@@ -92,4 +92,4 @@
 
     dsector.Vertex = Vertex;
     Vertex["__class"] = "dsector.Vertex";
-})(dsector || (dsector = {}));
+})(dsector);

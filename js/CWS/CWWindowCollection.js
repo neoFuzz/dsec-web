@@ -154,16 +154,72 @@
          * @param {number} yPos The y-coordinate of the window.
          * @param {number} w The width of the window.
          * @param {number} h The height of the window.
-         * @param {boolean} visible Whether the window is visible or not.
+         * @param {boolean} vis Whether the window is visible or not.
          * @returns {CWSYSTEM.CWWindow|null} The newly added window, or null if the maximum number of windows has been reached.
          */
-        addWindow(minW, minH, maxW, maxH, name, style, title, xPos, yPos, w, h, visible) {
-            if (((typeof minW === 'number') || minW === null) && ((typeof minH === 'number') || minH === null) && ((typeof maxW === 'number') || maxW === null) && ((typeof maxH === 'number') || maxH === null) && ((typeof name === 'string') || name === null) && ((typeof style === 'number') || style === null) && ((typeof title === 'string') || title === null) && ((typeof xPos === 'number') || xPos === null) && ((typeof yPos === 'number') || yPos === null) && ((typeof w === 'number') || w === null) && ((typeof h === 'number') || h === null) && ((typeof visible === 'boolean') || visible === null)) {
-                return this.addWindow$fullDefinition(minW, minH, maxW, maxH, name, style, title, xPos, yPos, w, h, visible);
-            } else if (((typeof minW === 'string') || minW === null) && ((typeof minH === 'number') || minH === null) && ((typeof maxW === 'string') || maxW === null) && ((typeof maxH === 'number') || maxH === null) && ((typeof name === 'number') || name === null) && ((typeof style === 'number') || style === null) && ((typeof title === 'number') || title === null) && ((typeof xPos === 'boolean') || xPos === null) && yPos === undefined && w === undefined && h === undefined && visible === undefined) {
-                return this.addWindow$name$style$title$x$y$w$h$v(minW, minH, maxW, maxH, name, style, title, xPos);
-            } else
-                throw new Error('invalid overload');
+        addWindow(minW, minH, maxW, maxH, name, style, title, xPos, yPos, w, h, vis) {
+            if (this.isFullDefinition(...arguments)) {
+                return this.addWindow$fullDefinition({
+                    minW,
+                    minH,
+                    maxW,
+                    maxH,
+                    name,
+                    style,
+                    title,
+                    xPos,
+                    yPos,
+                    w,
+                    h,
+                    vis
+                });
+            } else if (this.isPartialDefinition(...arguments)) {
+                return this.addWindow$name$style$title$x$y$w$h$v({minW, minH, maxW, maxH, name, style, title, xPos});
+            } else {
+                throw new Error('Invalid arguments for addWindow');
+            }
+        }
+
+        isFullDefinition(minW, minH, maxW, maxH, name, style, title, xPos, yPos, w, h, visible) {
+            return (
+                this.isNumberOrNull(minW) &&
+                this.isNumberOrNull(minH) &&
+                this.isNumberOrNull(maxW) &&
+                this.isNumberOrNull(maxH) &&
+                this.isStringOrNull(name) &&
+                this.isNumberOrNull(style) &&
+                this.isStringOrNull(title) &&
+                this.isNumberOrNull(xPos) &&
+                this.isNumberOrNull(yPos) &&
+                this.isNumberOrNull(w) &&
+                this.isNumberOrNull(h) &&
+                this.isBooleanOrNull(visible)
+            );
+        }
+
+        isPartialDefinition(name, style, title, x, y, w, h, visible) {
+            return (
+                this.isStringOrNull(name) &&
+                this.isNumberOrNull(style) &&
+                this.isStringOrNull(title) &&
+                this.isNumberOrNull(x) &&
+                this.isNumberOrNull(y) &&
+                this.isNumberOrNull(w) &&
+                this.isNumberOrNull(h) &&
+                this.isBooleanOrNull(visible)
+            );
+        }
+
+        isNumberOrNull(value) {
+            return typeof value === 'number' || value === null;
+        }
+
+        isStringOrNull(value) {
+            return typeof value === 'string' || value === null;
+        }
+
+        isBooleanOrNull(value) {
+            return typeof value === 'boolean' || value === null;
         }
 
         /**
@@ -496,4 +552,4 @@
     CWWindowCollection.numberOfWindowsBeforeWarningsAppear = 75;
     CWSYSTEM.CWWindowCollection = CWWindowCollection;
     CWWindowCollection["__class"] = "CWSYSTEM.CWWindowCollection";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

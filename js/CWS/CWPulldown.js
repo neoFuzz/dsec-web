@@ -154,7 +154,7 @@
                     i = cSize - CWSYSTEM.Global.screenResolutionY_$LI$() + 25;
                     const j = (i / (this.height - 1) | 0) + 1;
                     for (let k = 0; k < j; ++k) {
-                        this.options.splice(this.options.length - 1, 1)[0];
+                        this.options.shift();
                     }
                     cSize = this.options.length * (this.popupWindowItemHeight - 1) + 3;
                 }
@@ -215,8 +215,8 @@
                     const objects = [this];
                     declaredMethod.fn.apply(this.objectContainingPulldownChangedMethod, [objects]);
                 } catch (e) {
-                    CWSYSTEM.Debug.error("A problem occured in CWPulldown.optionSelected()for pulldown \'" +
-                        this.name + "\': " + e);
+                    CWSYSTEM.Debug.error("A problem occured in CWPulldown.optionSelected()for pulldown '" +
+                        this.name + "': " + e);
                 }
             }
         }
@@ -238,4 +238,4 @@
 
     CWSYSTEM.CWPulldown = CWPulldown;
     CWPulldown["__class"] = "CWSYSTEM.CWPulldown";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

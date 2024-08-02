@@ -1,4 +1,3 @@
-/**/
 (function (dsector) {
     /**
      * Class representing a Robot Summary Window.
@@ -164,4 +163,4 @@
 
     dsector.RobotSummaryWindow = RobotSummaryWindow;
     RobotSummaryWindow["__class"] = "dsector.RobotSummaryWindow";
-})(dsector || (dsector = {}));
+})(dsector);

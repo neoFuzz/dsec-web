@@ -120,4 +120,4 @@
 
     dsector.MP3 = MP3;
     MP3["__class"] = "dsector.MP3";
-})(dsector || (dsector = {}));
+})(dsector);

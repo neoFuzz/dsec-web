@@ -59,4 +59,4 @@
 
     dsector.ModelLoader = ModelLoader;
     ModelLoader["__class"] = "dsector.ModelLoader";
-})(dsector || (dsector = {}));
+})(dsector);

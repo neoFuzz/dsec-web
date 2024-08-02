@@ -1,4 +1,4 @@
-(function (dsector) {
+(function (CWSYSTEM) {
     /**
      * NumberTools class provides utility methods for working with numbers.
      *
@@ -6,7 +6,7 @@
      * @access   public
      * @class
      *
-     * @memberof dsector
+     * @memberof CWSYSTEM
      *
      * @author   neoFuzz
      * @link     https://github.com/neoFuzz/dsec-web
@@ -32,7 +32,7 @@
          */
         static largeLong_$LI$() {
             if (NumberTools.largeLong == null) {
-                NumberTools.largeLong = 9223372036854775807;
+                NumberTools.largeLong = Number.EPSILON;
             }
             return NumberTools.largeLong;
         }
@@ -77,6 +77,6 @@
         }
     }
 
-    dsector.NumberTools = NumberTools;
-    NumberTools["__class"] = "dsector.NumberTools";
-})(dsector || (dsector = {}));
+    CWSYSTEM.NumberTools = NumberTools;
+    NumberTools["__class"] = "CWSYSTEM.NumberTools";
+})(CWSYSTEM);

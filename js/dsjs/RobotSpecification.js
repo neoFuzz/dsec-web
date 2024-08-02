@@ -1,4 +1,3 @@
-/**/
 (function (dsector) {
     /**
      * This class represents a specification for a robot in the game.
@@ -3010,4 +3009,4 @@
     RobotSpecification.variablestringRepresentations = null;
     dsector.RobotSpecification = RobotSpecification;
     RobotSpecification["__class"] = "dsector.RobotSpecification";
-})(dsector || (dsector = {}));
+})(dsector);

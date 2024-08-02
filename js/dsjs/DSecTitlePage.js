@@ -49,4 +49,4 @@
 
     dsector.DSecTitlePage = DSecTitlePage;
     DSecTitlePage["__class"] = "dsector.DSecTitlePage";
-})(dsector || (dsector = {}));
+})(dsector);

@@ -133,4 +133,4 @@
 
     CWSYSTEM.CWHashtable = CWHashtable;
     CWHashtable["__class"] = "CWSYSTEM.CWHashtable";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

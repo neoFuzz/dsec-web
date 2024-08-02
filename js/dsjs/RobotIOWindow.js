@@ -106,7 +106,6 @@
                 y = this.window.yPosition;
                 dsector.DSReference.gui.destroyWindow("ROBOTIO");
             }
-            const font = dsector.DSReference.virtualScreen.serif8_font;
             this.window = dsector.DSReference.gui.addWindow$name$style$title$x$y$w$h$v("ROBOTIO", 3, null, x, y, 500, 400, true);
             const base = RobotIOWindow.CLOCK1;
             const arrayList = ([]);
@@ -182,4 +181,4 @@
     RobotIOWindow.TURNED_TO_FACE_TARGET = 21;
     dsector.RobotIOWindow = RobotIOWindow;
     RobotIOWindow["__class"] = "dsector.RobotIOWindow";
-})(dsector || (dsector = {}));
+})(dsector);

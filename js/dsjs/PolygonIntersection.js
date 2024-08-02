@@ -402,4 +402,4 @@
     PolygonIntersection.EPSILON = 1.0E-6;
     dsector.PolygonIntersection = PolygonIntersection;
     PolygonIntersection["__class"] = "dsector.PolygonIntersection";
-})(dsector || (dsector = {}));
+})(dsector);

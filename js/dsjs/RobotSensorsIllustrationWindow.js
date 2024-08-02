@@ -23,4 +23,4 @@
     }
     dsector.RobotSensorsIllustrationWindow = RobotSensorsIllustrationWindow;
     RobotSensorsIllustrationWindow["__class"] = "dsector.RobotSensorsIllustrationWindow";
-})(dsector || (dsector = {}));
+})(dsector);

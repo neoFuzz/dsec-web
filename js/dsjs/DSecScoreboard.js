@@ -530,4 +530,4 @@
 
     dsector.DSecScoreboard = DSecScoreboard;
     DSecScoreboard["__class"] = "dsector.DSecScoreboard";
-})(dsector || (dsector = {}));
+})(dsector);

@@ -271,6 +271,7 @@
          * @param {string} type The file type of the image.
          */
         saveScreenDataAsJPG(screenData, filePath, type) {
+            // Future feature
         }
 
         /**
@@ -282,6 +283,7 @@
          * @param {string} type The file type of the image.
          */
         saveImageAsJPG(bufferedImage, filename, type) {
+            // future feature
         }
 
         /**
@@ -319,4 +321,4 @@
 
     CWSYSTEM.CWGraphics = CWGraphics;
     CWGraphics["__class"] = "CWSYSTEM.CWGraphics";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

@@ -32,7 +32,7 @@
         constructor(name, parent) {
             this.name = name;
             this.__parentFolder = parent;
-            this.id = dsector.NumberTools.randomLong();
+            this.id = CWSYSTEM.NumberTools.randomLong();
             this.__visible = true;
             this.expanded = true;
             this.modelFolders = [];
@@ -103,6 +103,7 @@
             return this.__parentFolder;
         }
     }
+
     dsector.ModelFolder = ModelFolder;
     ModelFolder["__class"] = "dsector.ModelFolder";
-})(dsector || (dsector = {}));
+})(dsector);

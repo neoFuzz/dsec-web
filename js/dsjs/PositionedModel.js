@@ -206,7 +206,6 @@
 
                     if (j === -1) {
                         pgr = polygonGroup.directRepresentation;
-                        //CWSYSTEM.Debug.println("PGR name: " + pgr.name);
                     } else {
                         pgr = polygonGroup.transposedRepresentations[j];
                         matrix4f.set(pgr.transformationMatrix);
@@ -214,19 +213,14 @@
 
                     matrix4f.preMultiply(positionedModel.rotation);
                     matrix4f.preMultiply(dsector.Matrix4f.translationMatrix(
-                        Math.fround(positionedModel.x),
-                        Math.fround(positionedModel.y),
-                        Math.fround(positionedModel.z)
+                        positionedModel.x, positionedModel.y, positionedModel.z
                     ));
 
-                    for (let k = 0; k < polygonGroup.polygons.length; ++k) {
-                        const polygon = polygonGroup.polygons[k];
+                    for (const polygon of polygonGroup.polygons) {
                         let len;
-                        let len2;
-                        let buffer =
-                            i === 1
-                                ? PositionedModel.polygonCollisionDetectionBufferA
-                                : PositionedModel.polygonCollisionDetectionBufferB;
+                        let buffer = i === 1
+                            ? PositionedModel.polygonCollisionDetectionBufferA
+                            : PositionedModel.polygonCollisionDetectionBufferB;
 
                         if (buffer == null || buffer.length < this.numberOfCopiedPolygons) {
                             const bufferSize = buffer == null ? 1000 : (buffer.length * 11 / 10) | 0;
@@ -302,4 +296,4 @@
     PositionedModel.numberOfProjections = 0;
     dsector.PositionedModel = PositionedModel;
     PositionedModel["__class"] = "dsector.PositionedModel";
-})(dsector || (dsector = {}));
+})(dsector);

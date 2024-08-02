@@ -796,4 +796,4 @@
     WeaponSpecification.GUIDE_SPECIFICATION_SWIRLER = 3;
     dsector.WeaponSpecification = WeaponSpecification;
     WeaponSpecification["__class"] = "dsector.WeaponSpecification";
-})(dsector || (dsector = {}));
+})(dsector);

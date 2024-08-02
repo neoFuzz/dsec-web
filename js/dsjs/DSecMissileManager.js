@@ -62,8 +62,7 @@
          */
         moveMissiles() {
             const arrayList = (this.missiles.slice(0));
-            for (let i = 0; i < arrayList.length; ++i) {
-                const missile = arrayList[i];
+            for (const missile of arrayList) {
                 if (missile.timedOut()) {
                     missile.destroy();
                     (a => {
@@ -111,7 +110,7 @@
                     if (missile.weaponSpecification.guideSpecification === dsector.WeaponSpecification.GUIDE_SPECIFICATION_SWIRLER) {
                         angle = this.updateSwirlerMissile(missile, angle);
                     }
-                    this.moveMissileToNewPosition(missile,spX,spY,angle);
+                    this.moveMissileToNewPosition(missile, spX, spY, angle);
                 }
             }
         }
@@ -282,4 +281,4 @@
     DSecMissileManager.missileRelativeSpeedup = 0.55;
     dsector.DSecMissileManager = DSecMissileManager;
     DSecMissileManager["__class"] = "dsector.DSecMissileManager";
-})(dsector || (dsector = {}));
+})(dsector);

@@ -102,5 +102,5 @@
 
     dsector.DSGlobal = DSGlobal;
     DSGlobal["__class"] = "dsector.DSGlobal";
-})(dsector || (dsector = {}));
+})(dsector);
 dsector.DSGlobal.__static_initialize();

@@ -30,6 +30,16 @@
             this.width = width | 0;
             this.height = height | 0;
         }
+
+        /**
+         * Returns the description of the screen.
+         *
+         * @public
+         * @returns {*|number}
+         */
+        getDescription() {
+            return this.description;
+        }
     }
 
     /**
@@ -63,4 +73,4 @@
 
     CWSYSTEM.ScreenData = ScreenData;
     ScreenData["__class"] = "CWSYSTEM.ScreenData";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

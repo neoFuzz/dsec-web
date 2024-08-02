@@ -773,4 +773,4 @@ keyboard${i + 1}ChangeWeapon=${DSecSetupWindow.dsecKeyboardLayout[i].changeWeapo
     DSecSetupWindow.PLAYER_2_PERSPECTIVE = 3;
     dsector.DSecSetupWindow = DSecSetupWindow;
     DSecSetupWindow["__class"] = "dsector.DSecSetupWindow";
-})(dsector || (dsector = {}));
+})(dsector);

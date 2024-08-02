@@ -39,7 +39,7 @@
         constructor(parent, name, on, x, y, z, red, green, blue) {
             this.parent = parent || null;
             this.name = name || null;
-            this.id = dsector.NumberTools.randomLong();
+            this.id = CWSYSTEM.NumberTools.randomLong();
             this.__on = on;
             this.__x = x;
             this.__y = y;
@@ -182,4 +182,4 @@
 
     dsector.InbuiltLight = InbuiltLight;
     InbuiltLight["__class"] = "dsector.InbuiltLight";
-})(dsector || (dsector = {}));
+})(dsector);

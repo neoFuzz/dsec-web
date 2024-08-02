@@ -354,4 +354,4 @@
     DSecBackgroundConfiguration.numberOfPresetConfigurations = 8;
     dsector.DSecBackgroundConfiguration = DSecBackgroundConfiguration;
     DSecBackgroundConfiguration["__class"] = "dsector.DSecBackgroundConfiguration";
-})(dsector || (dsector = {}));
+})(dsector);

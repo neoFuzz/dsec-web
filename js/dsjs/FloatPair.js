@@ -44,4 +44,4 @@
 
     dsector.FloatPair = FloatPair;
     FloatPair["__class"] = "dsector.FloatPair";
-})(dsector || (dsector = {}));
+})(dsector);

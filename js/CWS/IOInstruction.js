@@ -48,6 +48,16 @@
                 throw new Error('Invalid constructor arguments');
             }
         }
+
+        /**
+         * Returns the type of the instruction.
+         *
+         * @public
+         * @returns {number} The type of the instruction.
+         */
+        getType() {
+            return this.type;
+        }
     }
 
     /**
@@ -142,4 +152,4 @@
     IOInstruction.keyReleased = 15;
     CWSYSTEM.IOInstruction = IOInstruction;
     IOInstruction["__class"] = "CWSYSTEM.IOInstruction";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

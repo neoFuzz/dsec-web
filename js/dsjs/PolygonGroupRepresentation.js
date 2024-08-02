@@ -46,7 +46,7 @@
         constructor(polygonGroup, name, visible, e00, e10, e20, e30, e01,
                     e11, e21, e31, e02, e12, e22, e32, e03, e13, e23, e33) {
             this.parentPolygonGroup = polygonGroup || null;
-            this.id = dsector.NumberTools.randomLong();
+            this.id = CWSYSTEM.NumberTools.randomLong();
             this.name = name || null;
             this.visibility = visible;
             this.transformationMatrix = new dsector.Matrix4f(e00, e10, e20, e30, e01, e11,
@@ -91,13 +91,9 @@
         static activeRepresentationsHaveAtLeastOneDirectRepresentation() {
             const arrayList =
                 PolygonGroupRepresentation.allPolygonGroupRepresentations(dsector.DSReference.model3DMatrix);
-            for (let index = 0; index < arrayList.length; index++) {
-                let o = arrayList[index];
-                {
-                    const pgr = o;
-                    if (pgr.active && pgr.isDirectRepresentation()) {
-                        return true;
-                    }
+            for (let pgr of arrayList) {
+                if (pgr.active && pgr.isDirectRepresentation()) {
+                    return true;
                 }
             }
             return false;
@@ -128,18 +124,14 @@
             if (!CWSYSTEM.Environment.shiftKeyPressed) {
                 const arrayList =
                     PolygonGroupRepresentation.allPolygonGroupRepresentations(dsector.DSReference.model3DMatrix);
-                for (let index = 0; index < arrayList.length; index++) {
-                    let o = arrayList[index];
-                    {
-                        const gr = o;
-                        gr.active = false;
-                    }
+                for (const o of arrayList) {
+                    o.active = false;
                 }
             }
             this.active = true;
             if (this.isDirectRepresentation()) {
-                for (let i = 0; i < this.parentPolygonGroup.polygons.length; ++i) {
-                    const polygon = this.parentPolygonGroup.polygons[i];
+                for (const element of this.parentPolygonGroup.polygons) {
+                    // const polygon = element ?
                 }
             }
             CWSYSTEM.Environment.projectiveViewWindowsRequestedForUpdateNextCycle();
@@ -149,4 +141,4 @@
 
     dsector.PolygonGroupRepresentation = PolygonGroupRepresentation;
     PolygonGroupRepresentation["__class"] = "dsector.PolygonGroupRepresentation";
-})(dsector || (dsector = {}));
+})(dsector);

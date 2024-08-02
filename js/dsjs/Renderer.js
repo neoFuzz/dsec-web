@@ -204,8 +204,8 @@
             this.drawStarfield(preAntiAliasedContent2, cwWindow.antiAliasedLevel, inverse, starCount, centerX, centerY);
             this.resetZBuffer(preAntiAliasedContent2);
             const positionedModels = scene.positionedModels();
-            for (let i = 0; i < positionedModels.length; ++i) {
-                const positionedModel = positionedModels[i];
+            for (const element of positionedModels) {
+                const positionedModel = element;
                 const model3DMatrix = positionedModel.model3DMatrix;
                 let detailCategoryClosestToGivenAveragePolygonArea = 0;
                 if (this.detailSensitiveRendering) {
@@ -248,8 +248,7 @@
                                 (positionedModel.y - scene.cameraY),
                                 (positionedModel.z - scene.cameraZ)));
                             matrix4f.preMultiply(inverse);
-                            for (let k = 0; k < nextPolygonGroup.polygons.length; ++k) {
-                                const polygon = nextPolygonGroup.polygons[k];
+                            for (const polygon of nextPolygonGroup.polygons) {
                                 vertex.set(polygon.v1);
                                 vertex2.set(polygon.v2);
                                 vertex3.set(polygon.v3);
@@ -576,10 +575,8 @@
                                 ((dist / 3 | 0) + Math.random() * 30.0) * cv,
                                 ((dist / 3 | 0) + Math.random() * 30.0) * cv,
                                 ((dist / 3 | 0) + Math.random() * 30.0) * cv, 255);
-                            //drawPixel(x1,y1);
                         }
                     } else {
-                        //drawPixel(x1,y1);
                         this.v.CWDrawPixelWithCropping(screenData, (x1 | 0) + 1, (y1 | 0) + 1);
                         this.v.CWDrawPixelWithCropping(screenData, (x1 | 0) + 1, (y1 | 0) - 1);
                         this.v.CWDrawPixelWithCropping(screenData, (x1 | 0) - 1, (y1 | 0) + 1);
@@ -783,14 +780,13 @@
          * @returns {number} The current rendering mode.
          */
         renderingMode(n) {
-            if (((typeof n === 'number') || n === null)) {
-                return this.renderingMode$ji(n);
-            } else if ((typeof n === 'number')) {
-                return this.renderingMode$int(n);
-            } else if (n === undefined) {
+            if (n === undefined) {
                 return this.renderingMode$();
-            } else
-                throw new Error('invalid overload');
+            } else if (typeof n === 'number') {
+                return this.renderingMode$int(n);
+            } else {
+                throw new Error('Invalid argument for renderingMode: expected number or undefined');
+            }
         }
 
         /**
@@ -938,4 +934,4 @@
     Renderer.__shieldGraphic = null;
     dsector.Renderer = Renderer;
     Renderer["__class"] = "dsector.Renderer";
-})(dsector || (dsector = {}));
+})(dsector);

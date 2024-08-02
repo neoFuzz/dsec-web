@@ -35,6 +35,15 @@
             this.y = y;
             this.brightness = brightness;
         }
+
+        /**
+         * Returns the image object.
+         *
+         * @returns {Object}
+         */
+        getImage() {
+            return this.image;
+        }
     }
 
     /**
@@ -46,4 +55,4 @@
     DSecSpecialEffect.IMAGE_COMPOSITE = 0;
     dsector.DSecSpecialEffect = DSecSpecialEffect;
     DSecSpecialEffect["__class"] = "dsector.DSecSpecialEffect";
-})(dsector || (dsector = {}));
+})(dsector);

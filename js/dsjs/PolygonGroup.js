@@ -50,7 +50,7 @@
             this.directRepresentation = null;
             this.transposedRepresentations = null;
             this.__parentFolder = null;
-            this.id = dsector.NumberTools.randomLong();
+            this.id = CWSYSTEM.NumberTools.randomLong();
             this.name = name;
             this.__parentFolder = parentFolder;
             this.visibility = visible;
@@ -170,4 +170,4 @@
     PolygonGroup.defaultDispersedLightDirectionSensitivity = 10;
     dsector.PolygonGroup = PolygonGroup;
     PolygonGroup["__class"] = "dsector.PolygonGroup";
-})(dsector || (dsector = {}));
+})(dsector);

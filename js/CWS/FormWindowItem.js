@@ -119,4 +119,4 @@
     FormWindowItem.IMAGE = 3;
     dsector.FormWindowItem = FormWindowItem;
     FormWindowItem["__class"] = "dsector.FormWindowItem";
-})(dsector || (dsector = {}));
+})(dsector);

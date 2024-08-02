@@ -185,4 +185,4 @@
     FastColorUtilities.gammaCorrection = 1.2;
     CWSYSTEM.FastColorUtilities = FastColorUtilities;
     FastColorUtilities["__class"] = "CWSYSTEM.FastColorUtilities";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

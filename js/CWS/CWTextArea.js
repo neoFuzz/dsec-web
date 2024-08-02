@@ -167,7 +167,7 @@
             const textArea = CWTextArea.textAreaSelected();
             CWTextArea.selectTextArea(this);
             this.parent.updated = false;
-            if (textArea != null && textArea.parent != null) {
+            if (textArea?.parent) {
                 textArea.parent.updated = false;
             }
         }
@@ -201,7 +201,7 @@
                     method.fn.apply(this.objectContainingTextAreaChangedMethod, [objects]);
                 } catch (e) {
                     console.error("A problem occurred in CWWindow.informSuppliedObjectAboutNewTextAreaValue() " +
-                        "for input box \'" + this.name + "\': " + e);
+                        "for input box '" + this.name + "': " + e);
                 }
             }
         }
@@ -428,4 +428,4 @@
     CWTextArea.__textAreaSelected = null;
     CWSYSTEM.CWTextArea = CWTextArea;
     CWTextArea["__class"] = "CWSYSTEM.CWTextArea";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

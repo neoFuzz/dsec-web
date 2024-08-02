@@ -43,7 +43,7 @@
          * @param {number} e00 - The scale factor along the x-axis.
          * @param {number} e11 - The scale factor along the y-axis.
          * @param {number} e22 - The scale factor along the z-axis.
-         * @returns {dsector.Matrix4f} A new [Matrix4f]{@link dscetor.Matrix4f} object representing a scale matrix.
+         * @returns {dsector.Matrix4f} A new [Matrix4f]{@link dsector.Matrix4f} object representing a scale matrix.
          */
         static scaleMatrix(e00, e11, e22) {
             const matrix4f = new Matrix4f();
@@ -404,4 +404,4 @@
 
     dsector.Matrix4f = Matrix4f;
     Matrix4f["__class"] = "dsector.Matrix4f";
-})(dsector || (dsector = {}));
+})(dsector);

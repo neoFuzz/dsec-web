@@ -8,9 +8,9 @@
      * @property {number} y the y-coordinate of the missile
      * @property {number} angle the angle of the missile
      * @property {number} fixedTurnRate the fixed turn rate of the missile
-     * @property {number} damage the damage of the missile
+     * @property {number} damage the damage the missile can cause
      * @property {number} timeAtLaunchInMilliseconds the time at which the missile was launched in milliseconds
-     * @property {Sound} missileSound the sound of the missile
+     * @property {Object} missileSound the sound of the missile
      *
      * @see      DSecPlayer
      * @see      WeaponSpecification
@@ -227,8 +227,7 @@
                 }
             }
             const round = dsector.DSReference.dsecGame.dsecRound;
-            for (let i = 0; i < round.backgroundObjects.length; ++i) {
-                positionedModel1 = round.backgroundObjects[i];
+            for (const positionedModel1 of round.backgroundObjects) {
                 if (positionedModel.intersectsWith(positionedModel1)) {
                     return true;
                 }
@@ -302,4 +301,4 @@
 
     dsector.DSecMissile = DSecMissile;
     DSecMissile["__class"] = "dsector.DSecMissile";
-})(dsector || (dsector = {}));
+})(dsector);

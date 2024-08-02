@@ -496,4 +496,4 @@
 
     dsector.PreBuiltWeaponSpecifications = PreBuiltWeaponSpecifications;
     PreBuiltWeaponSpecifications["__class"] = "dsector.PreBuiltWeaponSpecifications";
-})(dsector || (dsector = {}));
+})(dsector);

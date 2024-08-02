@@ -65,4 +65,4 @@
 
     dsector.StringPair = StringPair;
     StringPair["__class"] = "dsector.StringPair";
-})(dsector || (dsector = {}));
+})(dsector);

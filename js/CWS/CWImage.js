@@ -141,13 +141,11 @@
          * @param {number} x - The x-coordinate.
          * @param {number} y - The y-coordinate.
          * @param {number} multiplier - The multiplier.
-         * @param {number} minX - The minimum x-coordinate.
-         * @param {number} minY - The minimum y-coordinate.
-         * @param {number} maxX - The maximum x-coordinate.
-         * @param {number} maxY - The maximum y-coordinate.
+         * @param {Object} minMax - The minimum and maximum coordinates.
          */
         static drawUsingBrightnessOverlayWithCropping(sd, points, x, y,
-                                                      multiplier, minX, minY, maxX, maxY) {
+                                                      multiplier, minMax) {
+            const {minX, minY, maxX, maxY} = minMax;
             if (sd != null) {
                 const color1 = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__transparentBlack());
                 const color2 = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__transparentBlack());
@@ -232,4 +230,4 @@
 
     CWSYSTEM.CWImage = CWImage;
     CWImage["__class"] = "CWSYSTEM.CWImage";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);

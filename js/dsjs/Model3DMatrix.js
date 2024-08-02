@@ -277,17 +277,17 @@
                 let dLds;
                 for (i = 0; i < arrayList.length; ++i) {
                     element1 = arrayList[i];
-                    name1 = element1.getAttribute("name"); //name1 = element1.getAttribute("name");
+                    name1 = element1.getAttribute("name");
                     if (name1 == null) {
-                        this.XMLFormatError = "A \'polygonGroup\' tag in the folder \'" + element +
-                            "\' is missing the \'name\' attribute. ";
+                        this.XMLFormatError = "A 'polygonGroup' tag in the folder '" + element +
+                            "' is missing the 'name' attribute. ";
                         return false;
                     }
                     const polygonGroupName = Model3DMatrix.getDetailCategoryFromPolygonGroupName(name1);
                     attribute = element1.getAttribute("visibility");
                     if (attribute === ("")) {
-                        this.XMLFormatError = "The polygonGroup " + name1 + " in the polygonGroup \'" + name1 +
-                            "\' does not have a valid \'visibility\' boolean attribute. ";
+                        this.XMLFormatError = "The polygonGroup " + name1 + " in the polygonGroup '" + name1 +
+                            "' does not have a valid 'visibility' boolean attribute. ";
                         return false;
                     }
                     attrVis = CWSYSTEM.CWStringTools.stringToBoolean(attribute);
@@ -314,8 +314,8 @@
                     }
                     const dRVisibility = element1.getAttribute("directRepresentationVisibility");
                     if (dRVisibility === ("")) {
-                        this.XMLFormatError = "The polygonGroup " + name1 + " in the polygonGroup \'" + name1 +
-                            "\' does not have a valid \'directRepresentationVisibility\' boolean attribute. ";
+                        this.XMLFormatError = "The polygonGroup " + name1 + " in the polygonGroup '" + name1 +
+                            "' does not have a valid 'directRepresentationVisibility' boolean attribute. ";
                         return false;
                     }
                     const boolDRV = CWSYSTEM.CWStringTools.stringToBoolean(dRVisibility);
@@ -345,96 +345,96 @@
                         try {
                             x1 = parseFloat(element2.getAttribute("x1"));
                         } catch (e) {
-                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'x1\' attribute. ";
+                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'x1' attribute. ";
                             return false;
                         }
                         try {
                             y1 = parseFloat(element2.getAttribute("y1"));
                         } catch (e) {
-                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'y1\' attribute. ";
+                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'y1' attribute. ";
                             return false;
                         }
                         try {
                             z1 = parseFloat(element2.getAttribute("z1"));
                         } catch (e) {
-                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'z1\' attribute. ";
+                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'z1' attribute. ";
                             return false;
                         }
                         try {
                             x2 = parseFloat(element2.getAttribute("x2"));
                         } catch (e) {
-                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'x2\' attribute. ";
+                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'x2' attribute. ";
                             return false;
                         }
                         try {
                             y2 = parseFloat(element2.getAttribute("y2"));
                         } catch (e) {
-                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'y2\' attribute. ";
+                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'y2' attribute. ";
                             return false;
                         }
                         try {
                             z2 = parseFloat(element2.getAttribute("z2"));
                         } catch (e) {
-                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'z2\' attribute. ";
+                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'z2' attribute. ";
                             return false;
                         }
                         try {
                             x3 = parseFloat(element2.getAttribute("x3"));
                         } catch (e) {
-                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'x3\' attribute. ";
+                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'x3' attribute. ";
                             return false;
                         }
                         try {
                             y3 = parseFloat(element2.getAttribute("y3"));
                         } catch (e) {
-                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'y3\' attribute. ";
+                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'y3' attribute. ";
                             return false;
                         }
                         try {
                             z3 = parseFloat(element2.getAttribute("z3"));
                         } catch (e) {
-                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'z3\' attribute. ";
+                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'z3' attribute. ";
                             return false;
                         }
                         let red;
                         try {
                             red = parseInt(element2.getAttribute("red"));
                         } catch (e) {
-                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'red\' attribute. ";
+                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'red' attribute. ";
                             return false;
                         }
                         let green;
                         try {
                             green = parseInt(element2.getAttribute("green"));
                         } catch (e) {
-                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'green\' attribute. ";
+                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'green' attribute. ";
                             return false;
                         }
                         let blue;
                         try {
                             blue = parseInt(element2.getAttribute("blue"));
                         } catch (e) {
-                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'blue\' attribute. ";
+                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'blue' attribute. ";
                             return false;
                         }
                         let alpha;
                         try {
                             alpha = parseInt(element2.getAttribute("alpha"));
                         } catch (e) {
-                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'alpha\' attribute. ";
+                            this.XMLFormatError = "Polygon # " + (j + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'alpha' attribute. ";
                             return false;
                         }
                         const polygon = new dsector.Polygon(new dsector.Vertex(x1, y1, z1),
@@ -464,120 +464,120 @@
                         try {
                             y1 = parseFloat(element2.getAttribute("m00"));
                         } catch (e) {
-                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'m00\' attribute. ";
+                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'm00' attribute. ";
                             return false;
                         }
                         try {
                             z1 = parseFloat(element2.getAttribute("m01"));
                         } catch (e) {
-                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'m01\' attribute. ";
+                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'm01' attribute. ";
                             return false;
                         }
                         try {
                             x2 = parseFloat(element2.getAttribute("m02"));
                         } catch (e) {
-                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'m02\' attribute. ";
+                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'm02' attribute. ";
                             return false;
                         }
                         try {
                             y2 = parseFloat(element2.getAttribute("m03"));
                         } catch (e) {
-                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'m03\' attribute. ";
+                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'm03' attribute. ";
                             return false;
                         }
                         try {
                             z2 = parseFloat(element2.getAttribute("m10"));
                         } catch (e) {
-                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'m10\' attribute. ";
+                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'm10' attribute. ";
                             return false;
                         }
                         try {
                             x3 = parseFloat(element2.getAttribute("m11"));
                         } catch (e) {
-                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'m11\' attribute. ";
+                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'm11' attribute. ";
                             return false;
                         }
                         try {
                             y3 = parseFloat(element2.getAttribute("m12"));
                         } catch (e) {
-                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'m12\' attribute. ";
+                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'm12' attribute. ";
                             return false;
                         }
                         try {
                             z3 = parseFloat(element2.getAttribute("m13"));
                         } catch (e) {
-                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'m13\' attribute. ";
+                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'm13' attribute. ";
                             return false;
                         }
                         try {
                             m20 = parseFloat(element2.getAttribute("m20"));
                         } catch (e) {
-                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'m20\' attribute. ";
+                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'm20' attribute. ";
                             return false;
                         }
                         try {
                             m21 = parseFloat(element2.getAttribute("m21"));
                         } catch (e) {
-                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'m21\' attribute. ";
+                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'm21' attribute. ";
                             return false;
                         }
                         try {
                             m22 = parseFloat(element2.getAttribute("m22"));
                         } catch (e) {
-                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'m22\' attribute. ";
+                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'm22' attribute. ";
                             return false;
                         }
                         try {
                             m23 = parseFloat(element2.getAttribute("m23"));
                         } catch (e) {
-                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'m23\' attribute. ";
+                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'm23' attribute. ";
                             return false;
                         }
                         try {
                             m30 = parseFloat(element2.getAttribute("m30"));
                         } catch (e) {
-                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'m30\' attribute. ";
+                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'm30' attribute. ";
                             return false;
                         }
                         try {
                             m31 = parseFloat(element2.getAttribute("m31"));
                         } catch (e) {
-                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'m31\' attribute. ";
+                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'm31' attribute. ";
                             return false;
                         }
                         try {
                             m32 = parseFloat(element2.getAttribute("m32"));
                         } catch (e) {
-                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'m32\' attribute. ";
+                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'm32' attribute. ";
                             return false;
                         }
                         try {
                             m33 = parseFloat(element2.getAttribute("m33"));
                         } catch (e) {
-                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup \'" + name1 +
-                                "\' has an invalid or missing \'m33\' attribute. ";
+                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup '" + name1 +
+                                "' has an invalid or missing 'm33' attribute. ";
                             return false;
                         }
                         const nameElement = element2.getAttribute("name");
                         const visibility = element2.getAttribute("visibility");
                         if (visibility === ("")) {
-                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup \'" + name1 +
-                                "\' does not have a valid \'visibility\' boolean attribute. ";
+                            this.XMLFormatError = "Representation # " + (k + 1) + " in the polygonGroup '" + name1 +
+                                "' does not have a valid 'visibility' boolean attribute. ";
                             return false;
                         }
                         const boolWord = CWSYSTEM.CWStringTools.stringToBoolean(visibility);
@@ -591,12 +591,11 @@
                 let fAxis1;
                 let fAxis2;
                 let fAxisZ;
-                for (let l = 0; l < alLight.length; ++l) {
-                    const element2 = alLight[l];
+                for (const element2 of alLight) {
                     str = element2.getAttribute("name");
                     if (str === ("")) {
-                        this.XMLFormatError = "A \'light\' tag under the parent \'" + element +
-                            "\' is missing the \'name\' attribute. ";
+                        this.XMLFormatError = "A 'light' tag under the parent '" + element +
+                            "' is missing the 'name' attribute. ";
                         return false;
                     }
                     const visibility = CWSYSTEM.CWStringTools.stringToBoolean(element2.getAttribute("visibility"));
@@ -609,43 +608,43 @@
                     try {
                         fltX = parseFloat(element2.getAttribute("x"));
                     } catch (e) {
-                        this.XMLFormatError = "Light \'" + str + "\' in the folder \'" + modelFolder.name +
-                            "\' has an invalid or missing \'x\' attribute. ";
+                        this.XMLFormatError = "Light '" + str + "' in the folder '" + modelFolder.name +
+                            "' has an invalid or missing 'x' attribute. ";
                         return false;
                     }
                     try {
                         fAxis1 = parseFloat(element2.getAttribute("y"));
                     } catch (e) {
-                        this.XMLFormatError = "Light \'" + str + "\' in the folder \'" + modelFolder.name +
-                            "\' has an invalid or missing \'y\' attribute. ";
+                        this.XMLFormatError = "Light '" + str + "' in the folder '" + modelFolder.name +
+                            "' has an invalid or missing 'y' attribute. ";
                         return false;
                     }
                     try {
                         fAxis2 = parseFloat(element2.getAttribute("z"));
                     } catch (e) {
-                        this.XMLFormatError = "Light \'" + str + "\' in the folder \'" + modelFolder.name +
-                            "\' has an invalid or missing \'z\' attribute. ";
+                        this.XMLFormatError = "Light '" + str + "' in the folder '" + modelFolder.name +
+                            "' has an invalid or missing 'z' attribute. ";
                         return false;
                     }
                     try {
                         fAxisZ = parseFloat(element2.getAttribute("red"));
                     } catch (e) {
-                        this.XMLFormatError = "Light \'" + str + "\' in the folder \'" + modelFolder.name +
-                            "\' has an invalid or missing \'red\' attribute. ";
+                        this.XMLFormatError = "Light '" + str + "' in the folder '" + modelFolder.name +
+                            "' has an invalid or missing 'red' attribute. ";
                         return false;
                     }
                     try {
                         green = parseFloat(element2.getAttribute("green"));
                     } catch (e) {
-                        this.XMLFormatError = "Light \'" + str + "\' in the folder \'" + modelFolder.name +
-                            "\' has an invalid or missing \'green\' attribute. ";
+                        this.XMLFormatError = "Light '" + str + "' in the folder '" + modelFolder.name +
+                            "' has an invalid or missing 'green' attribute. ";
                         return false;
                     }
                     try {
                         blue = parseFloat(element2.getAttribute("blue"));
                     } catch (e) {
-                        this.XMLFormatError = "Light \'" + str + "\' in the folder \'" + modelFolder.name +
-                            "\' has an invalid or missing \'blue\' attribute. ";
+                        this.XMLFormatError = "Light '" + str + "' in the folder '" + modelFolder.name +
+                            "' has an invalid or missing 'blue' attribute. ";
                         return false;
                     }
                     const inbuiltLight = new dsector.InbuiltLight(modelFolder, str, visibility, fltX,
@@ -653,12 +652,11 @@
                     modelFolder.inbuiltLights.push(inbuiltLight);
                 }
                 const alSpecialPoint = Model3DMatrix.getChildNodesByTagName(element, "specialPoint");
-                for (let m = 0; m < alSpecialPoint.length; ++m) {
-                    const element2 = alSpecialPoint[m];
+                for (const element2 of alSpecialPoint) {
                     attribute = element2.getAttribute("name");
                     if (attribute === ("")) {
-                        this.XMLFormatError = "A \'specialPoint\' tag under the parent \'" + element +
-                            "\' is missing the \'name\' attribute. ";
+                        this.XMLFormatError = "A 'specialPoint' tag under the parent '" + element +
+                            "' is missing the 'name' attribute. ";
                         return false;
                     }
                     attrVis = CWSYSTEM.CWStringTools.stringToBoolean(element2.getAttribute("visibility"));
@@ -671,22 +669,22 @@
                     try {
                         fAxis1 = parseFloat(element2.getAttribute("x"));
                     } catch (e) {
-                        this.XMLFormatError = "SpecialPoint \'" + attribute + "\' in the folder \'" +
-                            modelFolder.name + "\' has an invalid or missing \'x\' attribute. ";
+                        this.XMLFormatError = "SpecialPoint '" + attribute + "' in the folder '" +
+                            modelFolder.name + "' has an invalid or missing 'x' attribute. ";
                         return false;
                     }
                     try {
                         fAxis2 = parseFloat(element2.getAttribute("y"));
                     } catch (e) {
-                        this.XMLFormatError = "SpecialPoint \'" + attribute + "\' in the folder \'" +
-                            modelFolder.name + "\' has an invalid or missing \'y\' attribute. ";
+                        this.XMLFormatError = "SpecialPoint '" + attribute + "' in the folder '" +
+                            modelFolder.name + "' has an invalid or missing 'y' attribute. ";
                         return false;
                     }
                     try {
                         fAxisZ = parseFloat(element2.getAttribute("z"));
                     } catch (e) {
-                        this.XMLFormatError = "SpecialPoint \'" + attribute + "\' in the folder \'" +
-                            modelFolder.name + "\' has an invalid or missing \'z\' attribute. ";
+                        this.XMLFormatError = "SpecialPoint '" + attribute + "' in the folder '" +
+                            modelFolder.name + "' has an invalid or missing 'z' attribute. ";
                         return false;
                     }
                     try {
@@ -714,8 +712,8 @@
                 if (modelFolder != null) {
                     str = element1.getAttribute("name");
                     if (str === ("")) {
-                        this.XMLFormatError = "A folder under the parent \'" + element +
-                            "\' is missing the \'name\' attribute. ";
+                        this.XMLFormatError = "A folder under the parent '" + element +
+                            "' is missing the 'name' attribute. ";
                         return false;
                     }
                     modelFolder1 = new dsector.ModelFolder(str, modelFolder);
@@ -742,11 +740,9 @@
             const polygonIterator = new dsector.PolygonIterator(this, dsector.PolygonIterator.ALL_POLYGON_GROUPS);
             let modelFolder;
             do {
-                {
-                    modelFolder = polygonIterator.nextModelFolder();
-                    if (modelFolder == null) {
-                        return null;
-                    }
+                modelFolder = polygonIterator.nextModelFolder();
+                if (modelFolder == null) {
+                    return null;
                 }
             } while ((modelFolder.id !== folderId));
             return modelFolder;
@@ -812,8 +808,7 @@
                 if (modelFolder == null) {
                     return null;
                 }
-                for (let i = 0; i < modelFolder.inbuiltLights.length; ++i) {
-                    const inbuiltLight = modelFolder.inbuiltLights[i];
+                for (const inbuiltLight of modelFolder.inbuiltLights) {
                     if (inbuiltLight.id === inbuiltLightID) {
                         return inbuiltLight;
                     }
@@ -834,8 +829,7 @@
                 if (modelFolder == null) {
                     return null;
                 }
-                for (let i = 0; i < modelFolder.specialPoints.length; ++i) {
-                    const specialPoint = modelFolder.specialPoints[i];
+                for (const specialPoint of modelFolder.specialPoints) {
                     if (specialPoint.id === spid) {
                         return specialPoint;
                     }
@@ -907,7 +901,7 @@
             let normjson = '"normal":{"itemSize":3,"type":"Float32Array","array":[';
             let uvjson = '"uv":{"itemSize":2,"type":"Float32Array","array":[';
 //            const guid = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-//                (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)).toUpperCase();
+//                (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)).toUpperCase()
             this.rootFolder.polygonGroups[0].polygons.forEach(
                 (item, index) => {
                     posjson += `${item.v1.x},${item.v1.y},${item.v1.z},${item.v2.x},${item.v2.y},${item.v2.z},${item.v3.x},${item.v3.y},${item.v3.z},`;
@@ -939,4 +933,4 @@
     Model3DMatrix.CREATE_NEW_IF_FILE_NOT_FOUND = 0;
     dsector.Model3DMatrix = Model3DMatrix;
     Model3DMatrix["__class"] = "dsector.Model3DMatrix";
-})(dsector || (dsector = {}));
+})(dsector);

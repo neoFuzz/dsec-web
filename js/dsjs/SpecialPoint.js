@@ -43,7 +43,7 @@
                     x = 0, y = 0, z = 0,
                     red = 0, green = 0, blue = 0) {
             this.parent = parent;
-            this.id = dsector.NumberTools.randomLong();
+            this.id = CWSYSTEM.NumberTools.randomLong();
             this.name = name;
             this.__visibility = visible;
             this.x = x;
@@ -158,4 +158,4 @@
 
     dsector.SpecialPoint = SpecialPoint;
     SpecialPoint["__class"] = "dsector.SpecialPoint";
-})(dsector || (dsector = {}));
+})(dsector);

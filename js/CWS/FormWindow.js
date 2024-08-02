@@ -533,4 +533,4 @@
 
     dsector.FormWindow = FormWindow;
     FormWindow["__class"] = "dsector.FormWindow";
-})(dsector || (dsector = {}));
+})(dsector);

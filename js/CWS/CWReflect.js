@@ -28,7 +28,7 @@
             try {
                 return this.getDeclaredMethod(obj.constructor, name);
             } catch (e) {
-                console.info("Error with CWReflect.getMethod(..) with methodName \'" + name + "\': " + e);
+                console.info("Error with CWReflect.getMethod(..) with methodName '" + name + "': " + e);
                 return null;
             }
         }
@@ -39,17 +39,11 @@
          *
          * @param {object} obj - The object to retrieve the method from.
          * @param {string} name - The name of the method to retrieve.
-         * @param {object} classO - The class object to which the method belongs.
+         * @param {object} classO - The class object to which the method belongs. Unused
          * @returns {object|null} The method object containing the owner, name, and function if found; null otherwise.
          */
         static getMethod$obj$name$class(obj, name, classO) {
-            const types = [classO.constructor];
-            try {
-                return this.getDeclaredMethod(obj.constructor, name);
-            } catch (e) {
-                console.info("Error with CWReflect.getMethod(..) with methodName \'" + name + "\': " + e);
-                return null;
-            }
+            return CWReflect.getMethod$obj$string(obj, name);
         }
 
         /**
@@ -91,4 +85,4 @@
 
     CWSYSTEM.CWReflect = CWReflect;
     CWReflect["__class"] = "CWSYSTEM.CWReflect";
-})(CWSYSTEM || (CWSYSTEM = {}));
+})(CWSYSTEM);
