@@ -39,7 +39,7 @@
          * @public
          */
         isCreated() {
-            let i = this.getSavedGameFilenames();
+            this.getSavedGameFilenames();
             return this.window != null;
         }
 
@@ -65,7 +65,7 @@
         async create() {
             dsector.DSReference.dsecSaveGameWindow.destroy();
             this.savedGamesList = ([]);
-            const i = await this.getSavedGameFilenames();
+            await this.getSavedGameFilenames();
             this.drawWindow();
             this.restorePosition();
         }
@@ -152,7 +152,7 @@
             button.objectContainingButtonPressedMethod = this;
             button.buttonPressedMethodName = "deleteButtonPressed";
             button = this.window.addButton("LOAD_GAME", 288, 27, 42,
-                15, "Load", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON,  CWSYSTEM.CWButton.PRESSED);
+                15, "Load", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.PRESSED);
             button = this.window.addButton("", 342, 27, 52, 15,
                 "Cancel", CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON, CWSYSTEM.CWButton.CLICKED);
             button.objectContainingButtonPressedMethod = this;
@@ -182,11 +182,12 @@
                 CWSYSTEM.Debug.println(e.toString());
             }
             try {
+                // Java function not ported
             } catch (e) {
                 const userDir = "/";
                 console.error("Error trying to form File in getSavedGameFilenames from default directory. " +
-                    "Attempting to create File directly from user.dir=\'" + userDir +
-                    "\' property. Notes: url=" + urlPath + ", urlContext=" + url);
+                    "Attempting to create File directly from user.dir='" + userDir +
+                    "' property. Notes: url=" + urlPath + ", urlContext=" + url);
             }
             let dbList;
             await indexedDB.databases().then(r => {
@@ -336,17 +337,11 @@
                             if (player.tankColor[0] != null) {
                                 player.tankColor = ([]);
                             }
-                        } catch (__e) {
-                            if (__e != null && (__e["__classes"] &&
-                                __e["__classes"].indexOf("IndexOutOfBoundsException") >= 0)) {
-                                const e = __e;
-                                CWSYSTEM.Debug.println(player.name + " tankColor IndexOutOfBounds exception");
-                            }
-                            if (__e != null && (__e["__classes"] &&
-                                    __e["__classes"].indexOf("Exception") >= 0) || __e != null &&
-                                __e instanceof Error) {
-                                const e = __e;
-                                CWSYSTEM.Debug.println(player.name + " tankColor exception: " + e);
+                        } catch (e) {
+                            if (e?.["__classes"]?.includes("IndexOutOfBoundsException")) {
+                                CWSYSTEM.Debug.println(`${player.name} tankColor IndexOutOfBounds exception`);
+                            } else if (e?.["__classes"]?.includes("Exception") || e instanceof Error) {
+                                CWSYSTEM.Debug.println(`${player.name} tankColor exception: ${e}`);
                             }
                         }
                         for (let k = 0; k < 4; k++) {

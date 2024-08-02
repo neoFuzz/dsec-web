@@ -1,6 +1,5 @@
 (function (CWSYSTEM) {
     /**
-     *
      * This class is used to store and manipulate an array of integers.
      * <br><br>
      * <b>Features:</b>

@@ -920,16 +920,16 @@
                 let red = 0.2;
                 let green = 0.2;
                 let blue = 0.6;
-                red *= Math.fround(this.dsecRound.redJewel.energy / 200.0);
-                green *= Math.fround(this.dsecRound.redJewel.energy / 200.0);
-                blue *= Math.fround(this.dsecRound.redJewel.energy / 200.0);
+                red *= this.dsecRound.redJewel.energy / 200.0;
+                green *= this.dsecRound.redJewel.energy / 200.0;
+                blue *= this.dsecRound.redJewel.energy / 200.0;
                 scene.addStaticLight(this.dsecRound.blueJewel.x, this.dsecRound.blueJewel.y, z, red, green, blue);
                 red = 0.6;
                 green = 0.2;
                 blue = 0.2;
-                red *= Math.fround(this.dsecRound.redJewel.energy / 200.0);
-                green *= Math.fround(this.dsecRound.redJewel.energy / 200.0);
-                blue *= Math.fround(this.dsecRound.redJewel.energy / 200.0);
+                red *= this.dsecRound.redJewel.energy / 200.0;
+                green *= this.dsecRound.redJewel.energy / 200.0;
+                blue *= this.dsecRound.redJewel.energy / 200.0;
                 scene.addStaticLight(this.dsecRound.redJewel.x, this.dsecRound.redJewel.y, z, red, green, blue);
             }
         }

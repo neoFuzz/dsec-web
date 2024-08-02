@@ -38,11 +38,29 @@
          * @param {Object|null} statFrmMthd - The method to determine bullet status.
          * @throws {Error} Throws an error if the parameters do not match the expected types.
          */
-        constructor(type, code, text, scTxt, bltSts, invFrm, statFrmMthd) {
+        constructor(type, code, text, scTxt,
+                    bltSts, invFrm, statFrmMthd) {
+            this.initializeDefaultProperties();
+
+            if (this.isFullParameterSet(...arguments)) {
+                this.setFullParameters(type, code, text, scTxt, bltSts, invFrm, statFrmMthd);
+            } else if (this.isShortParameterSet(...arguments)) {
+                this.setShortParameters(type, code, text, scTxt);
+            } else {
+                throw new Error('Invalid parameters for MenuItem constructor');
+            }
+        }
+
+        /**
+         * Initializes the default properties of the CWPopupMenuItem instance.
+         *
+         * @private
+         */
+        initializeDefaultProperties() {
+            this.type = 0;
             this.code = null;
             this.text = null;
             this.shortcutText = null;
-            this.type = 0;
             this.generalPurposeObject = null;
             this.__bulletStatus = false;
             this.bulletStatusDeterminedByMethod = null;
@@ -50,32 +68,99 @@
             this.executeMethodUponSelection = null;
             this.objectToInvokeExecuteMethodFrom = null;
             this.parametersForExecuteMethod = null;
+        }
 
-            if (typeof type === 'number' && (typeof code === 'string' || code === null) &&
-                (typeof text === 'string' || text === null) &&
-                (typeof scTxt === 'string' || scTxt === null) &&
-                (typeof bltSts === 'boolean' || bltSts === null) &&
-                (invFrm != null || invFrm === null) &&
-                (statFrmMthd != null &&
-                    statFrmMthd instanceof Object || statFrmMthd === null)) {
-                this.type = type;
-                this.code = code;
-                this.text = text;
-                this.shortcutText = scTxt;
-                this.__bulletStatus = bltSts;
-                this.bulletStatusDeterminedByMethod = statFrmMthd;
-                this.objectThatMethodInvokedFrom = invFrm;
-            } else if (typeof type === 'number' && (typeof code === 'string' || code === null) &&
-                (typeof text === 'string' || text === null) &&
-                (typeof scTxt === 'string' || scTxt === null) &&
-                bltSts === undefined && invFrm === undefined && statFrmMthd === undefined) {
-                this.type = type;
-                this.code = code;
-                this.text = text;
-                this.shortcutText = scTxt;
-            } else {
-                throw new Error('Invalid overload');
-            }
+        /**
+         * Checks if the parameters match the expected types for the full parameter set.
+         *
+         * @private
+         * @param {number} type - The type of the menu item.
+         * @param {string} code - The code associated with the menu item.
+         * @param {string} text - The display text of the menu item.
+         * @param {string} shortcutText - The shortcut text for the menu item.
+         * @param {boolean} bulletStatus - The bullet status of the menu item.
+         * @param {Object} invokeFrom - The object from which the method is invoked.
+         * @param {Object} statusFromMethod - The method to determine bullet status.
+         * @returns {boolean} True if the parameters match the expected types, false otherwise.
+         */
+        isFullParameterSet(type, code, text, shortcutText, bulletStatus, invokeFrom, statusFromMethod) {
+            return (
+                typeof type === 'number' &&
+                this.isValidStringOrNull(code) &&
+                this.isValidStringOrNull(text) &&
+                this.isValidStringOrNull(shortcutText) &&
+                (typeof bulletStatus === 'boolean' || bulletStatus === null) &&
+                (invokeFrom != null || invokeFrom === null) &&
+                (statusFromMethod instanceof Object || statusFromMethod === null)
+            );
+        }
+
+        /**
+         * Checks if the parameters match the expected types for the short parameter set.
+         *
+         * @private
+         * @param {number} type - The type of the menu item.
+         * @param {string} code - The code associated with the menu item.
+         * @param {string} text - The display text of the menu item.
+         * @param {string} shortcutText - The shortcut text for the menu item.
+         * @returns {boolean} True if the parameters match the expected types, false otherwise.
+         */
+        isShortParameterSet(type, code, text, shortcutText) {
+            return (
+                typeof type === 'number' &&
+                this.isValidStringOrNull(code) &&
+                this.isValidStringOrNull(text) &&
+                this.isValidStringOrNull(shortcutText) &&
+                arguments.length === 4
+            );
+        }
+
+        /**
+         * Checks if the value is a string or null.
+         *
+         * @private
+         * @param {string|null} value - The value to check.
+         * @returns {boolean} True if the value is a string or null, false otherwise.
+         */
+        isValidStringOrNull(value) {
+            return typeof value === 'string' || value === null;
+        }
+
+        /**
+         * Sets the full parameters for the menu item.
+         *
+         * @param {number} type - The type of the menu item.
+         * @param {string|null} code - The code associated with the menu item.
+         * @param {string|null} text - The display text of the menu item.
+         * @param {string|null} shortcutText - The shortcut text for the menu item.
+         * @param {boolean|null} bulletStatus - The bullet status of the menu item.
+         * @param {Object|null} invokeFrom - The object from which the method is invoked.
+         * @param {Object|null} statusFromMethod - The method to determine bullet status.
+         */
+        setFullParameters(type, code, text, shortcutText, bulletStatus, invokeFrom, statusFromMethod) {
+            this.type = type;
+            this.code = code;
+            this.text = text;
+            this.shortcutText = shortcutText;
+            this.__bulletStatus = bulletStatus;
+            this.objectThatMethodInvokedFrom = invokeFrom;
+            this.bulletStatusDeterminedByMethod = statusFromMethod;
+        }
+
+        /**
+         * Sets the short parameters for the menu item.
+         *
+         * @param {number} type - The type of the menu item.
+         * @param {string|null} code - The code associated with the menu item.
+         * @param {string|null} text - The display text of the menu item.
+         * @param {string|null} shortcutText - The shortcut text for the menu item.
+         * @throws {Error} Throws an error if the parameters do not match the expected types.
+         */
+        setShortParameters(type, code, text, shortcutText) {
+            this.type = type;
+            this.code = code;
+            this.text = text;
+            this.shortcutText = shortcutText;
         }
 
         /**

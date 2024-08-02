@@ -144,7 +144,6 @@
          * @private
          */ informSuppliedObjectAboutNewInputBoxValue() {
             if (this.objectContainingInputBoxChangedMethod != null) {
-                const classes = [this.constructor];
                 try {
                     const rtMethod = ((c, p) => {
                         if (c.prototype.hasOwnProperty(p) && typeof c.prototype[p] == 'function')
@@ -156,7 +155,7 @@
                     rtMethod.fn.apply(this.objectContainingInputBoxChangedMethod, [objects]);
                 } catch (ex) {
                     console.error("A problem occurred in CWWindow.informSuppliedObjectAboutNewInputBoxValue() " +
-                        "for input box \'" + this.name + "\': " + ex);
+                        "for input box '" + this.name + "': " + ex);
                 }
             }
         }
@@ -168,7 +167,6 @@
          * @private
          */ informSuppliedObjectInputBoxSubmitted() {
             if (this.objectContainingInputBoxReturnTypedMethod != null) {
-                const classes = [this.constructor];
                 try {
                     const declaredMethod = ((c, p) => {
                         if (c.prototype.hasOwnProperty(p) &&

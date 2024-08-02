@@ -32,7 +32,7 @@
          */
         static largeLong_$LI$() {
             if (NumberTools.largeLong == null) {
-                NumberTools.largeLong = 9223372036854775807;
+                NumberTools.largeLong = Number.EPSILON;
             }
             return NumberTools.largeLong;
         }

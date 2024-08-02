@@ -1,4 +1,3 @@
-/**/
 (function (dsector) {
     /**
      * Class representing a Robot Summary Window.

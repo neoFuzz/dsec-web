@@ -187,7 +187,7 @@
          * @access public
          */
         clear() {
-            while ((!(this.instructions.length === 0))) {
+            while ((this.instructions.length !== 0)) {
                 const ioInstruction = this.instructions[0];
                 (a => {
                     let index = a.indexOf(ioInstruction);
@@ -215,7 +215,7 @@
         process() {
             CWSYSTEM.CWSReference.virtualScreen.cancelOption = false;
             CWSYSTEM.Environment.ESCKeyPressedDuringThisCycle = false;
-            while (!(this.instructions.length === 0)) {
+            while (this.instructions.length !== 0) {
                 const ioInstruction = this.instructions[0];
                 (a => {
                     let index = a.indexOf(ioInstruction);
@@ -345,7 +345,8 @@
                 CWSYSTEM.Environment.screenHasChanged = true;
                 CWSYSTEM.CWSReference.gui.moveWindowToTop$int(mouseIsOver);
                 CWSYSTEM.CWSReference.gui.deactivateTextAreasInWindowsOtherThan(cwWindow);
-                if (CWSYSTEM.Environment.activePulldownMenu$() != null && cwWindow === CWSYSTEM.Environment.activePulldownMenu$().parent) {
+                if (CWSYSTEM.Environment.activePulldownMenu$() != null &&
+                    cwWindow === CWSYSTEM.Environment.activePulldownMenu$().parent) {
                     CWSYSTEM.Environment.activePulldownMenu$().mousePressedOverClosedSectionOrOverlayBorder();
                     this.mousePressedFinalize();
                 } else {
@@ -353,13 +354,15 @@
                     if (inputBox != null) {
                         CWSYSTEM.Environment.inputBoxSelected = inputBox;
                     }
-                    if (CWSYSTEM.Environment.inputBoxSelected$() != null && CWSYSTEM.Environment.inputBoxSelected$() !== inputBox) {
+                    if (CWSYSTEM.Environment.inputBoxSelected$() != null
+                        && CWSYSTEM.Environment.inputBoxSelected$() !== inputBox) {
                         CWSYSTEM.CWSReference.interfaceProcesses.processInputBox(CWSYSTEM.Environment.inputBoxSelected$());
                         CWSYSTEM.Environment.inputBoxSelected = null;
                     }
                     const textArea = CWSYSTEM.CWSReference.gui.textAreaThatMouseIsOver(xPos, yPos);
                     if (textArea != null) {
-                        textArea.select(xPos - (cwWindow.xPosition - cwWindow.borderWidth), yPos - (cwWindow.yPosition - cwWindow.borderWidth - cwWindow.__titleHeight));
+                        textArea.select(xPos - (cwWindow.xPosition - cwWindow.borderWidth),
+                            yPos - (cwWindow.yPosition - cwWindow.borderWidth - cwWindow.__titleHeight));
                     }
                     const cwButton = CWSYSTEM.CWSReference.gui.buttonThatMouseIsOver(xPos, yPos);
                     if (cwButton != null) {
@@ -424,21 +427,18 @@
                                     return;
                                 }
                             }
-                            if (((nameID === ("X")) || (nameID === ("Y")) || (nameID === ("Z"))) && xPos - cwWindow.xPosition > 0 && xPos - cwWindow.xPosition < cwWindow.w && yPos - cwWindow.yPosition > 0 && yPos - cwWindow.yPosition < cwWindow.h) {
-                                this.mousePressedFinalize();
-                            } else {
-                                const cornerMouseOver = cwWindow.cornerThatMouseIsOver(xPos, yPos);
-                                if (cornerMouseOver > 0 && cwWindow.resizable) {
-                                    CWSYSTEM.CWSReference.mouseDrag.engageWindowResize(mouseIsOver, cornerMouseOver, xPos, yPos);
-                                } else if (CWSYSTEM.Global.windowsCanOnlyBeMovedByClickingTitleArea) {
-                                    if (cwWindow.mouseOverTitleArea(xPos, yPos)) {
-                                        CWSYSTEM.CWSReference.mouseDrag.engageWindowMove(mouseIsOver, xPos, yPos);
-                                    }
-                                } else {
+
+                            const cornerMouseOver = cwWindow.cornerThatMouseIsOver(xPos, yPos);
+                            if (cornerMouseOver > 0 && cwWindow.resizable) {
+                                CWSYSTEM.CWSReference.mouseDrag.engageWindowResize(mouseIsOver, cornerMouseOver, xPos, yPos);
+                            } else if (CWSYSTEM.Global.windowsCanOnlyBeMovedByClickingTitleArea) {
+                                if (cwWindow.mouseOverTitleArea(xPos, yPos)) {
                                     CWSYSTEM.CWSReference.mouseDrag.engageWindowMove(mouseIsOver, xPos, yPos);
                                 }
-                                this.mousePressedFinalize();
+                            } else {
+                                CWSYSTEM.CWSReference.mouseDrag.engageWindowMove(mouseIsOver, xPos, yPos);
                             }
+                            this.mousePressedFinalize();
                         }
                     }
                 }

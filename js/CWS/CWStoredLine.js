@@ -26,21 +26,18 @@
          * Constructs a new CWStoredLine instance.
          *
          * @param parent {CWSYSTEM.CWWindow} - The parent window to which this stored line belongs.
-         * @param {number} x0 - The x-coordinate of the starting point of the line.
-         * @param {number} y0 - The y-coordinate of the starting point of the line.
-         * @param {number} x1 - The x-coordinate of the ending point of the line.
-         * @param {number} y1 - The y-coordinate of the ending point of the line.
+         * @param {Object} dimensions - An object containing the coordinates of the line.
          * @param {number} red - The red component of the line color.
          * @param {number} green - The green component of the line color.
          * @param {number} blue - The blue component of the line color.
          * @param {number} alpha - The alpha (transparency) component of the line color.
          */
-        constructor(parent, x0, y0, x1, y1, red, green, blue, alpha) {
+        constructor(parent, dimensions, red, green, blue, alpha) {
             this.parentWindow = parent || null;
-            this.x0 = x0 || 0;
-            this.y0 = y0 || 0;
-            this.x1 = x1 || 0;
-            this.y1 = y1 || 0;
+            this.x0 = dimensions.x0 || 0;
+            this.y0 = dimensions.y0 || 0;
+            this.x1 = dimensions.x1 || 0;
+            this.y1 = dimensions.y1 || 0;
             this.color = new CWSYSTEM.CWColor(red, green, blue, alpha);
         }
 

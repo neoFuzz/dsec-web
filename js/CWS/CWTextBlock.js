@@ -35,8 +35,8 @@
          * @param {CWSYSTEM.CWColor} color The color for the text block.
          * @param {number} width The width for the text block.
          */
-        constructor(parent, nameID, text, leftMargin = 0,
-                    baseLine = 0, font, color, width = 0) {
+        constructor(parent, nameID, text, font, color,
+                    baseLine = 0, leftMargin = 0, width = 0) {
             this.parent = parent;
             this.nameID = nameID;
             this.text = text;

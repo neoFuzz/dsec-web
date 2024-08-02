@@ -35,6 +35,16 @@
             this.intersectingMissile = m || null;
             this.jewel = jewel || null;
         }
+
+        /**
+         * Returns the recorded distance to the intersecting object.
+         *
+         * @public
+         * @returns {*|number|number}
+         */
+        getDistance() {
+            return this.distance;
+        }
     }
 
     dsector.IntersectingDSecObject = IntersectingDSecObject;

@@ -37,7 +37,7 @@
         process() {
             CWSYSTEM.CWSReference.virtualScreen.cancelOption = false;
             CWSYSTEM.Environment.ESCKeyPressedDuringThisCycle = false;
-            while (!(this.instructions.length === 0)) {
+            while (this.instructions.length !== 0) {
                 const ioInstruction = this.instructions[0];
                 (a => {
                     let index = a.indexOf(ioInstruction);
@@ -54,10 +54,6 @@
                 const key = ioInstruction.key;
                 const keyCode = ioInstruction.keyCode;
                 switch (type) {
-                    case CWSYSTEM.IOInstruction.mouseEntered:
-                    case CWSYSTEM.IOInstruction.mouseExited:
-                    default:
-                        break;
                     case CWSYSTEM.IOInstruction.mouseLeftPressed:
                         this.mouseLeftPressed(x, y);
                         break;
@@ -97,6 +93,10 @@
                     case CWSYSTEM.IOInstruction.keyReleased:
                         this.keyReleased(keyCode);
                         break;
+                    case CWSYSTEM.IOInstruction.mouseEntered:
+                    case CWSYSTEM.IOInstruction.mouseExited:
+                    default:
+                        break;
                 }
             }
             this.handleGamePads();
@@ -123,8 +123,7 @@
          * @private
          */
         processGamePad(joy, joyId) {
-            let gamepads = navigator.getGamepads ? navigator.getGamepads()
-                : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads() : []);
+            let gamepads = CWSYSTEM.GamePadUtils.getGamePadObjects();
             let buttonPressed = false;
             let keySelector = joyId * 1000;
             let gamePadButtons = gamepads[joy.joystickID].buttons;
@@ -358,21 +357,17 @@
                                     return;
                                 }
                             }
-                            if (((nameID === ("X")) || (nameID === ("Y")) || (nameID === ("Z"))) && xPos - cwWindow.xPosition > 0 && xPos - cwWindow.xPosition < cwWindow.w && yPos - cwWindow.yPosition > 0 && yPos - cwWindow.yPosition < cwWindow.h) {
-                                this.mousePressedFinalize();
-                            } else {
-                                const cornerMouseOver = cwWindow.cornerThatMouseIsOver(xPos, yPos);
-                                if (cornerMouseOver > 0 && cwWindow.resizable) {
-                                    dsector.DSReference.mouseDrag.engageWindowResize(mouseIsOver, cornerMouseOver, xPos, yPos);
-                                } else if (CWSYSTEM.Global.windowsCanOnlyBeMovedByClickingTitleArea) {
-                                    if (cwWindow.mouseOverTitleArea(xPos, yPos)) {
-                                        dsector.DSReference.mouseDrag.engageWindowMove(mouseIsOver, xPos, yPos);
-                                    }
-                                } else {
+                            const cornerMouseOver = cwWindow.cornerThatMouseIsOver(xPos, yPos);
+                            if (cornerMouseOver > 0 && cwWindow.resizable) {
+                                dsector.DSReference.mouseDrag.engageWindowResize(mouseIsOver, cornerMouseOver, xPos, yPos);
+                            } else if (CWSYSTEM.Global.windowsCanOnlyBeMovedByClickingTitleArea) {
+                                if (cwWindow.mouseOverTitleArea(xPos, yPos)) {
                                     dsector.DSReference.mouseDrag.engageWindowMove(mouseIsOver, xPos, yPos);
                                 }
-                                this.mousePressedFinalize();
+                            } else {
+                                dsector.DSReference.mouseDrag.engageWindowMove(mouseIsOver, xPos, yPos);
                             }
+                            this.mousePressedFinalize();
                         }
                     }
                 }
@@ -432,7 +427,7 @@
         mouseDoubleLeftClicked(x, y) {
             const ref = dsector.DSReference.gui.windowThatMouseIsOver(x, y);
             if (ref !== -1) {
-                const window4 = dsector.DSReference.gui.getWindow$int(ref);
+                // const window4 = dsector.DSReference.gui.getWindow$int(ref)
             }
         }
 

@@ -107,7 +107,7 @@
          * @returns {string} - The regular expression string.
          */
         static convertRegularExpressionSimple(word) {
-            return word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+            return word.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
         }
 
         /**
@@ -123,11 +123,11 @@
             let checked = false;
             let builder = "";
             const charArray = (text).split('');
-            for (let i = 0; i < charArray.length; ++i) {
-                if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(charArray[i]) ===
+            for (const element of charArray) {
+                if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(element) ===
                     (c => c.charCodeAt == null ? c : c.charCodeAt(0))(char1)) {
                     checked = true;
-                } else if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(charArray[i]) ===
+                } else if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(element) ===
                     (c => c.charCodeAt == null ? c : c.charCodeAt(0))(char2)) {
                     if (checked) {
                         arrayList.push(builder);
@@ -135,7 +135,7 @@
                         checked = false;
                     }
                 } else if (checked) {
-                    builder = builder + charArray[i];
+                    builder = builder + element;
                 }
             }
             return arrayList;
@@ -354,7 +354,7 @@
          * @returns {string} - The trimmed text.
          */
         static stringWithTrailingCharactersTrimmed(text, char) {
-            while (text.length > 0 && text[text.length - 1] === char) {
+            while (text.length > 0 && text.endsWith(char)) {
                 text = text.substring(0, text.length - 1);
             }
             return text;
@@ -416,10 +416,9 @@
             const hashMap = new Map();
             const arrayList = CWSYSTEM.CWStringTools.breakStringIntoWordsSeparatedByStringCaseInsensitive(text,
                 "" + name);
-            for (let i = 0; i < arrayList.length; ++i) {
-                const stringFromList = arrayList[i];
-                const breakString = CWSYSTEM.CWStringTools.breakStringIntoWordsSeparatedByStringCaseInsensitive(stringFromList,
-                    "" + value);
+            for (const stringFromList of arrayList) {
+                const breakString = CWSYSTEM.CWStringTools
+                    .breakStringIntoWordsSeparatedByStringCaseInsensitive(stringFromList, "" + value);
                 if (breakString.length === 1) {
                     hashMap.set(breakString[0].toLowerCase(), "");
                 } else {
@@ -529,11 +528,11 @@
          * @returns {Array<number>} The converted array of integers.
          */
         static vectorOfIntegerToArrayOfInt(arrayList) {
-            const ints = Array(arrayList.length).fill(0);
+            const a = Array(arrayList.length).fill(0);
             for (let i = 0; i < arrayList.length; ++i) {
-                ints[i] = arrayList[i];
+                a[i] = arrayList[i];
             }
-            return ints;
+            return a;
         }
 
         /**
@@ -544,7 +543,7 @@
          * @returns {string} The modified string with non-alphanumeric characters replaced.
          */
         static replaceNonAlphaNumericalCharacters(text, replacement) {
-            return text.replace(new RegExp("[^a-zA-Z0-9]", 'g'), replacement);
+            return text.replace(/[^a-zA-Z0-9]/g, replacement);
         }
 
         /**
@@ -555,7 +554,7 @@
          * @returns {string} The modified string with non-alphabetic characters replaced.
          */
         static replaceNonAlphaCharacters(text, replacement) {
-            return text.replace(new RegExp("[^a-zA-Z]", 'g'), replacement);
+            return text.replace(/[^a-zA-Z]/g, replacement);
         }
 
         /**
@@ -627,24 +626,24 @@
         static filenameFilter(txt) {
             const cStr = (txt).split('');
             let bStr = "";
-            for (let i = 0; i < cStr.length; ++i) {
-                if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) >= 'a'.charCodeAt(0) &&
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) <= 'z'.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) >= 'A'.charCodeAt(0) &&
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) <= 'Z'.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) >= '0'.charCodeAt(0) &&
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) <= '9'.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) === ' '.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) === '_'.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) === '-'.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) === '!'.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) === '$'.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) === '('.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) === ')'.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) === '#'.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) === '@'.charCodeAt(0) ||
-                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(cStr[i]) === '.'.charCodeAt(0)) {
-                    bStr = bStr + cStr[i];
+            for (const element of cStr) {
+                if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(element) >= 'a'.charCodeAt(0) &&
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(element) <= 'z'.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(element) >= 'A'.charCodeAt(0) &&
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(element) <= 'Z'.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(element) >= '0'.charCodeAt(0) &&
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(element) <= '9'.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(element) === ' '.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(element) === '_'.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(element) === '-'.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(element) === '!'.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(element) === '$'.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(element) === '('.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(element) === ')'.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(element) === '#'.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(element) === '@'.charCodeAt(0) ||
+                    (c => c.charCodeAt == null ? c : c.charCodeAt(0))(element) === '.'.charCodeAt(0)) {
+                    bStr = bStr + element;
                 }
             }
             if (bStr.length === 0) {
@@ -666,10 +665,9 @@
                 return null;
             } else {
                 let treeMap = new Map();
-                for (let i = 0; i < arr.length; i++) {
-                    let element = arr[i];
+                arr.forEach(element => {
                     treeMap.set(element, element);
-                }
+                });
                 let values = treeMap.values();
                 let objs = Array.from(values);
                 let list = [];
@@ -693,11 +691,11 @@
             arrList.push("ellaine");
             arrList.push("squirrel");
             arrList.push("tea");
-            const arrayList = CWSYSTEM.StringTools.sorted(arrList);
-            for (let i = 0; i < arrayList.length; ++i) {
-                console.info(arrayList[i]);
+            const arrayList = CWSYSTEM.CWStringTools.sorted(arrList);
+            for (const element of arrayList) {
+                console.info(element);
             }
-            const test = CWSYSTEM.StringTools.stringReplaceCaseInsensitive(arrList[0], "T", "R");
+            const test = CWSYSTEM.CWStringTools.stringReplaceCaseInsensitive(arrList[0], "T", "R");
             console.info("String replace: " + test);
         }
     }

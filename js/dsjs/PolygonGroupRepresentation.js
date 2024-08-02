@@ -91,13 +91,9 @@
         static activeRepresentationsHaveAtLeastOneDirectRepresentation() {
             const arrayList =
                 PolygonGroupRepresentation.allPolygonGroupRepresentations(dsector.DSReference.model3DMatrix);
-            for (let index = 0; index < arrayList.length; index++) {
-                let o = arrayList[index];
-                {
-                    const pgr = o;
-                    if (pgr.active && pgr.isDirectRepresentation()) {
-                        return true;
-                    }
+            for (let pgr of arrayList) {
+                if (pgr.active && pgr.isDirectRepresentation()) {
+                    return true;
                 }
             }
             return false;
@@ -128,18 +124,14 @@
             if (!CWSYSTEM.Environment.shiftKeyPressed) {
                 const arrayList =
                     PolygonGroupRepresentation.allPolygonGroupRepresentations(dsector.DSReference.model3DMatrix);
-                for (let index = 0; index < arrayList.length; index++) {
-                    let o = arrayList[index];
-                    {
-                        const gr = o;
-                        gr.active = false;
-                    }
+                for (const o of arrayList) {
+                    o.active = false;
                 }
             }
             this.active = true;
             if (this.isDirectRepresentation()) {
-                for (let i = 0; i < this.parentPolygonGroup.polygons.length; ++i) {
-                    const polygon = this.parentPolygonGroup.polygons[i];
+                for (const element of this.parentPolygonGroup.polygons) {
+                    // const polygon = element ?
                 }
             }
             CWSYSTEM.Environment.projectiveViewWindowsRequestedForUpdateNextCycle();

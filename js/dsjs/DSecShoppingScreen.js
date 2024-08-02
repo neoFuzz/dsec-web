@@ -271,8 +271,7 @@
                         }
                         baseline += 16;
                         h = 0;
-                        for (let i = 0; i < arrList.length; ++i) {
-                            const weaponSpec = arrList[i];
+                        for (const weaponSpec of arrList) {
                             if (weaponSpec.portNumber === j &&
                                 weaponSpec.actualPrice(this.currentShopper) <= this.currentShopper.credits &&
                                 this.itemAvailable(weaponSpec) &&
@@ -379,9 +378,6 @@
                         return false;
                     }
                     break;
-                case dsector.PreBuiltWeaponSpecifications.SCORE_BRIBE:
-                default:
-                    break;
                 case dsector.PreBuiltWeaponSpecifications.FAST_RECHARGE:
                     if (this.currentShopper.hasFastRecharge()) {
                         return false;
@@ -431,6 +427,10 @@
                     if (this.currentShopper.tankSpecification.velocityUpgradeLevel() !== 1) {
                         return false;
                     }
+                    break;
+                case dsector.PreBuiltWeaponSpecifications.SCORE_BRIBE:
+                default:
+                    break;
             }
             return true;
         }
@@ -473,9 +473,18 @@
             DSecShoppingScreen.itemsOnSpecial = ([]);
             if (Math.random() < 0.35) {
                 const arrayList = dsector.DSReference.preBuiltWeaponSpecifications.preBuiltSpecifications;
-                for (let i = 0; i < arrayList.length; ++i) {
-                    const weaponSpec = arrayList[i];
+                for (const weaponSpec of arrayList) {
                     switch (weaponSpec.specificationID) {
+                        // not branch
+                        case dsector.PreBuiltWeaponSpecifications.FUEL_UPGRADE:
+                        case dsector.PreBuiltWeaponSpecifications.METAL_UPGRADE:
+                        case dsector.PreBuiltWeaponSpecifications.TURN_UPGRADE:
+                        case dsector.PreBuiltWeaponSpecifications.SPEED_UPGRADE:
+                        case dsector.PreBuiltWeaponSpecifications.FUEL_UPGRADE_2:
+                        case dsector.PreBuiltWeaponSpecifications.METAL_UPGRADE_2:
+                        case dsector.PreBuiltWeaponSpecifications.TURN_UPGRADE_2:
+                        case dsector.PreBuiltWeaponSpecifications.SPEED_UPGRADE_2:
+                            break;
                         default:
                             if (weaponSpec.portNumber >= 1 && weaponSpec.portNumber <= 7 && weaponSpec.price > 1200 && Math.random() < 0.05) {
                                 const rndNumber = Math.random();
@@ -496,16 +505,6 @@
                                     DSecShoppingScreen.itemsOnSpecial.push(new dsector.ObjectPair(weaponSpec, 25));
                                 }
                             }
-                            break;
-                        // not branch
-                        case dsector.PreBuiltWeaponSpecifications.FUEL_UPGRADE:
-                        case dsector.PreBuiltWeaponSpecifications.METAL_UPGRADE:
-                        case dsector.PreBuiltWeaponSpecifications.TURN_UPGRADE:
-                        case dsector.PreBuiltWeaponSpecifications.SPEED_UPGRADE:
-                        case dsector.PreBuiltWeaponSpecifications.FUEL_UPGRADE_2:
-                        case dsector.PreBuiltWeaponSpecifications.METAL_UPGRADE_2:
-                        case dsector.PreBuiltWeaponSpecifications.TURN_UPGRADE_2:
-                        case dsector.PreBuiltWeaponSpecifications.SPEED_UPGRADE_2:
                             break;
                     }
                 }

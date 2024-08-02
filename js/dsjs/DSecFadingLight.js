@@ -73,9 +73,7 @@
             const currentTime = CWSYSTEM.Environment.currentTime();
             const activeLights = [];
 
-            for (let i = 0; i < DSecFadingLight.fadingLightsInScene.length; i++) {
-                const fadingLight = DSecFadingLight.fadingLightsInScene[i];
-
+            for (const fadingLight of DSecFadingLight.fadingLightsInScene) {
                 if (currentTime <= fadingLight.endTime) {
                     const elapsedTime = currentTime - fadingLight.startTime;
                     const totalDuration = fadingLight.endTime - fadingLight.startTime;

@@ -22,7 +22,7 @@
          */
         constructor() {
             this.windowColor = new Map();
-            new CWSYSTEM.CWColor(60, 60, 60, 180);
+            // new CWSYSTEM.CWColor(60, 60, 60, 180)
         }
 
         /**

@@ -153,7 +153,6 @@
          */
         processCameraRotation(x, y) {
             const xDrag = x - this.mouseDraggedStartPosition.getX();
-            const yDrag = y - this.mouseDraggedStartPosition.getY();
             this.mouseDraggedStartPosition.setPosition(x, y);
             let xDragFlt = xDrag;
             xDragFlt /= -100.0;
@@ -168,11 +167,7 @@
          * @private
          */
         processRotation(x, y) {
-            const xDrag = x - this.mouseDraggedStartPosition.getX();
-            const yDrag = y - this.mouseDraggedStartPosition.getY();
             this.mouseDraggedStartPosition.setPosition(x, y);
-            let yDragFlt = yDrag;
-            let xDragFlt = xDrag;
             switch ((this.mode)) {
                 case 19:
                 case 20:
@@ -271,11 +266,9 @@
          *
          * @param {number} offsetX - The x-coordinate offset of the mouse release.
          * @param {number} offsetY - The y-coordinate offset of the mouse release.
-         * @deprecated This method is deprecated and should not be used.
          * @private
          */
         releaseRectangleSelect(offsetX, offsetY) {
-            //const virtualScreen = dsector.DSReference.virtualScreen;
             this.window.drawWindow();
             this.window.renderingRequired = true;
         }
@@ -367,8 +360,6 @@
                 CWSYSTEM.Environment.screenHasChanged = true;
                 const borderWidth = window1.borderWidth;
                 const titleHeight = window1.__titleHeight;
-                //const w = window1.w;
-                //const h = window1.h;
                 const xPosition = window1.xPosition;
                 const yPosition = window1.yPosition;
                 let xPos;
@@ -475,19 +466,7 @@
                 window1.w = newBorderWidthX - borderLoc - 2 * borderWidth;
                 window1.h = newBorderWidthY - newTitleLoc - 2 * borderWidth - titleHeight;
                 window1.updated = false;
-                const nameID = window1.nameID;
-                if (nameID === ("X")) {
-                    CWSYSTEM.Environment.oneProjectiveViewWindowRequestedForUpdateNextCycle(0);
-                }
-                if (nameID === ("Y")) {
-                    CWSYSTEM.Environment.oneProjectiveViewWindowRequestedForUpdateNextCycle(1);
-                }
-                if (nameID === ("Z")) {
-                    CWSYSTEM.Environment.oneProjectiveViewWindowRequestedForUpdateNextCycle(2);
-                }
-                if (nameID === ("PER")) {
-                    CWSYSTEM.Environment.oneProjectiveViewWindowRequestedForUpdateNextCycle(3);
-                }
+
                 if (window1.hasScrollbar()) {
                     window1.scrollbar.updateSliderSize();
                 }

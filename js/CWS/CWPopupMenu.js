@@ -25,39 +25,57 @@
          * @param {string|null} title - The title of the menu.
          */
         constructor(menu, title) {
+            this.initializeDefaultProperties();
+
+            if (menu === undefined && title === undefined) {
+                this.handleUndefinedParameters();
+            } else if (this.isValidMenuTitle(menu, title)) {
+                this.handleMenuCreation(menu, title);
+            } else {
+                throw new Error('Invalid parameters for CWPopupMenu constructor');
+            }
+        }
+
+        initializeDefaultProperties() {
             this.type = 0;
             this.window = null;
             this.menuTitle = null;
             this.parentMenu = null;
-            this.popupMenuItems = null;
+            this.popupMenuItems = [];
+        }
 
-            if ((menu instanceof CWSYSTEM.CWMenu || menu === null) && (typeof title === 'string' || title === null)) {
+        isValidMenuTitle(menu, title) {
+            return (menu instanceof CWSYSTEM.CWMenu ||
+                    menu instanceof CWSYSTEM.CWWindow ||
+                    menu instanceof CWSYSTEM.CWWindowCollection ||
+                    menu === null) &&
+                (typeof title === 'string' || title === null);
+        }
+
+        handleUndefinedParameters() {
+            this.type = CWPopupMenu.RIGHT_CLICK_MENU;
+            this.handleRightClickMenu();
+        }
+
+        handleMenuCreation(menu, title) {
+            this.menuTitle = title;
+
+            if (menu instanceof CWSYSTEM.CWMenu) {
                 this.type = CWPopupMenu.CONNECTED_MENU;
-                this.popupMenuItems = [];
-                this.menuTitle = title;
                 this.parentMenu = menu;
-            } else if ((menu instanceof CWSYSTEM.CWWindow || menu === null) &&
-                (typeof title === 'string' || title === null)) {
-                this.type = CWPopupMenu.RIGHT_CLICK_MENU;
-                this.popupMenuItems = [];
-                this.menuTitle = title;
-                menu.rightClickPopupMenu = this;
-            } else if ((menu instanceof CWSYSTEM.CWWindowCollection || menu === null) &&
-                (typeof title === 'string' || title === null)) {
-                this.type = CWPopupMenu.RIGHT_CLICK_MENU;
-                this.popupMenuItems = [];
-                this.menuTitle = title;
-                menu.rightClickPopupMenu = this;
-            } else if (menu === undefined && title === undefined) {
-                this.type = CWPopupMenu.RIGHT_CLICK_MENU;
-                this.popupMenuItems = [];
-                if (CWPopupMenu.rightClickMenu != null && CWPopupMenu.rightClickMenu.isPoppedUp()) {
-                    CWPopupMenu.rightClickMenu.destroy();
-                }
-                CWPopupMenu.rightClickMenu = this;
             } else {
-                throw new Error('Invalid overload');
+                this.type = CWPopupMenu.RIGHT_CLICK_MENU;
+                if (menu) {
+                    menu.rightClickPopupMenu = this;
+                }
             }
+        }
+
+        handleRightClickMenu() {
+            if (CWPopupMenu.rightClickMenu?.isPoppedUp?.()) {
+                CWPopupMenu.rightClickMenu.destroy();
+            }
+            CWPopupMenu.rightClickMenu = this;
         }
 
         /**
@@ -151,7 +169,7 @@
                 let mouseX = 0;
                 let mouseY = 0;
                 if (this.type === CWPopupMenu.CONNECTED_MENU) {
-                    if (this.parentMenu != null && this.parentMenu.window != null) {
+                    if (this?.parentMenu?.window) {
                         const button = this.parentMenu.getMenuButtonFromPopupMenu(this);
                         if (button != null) {
                             mouseX = button.x + this.parentMenu.window.xPosition;
@@ -219,51 +237,46 @@
                 this.window.changeBackgroundColor$CWColor(new CWSYSTEM.CWColor(200, 200, 255, 150));
                 const base1 = 0;
                 let btnY = base1 + pHeight;
-                for (let index = 0; index < this.popupMenuItems.length; index++) {
-                    let menuItem = this.popupMenuItems[index];
-                    {
-                        const popupMenuItem = menuItem;
-                        if (popupMenuItem.type === CWSYSTEM.CWPopupMenuItem.SEPARATOR) {
-                            btnY += hMt;
-                            this.window.addStoredLine(CWPopupMenu.separatorMargin, btnY - 1,
-                                w1 - CWPopupMenu.separatorMargin, btnY - 1, 30, 0, 0, 155);
-                            this.window.addStoredLine(CWPopupMenu.separatorMargin, btnY,
-                                w1 - CWPopupMenu.separatorMargin, btnY, 210, 210, 210, 255);
-                            this.window.addStoredLine(CWPopupMenu.separatorMargin, btnY + 1,
-                                w1 - CWPopupMenu.separatorMargin, btnY + 1, 0, 0, 30, 155);
-                            btnY += hMt;
-                        } else {
-                            let strBullet = "";
-                            if (popupMenuItem.type === CWSYSTEM.CWPopupMenuItem.BULLETED) {
-                                if (popupMenuItem.bulletStatus()) {
-                                    strBullet = "o";
-                                } else {
-                                    strBullet = "";
-                                }
+                for (const menuItem of this.popupMenuItems) {
+                    const popupMenuItem = menuItem;
+                    if (popupMenuItem.type === CWSYSTEM.CWPopupMenuItem.SEPARATOR) {
+                        btnY += hMt;
+                        this.window.addStoredLine(CWPopupMenu.separatorMargin, btnY - 1,
+                            w1 - CWPopupMenu.separatorMargin, btnY - 1, 30, 0, 0, 155);
+                        this.window.addStoredLine(CWPopupMenu.separatorMargin, btnY,
+                            w1 - CWPopupMenu.separatorMargin, btnY, 210, 210, 210, 255);
+                        this.window.addStoredLine(CWPopupMenu.separatorMargin, btnY + 1,
+                            w1 - CWPopupMenu.separatorMargin, btnY + 1, 0, 0, 30, 155);
+                        btnY += hMt;
+                    } else {
+                        let strBullet = "";
+                        if (popupMenuItem.type === CWSYSTEM.CWPopupMenuItem.BULLETED) {
+                            if (popupMenuItem.bulletStatus()) {
+                                strBullet = "o";
                             }
-                            const btnLen = xWidth * 2 + i;
-                            const button = this.window.addButton(popupMenuItem.code, btnX, btnY,
-                                btnLen, btnHgt, strBullet, CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON,
-                                CWSYSTEM.CWButton.PRESSED);
-                            button.generalPurposeObject = popupMenuItem.generalPurposeObject;
-                            button.secondText = popupMenuItem.text;
-                            button.shortcutText = popupMenuItem.shortcutText;
-                            button.secondTextHorizontalOffset = 10;
-                            button.textAlignment = CWSYSTEM.CWButton.LEFT;
-                            button.textColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__navy());
-                            button.bgColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__white());
-                            button.secondaryBackgroundColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__lightGrey());
-                            button.bgColorHighlighted = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__nearBlack());
-                            button.secondaryBackgroundColorHighlighted =
-                                new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__brightBlue());
-                            button.fillStyle = CWSYSTEM.CWButton.LINEAR_GRADIENT;
-                            button.onPressedMethod = popupMenuItem.executeMethodUponSelection;
-                            button.onPressedObject = popupMenuItem.objectToInvokeExecuteMethodFrom;
-                            button.onPressedParameters = popupMenuItem.parametersForExecuteMethod;
-                            btnY += btnHgt;
                         }
-                        btnY += he;
+                        const btnLen = xWidth * 2 + i;
+                        const button = this.window.addButton(popupMenuItem.code, btnX, btnY,
+                            btnLen, btnHgt, strBullet, CWSYSTEM.CWButton.ROUNDED_TEXT_BUTTON,
+                            CWSYSTEM.CWButton.PRESSED);
+                        button.generalPurposeObject = popupMenuItem.generalPurposeObject;
+                        button.secondText = popupMenuItem.text;
+                        button.shortcutText = popupMenuItem.shortcutText;
+                        button.secondTextHorizontalOffset = 10;
+                        button.textAlignment = CWSYSTEM.CWButton.LEFT;
+                        button.textColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__navy());
+                        button.bgColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__white());
+                        button.secondaryBackgroundColor = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__lightGrey());
+                        button.bgColorHighlighted = new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__nearBlack());
+                        button.secondaryBackgroundColorHighlighted =
+                            new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__brightBlue());
+                        button.fillStyle = CWSYSTEM.CWButton.LINEAR_GRADIENT;
+                        button.onPressedMethod = popupMenuItem.executeMethodUponSelection;
+                        button.onPressedObject = popupMenuItem.objectToInvokeExecuteMethodFrom;
+                        button.onPressedParameters = popupMenuItem.parametersForExecuteMethod;
+                        btnY += btnHgt;
                     }
+                    btnY += he;
                 }
             }
         }

@@ -2,6 +2,7 @@
     /**
      * Keyboard class. This class doesn't do much, but it's here for consistency.
      *
+     * @deprecated This class is deprecated and will be removed in a future version.
      * @since    1.0.0
      * @access   public
      * @class
@@ -13,6 +14,7 @@
      * @license  AGPLv3
      */
     class Keyboard {
+        // struct like class
     }
 
     /** Constant for the focus key.

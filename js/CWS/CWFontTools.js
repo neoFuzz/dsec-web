@@ -27,8 +27,7 @@
                 // Using Array.from to handle Unicode characters correctly
                 const charArray = Array.from(text);
                 let totalWidth = 0;
-                for (let index = 0; index < charArray.length; index++) {
-                    let c = charArray[index];
+                for (const c of charArray) {
                     const character = font.getCharacter(c);
                     totalWidth += character.width;
                 }
@@ -74,8 +73,8 @@
                 // Using Array.from to handle Unicode characters correctly
                 const charArray = Array.from(text);
                 let textHeight = 0;
-                for (let i = 0; i < charArray.length; ++i) {
-                    const character = font.getCharacter(charArray[i]);
+                for (const element of charArray) {
+                    const character = font.getCharacter(element);
                     if (character.lineHeight > textHeight) {
                         textHeight = character.lineHeight;
                     }
@@ -206,7 +205,8 @@
          * @param {number} charWidth - The width of the current character.
          * @param {number} maxValue - The maximum value of the distance.
          */
-        static updateCursorPositionAndDistance(charArray, i, cursorPosition, font, x, y, renderWidth, charWidth, maxValue) {
+        static updateCursorPositionAndDistance(charArray, i, cursorPosition, font,
+                                               x, y, renderWidth, charWidth, maxValue) {
             if (CWFontTools.CURSOR_POSITION_Y_APPROX >= y - font.getCharacter("a").lineHeight &&
                 CWFontTools.CURSOR_POSITION_Y_APPROX <= y + 1) {
                 if (CWFontTools.distance(CWFontTools.CURSOR_POSITION_X_APPROX, renderWidth) < maxValue) {
@@ -216,7 +216,6 @@
                 if (charArray[i] !== '\n' &&
                     CWFontTools.distance(CWFontTools.CURSOR_POSITION_X_APPROX, renderWidth + charWidth) < maxValue) {
                     CWFontTools.CURSOR_POSITION_IN_TEXT_FROM_APPROX_COORDS = cursorPosition + 1;
-                    maxValue = CWFontTools.distance(CWFontTools.CURSOR_POSITION_X_APPROX, renderWidth + charWidth);
                 }
             }
         }

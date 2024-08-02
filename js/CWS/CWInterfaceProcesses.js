@@ -47,7 +47,7 @@
                     CWSYSTEM.CWMenu.menuTitlePressed(windowName);
                 }
                 if (windowName === ("SAMPLE")) {
-                    //dsector.DSReference.dsecMainSetupWindow.enterDSecButtonPressed(button);
+                    // code sample: dsector.DSReference.dsecMainSetupWindow.enterDSecButtonPressed(button)
                 }
             }
         }
@@ -247,11 +247,7 @@
          * @methodOf CWSYSTEM.CWInterfaceProcesses
          */
         processMousePress$x$y$btn(x, y, button) {
-            CWSYSTEM.Environment.windowScrollUp = false;
-            CWSYSTEM.Environment.windowScrollDown = false;
-            CWSYSTEM.Environment.windowPageUp = false;
-            CWSYSTEM.Environment.windowPageDown = false;
-            CWSYSTEM.Environment.scrollbarHeld = null;
+            this.processMouseRelease()
         }
 
         /**

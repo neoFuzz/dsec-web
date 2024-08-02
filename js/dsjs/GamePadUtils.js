@@ -26,21 +26,33 @@
             let joy;
             this.joysticksActive = new Map();
             let gpID = 5;
-            const gamepads = navigator.getGamepads ? navigator.getGamepads() : (
-                navigator.webkitGetGamepads ? navigator.webkitGetGamepads() : []);
-            for (let i = 0; i < gamepads.length; i++) {
-                if (gamepads[i]) {
+            let gamepads = GamePadUtils.getGamePadObjects();
+            for (const gamepad of gamepads) {
+                if (gamepad) {
                     joy = new dsector.Joystick();
-                    joy.gamePadName = gamepads[i].id;
-                    joy.joystickID = gamepads[i].index;
+                    joy.gamePadName = gamepad.id;
+                    joy.joystickID = gamepad.index;
                     joy.internalID = gpID;
-                    joy.gamePadAxes = gamepads[i].axes;
-                    joy.gamePadButtons = gamepads[i].buttons;
+                    joy.gamePadAxes = gamepad.axes;
+                    joy.gamePadButtons = gamepad.buttons;
                     this.joysticksActive.set(gpID, joy);
                     gpID++;
                 }
             }
             // Wire up events, maybe?
+        }
+
+        /**
+         * Returns an array of gamepad objects.
+         *
+         * @returns {Array<null>|Gamepad[]} An array of gamepad objects.
+         */
+        static getGamePadObjects() {
+            let gamepads = navigator.getGamepads ? navigator.getGamepads() : null;
+            if (gamepads === null) {
+                gamepads = navigator.webkitGetGamepads() ? navigator.webkitGetGamepads() : [];
+            }
+            return gamepads;
         }
 
         /**
@@ -50,8 +62,7 @@
          * @returns {boolean} True if the joystick is connected, false otherwise.
          */
         checkJoystickConnected(joystick) {
-            let gamepads = navigator.getGamepads ? navigator.getGamepads() :
-                (navigator.webkitGetGamepads ? navigator.webkitGetGamepads() : []);
+            let gamepads = GamePadUtils.getGamePadObjects();
             for (let i = 0; i < gamepads.length; i++) {
                 const str = String(i + 1).toString();
                 /* check for gamepad presence */
@@ -60,7 +71,8 @@
                         return true;
                     } else {
                         const gpn = dsector.DSReference.jsu.joysticksActive.get(joystick.internalID).gamePadName;
-                        dsector.DSReference.alertManager.messageQueued("Joystick" + str + " removed - Please plug " + gpn + "back in");
+                        dsector.DSReference.alertManager.messageQueued(
+                            `"Joystick ${str} with ${key} removed - Please plug ${gpn} back in`);
                         dsector.DSReference.jsu.joysticksActive.delete(joystick.internalID);
                         // TODO: Incomplete, needs to recheck joys and re-map
                     }

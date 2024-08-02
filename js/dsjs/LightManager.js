@@ -69,8 +69,7 @@
                         break;
                     }
 
-                    for (let j = 0; j < modelFolder.inbuiltLights.length; ++j) {
-                        const inbuiltLight = modelFolder.inbuiltLights[j];
+                    for (const inbuiltLight of modelFolder.inbuiltLights) {
                         if (inbuiltLight.on()) {
                             const lightPos = this.transformLightPosition(inbuiltLight, positionedModel, cameraPos, inverse);
                             lights.push(new dsector.InbuiltLight(null, null, true,
@@ -113,6 +112,16 @@
             }
         }
 
+        /**
+         * Transforms the position of a light from world space to camera space.
+         *
+         * @param {dsector.InbuiltLight} inbuiltLight - The light to transform.
+         * @param {dsector.PositionedModel} positionedModel - The positioned model the light belongs to.
+         * @param {Object} cameraPos - The position of the camera.
+         * @param {dsector.Matrix4f} inverse - The inverse rotation matrix of the camera.
+         * @returns {dsector.Vertex} The transformed light position.
+         *
+         */
         transformLightPosition(inbuiltLight, positionedModel, cameraPos, inverse) {
             const vertex = new dsector.Vertex(
                 inbuiltLight.x(), inbuiltLight.y(), inbuiltLight.z()

@@ -70,7 +70,7 @@
                     maxPartySize = playerCountMode;
                     break;
                 default:
-                    // gameStr = "Menu"
+                // gameStr = "Menu"
             }
             const drpCall = `Discord RPC: ${location} : ${state} : ${assetImageName} : ${partySize}/${maxPartySize}`;
             if (DSMain.discordEnabled) {
@@ -82,8 +82,13 @@
          * Main function from desktop app. Used to run the game and must be set up on the hosting HTML page
          */
         main() {
-            dsMain.begin();
-            dsMain.interval = setInterval(dsMain.loop, 33);// timeout controls the max framerate
+            CWSYSTEM.Global.graphicsInitialized = true;
+            dsector.DSReference.virtualScreen.update();
+            if (DSMain.discordEnabled) {
+                CWSYSTEM.Debug.println("Discord Integration Enabled");
+            }
+
+            requestAnimationFrame(dsMain.loop);
         }
 
         /**
@@ -93,17 +98,6 @@
             let canvas = document.getElementById("3dSpace");
             let ctx = canvas.getContext("2d");
             ctx.putImageData(CWSYSTEM.CWSReference.bi, 0, 0);
-        }
-
-        /**
-         * Initializes the game setup window and updates the virtual screen.
-         */
-        begin() {
-            CWSYSTEM.Global.graphicsInitialized = true;
-            dsector.DSReference.virtualScreen.update();
-            if (DSMain.discordEnabled) {
-                CWSYSTEM.Debug.println("Discord Integration Enabled");
-            }
         }
 
         /**
@@ -131,6 +125,8 @@
             dsector.DSReference.virtualScreen.update();
             if (!CWSYSTEM.Global.runState) {
                 DSMain.endApplication();
+            } else {
+                requestAnimationFrame(dsMain.loop);
             }
         }
 

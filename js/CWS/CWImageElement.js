@@ -35,6 +35,15 @@
             this.x = x || 0;
             this.y = y || 0;
         }
+
+        /**
+         * Get the ID of the image element.
+         *
+         * @returns {string} The ID of the image element.
+         */
+        getName() {
+            return this.nameID;
+        }
     }
 
     CWSYSTEM.CWImageElement = CWImageElement;

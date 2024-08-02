@@ -35,6 +35,15 @@
             this.y = y;
             this.brightness = brightness;
         }
+
+        /**
+         * Returns the image object.
+         *
+         * @returns {Object}
+         */
+        getImage() {
+            return this.image;
+        }
     }
 
     /**

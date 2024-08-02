@@ -777,8 +777,14 @@
          */
         addStoredLine(x0, y0, x1, y1, red, green, blue, alpha) {
             if (this.numberOfStoredLines < CWWindow.maximumNumberOfStoredLines) {
+                const dimensions = {
+                    x0: x0,
+                    y0: y0,
+                    x1: x1,
+                    y1: y1
+                };
                 this.storedLine[this.numberOfStoredLines] =
-                    new CWSYSTEM.CWStoredLine(this, x0, y0, x1, y1, red, green, blue, alpha);
+                    new CWSYSTEM.CWStoredLine(this, dimensions, red, green, blue, alpha);
                 ++this.numberOfStoredLines;
                 this.updated = false;
             }
@@ -840,7 +846,7 @@
                 return null;
             } else {
                 this.textBlock[this.numberOfTextBlocks] =
-                    new CWSYSTEM.CWTextBlock(this, nameId, text, leftMargin, baseLine, font, color, width);
+                    new CWSYSTEM.CWTextBlock(this, nameId, text, font, color, baseLine, leftMargin, width);
                 ++this.numberOfTextBlocks;
                 this.updated = false;
                 return this.textBlock[this.numberOfTextBlocks - 1];
@@ -1093,6 +1099,11 @@
                         this.h + 2 * this.borderWidth + this.__titleHeight - k - 1, this.w, color1);
                 }
             }
+            this.doDrawB();
+        }
+
+        doDrawB() {
+            let j, k;
             for (j = 0; j < this.borderWidth; ++j) {
                 for (k = 0; k < this.borderWidth; ++k) {
                     this.v.setColorVS$r$g$b$a(this.cornerBitmap[j][k][0], this.cornerBitmap[j][k][1],
@@ -1352,9 +1363,15 @@
             if (this.dSecSpecialEffects != null) {
                 for (const specialEffect of this.dSecSpecialEffects) {
                     if (specialEffect.type === dsector.DSecSpecialEffect.IMAGE_COMPOSITE) {
+                        const minMax = {
+                            minX: x,
+                            minY: y,
+                            maxX: x + this.w,
+                            maxY: y + this.h
+                        }
                         CWSYSTEM.CWImage.drawUsingBrightnessOverlayWithCropping(
                             specialEffect.image, effectArr, x + specialEffect.x, y + specialEffect.y,
-                            specialEffect.brightness, x, y, x + this.w, y + this.h);
+                            specialEffect.brightness, minMax);
                     }
                 }
             }

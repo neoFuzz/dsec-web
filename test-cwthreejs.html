@@ -4,7 +4,7 @@
     <title>CW to threeJS</title>
 </head>
 <body>
-<script src="./out/CWS-debug.js"></script>
+<script src="./js/ds.js"></script>
 <script src="./js/bootstrap.bundle.js"></script>
 
 Example to show the creating an image in a ImageData buffer<br>
@@ -19,810 +19,6 @@ Example to show the creating an image in a ImageData buffer<br>
     }
 </script>
 <script type="module">
-
-    class tjUserIOBuffer extends dsector.UserIOBuffer {
-        constructor() {
-            super();
-        }
-
-        process() {
-            tjmain.ref.virtualScreen.cancelOption = false;
-            CWSYSTEM.Environment.ESCKeyPressedDuringThisCycle = false;
-            while (!(this.instructions.length === 0)) {
-                const ioInstruction = this.instructions[0];
-                (a => {
-                    let index = a.indexOf(ioInstruction);
-                    if (index >= 0) {
-                        a.splice(index, 1);
-                        return true;
-                    } else {
-                        return false;
-                    }
-                })(this.instructions);
-                const type = ioInstruction.type;
-                const x = ioInstruction.x;
-                const y = ioInstruction.y;
-                const key = ioInstruction.key;
-                const keyCode = ioInstruction.keyCode;
-                switch (type) {
-                    case CWSYSTEM.IOInstruction.mouseEntered:
-                    case CWSYSTEM.IOInstruction.mouseExited:
-                    default:
-                        break;
-                    case CWSYSTEM.IOInstruction.mouseLeftPressed:
-                        this.mouseLeftPressed(x, y);
-                        break;
-                    case CWSYSTEM.IOInstruction.mouseRightPressed:
-                        this.mouseRightPressed(x, y);
-                        break;
-                    case CWSYSTEM.IOInstruction.mouseLeftReleased:
-                        this.mouseLeftReleased(x, y);
-                        break;
-                    case CWSYSTEM.IOInstruction.mouseRightReleased:
-                        this.mouseRightReleased(x, y);
-                        break;
-                    case CWSYSTEM.IOInstruction.mouseLeftClicked:
-                        this.mouseLeftClicked(x, y);
-                        break;
-                    case CWSYSTEM.IOInstruction.mouseRightClicked:
-                        this.mouseRightClicked(x, y);
-                        break;
-                    case CWSYSTEM.IOInstruction.mouseDoubleLeftClicked:
-                        this.mouseDoubleLeftClicked(x, y);
-                        break;
-                    case CWSYSTEM.IOInstruction.mouseDoubleRightClicked:
-                        this.mouseDoubleRightClicked(x, y);
-                        break;
-                    case CWSYSTEM.IOInstruction.mouseDragged:
-                        CWSYSTEM.DSReference.mouseDrag.process(x, y);
-                        break;
-                    case CWSYSTEM.IOInstruction.mouseMoved:
-                        this.mouseMoved(x, y);
-                        break;
-                    case CWSYSTEM.IOInstruction.keyTyped:
-                        this.keyTyped(key);
-                        break;
-                    case CWSYSTEM.IOInstruction.keyPressed:
-                        this.keyPressed(keyCode);
-                        break;
-                    case CWSYSTEM.IOInstruction.keyReleased:
-                        this.keyReleased(keyCode);
-                        break;
-                }
-            }
-        }
-
-        addMouseEnteredEvent(x, y) {
-            this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.mouseEntered, x, y));
-        }
-
-        addMouseExitedEvent(x, y) {
-            this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.mouseExited, x, y));
-        }
-
-        addMousePressedEvent(mouseEvent) {
-            if (mouseEvent.button === 0) {
-                CWSYSTEM.Environment.lastMouseButtonPressed = CWSYSTEM.Environment.MOUSE_LEFT;
-                this.instructions.push(new CWSYSTEM.IOInstruction(
-                    CWSYSTEM.IOInstruction.mouseLeftPressed, mouseEvent.x, mouseEvent.y));
-            } else {
-                CWSYSTEM.Environment.lastMouseButtonPressed = CWSYSTEM.Environment.MOUSE_RIGHT;
-                this.instructions.push(new CWSYSTEM.IOInstruction(
-                    CWSYSTEM.IOInstruction.mouseRightPressed, mouseEvent.x, mouseEvent.y));
-            }
-        }
-
-        addMouseReleasedEvent(mouseEvent) {
-            if (mouseEvent.button === 0) {
-                CWSYSTEM.Environment.lastMouseButtonPressed = CWSYSTEM.Environment.MOUSE_LEFT;
-                this.instructions.push(new CWSYSTEM.IOInstruction(
-                    CWSYSTEM.IOInstruction.mouseLeftReleased, mouseEvent.x, mouseEvent.y));
-            } else {
-                CWSYSTEM.Environment.lastMouseButtonPressed = CWSYSTEM.Environment.MOUSE_RIGHT;
-                this.instructions.push(new CWSYSTEM.IOInstruction(
-                    CWSYSTEM.IOInstruction.mouseRightReleased, mouseEvent.x, mouseEvent.y));
-            }
-        }
-
-        addMouseClickedEvent(mouseEvent) {
-            let x = mouseEvent.x;
-            let y = mouseEvent.y;
-            let check = true;
-            if (mouseEvent.button === 0) {
-                CWSYSTEM.Environment.lastMouseButtonPressed = (CWSYSTEM.Environment.MOUSE_LEFT);
-                check = false;
-            } else {
-                CWSYSTEM.Environment.lastMouseButtonPressed = (CWSYSTEM.Environment.MOUSE_RIGHT);
-            }
-            const currentTime = CWSYSTEM.Environment.currentTime();
-            let timeCheck;
-            if (x === CWSYSTEM.Environment.mouseXLastClicked$() && y === CWSYSTEM.Environment.mouseYLastClicked$() &&
-                currentTime - CWSYSTEM.Environment.timeWhenMouseLastClicked < CWSYSTEM.Global.maximumDoubleClickTime) {
-                timeCheck = true;
-                CWSYSTEM.Environment.timeWhenMouseLastClicked = 0;
-            } else {
-                timeCheck = false;
-                CWSYSTEM.Environment.mouseXLastClicked = x;
-                CWSYSTEM.Environment.mouseYLastClicked = y;
-                CWSYSTEM.Environment.timeWhenMouseLastClicked = currentTime;
-            }
-            if (timeCheck) {
-                if (check) {
-                    this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.mouseDoubleRightClicked, x, y));
-                } else {
-                    this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.mouseDoubleLeftClicked, x, y));
-                }
-            } else if (check) {
-                this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.mouseRightClicked, x, y));
-            } else {
-                this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.mouseLeftClicked, x, y));
-            }
-        }
-
-        addMouseDraggedEvent(x, y) {
-            this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.mouseDragged, x, y));
-        }
-
-        addMouseMovedEvent(x, y) {
-            this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.mouseMoved, x, y));
-        }
-
-        addKeyTypedEvent(c) {
-            this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.keyTyped, c));
-        }
-
-        addKeyPressedEvent(evt) {
-            this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.keyPressed, evt));
-            if (evt === 27) {
-                CWSYSTEM.Environment.ESCKeyPressedDuringThisCycle = true;
-                CWSYSTEM.Debug.println("Escape Key pressed.");
-            }
-        }
-
-        addKeyReleasedEvent(keyCode) {
-            this.instructions.push(new CWSYSTEM.IOInstruction(CWSYSTEM.IOInstruction.keyReleased, keyCode));
-        }
-
-        clear() {
-            while ((!(this.instructions.length === 0))) {
-                const ioInstruction = this.instructions[0];
-                (a => {
-                    let index = a.indexOf(ioInstruction);
-                    if (index >= 0) {
-                        a.splice(index, 1);
-                        return true;
-                    } else {
-                        return false;
-                    }
-                })(this.instructions);
-            }
-            CWSYSTEM.Environment.ctrlKeyPressed = false;
-            CWSYSTEM.Environment.shiftKeyPressed = false;
-            CWSYSTEM.Environment.altKeyPressed = false;
-            CWSYSTEM.Environment.spacebarPressed = false;
-            CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed = false;
-            CWSYSTEM.Environment.VK_q_Pressed = false;
-        }
-
-        process() {
-            tjmain.ref.virtualScreen.cancelOption = false;
-            CWSYSTEM.Environment.ESCKeyPressedDuringThisCycle = false;
-            while (!(this.instructions.length === 0)) {
-                const ioInstruction = this.instructions[0];
-                (a => {
-                    let index = a.indexOf(ioInstruction);
-                    if (index >= 0) {
-                        a.splice(index, 1);
-                        return true;
-                    } else {
-                        return false;
-                    }
-                })(this.instructions);
-                const type = ioInstruction.type;
-                const x = ioInstruction.x;
-                const y = ioInstruction.y;
-                const key = ioInstruction.key;
-                const keyCode = ioInstruction.keyCode;
-                switch (type) {
-                    case CWSYSTEM.IOInstruction.mouseEntered:
-                    case CWSYSTEM.IOInstruction.mouseExited:
-                    default:
-                        break;
-                    case CWSYSTEM.IOInstruction.mouseLeftPressed:
-                        this.mouseLeftPressed(x, y);
-                        break;
-                    case CWSYSTEM.IOInstruction.mouseRightPressed:
-                        this.mouseRightPressed(x, y);
-                        break;
-                    case CWSYSTEM.IOInstruction.mouseLeftReleased:
-                        this.mouseLeftReleased(x, y);
-                        break;
-                    case CWSYSTEM.IOInstruction.mouseRightReleased:
-                        this.mouseRightReleased(x, y);
-                        break;
-                    case CWSYSTEM.IOInstruction.mouseLeftClicked:
-                        this.mouseLeftClicked(x, y);
-                        break;
-                    case CWSYSTEM.IOInstruction.mouseRightClicked:
-                        this.mouseRightClicked(x, y);
-                        break;
-                    case CWSYSTEM.IOInstruction.mouseDoubleLeftClicked:
-                        this.mouseDoubleLeftClicked(x, y);
-                        break;
-                    case CWSYSTEM.IOInstruction.mouseDoubleRightClicked:
-                        this.mouseDoubleRightClicked(x, y);
-                        break;
-                    case CWSYSTEM.IOInstruction.mouseDragged:
-                        CWSYSTEM.DSReference.mouseDrag.process(x, y);
-                        break;
-                    case CWSYSTEM.IOInstruction.mouseMoved:
-                        this.mouseMoved(x, y);
-                        break;
-                    case CWSYSTEM.IOInstruction.keyTyped:
-                        this.keyTyped(key);
-                        break;
-                    case CWSYSTEM.IOInstruction.keyPressed:
-                        this.keyPressed(keyCode);
-                        break;
-                    case CWSYSTEM.IOInstruction.keyReleased:
-                        this.keyReleased(keyCode);
-                        break;
-                }
-            }
-        }
-
-        mouseMoved(x, y) {
-            CWSYSTEM.Environment.mouseX = x;
-            CWSYSTEM.Environment.mouseY = y;
-            const mouseIsOver = tjmain.ref.gui.windowThatMouseIsOver(x, y);
-            if (mouseIsOver === -1) {
-                if (CWSYSTEM.Environment.buttonLastMovedOver$() != null) {
-                    CWSYSTEM.Environment.buttonLastMovedOver$().mouseIsOver = false;
-                    CWSYSTEM.Environment.buttonLastMovedOver$().parent.updated = false;
-                    CWSYSTEM.Environment.buttonLastMovedOver = null;
-                }
-            } else {
-                const window = tjmain.ref.gui.getWindow$int(mouseIsOver);
-                const button = tjmain.ref.gui.buttonThatMouseIsOver(x, y);
-                if (button != null) {
-                    if (button !== CWSYSTEM.Environment.buttonLastMovedOver$()) {
-                        button.mouseIsOver = true;
-                        if (CWSYSTEM.Environment.buttonLastMovedOver$() != null) {
-                            CWSYSTEM.Environment.buttonLastMovedOver$().mouseIsOver = false;
-                            CWSYSTEM.Environment.buttonLastMovedOver$().parent.updated = false;
-                        }
-                        CWSYSTEM.Environment.buttonLastMovedOver = button;
-                        window.updated = false;
-                        tjMenu.mouseMovedOverButton(button);
-                    }
-                } else if (CWSYSTEM.Environment.buttonLastMovedOver$() != null) {
-                    CWSYSTEM.Environment.buttonLastMovedOver$().mouseIsOver = false;
-                    CWSYSTEM.Environment.buttonLastMovedOver$().parent.updated = false;
-                    CWSYSTEM.Environment.buttonLastMovedOver = null;
-                }
-            }
-        }
-
-        /** @private */
-        mousePressedFinalize() {
-            tjMenu.mouseClicked();
-            CWSYSTEM.CWPopupMenu.mouseClicked();
-        }
-
-        /** @private */
-        mouseLeftPressed(xPos, yPos) {
-            CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed = true;
-            const mouseIsOver = tjmain.ref.gui.windowThatMouseIsOver(xPos, yPos);
-            if (mouseIsOver === -1) {
-                this.mousePressedFinalize();
-            } else {
-                const cwWindow = tjmain.ref.gui.getWindow$int(mouseIsOver);
-                const nameID = cwWindow.nameID;
-                CWSYSTEM.Environment.screenHasChanged = true;
-                tjmain.ref.gui.moveWindowToTop$int(mouseIsOver);
-                tjmain.ref.gui.deactivateTextAreasInWindowsOtherThan(cwWindow);
-                if (CWSYSTEM.Environment.activePulldownMenu$() != null && cwWindow === CWSYSTEM.Environment.activePulldownMenu$().parent) {
-                    CWSYSTEM.Environment.activePulldownMenu$().mousePressedOverClosedSectionOrOverlayBorder();
-                    this.mousePressedFinalize();
-                } else {
-                    const inputBox = tjmain.ref.gui.inputBoxThatMouseIsOver(xPos, yPos);
-                    if (inputBox != null) {
-                        CWSYSTEM.Environment.inputBoxSelected = inputBox;
-                    }
-                    if (CWSYSTEM.Environment.inputBoxSelected$() != null && CWSYSTEM.Environment.inputBoxSelected$() !== inputBox) {
-                        tjmain.ref.interfaceProcesses.processInputBox(CWSYSTEM.Environment.inputBoxSelected$());
-                        CWSYSTEM.Environment.inputBoxSelected = null;
-                    }
-                    const textArea = tjmain.ref.gui.textAreaThatMouseIsOver(xPos, yPos);
-                    if (textArea != null) {
-                        textArea.select(xPos - (cwWindow.xPosition - cwWindow.borderWidth), yPos - (cwWindow.yPosition - cwWindow.borderWidth - cwWindow.__titleHeight));
-                    }
-                    const cwButton = tjmain.ref.gui.buttonThatMouseIsOver(xPos, yPos);
-                    if (cwButton != null) {
-                        if (cwButton.respondsTo === CWSYSTEM.CWButton.PRESSED) {
-                            tjmain.ref.interfaceProcesses.processButton$btn$x$y(cwButton, xPos, yPos);
-                            cwButton.press();
-                            this.buttonActionPerformedOnButtonPressed = true;
-                            this.mousePressedFinalize();
-                            return;
-                        }
-                        cwButton.press();
-                    }
-                    const cwChkBox = tjmain.ref.gui.checkBoxThatMouseIsOver(xPos, yPos);
-                    if (cwChkBox != null) {
-                        if (cwChkBox.isRadioButton()) {
-                            cwChkBox.selected$boolean(true);
-                            this.mousePressedFinalize();
-                        } else {
-                            cwChkBox.invertSelectedState();
-                            tjmain.ref.interfaceProcesses.processCheckBox(cwChkBox);
-                            this.mousePressedFinalize();
-                        }
-                    } else if ((nameID === ("overlay")) && CWSYSTEM.Environment.activePulldownMenu$() != null) {
-                        CWSYSTEM.Environment.activePulldownMenu$().mousePressedOverClosedSectionOrOverlayBorder();
-                        this.mousePressedFinalize();
-                    } else {
-                        const pulldownMO = tjmain.ref.gui.pulldownThatMouseIsOver(xPos, yPos);
-                        if (pulldownMO != null) {
-                            pulldownMO.mousePressedOverClosedSectionOrOverlayBorder();
-                            this.mousePressedFinalize();
-                        } else {
-                            if (cwWindow.hasScrollbar()) {
-                                CWSYSTEM.Environment.scrollbarHeld = cwWindow.scrollbar;
-                                CWSYSTEM.Environment.timeOnInitialPress = CWSYSTEM.Environment.currentTime();
-                                if (cwWindow.scrollbar.mouseIsOverSlidingBar(xPos, yPos)) {
-                                    tjmain.ref.mouseDrag.engageSlidingBarMove(cwWindow, xPos, yPos);
-                                    this.mousePressedFinalize();
-                                    return;
-                                }
-                                if (cwWindow.scrollbar.mouseIsOverScrollbarUpperSpace(xPos, yPos)) {
-                                    cwWindow.scrollbar.moveUpFast();
-                                    CWSYSTEM.Environment.windowPageUp = true;
-                                    this.mousePressedFinalize();
-                                    return;
-                                }
-                                if (cwWindow.scrollbar.mouseIsOverScrollbarLowerSpace(xPos, yPos)) {
-                                    cwWindow.scrollbar.moveDownFast();
-                                    CWSYSTEM.Environment.windowPageDown = true;
-                                    this.mousePressedFinalize();
-                                    return;
-                                }
-                                if (cwWindow.scrollbar.mouseIsOverScrollbarUpperButton(xPos, yPos)) {
-                                    cwWindow.scrollbar.moveUpSlowly();
-                                    CWSYSTEM.Environment.windowScrollUp = true;
-                                    this.mousePressedFinalize();
-                                    return;
-                                }
-                                if (cwWindow.scrollbar.mouseIsOverScrollbarLowerButton(xPos, yPos)) {
-                                    cwWindow.scrollbar.moveDownSlowly();
-                                    CWSYSTEM.Environment.windowScrollDown = true;
-                                    this.mousePressedFinalize();
-                                    return;
-                                }
-                            }
-                            if (((nameID === ("X")) || (nameID === ("Y")) || (nameID === ("Z"))) &&
-                                xPos - cwWindow.xPosition > 0 && xPos - cwWindow.xPosition < cwWindow.w &&
-                                yPos - cwWindow.yPosition > 0 && yPos - cwWindow.yPosition < cwWindow.h) {
-                                this.mousePressedFinalize();
-                            } else {
-                                const cornerMouseOver = cwWindow.cornerThatMouseIsOver(xPos, yPos);
-                                if (cornerMouseOver > 0 && cwWindow.resizable) {
-                                    tjmain.ref.mouseDrag.engageWindowResize(mouseIsOver, cornerMouseOver, xPos, yPos);
-                                } else if (CWSYSTEM.Global.windowsCanOnlyBeMovedByClickingTitleArea) {
-                                    if (cwWindow.mouseOverTitleArea(xPos, yPos)) {
-                                        tjmain.ref.mouseDrag.engageWindowMove(mouseIsOver, xPos, yPos);
-                                    }
-                                } else {
-                                    tjmain.ref.mouseDrag.engageWindowMove(mouseIsOver, xPos, yPos);
-                                }
-                                this.mousePressedFinalize();
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        /** @private */
-        mouseRightPressed(x, y) {
-            CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed = true;
-            const ref = tjmain.ref.gui.windowThatMouseIsOver(x, y);
-            if (ref === -1) {
-                if (tjmain.ref.gui.rightClickPopupMenu != null) {
-                    tjmain.ref.gui.rightClickPopupMenu.popup$();
-                }
-                this.mousePressedFinalize();
-            } else {
-                const window = tjmain.ref.gui.getWindow$int(ref);
-                if (window.rightClickPopupMenu != null) {
-                    window.rightClickPopupMenu.popup$();
-                }
-                this.mousePressedFinalize();
-            }
-        }
-
-        /** @private */
-        mouseLeftReleased(x, y) {
-            CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed = false;
-            tjmain.ref.mouseDrag.release(x, y);
-            if (CWSYSTEM.Environment.buttonLastPressed$() != null) {
-                CWSYSTEM.Environment.buttonLastPressed$().release();
-            }
-            tjmain.ref.interfaceProcesses.processMouseRelease();
-        }
-
-        /** @private */
-        mouseRightReleased(x, y) {
-            CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed = false;
-        }
-
-        /** @private */
-        mouseDoubleLeftClicked(x, y) {
-            const ref = tjmain.ref.gui.windowThatMouseIsOver(x, y);
-            if (ref !== -1) {
-                const window4 = tjmain.ref.gui.getWindow$int(ref);
-            }
-        }
-
-        /** @private */
-        mouseDoubleRightClicked(x, y) {
-            CWSYSTEM.Debug.print("");
-        }
-
-        /** @private */
-        mouseLeftClicked(x, y) {
-            if (this.buttonActionPerformedOnButtonPressed) {
-                this.buttonActionPerformedOnButtonPressed = false;
-            } else {
-                const mouseOver = tjmain.ref.gui.windowThatMouseIsOver(x, y);
-                if (mouseOver !== -1) {
-                    const button = tjmain.ref.gui.buttonThatMouseIsOver(x, y);
-                    if (button != null && button.respondsTo === CWSYSTEM.CWButton.CLICKED) {
-                        tjmain.ref.interfaceProcesses.processButton$btn$x$y(button, x, y);
-                        this.mousePressedFinalize();
-                    }
-                }
-            }
-        }
-
-        /** @private */
-        mouseRightClicked(x, y) {
-            CWSYSTEM.Debug.print("RC X: " + x + " | Y: " + y);
-        }
-
-        tabKeyPressed() {
-            tjmain.ref.interfaceProcesses.processKeyboardPress(9);
-        }
-
-        /** @private */
-        keyTyped(c) {
-            tjmain.ref.interfaceProcesses.processKeyboardChar(c);
-        }
-
-        keyPressed(keycode) {
-            CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed = true;
-            switch (keycode) {
-                case 16:
-                    CWSYSTEM.Environment.shiftKeyPressed = true;
-                    break;
-                case 18:
-                    CWSYSTEM.Environment.altKeyPressed = true;
-                    break;
-                case 17:
-                    CWSYSTEM.Environment.ctrlKeyPressed = true;
-                    break;
-                case 32:
-                    CWSYSTEM.Environment.spacebarPressed = true;
-                    break;
-                case 81:
-                    CWSYSTEM.Environment.VK_q_Pressed = true;
-                    break;
-            }
-            tjmain.ref.interfaceProcesses.processKeyboardPress(keycode);
-        }
-
-        keyReleased(keycode) {
-            CWSYSTEM.Environment.mouseButtonOrAnyKeyPressed = false;
-            switch (keycode) {
-                case 16:
-                    CWSYSTEM.Environment.shiftKeyPressed = false;
-                    break;
-                case 18:
-                    CWSYSTEM.Environment.altKeyPressed = false;
-                    break;
-                case 17:
-                    CWSYSTEM.Environment.ctrlKeyPressed = false;
-                    break;
-                case 32:
-                    CWSYSTEM.Environment.spacebarPressed = false;
-                    break;
-                case 81:
-                    CWSYSTEM.Environment.VK_q_Pressed = false;
-                    break;
-            }
-            tjmain.ref.interfaceProcesses.processKeyboardRelease(keycode);
-        }
-    }
-
-    class tJReference {
-        constructor() {
-            this.virtualScreen = new CWSYSTEM.VirtualScreen();
-            this.gui = new CWSYSTEM.CWWindowCollection(this.virtualScreen);
-            this.graphics = new CWSYSTEM.CWGraphics();
-            this.alertManager = new CWSYSTEM.AlertManager();
-            this.cwSound = new CWSYSTEM.CWSound();
-            this.mouseDrag = new CWSYSTEM.MouseDrag();
-
-        }
-
-        init() {
-            this.interfaceProcesses = new tjADInterfaceProcesses();
-        }
-    }
-
-    class tjADInterfaceProcesses {
-        constructor() {
-            if (this.mainGUI === undefined) {
-                this.mainGUI = null;
-            }
-            this.mainGUI = tjmain.ref.gui;
-        }
-
-        processButton$btn$x$y(button, x, y) {
-            const windowName = button.name;
-            button.buttonPressed();
-            if ((button.parent.nameID === ("overlay")) && CWSYSTEM.Environment.activePulldownMenu$() != null) {
-                CWSYSTEM.Environment.activePulldownMenu$().optionSelected(button);
-            } else {
-                if (windowName === ("DESTROY_WINDOW")) {
-                    tjmain.ref.alertManager.processContinue();
-                } else if (windowName.length > 11 && ((str, searchString, position = 0) =>
-                    str.substring(position, searchString.length) === searchString)(windowName, "MENU_BUTTON")) {
-                    CWSYSTEM.CWMenu.menuTitlePressed(windowName);
-                }
-                if (windowName === ("ENTER_DSECTOR")) {
-                    //tjmain.ref.dsecMainSetupWindow.enterDSecButtonPressed(button);
-                }
-            }
-        }
-
-        processButton(button, x, y) {
-            if (((button != null && button instanceof CWSYSTEM.CWButton) || button === null) &&
-                ((typeof x === 'number') || x === null) && ((typeof y === 'number') || y === null)) {
-                return this.processButton$btn$x$y(button, x, y);
-            } else if (((button != null && button instanceof CWSYSTEM.CWButton) || button === null) &&
-                x === undefined && y === undefined) {
-                return this.processButton$button(button);
-            } else
-                throw new Error('invalid overload');
-        }
-
-        processButton$button(button) {
-            this.processButton$btn$x$y(button, 0, 0);
-        }
-
-        processInputBox(inputBox) {
-            CWSYSTEM.Environment.inputBoxSelected = null;
-            inputBox.parentWindow.updated = false;
-            inputBox.returnTyped();
-            const name = inputBox.name;
-            switch (name) {
-                default:
-                    break;
-            }
-        }
-
-        processCheckBox(checkBox) {
-            this.mainGUI.moveWindowToTopByName(checkBox.parentWindow.nameID);
-        }
-
-        processKeyboardChar(c) {
-            if (CWSYSTEM.Environment.inputBoxSelected$() != null) {
-                if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(c) !== '\uffff'.charCodeAt(0)) {
-                    CWSYSTEM.Environment.inputBoxSelected$().addCharacter(c);
-                }
-            } else if (CWSYSTEM.CWTextArea.textAreaSelected() != null) {
-                if ((c => c.charCodeAt == null ? c : c.charCodeAt(0))(c) !== '\uffff'.charCodeAt(0)) {
-                    CWSYSTEM.CWTextArea.textAreaSelected().addCharacter(c);
-                }
-            } else if (!CWSYSTEM.Environment.ctrlKeyPressed) {
-                CWSYSTEM.Debug.println("!Environment.ctrlKeyPressed");
-            }
-        }
-
-        processKeyboardPress(keyCode) {
-            //tjmain.ref.dsecGame.keyPressed(keyCode);
-            if (CWSYSTEM.Environment.inputBoxSelected$() != null) {
-                if (keyCode !== 46 && keyCode !== 8) {
-                    if (keyCode === 13) { // 13 is Enter
-                        tjmain.ref.interfaceProcesses.processInputBox(CWSYSTEM.Environment.inputBoxSelected$());
-                    } else if (keyCode === 27) {
-                        CWSYSTEM.Environment.inputBoxSelected = null;
-                    }
-                } else {
-                    CWSYSTEM.Environment.inputBoxSelected$().deleteCharacter();
-                }
-            } else if (CWSYSTEM.CWTextArea.textAreaSelected() != null) {
-                switch (keyCode) {
-                    case 46:
-                        CWSYSTEM.CWTextArea.textAreaSelected().deleteTyped();
-                        break;
-                    case 8:
-                        CWSYSTEM.CWTextArea.textAreaSelected().backSpaceTyped();
-                        break;
-                    case 13:
-                        CWSYSTEM.CWTextArea.textAreaSelected().returnTyped();
-                        break;
-                    case 39:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorRight();
-                        break;
-                    case 37:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorLeft();
-                        break;
-                    case 38:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorUp();
-                        break;
-                    case 40:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorDown();
-                        break;
-                    case 36:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorHome();
-                        break;
-                    case 35:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorEnd();
-                        break;
-                    case 33:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorPageUp();
-                        break;
-                    case 34:
-                        CWSYSTEM.CWTextArea.textAreaSelected().cursorPageDown();
-                        break;
-                    case 9:
-                        CWSYSTEM.CWTextArea.textAreaSelected().tabTyped();
-                        break;
-                    case 18:
-                        CWSYSTEM.CWTextArea.textAreaSelected().tabTyped();
-                        break;
-                }
-            }
-        }
-
-        processKeyboardRelease(keyCode) {
-            switch (dsector.Keyboard.focus) {
-                case dsector.Keyboard.DSECTOR:
-                //dsector.DSReference.dsecGame.keyReleased(keyCode);
-            }
-        }
-
-        processMouseRelease() {
-            CWSYSTEM.Environment.windowScrollUp = false;
-            CWSYSTEM.Environment.windowScrollDown = false;
-            CWSYSTEM.Environment.windowPageUp = false;
-            CWSYSTEM.Environment.windowPageDown = false;
-            CWSYSTEM.Environment.scrollbarHeld = null;
-        }
-    }
-
-    class tjMain {
-        constructor() {
-            this.graphicsInitialized = false;
-            this.interval = null;
-            new CWSYSTEM.Environment();
-            this.mouseDrag = new CWSYSTEM.MouseDrag();
-            this.mainLoopStartTime = 0;
-            CWSYSTEM.Debug.println("adding adapters");
-            this.eventKeyListener();
-            this.eventMouse();
-            this.ref = null;
-        }
-
-        main() {
-            this.userIOBuffer = new tjUserIOBuffer();
-            this.ref = new tJReference();
-            this.ref.init();
-        }
-
-
-        paint(graphics) {
-            let canvas = document.getElementById("3dSpace");
-            let ctx = canvas.getContext("2d");
-            if (this.graphicsInitialized) {
-                ctx.putImageData(graphics, 0, 0);
-            }
-        }
-
-        repaint() {
-            let canvas = document.getElementById("3dSpace");
-            let ctx = canvas.getContext("2d");
-            ctx.putImageData(dsector.DSReference.virtualScreen.bi, 0, 0);
-        }
-
-        eventMouse() {
-            const canvas = document.getElementById('3dSpace');
-            canvas.addEventListener("mousedown", (event) => {
-                event.preventDefault();
-                this.dsMouseEvent(event, "mousedown");
-            });
-            canvas.addEventListener("mouseup", (event) => {
-                event.preventDefault();
-                this.dsMouseEvent(event, "mouseup");
-            });
-            canvas.addEventListener("mousemove", (event) => {
-                event.preventDefault();
-                this.dsMouseEvent(event, "mousemove");
-            });
-            canvas.addEventListener("click", (event) => {
-                event.preventDefault();
-                this.dsMouseEvent(event, "click");
-            });
-            canvas.addEventListener("touchstart", (event) => {
-                event.preventDefault();
-                this.dsMouseEvent(event, "mousedown");
-            });
-            canvas.addEventListener("touchcancel", (event) => {
-                event.preventDefault();
-                this.dsMouseEvent(event, "mouseup");
-            });
-            canvas.addEventListener("touchend", (event) => {
-                event.preventDefault();
-                this.dsMouseEvent(event, "click");
-            });
-            canvas.addEventListener("touchmove", (event) => {
-                event.preventDefault();
-                this.dsMouseEvent(event, "mousemove");
-            });
-        }
-
-        eventKeyListener() {
-            const canvas = document.body;
-            canvas.addEventListener("keypress", (event) => {
-                event.preventDefault();
-                this.userIOBuffer.addKeyTypedEvent(event.key);/*char*/
-            });
-            canvas.addEventListener("keydown", (event) => {
-                //event.preventDefault();
-                this.userIOBuffer.addKeyPressedEvent(event.keyCode); /*code*/
-            });
-            canvas.addEventListener("keyup", (event) => {
-                event.preventDefault();
-                this.userIOBuffer.addKeyReleasedEvent(event.keyCode);/*code*/
-            });
-        }
-
-        dsMouseEvent(event, type) {
-            event.preventDefault();
-            let canvas = document.getElementById('3dSpace');
-            const bounding = canvas.getBoundingClientRect();
-            const x = event.clientX ? event.clientX - bounding.left : event.changedTouches[0].clientX - bounding.left;
-            const y = event.clientY ? event.clientY - bounding.top : event.changedTouches[0].clientY - bounding.top;
-
-            let mevent = new MouseEvent(type, {
-                clientX: x, clientY: y, button: event.button, buttons: event.buttons,
-                isTrusted: true, bubbles: true, type: type
-            });
-
-            switch (type) {
-                case "mousedown":
-                    tjmain.ref.mouseDrag.draging = true;
-                    tjmain.userIOBuffer.addMousePressedEvent(mevent);
-                    break;
-                case "mouseup":
-                    tjmain.ref.mouseDrag.draging = false;
-                    tjmain.userIOBuffer.addMouseReleasedEvent(mevent);
-                    break;
-                case "mousemove":
-                    event.preventDefault();
-                    tjmain.userIOBuffer.addMouseMovedEvent(mevent.x, mevent.y);
-                    if (tjmain.mouseDrag.draging) {
-                        tjmain.userIOBuffer.addMouseDraggedEvent(mevent.x, mevent.y)
-                    }
-                    break;
-                case "click":
-                    tjmain.userIOBuffer.addMouseClickedEvent(mevent);
-                    break;
-            }
-        }
-    }
 
     function preloadImages(paths, callback) {
         let loaded = 0;
@@ -851,9 +47,7 @@ Example to show the creating an image in a ImageData buffer<br>
     renderer.setSize(800, 600);
     document.body.appendChild(renderer.domElement);
 
-    const tjmain = new tjMain();
-    tjmain.main();
-    const tjReference = tjmain.ref;
+    let dsMain;
 
     const planeGeometry = new THREE.PlaneGeometry(5, 5); // Adjust the size as needed
     const texture = new THREE.TextureLoader().load('assets/images/dsectorTitle.jpg');//new THREE.CanvasTexture(imgdata); // Create the texture using ImageData
@@ -862,32 +56,81 @@ Example to show the creating an image in a ImageData buffer<br>
     scene.add(plane);
     camera.position.z = 5; // Adjust the camera position as needed
 
+    // Post-loading functions and processes
+    document.addEventListener('DOMContentLoaded', function () {
+        document.body.addEventListener("contextmenu", function (evt) {
+            evt.preventDefault();
+            return false;
+        });
+        preloadImages(preImages);
+
+        // Set up touch buttons
+        let up = document.getElementById("up");
+        up.addEventListener("touchstart", () => {
+            dsMain.userIOBuffer.addKeyPressedEvent(38);
+        });
+        up.addEventListener("touchend", () => {
+            dsMain.userIOBuffer.addKeyReleasedEvent(38);
+        });
+        let down = document.getElementById("down");
+        down.addEventListener("touchstart", () => {
+            dsMain.userIOBuffer.addKeyPressedEvent(40);
+        });
+        down.addEventListener("touchend", () => {
+            dsMain.userIOBuffer.addKeyReleasedEvent(40);
+        });
+        let left = document.getElementById("left");
+        left.addEventListener("touchstart", () => {
+            dsMain.userIOBuffer.addKeyPressedEvent(37);
+        });
+        left.addEventListener("touchend", () => {
+            dsMain.userIOBuffer.addKeyReleasedEvent(37);
+        });
+        let right = document.getElementById("right");
+        right.addEventListener("touchstart", () => {
+            dsMain.userIOBuffer.addKeyPressedEvent(39);
+        });
+        right.addEventListener("touchend", () => {
+            dsMain.userIOBuffer.addKeyReleasedEvent(39);
+        });
+        let c_w = document.getElementById("change-weapon");
+        c_w.addEventListener("touchstart", () => dsMain.userIOBuffer.addKeyPressedEvent(13));
+        c_w.addEventListener("touchend", () => dsMain.userIOBuffer.addKeyReleasedEvent(13));
+        let f_w = document.getElementById("fire-weapon");
+        f_w.addEventListener("touchstart", () => {dsMain.userIOBuffer.addKeyPressedEvent(32)});
+        f_w.addEventListener("touchend", () => dsMain.userIOBuffer.addKeyReleasedEvent(32));
+
+        dsMain = new dsector.DSMain();
+        dsMain.main();
+
+    });
+
     function animate() {
         requestAnimationFrame(animate);
         {
             const framePeriod = (33 / CWSYSTEM.Global.subFrames | 0);
             CWSYSTEM.Environment.advanceCycle();
-            CWSYSTEM.Environment.lastFramePeriod = CWSYSTEM.Environment.currentTime() - tjmain.mainLoopStartTime;
+            CWSYSTEM.Environment.lastFramePeriod = CWSYSTEM.Environment.currentTime() - dsMain.mainLoopStartTime;
             if (CWSYSTEM.Environment.lastFramePeriod$() < (n => n < 0 ? Math.ceil(n) : Math.floor(n))(framePeriod)) {
                 // sleep?
                 // framePeriod - Environment.lastFramePeriod
                 CWSYSTEM.Environment.lastFramePeriod = framePeriod;
             }
-            tjmain.mainLoopStartTime = CWSYSTEM.Environment.currentTime();
-            tjmain.userIOBuffer.process();
-            tjmain.ref.gui.drawWindows();
+            dsMain.mainLoopStartTime = CWSYSTEM.Environment.currentTime();
+            dsMain.userIOBuffer.process();
+            dsMain.DSReference.gui.drawWindows();
             dsector.TimedInstruction.executeInstructionsDue();
             CWSYSTEM.Environment.processButtonsAndKeysThatAreHeld();
-            tjmain.ref.virtualScreen.update();
+            dsMain.DSReference.virtualScreen.update();
             if (!CWSYSTEM.Global.runState) {
-
+                // will fix soon
             }
         }
         renderer.render(scene, camera);
     }
 
     CWSYSTEM.Debug.println("starting animation...");
-    animate();
+    //animate();
 </script>
 
 </body>

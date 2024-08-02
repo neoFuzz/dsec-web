@@ -36,6 +36,15 @@
              */
             this.fireUnits = fireUnits;
         }
+
+        /**
+         * Gets the weapon specification for this weapon port.
+         *
+         * @returns {WeaponSpecification} The weapon specification for this weapon port.
+         */
+        getWeaponSpecification() {
+            return this.weaponSpecification;
+        }
     }
 
     dsector.WeaponPort = WeaponPort;

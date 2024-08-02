@@ -1,4 +1,3 @@
-/**/
 (function (dsector) {
     /**
      * This class represents a specification for a robot in the game.

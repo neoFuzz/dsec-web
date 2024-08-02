@@ -48,6 +48,16 @@
                 throw new Error('Invalid constructor arguments');
             }
         }
+
+        /**
+         * Returns the type of the instruction.
+         *
+         * @public
+         * @returns {number} The type of the instruction.
+         */
+        getType() {
+            return this.type;
+        }
     }
 
     /**

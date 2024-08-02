@@ -103,6 +103,7 @@
             return this.__parentFolder;
         }
     }
+
     dsector.ModelFolder = ModelFolder;
     ModelFolder["__class"] = "dsector.ModelFolder";
 })(dsector);

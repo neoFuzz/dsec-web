@@ -55,7 +55,8 @@
                     CWSYSTEM.CWSReference.virtualScreen.serif8_font, CWSYSTEM.CWColor.__black(),
                     AlertWindow.maximumTextWidth);
             }
-            this.window = CWSYSTEM.CWSReference.gui.addWindow$name$style$title$x$y$w$h$v("ALE", 3, "! ALERT !",
+            this.window = CWSYSTEM.CWSReference.gui.addWindow$name$style$title$x$y$w$h$v(
+                "ALE", CWSYSTEM.CWWindowStyles.ROUNDED, "🚨 ALERT !",
                 Math.floor((CWSYSTEM.Global.screenResolutionX_$LI$() - rWidth) / 2),
                 Math.floor((CWSYSTEM.Global.screenResolutionY_$LI$() - rHeight) / 2), rWidth, rHeight, true);
             this.window.ignoreWhenSavingAndRestoringEnvironment = true;

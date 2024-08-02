@@ -206,7 +206,6 @@
 
                     if (j === -1) {
                         pgr = polygonGroup.directRepresentation;
-                        //CWSYSTEM.Debug.println("PGR name: " + pgr.name);
                     } else {
                         pgr = polygonGroup.transposedRepresentations[j];
                         matrix4f.set(pgr.transformationMatrix);
@@ -217,8 +216,7 @@
                         positionedModel.x, positionedModel.y, positionedModel.z
                     ));
 
-                    for (let k = 0; k < polygonGroup.polygons.length; ++k) {
-                        const polygon = polygonGroup.polygons[k];
+                    for (const polygon of polygonGroup.polygons) {
                         let len;
                         let buffer = i === 1
                             ? PositionedModel.polygonCollisionDetectionBufferA
