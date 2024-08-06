@@ -4,8 +4,8 @@
     <title>CW to threeJS</title>
 </head>
 <body>
-<script src="./js/ds.js"></script>
 <script src="./js/bootstrap.bundle.js"></script>
+<script src="./js/loader-min.js"></script>
 
 Example to show the creating an image in a ImageData buffer<br>
 <canvas width="800" height="600" id="3dSpace"></canvas>
@@ -19,6 +19,8 @@ Example to show the creating an image in a ImageData buffer<br>
     }
 </script>
 <script type="module">
+    import {dsector} from "./js/dsjs/dsector.js";
+    import {CWSYSTEM} from "./js/CWS/CWSYSTEM.js";
 
     function preloadImages(paths, callback) {
         let loaded = 0;
@@ -37,8 +39,13 @@ Example to show the creating an image in a ImageData buffer<br>
         }
     }
 
-    preloadImages(preImages);
+    CWSYSTEM.Global.__static_initialize();
+    dsector.DSGlobal.__static_initialize();
+    CWSYSTEM.CWUtils.__static_initialize();
+    CWSYSTEM.Environment.__static_initialize();
+    dsector.DSecPlayWindow.__static_initialize();
     CWSYSTEM.Global.initialize();
+    preloadImages(preImages);
     import * as THREE from 'three';
 
     const scene = new THREE.Scene();
@@ -64,73 +71,11 @@ Example to show the creating an image in a ImageData buffer<br>
         });
         preloadImages(preImages);
 
-        // Set up touch buttons
-        let up = document.getElementById("up");
-        up.addEventListener("touchstart", () => {
-            dsMain.userIOBuffer.addKeyPressedEvent(38);
-        });
-        up.addEventListener("touchend", () => {
-            dsMain.userIOBuffer.addKeyReleasedEvent(38);
-        });
-        let down = document.getElementById("down");
-        down.addEventListener("touchstart", () => {
-            dsMain.userIOBuffer.addKeyPressedEvent(40);
-        });
-        down.addEventListener("touchend", () => {
-            dsMain.userIOBuffer.addKeyReleasedEvent(40);
-        });
-        let left = document.getElementById("left");
-        left.addEventListener("touchstart", () => {
-            dsMain.userIOBuffer.addKeyPressedEvent(37);
-        });
-        left.addEventListener("touchend", () => {
-            dsMain.userIOBuffer.addKeyReleasedEvent(37);
-        });
-        let right = document.getElementById("right");
-        right.addEventListener("touchstart", () => {
-            dsMain.userIOBuffer.addKeyPressedEvent(39);
-        });
-        right.addEventListener("touchend", () => {
-            dsMain.userIOBuffer.addKeyReleasedEvent(39);
-        });
-        let c_w = document.getElementById("change-weapon");
-        c_w.addEventListener("touchstart", () => dsMain.userIOBuffer.addKeyPressedEvent(13));
-        c_w.addEventListener("touchend", () => dsMain.userIOBuffer.addKeyReleasedEvent(13));
-        let f_w = document.getElementById("fire-weapon");
-        f_w.addEventListener("touchstart", () => {dsMain.userIOBuffer.addKeyPressedEvent(32)});
-        f_w.addEventListener("touchend", () => dsMain.userIOBuffer.addKeyReleasedEvent(32));
-
         dsMain = new dsector.DSMain();
         dsMain.main();
 
     });
 
-    function animate() {
-        requestAnimationFrame(animate);
-        {
-            const framePeriod = (33 / CWSYSTEM.Global.subFrames | 0);
-            CWSYSTEM.Environment.advanceCycle();
-            CWSYSTEM.Environment.lastFramePeriod = CWSYSTEM.Environment.currentTime() - dsMain.mainLoopStartTime;
-            if (CWSYSTEM.Environment.lastFramePeriod$() < (n => n < 0 ? Math.ceil(n) : Math.floor(n))(framePeriod)) {
-                // sleep?
-                // framePeriod - Environment.lastFramePeriod
-                CWSYSTEM.Environment.lastFramePeriod = framePeriod;
-            }
-            dsMain.mainLoopStartTime = CWSYSTEM.Environment.currentTime();
-            dsMain.userIOBuffer.process();
-            dsMain.DSReference.gui.drawWindows();
-            dsector.TimedInstruction.executeInstructionsDue();
-            CWSYSTEM.Environment.processButtonsAndKeysThatAreHeld();
-            dsMain.DSReference.virtualScreen.update();
-            if (!CWSYSTEM.Global.runState) {
-                // will fix soon
-            }
-        }
-        renderer.render(scene, camera);
-    }
-
-    CWSYSTEM.Debug.println("starting animation...");
-    //animate();
 </script>
 
 </body>

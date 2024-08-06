@@ -1,5 +1,5 @@
-/* Re-written from java */
-(function (dsector) {
+import {dsector} from './dsector.js';
+
     /**
      * Represents a pair of objects. The purpose of this class is to store and manage a pair of objects together.
      * It can be used in various scenarios where two related objects need to be grouped and processed together.
@@ -21,7 +21,7 @@
      * @link     https://github.com/neoFuzz/dsec-web
      * @license  AGPLv3
      */
-    class ObjectPair {
+    export class ObjectPair {
         /**
          * Creates a new instance of {@link ObjectPair}.
          * @param {any} object1 - The first object of the pair.
@@ -43,7 +43,3 @@
             this.object2 = object2;
         }
     }
-
-    dsector.ObjectPair = ObjectPair;
-    ObjectPair["__class"] = "dsector.ObjectPair";
-})(dsector);

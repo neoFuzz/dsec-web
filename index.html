@@ -81,7 +81,10 @@
     </div>
 </div>
 </body>
-<script id="rendered-js">
+<script type="module" id="rendered-js">
+    import {dsector} from "./js/dsjs/dsector.js";
+    import {CWSYSTEM} from "./js/CWS/CWSYSTEM.js";
+
     let c2dSpace = document.createElement("canvas", {willReadFrequently: true, willWriteFrequently: true});
     let myStyle = {width: "800px", height: "600px", border: "1px solid black"};
 
@@ -96,7 +99,7 @@
     context.fillStyle = '#000000';
     context.fillRect(0, 0, context.canvas.width, context.canvas.height);
 
-    let dsMain;
+
     // Post-loading functions and processes
     document.addEventListener('DOMContentLoaded', function () {
         document.body.addEventListener("contextmenu", function (evt) {
@@ -106,8 +109,9 @@
         preloadImages(preImages);
         let startGame = document.getElementById('start-game');
         startGame.addEventListener("click", () => {
-            dsMain = new dsector.DSMain();
-            dsMain.main();
+            dsector.dsMain = new dsector.DSMain();
+            new dsector.DSReference(dsector.dsMain);
+            dsector.dsMain.main();
             document.getElementById("start-game").hidden = true;
         });
 
