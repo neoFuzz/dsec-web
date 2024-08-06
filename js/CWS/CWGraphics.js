@@ -207,7 +207,7 @@ export class CWGraphics {
      */
     getJPG(fileName) { // change to JS image preload in loader.js
         let o; // ScreenData
-        let bufferedImage = preImages.get(fileName); // preloaded images
+        let bufferedImage = window.preImages.get(fileName); // preloaded images
         let intArray = ([]);
         let checkmark = false;
 

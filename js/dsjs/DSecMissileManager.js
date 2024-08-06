@@ -222,7 +222,9 @@ export class DSecMissileManager {
             const player2 = dsector.DSReference.dsecGame.getPlayer(i + 1);
             if (player2 !== owner && player2.aliveState !== 0 &&
                 (player2.forwardMovement() !== 0 || player2.angleMovement() !== 0)) {
-                player1 = DSecMissileManager.seekPlayers(player2, missile, maxValue, player1);
+                let o = DSecMissileManager.seekPlayers(player2, missile, maxValue, player1);
+                player1 = o.player1;
+                maxValue = o.maxValue;
             }
         }
         return player1;
@@ -241,12 +243,23 @@ export class DSecMissileManager {
         for (let i = 0; i < dsector.DSReference.dsecGame.numberOfPlayers(); ++i) {
             const player2 = dsector.DSReference.dsecGame.getPlayer(i + 1);
             if (player2 !== owner && player2.aliveState !== 0) {
-                player1 = DSecMissileManager.seekPlayers(player2, missile, maxValue, player1);
+                let o = DSecMissileManager.seekPlayers(player2, missile, maxValue, player1);
+                player1 = o.player1;
+                maxValue = o.maxValue;
             }
         }
         return player1;
     }
 
+    /**
+     * Seek the closest player to a missile.
+     *
+     * @param {DSecPlayer} player1 The closest player so far.
+     * @param {number} maxValue The maximum value so far.
+     * @param {DSecPlayer} player2 The player to check.
+     * @param {DSecMissile} missile The missile object.
+     * @returns {{player1: DSecPlayer, maxValue: number}} The closest player and the maximum value.
+     */
     static seekPlayers(player2, missile, maxValue, player1) {
         const v = Math.fround((Math.pow(player2.getX() - missile.getX(), 2.0) +
             Math.pow(player2.getY() - missile.getY(), 2.0)));
@@ -254,7 +267,7 @@ export class DSecMissileManager {
             player1 = player2;
             maxValue = v;
         }
-        return player1;
+        return {player1, maxValue};
     }
 
     /**

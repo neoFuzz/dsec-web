@@ -227,7 +227,7 @@ export class CWWindowCollection {
      * Adds a window with the specified properties to the CWWindowCollection.
      *
      * @param {string} name - The name of the window.
-     * @param {number|CWWindowStyles} style - The numerical style of the window.
+     * @param {number|CWWindowStyles.ROUNDED|CWWindowStyles.ROUNDED_RESIZE|CWWindowStyles.SQUARE|CWWindowStyles.SQUARE_RESIZE} style - The numerical style of the window.
      * @param {string | null} title - The title of the window.
      * @param {number} xPos - The x-position of the window.
      * @param {number} yPos - The y-position of the window.

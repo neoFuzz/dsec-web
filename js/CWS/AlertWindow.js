@@ -57,7 +57,7 @@ export class AlertWindow {
                 AlertWindow.maximumTextWidth);
         }
         this.window = CWSYSTEM.CWSReference.gui.addWindow$name$style$title$x$y$w$h$v(
-            "ALE", CWSYSTEM.CWWindowStyles.ROUNDED, "🚨 ALERT !",
+            "ALE", CWSYSTEM.CWWindowStyles.ROUNDED, "🚨 ALERT 🚨",
             Math.floor((CWSYSTEM.Global.screenResolutionX_$LI$() - rWidth) / 2),
             Math.floor((CWSYSTEM.Global.screenResolutionY_$LI$() - rHeight) / 2), rWidth, rHeight, true);
         this.window.ignoreWhenSavingAndRestoringEnvironment = true;

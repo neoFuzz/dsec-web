@@ -237,6 +237,3 @@ export class DSMain {
     static interval = null;
 }
 
-setTimeout(() => {
-    loadAI();
-}, 1000);

@@ -140,7 +140,7 @@ export class VirtualScreen {
         canvas.height = CWSYSTEM.Global.screenResolutionY_$LI$();
         let context = canvas.getContext('2d', {willReadFrequently: true, willWriteFrequently: true});
         let bufferedImage;
-        let image = preImages.get(this.backgroundImage); // preloaded images
+        let image = window.preImages.get(this.backgroundImage); // preloaded images
         image.height = canvas.height;
         image.width = canvas.width;
 

@@ -1363,7 +1363,7 @@ export class CWWindow {
     applySpecialEffects(effectArr, x, y) {
         if (this.dSecSpecialEffects != null) {
             for (const specialEffect of this.dSecSpecialEffects) {
-                if (specialEffect.type === dsector.DSecSpecialEffect.IMAGE_COMPOSITE) {
+                if (specialEffect.type === CWWindow.IMAGE_COMPOSITE) {
                     const minMax = {
                         minX: x,
                         minY: y,
@@ -1401,4 +1401,11 @@ export class CWWindow {
     static maximumNumberOfTextBlocks = 400;
     static maximumNumberOfPullDowns = 50;
     static maximumNumberOfStoredLines = 100;
+    /**
+     * Represents the image composite type.
+     *
+     * @constant
+     * @default 0
+     */
+    static IMAGE_COMPOSITE = 0;
 }

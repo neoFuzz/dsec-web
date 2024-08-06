@@ -552,7 +552,6 @@ keyboard${i + 1}ChangeWeapon=${DSecSetupWindow.dsecKeyboardLayout[i].changeWeapo
         if (ht === null || ht.hashMap === null) {
             ht = null;
         }
-        CWSYSTEM.Debug.println(ht);
         let exceptionList = [];
 
         try {
@@ -592,7 +591,6 @@ keyboard${i + 1}ChangeWeapon=${DSecSetupWindow.dsecKeyboardLayout[i].changeWeapo
         }
         try {
             c = parseInt(ht.get("startingCredits"));
-            CWSYSTEM.Debug.println(`"${ht.get("startingCredits")}\nStarting Creds: ${c}`);
             this.startingCredits = isNaN(c) ? 0 : c;
         } catch (e) {
             this.startingCredits = 0;
