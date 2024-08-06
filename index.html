@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>D-Sector</title>
-    <link href="css/bootstrap.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
         html, body {
             height: 100%
@@ -11,9 +11,8 @@
     </style>
 </head>
 <body style="background-color: #46464b">
-<script src="js/bootstrap.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
-<script src="js/ds.js"></script>
 <div style="position: absolute;top: 0;left: 0">
     <div id="frame-count">60</div>
     <div id="imageLoad" style="height: 1px;width: 1px;overflow: hidden"></div>
@@ -24,11 +23,11 @@
 <div id="center-content" role="status" class="h-100 d-flex align-items-center justify-content-center">
     <table id="d-pad-table">
         <tr>
-            <td></td>
-            <td>
+            <th></th>
+            <th>
                 <button type="button" class="btn btn-primary" id="up" style="width: 50px">UP</button>
-            </td>
-            <td></td>
+            </th>
+            <th></th>
         </tr>
         <tr>
             <td>
@@ -50,11 +49,11 @@
     <div id="gameWindow" style="z-index: 0"></div>
     <table id="btn-table">
         <tr>
-            <td></td>
-            <td>
+            <th></th>
+            <th>
                 <button type="button" class="btn btn-primary" id="escape" style="width: 50px">ESC</button>
-            </td>
-            <td></td>
+            </th>
+            <th></th>
         </tr>
         <tr>
             <td>
@@ -81,73 +80,6 @@
     </div>
 </div>
 </body>
-<script id="rendered-js">
-    let c2dSpace = document.createElement("canvas", {willReadFrequently: true, willWriteFrequently: true});
-    let myStyle = {width: "800px", height: "600px", border: "1px solid black"};
+<script src="js/ds.js"></script>
 
-    c2dSpace.id = "3dSpace";
-    Object.assign(c2dSpace.style, myStyle);
-    document.getElementById("gameWindow").appendChild(c2dSpace);
-
-    let context = document.getElementsByTagName('canvas')[0].getContext('2d', {
-        willReadFrequently: true,
-        willWriteFrequently: true
-    });
-    context.fillStyle = '#000000';
-    context.fillRect(0, 0, context.canvas.width, context.canvas.height);
-
-    let dsMain;
-    // Post-loading functions and processes
-    document.addEventListener('DOMContentLoaded', function () {
-        document.body.addEventListener("contextmenu", function (evt) {
-            evt.preventDefault();
-            return false;
-        });
-        preloadImages(preImages);
-        let startGame = document.getElementById('start-game');
-        startGame.addEventListener("click", () => {
-            dsMain = new dsector.DSMain();
-            dsMain.main();
-            document.getElementById("start-game").hidden = true;
-        });
-
-        // Set up touch buttons
-        let up = document.getElementById("up");
-        up.addEventListener("touchstart", () => {
-            dsMain.userIOBuffer.addKeyPressedEvent(38);
-        });
-        up.addEventListener("touchend", () => {
-            dsMain.userIOBuffer.addKeyReleasedEvent(38);
-        });
-        let down = document.getElementById("down");
-        down.addEventListener("touchstart", () => {
-            dsMain.userIOBuffer.addKeyPressedEvent(40);
-        });
-        down.addEventListener("touchend", () => {
-            dsMain.userIOBuffer.addKeyReleasedEvent(40);
-        });
-        let left = document.getElementById("left");
-        left.addEventListener("touchstart", () => {
-            dsMain.userIOBuffer.addKeyPressedEvent(37);
-        });
-        left.addEventListener("touchend", () => {
-            dsMain.userIOBuffer.addKeyReleasedEvent(37);
-        });
-        let right = document.getElementById("right");
-        right.addEventListener("touchstart", () => {
-            dsMain.userIOBuffer.addKeyPressedEvent(39);
-        });
-        right.addEventListener("touchend", () => {
-            dsMain.userIOBuffer.addKeyReleasedEvent(39);
-        });
-        let c_w = document.getElementById("change-weapon");
-        c_w.addEventListener("touchstart", () => dsMain.userIOBuffer.addKeyPressedEvent(13));
-        c_w.addEventListener("touchend", () => dsMain.userIOBuffer.addKeyReleasedEvent(13));
-        let f_w = document.getElementById("fire-weapon");
-        f_w.addEventListener("touchstart", () => {
-            dsMain.userIOBuffer.addKeyPressedEvent(32)
-        });
-        f_w.addEventListener("touchend", () => dsMain.userIOBuffer.addKeyReleasedEvent(32));
-    });
-</script>
 </html>

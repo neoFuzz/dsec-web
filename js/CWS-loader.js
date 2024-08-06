@@ -29,7 +29,7 @@ function loadScript(url) {
 loadScript('js/CWS/Debug.js');
 loadScript('js/CWS/NumberTools.js');
 loadScript('js/dsjs/ObjectPair.js');
-loadScript('js/dsjs/FastColorUtilities.js');
+loadScript('js/CWS/FastColorUtilities.js');
 loadScript('js/dsjs/FloatPair.js');
 loadScript('js/dsjs/StringPair.js');
 loadScript('js/CWS/IntegerArray.js');
@@ -55,7 +55,7 @@ loadScript('js/dsjs/MP3.js');
 loadScript('js/CWS/CWUtils.js');
 
 /* GUI Classes */
-loadScript('js/CWS/Starfield.js');
+loadScript('js/dsjs/Starfield.js');
 loadScript('js/dsjs/Renderer.js');
 loadScript('js/CWS/VirtualScreen.js');
 loadScript('js/CWS/AlertWindow.js');

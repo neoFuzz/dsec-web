@@ -1,52 +1,49 @@
-(function (dsector) {
+import {dsector} from './dsector.js';
+
+/**
+ * This class represents a weapon port in the game.
+ * It contains information about the weapon specification and the number of fire units.
+ *
+ * @property {WeaponSpecification} weaponSpecification The weapon specification for this weapon port.
+ * @property {number} fireUnits The number of fire units for this weapon port.
+ *
+ * @since    1.0.0
+ * @access   public
+ * @class
+ *
+ * @memberof dsector
+ *
+ * @author   neoFuzz
+ * @link     https://github.com/neoFuzz/dsec-web
+ * @license  AGPLv3
+ */
+export class WeaponPort {
     /**
-     * This class represents a weapon port in the game.
-     * It contains information about the weapon specification and the number of fire units.
+     * Creates an instance of WeaponPort.
      *
-     * @property {WeaponSpecification} weaponSpecification The weapon specification for this weapon port.
-     * @property {number} fireUnits The number of fire units for this weapon port.
-     *
-     * @since    1.0.0
-     * @access   public
-     * @class
-     *
-     * @memberof dsector
-     *
-     * @author   neoFuzz
-     * @link     https://github.com/neoFuzz/dsec-web
-     * @license  AGPLv3
+     * @param {WeaponSpecification} [specification=null] - The weapon specification for this weapon port.
+     * @param {number} [fireUnits=0] - The number of fire units for this weapon port.
      */
-    class WeaponPort {
+    constructor(specification = null, fireUnits = 0) {
         /**
-         * Creates an instance of WeaponPort.
-         *
-         * @param {WeaponSpecification} [specification=null] - The weapon specification for this weapon port.
-         * @param {number} [fireUnits=0] - The number of fire units for this weapon port.
+         * The weapon specification for this weapon port.
+         * @type {WeaponSpecification}
          */
-        constructor(specification = null, fireUnits = 0) {
-            /**
-             * The weapon specification for this weapon port.
-             * @type {WeaponSpecification}
-             */
-            this.weaponSpecification = specification;
-
-            /**
-             * The number of fire units for this weapon port.
-             * @type {number}
-             */
-            this.fireUnits = fireUnits;
-        }
+        this.weaponSpecification = specification;
 
         /**
-         * Gets the weapon specification for this weapon port.
-         *
-         * @returns {WeaponSpecification} The weapon specification for this weapon port.
+         * The number of fire units for this weapon port.
+         * @type {number}
          */
-        getWeaponSpecification() {
-            return this.weaponSpecification;
-        }
+        this.fireUnits = fireUnits;
     }
 
-    dsector.WeaponPort = WeaponPort;
-    WeaponPort["__class"] = "dsector.WeaponPort";
-})(dsector);
+    /**
+     * Gets the weapon specification for this weapon port.
+     *
+     * @returns {WeaponSpecification} The weapon specification for this weapon port.
+     */
+    getWeaponSpecification() {
+        return this.weaponSpecification;
+    }
+}

@@ -25,12 +25,13 @@ jobs:
       - name: Install npm dependencies
         run: npm install
       - run: npm ci
-#      - run: npm test # no test to run
+      # - run: npm test # no tests to run
+      - run: npm install webpack webpack-cli --save-dev
+      - run: npm install --save-dev @babel/core @babel/preset-env babel-loader
 
-      # shrink the JS files down. ends up halving the size
-      - run: npm install --save-dev uglify-js
-      - name: Minify JS files for web
-        run: npm run minify-js
+      # pack the files with Webpack
+      - name: Webpack JS files for web
+        run: npm run build
 
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2

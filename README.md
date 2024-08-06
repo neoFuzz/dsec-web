@@ -1,4 +1,4 @@
-[![Deploy game content to webhost](https://github.com/neoFuzz/dsec-web/actions/workflows/deploy-to-web.yml/badge.svg)](https://github.com/neoFuzz/dsec-web/actions/workflows/deploy-to-web.yml)
+[![Deploy game content to webhost](https://github.com/neoFuzz/dsec-web/actions/workflows/deploy-to-web.yml/badge.svg)](https://github.com/neoFuzz/dsec-web/actions/workflows/deploy-to-web.yml) [![Deploy JSDoc content to Pages](https://github.com/neoFuzz/dsec-web/actions/workflows/deploy-jsdoc.yml/badge.svg)](https://github.com/neoFuzz/dsec-web/actions/workflows/deploy-jsdoc.yml)
 
 # Destruction Sector (HTML5)
 

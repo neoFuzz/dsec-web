@@ -1,4 +1,6 @@
-(function (dsector) {
+import {CWSYSTEM} from '../CWS/CWSYSTEM.js';
+import {dsector} from './dsector.js';
+
     /**
      * Class for the Robot IO window
      *
@@ -18,7 +20,7 @@
      * @link     https://github.com/neoFuzz/dsec-web
      * @license  AGPLv3
      */
-    class RobotIOWindow {
+ export   class RobotIOWindow {
         /**
          * Constructor for the RobotIOWindow class
          */
@@ -133,7 +135,7 @@
         /**
          * Handles the submission of text area content.
          *
-         * @param {Object} textArea - The text area that was submitted.
+         * @param {CWSYSTEM.CWTextArea} textArea - The text area that was submitted.
          */
         textAreaSubmitted(textArea) {
             if (textArea.name === ("name")) {
@@ -155,30 +157,28 @@
             dsector.DSReference.robotSensorsIllustrationWindow.destroy();
             this.destroy();
         }
-    }
 
-    RobotIOWindow.SENSOR1 = 0;
-    RobotIOWindow.SENSOR2 = 1;
-    RobotIOWindow.SENSOR3 = 2;
-    RobotIOWindow.SENSOR4 = 3;
-    RobotIOWindow.SENSOR5 = 4;
-    RobotIOWindow.SENSOR6 = 5;
-    RobotIOWindow.SENSOR7 = 6;
-    RobotIOWindow.SENSOR8 = 7;
-    RobotIOWindow.SENSOR9 = 8;
-    RobotIOWindow.SENSOR10 = 9;
-    RobotIOWindow.CLOCK1 = 10;
-    RobotIOWindow.CLOCK2 = 11;
-    RobotIOWindow.CLOCK3 = 12;
-    RobotIOWindow.CLOCK4 = 13;
-    RobotIOWindow.CLOCK5 = 14;
-    RobotIOWindow.CLOCK6 = 15;
-    RobotIOWindow.CLOCK7 = 16;
-    RobotIOWindow.CLOCK8 = 17;
-    RobotIOWindow.CLOCK9 = 18;
-    RobotIOWindow.CLOCK10 = 19;
-    RobotIOWindow.HIT_BY_MISSILE = 20;
-    RobotIOWindow.TURNED_TO_FACE_TARGET = 21;
-    dsector.RobotIOWindow = RobotIOWindow;
-    RobotIOWindow["__class"] = "dsector.RobotIOWindow";
-})(dsector);
+
+    static SENSOR1 = 0;
+    static SENSOR2 = 1;
+    static SENSOR3 = 2;
+    static SENSOR4 = 3;
+    static SENSOR5 = 4;
+    static SENSOR6 = 5;
+    static SENSOR7 = 6;
+    static SENSOR8 = 7;
+    static SENSOR9 = 8;
+    static SENSOR10 = 9;
+    static CLOCK1 = 10;
+    static CLOCK2 = 11;
+    static CLOCK3 = 12;
+    static CLOCK4 = 13;
+    static CLOCK5 = 14;
+    static CLOCK6 = 15;
+    static CLOCK7 = 16;
+    static CLOCK8 = 17;
+    static CLOCK9 = 18;
+    static CLOCK10 = 19;
+    static HIT_BY_MISSILE = 20;
+    static TURNED_TO_FACE_TARGET = 21;
+}
