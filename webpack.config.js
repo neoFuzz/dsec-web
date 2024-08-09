@@ -1,4 +1,7 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+const WasmPackPlugin = require("@wasm-tool/wasm-pack-plugin");
 
 module.exports = {
     entry: './js/index.js',
@@ -6,7 +9,20 @@ module.exports = {
         filename: 'ds.js',
         path: path.resolve(__dirname, 'js'),
     },
+    plugins: [
+        new HtmlWebpackPlugin(),
+        new WasmPackPlugin({
+            crateDirectory: path.resolve(__dirname, ".")
+        }),
+        new webpack.ProvidePlugin({
+          TextDecoder: ['text-encoding', 'TextDecoder'],
+          TextEncoder: ['text-encoding', 'TextEncoder']
+        })
+    ],
     mode: 'development', // or 'production'
+    experiments: {
+        asyncWebAssembly: true
+    },
     module: {
         rules: [
             {

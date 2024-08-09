@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Module test</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        html, body {
+            height: 100%
+        }
+    </style>
+</head>
+<body>
+    <!-- <script src="js/ds.js"></script> -->
+    <script type="module">
+        import init, { PolygonIntersection } from './pkg/index.js';
+
+        async function run() {
+            await init();
+
+            const input = {
+                t1: {
+                    v1: { x: 0, y: 0, z: 0 },
+                    v2: { x: 1, y: 0, z: 0 },
+                    v3: { x: 0, y: 1, z: 0 }
+                },
+                t2: {
+                    v1: { x: 0, y: 0, z: 1 },
+                    v2: { x: 1, y: 0, z: 1 },
+                    v3: { x: 0, y: 1, z: 1 }
+                }
+            };
+
+            const result = PolygonIntersection.tri_tri_intersect(input);
+            console.log("Triangles intersect:", result === 1);
+        }
+        run();
+    </script>
+</body>
+</html>

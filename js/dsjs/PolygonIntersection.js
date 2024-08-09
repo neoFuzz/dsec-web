@@ -1,4 +1,4 @@
-import {dsector} from './dsector.js';
+import { dsector } from './dsector.js';
 
 /**
  * Class for calculating polygon intersections.
@@ -19,6 +19,7 @@ export class PolygonIntersection {
     /**
      * Shortcut for Math.abs()
      *
+     * @private
      * @param {number} abs - The value to get the absolute value of.
      * @returns {number} The absolute value of the input value.
      */
@@ -29,6 +30,7 @@ export class PolygonIntersection {
     /**
      * Calculates the cross product of two vectors and stores the result in the target vertex.
      *
+     * @private
      * @param {Float32Array<number>} targetVertex - The target vertex to store the cross product.
      * @param {Float32Array<number>} vertex1 - The first vector.
      * @param {Float32Array<number>} vertex2 - The second vector.
@@ -42,6 +44,7 @@ export class PolygonIntersection {
     /**
      * Calculates the dot product between two vectors.
      *
+     * @private
      * @param {Float32Array<number>} v1 - The first vector.
      * @param {Float32Array<number>} v2 - The second vector.
      * @returns {number} Returns the dot product of the two vectors.
@@ -53,6 +56,7 @@ export class PolygonIntersection {
     /**
      * Subtracts two vectors and stores the result in the target vertex.
      *
+     * @private
      * @param {Float32Array<number>} target - The target vertex to store the result of the subtraction.
      * @param {Float32Array<number>} v1 - The first vector.
      * @param {Float32Array<number>} v2 - The second vector.
@@ -145,8 +149,8 @@ export class PolygonIntersection {
      * @returns {boolean} Returns true if intervals and intersection points are computed, otherwise returns false.
      */
     static COMPUTE_INTERVALS(axis1, axis2, axis3,
-                             axis4, axis5, axis6,
-                             product1, product2, fp) {
+        axis4, axis5, axis6,
+        product1, product2, fp) {
         if (product1 > 0.0) {
             PolygonIntersection.ISECT(axis3, axis1, axis2, axis6, axis4, axis5, fp);
             return true;
@@ -182,7 +186,7 @@ export class PolygonIntersection {
      * @returns {number} Returns 1 if an intersection is found, otherwise returns 0.
      */
     static EDGE_EDGE_TEST(v1, v2, v3,
-                          axis1, axis2, axis3, axis4) {
+        axis1, axis2, axis3, axis4) {
         const diff1 = Math.fround(v2[axis1] - v3[axis1]);
         const diff2 = Math.fround(v2[axis2] - v3[axis2]);
         const diff3 = Math.fround(v1[axis1] - v2[axis1]);
@@ -215,7 +219,7 @@ export class PolygonIntersection {
      * @returns {number} Returns 1 if an intersection is found, otherwise returns 0.
      */
     static EDGE_AGAINST_TRI_EDGES(v0, v1, v2, v3, v4,
-                                  axis1, axis2) {
+        axis1, axis2) {
         const diff1 = Math.fround(v1[axis1] - v0[axis1]);
         const diff2 = Math.fround(v1[axis2] - v0[axis2]);
         if (PolygonIntersection.EDGE_EDGE_TEST(v0, v2, v3, axis1, axis2, diff1, diff2) === 1) {
@@ -239,7 +243,7 @@ export class PolygonIntersection {
      * @returns {number} Returns 1 if the point is inside the triangle, otherwise returns 0.
      */
     static POINT_IN_TRI(v1, v2, v3,
-                        v4, axis1, axis2) {
+        v4, axis1, axis2) {
         const diff0 = Math.fround(v2[axis1] - v1[axis1]);
         const diff1 = Math.fround(v2[axis2] - v1[axis2]);
         const diff2 = Math.fround(v3[axis1] - v2[axis1]);
@@ -270,9 +274,9 @@ export class PolygonIntersection {
      * @returns {number} Returns 1 if the triangles intersect, otherwise returns 0.
      */
     static coplanar_tri_tri(v1, v2, v3,
-                            v4, v5, v6, v7) {
+        v4, v5, v6, v7) {
         const nv = [PolygonIntersection.FABS(v1[0]), PolygonIntersection.FABS(v1[1]),
-            PolygonIntersection.FABS(v1[2])];
+        PolygonIntersection.FABS(v1[2])];
         let axis1;
         let axis2;
         if (nv[0] > nv[1]) {
@@ -318,7 +322,7 @@ export class PolygonIntersection {
      * @returns {number} Returns 1 if the triangles intersect, otherwise returns 0.
      */
     static tri_tri_intersect(iv1, iv2, iv3,
-                             iv4, iv5, iv6) {
+        iv4, iv5, iv6) {
         const v0 = new Float32Array(3);
         const v1 = new Float32Array(3);
         const v2 = new Float32Array(3);

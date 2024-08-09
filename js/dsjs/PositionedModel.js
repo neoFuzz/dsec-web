@@ -147,7 +147,7 @@ export class PositionedModel {
                 const vert5 = [colourlessPolygon.v2.x, colourlessPolygon.v2.y, colourlessPolygon.v2.z];
                 const vert6 = [colourlessPolygon.v3.x, colourlessPolygon.v3.y, colourlessPolygon.v3.z];
 
-                if (dsector.PolygonIntersection.tri_tri_intersect(vert1, vert2, vert3, vert4, vert5, vert6) === 1) {
+                if (dsector.PolygonIntersection.tri_tri_intersect(vert1, vert2, vert3, vert4, vert5, vert6) == 1) {
                     this.intersectedPolygon = new dsector.Polygon(
                         clPolygon.v1, clPolygon.v2, clPolygon.v3,
                         new CWSYSTEM.CWColor(CWSYSTEM.CWColor.__white())

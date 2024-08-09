@@ -1,6 +1,29 @@
 import {dsector} from "./dsjs/dsector";
 import {CWSYSTEM} from "./CWS/CWSYSTEM";
 
+
+
+async function run() {
+    
+
+    const input = {
+        t1: {
+            v1: { x: 0, y: 0, z: 0 },
+            v2: { x: 1, y: 0, z: 0 },
+            v3: { x: 0, y: 1, z: 0 }
+        },
+        t2: {
+            v1: { x: 0, y: 0, z: 1 },
+            v2: { x: 1, y: 0, z: 1 },
+            v3: { x: 0, y: 1, z: 1 }
+        }
+    };
+
+    const result = dsector.PolygonIntersection.tri_tri_intersect(input);
+    console.log("Triangles intersect:", result === 1);
+}
+run();
+
 // Setup robot AI IndexedDBs
 const robotFiles = (["R1_Prototype.dzr", "R2_Prototype.dzr", "R3_Seeker.dzr",
     "R4_Hunter.dzr", "R5_Defender.dzr", "R6_Destroyer.dzr"]);

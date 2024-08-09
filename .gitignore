@@ -3,6 +3,7 @@
 /node_modules/
 /.idea/sonarlint/
 /.idea/aws.xml
+/target/
 
 # exclude the compiled JS files since they are built from source
 /js/ds.js
