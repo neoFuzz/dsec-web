@@ -1,25 +1,15 @@
 import {dsector} from "./dsjs/dsector";
 import {CWSYSTEM} from "./CWS/CWSYSTEM";
 
-
-
 async function run() {
-    
 
-    const input = {
-        t1: {
-            v1: { x: 0, y: 0, z: 0 },
-            v2: { x: 1, y: 0, z: 0 },
-            v3: { x: 0, y: 1, z: 0 }
-        },
-        t2: {
-            v1: { x: 0, y: 0, z: 1 },
-            v2: { x: 1, y: 0, z: 1 },
-            v3: { x: 0, y: 1, z: 1 }
-        }
-    };
+    const triangle1 = [0, 0, 0, 1, 0, 0, 0, 1, 0]; // Flattened array for first triangle
+    const triangle2 = [0, 0, 1, 1, 0, 1, 0, 1, 1]; // Flattened array for second triangle
 
-    const result = dsector.PolygonIntersection.tri_tri_intersect(input);
+    const result = dsector.PolygonIntersection.tri_tri_intersect(
+        triangle1.slice(0, 3), triangle1.slice(3, 6), triangle1.slice(6, 9),
+        triangle2.slice(0, 3), triangle2.slice(3, 6), triangle2.slice(6, 9)
+    );
     console.log("Triangles intersect:", result === 1);
 }
 run();
@@ -102,7 +92,7 @@ context.fillStyle = '#000000';
 context.fillRect(0, 0, context.canvas.width, context.canvas.height);
 
 // Post-loading functions and processes
-document.addEventListener('DOMContentLoaded', function () {
+{
     document.body.addEventListener("contextmenu", function (evt) {
         evt.preventDefault();
         return false;
@@ -159,4 +149,4 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(() => {
         loadAI();
     }, 1000);
-});
+};

@@ -362,7 +362,7 @@ export class DSecShoppingScreen {
         if (this.currentShopper != null) {
             this.update();
             if (dsector.DSReference.dsecSetupWindow.soundMode !== dsector.DSecSetupWindow.NO_SOUND) {
-                dsector.DSReference.cwSound.play("compressionDoor.wav");
+                dsector.DSReference.cwSound.playSound("compressionDoor.wav");
             }
         } else {
             this.destroy();

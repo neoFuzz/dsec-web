@@ -1,5 +1,6 @@
 mod utils;
 mod polygon_intersection;
+mod FastColorUtilities;
 
 use wasm_bindgen::prelude::*;
 

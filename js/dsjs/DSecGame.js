@@ -946,7 +946,7 @@ export class DSecGame {
                     red *= 9.0;
                     green *= 9.0;
                     blue *= 9.0;
-                    z *= CWSYSTEM.FastColorUtilities.gammaCorrection;
+                    z *= 1.2;
                 }
                 red = red * Math.fround((100.0 + player.weaponEnergy) / 200.0);
                 green = green * Math.fround((100.0 + player.weaponEnergy) / 200.0);

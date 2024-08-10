@@ -1,5 +1,6 @@
 import {Debug} from './Debug.js';
-import {FastColorUtilities} from './FastColorUtilities.js';
+//import {FastColorUtilities} from './FastColorUtilities.js';
+import { FastColorUtilities } from '../../pkg/index.js';
 import {CWColor} from './CWColor.js';
 import {AlertManager} from "./AlertManager.js";
 import {AlertWindow} from "./AlertWindow.js";

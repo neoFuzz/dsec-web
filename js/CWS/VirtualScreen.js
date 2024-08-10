@@ -85,7 +85,9 @@ export class VirtualScreen {
 
         CWSYSTEM.Debug.println("Utility initializing");
         CWSYSTEM.CWUtils.initialize();
-        CWSYSTEM.FastColorUtilities.initializeGammaCorrectionLookupTable();
+
+        // The way the conversion to rust worked, calling this initilises the lookup table.
+        CWSYSTEM.FastColorUtilities.colorWithGammaAdjustment(1,2,3); 
 
         this.resetVirtualScreen();
     }
