@@ -43,4 +43,4 @@ jobs:
         run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy with rsync
-        run: rsync -avz --exclude 'node_modules' ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/html/dsector/
+        run: rsync -avz --exclude 'node_modules' --exclude '.git' ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/html/dsector/
