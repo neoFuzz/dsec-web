@@ -74,3 +74,7 @@ Different robot tanks have unique behaviors and combat styles, ranging from caut
 
 - 1 point per unit of damage to the enemy jewel (up to 200 points).
 - 6 credits per unit of damage to the enemy jewel (up to 1200 credits).
+
+# Attributions
+- Secret Tunnel (`backgroundMusic4.mp3`) by [Grumplefunk](https://freemusicarchive.org/music/grumplefunk/) is licensed under a [Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0).
+- Some sound files in this repository are released under the [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/) license.

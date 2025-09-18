@@ -309,7 +309,7 @@ export class DSecPlayWindow {
      */
     turnMusicOn() {
         if (dsector.DSReference?.dsecGame?.dsecRound) {
-            const musicNumber = Math.floor(Math.random() * (3 - 1)) + 1;
+            const musicNumber = Math.floor(Math.random() * (4 - 1)) + 1;
             this.backgroundMusic = new dsector.MP3("assets/sounds/backgroundMusic" + musicNumber + ".mp3");
             this.backgroundMusic.play();
         }
